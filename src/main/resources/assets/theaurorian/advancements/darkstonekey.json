@@ -1,0 +1,27 @@
+{
+    "parent": "theaurorian:liberated",
+    "display": {
+        "icon": {
+            "item": "theaurorian:darkstonekey"
+        },
+        "title": {
+            "translate": "advancement.theaurorian.darkstonekey.title"
+        },
+        "frame": "goal",
+        "description": {
+            "translate": "advancement.theaurorian.darkstonekey.description"
+        }
+    },
+    "criteria": {
+        "inventory_changed": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "theaurorian:darkstonekey"
+                    }
+                ]
+            }
+        }
+    }
+}

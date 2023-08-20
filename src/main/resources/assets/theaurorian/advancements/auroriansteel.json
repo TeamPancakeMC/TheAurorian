@@ -1,0 +1,26 @@
+{
+    "parent": "theaurorian:scrapper",
+    "display": {
+        "icon": {
+            "item": "theaurorian:auroriansteel"
+        },
+        "title": {
+            "translate": "advancement.theaurorian.auroriansteel.title"
+        },
+        "description": {
+            "translate": "advancement.theaurorian.auroriansteel.description"
+        }
+    },
+    "criteria": {
+        "inventory_changed": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "theaurorian:auroriansteel"
+                    }
+                ]
+            }
+        }
+    }
+}

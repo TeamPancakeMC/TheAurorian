@@ -1,0 +1,27 @@
+{
+    "parent": "theaurorian:root",
+    "display": {
+        "icon": {
+            "item": "theaurorian:lockpicks"
+        },
+        "title": {
+            "translate": "advancement.theaurorian.lockpicks.title"
+        },
+        "frame": "goal",
+        "description": {
+            "translate": "advancement.theaurorian.lockpicks.description"
+        }
+    },
+    "criteria": {
+        "inventory_changed": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "theaurorian:lockpicks"
+                    }
+                ]
+            }
+        }
+    }
+}

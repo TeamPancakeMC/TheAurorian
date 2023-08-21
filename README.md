@@ -1,2 +1,2 @@
 The Aurorian Reforked
-Mod by Sxuuz Glyceryl mlus and XiaoHuNao！
+Mod by Sxuuz Glyceryl Mlus XiaoHuNao and Elise’s help！

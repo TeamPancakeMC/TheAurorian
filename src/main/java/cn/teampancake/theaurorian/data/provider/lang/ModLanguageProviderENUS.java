@@ -15,6 +15,8 @@ public class ModLanguageProviderENUS extends LanguageProvider {
     protected void addTranslations() {
          add(ModEnchantments.LIGHTNING_RESISTANCE.get(), "Lightning Resistance");
          add(ModEnchantments.LIGHTNING_DAMAGE.get(), "Lightning");
+        add(ModEnchantments.LIGHTNING_RESISTANCE.getId() + ".desc", "Negates damage that would have been done by lightning enchantment");
+        add(ModEnchantments.LIGHTNING_DAMAGE.getId()+ ".desc", "Does extra damage depending on how much armor the target is wearing");
     }
 
 }

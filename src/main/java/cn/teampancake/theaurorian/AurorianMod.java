@@ -7,7 +7,9 @@ import cn.teampancake.theaurorian.enchantment.ModEnchantments;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.Locale;
@@ -22,7 +24,7 @@ public class AurorianMod {
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
         ModEnchantments.ENCHANTMENTS.register(modEventBus);
-        AurorianConfig.setup();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AurorianConfig.SPEC, "theaurorian/TheAurorian.toml");
         MinecraftForge.EVENT_BUS.register(this);
     }
 

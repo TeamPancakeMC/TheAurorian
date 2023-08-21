@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class AurorianConfig {
-    private static final ForgeConfigSpec SPEC;
+    public static final ForgeConfigSpec SPEC;
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
     public static final ForgeConfigSpec.ConfigValue<Integer> Config_OrbOfAbsorptionDurability;
@@ -507,18 +507,5 @@ public class AurorianConfig {
 
     static {
         SPEC = BUILDER.build();
-    }
-    public static void setup()
-    {
-        Path configPath = FMLPaths.CONFIGDIR.get();
-        Path configFolder = Paths.get(configPath.toAbsolutePath().toString(), AurorianMod.MOD_ID);
-
-        try
-        {
-            Files.createDirectory(configFolder);
-        }
-        catch (Exception ignored) {}
-
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SPEC, "theaurorian/TheAurorian.toml");
     }
 }

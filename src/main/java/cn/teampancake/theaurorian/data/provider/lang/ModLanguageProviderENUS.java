@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.data.provider.lang;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.enchantment.ModEnchantments;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -12,7 +13,8 @@ public class ModLanguageProviderENUS extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-
+         add(ModEnchantments.LIGHTNING_RESISTANCE.get(), "Lightning Resistance");
+         add(ModEnchantments.LIGHTNING_DAMAGE.get(), "Lightning");
     }
 
 }

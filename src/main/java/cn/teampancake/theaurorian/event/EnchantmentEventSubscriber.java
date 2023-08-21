@@ -12,10 +12,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
 public class EnchantmentEventSubscriber {
+    @SubscribeEvent
     public static void LightningDamage(LivingDamageEvent event) {
         DamageSource source = event.getSource();
         Entity entity = source.getEntity();
@@ -47,9 +49,10 @@ public class EnchantmentEventSubscriber {
                 }
             }
         }
-        event.setAmount((float) (event.getAmount() + (extradamage * AurorianConfig.Config_LightningEnchantmentMulitplier.get())));
+        event.setAmount((float) (event.getAmount() + extradamage * AurorianConfig.Config_LightningEnchantmentMulitplier.get()));
     }
 
+    @SubscribeEvent
     public static void LightningResistance(LivingDamageEvent event) {
 
         if (event.getSource().is(DamageTypes.LIGHTNING_BOLT)) {

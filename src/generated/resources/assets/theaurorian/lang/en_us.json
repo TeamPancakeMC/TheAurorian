@@ -1,6 +1,0 @@
-{
-  "enchantment.theaurorian.lightning": "Lightning",
-  "enchantment.theaurorian.lightning_resistance": "Lightning Resistance",
-  "theaurorian:lightning.desc": "Does extra damage depending on how much armor the target is wearing",
-  "theaurorian:lightning_resistance.desc": "Negates damage that would have been done by lightning enchantment"
-}

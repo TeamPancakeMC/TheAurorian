@@ -2,6 +2,8 @@ package cn.teampancake.theaurorian;
 
 import cn.teampancake.theaurorian.common.blocks.ModBlocks;
 import cn.teampancake.theaurorian.common.items.ModItems;
+import cn.teampancake.theaurorian.config.AurorianConfig;
+import cn.teampancake.theaurorian.enchantment.ModEnchantments;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -19,6 +21,8 @@ public class AurorianMod {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
+        ModEnchantments.ENCHANTMENTS.register(modEventBus);
+        AurorianConfig.setup();
         MinecraftForge.EVENT_BUS.register(this);
     }
 

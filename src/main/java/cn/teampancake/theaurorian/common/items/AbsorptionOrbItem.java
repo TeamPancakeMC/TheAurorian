@@ -36,7 +36,7 @@ public class AbsorptionOrbItem extends Item{
             if (p.getItemInHand(InteractionHand.OFF_HAND).getItem() == this) {
                 ItemStack offhand = p.getItemInHand(InteractionHand.OFF_HAND);
                 ItemStack mainhand = p.getItemInHand(InteractionHand.MAIN_HAND);
-                switch (AurorianConfig.Config_OrbOfAbsorptionWhitelistBlacklist) {
+                switch (AurorianConfig.Config_OrbOfAbsorptionWhitelistBlacklist.get()) {
                     default -> {
                         if (mainhand.isDamageableItem() && mainhand.isDamageableItem()) {
                             if (!p.isCreative()) {
@@ -46,7 +46,7 @@ public class AbsorptionOrbItem extends Item{
                         }
                     }
                     case 1 -> {
-                        for (String i : AurorianConfig.Config_OrbOfAbsorptionList) {
+                        for (String i : AurorianConfig.Config_OrbOfAbsorptionList.get()) {
                             if (mainhand.getItem().getDescriptionId().equals(i)) {
                                 if (mainhand.isDamageableItem() && mainhand.isDamaged()) {
                                     if (!p.isCreative()) {
@@ -59,7 +59,7 @@ public class AbsorptionOrbItem extends Item{
                         }
                     }
                     case 2 -> {
-                        for (String i : AurorianConfig.Config_OrbOfAbsorptionList) {
+                        for (String i : AurorianConfig.Config_OrbOfAbsorptionList.get()) {
                             if (mainhand.getItem().getDescriptionId().equals(i))
                                 return;
                         }

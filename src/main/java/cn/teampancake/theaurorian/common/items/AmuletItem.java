@@ -16,9 +16,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 public class AmuletItem extends Item {
-    public AmuletItem(Properties pProperties) {
-        super(pProperties);
-        pProperties.rarity(Rarity.EPIC);
+    public AmuletItem(Properties properties) {
+        super(properties);
+        properties.rarity(Rarity.EPIC);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -27,7 +27,7 @@ public class AmuletItem extends Item {
         if (!Screen.hasShiftDown()) {
             tooltip.add(Component.translatable("string.theaurorian.tooltip.shiftinfo").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.RESET));
         } else {
-            tooltip.add(Component.translatable(String.format("theaurorian.tooltip.%s", this.asItem())));
+            tooltip.add(Component.translatable(String.format("string.theaurorian.tooltip.%s", this.asItem())));
         }
     }
 }

@@ -9,7 +9,6 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 public class AurorianConfig {
     private static final ForgeConfigSpec SPEC;
@@ -30,7 +29,7 @@ public class AurorianConfig {
     public static void setup()
     {
         Path configPath = FMLPaths.CONFIGDIR.get();
-        Path configFolder = Paths.get(configPath.toAbsolutePath().toString(), AurorianMod.MODID);
+        Path configFolder = Paths.get(configPath.toAbsolutePath().toString(), AurorianMod.MOD_ID);
 
         try
         {

@@ -15,7 +15,7 @@ public class AbsorptionOrbItem{
     public static final RegistryObject<Item> ABSORPTION_ORB;
 
     static {
-        ITEMS=DeferredRegister.create(ForgeRegistries.ITEMS, AurorianMod.MODID);
+        ITEMS=DeferredRegister.create(ForgeRegistries.ITEMS, AurorianMod.MOD_ID);
 
         ABSORPTION_ORB = ITEMS.register("absorptionorb", () -> new Item((new Item.Properties())
                 .defaultDurability(AurorianConfig.Config_OrbOfAbsorptionDurability.get())

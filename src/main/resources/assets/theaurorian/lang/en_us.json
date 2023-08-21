@@ -35,8 +35,8 @@
 
     "enchantment.theaurorian.lightning.desc": "Does extra damage depending on how much armor the target is wearing",
     "enchantment.theaurorian.lightning": "Lightning",
-    "enchantment.theaurorian.lightningresistance.desc": "Negates damage that would have been done by lightning enchantment",
-    "enchantment.theaurorian.lightningresistance": "Lightning Resistance",
+    "enchantment.theaurorian.lightning_resistance.desc": "Negates damage that would have been done by lightning enchantment",
+    "enchantment.theaurorian.lightning_resistance": "Lightning Resistance",
 
     "entity.theaurorian.aurorianpig": "Aurorian Pig",
     "entity.theaurorian.aurorianrabbit": "Aurorian Rabbit",

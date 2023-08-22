@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,6 +19,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 public class AurorianPickAxe extends PickaxeItem {
+
     public AurorianPickAxe(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties properties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, properties);
         properties.rarity(Rarity.EPIC);
@@ -43,4 +45,5 @@ public class AurorianPickAxe extends PickaxeItem {
     public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
         ModItems.appendTooltip(stack, tooltip);
     }
+
 }

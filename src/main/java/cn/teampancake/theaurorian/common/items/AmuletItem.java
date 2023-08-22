@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -14,6 +15,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 public class AmuletItem extends Item {
+
     public AmuletItem(Properties properties) {
         super(properties);
         properties.rarity(Rarity.EPIC);
@@ -24,4 +26,5 @@ public class AmuletItem extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
         ModItems.appendTooltip(stack, tooltip);
     }
+
 }

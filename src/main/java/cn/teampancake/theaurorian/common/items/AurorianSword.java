@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.common.util.EntityHelper;
 import cn.teampancake.theaurorian.config.AurorianConfig;
+import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -24,6 +25,7 @@ import java.util.List;
 
 @ParametersAreNonnullByDefault
 public class AurorianSword extends SwordItem {
+
     public AurorianSword(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties properties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, properties);
         properties.rarity(Rarity.EPIC);
@@ -55,4 +57,5 @@ public class AurorianSword extends SwordItem {
     public void appendHoverText(ItemStack stack, @Nullable Level pLevel, List<Component> tooltip, TooltipFlag pIsAdvanced) {
         ModItems.appendTooltip(stack, tooltip);
     }
+
 }

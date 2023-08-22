@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.config.AurorianConfig;
+import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AurorianAxe extends AxeItem {
+
     public AurorianAxe(Tier pTier, Properties properties) {
 
         //TODO ItemRegistry.Materials.AURORIANITE
@@ -91,4 +93,5 @@ public class AurorianAxe extends AxeItem {
     public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
         ModItems.appendTooltip(stack, tooltip);
     }
+
 }

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.utils;
 
-import cn.teampancake.theaurorian.common.items.ModItems;
+import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;

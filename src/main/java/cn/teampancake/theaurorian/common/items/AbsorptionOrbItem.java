@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.config.AurorianConfig;
+import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -20,10 +21,7 @@ import java.util.List;
 public class AbsorptionOrbItem extends Item{
 
     public AbsorptionOrbItem(){
-        super(new Properties()
-                .rarity(Rarity.EPIC)
-                .defaultDurability(AurorianConfig.Config_OrbOfAbsorptionDurability.get()
-                ));
+        super(new Properties().rarity(Rarity.EPIC).defaultDurability(AurorianConfig.CONFIG_ORB_OF_ABSORPTION_DURABILITY.get()));
     }
 
     @Override

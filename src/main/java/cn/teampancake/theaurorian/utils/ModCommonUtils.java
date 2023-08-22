@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.utils;
 
-import cn.teampancake.theaurorian.common.blocks.ModBlocks;
-import cn.teampancake.theaurorian.common.items.ModItems;
+import cn.teampancake.theaurorian.registry.ModBlocks;
+import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;

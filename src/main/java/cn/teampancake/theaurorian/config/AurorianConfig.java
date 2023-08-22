@@ -1,14 +1,7 @@
 package cn.teampancake.theaurorian.config;
 
-import cn.teampancake.theaurorian.AurorianMod;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.loading.FMLPaths;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class AurorianConfig {
@@ -98,72 +91,72 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.IntValue Config_SlimeBootsCooldown;
     public static final ForgeConfigSpec.IntValue Config_OrbOfAbsorptionWhitelistBlacklist;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_OrbOfAbsorptionList;
-    private static final ForgeConfigSpec.DoubleValue Config_UmbraPickaxeMiningSpeedMultiplier;
+    public static final ForgeConfigSpec.DoubleValue Config_UmbraPickaxeMiningSpeedMultiplier;
 
-    private static final ForgeConfigSpec.BooleanValue Config_MoonlightForgeTransfersEnchants;
+    public static final ForgeConfigSpec.BooleanValue Config_MoonlightForgeTransfersEnchants;
 
-    private static final ForgeConfigSpec.IntValue Config_AurorianSteel_BaseMaxLevel;
+    public static final ForgeConfigSpec.IntValue Config_AurorianSteel_BaseMaxLevel;
 
-    private static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_BaseMaxLevelMultiplier;
+    public static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_BaseMaxLevelMultiplier;
 
-    private static final ForgeConfigSpec.IntValue Config_CrystalStackSize;
+    public static final ForgeConfigSpec.IntValue Config_CrystalStackSize;
 
-    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_AurorianSteel_Enchants;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_AurorianSteel_Enchants;
 
-    private static final ForgeConfigSpec.IntValue Config_AurorianSteel_Enchants_WhitelistBlacklist;
+    public static final ForgeConfigSpec.IntValue Config_AurorianSteel_Enchants_WhitelistBlacklist;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Spectral_Armor_CleanseChance;
+    public static final ForgeConfigSpec.DoubleValue Config_Spectral_Armor_CleanseChance;
 
 
-    private static final ForgeConfigSpec.DoubleValue Config_Silentwood_Multiplier_Speed;
+    public static final ForgeConfigSpec.DoubleValue Config_Silentwood_Multiplier_Speed;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Silentwood_Multiplier_Durability;
+    public static final ForgeConfigSpec.DoubleValue Config_Silentwood_Multiplier_Durability;
 
-    private static final ForgeConfigSpec.IntValue Config_Silentwood_HarvestLevel;
+    public static final ForgeConfigSpec.IntValue Config_Silentwood_HarvestLevel;
 
-    private static final ForgeConfigSpec.DoubleValue Config_AurorianStone_Multiplier_Damage;
+    public static final ForgeConfigSpec.DoubleValue Config_AurorianStone_Multiplier_Damage;
 
-    private static final ForgeConfigSpec.DoubleValue Config_AurorianStone_Multiplier_Speed;
+    public static final ForgeConfigSpec.DoubleValue Config_AurorianStone_Multiplier_Speed;
 
-    private static final ForgeConfigSpec.DoubleValue Config_AurorianStone_Multiplier_Durability;
+    public static final ForgeConfigSpec.DoubleValue Config_AurorianStone_Multiplier_Durability;
 
-    private static final ForgeConfigSpec.IntValue Config_AurorianStone_HarvestLevel;
+    public static final ForgeConfigSpec.IntValue Config_AurorianStone_HarvestLevel;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Moonstone_Multiplier_Damage;
+    public static final ForgeConfigSpec.DoubleValue Config_Moonstone_Multiplier_Damage;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Moonstone_Multiplier_Speed;
+    public static final ForgeConfigSpec.DoubleValue Config_Moonstone_Multiplier_Speed;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Moonstone_Multiplier_Durability;
+    public static final ForgeConfigSpec.DoubleValue Config_Moonstone_Multiplier_Durability;
 
-    private static final ForgeConfigSpec.IntValue Config_Moonstone_HarvestLevel;
+    public static final ForgeConfigSpec.IntValue Config_Moonstone_HarvestLevel;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Special_Multiplier_Damage;
+    public static final ForgeConfigSpec.DoubleValue Config_Special_Multiplier_Damage;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Special_Multiplier_Speed;
+    public static final ForgeConfigSpec.DoubleValue Config_Special_Multiplier_Speed;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Special_Multiplier_Durability;
+    public static final ForgeConfigSpec.DoubleValue Config_Special_Multiplier_Durability;
 
-    private static final ForgeConfigSpec.IntValue Config_Special_HarvestLevel;
+    public static final ForgeConfigSpec.IntValue Config_Special_HarvestLevel;
 
-    private static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Damage;
+    public static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Damage;
 
-    private static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Speed;
+    public static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Speed;
 
-    private static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Durability;
+    public static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Durability;
 
-    private static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Armor;
+    public static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Armor;
 
-    private static final ForgeConfigSpec.IntValue Config_AurorianSteel_HarvestLevel;
+    public static final ForgeConfigSpec.IntValue Config_AurorianSteel_HarvestLevel;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Cerulean_Multiplier_Durability;
+    public static final ForgeConfigSpec.DoubleValue Config_Cerulean_Multiplier_Durability;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Cerulean_Multiplier_Armor;
+    public static final ForgeConfigSpec.DoubleValue Config_Cerulean_Multiplier_Armor;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Tea_EffectDuration_Muliplier;
+    public static final ForgeConfigSpec.DoubleValue Config_Tea_EffectDuration_Muliplier;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Spectral_Multiplier_Durability;
+    public static final ForgeConfigSpec.DoubleValue Config_Spectral_Multiplier_Durability;
 
-    private static final ForgeConfigSpec.DoubleValue Config_Spectral_Multiplier_Armor;
+    public static final ForgeConfigSpec.DoubleValue Config_Spectral_Multiplier_Armor;
 
     //Multipliers
     static {

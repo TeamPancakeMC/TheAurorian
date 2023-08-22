@@ -44,7 +44,7 @@ public class AurorianPickAxe extends PickaxeItem {
     @ParametersAreNonnullByDefault
     public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
         if (!Screen.hasShiftDown()) {
-            tooltip.add(Component.translatable("string.theaurorian.tooltip.shiftinfo").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.RESET));
+            tooltip.add(Component.translatable("string.theaurorian.tooltip.shiftinfo").withStyle(ChatFormatting.ITALIC));
         } else {
             tooltip.add(Component.translatable("string.theaurorian.tooltip.aurorianitepickaxe"));
         }

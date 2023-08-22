@@ -1,11 +1,10 @@
 package cn.teampancake.theaurorian.common.items;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import cn.teampancake.theaurorian.common.util.AurorianSteelHelper;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,19 +14,15 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-public class AmuletItem extends Item {
-    public AmuletItem(Properties properties) {
-        super(properties);
-        properties.rarity(Rarity.EPIC);
+public class AurorianSteelAxe extends AxeItem {
+    public AurorianSteelAxe(Tier tier, Properties properties) {
+        //TODO ItemRegistry.Materials.AURORIANSTEEL
+        super(tier, 10.0F, -3.2F, properties);
     }
 
     @OnlyIn(Dist.CLIENT)
     @ParametersAreNonnullByDefault
     public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!Screen.hasShiftDown()) {
-            tooltip.add(Component.translatable("string.theaurorian.tooltip.shiftinfo").withStyle(ChatFormatting.ITALIC));
-        } else {
-            tooltip.add(Component.translatable(String.format("string.theaurorian.tooltip.%s", this.asItem())));
-        }
+        AurorianSteelHelper.getAurorianSteelInfo(stack, levelIn, tooltip);
     }
 }

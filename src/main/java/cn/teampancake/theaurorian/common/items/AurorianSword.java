@@ -56,7 +56,7 @@ public class AurorianSword extends SwordItem {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> tooltip, TooltipFlag pIsAdvanced) {
         if (!Screen.hasShiftDown()) {
-            tooltip.add(Component.translatable("string.theaurorian.tooltip.shiftinfo").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.RESET));
+            tooltip.add(Component.translatable("string.theaurorian.tooltip.shiftinfo").withStyle(ChatFormatting.ITALIC));
         } else {
             tooltip.add(Component.translatable("string.theaurorian.tooltip.aurorianitesword"));
         }

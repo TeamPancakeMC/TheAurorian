@@ -8,33 +8,33 @@ public class AurorianConfig {
     public static final ForgeConfigSpec SPEC;
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
-    public static final ForgeConfigSpec.ConfigValue<Integer> Config_OrbOfAbsorptionDurability;
+    public static final ForgeConfigSpec.ConfigValue<Integer> CONFIG_ORB_OF_ABSORPTION_DURABILITY;
 
     //Compat
-    public static final ForgeConfigSpec.BooleanValue Config_EnableTinkersConstructCompatibility;
-    public static final ForgeConfigSpec.BooleanValue Config_EnableConstructsArmoryCompatibility;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_ENABLE_TINKERS_CONSTRUCT_COMPATIBILITY;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_ENABLE_CONSTRUCTS_ARMORY_COMPATIBILITY;
 
 
     //Blocks
-    public static final ForgeConfigSpec.IntValue Config_MaximumChimneys;
-    public static final ForgeConfigSpec.DoubleValue Config_ChimneySpeedMultiplier;
-    public static final ForgeConfigSpec.BooleanValue Config_CrystalsSpeedUpMachines;
-    public static final ForgeConfigSpec.DoubleValue Config_CrystalsChanceOfBreaking;
-    public static final ForgeConfigSpec.DoubleValue Config_CrystalsSpeedReduction;
-    public static final ForgeConfigSpec.IntValue Config_ScrapperTickInterval;
+    public static final ForgeConfigSpec.IntValue CONFIG_MAXIMUM_CHIMNEYS;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_CHIMNEY_SPEED_MULTIPLIER;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_CRYSTALS_SPEED_UP_MACHINES;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_CRYSTALS_CHANCE_OF_BREAKING;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_CRYSTALS_SPEED_REDUCTION;
+    public static final ForgeConfigSpec.IntValue CONFIG_SCRAPPER_TICK_INTERVAL;
 
 
     //Structures
-    public static final ForgeConfigSpec.BooleanValue Config_GenerateRunestoneDungeon;
-    public static final ForgeConfigSpec.IntValue Config_DungeonDensity;
-    public static final ForgeConfigSpec.IntValue Config_RunestoneDungeonFloors;
-    public static final ForgeConfigSpec.BooleanValue Config_GenerateRuins;
-    public static final ForgeConfigSpec.BooleanValue Config_GenerateMoonTemple;
-    public static final ForgeConfigSpec.BooleanValue Config_GenerateMoonTemplePath;
-    public static final ForgeConfigSpec.BooleanValue Config_GenerateUmbraTower;
-    public static final ForgeConfigSpec.BooleanValue Config_GenerateMushroomCaves;
-    public static final ForgeConfigSpec.BooleanValue Config_GenerateGraveyards;
-    public static final ForgeConfigSpec.BooleanValue Config_GenerateDarkstoneDungeon;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_RUNESTONE_DUNGEON;
+    public static final ForgeConfigSpec.IntValue CONFIG_DUNGEON_DENSITY;
+    public static final ForgeConfigSpec.IntValue CONFIG_RUNESTONE_DUNGEON_FLOORS;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_RUINS;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_MOON_TEMPLE;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_MOON_TEMPLE_PATH;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_UMBRA_TOWER;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_MUSHROOM_CAVES;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_GRAVEYARDS;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_DARKSTONE_DUNGEON;
 
 
     //Entities
@@ -107,174 +107,169 @@ public class AurorianConfig {
 
     public static final ForgeConfigSpec.DoubleValue Config_Spectral_Armor_CleanseChance;
 
+    public static final ForgeConfigSpec.DoubleValue CONFIG_SILENTWOOD_MULTIPLIER_SPEED;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Silentwood_Multiplier_Speed;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_SILENTWOOD_MULTIPLIER_DURABILITY;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Silentwood_Multiplier_Durability;
+    public static final ForgeConfigSpec.IntValue CONFIG_SILENTWOOD_HARVEST_LEVEL;
 
-    public static final ForgeConfigSpec.IntValue Config_Silentwood_HarvestLevel;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_AURORIAN_STONE_MULTIPLIER_DAMAGE;
 
-    public static final ForgeConfigSpec.DoubleValue Config_AurorianStone_Multiplier_Damage;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_AURORIAN_STONE_MULTIPLIER_SPEED;
 
-    public static final ForgeConfigSpec.DoubleValue Config_AurorianStone_Multiplier_Speed;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_AURORIAN_STONE_MULTIPLIER_DURABILITY;
 
-    public static final ForgeConfigSpec.DoubleValue Config_AurorianStone_Multiplier_Durability;
+    public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STONE_HARVEST_LEVEL;
 
-    public static final ForgeConfigSpec.IntValue Config_AurorianStone_HarvestLevel;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_MOONSTONE_MULTIPLIER_DAMAGE;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Moonstone_Multiplier_Damage;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_MOONSTONE_MULTIPLIER_SPEED;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Moonstone_Multiplier_Speed;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_MOONSTONE_MULTIPLIER_DURABILITY;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Moonstone_Multiplier_Durability;
+    public static final ForgeConfigSpec.IntValue CONFIG_MOONSTONE_HARVEST_LEVEL;
 
-    public static final ForgeConfigSpec.IntValue Config_Moonstone_HarvestLevel;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_SPECIAL_MULTIPLIER_DAMAGE;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Special_Multiplier_Damage;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_SPECIAL_MULTIPLIER_SPEED;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Special_Multiplier_Speed;
+    public static final ForgeConfigSpec.IntValue CONFIG_SPECIAL_MULTIPLIER_DURABILITY;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Special_Multiplier_Durability;
+    public static final ForgeConfigSpec.IntValue CONFIG_SPECIAL_HARVEST_LEVEL;
 
-    public static final ForgeConfigSpec.IntValue Config_Special_HarvestLevel;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_AURORIAN_STEEL_MULTIPLIER_DAMAGE;
 
-    public static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Damage;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_AURORIAN_STEEL_MULTIPLIER_SPEED;
 
-    public static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Speed;
+    public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STEEL_MULTIPLIER_DURABILITY;
 
-    public static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Durability;
+    public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STEEL_MULTIPLIER_ARMOR;
 
-    public static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_Multiplier_Armor;
+    public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STEEL_HARVEST_LEVEL;
 
-    public static final ForgeConfigSpec.IntValue Config_AurorianSteel_HarvestLevel;
+    public static final ForgeConfigSpec.IntValue CONFIG_CERULEAN_MULTIPLIER_DURABILITY;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Cerulean_Multiplier_Durability;
+    public static final ForgeConfigSpec.IntValue CONFIG_CERULEAN_MULTIPLIER_ARMOR;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Cerulean_Multiplier_Armor;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_TEA_EFFECT_DURATION_MULIPLIER;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Tea_EffectDuration_Muliplier;
+    public static final ForgeConfigSpec.IntValue CONFIG_SPECTRAL_MULTIPLIER_DURABILITY;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Spectral_Multiplier_Durability;
-
-    public static final ForgeConfigSpec.DoubleValue Config_Spectral_Multiplier_Armor;
+    public static final ForgeConfigSpec.IntValue CONFIG_SPECTRAL_MULTIPLIER_ARMOR;
 
     //Multipliers
     static {
         BUILDER.push("Multipliers");
-        Config_Silentwood_Multiplier_Speed = BUILDER
+        CONFIG_SILENTWOOD_MULTIPLIER_SPEED = BUILDER
                 .comment("Multiplier for mining speed")
                 .defineInRange("Silentwood_Multiplier_Speed", 1.0f, 0.0f, 1000.0f);
-        Config_Silentwood_Multiplier_Durability = BUILDER
+        CONFIG_SILENTWOOD_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
                 .defineInRange("Silentwood_Multiplier_Durability", 1.0f, 0.0f, 1000.0f);
-        Config_Silentwood_HarvestLevel = BUILDER
+        CONFIG_SILENTWOOD_HARVEST_LEVEL = BUILDER
                 .comment("Harvest level for these tools")
                 .defineInRange("Silentwood_HarvestLevel", 0, 0, 500);
-        Config_AurorianStone_Multiplier_Damage = BUILDER
+        CONFIG_AURORIAN_STONE_MULTIPLIER_DAMAGE = BUILDER
                 .comment("Multiplier for damage")
                 .defineInRange("AurorianStone_Multiplier_Damage", 1.0f, 0.0f, 1000.0f);
-        Config_AurorianStone_Multiplier_Speed = BUILDER
+        CONFIG_AURORIAN_STONE_MULTIPLIER_SPEED = BUILDER
                 .comment("Multiplier for mining speed")
                 .defineInRange("AurorianStone_Multiplier_Speed", 1.0f, 0.0f, 1000.0f);
-        Config_AurorianStone_Multiplier_Durability = BUILDER
+        CONFIG_AURORIAN_STONE_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
                 .defineInRange("AurorianStone_Multiplier_Durability", 1.0f, 0.0f, 1000.0f);
-        Config_AurorianStone_HarvestLevel = BUILDER
+        CONFIG_AURORIAN_STONE_HARVEST_LEVEL = BUILDER
                 .comment("Harvest level for these tools")
                 .defineInRange("AurorianStone_HarvestLevel", 0, 0, 500);
-        Config_Moonstone_Multiplier_Damage = BUILDER
+        CONFIG_MOONSTONE_MULTIPLIER_DAMAGE = BUILDER
                 .comment("Multiplier for damage")
                 .defineInRange("Moonstone_Multiplier_Damage", 1.0f, 0.0f, 1000.0f);
-        Config_Moonstone_Multiplier_Speed = BUILDER
+        CONFIG_MOONSTONE_MULTIPLIER_SPEED = BUILDER
                 .comment("Multiplier for mining speed")
                 .defineInRange("Moonstone_Multiplier_Speed", 1.0f, 0.0f, 1000.0f);
-        Config_Moonstone_Multiplier_Durability = BUILDER
+        CONFIG_MOONSTONE_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
                 .defineInRange("Moonstone_Multiplier_Durability", 1.0f, 0.0f, 1000.0f);
-        Config_Moonstone_HarvestLevel = BUILDER
+        CONFIG_MOONSTONE_HARVEST_LEVEL = BUILDER
                 .comment("Harvest level for these tools")
                 .defineInRange("Moonstone_HarvestLevel", 2, 0, 500);
-        Config_Special_Multiplier_Damage = BUILDER
+        CONFIG_SPECIAL_MULTIPLIER_DAMAGE = BUILDER
                 .comment("Multiplier for damage")
                 .defineInRange("Special_Multiplier_Damage", 1.0f, 0.0f, 1000.0f);
-        Config_Special_Multiplier_Speed = BUILDER
+        CONFIG_SPECIAL_MULTIPLIER_SPEED = BUILDER
                 .comment("Multiplier for mining speed")
                 .defineInRange("Special_Multiplier_Speed", 1.0f, 0.0f, 1000.0f);
-        Config_Special_Multiplier_Durability = BUILDER
+        CONFIG_SPECIAL_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
-                .defineInRange("Special_Multiplier_Durability", 1.0f, 0.0f, 1000.0f);
-        Config_Special_HarvestLevel = BUILDER
+                .defineInRange("Special_Multiplier_Durability", 1, 0, 1000);
+        CONFIG_SPECIAL_HARVEST_LEVEL = BUILDER
                 .comment("Harvest level for these tools")
                 .defineInRange("Special_HarvestLevel", 3, 0, 500);
-        Config_AurorianSteel_Multiplier_Damage = BUILDER
+        CONFIG_AURORIAN_STEEL_MULTIPLIER_DAMAGE = BUILDER
                 .comment("Multiplier for damage")
                 .defineInRange("AurorianSteel_Multiplier_Damage", 1.0f, 0.0f, 1000.0f);
-        Config_AurorianSteel_Multiplier_Speed = BUILDER
+        CONFIG_AURORIAN_STEEL_MULTIPLIER_SPEED = BUILDER
                 .comment("Multiplier for mining speed")
                 .defineInRange("AurorianSteel_Multiplier_Speed", 1.0f, 0.0f, 1000.0f);
-        Config_AurorianSteel_Multiplier_Durability = BUILDER
+        CONFIG_AURORIAN_STEEL_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
-                .defineInRange("AurorianSteel_Multiplier_Durability", 1.0f, 0.0f, 1000.0f);
-        Config_AurorianSteel_Multiplier_Armor = BUILDER
+                .defineInRange("AurorianSteel_Multiplier_Durability", 1, 0, 1000);
+        CONFIG_AURORIAN_STEEL_MULTIPLIER_ARMOR = BUILDER
                 .comment("Multiplier for armor strength")
-                .defineInRange("AurorianSteel_Multiplier_Armor", 1.0f, 0.0f, 1000.0f);
-        Config_AurorianSteel_HarvestLevel = BUILDER
+                .defineInRange("AurorianSteel_Multiplier_Armor", 1, 0, 1000);
+        CONFIG_AURORIAN_STEEL_HARVEST_LEVEL = BUILDER
                 .comment("Harvest level for these tools")
                 .defineInRange("AurorianSteel_HarvestLevel", 3, 0, 500);
-        Config_Cerulean_Multiplier_Durability = BUILDER
+        CONFIG_CERULEAN_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
-                .defineInRange("Cerulean_Multiplier_Durability", 1.0f, 0.0f, 1000.0f);
-        Config_Cerulean_Multiplier_Armor = BUILDER
+                .defineInRange("Cerulean_Multiplier_Durability", 1, 0, 1000);
+        CONFIG_CERULEAN_MULTIPLIER_ARMOR = BUILDER
                 .comment("Multiplier for armor strength")
-                .defineInRange("Cerulean_Multiplier_Armor", 1.0f, 0.0f, 1000.0f);
-        Config_Tea_EffectDuration_Muliplier = BUILDER
+                .defineInRange("Cerulean_Multiplier_Armor", 1, 0, 1000);
+        CONFIG_TEA_EFFECT_DURATION_MULIPLIER = BUILDER
                 .comment("Multiplier for tea potion effect duration")
                 .defineInRange("Tea_EffectDuration_Muliplier", 1.0f, 0.0f, 1000.0f);
-        Config_Spectral_Multiplier_Durability = BUILDER
+        CONFIG_SPECTRAL_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
-                .defineInRange("Spectral_Multiplier_Durability", 1.0f, 0.0f, 1000.0f);
-        Config_Spectral_Multiplier_Armor = BUILDER
+                .defineInRange("Spectral_Multiplier_Durability", 1, 0, 1000);
+        CONFIG_SPECTRAL_MULTIPLIER_ARMOR = BUILDER
                 .comment("Multiplier for armor strength")
-                .defineInRange("Spectral_Multiplier_Armor", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("Spectral_Multiplier_Armor", 1, 0, 1000);
         BUILDER.pop();
     }
-
-
-
-
 
     //Compat
     static {
         BUILDER.push("Compatibility");
-        Config_EnableTinkersConstructCompatibility = BUILDER.comment("Enable Tinkers' Construct compatibility.")
+        CONFIG_ENABLE_TINKERS_CONSTRUCT_COMPATIBILITY = BUILDER.comment("Enable Tinkers' Construct compatibility.")
                 .define("EnableTinkersConstructCompatibility", true);
 
-        Config_EnableConstructsArmoryCompatibility = BUILDER.comment("Enable Constructs' Armory compatibility.")
+        CONFIG_ENABLE_CONSTRUCTS_ARMORY_COMPATIBILITY = BUILDER.comment("Enable Constructs' Armory compatibility.")
                 .define("EnableConstructsArmoryCompatibility", true);
         BUILDER.pop();
     }
     //blocks
     static {
         BUILDER.push("Blocks");
-        Config_MaximumChimneys = BUILDER
+        CONFIG_MAXIMUM_CHIMNEYS = BUILDER
                 .comment("Maximum number of chimneys able to be stacked on Aurorian Furnace")
                 .defineInRange("MaximumChimneys", 10, 0, 255);
 
-        Config_ChimneySpeedMultiplier = BUILDER
+        CONFIG_CHIMNEY_SPEED_MULTIPLIER = BUILDER
                 .comment("Maximum number of chimneys able to be stacked on Aurorian Furnace")
                 .defineInRange("ChimneySpeedMultiplier", 0.5D, 0.0D, 0.99D);
 
-        Config_CrystalsSpeedUpMachines = BUILDER
+        CONFIG_CRYSTALS_SPEED_UP_MACHINES = BUILDER
                 .comment("Set to false to disable Crystals speeding up machines when placed on top")
                 .define("CrystalsSpeedUpMachines", true);
 
-        Config_CrystalsChanceOfBreaking = BUILDER
+        CONFIG_CRYSTALS_CHANCE_OF_BREAKING = BUILDER
                 .comment("The chance for a Crystal to break when the machine finishes a recipe. (0.5 is 50%, 0 is no breaking)")
                 .defineInRange("CrystalsChanceOfBreaking", 0.25f, 0.0f, 1.0f);
-        Config_CrystalsSpeedReduction = BUILDER
+        CONFIG_CRYSTALS_SPEED_REDUCTION = BUILDER
                 .comment("How much a Crystal will speed up the machine below it (LOWER percentage = FASTER machine, yes I know its backwards)")
                 .defineInRange("CrystalsSpeedReduction", 0.5f, 0.01f, 1.0f);
-        Config_ScrapperTickInterval = BUILDER
+        CONFIG_SCRAPPER_TICK_INTERVAL = BUILDER
                 .comment("How many ticks until the scrapper will perform 1 update, Scrapper requires 100 updates to do 1 craft. (Meaning default is 400 ticks(20 seconds) for 1 craft)")
                 .defineInRange("ScrapperTickInterval", 4, 0, 72000);
         BUILDER.pop();
@@ -283,33 +278,33 @@ public class AurorianConfig {
     //Structures
     static {
         BUILDER.push("Structures");
-        Config_GenerateRunestoneDungeon = BUILDER
+        CONFIG_GENERATE_RUNESTONE_DUNGEON = BUILDER
                 .comment("Set to false to disable Runestone Dungeons (Why would anyone do this? :c )")
                 .define("GenerateRunestoneDungeon", true);
-        Config_DungeonDensity = BUILDER.comment("How many chunks away until another Runestone Dungeons can generate, also affects Moon Temple generation")
+        CONFIG_DUNGEON_DENSITY = BUILDER.comment("How many chunks away until another Runestone Dungeons can generate, also affects Moon Temple generation")
                 .defineInRange("DungeonDensity",32,16,256);
-        Config_RunestoneDungeonFloors = BUILDER
+        CONFIG_RUNESTONE_DUNGEON_FLOORS = BUILDER
                 .comment("How many floors each Runestone Dungeon has, including double sized floors, code only accepts odd numbers! Evens will have +1 added")
                 .defineInRange("RunestoneDungeonFloors",4,1,17);
-        Config_GenerateRuins = BUILDER
+        CONFIG_GENERATE_RUINS = BUILDER
                 .comment("Set to false to disable ruin structures (like destroyed houses or small underground structures)")
                 .define("GenerateRuins",true);
-        Config_GenerateMoonTemple = BUILDER
+        CONFIG_GENERATE_MOON_TEMPLE = BUILDER
                 .comment("Set to false to disable Moon Temples")
                 .define("GenerateMoonTemple",true);
-        Config_GenerateMoonTemplePath = BUILDER
+        CONFIG_GENERATE_MOON_TEMPLE_PATH = BUILDER
                 .comment("Set to false to disable Moon Temple's spiral path up")
                 .define("GenerateMoonTemplePath",true);
-        Config_GenerateUmbraTower = BUILDER
+        CONFIG_GENERATE_UMBRA_TOWER = BUILDER
                 .comment("Set to false to disable Umbra Towers")
                 .define("GenerateUmbraTower",true);
-        Config_GenerateMushroomCaves = BUILDER
+        CONFIG_GENERATE_MUSHROOM_CAVES = BUILDER
                 .comment("Set to false to disable Mushroom Caves")
                 .define("GenerateMushroomCaves",true);
-        Config_GenerateGraveyards = BUILDER
+        CONFIG_GENERATE_GRAVEYARDS = BUILDER
                 .comment("Set to false to disable Graveyards")
                 .define("GenerateGraveyards",false);
-        Config_GenerateDarkstoneDungeon = BUILDER
+        CONFIG_GENERATE_DARKSTONE_DUNGEON = BUILDER
                 .comment("Set to false to disable Darkstone Dungeons")
                 .define("GenerateDarkstoneDungeon",true);
         BUILDER.pop();
@@ -455,7 +450,7 @@ public class AurorianConfig {
         Config_UmbraShieldOverheatCooldown = BUILDER
                 .comment("Cooldown in ticks for the player to be able to use the shield again after it overheats")
                 .defineInRange("UmbraShieldOverheatCooldown", 60, 0, 72000);
-        Config_OrbOfAbsorptionDurability = BUILDER
+        CONFIG_ORB_OF_ABSORPTION_DURABILITY = BUILDER
                 .comment("Max durability of the Orb of Absorption")
                 .defineInRange("OrbOfAbsorptionDurability", 250, 1, 72000);
         Config_OrbOfAbsorptionWhitelistBlacklist = BUILDER

@@ -20,8 +20,10 @@ import java.util.List;
 
 public class AbsorptionOrbItem extends Item{
 
-    public AbsorptionOrbItem(){
-        super(new Properties().rarity(Rarity.EPIC).defaultDurability(AurorianConfig.CONFIG_ORB_OF_ABSORPTION_DURABILITY.get()));
+    public AbsorptionOrbItem(Properties properties){
+        super(properties);
+        properties.rarity(Rarity.EPIC)
+                .defaultDurability(AurorianConfig.CONFIG_ORB_OF_ABSORPTION_DURABILITY.get());
     }
 
     @Override

@@ -21,7 +21,6 @@ import java.util.List;
 public class AurorianAxe extends AxeItem {
 
     public AurorianAxe(Tier pTier, Properties properties) {
-
         //TODO ItemRegistry.Materials.AURORIANITE
         super(pTier, 12.0F, -3.5F, properties);
         properties.rarity(Rarity.EPIC);

@@ -5,6 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,8 +16,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 public class AurorianSteelSword extends SwordItem {
-    public AurorianSteelSword(int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
-        super(ItemRegistry.Materials.AURORIANSTEEL, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
+    public AurorianSteelSword(Tier tier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
+        //TODO ItemRegistry.Materials.AURORIANSTEEL
+        super(tier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
     }
 
     @Override

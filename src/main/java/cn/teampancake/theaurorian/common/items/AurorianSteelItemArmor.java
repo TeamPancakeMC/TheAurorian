@@ -3,9 +3,7 @@ package cn.teampancake.theaurorian.common.items;
 import cn.teampancake.theaurorian.common.util.AurorianSteelHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -17,7 +15,8 @@ import java.util.List;
 
 public class AurorianSteelItemArmor extends ArmorItem {
     public AurorianSteelItemArmor(Type pType, Properties pProperties) {
-        super(ItemRegistry.Materials.AURORIANSTEEL_ARMOR, pType, pProperties);
+        //TODO ItemRegistry.Materials.AURORIANSTEEL_ARMOR
+        super(ModArmorMaterials.AURORIAN_STEEL, pType, pProperties);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -33,7 +32,7 @@ public class AurorianSteelItemArmor extends ArmorItem {
         }
         for (ItemStack piece : target.getArmorSlots()) {
             if (piece.getItem() instanceof ArmorItem armorpart) {
-                if (armorpart.getMaterial() == ItemRegistry.Materials.AURORIANSTEEL_ARMOR) {
+                if (armorpart.getMaterial() == ModArmorMaterials.AURORIAN_STEEL) {
                     AurorianSteelHelper.handleAurorianSteelDurability(piece);
                 }
             }

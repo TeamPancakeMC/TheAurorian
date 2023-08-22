@@ -26,8 +26,8 @@ import java.util.List;
 @ParametersAreNonnullByDefault
 public class AurorianSword extends SwordItem {
 
-    public AurorianSword(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties properties) {
-        super(pTier, pAttackDamageModifier, pAttackSpeedModifier, properties);
+    public AurorianSword(Tier tier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties properties) {
+        super(tier, pAttackDamageModifier, pAttackSpeedModifier, properties);
         properties.rarity(Rarity.EPIC);
     }
 

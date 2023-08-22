@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.util;
+package cn.teampancake.theaurorian.utils;
 
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import net.minecraft.ChatFormatting;

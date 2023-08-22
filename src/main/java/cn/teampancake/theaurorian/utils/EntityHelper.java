@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.util;
+package cn.teampancake.theaurorian.utils;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;

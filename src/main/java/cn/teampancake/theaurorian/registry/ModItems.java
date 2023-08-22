@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.items.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -51,7 +50,7 @@ public class ModItems {
     public static final RegistryObject<Item> SILK_SHROOM_STEW = food("silk_shroom_stew", 6, 1F, false);
     public static final RegistryObject<Item> LAVENDER_BREAD = food("lavender_bread", 4, 0.4F, false);
     public static final RegistryObject<Item> SOULLESS_FLESH = food("soulless_flesh", 2, 0.1F, false);
-    public static final RegistryObject<Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrbItem::new);
+    //public static final RegistryObject<Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", () -> new AbsorptionOrbItem(new Item.Properties()));
 
     public static void appendTooltip(ItemStack stack, List<Component> tooltip){
         if (!Screen.hasShiftDown()) {

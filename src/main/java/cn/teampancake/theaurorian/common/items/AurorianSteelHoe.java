@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.common.util.AurorianSteelHelper;
+import cn.teampancake.theaurorian.utils.AurorianSteelHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;

@@ -7,6 +7,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModFluidTypes {
 
-    public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(ForgeRegistries.FLUID_TYPES.get(), AurorianMod.MOD_ID);
+    public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, AurorianMod.MOD_ID);
 
 }

@@ -12,7 +12,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import static cn.teampancake.theaurorian.utils.ModBlockRegUtils.*;
-import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.*;
+import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.copy;
+import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.of;
 
 public class ModBlocks {
 
@@ -74,20 +75,20 @@ public class ModBlocks {
     public static final RegistryObject<Block> WEEPING_WILLOW_LOG = register("weeping_willow_log", () -> Blocks.log(MapColor.COLOR_LIGHT_GRAY, MapColor.COLOR_BLACK));
     public static final RegistryObject<Block> WEEPING_WILLOW_PLANKS = normal("weeping_willow_planks", copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> WEEPING_WILLOW_WOOD = wood("weeping_willow_wood", MapColor.COLOR_LIGHT_GRAY, 2.0F);
-    public static final RegistryObject<Block> AURORIAN_STONE_STAIRS = stair("aurorian_stone_stairs", AURORIAN_STONE, copy(AURORIAN_STONE.get()));
-    public static final RegistryObject<Block> AURORIAN_STONE_BRICK_STAIRS = stair("aurorian_stone_brick_stairs", AURORIAN_STONE_BRICKS, copy(AURORIAN_STONE_BRICKS.get()));
-    public static final RegistryObject<Block> AURORIAN_COBBLESTONE_STAIRS = stair("aurorian_cobblestone_stairs", AURORIAN_COBBLESTONE, copy(AURORIAN_COBBLESTONE.get()));
-    public static final RegistryObject<Block> SILENT_WOOD_STAIRS = stair("silent_wood_stairs", SILENT_TREE_PLANKS, copy(SILENT_TREE_PLANKS.get()));
-    public static final RegistryObject<Block> RUNE_STONE_STAIRS = stair("rune_stone_stairs", RUNE_STONE, copy(RUNE_STONE.get()));
-    public static final RegistryObject<Block> MOON_TEMPLE_STAIRS = stair("moon_temple_stairs", MOON_TEMPLE_BRICKS, copy(MOON_TEMPLE_BRICKS.get()));
-    public static final RegistryObject<Block> DARK_STONE_STAIRS = stair("dark_stone_stairs", DARK_STONE_BRICKS, copy(DARK_STONE_BRICKS.get()));
-    public static final RegistryObject<Block> UMBRA_STONE_STAIRS = stair("umbra_stone_stairs", UMBRA_STONE, copy(UMBRA_STONE.get()));
-    public static final RegistryObject<Block> UMBRA_STONE_CRACKED_STAIRS = stair("umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, copy(UMBRA_STONE_CRACKED.get()));
-    public static final RegistryObject<Block> UMBRA_STONE_ROOF_STAIRS = stair("umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, copy(UMBRA_STONE_ROOF_TILES.get()));
-    public static final RegistryObject<Block> WEEPING_WILLOW_STAIRS = stair("weeping_willow_stairs", WEEPING_WILLOW_PLANKS, copy(WEEPING_WILLOW_PLANKS.get()));
-    public static final RegistryObject<Block> AURORIAN_PERIDOTITE_STAIRS = stair("aurorian_peridotite_stairs", AURORIAN_PERIDOTITE, copy(AURORIAN_PERIDOTITE.get()));
-    public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE_STAIRS = stair("smooth_aurorian_peridotite_stairs", SMOOTH_AURORIAN_PERIDOTITE, copy(SMOOTH_AURORIAN_PERIDOTITE.get()));
-
+    public static final RegistryObject<Block> AURORIAN_STONE_STAIRS = stair("aurorian_stone_stairs", AURORIAN_STONE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_STONE_BRICK_STAIRS = stair("aurorian_stone_brick_stairs", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_COBBLESTONE_STAIRS = stair("aurorian_cobblestone_stairs", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> SILENT_WOOD_STAIRS = stair("silent_wood_stairs", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> RUNE_STONE_STAIRS = stair("rune_stone_stairs", RUNE_STONE, copy(Blocks.BEDROCK));
+    public static final RegistryObject<Block> MOON_TEMPLE_STAIRS = stair("moon_temple_stairs", MOON_TEMPLE_BRICKS, copy(Blocks.BEDROCK));
+    public static final RegistryObject<Block> DARK_STONE_STAIRS = stair("dark_stone_stairs", DARK_STONE_BRICKS, copy(Blocks.BEDROCK));
+    public static final RegistryObject<Block> UMBRA_STONE_STAIRS = stair("umbra_stone_stairs", UMBRA_STONE, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> UMBRA_STONE_CRACKED_STAIRS = stair("umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> UMBRA_STONE_ROOF_STAIRS = stair("umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> WEEPING_WILLOW_STAIRS = stair("weeping_willow_stairs", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> AURORIAN_PERIDOTITE_STAIRS = stair("aurorian_peridotite_stairs", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE_STAIRS = stair("smooth_aurorian_peridotite_stairs", SMOOTH_AURORIAN_PERIDOTITE,  defaultStoneProperties(5.0F));
+    
     private static BlockBehaviour.Properties defaultStoneProperties(float destroyTime) {
         return of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
                 .destroyTime(destroyTime).explosionResistance(destroyTime * 5.0F);

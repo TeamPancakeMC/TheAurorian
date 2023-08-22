@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -18,10 +18,9 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-public class AurorianSteelShovel extends ShovelItem {
-    public AurorianSteelShovel(Tier tier, float pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
-        //TODO ItemRegistry.Materials.AURORIANSTEEL
-        super(tier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
+public class AurorianSteelPickAxe extends PickaxeItem {
+    public AurorianSteelPickAxe(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties) {
+        super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
     }
 
     @Override
@@ -39,4 +38,6 @@ public class AurorianSteelShovel extends ShovelItem {
     public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
         AurorianSteelHelper.getAurorianSteelInfo(stack, levelIn, tooltip);
     }
+
+
 }

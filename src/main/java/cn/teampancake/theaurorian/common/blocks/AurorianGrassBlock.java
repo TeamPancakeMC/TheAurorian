@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
-import cn.teampancake.theaurorian.common.util.AurorianUtil;
+import cn.teampancake.theaurorian.utils.AurorianUtil;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;

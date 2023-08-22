@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.util;
+package cn.teampancake.theaurorian.utils;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;

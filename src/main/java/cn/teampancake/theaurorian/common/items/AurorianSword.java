@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.common.util.EntityHelper;
+import cn.teampancake.theaurorian.utils.EntityHelper;
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.network.chat.Component;

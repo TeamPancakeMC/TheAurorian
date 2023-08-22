@@ -21,10 +21,10 @@ public class AurorianMod {
 
     public AurorianMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AurorianConfig.SPEC, "theaurorian/TheAurorian.toml");
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
         ModEnchantments.ENCHANTMENTS.register(modEventBus);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AurorianConfig.SPEC, "theaurorian/TheAurorian.toml");
         MinecraftForge.EVENT_BUS.register(this);
     }
 

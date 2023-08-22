@@ -2,8 +2,6 @@ package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.common.util.EntityHelper;
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -54,11 +52,7 @@ public class AurorianSword extends SwordItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> tooltip, TooltipFlag pIsAdvanced) {
-        if (!Screen.hasShiftDown()) {
-            tooltip.add(Component.translatable("string.theaurorian.tooltip.shiftinfo").withStyle(ChatFormatting.ITALIC));
-        } else {
-            tooltip.add(Component.translatable("string.theaurorian.tooltip.aurorianitesword"));
-        }
+    public void appendHoverText(ItemStack stack, @Nullable Level pLevel, List<Component> tooltip, TooltipFlag pIsAdvanced) {
+        ModItems.appendTooltip(stack, tooltip);
     }
 }

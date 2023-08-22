@@ -1,8 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,7 +28,7 @@ public class AurorianAxe extends AxeItem {
     @Override
     @ParametersAreNonnullByDefault
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        if (!level.isClientSide && state.getDestroyProgress((ServerPlayer)entityLiving,level,pos) != 0.0F) {
+        if (!level.isClientSide && state.getDestroySpeed(level,pos) != 0.0F) {
             if (state.is(BlockTags.LOGS)) {
                 chopTree(level, pos, stack, (ServerPlayer) entityLiving);
             } else {
@@ -91,10 +89,6 @@ public class AurorianAxe extends AxeItem {
     @OnlyIn(Dist.CLIENT)
     @ParametersAreNonnullByDefault
     public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
-        if (!Screen.hasShiftDown()) {
-            tooltip.add(Component.translatable("string.theaurorian.tooltip.shiftinfo").withStyle(ChatFormatting.ITALIC));
-        } else {
-            tooltip.add(Component.translatable("string.theaurorian.tooltip.aurorianiteaxe"));
-        }
+        ModItems.appendTooltip(stack, tooltip);
     }
 }

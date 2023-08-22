@@ -2,11 +2,15 @@ package cn.teampancake.theaurorian.event;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.ModArmorMaterials;
+import cn.teampancake.theaurorian.common.items.UmbraShield;
 import cn.teampancake.theaurorian.utils.AurorianSteelHelper;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -27,4 +31,15 @@ public class EntityEventSubscriber {
         }
     }
 
+    @SubscribeEvent
+    public static void onShieldBlock(ShieldBlockEvent event) {
+        LivingEntity livingEntity = event.getEntity();
+        DamageSource damageSource = event.getDamageSource();
+        Entity entity = damageSource.getEntity();
+        if (livingEntity.getUseItem().getItem() instanceof UmbraShield){
+            if (entity != null) {
+                entity.setSecondsOnFire(3);
+            }
+        }
+    }
 }

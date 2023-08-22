@@ -1,8 +1,10 @@
 package cn.teampancake.theaurorian.utils;
 
+import cn.teampancake.theaurorian.common.items.AbstractTooltipsItem;
 import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.level.block.Block;
@@ -13,8 +15,13 @@ import java.util.function.Supplier;
 
 public class ModItemRegUtils {
 
-    public static RegistryObject<Item> normal(String name) {
-        return ModItems.ITEMS.register(name, () -> new Item(new Item.Properties()));
+    public static RegistryObject<Item> normal(String name, boolean hasTooltips) {
+        return ModItems.ITEMS.register(name, () -> new AbstractTooltipsItem(new Item.Properties(), hasTooltips));
+    }
+
+    public static RegistryObject<Item> food(String name, int nutrition, float saturation, boolean hasTooltips) {
+        return ModItems.ITEMS.register(name, () -> new AbstractTooltipsItem(new Item.Properties().food(
+                new FoodProperties.Builder().nutrition(nutrition).saturationMod(saturation).build()), hasTooltips));
     }
 
     public static RegistryObject<Item> alias(String name, RegistryObject<Block> block) {

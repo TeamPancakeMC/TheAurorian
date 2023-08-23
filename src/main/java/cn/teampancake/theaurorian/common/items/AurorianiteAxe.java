@@ -1,33 +1,26 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AurorianAxe extends AxeItem {
+public class AurorianiteAxe extends AxeItem implements ITooltipsItem{
 
-    public AurorianAxe(Tier pTier, Properties properties) {
-        //TODO ItemRegistry.Materials.AURORIANITE
-        super(pTier, 12.0F, -3.5F, properties);
-        properties.rarity(Rarity.EPIC);
+    public AurorianiteAxe() {
+        super(ModToolTiers.AURORIANITE, 12.0F, -3.5F,new Properties().rarity(Rarity.EPIC));
     }
 
     @Override
-    @ParametersAreNonnullByDefault
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if (!level.isClientSide && state.getDestroySpeed(level,pos) != 0.0F) {
             if (state.is(BlockTags.LOGS)) {
@@ -85,12 +78,6 @@ public class AurorianAxe extends AxeItem {
             stack.hurt(1, level.random ,serverPlayer);
         }
 
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @ParametersAreNonnullByDefault
-    public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
-        ModItems.appendTooltip(stack, tooltip);
     }
 
 }

@@ -6,9 +6,8 @@ import net.minecraft.world.item.ShieldItem;
 import org.jetbrains.annotations.NotNull;
 
 public class CeruleanShield extends ShieldItem{
-    public CeruleanShield(Properties properties) {
-        super(properties);
-        properties.defaultDurability(512);
+    public CeruleanShield() {
+        super(new Properties().defaultDurability(512));
     }
 
     @Override

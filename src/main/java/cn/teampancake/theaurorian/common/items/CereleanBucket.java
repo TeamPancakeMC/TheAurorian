@@ -6,9 +6,8 @@ import net.minecraft.world.level.material.Fluid;
 import java.util.function.Supplier;
 
 public class CereleanBucket extends BucketItem {
-    public CereleanBucket(Supplier<? extends Fluid> supplier, Properties builder) {
-        super(supplier, builder);
-        builder.stacksTo(1);
+    public CereleanBucket(Supplier<? extends Fluid> supplier) {
+        super(supplier, new Properties().stacksTo(1));
     }
 
     //TODO Method Use

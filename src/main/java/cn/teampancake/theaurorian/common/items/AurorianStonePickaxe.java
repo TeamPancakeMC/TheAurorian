@@ -1,25 +1,18 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.registry.ModBlocks;
-import cn.teampancake.theaurorian.registry.ModItems;
 import cn.teampancake.theaurorian.utils.AurorianUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
-import java.util.List;
 import java.util.function.Consumer;
 
-public class AurorianStonePickaxe extends PickaxeItem {
+public class AurorianStonePickaxe extends PickaxeItem implements ITooltipsItem{
 
     public AurorianStonePickaxe() {
         super(ModToolTiers.AURORIAN_STONE, 1, -2.8F, new Properties());
@@ -38,11 +31,6 @@ public class AurorianStonePickaxe extends PickaxeItem {
             }
         }
         return true;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flag) {
-        ModItems.appendTooltip(stack, tooltip);
     }
 
 }

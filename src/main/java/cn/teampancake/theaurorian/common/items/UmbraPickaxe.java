@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class UmbraPickaxe extends PickaxeItem implements ITooltipsItem {
 
-    public UmbraPickaxe(Tier pTier, Properties pProperties) {
+    public UmbraPickaxe(Tier pTier) {
         super(pTier, 5, 1.2f, new Properties().rarity(Rarity.EPIC));
     }
 

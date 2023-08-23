@@ -1,7 +1,5 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.registry.ModItems;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -10,28 +8,21 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
+public class BepsiItem extends Item implements ITooltipsItem{
 
-@ParametersAreNonnullByDefault
-public class BepsiItem extends Item {
+    public BepsiItem() {
+        super(new Properties().stacksTo(1)
+                .food(new FoodProperties.Builder()
+                        .nutrition(0)
+                        .saturationMod(0)
+                        .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F)
+                        .alwaysEat()
+                        .build()));
 
-    public BepsiItem(Properties pProperties) {
-        super(pProperties);
-        pProperties.stacksTo(1);
-
-        FoodProperties.Builder builder = new FoodProperties.Builder()
-                .nutrition(0)
-                .saturationMod(0)
-                .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F)
-                .alwaysEat();
-        pProperties.food(builder.build());
     }
 
     @Override
@@ -44,10 +35,5 @@ public class BepsiItem extends Item {
     @Override
     public @NotNull UseAnim getUseAnimation(ItemStack pStack) {
         return UseAnim.DRINK;
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level pLevel, List<Component> tooltip, TooltipFlag pIsAdvanced) {
-        ModItems.appendTooltip(stack, tooltip);
     }
 }

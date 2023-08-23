@@ -1,9 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.utils.EntityHelper;
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.registry.ModItems;
-import net.minecraft.network.chat.Component;
+import cn.teampancake.theaurorian.utils.EntityHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -13,22 +11,20 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-@ParametersAreNonnullByDefault
-public class AurorianSword extends SwordItem {
+public class AurorianiteSword extends SwordItem implements ITooltipsItem{
 
-    public AurorianSword(Tier tier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties properties) {
-        super(tier, pAttackDamageModifier, pAttackSpeedModifier, properties);
-        properties.rarity(Rarity.EPIC);
+    public AurorianiteSword() {
+        super(ModToolTiers.AURORIANITE, 4, -2.4F,new Properties().rarity(Rarity.EPIC));
     }
 
     @Override
@@ -52,10 +48,4 @@ public class AurorianSword extends SwordItem {
 
         return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(pUsedHand));
     }
-
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level pLevel, List<Component> tooltip, TooltipFlag pIsAdvanced) {
-        ModItems.appendTooltip(stack, tooltip);
-    }
-
 }

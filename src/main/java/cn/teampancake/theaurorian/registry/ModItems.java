@@ -1,10 +1,7 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.items.AurorianStoneAxe;
-import cn.teampancake.theaurorian.common.items.AurorianStonePickaxe;
-import cn.teampancake.theaurorian.common.items.ModArmorMaterials;
-import cn.teampancake.theaurorian.common.items.ModToolTiers;
+import cn.teampancake.theaurorian.common.items.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -20,6 +17,7 @@ import static cn.teampancake.theaurorian.utils.ModItemRegUtils.food;
 import static cn.teampancake.theaurorian.utils.ModItemRegUtils.normal;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
+@SuppressWarnings("unused")
 public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AurorianMod.MOD_ID);
@@ -91,7 +89,14 @@ public class ModItems {
     public static final RegistryObject<Item> SPECTRAL_CHESTPLATE = ITEMS.register("spectral_chestplate", () -> new ArmorItem(SPECTRAL, CHESTPLATE, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> SPECTRAL_LEGGINGS = ITEMS.register("spectral_leggings", () -> new ArmorItem(SPECTRAL, LEGGINGS, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> SPECTRAL_BOOTS = ITEMS.register("spectral_boots", () -> new ArmorItem(SPECTRAL, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
-    //public static final RegistryObject<Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", () -> new AbsorptionOrbItem(new Item.Properties()));
+    public static final RegistryObject<Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrbItem::new);
+    public static final RegistryObject<Item> DARK_AMULET = normal("dark_amulet", true);
+    public static final RegistryObject<Item> KEEPER_AMULET= normal("keeper_amulet", true);
+    public static final RegistryObject<Item> AURORIANITE_AXE = ITEMS.register("aurorianite_axe", AurorianiteAxe::new);
+    public static final RegistryObject<Item> AURORIANITE_SWORD = ITEMS.register("aurorianite_sword", AurorianiteSword::new);
+    public static final RegistryObject<Item> BEPSI_ITEM = ITEMS.register("bepsi", BepsiItem::new);
+    public static final RegistryObject<Item> CERULEAN_SHIELD=ITEMS.register("cerulean_shield",CeruleanShield::new);
+    public static final RegistryObject<Item> CRYSTALLINE_PICKAXE=ITEMS.register("crystalline_pickaxe",CrystallinePickaxe::new);
 
     public static void appendTooltip(ItemStack stack, List<Component> tooltip){
         if (!Screen.hasShiftDown()) {

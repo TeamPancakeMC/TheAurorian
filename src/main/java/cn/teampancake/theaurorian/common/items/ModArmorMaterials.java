@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.registry.ModItems;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -13,12 +12,9 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumMap;
 import java.util.function.Supplier;
 
-@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 @SuppressWarnings("deprecation")
 public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
 

@@ -27,6 +27,8 @@ public class AurorianiteSword extends SwordItem implements ITooltipsItem{
         super(ModToolTiers.AURORIANITE, 4, -2.4F,new Properties().rarity(Rarity.EPIC));
     }
 
+
+
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand pUsedHand) {
         if (player.getItemInHand(pUsedHand).isEmpty() || player.isCrouching()) {
@@ -34,7 +36,7 @@ public class AurorianiteSword extends SwordItem implements ITooltipsItem{
             for (LivingEntity e : entities) {
                 if (!e.getType().is(Tags.EntityTypes.BOSSES)) {
                     e.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 60));
-                    e.moveTo(new Vec3(0,0.5D,0));
+                    e.moveTo(new Vec3(e.getX(),e.getY()+0.5D,e.getZ()));
                 }
             }
             if (level.isClientSide) {

@@ -17,8 +17,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Random;
 
 import static cn.teampancake.theaurorian.common.items.ModArmorMaterials.*;
-import static cn.teampancake.theaurorian.utils.ModItemRegUtils.food;
-import static cn.teampancake.theaurorian.utils.ModItemRegUtils.normal;
+import static cn.teampancake.theaurorian.utils.ModItemRegUtils.*;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
 @SuppressWarnings("unused")
@@ -115,7 +114,7 @@ public class ModItems {
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F).build())));
     public static final RegistryObject<Item> LAVENDER_TEA = ITEMS.register("lavender_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
-    public static final RegistryObject<Item> SILKBERRY_TEA = ITEMS.register("silkberry_tea", () -> new TeaFood(new Item.Properties()
+    public static final RegistryObject<Item> SILKBERRY_TEA = ITEMS.register("silk_berry_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 100 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
     public static final RegistryObject<Item> SEEDY_TEA = ITEMS.register("seedy_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
@@ -126,5 +125,16 @@ public class ModItems {
     public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F)));
     public static final RegistryObject<Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(new Item.Properties().rarity(Rarity.EPIC), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 1.5F, 1.0F));
     public static final RegistryObject<Item> AURORIAN_STEEL_HELMET_SPIKED = ITEMS.register("aurorian_steel_helmet_spiked", SpikedItemArmor::new);
+    public static final RegistryObject<Item> SPECTRAL_SUIT_HELMET = ITEMS.register("spectral_suit_helmet", () -> new ArmorItem(SPECTRAL, HELMET, new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SPECTRAL_SUIT_CHESTPLATE = ITEMS.register("spectral_suit_chestplate", () -> new ArmorItem(SPECTRAL, CHESTPLATE, new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SPECTRAL_SUIT_LEGGINGS = ITEMS.register("spectral_suit_leggings", () -> new ArmorItem(SPECTRAL, LEGGINGS, new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SPECTRAL_SUIT_BOOTS = ITEMS.register("spectral_suit_boots", () -> new ArmorItem(SPECTRAL, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> AURORIAN_SLIME_BOOTS = ITEMS.register("aurorian_slime_boots", () -> new ArmorItem(ModArmorMaterials.AURORIAN_SLIME, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SILKBERRY = alias("silk_berry", ModBlocks.SILKBERRY, new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
+    public static final RegistryObject<Item> SILENTWOOD_SWORD = ITEMS.register("silent_wood_sword", () -> new SwordItem(ModToolTiers.SILENT_WOOD, 4, -1.6F, new Item.Properties()));
+    public static final RegistryObject<Item> SILENTWOOD_STICK = ITEMS.register("silent_wood_stick", SilentWoodStickItem::new);
+    public static final RegistryObject<Item> AURORIAN_STEEL_SICKLE = ITEMS.register("silent_wood_sickle", () -> new ShearsItem(new Item.Properties()));
+    public static final RegistryObject<Item> SILENTWOOD_SHOVEL = ITEMS.register("silent_wood_shovel", () -> new ShovelItem(ModToolTiers.SILENT_WOOD, 1.5F, -3.0F, new Item.Properties()));
+    public static final RegistryObject<Item> SILENTWOOD_HOE = ITEMS.register("silent_wood_hoe", () -> new HoeItem(ModToolTiers.SILENT_WOOD, -2, -1.0F, new Item.Properties()));
 
 }

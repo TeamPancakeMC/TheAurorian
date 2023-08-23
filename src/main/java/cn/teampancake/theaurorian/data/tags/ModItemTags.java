@@ -6,6 +6,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 public class ModItemTags {
+    public static final TagKey<Item> SPECTRAL_ARMOR = create("spectral_armor");
+    public static final TagKey<Item> AURORIAN_SLIME_BOOTS = create("aurorian_slime_boots");
 
     private static TagKey<Item> create(String name) {
         return ItemTags.create(AurorianMod.prefix(name));

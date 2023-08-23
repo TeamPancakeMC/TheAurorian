@@ -14,16 +14,14 @@ import java.util.Objects;
 
 public class UmbraPickaxe extends PickaxeItem implements ITooltipsItem {
 
-    public UmbraPickaxe(Tier pTier) {
-        super(pTier, 5, 1.2f, new Properties().rarity(Rarity.EPIC));
+    public UmbraPickaxe() {
+        super(ModToolTiers.UMBRA, 5, 1.2f, new Properties().rarity(Rarity.EPIC));
     }
 
     @Override
     public float getDestroySpeed(ItemStack pStack, BlockState pState) {
-        if (getSelectedBlock(pStack) != null) {
-            if (pState.getBlock() == getSelectedBlock(pStack)) {
-                return (float) (super.getDestroySpeed(pStack, pState) * AurorianConfig.Config_UmbraPickaxeMiningSpeedMultiplier.get());
-            }
+        if (pState.getBlock() == getSelectedBlock(pStack)) {
+            return (float) (super.getDestroySpeed(pStack, pState) * AurorianConfig.Config_UmbraPickaxeMiningSpeedMultiplier.get());
         }
         return super.getDestroySpeed(pStack, pState);
     }
@@ -36,6 +34,6 @@ public class UmbraPickaxe extends PickaxeItem implements ITooltipsItem {
     private Block getSelectedBlock(ItemStack stack) {
         String string = stack.getOrCreateTag().getString("selectedBlock");
         if (string.isEmpty()) return null;
-        return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(string));
+        return Objects.requireNonNull(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(string)));
     }
 }

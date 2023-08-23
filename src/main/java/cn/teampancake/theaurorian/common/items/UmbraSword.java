@@ -17,8 +17,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class UmbraSword extends SwordItem implements ITooltipsItem {
 
-    public UmbraSword(Tier pTier) {
-        super(pTier, 7, 1.6f, new Properties().rarity(Rarity.EPIC));
+    public UmbraSword() {
+        super(ModToolTiers.UMBRA, 7, 1.6f, new Properties().rarity(Rarity.EPIC));
     }
 
     @Override

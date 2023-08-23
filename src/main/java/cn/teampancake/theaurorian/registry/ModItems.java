@@ -2,15 +2,24 @@ package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.*;
+import cn.teampancake.theaurorian.config.AurorianConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.Snowball;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
+import java.util.Random;
 
 import static cn.teampancake.theaurorian.common.items.ModArmorMaterials.*;
 import static cn.teampancake.theaurorian.utils.ModItemRegUtils.food;
@@ -94,9 +103,29 @@ public class ModItems {
     public static final RegistryObject<Item> KEEPER_AMULET= normal("keeper_amulet", true);
     public static final RegistryObject<Item> AURORIANITE_AXE = ITEMS.register("aurorianite_axe", AurorianiteAxe::new);
     public static final RegistryObject<Item> AURORIANITE_SWORD = ITEMS.register("aurorianite_sword", AurorianiteSword::new);
-    public static final RegistryObject<Item> BEPSI_ITEM = ITEMS.register("bepsi", BepsiItem::new);
     public static final RegistryObject<Item> CERULEAN_SHIELD=ITEMS.register("cerulean_shield",CeruleanShield::new);
     public static final RegistryObject<Item> CRYSTALLINE_PICKAXE=ITEMS.register("crystalline_pickaxe",CrystallinePickaxe::new);
+
+    public static final RegistryObject<Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap",WeepingWillowSap::new);
+    public static final RegistryObject<Item> UMBRA_SWORD = ITEMS.register("umbra_sword", UmbraSword::new);
+    public static final RegistryObject<Item> UMBRA_SHIELD = ITEMS.register("umbra_shield", UmbraShield::new);
+    public static final RegistryObject<Item> UMBRA_PICKAXE = ITEMS.register("umbra_pickaxe", UmbraPickaxe::new);
+    public static final RegistryObject<Item> TEA_CUP = normal("tea_cup", false);
+    public static final RegistryObject<Item> BEPSI = ITEMS.register("bepsi", () -> new TeaFood(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F).build())));
+    public static final RegistryObject<Item> LAVENDER_TEA = ITEMS.register("lavender_tea", () -> new TeaFood(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
+    public static final RegistryObject<Item> SILKBERRY_TEA = ITEMS.register("silkberry_tea", () -> new TeaFood(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 100 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
+    public static final RegistryObject<Item> SEEDY_TEA = ITEMS.register("seedy_tea", () -> new TeaFood(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
+
+    public static final RegistryObject<Item> PETUNIA_TEA = ITEMS.register("petunia_tea", () -> new TeaFood(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 300 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
+
+    public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F)));
+    public static final RegistryObject<Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(new Item.Properties().rarity(Rarity.EPIC), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 1.5F, 1.0F));
+    public static final RegistryObject<Item> AURORIAN_STEEL_HELMET_SPIKED = ITEMS.register("aurorian_steel_helmet_spiked", SpikedItemArmor::new);
 
     public static void appendTooltip(ItemStack stack, List<Component> tooltip){
         if (!Screen.hasShiftDown()) {
@@ -105,5 +134,8 @@ public class ModItems {
             tooltip.add(Component.translatable("string.theaurorian.tooltip." + stack.getItem()));
         }
     }
-
 }
+
+
+
+

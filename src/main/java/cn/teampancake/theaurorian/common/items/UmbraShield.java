@@ -26,7 +26,7 @@ public class UmbraShield extends ShieldItem implements ITooltipsItem{
     private static final double PARTICLE_DISTANCE = 0.1f;
     private static final double REACH = 1.5;
 
-    public UmbraShield(Properties pProperties) {
+    public UmbraShield() {
         super(new Properties().durability(512));
     }
 

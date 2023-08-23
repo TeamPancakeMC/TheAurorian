@@ -31,18 +31,24 @@ public class ItemEventSubscriber {
         if (stack.getItem() instanceof ITooltipsItem tooltipsItem && tooltipsItem.isHasTooltips()) {
             showTooltips(tooltip, ForgeRegistries.ITEMS.getKey(stack.getItem()));
         }
-        if (stack.getItem() instanceof ArmorItem || stack.getItem() instanceof TieredItem) {
-            ArmorItem armorItem = (ArmorItem) stack.getItem();
-            TieredItem tieredItem = (TieredItem) stack.getItem();
+
+        Ingredient repairItem = null;
+        if (stack.getItem() instanceof ArmorItem armorItem){
             if (armorItem.getMaterial() == ModArmorMaterials.SPECTRAL) {
                 showTooltips(tooltip, ForgeRegistries.ITEMS.getKey(armorItem));
+                repairItem = armorItem.getMaterial().getRepairIngredient();
             }
-            boolean flag1 = armorItem.getMaterial().getRepairIngredient() == Ingredient.of(ModItems.AURORIAN_STEEL.get());
-            boolean flag2 = tieredItem.getTier().getRepairIngredient() == Ingredient.of(ModItems.AURORIAN_STEEL.get());
-            Level level = event.getEntity() == null ? null : event.getEntity().level();
-            if ((flag1 || flag2)) {
-                AurorianSteelHelper.getAurorianSteelInfo(stack, level, tooltip);
-            }
+        } else if (stack.getItem() instanceof TieredItem tieredItem) {
+            repairItem = tieredItem.getTier().getRepairIngredient();
+        }
+        Level level = event.getEntity() == null ? null : event.getEntity().level();
+
+        if (repairItem == Ingredient.of(ModItems.AURORIAN_STEEL.get())) {
+            AurorianSteelHelper.getAurorianSteelInfo(stack, level, tooltip);
+        }
+
+        if(repairItem == Ingredient.of(ModItems.CRYSTALLINE_INGOT.get())){
+
         }
     }
 

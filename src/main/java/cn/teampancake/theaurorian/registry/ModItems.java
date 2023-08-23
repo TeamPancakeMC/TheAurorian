@@ -3,9 +3,6 @@ package cn.teampancake.theaurorian.registry;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.*;
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,7 +14,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.List;
 import java.util.Random;
 
 import static cn.teampancake.theaurorian.common.items.ModArmorMaterials.*;
@@ -25,6 +21,7 @@ import static cn.teampancake.theaurorian.utils.ModItemRegUtils.food;
 import static cn.teampancake.theaurorian.utils.ModItemRegUtils.normal;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
+@SuppressWarnings("unused")
 public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AurorianMod.MOD_ID);

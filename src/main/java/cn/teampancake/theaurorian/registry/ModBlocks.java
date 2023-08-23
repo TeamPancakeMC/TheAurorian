@@ -18,6 +18,14 @@ import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.of
 public class ModBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AurorianMod.MOD_ID);
+    public static final RegistryObject<LiquidBlock> MOLTEN_AURORIAN_STEEL_BLOCK = BLOCKS.register("molten_aurorian_steel_block",
+            () -> new LiquidBlock(ModFluids.MOLTEN_AURORIAN_STEEL_STILL, copy(Blocks.LAVA)));
+    public static final RegistryObject<LiquidBlock> MOLTEN_CERULEAN_BLOCK = BLOCKS.register("molten_cerulean_block",
+            () -> new LiquidBlock(ModFluids.MOLTEN_CERULEAN_STILL, copy(Blocks.LAVA)));
+    public static final RegistryObject<LiquidBlock> MOLTEN_MOONSTONE_BLOCK = BLOCKS.register("molten_moonstone_block",
+            () -> new LiquidBlock(ModFluids.MOLTEN_MOONSTONE_STILL, copy(Blocks.LAVA)));
+    public static final RegistryObject<LiquidBlock> MOON_WATER_BLOCK = BLOCKS.register("moon_water_block",
+            () -> new LiquidBlock(ModFluids.MOON_WATER_STILL, copy(Blocks.WATER)));
     public static final RegistryObject<Block> AURORIAN_STONE = normal("aurorian_stone", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_STONE_BRICKS = normal("aurorian_stone_bricks", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_COBBLESTONE = normal("aurorian_cobblestone", defaultStoneProperties(2.0F));

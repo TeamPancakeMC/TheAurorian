@@ -47,6 +47,11 @@ public class ModItems {
     public static final RegistryObject<Item> TROPHY_KEEPER = normal("trophy_keeper", true);
     public static final RegistryObject<Item> TROPHY_MOON_QUEEN = normal("trophy_moon_queen", true);
     public static final RegistryObject<Item> TROPHY_SPIDER = normal("trophy_spider", true);
+    public static final RegistryObject<Item> DARK_AMULET = ITEMS.register("dark_amulet",
+            () -> new AbstractSpecialItem(new Item.Properties(), true, true));
+    public static final RegistryObject<Item> KEEPER_AMULET= ITEMS.register("keeper_amulet",
+            () -> new AbstractSpecialItem(new Item.Properties(), true, true));
+
     public static final RegistryObject<Item> SILK_BERRY_JAM = food("silk_berry_jam", 2, 0.5F, false);
     public static final RegistryObject<Item> SILK_BERRY_JAM_SANDWICH = food("silk_berry_jam_sandwich", 6, 0.9F, true);
     public static final RegistryObject<Item> AURORIAN_PORK = food("aurorian_pork", 3, 0.3F, false);
@@ -99,8 +104,6 @@ public class ModItems {
     public static final RegistryObject<Item> SPECTRAL_BOOTS = ITEMS.register("spectral_boots", () -> new ArmorItem(SPECTRAL, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrbItem::new);
-    public static final RegistryObject<Item> DARK_AMULET = normal("dark_amulet", true);
-    public static final RegistryObject<Item> KEEPER_AMULET= normal("keeper_amulet", true);
     public static final RegistryObject<Item> AURORIANITE_SWORD = ITEMS.register("aurorianite_sword", AurorianiteSword::new);
     public static final RegistryObject<Item> CERULEAN_SHIELD=ITEMS.register("cerulean_shield",CeruleanShield::new);
     public static final RegistryObject<Item> CRYSTALLINE_PICKAXE=ITEMS.register("crystalline_pickaxe",CrystallinePickaxe::new);
@@ -113,14 +116,17 @@ public class ModItems {
     public static final RegistryObject<Item> BEPSI = ITEMS.register("bepsi", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F).build())));
     public static final RegistryObject<Item> LAVENDER_TEA = ITEMS.register("lavender_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,
+                    300 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
     public static final RegistryObject<Item> SILKBERRY_TEA = ITEMS.register("silk_berry_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 100 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.REGENERATION,
+                    100 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
     public static final RegistryObject<Item> SEEDY_TEA = ITEMS.register("seedy_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
-
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED,
+                    200 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
     public static final RegistryObject<Item> PETUNIA_TEA = ITEMS.register("petunia_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 300 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST,
+                    300 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
 
     public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F)));
     public static final RegistryObject<Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(new Item.Properties().rarity(Rarity.EPIC), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 1.5F, 1.0F));
@@ -130,7 +136,7 @@ public class ModItems {
     public static final RegistryObject<Item> SPECTRAL_SUIT_LEGGINGS = ITEMS.register("spectral_suit_leggings", () -> new ArmorItem(SPECTRAL, LEGGINGS, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> SPECTRAL_SUIT_BOOTS = ITEMS.register("spectral_suit_boots", () -> new ArmorItem(SPECTRAL, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> AURORIAN_SLIME_BOOTS = ITEMS.register("aurorian_slime_boots", () -> new ArmorItem(ModArmorMaterials.AURORIAN_SLIME, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
-    public static final RegistryObject<Item> SILKBERRY = alias("silk_berry", ModBlocks.SILKBERRY, new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
+    public static final RegistryObject<Item> SILKBERRY = alias("silk_berry", ModBlocks.SILK_BERRY_PLANT, new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
     public static final RegistryObject<Item> SILENTWOOD_SWORD = ITEMS.register("silent_wood_sword", () -> new SwordItem(ModToolTiers.SILENT_WOOD, 4, -1.6F, new Item.Properties()));
     public static final RegistryObject<Item> SILENTWOOD_STICK = ITEMS.register("silent_wood_stick", SilentWoodStickItem::new);
     public static final RegistryObject<Item> AURORIAN_STEEL_SICKLE = ITEMS.register("silent_wood_sickle", () -> new ShearsItem(new Item.Properties()));

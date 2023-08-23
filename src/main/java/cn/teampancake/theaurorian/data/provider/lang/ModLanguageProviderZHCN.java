@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.data.provider.lang;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.enchantment.ModEnchantments;
+import cn.teampancake.theaurorian.registry.ModEnchantments;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.event;
 
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.enchantment.ModEnchantments;
+import cn.teampancake.theaurorian.registry.ModEnchantments;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;

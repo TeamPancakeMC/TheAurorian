@@ -1,6 +1,8 @@
-package cn.teampancake.theaurorian.enchantment;
+package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.enchantments.LightningDamage;
+import cn.teampancake.theaurorian.common.enchantments.LightningResistance;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

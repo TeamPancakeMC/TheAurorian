@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.enchantment;
+package cn.teampancake.theaurorian.common.enchantments;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.AxeItem;
@@ -15,8 +15,7 @@ public class LightningDamage extends Enchantment {
 	private static final int LEVEL_MAX = 20;
 	private static final int TIERS_MAX = 4;
 
-
-	protected LightningDamage() {
+	public LightningDamage() {
 		super(Enchantment.Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] { EquipmentSlot.MAINHAND });
 	}
 

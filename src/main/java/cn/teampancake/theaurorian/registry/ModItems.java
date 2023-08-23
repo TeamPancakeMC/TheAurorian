@@ -11,7 +11,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
@@ -26,7 +25,6 @@ import static cn.teampancake.theaurorian.utils.ModItemRegUtils.food;
 import static cn.teampancake.theaurorian.utils.ModItemRegUtils.normal;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
-@SuppressWarnings("unused")
 public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AurorianMod.MOD_ID);
@@ -62,7 +60,7 @@ public class ModItems {
     public static final RegistryObject<Item> SILK_SHROOM_STEW = food("silk_shroom_stew", 6, 1F, false);
     public static final RegistryObject<Item> LAVENDER_BREAD = food("lavender_bread", 4, 0.4F, false);
     public static final RegistryObject<Item> SOULLESS_FLESH = food("soulless_flesh", 2, 0.1F, false);
-    //Weapon and Tools
+    //Sword and Tools
     public static final RegistryObject<Item> AURORIAN_STEEL_SWORD = ITEMS.register("aurorian_steel_sword",
             () -> new SwordItem(ModToolTiers.AURORIAN_STEEL, 3, -2.4F, new Item.Properties()));
     public static final RegistryObject<Item> AURORIAN_STEEL_SHOVEL = ITEMS.register("aurorian_steel_shovel",
@@ -81,6 +79,11 @@ public class ModItems {
     public static final RegistryObject<Item> AURORIAN_STONE_AXE = ITEMS.register("aurorian_stone_axe", AurorianStoneAxe::new);
     public static final RegistryObject<Item> AURORIAN_STONE_HOE = ITEMS.register("aurorian_stone_hoe",
             () -> new HoeItem(ModToolTiers.AURORIAN_STONE, -1, -1.0F, new Item.Properties()));
+    public static final RegistryObject<Item> AURORIAN_STONE_SICKLE = ITEMS.register("aurorian_stone_sickle",
+            () -> new ShearsItem(new Item.Properties().durability(150)));
+    public static final RegistryObject<Item> AURORIANITE_PICKAXE = ITEMS.register("aurorianite_pickaxe",
+            () -> new PickaxeItem(ModToolTiers.AURORIANITE, 1, -3.0F, new Item.Properties().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> AURORIANITE_AXE = ITEMS.register("aurorianite_axe", AurorianiteAxe::new);
     //Armor Item
     public static final RegistryObject<Item> AURORIAN_STEEL_HELMET = ITEMS.register("aurorian_steel_helmet", () -> new ArmorItem(ModArmorMaterials.AURORIAN_STEEL, HELMET, new Item.Properties()));
     public static final RegistryObject<Item> AURORIAN_STEEL_CHESTPLATE = ITEMS.register("aurorian_steel_chestplate", () -> new ArmorItem(ModArmorMaterials.AURORIAN_STEEL, CHESTPLATE, new Item.Properties()));
@@ -98,10 +101,10 @@ public class ModItems {
     public static final RegistryObject<Item> SPECTRAL_CHESTPLATE = ITEMS.register("spectral_chestplate", () -> new ArmorItem(SPECTRAL, CHESTPLATE, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> SPECTRAL_LEGGINGS = ITEMS.register("spectral_leggings", () -> new ArmorItem(SPECTRAL, LEGGINGS, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> SPECTRAL_BOOTS = ITEMS.register("spectral_boots", () -> new ArmorItem(SPECTRAL, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
-    public static final RegistryObject<Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrbItem::new);
+
+    //public static final RegistryObject<Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrbItem::new);
     public static final RegistryObject<Item> DARK_AMULET = normal("dark_amulet", true);
     public static final RegistryObject<Item> KEEPER_AMULET= normal("keeper_amulet", true);
-    public static final RegistryObject<Item> AURORIANITE_AXE = ITEMS.register("aurorianite_axe", AurorianiteAxe::new);
     public static final RegistryObject<Item> AURORIANITE_SWORD = ITEMS.register("aurorianite_sword", AurorianiteSword::new);
     public static final RegistryObject<Item> CERULEAN_SHIELD=ITEMS.register("cerulean_shield",CeruleanShield::new);
     public static final RegistryObject<Item> CRYSTALLINE_PICKAXE=ITEMS.register("crystalline_pickaxe",CrystallinePickaxe::new);
@@ -127,15 +130,4 @@ public class ModItems {
     public static final RegistryObject<Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(new Item.Properties().rarity(Rarity.EPIC), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 1.5F, 1.0F));
     public static final RegistryObject<Item> AURORIAN_STEEL_HELMET_SPIKED = ITEMS.register("aurorian_steel_helmet_spiked", SpikedItemArmor::new);
 
-    public static void appendTooltip(ItemStack stack, List<Component> tooltip){
-        if (!Screen.hasShiftDown()) {
-            tooltip.add(Component.translatable("string.theaurorian.tooltip.shiftinfo").withStyle(ChatFormatting.ITALIC));
-        } else {
-            tooltip.add(Component.translatable("string.theaurorian.tooltip." + stack.getItem()));
-        }
-    }
 }
-
-
-
-

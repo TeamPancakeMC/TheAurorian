@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.utils;
 
-import cn.teampancake.theaurorian.common.items.AbstractTooltipsItem;
+import cn.teampancake.theaurorian.common.items.AbstractSpecialItem;
 import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -16,11 +16,11 @@ import java.util.function.Supplier;
 public class ModItemRegUtils {
 
     public static RegistryObject<Item> normal(String name, boolean hasTooltips) {
-        return ModItems.ITEMS.register(name, () -> new AbstractTooltipsItem(new Item.Properties(), hasTooltips));
+        return ModItems.ITEMS.register(name, () -> new AbstractSpecialItem(new Item.Properties(), hasTooltips));
     }
 
     public static RegistryObject<Item> food(String name, int nutrition, float saturation, boolean hasTooltips) {
-        return ModItems.ITEMS.register(name, () -> new AbstractTooltipsItem(new Item.Properties().food(
+        return ModItems.ITEMS.register(name, () -> new AbstractSpecialItem(new Item.Properties().food(
                 new FoodProperties.Builder().nutrition(nutrition).saturationMod(saturation).build()), hasTooltips));
     }
 

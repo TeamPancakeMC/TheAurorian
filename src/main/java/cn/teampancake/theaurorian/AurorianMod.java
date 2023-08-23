@@ -1,9 +1,6 @@
 package cn.teampancake.theaurorian;
 
-import cn.teampancake.theaurorian.registry.ModBlocks;
-import cn.teampancake.theaurorian.registry.ModFluidTypes;
-import cn.teampancake.theaurorian.registry.ModFluids;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.registry.*;
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.enchantment.ModEnchantments;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +20,9 @@ public class AurorianMod {
 
     public AurorianMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AurorianConfig.SPEC, "theaurorian/TheAurorian.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON,
+                AurorianConfig.SPEC, "theaurorian/TheAurorian.toml");
+        ModTabs.TABS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
         ModFluids.FLUIDS.register(modEventBus);

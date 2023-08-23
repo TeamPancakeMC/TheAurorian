@@ -3,8 +3,12 @@ package cn.teampancake.theaurorian.event;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.ModArmorMaterials;
 import cn.teampancake.theaurorian.common.items.UmbraShield;
+import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.utils.AurorianSteelHelper;
+import cn.teampancake.theaurorian.utils.AurorianUtil;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
@@ -29,6 +33,25 @@ public class EntityEventSubscriber {
                 }
             }
         }
+        DamageSource source = event.getSource();
+        if (source.getEntity() instanceof LivingEntity livingEntity) {
+            float chance = 0.00F;
+            for (ItemStack piece : livingEntity.getArmorSlots()) {
+                if (piece.getItem() instanceof ArmorItem armorItem) {
+                    if (armorItem.getMaterial() == ModArmorMaterials.SPECTRAL) {
+                        chance += AurorianConfig.CONFIG_SPECTRAL_ARMOR_CLEANSE_CHANCE.get();
+                    }
+                }
+            }
+            if (chance != 0.00F && AurorianUtil.randomChanceOf(chance)) {
+                for (MobEffectInstance effectInstance : livingEntity.getActiveEffects()) {
+                    if (effectInstance.getEffect().getCategory() == MobEffectCategory.HARMFUL) {
+                        livingEntity.removeEffect(effectInstance.getEffect());
+                    }
+                }
+            }
+        }
+
     }
 
     @SubscribeEvent

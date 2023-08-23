@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "theaurorian.refmap.json",
   "mixins": [
+    "MixinDiggerItem",
+    "MixinSwordItem"
   ],
   "client": [
   ],

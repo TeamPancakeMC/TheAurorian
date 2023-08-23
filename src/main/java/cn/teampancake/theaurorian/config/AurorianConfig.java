@@ -77,7 +77,6 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.IntValue Config_Dirt_HeightMax;
     public static final ForgeConfigSpec.BooleanValue Config_GenerateUrns;
 
-
     //Misc
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_PortalLighter;
     public static final ForgeConfigSpec.BooleanValue Config_SticksMakeFire;
@@ -92,113 +91,87 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.IntValue Config_OrbOfAbsorptionWhitelistBlacklist;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_OrbOfAbsorptionList;
     public static final ForgeConfigSpec.DoubleValue Config_UmbraPickaxeMiningSpeedMultiplier;
-
     public static final ForgeConfigSpec.BooleanValue Config_MoonlightForgeTransfersEnchants;
-
     public static final ForgeConfigSpec.IntValue Config_AurorianSteel_BaseMaxLevel;
-
     public static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_BaseMaxLevelMultiplier;
-
     public static final ForgeConfigSpec.IntValue Config_CrystalStackSize;
-
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_AurorianSteel_Enchants;
-
     public static final ForgeConfigSpec.IntValue Config_AurorianSteel_Enchants_WhitelistBlacklist;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_SPECTRAL_ARMOR_CLEANSE_CHANCE;
 
-    public static final ForgeConfigSpec.DoubleValue Config_Spectral_Armor_CleanseChance;
+    public static final ForgeConfigSpec.IntValue CONFIG_SILENT_WOOD_MULTIPLIER_SPEED;
+    public static final ForgeConfigSpec.IntValue CONFIG_SILENT_WOOD_MULTIPLIER_DURABILITY;
+    public static final ForgeConfigSpec.IntValue CONFIG_SILENT_WOOD_HARVEST_LEVEL;
 
-    public static final ForgeConfigSpec.DoubleValue CONFIG_SILENTWOOD_MULTIPLIER_SPEED;
-
-    public static final ForgeConfigSpec.DoubleValue CONFIG_SILENTWOOD_MULTIPLIER_DURABILITY;
-
-    public static final ForgeConfigSpec.IntValue CONFIG_SILENTWOOD_HARVEST_LEVEL;
-
-    public static final ForgeConfigSpec.DoubleValue CONFIG_AURORIAN_STONE_MULTIPLIER_DAMAGE;
-
-    public static final ForgeConfigSpec.DoubleValue CONFIG_AURORIAN_STONE_MULTIPLIER_SPEED;
-
-    public static final ForgeConfigSpec.DoubleValue CONFIG_AURORIAN_STONE_MULTIPLIER_DURABILITY;
-
+    public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STONE_MULTIPLIER_DAMAGE;
+    public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STONE_MULTIPLIER_SPEED;
+    public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STONE_MULTIPLIER_DURABILITY;
     public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STONE_HARVEST_LEVEL;
 
-    public static final ForgeConfigSpec.DoubleValue CONFIG_MOONSTONE_MULTIPLIER_DAMAGE;
-
-    public static final ForgeConfigSpec.DoubleValue CONFIG_MOONSTONE_MULTIPLIER_SPEED;
-
-    public static final ForgeConfigSpec.DoubleValue CONFIG_MOONSTONE_MULTIPLIER_DURABILITY;
-
+    public static final ForgeConfigSpec.IntValue CONFIG_MOONSTONE_MULTIPLIER_DAMAGE;
+    public static final ForgeConfigSpec.IntValue CONFIG_MOONSTONE_MULTIPLIER_SPEED;
+    public static final ForgeConfigSpec.IntValue CONFIG_MOONSTONE_MULTIPLIER_DURABILITY;
     public static final ForgeConfigSpec.IntValue CONFIG_MOONSTONE_HARVEST_LEVEL;
 
-    public static final ForgeConfigSpec.DoubleValue CONFIG_SPECIAL_MULTIPLIER_DAMAGE;
-
-    public static final ForgeConfigSpec.DoubleValue CONFIG_SPECIAL_MULTIPLIER_SPEED;
-
+    public static final ForgeConfigSpec.IntValue CONFIG_SPECIAL_MULTIPLIER_DAMAGE;
+    public static final ForgeConfigSpec.IntValue CONFIG_SPECIAL_MULTIPLIER_SPEED;
     public static final ForgeConfigSpec.IntValue CONFIG_SPECIAL_MULTIPLIER_DURABILITY;
-
     public static final ForgeConfigSpec.IntValue CONFIG_SPECIAL_HARVEST_LEVEL;
 
-    public static final ForgeConfigSpec.DoubleValue CONFIG_AURORIAN_STEEL_MULTIPLIER_DAMAGE;
-
-    public static final ForgeConfigSpec.DoubleValue CONFIG_AURORIAN_STEEL_MULTIPLIER_SPEED;
-
+    public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STEEL_MULTIPLIER_DAMAGE;
+    public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STEEL_MULTIPLIER_SPEED;
     public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STEEL_MULTIPLIER_DURABILITY;
-
     public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STEEL_MULTIPLIER_ARMOR;
-
     public static final ForgeConfigSpec.IntValue CONFIG_AURORIAN_STEEL_HARVEST_LEVEL;
 
     public static final ForgeConfigSpec.IntValue CONFIG_CERULEAN_MULTIPLIER_DURABILITY;
-
     public static final ForgeConfigSpec.IntValue CONFIG_CERULEAN_MULTIPLIER_ARMOR;
-
-    public static final ForgeConfigSpec.DoubleValue CONFIG_TEA_EFFECT_DURATION_MULIPLIER;
-
+    public static final ForgeConfigSpec.IntValue CONFIG_TEA_EFFECT_DURATION_MULIPLIER;
     public static final ForgeConfigSpec.IntValue CONFIG_SPECTRAL_MULTIPLIER_DURABILITY;
-
     public static final ForgeConfigSpec.IntValue CONFIG_SPECTRAL_MULTIPLIER_ARMOR;
 
     //Multipliers
     static {
         BUILDER.push("Multipliers");
-        CONFIG_SILENTWOOD_MULTIPLIER_SPEED = BUILDER
+        CONFIG_SILENT_WOOD_MULTIPLIER_SPEED = BUILDER
                 .comment("Multiplier for mining speed")
-                .defineInRange("Silentwood_Multiplier_Speed", 1.0f, 0.0f, 1000.0f);
-        CONFIG_SILENTWOOD_MULTIPLIER_DURABILITY = BUILDER
+                .defineInRange("Silentwood_Multiplier_Speed", 1, 0, 1000);
+        CONFIG_SILENT_WOOD_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
-                .defineInRange("Silentwood_Multiplier_Durability", 1.0f, 0.0f, 1000.0f);
-        CONFIG_SILENTWOOD_HARVEST_LEVEL = BUILDER
+                .defineInRange("Silentwood_Multiplier_Durability", 1, 0, 1000);
+        CONFIG_SILENT_WOOD_HARVEST_LEVEL = BUILDER
                 .comment("Harvest level for these tools")
                 .defineInRange("Silentwood_HarvestLevel", 0, 0, 500);
         CONFIG_AURORIAN_STONE_MULTIPLIER_DAMAGE = BUILDER
                 .comment("Multiplier for damage")
-                .defineInRange("AurorianStone_Multiplier_Damage", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("AurorianStone_Multiplier_Damage", 1, 0, 1000);
         CONFIG_AURORIAN_STONE_MULTIPLIER_SPEED = BUILDER
                 .comment("Multiplier for mining speed")
-                .defineInRange("AurorianStone_Multiplier_Speed", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("AurorianStone_Multiplier_Speed", 1, 0, 1000);
         CONFIG_AURORIAN_STONE_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
-                .defineInRange("AurorianStone_Multiplier_Durability", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("AurorianStone_Multiplier_Durability", 1, 0, 1000);
         CONFIG_AURORIAN_STONE_HARVEST_LEVEL = BUILDER
                 .comment("Harvest level for these tools")
                 .defineInRange("AurorianStone_HarvestLevel", 0, 0, 500);
         CONFIG_MOONSTONE_MULTIPLIER_DAMAGE = BUILDER
                 .comment("Multiplier for damage")
-                .defineInRange("Moonstone_Multiplier_Damage", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("Moonstone_Multiplier_Damage", 1, 0, 1000);
         CONFIG_MOONSTONE_MULTIPLIER_SPEED = BUILDER
                 .comment("Multiplier for mining speed")
-                .defineInRange("Moonstone_Multiplier_Speed", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("Moonstone_Multiplier_Speed", 1, 0, 1000);
         CONFIG_MOONSTONE_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
-                .defineInRange("Moonstone_Multiplier_Durability", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("Moonstone_Multiplier_Durability", 1, 0, 1000);
         CONFIG_MOONSTONE_HARVEST_LEVEL = BUILDER
                 .comment("Harvest level for these tools")
                 .defineInRange("Moonstone_HarvestLevel", 2, 0, 500);
         CONFIG_SPECIAL_MULTIPLIER_DAMAGE = BUILDER
                 .comment("Multiplier for damage")
-                .defineInRange("Special_Multiplier_Damage", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("Special_Multiplier_Damage", 1, 0, 1000);
         CONFIG_SPECIAL_MULTIPLIER_SPEED = BUILDER
                 .comment("Multiplier for mining speed")
-                .defineInRange("Special_Multiplier_Speed", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("Special_Multiplier_Speed", 1, 0, 1000);
         CONFIG_SPECIAL_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
                 .defineInRange("Special_Multiplier_Durability", 1, 0, 1000);
@@ -207,10 +180,10 @@ public class AurorianConfig {
                 .defineInRange("Special_HarvestLevel", 3, 0, 500);
         CONFIG_AURORIAN_STEEL_MULTIPLIER_DAMAGE = BUILDER
                 .comment("Multiplier for damage")
-                .defineInRange("AurorianSteel_Multiplier_Damage", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("AurorianSteel_Multiplier_Damage", 1, 0, 1000);
         CONFIG_AURORIAN_STEEL_MULTIPLIER_SPEED = BUILDER
                 .comment("Multiplier for mining speed")
-                .defineInRange("AurorianSteel_Multiplier_Speed", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("AurorianSteel_Multiplier_Speed", 1, 0, 1000);
         CONFIG_AURORIAN_STEEL_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
                 .defineInRange("AurorianSteel_Multiplier_Durability", 1, 0, 1000);
@@ -228,7 +201,7 @@ public class AurorianConfig {
                 .defineInRange("Cerulean_Multiplier_Armor", 1, 0, 1000);
         CONFIG_TEA_EFFECT_DURATION_MULIPLIER = BUILDER
                 .comment("Multiplier for tea potion effect duration")
-                .defineInRange("Tea_EffectDuration_Muliplier", 1.0f, 0.0f, 1000.0f);
+                .defineInRange("Tea_EffectDuration_Muliplier", 1, 0, 1000);
         CONFIG_SPECTRAL_MULTIPLIER_DURABILITY = BUILDER
                 .comment("Multiplier for tool/armor durability")
                 .defineInRange("Spectral_Multiplier_Durability", 1, 0, 1000);
@@ -486,7 +459,7 @@ public class AurorianConfig {
         Config_AurorianSteel_Enchants_WhitelistBlacklist = BUILDER
                 .comment("Decides how to treat AurorianSteel_Enchants: 0 - ignored (Aurorian Steel can upgrade any enchantment), 1 - whitelist (can only upgrade enchantments specified), 2 - blacklist (upgrades all but the enchantments specified)")
                 .defineInRange("AurorianSteel_Enchants_WhitelistBlacklist", 0, 0, 2);
-        Config_Spectral_Armor_CleanseChance = BUILDER
+        CONFIG_SPECTRAL_ARMOR_CLEANSE_CHANCE = BUILDER
                 .comment("Percent for one armor piece to cleanse the player’s negative effects, stacks with other armor parts (full spectral armor with 6% is a 24% chance with full set)")
                 .defineInRange("Spectral_Armor_CleanseChance", 0.06F, 0.01F, 1.0F);
         BUILDER.pop();

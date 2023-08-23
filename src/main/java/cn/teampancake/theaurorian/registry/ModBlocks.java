@@ -39,7 +39,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> SILK_BERRY_PLANT = register("silk_berry_plant", () -> new AbstractPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> AURORIAN_PERIDOTITE = normal("aurorian_peridotite", defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE = normal("smooth_aurorian_peridotite", defaultStoneProperties(5.0F));
-    public static final RegistryObject<Block> MOON_STONE_ORE = ore("moon_stone_ore", defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> MOONSTONE_ORE = ore("moonstone_ore", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> CERULEAN_ORE = ore("cerulean_ore", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> GEODE_ORE = ore("geode_ore", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> RUNE_STONE = normal("rune_stone", copy(Blocks.BEDROCK));
@@ -53,7 +53,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> MOON_TEMPLE_LAMP = normal("moon_temple_lamp", copy(Blocks.BEDROCK).lightLevel(s -> 1));
     public static final RegistryObject<Block> DARK_STONE_LAMP = normal("dark_stone_lamp", copy(Blocks.BEDROCK).lightLevel(s -> 1));
     public static final RegistryObject<Block> CERULEAN_BLOCK = normal("cerulean_block", copy(Blocks.BEDROCK).mapColor(MapColor.METAL));
-    public static final RegistryObject<Block> MOON_STONE_BLOCK = normal("moon_stone_block", copy(Blocks.BEDROCK).mapColor(MapColor.METAL));
+    public static final RegistryObject<Block> MOONSTONE_BLOCK = normal("moonstone_block", copy(Blocks.BEDROCK).mapColor(MapColor.METAL));
     public static final RegistryObject<Block> AURORIAN_COAL_BLOCK = normal("aurorian_coal_block", copy(Blocks.BEDROCK).mapColor(MapColor.METAL));
     public static final RegistryObject<Block> AURORIAN_STEEL_BLOCK = normal("aurorian_steel_block", copy(Blocks.BEDROCK).mapColor(MapColor.METAL));
     public static final RegistryObject<Block> RUNE_STONE_BARS = register("rune_stone_bars", () -> new IronBarsBlock(copy(Blocks.BEDROCK).mapColor(MapColor.METAL)));

@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.utils.EntityHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -14,9 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
-import java.util.Random;
 
 public class UmbraShield extends ShieldItem implements ITooltipsItem{
 
@@ -69,7 +65,6 @@ public class UmbraShield extends ShieldItem implements ITooltipsItem{
                 for (int i = -1; i < random.nextInt(PARTICLE_DENSITY); i++) {
                     double spreadX = random.nextGaussian() * PARTICLE_SPREAD;
                     double spreadY = random.nextGaussian() * PARTICLE_SPREAD;
-                    double spreadZ = random.nextGaussian() * PARTICLE_SPREAD;
 
                     double offsetX = (sinYaw * cosPitch) + (spreadX * cosYaw * cosPitch);
                     double offsetY = sinPitch + spreadY * cosPitch;

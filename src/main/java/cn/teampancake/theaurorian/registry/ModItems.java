@@ -75,7 +75,7 @@ public class ModItems {
             () -> new SwordItem(ModToolTiers.SILENT_WOOD, 4, -1.6F, new Item.Properties()));
     public static final RegistryObject<Item> UMBRA_SWORD = ITEMS.register("umbra_sword", UmbraSword::new);
     public static final RegistryObject<Item> AURORIANITE_SWORD = ITEMS.register("aurorianite_sword", AurorianiteSword::new);
-
+    public static final RegistryObject<Item> CRYSTALLINE_SWORD = ITEMS.register("crystalline_sword", CrystallineSword::new);
 
     /**
      * ShovelItem
@@ -134,6 +134,7 @@ public class ModItems {
      */
     public static final RegistryObject<Item> UMBRA_SHIELD = ITEMS.register("umbra_shield", UmbraShield::new);
     public static final RegistryObject<Item> CERULEAN_SHIELD=ITEMS.register("cerulean_shield",CeruleanShield::new);
+    public static final RegistryObject<Item> CRYSTALLINE_SHIELD=ITEMS.register("crystalline_shield",CrystallineShield::new);
 
 
     /**
@@ -213,6 +214,7 @@ public class ModItems {
     public static final RegistryObject<Item> TROPHY_KEEPER = normal("trophy_keeper", true);
     public static final RegistryObject<Item> TROPHY_MOON_QUEEN = normal("trophy_moon_queen", true);
     public static final RegistryObject<Item> TROPHY_SPIDER = normal("trophy_spider", true);
+    public static final RegistryObject<Item> CRYSTALLINE_SPRITE = normal("crystalline_sprite", false);
 
 
     /**

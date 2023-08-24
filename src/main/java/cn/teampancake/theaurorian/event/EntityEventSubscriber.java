@@ -1,12 +1,15 @@
 package cn.teampancake.theaurorian.event;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.items.CrystallineShield;
 import cn.teampancake.theaurorian.common.items.ModArmorMaterials;
 import cn.teampancake.theaurorian.common.items.UmbraShield;
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.registry.ModItems;
 import cn.teampancake.theaurorian.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.utils.AurorianUtil;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -66,6 +69,16 @@ public class EntityEventSubscriber {
             if (entity != null) {
                 entity.setSecondsOnFire(3);
             }
+        }
+        if(livingEntity.getUseItem().getItem() instanceof CrystallineShield){
+            if(livingEntity instanceof ServerPlayer player){
+                ItemStack mainhand=player.getItemInHand(InteractionHand.MAIN_HAND);
+                if (mainhand.getDamageValue() < mainhand.getMaxDamage() && mainhand.isDamageableItem()) {
+                    mainhand.setDamageValue(mainhand.getDamageValue()- 1);
+                }
+                player.getCooldowns().addCooldown(livingEntity.getUseItem().getItem(), 20);
+            }
+
         }
     }
 

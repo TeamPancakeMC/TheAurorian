@@ -1,17 +1,22 @@
 package cn.teampancake.theaurorian.common.items;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
+
+import java.util.Optional;
 
 public class CrystallinePickaxe extends PickaxeItem implements ITooltipsItem{
     public CrystallinePickaxe() {
@@ -27,9 +32,14 @@ public class CrystallinePickaxe extends PickaxeItem implements ITooltipsItem{
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if (!level.isClientSide && state.getDestroySpeed(level, pos) != 0.0D) {
             if (state.is(Tags.Blocks.ORES)) {
-                ItemStack ingot = getCraftingRemainingItem(state.getBlock().asItem().getDefaultInstance());
+                Optional<SmeltingRecipe> recipe= level.getRecipeManager().getRecipeFor(RecipeType.SMELTING,new SimpleContainer(new ItemStack(state.getBlock())), level);
+                ItemStack ingot = ItemStack.EMPTY;
+                if(recipe.isPresent()) {
+                    ingot = recipe.get().getResultItem(level.registryAccess());
+                    ingot.setCount(1);
+                }
                 ItemStack nugget = getCraftingRemainingItem(ingot);
-                if (ingot != null) {
+                if (ingot != ItemStack.EMPTY) {
                     level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), ingot));
                     if (nugget != null) {
                         nugget.setCount(level.random.nextIntBetweenInclusive(1,3)+1);

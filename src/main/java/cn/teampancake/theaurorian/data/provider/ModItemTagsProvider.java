@@ -22,10 +22,15 @@ public class ModItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(ModItemTags.SPECTRAL_ARMOR).add(ModItems.SPECTRAL_SUIT_HELMET.get(),
-                ModItems.SPECTRAL_SUIT_CHESTPLATE.get(),
-                ModItems.SPECTRAL_SUIT_LEGGINGS.get(),
-                ModItems.SPECTRAL_SUIT_BOOTS.get());
+        tag(ModItemTags.DUNGEON_KEY).add(ModItems.RUNE_STONE_KEY.get())
+                .add(ModItems.RUNE_STONE_LOOT_KEY.get())
+                .add(ModItems.MOON_TEMPLE_KEY.get())
+                .add(ModItems.MOON_TEMPLE_CELL_KEY.get())
+                .add(ModItems.DARK_STONE_KEY.get());
+        tag(ModItemTags.SPECTRAL_ARMOR).add(ModItems.SPECTRAL_HELMET.get(),
+                ModItems.SPECTRAL_CHESTPLATE.get(),
+                ModItems.SPECTRAL_LEGGINGS.get(),
+                ModItems.SPECTRAL_BOOTS.get());
 
         tag(ModItemTags.AURORIAN_SLIME_BOOTS).add(ModItems.AURORIAN_SLIME_BOOTS.get());
 

@@ -22,6 +22,7 @@ import static net.minecraft.world.item.ArmorItem.Type.*;
 
 @SuppressWarnings("unused")
 public class ModItems {
+
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AurorianMod.MOD_ID);
 
     /**
@@ -63,7 +64,6 @@ public class ModItems {
             () -> new ArmorItem(ModArmorMaterials.AURORIAN_SLIME, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> AURORIAN_STEEL_HELMET_SPIKED = ITEMS.register("aurorian_steel_helmet_spiked", SpikedItemArmor::new);
 
-
     /**
      * SwordItem
      */
@@ -87,7 +87,6 @@ public class ModItems {
     public static final RegistryObject<Item> SILENT_WOOD_SHOVEL = ITEMS.register("silent_wood_shovel",
             () -> new ShovelItem(ModToolTiers.SILENT_WOOD, 1.5F, -3.0F, new Item.Properties()));
 
-
     /**
      * AxeItem
      */
@@ -95,7 +94,6 @@ public class ModItems {
             () -> new AxeItem(ModToolTiers.AURORIAN_STEEL, 6.0F, -3.0F, new Item.Properties()));
     public static final RegistryObject<Item> AURORIANITE_AXE = ITEMS.register("aurorianite_axe", AurorianiteAxe::new);
     public static final RegistryObject<Item> AURORIAN_STONE_AXE = ITEMS.register("aurorian_stone_axe", AurorianStoneAxe::new);
-
 
     /**
      * PickaxeItem
@@ -108,7 +106,6 @@ public class ModItems {
     public static final RegistryObject<Item> CRYSTALLINE_PICKAXE=ITEMS.register("crystalline_pickaxe",CrystallinePickaxe::new);
     public static final RegistryObject<Item> AURORIAN_STONE_PICKAXE = ITEMS.register("aurorian_stone_pickaxe", AurorianStonePickaxe::new);
 
-
     /**
      * HoeItem
      */
@@ -119,7 +116,6 @@ public class ModItems {
     public static final RegistryObject<Item> SILENTWOOD_HOE = ITEMS.register("silent_wood_hoe",
             () -> new HoeItem(ModToolTiers.SILENT_WOOD, -2, -1.0F, new Item.Properties()));
 
-
     /**
      * ShearsItem
      */
@@ -128,14 +124,12 @@ public class ModItems {
     public static final RegistryObject<Item> AURORIAN_STEEL_SICKLE = ITEMS.register("silent_wood_sickle",
             () -> new ShearsItem(new Item.Properties()));
 
-
     /**
      * ShieldItem
      */
     public static final RegistryObject<Item> UMBRA_SHIELD = ITEMS.register("umbra_shield", UmbraShield::new);
     public static final RegistryObject<Item> CERULEAN_SHIELD=ITEMS.register("cerulean_shield",CeruleanShield::new);
     public static final RegistryObject<Item> CRYSTALLINE_SHIELD=ITEMS.register("crystalline_shield",CrystallineShield::new);
-
 
     /**
      * Tea
@@ -156,7 +150,6 @@ public class ModItems {
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST,
                     300 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
 
-
     /**
      * Food
      */
@@ -171,8 +164,6 @@ public class ModItems {
     public static final RegistryObject<Item> SOULLESS_FLESH = food("soulless_flesh", 2, 0.1F, false);
     public static final RegistryObject<Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap",WeepingWillowSap::new);
     public static final RegistryObject<Item> SILKBERRY = alias("silk_berry", ModBlocks.SILK_BERRY_PLANT, new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
-
-
 
     /**
      * Materials
@@ -193,12 +184,15 @@ public class ModItems {
     public static final RegistryObject<Item> DARK_AMULET = normal("dark_amulet", true);
     public static final RegistryObject<Item> DUNGEON_KEEPER_AMULET = normal("dungeon_keeper_amulet", true);
 
-
     /**
      * Key
      */
     public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY_FRAGMENT = normal("moon_temple_cell_key_fragment", true);
-
+    public static final RegistryObject<Item> RUNE_STONE_KEY =  normal("rune_stone_key", true);
+    public static final RegistryObject<Item> RUNE_STONE_LOOT_KEY =  normal("rune_stone_loot_key", true);
+    public static final RegistryObject<Item> MOON_TEMPLE_KEY =  normal("moon_temple_key", true);
+    public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY =  normal("moon_temple_cell_key", true);
+    public static final RegistryObject<Item> DARK_STONE_KEY =  normal("dark_stone_key", true);
 
     /**
      * tool
@@ -224,8 +218,7 @@ public class ModItems {
     public static final RegistryObject<Item> CERULEAN_NUGGET = normal("cerulean_nugget", true);
     public static final RegistryObject<Item> AURORIAN_COAL_NUGGET = normal("aurorian_coal_nugget", true);
     public static final RegistryObject<Item> MOONSTONE_NUGGET = normal("moonstone_nugget", true);
-    public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F)));
-
-
+    public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(),
+            SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F)));
 
 }

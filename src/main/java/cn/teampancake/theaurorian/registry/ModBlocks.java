@@ -15,19 +15,20 @@ import static cn.teampancake.theaurorian.utils.ModBlockRegUtils.*;
 import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.copy;
 import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.of;
 
+@SuppressWarnings("unused")
 public class ModBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AurorianMod.MOD_ID);
-    public static final RegistryObject<LiquidBlock> MOLTEN_AURORIAN_STEEL_BLOCK = BLOCKS.register("molten_aurorian_steel_block",
+    public static final RegistryObject<LiquidBlock> MOLTEN_AURORIAN_STEEL_BLOCK = BLOCKS.register("molten_aurorian_steel",
             () -> new LiquidBlock(ModFluids.MOLTEN_AURORIAN_STEEL_STILL, copy(Blocks.LAVA)));
-    public static final RegistryObject<LiquidBlock> MOLTEN_CERULEAN_BLOCK = BLOCKS.register("molten_cerulean_block",
+    public static final RegistryObject<LiquidBlock> MOLTEN_CERULEAN_BLOCK = BLOCKS.register("molten_cerulean",
             () -> new LiquidBlock(ModFluids.MOLTEN_CERULEAN_STILL, copy(Blocks.LAVA)));
-    public static final RegistryObject<LiquidBlock> MOLTEN_MOONSTONE_BLOCK = BLOCKS.register("molten_moonstone_block",
+    public static final RegistryObject<LiquidBlock> MOLTEN_MOONSTONE_BLOCK = BLOCKS.register("molten_moonstone",
             () -> new LiquidBlock(ModFluids.MOLTEN_MOONSTONE_STILL, copy(Blocks.LAVA)));
-    public static final RegistryObject<LiquidBlock> MOON_WATER_BLOCK = BLOCKS.register("moon_water_block",
+    public static final RegistryObject<LiquidBlock> MOON_WATER_BLOCK = BLOCKS.register("moon_water",
             () -> new LiquidBlock(ModFluids.MOON_WATER_STILL, copy(Blocks.WATER)));
     public static final RegistryObject<Block> AURORIAN_STONE = normal("aurorian_stone", defaultStoneProperties(2.0F));
-    public static final RegistryObject<Block> AURORIAN_STONE_BRICKS = normal("aurorian_stone_bricks", defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_STONE_BRICK = normal("aurorian_stone_brick", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_COBBLESTONE = normal("aurorian_cobblestone", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_COAL_ORE = ore("aurorian_coal_ore", defaultStoneProperties(3.0F));
     public static final RegistryObject<Block> AURORIAN_DIRT = normal("aurorian_dirt", copy(Blocks.DIRT));
@@ -51,12 +52,12 @@ public class ModBlocks {
     public static final RegistryObject<Block> CERULEAN_ORE = ore("cerulean_ore", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> GEODE_ORE = ore("geode_ore", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> RUNE_STONE = normal("rune_stone", copy(Blocks.BEDROCK));
-    public static final RegistryObject<Block> MOON_TEMPLE_BRICKS = normal("moon_temple_bricks", copy(Blocks.BEDROCK));
-    public static final RegistryObject<Block> DARK_STONE_BRICKS = normal("dark_stone_bricks", copy(Blocks.BEDROCK));
+    public static final RegistryObject<Block> MOON_TEMPLE_BRICK = normal("moon_temple_brick", copy(Blocks.BEDROCK));
+    public static final RegistryObject<Block> DARK_STONE_BRICK = normal("dark_stone_brick", copy(Blocks.BEDROCK));
     public static final RegistryObject<Block> DARK_STONE_FANCY = normal("dark_stone_fancy", copy(Blocks.BEDROCK));
     public static final RegistryObject<Block> DARK_STONE_LAYERS = normal("dark_stone_layers", copy(Blocks.BEDROCK));
     public static final RegistryObject<Block> SMOOTH_RUNE_STONE = normal("smooth_rune_stone", copy(Blocks.BEDROCK));
-    public static final RegistryObject<Block> SMOOTH_MOON_TEMPLE_BRICKS = normal("smooth_moon_temple_bricks", copy(Blocks.BEDROCK));
+    public static final RegistryObject<Block> SMOOTH_MOON_TEMPLE_BRICK = normal("smooth_moon_temple_brick", copy(Blocks.BEDROCK));
     public static final RegistryObject<Block> RUNE_STONE_LAMP = normal("rune_stone_lamp", copy(Blocks.BEDROCK).lightLevel(s -> 1));
     public static final RegistryObject<Block> MOON_TEMPLE_LAMP = normal("moon_temple_lamp", copy(Blocks.BEDROCK).lightLevel(s -> 1));
     public static final RegistryObject<Block> DARK_STONE_LAMP = normal("dark_stone_lamp", copy(Blocks.BEDROCK).lightLevel(s -> 1));
@@ -84,12 +85,12 @@ public class ModBlocks {
     public static final RegistryObject<Block> WEEPING_WILLOW_PLANKS = normal("weeping_willow_planks", copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> WEEPING_WILLOW_WOOD = wood("weeping_willow_wood", MapColor.COLOR_LIGHT_GRAY, 2.0F);
     public static final RegistryObject<Block> AURORIAN_STONE_STAIRS = stair("aurorian_stone_stairs", AURORIAN_STONE, defaultStoneProperties(2.0F));
-    public static final RegistryObject<Block> AURORIAN_STONE_BRICK_STAIRS = stair("aurorian_stone_brick_stairs", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_STONE_BRICK_STAIRS = stair("aurorian_stone_brick_stairs", AURORIAN_STONE_BRICK, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_COBBLESTONE_STAIRS = stair("aurorian_cobblestone_stairs", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> SILENT_WOOD_STAIRS = stair("silent_wood_stairs", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> RUNE_STONE_STAIRS = stair("rune_stone_stairs", RUNE_STONE, copy(Blocks.BEDROCK));
-    public static final RegistryObject<Block> MOON_TEMPLE_STAIRS = stair("moon_temple_stairs", MOON_TEMPLE_BRICKS, copy(Blocks.BEDROCK));
-    public static final RegistryObject<Block> DARK_STONE_STAIRS = stair("dark_stone_stairs", DARK_STONE_BRICKS, copy(Blocks.BEDROCK));
+    public static final RegistryObject<Block> MOON_TEMPLE_STAIRS = stair("moon_temple_stairs", MOON_TEMPLE_BRICK, copy(Blocks.BEDROCK));
+    public static final RegistryObject<Block> DARK_STONE_STAIRS = stair("dark_stone_stairs", DARK_STONE_BRICK, copy(Blocks.BEDROCK));
     public static final RegistryObject<Block> UMBRA_STONE_STAIRS = stair("umbra_stone_stairs", UMBRA_STONE, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> UMBRA_STONE_CRACKED_STAIRS = stair("umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> UMBRA_STONE_ROOF_STAIRS = stair("umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));

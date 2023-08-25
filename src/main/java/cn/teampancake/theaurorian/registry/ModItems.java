@@ -61,7 +61,7 @@ public class ModItems {
             () -> new ArmorItem(SPECTRAL, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> AURORIAN_SLIME_BOOTS = ITEMS.register("aurorian_slime_boots",
             () -> new ArmorItem(ModArmorMaterials.AURORIAN_SLIME, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
-    public static final RegistryObject<Item> AURORIAN_STEEL_HELMET_SPIKED = ITEMS.register("aurorian_steel_helmet_spiked", SpikedItemArmor::new);
+    public static final RegistryObject<Item> SPIKED_CHESTPLATE = ITEMS.register("spiked_chestplate", SpikedItemArmor::new);
 
     /**
      * SwordItem
@@ -136,18 +136,18 @@ public class ModItems {
     public static final RegistryObject<Item> TEA_CUP = normal("tea_cup", false);
     public static final RegistryObject<Item> BEPSI = ITEMS.register("bepsi", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F).build())));
-    public static final RegistryObject<Item> LAVENDER_TEA = ITEMS.register("lavender_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,
-                    300), 1.0F).build())));
-    public static final RegistryObject<Item> SILKBERRY_TEA = ITEMS.register("silk_berry_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.REGENERATION,
-                    100), 1.0F).build())));
-    public static final RegistryObject<Item> SEEDY_TEA = ITEMS.register("seedy_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED,
-                    200), 1.0F).build())));
-    public static final RegistryObject<Item> PETUNIA_TEA = ITEMS.register("petunia_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST,
-                    300), 1.0F).build())));
+//    public static final RegistryObject<Item> LAVENDER_TEA = ITEMS.register("lavender_tea", () -> new TeaFood(new Item.Properties()
+//            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,
+//                    300), 1.0F).build())));
+//    public static final RegistryObject<Item> SILKBERRY_TEA = ITEMS.register("silk_berry_tea", () -> new TeaFood(new Item.Properties()
+//            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.REGENERATION,
+//                    100), 1.0F).build())));
+//    public static final RegistryObject<Item> SEEDY_TEA = ITEMS.register("seedy_tea", () -> new TeaFood(new Item.Properties()
+//            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED,
+//                    200), 1.0F).build())));
+//    public static final RegistryObject<Item> PETUNIA_TEA = ITEMS.register("petunia_tea", () -> new TeaFood(new Item.Properties()
+//            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST,
+//                    300), 1.0F).build())));
 
     /**
      * Food

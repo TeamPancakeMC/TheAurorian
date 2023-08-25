@@ -5,7 +5,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -15,12 +14,12 @@ import net.minecraft.world.level.Level;
 
 import java.util.Map;
 
-import static net.minecraft.world.item.ArmorItem.Type.HELMET;
+import static net.minecraft.world.item.ArmorItem.Type.CHESTPLATE;
 
-public class SpikedItemArmor extends ArmorItem {
+public class SpikedItemArmor extends ArmorItem implements ITooltipsItem{
 
     public SpikedItemArmor() {
-        super(ModArmorMaterials.SPECTRAL, HELMET, new Item.Properties());
+        super(ModArmorMaterials.SPECTRAL, CHESTPLATE, new Item.Properties());
     }
 
     @Override

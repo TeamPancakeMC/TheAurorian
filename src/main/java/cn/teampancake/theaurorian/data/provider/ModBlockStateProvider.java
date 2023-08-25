@@ -1,12 +1,14 @@
 package cn.teampancake.theaurorian.data.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.registry.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Objects;
 
@@ -22,7 +24,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-
+        for (RegistryObject<Block> block: ModBlocks.BLOCKS.getEntries()) {
+            simpleBlockWithRenderType(block.get(), CUTOUT);
+        }
     }
 
     private String name(Block block) {

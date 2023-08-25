@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.blocks.fluids;
+package cn.teampancake.theaurorian.common.blocks;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;

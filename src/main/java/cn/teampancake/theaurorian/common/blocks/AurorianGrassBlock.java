@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,7 +19,7 @@ public class AurorianGrassBlock extends GrassBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (level.isClientSide && (level.isEmptyBlock(pos.above()) || level.getBlockState(pos.above()).getBlock() instanceof BushBlock)) {
             if (AurorianUtil.randomChanceOf(0.01) && AurorianUtil.randomChanceOf(0.5)) {
                 double d0 = pos.getX() + 0.5D;

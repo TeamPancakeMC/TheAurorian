@@ -28,6 +28,8 @@ public class AurorianMod {
         ModFluidTypes.FLUID_TYPES.register(modEventBus);
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
         ModEnchantments.ENCHANTMENTS.register(modEventBus);
+        ModParticleTypes.PARTICLE_TYPES.register(modEventBus);
+        ModBlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
     }
 

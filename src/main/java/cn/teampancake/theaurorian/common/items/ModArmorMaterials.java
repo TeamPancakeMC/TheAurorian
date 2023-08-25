@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
@@ -18,25 +17,25 @@ import java.util.function.Supplier;
 @SuppressWarnings("deprecation")
 public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
 
-    CERULEAN("cerulean", 20 * AurorianConfig.CONFIG_CERULEAN_MULTIPLIER_DURABILITY.get(),
+    CERULEAN("cerulean", 20,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
-                map.put(ArmorItem.Type.BOOTS, 3 * AurorianConfig.CONFIG_CERULEAN_MULTIPLIER_ARMOR.get());
-                map.put(ArmorItem.Type.LEGGINGS, 5 * AurorianConfig.CONFIG_CERULEAN_MULTIPLIER_ARMOR.get());
-                map.put(ArmorItem.Type.CHESTPLATE, 6 * AurorianConfig.CONFIG_CERULEAN_MULTIPLIER_ARMOR.get());
-                map.put(ArmorItem.Type.HELMET, 3 * AurorianConfig.CONFIG_CERULEAN_MULTIPLIER_ARMOR.get());
+                map.put(ArmorItem.Type.BOOTS, 3);
+                map.put(ArmorItem.Type.LEGGINGS, 5);
+                map.put(ArmorItem.Type.CHESTPLATE, 6);
+                map.put(ArmorItem.Type.HELMET, 3);
             }), 15, SoundEvents.ARMOR_EQUIP_IRON, 1, 0,
             () -> Ingredient.of(ModItems.CERULEAN_INGOT.get())),
 
-    AURORIAN_STEEL("aurorian_steel", 33 * AurorianConfig.CONFIG_AURORIAN_STEEL_MULTIPLIER_DURABILITY.get(),
+    AURORIAN_STEEL("aurorian_steel", 33,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
-                map.put(ArmorItem.Type.BOOTS, 4 * AurorianConfig.CONFIG_AURORIAN_STEEL_MULTIPLIER_ARMOR.get());
-                map.put(ArmorItem.Type.LEGGINGS, 7 * AurorianConfig.CONFIG_AURORIAN_STEEL_MULTIPLIER_ARMOR.get());
-                map.put(ArmorItem.Type.CHESTPLATE, 8 * AurorianConfig.CONFIG_AURORIAN_STEEL_MULTIPLIER_ARMOR.get());
-                map.put(ArmorItem.Type.HELMET, 4 * AurorianConfig.CONFIG_AURORIAN_STEEL_MULTIPLIER_ARMOR.get());
+                map.put(ArmorItem.Type.BOOTS, 4 );
+                map.put(ArmorItem.Type.LEGGINGS, 7);
+                map.put(ArmorItem.Type.CHESTPLATE, 8);
+                map.put(ArmorItem.Type.HELMET, 4);
             }), 15, SoundEvents.ARMOR_EQUIP_DIAMOND, 2, 0,
             () -> Ingredient.of(ModItems.AURORIAN_STEEL.get())),
 
-    UMBRA("umbra", 65 * AurorianConfig.CONFIG_SPECIAL_MULTIPLIER_DURABILITY.get(),
+    UMBRA("umbra", 65,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                 map.put(ArmorItem.Type.BOOTS, 3); map.put(ArmorItem.Type.LEGGINGS, 5);
                 map.put(ArmorItem.Type.CHESTPLATE, 6); map.put(ArmorItem.Type.HELMET, 3);
@@ -48,19 +47,19 @@ public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
                 map.put(ArmorItem.Type.CHESTPLATE, 3); map.put(ArmorItem.Type.HELMET, 1);
             }), 5, SoundEvents.ARMOR_EQUIP_IRON, 1, 0, Ingredient::of),
 
-    AURORIAN_SLIME("aurorian_slime", 120 * AurorianConfig.CONFIG_SPECIAL_MULTIPLIER_DURABILITY.get(),
+    AURORIAN_SLIME("aurorian_slime", 120,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                 map.put(ArmorItem.Type.BOOTS, 1); map.put(ArmorItem.Type.LEGGINGS, 2);
                 map.put(ArmorItem.Type.CHESTPLATE, 3); map.put(ArmorItem.Type.HELMET, 1);
             }), 20, SoundEvents.SLIME_SQUISH, 1, 0,
             () -> Ingredient.of(ModItems.AURORIAN_SLIMEBALL.get())),
 
-    SPECTRAL("spectral", 20 * AurorianConfig.CONFIG_SPECTRAL_MULTIPLIER_DURABILITY.get(),
+    SPECTRAL("spectral", 20,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
-                map.put(ArmorItem.Type.BOOTS, 4 * AurorianConfig.CONFIG_SPECTRAL_MULTIPLIER_ARMOR.get());
-                map.put(ArmorItem.Type.LEGGINGS, 6 * AurorianConfig.CONFIG_SPECTRAL_MULTIPLIER_ARMOR.get());
-                map.put(ArmorItem.Type.CHESTPLATE, 6 * AurorianConfig.CONFIG_SPECTRAL_MULTIPLIER_ARMOR.get());
-                map.put(ArmorItem.Type.HELMET, 4 * AurorianConfig.CONFIG_SPECTRAL_MULTIPLIER_ARMOR.get());
+                map.put(ArmorItem.Type.BOOTS, 4);
+                map.put(ArmorItem.Type.LEGGINGS, 6);
+                map.put(ArmorItem.Type.CHESTPLATE, 6);
+                map.put(ArmorItem.Type.HELMET, 4);
             }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 1, 0,
             () -> Ingredient.of(ModItems.SPECTRAL_SILK.get()));
 

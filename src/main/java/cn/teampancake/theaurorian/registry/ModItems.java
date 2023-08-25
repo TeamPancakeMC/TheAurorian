@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.*;
-import cn.teampancake.theaurorian.config.AurorianConfig;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -139,16 +138,16 @@ public class ModItems {
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F).build())));
     public static final RegistryObject<Item> LAVENDER_TEA = ITEMS.register("lavender_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,
-                    300 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
+                    300), 1.0F).build())));
     public static final RegistryObject<Item> SILKBERRY_TEA = ITEMS.register("silk_berry_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.REGENERATION,
-                    100 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
+                    100), 1.0F).build())));
     public static final RegistryObject<Item> SEEDY_TEA = ITEMS.register("seedy_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED,
-                    200 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
+                    200), 1.0F).build())));
     public static final RegistryObject<Item> PETUNIA_TEA = ITEMS.register("petunia_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST,
-                    300 * AurorianConfig.CONFIG_TEA_EFFECT_DURATION_MULIPLIER.get()), 1.0F).build())));
+                    300), 1.0F).build())));
 
     /**
      * Food

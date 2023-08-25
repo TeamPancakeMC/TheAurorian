@@ -41,6 +41,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> MOON_GLASS_PANE = register("moon_glass_pane", () -> new IronBarsBlock(copy(Blocks.GLASS_PANE)));
     public static final RegistryObject<Block> AURORIAN_GRASS = register("aurorian_grass", () -> new AbstractPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> AURORIAN_GRASS_LIGHT = register("aurorian_grass_light", () -> new AbstractPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK_LIGHT));
+    public static final RegistryObject<Block> AURORIAN_FURNACE = register("aurorian_furnace", () -> new AurorianFurnace(defaultStoneProperties(3.5F)));
     public static final RegistryObject<Block> AURORIAN_FURNACE_CHIMNEY = register("aurorian_furnace_chimney", () -> new AurorianFurnaceChimney(defaultStoneProperties(2.0F)));
     public static final RegistryObject<Block> URN = register("urn", () -> new UrnBlock(defaultStoneProperties(0.5F).sound(SoundType.GLASS)));
     public static final RegistryObject<Block> LAVENDER_PLANT = register("lavender_plant", () -> new AbstractPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));

@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.blocks.entity;
 
 import cn.teampancake.theaurorian.common.blocks.AurorianFurnace;
 import cn.teampancake.theaurorian.config.AurorianConfig;
+import cn.teampancake.theaurorian.mixin.InvokeAbstractFurnaceBlockEntity;
 import cn.teampancake.theaurorian.registry.ModBlockEntityTypes;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
@@ -53,7 +54,7 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         if (blockEntity.isLit() || flag3 && flag2) {
             int i = blockEntity.getMaxStackSize();
             Recipe<?> recipe = flag2 ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
-            if (!blockEntity.isLit() && blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, i)) {
+            if (!blockEntity.isLit() && ((InvokeAbstractFurnaceBlockEntity)blockEntity).canBurn(level.registryAccess(), recipe, blockEntity.items, i)) {
                 int burnDuration = blockEntity.getBurnDuration(itemStack);
                 blockEntity.litTime = (int) (burnDuration - burnDuration * blockEntity.getChimneySpeedMultiplier());
                 blockEntity.litDuration = blockEntity.litTime;
@@ -70,12 +71,12 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
                 }
             }
 
-            if (blockEntity.isLit() && blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, i)) {
+            if (blockEntity.isLit() && ((InvokeAbstractFurnaceBlockEntity)blockEntity).canBurn(level.registryAccess(), recipe, blockEntity.items, i)) {
                 ++blockEntity.cookingProgress;
                 if (blockEntity.cookingProgress == blockEntity.cookingTotalTime) {
                     blockEntity.cookingProgress = 0;
                     blockEntity.cookingTotalTime = blockEntity.getSmeltTime();
-                    if (blockEntity.burn(level.registryAccess(), recipe, blockEntity.items, i)) {
+                    if (((InvokeAbstractFurnaceBlockEntity)blockEntity).burn(level.registryAccess(), recipe, blockEntity.items, i)) {
                         blockEntity.setRecipeUsed(recipe);
                     }
 

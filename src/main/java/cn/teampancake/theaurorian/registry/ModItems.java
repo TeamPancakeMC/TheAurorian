@@ -128,8 +128,8 @@ public class ModItems {
      * ShieldItem
      */
     public static final RegistryObject<Item> UMBRA_SHIELD = ITEMS.register("umbra_shield", UmbraShield::new);
-    public static final RegistryObject<Item> CERULEAN_SHIELD=ITEMS.register("cerulean_shield",CeruleanShield::new);
-    public static final RegistryObject<Item> CRYSTALLINE_SHIELD=ITEMS.register("crystalline_shield",CrystallineShield::new);
+    public static final RegistryObject<Item> CERULEAN_SHIELD = ITEMS.register("cerulean_shield",CeruleanShield::new);
+    public static final RegistryObject<Item> CRYSTALLINE_SHIELD = ITEMS.register("crystalline_shield",CrystallineShield::new);
 
     /**
      * Tea
@@ -163,7 +163,8 @@ public class ModItems {
     public static final RegistryObject<Item> LAVENDER_BREAD = food("lavender_bread", 4, 0.4F, false);
     public static final RegistryObject<Item> SOULLESS_FLESH = food("soulless_flesh", 2, 0.1F, false);
     public static final RegistryObject<Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap",WeepingWillowSap::new);
-    public static final RegistryObject<Item> SILKBERRY = alias("silk_berry", ModBlocks.SILK_BERRY_PLANT, new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
+    public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", ModBlocks.SILK_BERRY_PLANT, new Item.Properties().food(
+            new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
 
     /**
      * Materials
@@ -188,19 +189,19 @@ public class ModItems {
      * Key
      */
     public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY_FRAGMENT = normal("moon_temple_cell_key_fragment", true);
-    public static final RegistryObject<Item> RUNE_STONE_KEY =  normal("rune_stone_key", true);
-    public static final RegistryObject<Item> RUNE_STONE_LOOT_KEY =  normal("rune_stone_loot_key", true);
-    public static final RegistryObject<Item> MOON_TEMPLE_KEY =  normal("moon_temple_key", true);
-    public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY =  normal("moon_temple_cell_key", true);
-    public static final RegistryObject<Item> DARK_STONE_KEY =  normal("dark_stone_key", true);
+    public static final RegistryObject<Item> RUNE_STONE_KEY =  ITEMS.register("rune_stone_key", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> MOON_TEMPLE_KEY =  ITEMS.register("moon_temple_key", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> DARK_STONE_KEY =  ITEMS.register("dark_stone_key", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> RUNE_STONE_LOOT_KEY =  ITEMS.register("rune_stone_loot_key", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY =  ITEMS.register("moon_temple_cell_key", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
     /**
      * tool
      */
     public static final RegistryObject<Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrbItem::new);
     public static final RegistryObject<Item> SILENT_WOOD_STICK = ITEMS.register("silent_wood_stick", SilentWoodStickItem::new);
-    public static final RegistryObject<Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(new Item.Properties().rarity(Rarity.EPIC), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 1.5F, 1.0F));
-
+    public static final RegistryObject<Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(
+            new Item.Properties().rarity(Rarity.EPIC), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 1.5F, 1.0F));
 
     /**
      * Loot
@@ -210,7 +211,6 @@ public class ModItems {
     public static final RegistryObject<Item> TROPHY_SPIDER = normal("trophy_spider", true);
     public static final RegistryObject<Item> CRYSTALLINE_SPRITE = normal("crystalline_sprite", false);
 
-
     /**
      * Misc
      */
@@ -218,6 +218,8 @@ public class ModItems {
     public static final RegistryObject<Item> CERULEAN_NUGGET = normal("cerulean_nugget", true);
     public static final RegistryObject<Item> AURORIAN_COAL_NUGGET = normal("aurorian_coal_nugget", true);
     public static final RegistryObject<Item> MOONSTONE_NUGGET = normal("moonstone_nugget", true);
+    public static final RegistryObject<Item> LOCK_PICKS = ITEMS.register("lock_picks",
+            () -> new Item(new Item.Properties().stacksTo(1).durability(10)));
     public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(),
             SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F)));
 

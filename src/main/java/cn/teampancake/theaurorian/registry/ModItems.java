@@ -19,7 +19,7 @@ import static cn.teampancake.theaurorian.common.items.ModArmorMaterials.*;
 import static cn.teampancake.theaurorian.utils.ModItemRegUtils.*;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
-@SuppressWarnings({"unused", "SpellCheckingInspection", "CommentedOutCode"})
+@SuppressWarnings({"unused", "SpellCheckingInspection"})
 public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AurorianMod.MOD_ID);
@@ -217,7 +217,7 @@ public class ModItems {
     public static final RegistryObject<Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrbItem::new);
     public static final RegistryObject<Item> SILENT_WOOD_STICK = ITEMS.register("silent_wood_stick", SilentWoodStickItem::new);
     public static final RegistryObject<Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(new Item.Properties()
-            .rarity(Rarity.EPIC), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, ModEntityTypes.STICKY_SPIKER.get(), 1.5F, 1.0F));
+            .rarity(Rarity.EPIC), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, ModEntityTypes.STICKY_SPIKER::get, 1.5F, 1.0F));
 
     /**
      * Loot
@@ -238,5 +238,5 @@ public class ModItems {
     public static final RegistryObject<Item> LOCK_PICKS = ITEMS.register("lock_picks",
             () -> new Item(new Item.Properties().stacksTo(1).durability(10)));
     public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(),
-            SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F)));
+            SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, () -> EntityType.SNOWBALL, 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F)));
 }

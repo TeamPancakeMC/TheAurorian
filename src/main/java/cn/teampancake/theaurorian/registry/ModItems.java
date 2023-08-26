@@ -19,7 +19,7 @@ import static cn.teampancake.theaurorian.common.items.ModArmorMaterials.*;
 import static cn.teampancake.theaurorian.utils.ModItemRegUtils.*;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "SpellCheckingInspection", "CommentedOutCode"})
 public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AurorianMod.MOD_ID);
@@ -188,19 +188,25 @@ public class ModItems {
      * Key
      */
     public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY_FRAGMENT = normal("moon_temple_cell_key_fragment", true);
-    public static final RegistryObject<Item> RUNE_STONE_KEY =  ITEMS.register("rune_stone_key", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> MOON_TEMPLE_KEY =  ITEMS.register("moon_temple_key", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> DARK_STONE_KEY =  ITEMS.register("dark_stone_key", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> RUNE_STONE_LOOT_KEY =  ITEMS.register("rune_stone_loot_key", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY =  ITEMS.register("moon_temple_cell_key", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> RUNE_STONE_KEY =  ITEMS.register("rune_stone_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> MOON_TEMPLE_KEY =  ITEMS.register("moon_temple_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> DARK_STONE_KEY =  ITEMS.register("dark_stone_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> RUNE_STONE_LOOT_KEY =  ITEMS.register("rune_stone_loot_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY =  ITEMS.register("moon_temple_cell_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
 
     /**
-     * tool
+     * Arrow
+     */
+    public static final RegistryObject<Item> CERULEAN_ARROW = ITEMS.register("cerulean_arrow", () -> new CeruleanArrow(new Item.Properties()));
+    public static final RegistryObject<Item> CRYSTAL_ARROW = ITEMS.register("crystal_arrow", () -> new CrystalArrow(new Item.Properties()));
+
+    /**
+     * Tool
      */
     public static final RegistryObject<Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrbItem::new);
     public static final RegistryObject<Item> SILENT_WOOD_STICK = ITEMS.register("silent_wood_stick", SilentWoodStickItem::new);
-    public static final RegistryObject<Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(
-            new Item.Properties().rarity(Rarity.EPIC), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 1.5F, 1.0F));
+    public static final RegistryObject<Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(new Item.Properties()
+            .rarity(Rarity.EPIC), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, ModEntityTypes.STICKY_SPIKER.get(), 1.5F, 1.0F));
 
     /**
      * Loot
@@ -213,6 +219,7 @@ public class ModItems {
     /**
      * Misc
      */
+    public static final RegistryObject<Item> CRYSTAL = normal("crystal", true);
     public static final RegistryObject<Item> AURORIAN_STEEL_NUGGET = normal("aurorian_steel_nugget", true);
     public static final RegistryObject<Item> CERULEAN_NUGGET = normal("cerulean_nugget", true);
     public static final RegistryObject<Item> AURORIAN_COAL_NUGGET = normal("aurorian_coal_nugget", true);

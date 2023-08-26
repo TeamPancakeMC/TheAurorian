@@ -75,6 +75,10 @@ public class ModItems {
     public static final RegistryObject<Item> UMBRA_SWORD = ITEMS.register("umbra_sword", UmbraSword::new);
     public static final RegistryObject<Item> AURORIANITE_SWORD = ITEMS.register("aurorianite_sword", AurorianiteSword::new);
     public static final RegistryObject<Item> CRYSTALLINE_SWORD = ITEMS.register("crystalline_sword", CrystallineSword::new);
+    //Moonstone
+    public static final RegistryObject<Item> MOONSTONE_SWORD = ITEMS.register("moonstone_sword",
+            () -> new SwordItem(ModToolTiers.SILENT_WOOD, 4, -1.6F, new Item.Properties()));
+
 
     /**
      * ShovelItem
@@ -85,6 +89,9 @@ public class ModItems {
             () -> new ShovelItem(ModToolTiers.AURORIAN_STONE, 1.5F, -3.0F, new Item.Properties()));
     public static final RegistryObject<Item> SILENT_WOOD_SHOVEL = ITEMS.register("silent_wood_shovel",
             () -> new ShovelItem(ModToolTiers.SILENT_WOOD, 1.5F, -3.0F, new Item.Properties()));
+    public static final RegistryObject<Item> MOONSTONE_SHOVEL = ITEMS.register("moonstone_shovel",
+            () -> new ShovelItem(ModToolTiers.SILENT_WOOD, 1.5F, -3.0F, new Item.Properties()));
+
 
     /**
      * AxeItem
@@ -102,9 +109,8 @@ public class ModItems {
     public static final RegistryObject<Item> AURORIANITE_PICKAXE = ITEMS.register("aurorianite_pickaxe",
             () -> new PickaxeItem(ModToolTiers.AURORIANITE, 1, -3.0F, new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> UMBRA_PICKAXE = ITEMS.register("umbra_pickaxe", UmbraPickaxe::new);
-    public static final RegistryObject<Item> CRYSTALLINE_PICKAXE=ITEMS.register("crystalline_pickaxe",CrystallinePickaxe::new);
+    public static final RegistryObject<Item> CRYSTALLINE_PICKAXE = ITEMS.register("crystalline_pickaxe", CrystallinePickaxe::new);
     public static final RegistryObject<Item> AURORIAN_STONE_PICKAXE = ITEMS.register("aurorian_stone_pickaxe", AurorianStonePickaxe::new);
-
     /**
      * HoeItem
      */
@@ -122,13 +128,17 @@ public class ModItems {
             () -> new ShearsItem(new Item.Properties().durability(150)));
     public static final RegistryObject<Item> AURORIAN_STEEL_SICKLE = ITEMS.register("silent_wood_sickle",
             () -> new ShearsItem(new Item.Properties()));
+    public static final RegistryObject<Item> MOONSTONE_SICKLE = ITEMS.register("moonstone_sickle", () -> new ShearsItem(new Item.Properties()));
+
 
     /**
      * ShieldItem
      */
     public static final RegistryObject<Item> UMBRA_SHIELD = ITEMS.register("umbra_shield", UmbraShield::new);
-    public static final RegistryObject<Item> CERULEAN_SHIELD = ITEMS.register("cerulean_shield",CeruleanShield::new);
-    public static final RegistryObject<Item> CRYSTALLINE_SHIELD = ITEMS.register("crystalline_shield",CrystallineShield::new);
+    public static final RegistryObject<Item> CERULEAN_SHIELD = ITEMS.register("cerulean_shield", CeruleanShield::new);
+    public static final RegistryObject<Item> CRYSTALLINE_SHIELD = ITEMS.register("crystalline_shield", CrystallineShield::new);
+    public static final RegistryObject<Item> MOONSTONE_SHIELD = ITEMS.register("moonstone_shield", () -> new ShieldItem(new Item.Properties()));
+
 
     /**
      * Tea
@@ -136,18 +146,19 @@ public class ModItems {
     public static final RegistryObject<Item> TEA_CUP = normal("tea_cup", false);
     public static final RegistryObject<Item> BEPSI = ITEMS.register("bepsi", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F).build())));
-//    public static final RegistryObject<Item> LAVENDER_TEA = ITEMS.register("lavender_tea", () -> new TeaFood(new Item.Properties()
-//            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,
-//                    300), 1.0F).build())));
-//    public static final RegistryObject<Item> SILKBERRY_TEA = ITEMS.register("silk_berry_tea", () -> new TeaFood(new Item.Properties()
-//            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.REGENERATION,
-//                    100), 1.0F).build())));
-//    public static final RegistryObject<Item> SEEDY_TEA = ITEMS.register("seedy_tea", () -> new TeaFood(new Item.Properties()
-//            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED,
-//                    200), 1.0F).build())));
-//    public static final RegistryObject<Item> PETUNIA_TEA = ITEMS.register("petunia_tea", () -> new TeaFood(new Item.Properties()
-//            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST,
-//                    300), 1.0F).build())));
+    public static final RegistryObject<Item> LAVENDER_TEA = ITEMS.register("lavender_tea", () -> new TeaFood(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,
+                    300), 1.0F).build())));
+    public static final RegistryObject<Item> SILKBERRY_TEA = ITEMS.register("silk_berry_tea", () -> new TeaFood(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.REGENERATION,
+                    100), 1.0F).build())));
+    public static final RegistryObject<Item> SEEDY_TEA = ITEMS.register("seedy_tea", () -> new TeaFood(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED,
+                    200), 1.0F).build())));
+    public static final RegistryObject<Item> PETUNIA_TEA = ITEMS.register("petunia_tea", () -> new TeaFood(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0).effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST,
+                    300), 1.0F).build())));
+    public static final RegistryObject<Item> SLEEPING_BLACK_TEA = ITEMS.register("sleeping_black_tea", SleepingBlackTea::new);
 
     /**
      * Food
@@ -161,7 +172,7 @@ public class ModItems {
     public static final RegistryObject<Item> SILK_SHROOM_STEW = food("silk_shroom_stew", 6, 1F, false);
     public static final RegistryObject<Item> LAVENDER_BREAD = food("lavender_bread", 4, 0.4F, false);
     public static final RegistryObject<Item> SOULLESS_FLESH = food("soulless_flesh", 2, 0.1F, false);
-    public static final RegistryObject<Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap",WeepingWillowSap::new);
+    public static final RegistryObject<Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap", WeepingWillowSap::new);
     public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", ModBlocks.SILK_BERRY_PLANT, new Item.Properties().food(
             new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
 
@@ -188,11 +199,11 @@ public class ModItems {
      * Key
      */
     public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY_FRAGMENT = normal("moon_temple_cell_key_fragment", true);
-    public static final RegistryObject<Item> RUNE_STONE_KEY =  ITEMS.register("rune_stone_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
-    public static final RegistryObject<Item> MOON_TEMPLE_KEY =  ITEMS.register("moon_temple_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
-    public static final RegistryObject<Item> DARK_STONE_KEY =  ITEMS.register("dark_stone_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
-    public static final RegistryObject<Item> RUNE_STONE_LOOT_KEY =  ITEMS.register("rune_stone_loot_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
-    public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY =  ITEMS.register("moon_temple_cell_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> RUNE_STONE_KEY = ITEMS.register("rune_stone_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> MOON_TEMPLE_KEY = ITEMS.register("moon_temple_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> DARK_STONE_KEY = ITEMS.register("dark_stone_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> RUNE_STONE_LOOT_KEY = ITEMS.register("rune_stone_loot_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY = ITEMS.register("moon_temple_cell_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
 
     /**
      * Arrow
@@ -228,5 +239,4 @@ public class ModItems {
             () -> new Item(new Item.Properties().stacksTo(1).durability(10)));
     public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(),
             SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, EntityType.SNOWBALL, 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F)));
-
 }

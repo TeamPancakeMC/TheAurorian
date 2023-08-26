@@ -25,7 +25,7 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
         if (livingEntity instanceof Player player) {
             Vec3 lookAngle = player.getLookAngle();
             float pitch = 1.0F / (level.random.nextFloat() * 0.4F + 1.2F) + 0.5F;
-            level.playSound(null, player.getOnPos(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, pitch);
+            level.playSound(null, player.getOnPos(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, pitch);
             if (this.getUseDuration(stack) - timeCharged >= 20 && !level.isClientSide) {
                 stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(player.getUsedItemHand()));
                 Arrow arrow = ModEntityTypes.CRYSTALLINE_BEAM.get().create(level);

@@ -100,6 +100,8 @@ public class ModItems {
             () -> new AxeItem(ModToolTiers.AURORIAN_STEEL, 6.0F, -3.0F, new Item.Properties()));
     public static final RegistryObject<Item> AURORIANITE_AXE = ITEMS.register("aurorianite_axe", AurorianiteAxe::new);
     public static final RegistryObject<Item> AURORIAN_STONE_AXE = ITEMS.register("aurorian_stone_axe", AurorianStoneAxe::new);
+    public static final RegistryObject<Item> MOONSTONE_AXE = ITEMS.register("moonstone_axe",
+            () -> new AxeItem(ModToolTiers.SILENT_WOOD, 6.0F, -3.0F, new Item.Properties()));
 
     /**
      * PickaxeItem
@@ -111,6 +113,8 @@ public class ModItems {
     public static final RegistryObject<Item> UMBRA_PICKAXE = ITEMS.register("umbra_pickaxe", UmbraPickaxe::new);
     public static final RegistryObject<Item> CRYSTALLINE_PICKAXE = ITEMS.register("crystalline_pickaxe", CrystallinePickaxe::new);
     public static final RegistryObject<Item> AURORIAN_STONE_PICKAXE = ITEMS.register("aurorian_stone_pickaxe", AurorianStonePickaxe::new);
+    public static final RegistryObject<Item> MOONSTONE_PICKAXE = ITEMS.register("moonstone_pickaxe",
+            () -> new PickaxeItem(ModToolTiers.SILENT_WOOD, 1, -2.8F, new Item.Properties()));
     /**
      * HoeItem
      */
@@ -119,6 +123,8 @@ public class ModItems {
     public static final RegistryObject<Item> AURORIAN_STONE_HOE = ITEMS.register("aurorian_stone_hoe",
             () -> new HoeItem(ModToolTiers.AURORIAN_STONE, -1, -1.0F, new Item.Properties()));
     public static final RegistryObject<Item> SILENTWOOD_HOE = ITEMS.register("silent_wood_hoe",
+            () -> new HoeItem(ModToolTiers.SILENT_WOOD, -2, -1.0F, new Item.Properties()));
+    public static final RegistryObject<Item> MOONSTONE_HOE = ITEMS.register("moonstone_hoe",
             () -> new HoeItem(ModToolTiers.SILENT_WOOD, -2, -1.0F, new Item.Properties()));
 
     /**
@@ -138,6 +144,7 @@ public class ModItems {
     public static final RegistryObject<Item> CERULEAN_SHIELD = ITEMS.register("cerulean_shield", CeruleanShield::new);
     public static final RegistryObject<Item> CRYSTALLINE_SHIELD = ITEMS.register("crystalline_shield", CrystallineShield::new);
     public static final RegistryObject<Item> MOONSTONE_SHIELD = ITEMS.register("moonstone_shield", () -> new ShieldItem(new Item.Properties()));
+    public static final RegistryObject<Item> MOON_SHIELD = ITEMS.register("moon_shield", () -> new ShieldItem(new Item.Properties()));
 
 
     /**
@@ -239,4 +246,6 @@ public class ModItems {
             () -> new Item(new Item.Properties().stacksTo(1).durability(10)));
     public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(),
             SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, () -> EntityType.SNOWBALL, 0.5F, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F)));
+    public static final RegistryObject<Item> LIVING_DIVINING_ROD = ITEMS.register("living_divining_rod", LivingDiviningRod::new);
+
 }

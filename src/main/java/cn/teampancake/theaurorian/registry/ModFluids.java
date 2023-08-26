@@ -1,9 +1,15 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -41,5 +47,18 @@ public class ModFluids {
     private static final ForgeFlowingFluid.Properties MOON_WATER_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.MOON_WATER, MOON_WATER_STILL, MOON_WATER_FLOWING)
             .slopeFindDistance(4).levelDecreasePerBlock(5).block(ModBlocks.MOON_WATER_BLOCK);
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void registerRenderLayer(FMLClientSetupEvent event) {
+        ItemBlockRenderTypes.setRenderLayer(MOLTEN_AURORIAN_STEEL_STILL.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(MOLTEN_AURORIAN_STEEL_FLOWING.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(MOLTEN_CERULEAN_STILL.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(MOLTEN_CERULEAN_FLOWING.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(MOLTEN_MOONSTONE_STILL.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(MOLTEN_MOONSTONE_FLOWING.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(MOON_WATER_STILL.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(MOON_WATER_FLOWING.get(), RenderType.translucent());
+    }
 
 }

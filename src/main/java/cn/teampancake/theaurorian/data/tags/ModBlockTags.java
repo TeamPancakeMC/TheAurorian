@@ -6,6 +6,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
 public class ModBlockTags {
+    public static final TagKey<Block> DUNGEON_BRICKS = create("dungeon_bricks");
 
     private static TagKey<Block> create(String name) {
         return BlockTags.create(AurorianMod.prefix(name));

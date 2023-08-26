@@ -1,6 +1,8 @@
 package cn.teampancake.theaurorian.data.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.data.tags.ModBlockTags;
+import cn.teampancake.theaurorian.registry.ModBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.BlockTagsProvider;
@@ -19,7 +21,32 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-
+        tag(ModBlockTags.DUNGEON_BRICKS)
+                .add(ModBlocks.RUNE_STONE.get())
+                .add(ModBlocks.MOON_TEMPLE_BRICK.get())
+                .add(ModBlocks.DARK_STONE_BRICK.get())
+                .add(ModBlocks.DARK_STONE_FANCY.get())
+                .add(ModBlocks.DARK_STONE_LAYERS.get())
+                .add(ModBlocks.SMOOTH_RUNE_STONE.get())
+                .add(ModBlocks.SMOOTH_MOON_TEMPLE_BRICK.get())
+                .add(ModBlocks.RUNE_STONE_LAMP.get())
+                .add(ModBlocks.MOON_TEMPLE_LAMP.get())
+                .add(ModBlocks.DARK_STONE_LAMP.get())
+                .add(ModBlocks.CERULEAN_BLOCK.get())
+                .add(ModBlocks.MOONSTONE_BLOCK.get())
+                .add(ModBlocks.AURORIAN_COAL_BLOCK.get())
+                .add(ModBlocks.AURORIAN_STEEL_BLOCK.get())
+                .add(ModBlocks.MYSTICAL_BARRIER.get())
+                .add(ModBlocks.RUNE_STONE_BARS.get())
+                .add(ModBlocks.MOON_TEMPLE_BARS.get())
+                .add(ModBlocks.RUNE_STONE_GATE.get())
+                .add(ModBlocks.MOON_TEMPLE_GATE.get())
+                .add(ModBlocks.DARK_STONE_GATE.get())
+                .add(ModBlocks.RUNE_STONE_LOOT_GATE.get())
+                .add(ModBlocks.MOON_TEMPLE_CELL_GATE.get())
+                .add(ModBlocks.RUNE_STONE_STAIRS.get())
+                .add(ModBlocks.MOON_TEMPLE_STAIRS.get())
+                .add(ModBlocks.DARK_STONE_STAIRS.get());
     }
 
 }

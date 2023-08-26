@@ -17,6 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -65,20 +66,25 @@ public class EntityEventSubscriber {
         LivingEntity livingEntity = event.getEntity();
         DamageSource damageSource = event.getDamageSource();
         Entity entity = damageSource.getEntity();
-        if (livingEntity.getUseItem().getItem() instanceof UmbraShield){
+        Item item = livingEntity.getUseItem().getItem();
+        if (item instanceof UmbraShield) {
             if (entity != null) {
                 entity.setSecondsOnFire(3);
             }
         }
-        if(livingEntity.getUseItem().getItem() instanceof CrystallineShield){
-            if(livingEntity instanceof ServerPlayer player){
-                ItemStack mainhand=player.getItemInHand(InteractionHand.MAIN_HAND);
+        if (item instanceof CrystallineShield) {
+            if (livingEntity instanceof ServerPlayer player) {
+                ItemStack mainhand = player.getItemInHand(InteractionHand.MAIN_HAND);
                 if (mainhand.getDamageValue() < mainhand.getMaxDamage() && mainhand.isDamageableItem()) {
-                    mainhand.setDamageValue(mainhand.getDamageValue()- 1);
+                    mainhand.setDamageValue(mainhand.getDamageValue() - 1);
                 }
-                player.getCooldowns().addCooldown(livingEntity.getUseItem().getItem(), 20);
+                player.getCooldowns().addCooldown(item, 20);
             }
-
+        }
+        if (item == ModItems.MOON_SHIELD.get()) {
+            if (entity != null) {
+                entity.setPos(entity.getX(), entity.getY() + 5, entity.getZ());
+            }
         }
     }
 

@@ -148,6 +148,12 @@ public class ModItems {
 
 
     /**
+     * BowItem
+     */
+    public static final RegistryObject<Item> KEEPERS_BOW = ITEMS.register("keepers_bow", KeepersBow::new);
+
+
+    /**
      * Tea
      */
     public static final RegistryObject<Item> TEA_CUP = normal("tea_cup", false);

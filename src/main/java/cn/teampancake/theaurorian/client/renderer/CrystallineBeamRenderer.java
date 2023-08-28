@@ -5,7 +5,10 @@ import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class CrystallineBeamRenderer<T extends Arrow> extends ArrowRenderer<T> {
 
     public CrystallineBeamRenderer(EntityRendererProvider.Context context) {

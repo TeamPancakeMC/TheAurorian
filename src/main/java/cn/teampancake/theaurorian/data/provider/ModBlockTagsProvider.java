@@ -21,6 +21,12 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        this.tag(ModBlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON)
+                .add(ModBlocks.RUNE_STONE.get()).add(ModBlocks.MOON_TEMPLE_BRICK.get())
+                .add(ModBlocks.DARK_STONE_BRICK.get()).add(ModBlocks.DARK_STONE_FANCY.get())
+                .add(ModBlocks.DARK_STONE_LAYERS.get()).add(ModBlocks.RUNE_STONE_LAMP.get())
+                .add(ModBlocks.MOON_TEMPLE_LAMP.get()).add(ModBlocks.DARK_STONE_LAMP.get())
+                .add(ModBlocks.SMOOTH_RUNE_STONE.get()).add(ModBlocks.SMOOTH_MOON_TEMPLE_BRICK.get());
         tag(ModBlockTags.DUNGEON_BRICKS)
                 .add(ModBlocks.RUNE_STONE.get())
                 .add(ModBlocks.MOON_TEMPLE_BRICK.get())

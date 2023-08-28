@@ -5,13 +5,13 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import java.util.List;
 
 public class AurorianConfig {
+
     public static final ForgeConfigSpec SPEC;
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
     //Compat
     public static final ForgeConfigSpec.BooleanValue CONFIG_ENABLE_TINKERS_CONSTRUCT_COMPATIBILITY;
     public static final ForgeConfigSpec.BooleanValue CONFIG_ENABLE_CONSTRUCTS_ARMORY_COMPATIBILITY;
-
 
     //Blocks
     public static final ForgeConfigSpec.IntValue CONFIG_MAXIMUM_CHIMNEYS;
@@ -20,7 +20,6 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.DoubleValue CONFIG_CRYSTALS_CHANCE_OF_BREAKING;
     public static final ForgeConfigSpec.DoubleValue CONFIG_CRYSTALS_SPEED_REDUCTION;
     public static final ForgeConfigSpec.IntValue CONFIG_SCRAPPER_TICK_INTERVAL;
-
 
     //Structures
     public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_RUNESTONE_DUNGEON;
@@ -34,12 +33,11 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_GRAVEYARDS;
     public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_DARKSTONE_DUNGEON;
 
-
     //Entities
-    public static final ForgeConfigSpec.BooleanValue Config_Nightmaremode;
-    public static final ForgeConfigSpec.DoubleValue Config_Nightmaremode_Multiplier;
-    public static final ForgeConfigSpec.IntValue Config_RunestoneDungeonMobDensity;
-    public static final ForgeConfigSpec.IntValue Config_MoonTempleMobDensity;
+    public static final ForgeConfigSpec.BooleanValue CONFIG_NIGHTMARE_MODE;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_NIGHTMARE_MODE_MULTIPLIER;
+    public static final ForgeConfigSpec.IntValue CONFIG_RUNESTONE_DUNGEON_MOB_DENSITY;
+    public static final ForgeConfigSpec.IntValue CONFIG_MOON_TEMPLE_MOB_DENSITY;
     public static final ForgeConfigSpec.IntValue Config_DarkstoneDungeonMobDensity;
     public static final ForgeConfigSpec.DoubleValue Config_RunestoneKeeperHealthMuliplier;
     public static final ForgeConfigSpec.DoubleValue Config_MoonQueenHealthMuliplier;
@@ -173,16 +171,16 @@ public class AurorianConfig {
     //Entities
     static {
         BUILDER.push("Entity");
-        Config_Nightmaremode = BUILDER
+        CONFIG_NIGHTMARE_MODE = BUILDER
                 .comment("Enable to make Aurorian mobs(not bosses) fast and strong, change multiplier to adjust the strength of these effects")
                 .define("Nightmaremode", false);
-        Config_Nightmaremode_Multiplier = BUILDER
+        CONFIG_NIGHTMARE_MODE_MULTIPLIER = BUILDER
                 .comment("Use at your own risk!")
                 .defineInRange("NightmaremodeMultiplier", 1.0f, 0.0f, 50.0f);
-        Config_RunestoneDungeonMobDensity = BUILDER
+        CONFIG_RUNESTONE_DUNGEON_MOB_DENSITY = BUILDER
                 .comment("Density of mobs spawning in the Runestone Dungeon, 2 for twice as many mobs, etc")
                 .defineInRange("RunestoneDungeonMobDensity", 1, 0, 10);
-        Config_MoonTempleMobDensity = BUILDER
+        CONFIG_MOON_TEMPLE_MOB_DENSITY = BUILDER
                 .comment("Density of mobs spawning in the Moon Temple, 2 for twice as many mobs, etc")
                 .defineInRange("MoonTempleMobDensity", 1, 0, 10);
         Config_DarkstoneDungeonMobDensity = BUILDER

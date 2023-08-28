@@ -1,17 +1,21 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.renderer.CeruleanArrowRenderer;
-import cn.teampancake.theaurorian.client.renderer.CrystalArrowRenderer;
-import cn.teampancake.theaurorian.client.renderer.CrystallineBeamRenderer;
-import cn.teampancake.theaurorian.common.entities.projectile.CeruleanArrowEntity;
-import cn.teampancake.theaurorian.common.entities.projectile.CrystalArrowEntity;
-import cn.teampancake.theaurorian.common.entities.projectile.StickySpikerEntity;
-import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
+import cn.teampancake.theaurorian.client.model.ModModelLayers;
+import cn.teampancake.theaurorian.client.renderer.*;
+import cn.teampancake.theaurorian.common.entities.animal.*;
+import cn.teampancake.theaurorian.common.entities.monster.*;
+import cn.teampancake.theaurorian.common.entities.projectile.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -27,6 +31,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModEntityTypes {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, AurorianMod.MOD_ID);
+    //Projectile
     public static final RegistryObject<EntityType<Arrow>> CRYSTALLINE_BEAM = ENTITY_TYPES.register("crystalline_beam",
             () -> EntityType.Builder.<Arrow>of(Arrow::new, MobCategory.MISC).sized(0.5F, 0.5F)
                     .clientTrackingRange(4).updateInterval(20).build("crystalline_beam"));
@@ -42,6 +47,38 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<WebbingEntity>> WEBBING = ENTITY_TYPES.register("webbing",
             () -> EntityType.Builder.<WebbingEntity>of(WebbingEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
                     .clientTrackingRange(4).updateInterval(10).build("webbing"));
+    //Animal
+    public static final RegistryObject<EntityType<AurorianRabbit>> AURORIAN_RABBIT = ENTITY_TYPES.register("aurorian_rabbit",
+            () -> EntityType.Builder.of(AurorianRabbit::new, MobCategory.CREATURE).sized(0.4F, 0.5F)
+                    .clientTrackingRange(8).build("aurorian_rabbit"));
+    public static final RegistryObject<EntityType<AurorianSheep>> AURORIAN_SHEEP = ENTITY_TYPES.register("aurorian_sheep",
+            () -> EntityType.Builder.of(AurorianSheep::new, MobCategory.CREATURE).sized(0.9F, 1.3F)
+                    .clientTrackingRange(10).build("aurorian_sheep"));
+    public static final RegistryObject<EntityType<AurorianPig>> AURORIAN_PIG = ENTITY_TYPES.register("aurorian_pig",
+            () -> EntityType.Builder.of(AurorianPig::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
+                    .clientTrackingRange(10).build("aurorian_pig"));
+    //Monster
+    public static final RegistryObject<EntityType<AurorianSlime>> AURORIAN_SLIME = ENTITY_TYPES.register("aurorian_slime",
+            () -> EntityType.Builder.of(AurorianSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F)
+                    .clientTrackingRange(10).build("aurorian_slime"));
+    public static final RegistryObject<EntityType<DisturbedHollow>> DISTURBED_HOLLOW = ENTITY_TYPES.register("disturbed_hollow",
+            () -> EntityType.Builder.of(DisturbedHollow::new, MobCategory.MONSTER).sized(0.6F, 1.95F)
+                    .clientTrackingRange(8).build("disturbed_hollow"));
+    public static final RegistryObject<EntityType<UndeadKnight>> UNDEAD_KNIGHT = ENTITY_TYPES.register("undead_knight",
+            () -> EntityType.Builder.of(UndeadKnight::new, MobCategory.MONSTER).sized(0.78F, 2.535F)
+                    .clientTrackingRange(8).fireImmune().build("undead_knight"));
+    public static final RegistryObject<EntityType<Spirit>> SPIRIT = ENTITY_TYPES.register("spirit",
+            () -> EntityType.Builder.of(Spirit::new, MobCategory.MONSTER).sized(0.6F, 1.95F)
+                    .clientTrackingRange(8).build("spirit"));
+    public static final RegistryObject<EntityType<MoonAcolyte>> MOON_ACOLYTE = ENTITY_TYPES.register("moon_acolyte",
+            () -> EntityType.Builder.of(MoonAcolyte::new, MobCategory.MONSTER).sized(0.6F, 1.95F)
+                    .clientTrackingRange(8).build("moon_acolyte"));
+    public static final RegistryObject<EntityType<Spiderling>> SPIDERLING = ENTITY_TYPES.register("spiderling",
+            () -> EntityType.Builder.of(Spiderling::new, MobCategory.MONSTER).sized(0.7F, 0.45F)
+                    .clientTrackingRange(8).build("spiderling"));
+    public static final RegistryObject<EntityType<CrystallineSprite>> CRYSTALLINE_SPRITE = ENTITY_TYPES.register("crystalline_sprite",
+            () -> EntityType.Builder.of(CrystallineSprite::new, MobCategory.MONSTER).sized(1.0F, 1.5F)
+                    .clientTrackingRange(8).build("crystalline_sprite"));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -51,22 +88,71 @@ public class ModEntityTypes {
         event.registerEntityRenderer(CRYSTAL_ARROW.get(), CrystalArrowRenderer::new);
         event.registerEntityRenderer(STICKY_SPIKER.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(WEBBING.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(AURORIAN_RABBIT.get(), AurorianRabbitRenderer::new);
+        event.registerEntityRenderer(AURORIAN_SHEEP.get(), AurorianSheepRenderer::new);
+        event.registerEntityRenderer(AURORIAN_PIG.get(), AurorianPigRenderer::new);
+        event.registerEntityRenderer(AURORIAN_SLIME.get(), AurorianSlimeRenderer::new);
+        event.registerEntityRenderer(DISTURBED_HOLLOW.get(), DisturbedHollowRenderer::new);
+        event.registerEntityRenderer(UNDEAD_KNIGHT.get(), UndeadKnightRenderer::new);
+        event.registerEntityRenderer(SPIRIT.get(), SpiritRenderer::new);
+        event.registerEntityRenderer(MOON_ACOLYTE.get(), MoonAcolyteRenderer::new);
+        event.registerEntityRenderer(SPIDERLING.get(), SpiderlingRenderer::new);
+        event.registerEntityRenderer(CRYSTALLINE_SPRITE.get(), CrystallineSpriteRenderer::new);
     }
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-
+        LayerDefinition layerDefinition = LayerDefinition.create(HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F), 64, 64);
+        event.registerLayerDefinition(ModModelLayers.AURORIAN_RABBIT, RabbitModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.AURORIAN_SHEEP, SheepModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.AURORIAN_PIG, () -> PigModel.createBodyLayer(new CubeDeformation(0.5F)));
+        event.registerLayerDefinition(ModModelLayers.AURORIAN_SLIME, SlimeModel::createInnerBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.AURORIAN_SLIME_OUTER, SlimeModel::createOuterBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.DISTURBED_HOLLOW, () -> layerDefinition);
+        event.registerLayerDefinition(ModModelLayers.UNDEAD_KNIGHT, () -> layerDefinition);
+        event.registerLayerDefinition(ModModelLayers.SPIRIT, () -> layerDefinition);
+        event.registerLayerDefinition(ModModelLayers.MOON_ACOLYTE, () -> layerDefinition);
+        event.registerLayerDefinition(ModModelLayers.MOON_ACOLYTE_OUTER_LAYER, () -> LayerDefinition.create(
+                HumanoidModel.createMesh(new CubeDeformation(0.25F), 0.0F), 64, 64));
+        event.registerLayerDefinition(ModModelLayers.SPIDERLING, SpiderModel::createSpiderBodyLayer);
     }
 
     @SubscribeEvent
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
-
+        event.register(AURORIAN_RABBIT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                AurorianRabbit::checkAurorianRabbitSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(AURORIAN_SHEEP.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                AurorianSheep::checkAurorianSheepSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(AURORIAN_PIG.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                AurorianPig::checkAurorianPigSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(AURORIAN_SLIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                AurorianSlime::checkAurorianSlimeSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(DISTURBED_HOLLOW.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(UNDEAD_KNIGHT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                UndeadKnight::checkUndeadKnightSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(SPIRIT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Spirit::checkSpiritSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(MOON_ACOLYTE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                MoonAcolyte::checkMoonAcolyteRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(SPIDERLING.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Spiderling::checkSpiderlingSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(CRYSTALLINE_SPRITE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                CrystallineSprite::checkCrystallineSpriteRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
     }
 
     @SubscribeEvent
     public static void addEntityAttributes(EntityAttributeCreationEvent event) {
-
+        event.put(AURORIAN_RABBIT.get(), AurorianRabbit.createAttributes().build());
+        event.put(AURORIAN_SHEEP.get(), AurorianSheep.createAttributes().build());
+        event.put(AURORIAN_PIG.get(), AurorianPig.createAttributes().build());
+        event.put(AURORIAN_SLIME.get(), AurorianSlime.createMobAttributes().build());
+        event.put(DISTURBED_HOLLOW.get(), DisturbedHollow.createAttributes().build());
+        event.put(UNDEAD_KNIGHT.get(), UndeadKnight.createAttributes().build());
+        event.put(SPIRIT.get(), Spirit.createAttributes().build());
+        event.put(MOON_ACOLYTE.get(), MoonAcolyte.createAttributes().build());
+        event.put(CRYSTALLINE_SPRITE.get(), CrystallineSprite.createAttributes().build());
     }
 
 }

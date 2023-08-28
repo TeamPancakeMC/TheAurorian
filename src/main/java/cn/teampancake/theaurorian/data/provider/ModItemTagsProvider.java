@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.data.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.data.tags.ModBlockTags;
 import cn.teampancake.theaurorian.data.tags.ModItemTags;
 import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.core.HolderLookup;
@@ -33,6 +34,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 ModItems.SPECTRAL_BOOTS.get());
 
         tag(ModItemTags.AURORIAN_SLIME_BOOTS).add(ModItems.AURORIAN_SLIME_BOOTS.get());
-
+        copy(ModBlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, ModItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
     }
+
 }

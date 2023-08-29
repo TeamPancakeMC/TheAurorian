@@ -28,6 +28,7 @@ public class UndeadKnight extends Monster {
 
     public UndeadKnight(EntityType<? extends UndeadKnight> type, Level level) {
         super(type, level);
+        this.xpReward = 20;
     }
 
     @Override

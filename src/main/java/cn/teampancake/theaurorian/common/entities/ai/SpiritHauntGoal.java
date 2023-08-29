@@ -21,7 +21,7 @@ public class SpiritHauntGoal extends Goal {
 
     public SpiritHauntGoal(Spirit spirit) {
         this.spirit = spirit;
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     @Override
@@ -60,10 +60,9 @@ public class SpiritHauntGoal extends Goal {
 
     @Override
     public void tick() {
-        final float increase = 40.0F;
         LivingEntity target = this.spirit.getTarget();
         if (target != null) {
-            this.spirit.lookAt(target, increase, increase);
+            this.spirit.lookAt(target, 40.0F, 40.0F);
             this.spirit.setXxa(this.strafeDirection == Direction.RIGHT ? 0.3F : -0.3F);
             float distance = this.spirit.distanceTo(target);
             PathNavigation navigation = this.spirit.getNavigation();

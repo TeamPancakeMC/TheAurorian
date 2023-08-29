@@ -17,6 +17,10 @@ public class ModModelLayers {
     public static final ModelLayerLocation MOON_ACOLYTE_OUTER_LAYER = register("moon_acolyte", "outer");
     public static final ModelLayerLocation SPIDERLING = register("spiderling");
     public static final ModelLayerLocation CRYSTALLINE_SPRITE = register("crystalline_sprite");
+    public static final ModelLayerLocation RUNESTONE_KEEPER = register("runestone_keeper");
+    public static final ModelLayerLocation RUNESTONE_KEEPER_OUTER_LAYER = register("runestone_keeper", "outer");
+    public static final ModelLayerLocation SPIDER_MOTHER = register("spider_mother");
+    public static final ModelLayerLocation MOON_QUEEN = register("moon_queen");
 
     private static ModelLayerLocation register(String path) {
         return register(path, "main");

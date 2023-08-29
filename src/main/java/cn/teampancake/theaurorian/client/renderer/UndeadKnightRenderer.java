@@ -7,7 +7,6 @@ import cn.teampancake.theaurorian.common.entities.monster.UndeadKnight;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.AbstractZombieModel;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
@@ -25,8 +24,7 @@ public class UndeadKnightRenderer extends HumanoidMobRenderer<UndeadKnight, Abst
     }
 
     @Override
-    public void render(UndeadKnight entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+    protected void scale(UndeadKnight livingEntity, PoseStack poseStack, float partialTickTime) {
         poseStack.scale(1.3F, 1.3F, 1.3F);
     }
 

@@ -3,7 +3,7 @@ package cn.teampancake.theaurorian.client.renderer;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.model.ModModelLayers;
 import cn.teampancake.theaurorian.client.model.entity.ModZombieModel;
-import cn.teampancake.theaurorian.client.model.layer.MoonAcolyteArmorLayer;
+import cn.teampancake.theaurorian.client.model.layer.HumanoidMonsterArmorLayer;
 import cn.teampancake.theaurorian.common.entities.monster.MoonAcolyte;
 import net.minecraft.client.model.AbstractZombieModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -17,7 +17,9 @@ public class MoonAcolyteRenderer extends HumanoidMobRenderer<MoonAcolyte, Abstra
 
     public MoonAcolyteRenderer(EntityRendererProvider.Context context) {
         super(context, new ModZombieModel<>(context.bakeLayer(ModModelLayers.MOON_ACOLYTE)), 0.5F);
-        this.addLayer(new MoonAcolyteArmorLayer<>(this, context.getModelSet()));
+        this.addLayer(new HumanoidMonsterArmorLayer<>(this,
+                new ModZombieModel<>(context.bakeLayer(ModModelLayers.MOON_ACOLYTE_OUTER_LAYER)),
+                AurorianMod.prefix("textures/entity/moon_acolyte_layer.png")));
     }
 
     @Override

@@ -17,6 +17,7 @@ public class Spiderling extends Spider {
 
     public Spiderling(EntityType<? extends Spiderling> type, Level level) {
         super(type, level);
+        this.xpReward = 10;
     }
 
     public static boolean checkSpiderlingSpawnRules(EntityType<Spiderling> spiderling, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

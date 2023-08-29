@@ -38,13 +38,13 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.DoubleValue CONFIG_NIGHTMARE_MODE_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue CONFIG_RUNESTONE_DUNGEON_MOB_DENSITY;
     public static final ForgeConfigSpec.IntValue CONFIG_MOON_TEMPLE_MOB_DENSITY;
-    public static final ForgeConfigSpec.IntValue Config_DarkstoneDungeonMobDensity;
-    public static final ForgeConfigSpec.DoubleValue Config_RunestoneKeeperHealthMuliplier;
-    public static final ForgeConfigSpec.DoubleValue Config_MoonQueenHealthMuliplier;
-    public static final ForgeConfigSpec.DoubleValue Config_SpiderMotherHealthMuliplier;
-    public static final ForgeConfigSpec.DoubleValue Config_RunestoneKeeperDamageMuliplier;
-    public static final ForgeConfigSpec.DoubleValue Config_MoonQueenDamageMuliplier;
-    public static final ForgeConfigSpec.DoubleValue Config_SpiderMotherDamageMuliplier;
+    public static final ForgeConfigSpec.IntValue CONFIG_DARKSTONE_DUNGEON_MOB_DENSITY;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_RUNESTONE_KEEPER_HEALTH_MULIPLIER;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_MOON_QUEEN_HEALTH_MULIPLIER;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_SPIDER_MOTHER_HEALTH_MULIPLIER;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_RUNESTONE_KEEPER_DAMAGE_MULIPLIER;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_MOON_QUEEN_DAMAGE_MULIPLIER;
+    public static final ForgeConfigSpec.DoubleValue CONFIG_SPIDER_MOTHER_DAMAGE_MULIPLIER;
 
     //Generation
     public static final ForgeConfigSpec.IntValue Config_AurorianCoalOre_Size;
@@ -183,20 +183,20 @@ public class AurorianConfig {
         CONFIG_MOON_TEMPLE_MOB_DENSITY = BUILDER
                 .comment("Density of mobs spawning in the Moon Temple, 2 for twice as many mobs, etc")
                 .defineInRange("MoonTempleMobDensity", 1, 0, 10);
-        Config_DarkstoneDungeonMobDensity = BUILDER
+        CONFIG_DARKSTONE_DUNGEON_MOB_DENSITY = BUILDER
                 .comment("Density of mobs spawning in the Darkstone Dungeon, 2 for twice as many mobs, etc")
                 .defineInRange("DarkstoneDungeonMobDensity", 1, 0, 10);
-        Config_RunestoneKeeperHealthMuliplier = BUILDER
+        CONFIG_RUNESTONE_KEEPER_HEALTH_MULIPLIER = BUILDER
                 .defineInRange("RunestoneKeeperHealthMuliplier", 1.0f, 0.0f, 100.0f);
-        Config_MoonQueenHealthMuliplier = BUILDER
+        CONFIG_MOON_QUEEN_HEALTH_MULIPLIER = BUILDER
                 .defineInRange("MoonQueenHealthMuliplier", 1.0f, 0.0f, 100.0f);
-        Config_SpiderMotherHealthMuliplier = BUILDER
+        CONFIG_SPIDER_MOTHER_HEALTH_MULIPLIER = BUILDER
                 .defineInRange("SpiderMotherHealthMuliplier", 1.0f, 0.0f, 100.0f);
-        Config_RunestoneKeeperDamageMuliplier = BUILDER
+        CONFIG_RUNESTONE_KEEPER_DAMAGE_MULIPLIER = BUILDER
                 .defineInRange("RunestoneKeeperDamageMuliplier", 1.0f, 0.0f, 100.0f);
-        Config_MoonQueenDamageMuliplier = BUILDER
+        CONFIG_MOON_QUEEN_DAMAGE_MULIPLIER = BUILDER
                 .defineInRange("MoonQueenDamageMuliplier", 1.0f, 0.0f, 100.0f);
-        Config_SpiderMotherDamageMuliplier = BUILDER
+        CONFIG_SPIDER_MOTHER_DAMAGE_MULIPLIER = BUILDER
                 .defineInRange("SpiderMotherDamageMuliplier", 1.0f, 0.0f, 100.0f);
         BUILDER.pop();
     }

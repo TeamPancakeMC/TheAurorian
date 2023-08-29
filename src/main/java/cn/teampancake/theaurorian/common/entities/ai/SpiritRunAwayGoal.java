@@ -17,7 +17,7 @@ public class SpiritRunAwayGoal extends Goal {
 
     public SpiritRunAwayGoal(Spirit spirit) {
         this.spirit = spirit;
-        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     @Override

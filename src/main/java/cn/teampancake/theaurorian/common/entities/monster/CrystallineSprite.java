@@ -32,6 +32,7 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
 
     public CrystallineSprite(EntityType<? extends CrystallineSprite> type, Level level) {
         super(type, level);
+        this.xpReward = 25;
         this.setSilent(true);
     }
 

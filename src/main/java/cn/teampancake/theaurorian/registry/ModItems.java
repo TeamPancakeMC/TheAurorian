@@ -241,6 +241,23 @@ public class ModItems {
     public static final RegistryObject<Item> CRYSTALLINE_SPRITE = normal("crystalline_sprite", false);
 
     /**
+     * Spawn Egg
+     */
+    public static final RegistryObject<Item> AURORIAN_RABBIT_SPAWN_EGG = spawnEgg("aurorian_rabbit", ModEntityTypes.AURORIAN_RABBIT, 0xc2e5e5, 0x43a2ec);
+    public static final RegistryObject<Item> AURORIAN_SHEEP_SPAWN_EGG = spawnEgg("aurorian_sheep", ModEntityTypes.AURORIAN_SHEEP, 0x97b4f2, 0x7197ea);
+    public static final RegistryObject<Item> AURORIAN_PIG_SPAWN_EGG = spawnEgg("aurorian_pig", ModEntityTypes.AURORIAN_PIG, 0xc6dfff, 0x5d6f93);
+    public static final RegistryObject<Item> AURORIAN_SLIME_SPAWN_EGG = spawnEgg("aurorian_slime", ModEntityTypes.AURORIAN_SLIME, 0x151028, 0x43a2ec);
+    public static final RegistryObject<Item> DISTURBED_HOLLOW_SPAWN_EGG = spawnEgg("disturbed_hollow", ModEntityTypes.DISTURBED_HOLLOW, 0xade0f5, 0x272727);
+    public static final RegistryObject<Item> UNDEAD_KNIGHT_SPAWN_EGG = spawnEgg("undead_knight", ModEntityTypes.UNDEAD_KNIGHT, 0x5c7394, 0x181b1e);
+    public static final RegistryObject<Item> SPIRIT_SPAWN_EGG = spawnEgg("spirit", ModEntityTypes.SPIRIT, 0xb0b6bc, 0x303131);
+    public static final RegistryObject<Item> MOON_ACOLYTE_SPAWN_EGG = spawnEgg("moon_acolyte", ModEntityTypes.MOON_ACOLYTE, 0x0270af, 0x191919);
+    public static final RegistryObject<Item> SPIDERLING_SPAWN_EGG = spawnEgg("spiderling", ModEntityTypes.SPIDERLING, 0x1efefe, 0x0f1018);
+    public static final RegistryObject<Item> CRYSTALLINE_SPRITE_SPAWN_EGG = spawnEgg("crystalline_sprite", ModEntityTypes.CRYSTALLINE_SPRITE, 0xf5e2fc, 0xf0c9fd);
+    public static final RegistryObject<Item> RUNESTONE_KEEPER_SPAWN_EGG = spawnEgg("runestone_keeper", ModEntityTypes.RUNESTONE_KEEPER, 0xccc0e7, 0x550098);
+    public static final RegistryObject<Item> SPIDER_MOTHER_SPAWN_EGG = spawnEgg("spider_mother", ModEntityTypes.SPIDER_MOTHER, 0x595d70, 0x0f1018);
+    public static final RegistryObject<Item> MOON_QUEEN_SPAWN_EGG = spawnEgg("moon_queen", ModEntityTypes.MOON_QUEEN, 0xff82d4, 0x313d4b);
+
+    /**
      * Misc
      */
     public static final RegistryObject<Item> CRYSTAL = normal("crystal", true);

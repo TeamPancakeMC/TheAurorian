@@ -37,16 +37,16 @@ public class ModFluids {
     //Fluid Properties
     private static final ForgeFlowingFluid.Properties MOLTEN_AURORIAN_STEEL_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.MOLTEN_AURORIAN_STEEL, MOLTEN_AURORIAN_STEEL_STILL, MOLTEN_AURORIAN_STEEL_FLOWING)
-            .slopeFindDistance(2).levelDecreasePerBlock(30).block(ModBlocks.MOLTEN_AURORIAN_STEEL_BLOCK);
+            .slopeFindDistance(2).levelDecreasePerBlock(30).block(ModBlocks.MOLTEN_AURORIAN_STEEL);
     private static final ForgeFlowingFluid.Properties MOLTEN_CERULEAN_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.MOLTEN_CERULEAN, MOLTEN_CERULEAN_STILL, MOLTEN_CERULEAN_FLOWING)
-            .slopeFindDistance(2).levelDecreasePerBlock(30).block(ModBlocks.MOLTEN_CERULEAN_BLOCK);
+            .slopeFindDistance(2).levelDecreasePerBlock(30).block(ModBlocks.MOLTEN_CERULEAN);
     private static final ForgeFlowingFluid.Properties MOLTEN_MOONSTONE_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.MOLTEN_MOONSTONE, MOLTEN_MOONSTONE_STILL, MOLTEN_MOONSTONE_FLOWING)
-            .slopeFindDistance(2).levelDecreasePerBlock(30).block(ModBlocks.MOLTEN_MOONSTONE_BLOCK);
+            .slopeFindDistance(2).levelDecreasePerBlock(30).block(ModBlocks.MOLTEN_MOONSTONE);
     private static final ForgeFlowingFluid.Properties MOON_WATER_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.MOON_WATER, MOON_WATER_STILL, MOON_WATER_FLOWING)
-            .slopeFindDistance(4).levelDecreasePerBlock(5).block(ModBlocks.MOON_WATER_BLOCK);
+            .slopeFindDistance(4).levelDecreasePerBlock(5).block(ModBlocks.MOON_WATER);
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent

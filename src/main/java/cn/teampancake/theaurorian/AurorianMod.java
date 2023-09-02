@@ -25,6 +25,7 @@ public class AurorianMod {
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
         ModFluids.FLUIDS.register(modEventBus);
+        ModFeatures.FEATURES.register(modEventBus);
         ModFluidTypes.FLUID_TYPES.register(modEventBus);
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
         ModEnchantments.ENCHANTMENTS.register(modEventBus);

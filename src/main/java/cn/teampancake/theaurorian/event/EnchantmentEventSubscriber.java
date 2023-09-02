@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.event;
 
+import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.registry.ModEnchantments;
 import net.minecraft.world.damagesource.DamageSource;
@@ -15,15 +16,16 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class EnchantmentEventSubscriber {
+
     @SubscribeEvent
     public static void LightningDamage(LivingDamageEvent event) {
         DamageSource source = event.getSource();
         Entity entity = source.getEntity();
         LivingEntity target = event.getEntity();
 
-        if (entity == null || target == null || !(entity instanceof LivingEntity attacker)) {
+        if (target == null || !(entity instanceof LivingEntity attacker)) {
             return;
         }
         ItemStack mainHandItem = attacker.getMainHandItem();
@@ -72,4 +74,5 @@ public class EnchantmentEventSubscriber {
             }
         }
     }
+
 }

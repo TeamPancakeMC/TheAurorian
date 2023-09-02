@@ -8,7 +8,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Objects;
 
@@ -24,7 +23,18 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-
+        this.simpleBlock(ModBlocks.MOLTEN_AURORIAN_STEEL.get(), this.models()
+                .getBuilder(ModBlocks.MOLTEN_AURORIAN_STEEL.getId().getPath())
+                .texture("particle", this.modLoc("block/molten_aurorian_steel")));
+        this.simpleBlock(ModBlocks.MOLTEN_CERULEAN.get(), this.models()
+                .getBuilder(ModBlocks.MOLTEN_CERULEAN.getId().getPath())
+                .texture("particle", this.modLoc("block/molten_cerulean")));
+        this.simpleBlock(ModBlocks.MOLTEN_MOONSTONE.get(), this.models()
+                .getBuilder(ModBlocks.MOLTEN_MOONSTONE.getId().getPath())
+                .texture("particle", this.modLoc("block/molten_moonstone")));
+        this.simpleBlock(ModBlocks.MOON_WATER.get(), this.models()
+                .getBuilder(ModBlocks.MOON_WATER.getId().getPath())
+                .texture("particle", this.modLoc("block/moon_water")));
     }
 
     private String name(Block block) {

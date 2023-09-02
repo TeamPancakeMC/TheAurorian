@@ -21,11 +21,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        for (Item item: ModCommonUtils.getKnownItems()) {
-            if(item instanceof BlockItem)
-                continue;
-            simpleItem(item);
-        }
+
     }
 
     private void simpleItem(Item item) {

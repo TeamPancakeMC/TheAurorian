@@ -15,17 +15,17 @@ import static cn.teampancake.theaurorian.utils.ModBlockRegUtils.*;
 import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.copy;
 import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.of;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("SpellCheckingInspection")
 public class ModBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AurorianMod.MOD_ID);
-    public static final RegistryObject<LiquidBlock> MOLTEN_AURORIAN_STEEL_BLOCK = BLOCKS.register("molten_aurorian_steel",
+    public static final RegistryObject<LiquidBlock> MOLTEN_AURORIAN_STEEL = BLOCKS.register("molten_aurorian_steel",
             () -> new LiquidBlock(ModFluids.MOLTEN_AURORIAN_STEEL_STILL, copy(Blocks.LAVA)));
-    public static final RegistryObject<LiquidBlock> MOLTEN_CERULEAN_BLOCK = BLOCKS.register("molten_cerulean",
+    public static final RegistryObject<LiquidBlock> MOLTEN_CERULEAN = BLOCKS.register("molten_cerulean",
             () -> new LiquidBlock(ModFluids.MOLTEN_CERULEAN_STILL, copy(Blocks.LAVA)));
-    public static final RegistryObject<LiquidBlock> MOLTEN_MOONSTONE_BLOCK = BLOCKS.register("molten_moonstone",
+    public static final RegistryObject<LiquidBlock> MOLTEN_MOONSTONE = BLOCKS.register("molten_moonstone",
             () -> new LiquidBlock(ModFluids.MOLTEN_MOONSTONE_STILL, copy(Blocks.LAVA)));
-    public static final RegistryObject<LiquidBlock> MOON_WATER_BLOCK = BLOCKS.register("moon_water",
+    public static final RegistryObject<LiquidBlock> MOON_WATER = BLOCKS.register("moon_water",
             () -> new LiquidBlock(ModFluids.MOON_WATER_STILL, copy(Blocks.WATER)));
     public static final RegistryObject<Block> AURORIAN_STONE = normal("aurorian_stone", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_STONE_BRICK = normal("aurorian_stone_brick", defaultStoneProperties(2.0F));
@@ -43,6 +43,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> AURORIAN_GRASS_LIGHT = register("aurorian_grass_light", () -> new AbstractPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK_LIGHT));
     public static final RegistryObject<Block> AURORIAN_FURNACE = register("aurorian_furnace", () -> new AurorianFurnace(defaultStoneProperties(3.5F)));
     public static final RegistryObject<Block> AURORIAN_FURNACE_CHIMNEY = register("aurorian_furnace_chimney", () -> new AurorianFurnaceChimney(defaultStoneProperties(2.0F)));
+    public static final RegistryObject<Block> AURORIAN_PORTAL = register("aurorian_portal", () -> new AurorianPortal(copy(Blocks.NETHER_PORTAL)));
+    public static final RegistryObject<Block> AURORIAN_PORTAL_FRAME = register("aurorian_portal_frame", () -> new AurorianPortalFrame(defaultStoneProperties(2.0F)));
     public static final RegistryObject<Block> URN = register("urn", () -> new UrnBlock(defaultStoneProperties(0.5F).sound(SoundType.GLASS)));
     public static final RegistryObject<Block> LAVENDER_PLANT = register("lavender_plant", () -> new AbstractPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> PETUNIA_PLANT = register("petunia_plant", () -> new AbstractPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));

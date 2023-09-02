@@ -7,7 +7,9 @@
   "mixins": [
     "InvokeAbstractFurnaceBlockEntity",
     "MixinAbstractFurnaceBlockEntity",
+    "MixinBaseFireBlock",
     "MixinDiggerItem",
+    "MixinEntity",
     "MixinShearsItem",
     "MixinSwordItem"
   ],

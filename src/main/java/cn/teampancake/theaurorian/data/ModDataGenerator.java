@@ -27,8 +27,10 @@ public class ModDataGenerator {
         generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeServer(), new ModItemTagsProvider(
                 output, provider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeServer(), new ModEntityTagsProvider(output, provider, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModItemModelProvider(output, existingFileHelper));
+        generator.addProvider(event.includeServer(), new RegistryDataGenerator(output, provider));
         generator.addProvider(event.includeClient(), new ModLanguageProviderENUS(output));
         generator.addProvider(event.includeClient(), new ModLanguageProviderZHCN(output));
         generator.addProvider(event.includeServer(), new ModLootTableProvider(output));

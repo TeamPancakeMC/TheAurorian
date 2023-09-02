@@ -60,11 +60,9 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        double healthMultiplier = AurorianConfig.CONFIG_RUNESTONE_KEEPER_HEALTH_MULIPLIER.get();
-        double damageMultiplier = AurorianConfig.CONFIG_RUNESTONE_KEEPER_DAMAGE_MULIPLIER.get();
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, 175.0D * healthMultiplier);
-        builder.add(Attributes.ATTACK_DAMAGE, 2.0D * damageMultiplier);
+        builder.add(Attributes.MAX_HEALTH, 175.0D);
+        builder.add(Attributes.ATTACK_DAMAGE, 2.0D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.3D);
         builder.add(Attributes.FOLLOW_RANGE, 50.0F);
         builder.add(Attributes.ARMOR, 4.0F);

@@ -51,11 +51,9 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        boolean nightmareMode = AurorianConfig.CONFIG_NIGHTMARE_MODE.get();
-        double multiplier = AurorianConfig.CONFIG_NIGHTMARE_MODE_MULTIPLIER.get();
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, nightmareMode ? 40.0F * multiplier : 20.0F);
-        builder.add(Attributes.ATTACK_DAMAGE, nightmareMode ? 12.0F * multiplier : 6.0F);
+        builder.add(Attributes.MAX_HEALTH, 20.0F);
+        builder.add(Attributes.ATTACK_DAMAGE, 6.0F);
         builder.add(Attributes.MOVEMENT_SPEED, 0.23000000417232513D);
         builder.add(Attributes.FOLLOW_RANGE, 20.0F);
         return builder;

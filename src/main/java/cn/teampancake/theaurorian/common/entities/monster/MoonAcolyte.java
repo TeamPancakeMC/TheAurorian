@@ -44,12 +44,10 @@ public class MoonAcolyte extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        boolean nightmareMode = AurorianConfig.CONFIG_NIGHTMARE_MODE.get();
-        double multiplier = AurorianConfig.CONFIG_NIGHTMARE_MODE_MULTIPLIER.get();
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, nightmareMode ? 40.0F * multiplier : 20.0F);
-        builder.add(Attributes.MOVEMENT_SPEED, nightmareMode ? 0.5F * multiplier : 0.25F);
-        builder.add(Attributes.ATTACK_DAMAGE, nightmareMode ? 4.0F * multiplier : 2.0F);
+        builder.add(Attributes.MAX_HEALTH, 20.0F);
+        builder.add(Attributes.MOVEMENT_SPEED, 0.25F);
+        builder.add(Attributes.ATTACK_DAMAGE, 2.0F);
         builder.add(Attributes.ARMOR, 3.0F);
         return builder;
     }

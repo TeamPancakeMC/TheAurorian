@@ -73,11 +73,9 @@ public class MoonQueen extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        double healthMultiplier = AurorianConfig.CONFIG_MOON_QUEEN_HEALTH_MULIPLIER.get();
-        double damageMultiplier = AurorianConfig.CONFIG_MOON_QUEEN_DAMAGE_MULIPLIER.get();
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, 200.0D * healthMultiplier);
-        builder.add(Attributes.ATTACK_DAMAGE, 4.0D * damageMultiplier);
+        builder.add(Attributes.MAX_HEALTH, 200.0D);
+        builder.add(Attributes.ATTACK_DAMAGE, 4.0D);
         builder.add(Attributes.KNOCKBACK_RESISTANCE, 0.85D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.2D);
         builder.add(Attributes.FOLLOW_RANGE, 40.0F);

@@ -34,12 +34,10 @@ public class DisturbedHollow extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        boolean nightmareMode = AurorianConfig.CONFIG_NIGHTMARE_MODE.get();
-        double multiplier = AurorianConfig.CONFIG_NIGHTMARE_MODE_MULTIPLIER.get();
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, nightmareMode ? 40 * multiplier : 20.0F);
-        builder.add(Attributes.MOVEMENT_SPEED, nightmareMode ? 0.6F * multiplier : 0.24F);
-        builder.add(Attributes.ATTACK_DAMAGE, nightmareMode ? 6.0F * multiplier : 3.0F);
+        builder.add(Attributes.MAX_HEALTH, 20.0F);
+        builder.add(Attributes.MOVEMENT_SPEED, 0.3F);
+        builder.add(Attributes.ATTACK_DAMAGE, 3.0F);
         builder.add(Attributes.FOLLOW_RANGE, 35.0D);
         builder.add(Attributes.ARMOR, 2.0F);
         return builder;

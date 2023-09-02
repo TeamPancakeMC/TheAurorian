@@ -68,11 +68,9 @@ public class SpiderMother extends Spider {
 
     @NotNull
     public static AttributeSupplier.Builder createAttributes() {
-        double healthMultiplier = AurorianConfig.CONFIG_SPIDER_MOTHER_HEALTH_MULIPLIER.get();
-        double damageMultiplier = AurorianConfig.CONFIG_SPIDER_MOTHER_DAMAGE_MULIPLIER.get();
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, 160.0D * healthMultiplier);
-        builder.add(Attributes.ATTACK_DAMAGE, 3.0D * damageMultiplier);
+        builder.add(Attributes.MAX_HEALTH, 160.0D);
+        builder.add(Attributes.ATTACK_DAMAGE, 3.0D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.3D);
         builder.add(Attributes.FOLLOW_RANGE, 50.0F);
         builder.add(Attributes.ARMOR, 2.0F);

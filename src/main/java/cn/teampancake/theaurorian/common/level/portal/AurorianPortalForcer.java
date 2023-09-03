@@ -142,7 +142,7 @@ public class AurorianPortalForcer implements ITeleporter {
             for (int i3 = -1; i3 < 2; ++i3) {
                 for (int j3 = 0; j3 < 2; ++j3) {
                     for (int k3 = -1; k3 < 3; ++k3) {
-                        BlockState blockState = k3 < 0 ? ModBlocks.AURORIAN_PORTAL_FRAME.get().defaultBlockState() : Blocks.AIR.defaultBlockState();
+                        BlockState blockState = k3 < 0 ? ModBlocks.AURORIAN_PORTAL_FRAME_BRICKS.get().defaultBlockState() : Blocks.AIR.defaultBlockState();
                         blockPos$mutableBlockpos.setWithOffset(blockPos, j3 * direction.getStepX() + i3 * direction1.getStepX(), k3, j3 * direction.getStepZ() + i3 * direction1.getStepZ());
                         this.level.setBlockAndUpdate(blockPos$mutableBlockpos, blockState);
                     }
@@ -153,7 +153,7 @@ public class AurorianPortalForcer implements ITeleporter {
             for (int j2 = -1; j2 < 4; ++j2) {
                 if (l1 == -1 || l1 == 2 || j2 == -1 || j2 == 3) {
                     blockPos$mutableBlockpos.setWithOffset(blockPos, l1 * direction.getStepX(), j2, l1 * direction.getStepZ());
-                    this.level.setBlock(blockPos$mutableBlockpos, ModBlocks.AURORIAN_PORTAL_FRAME.get().defaultBlockState(), 3);
+                    this.level.setBlock(blockPos$mutableBlockpos, ModBlocks.AURORIAN_PORTAL_FRAME_BRICKS.get().defaultBlockState(), 3);
                 }
             }
         }

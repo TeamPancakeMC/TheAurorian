@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.data.provider;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.AurorianFarmland;
 import cn.teampancake.theaurorian.common.blocks.AurorianFurnace;
+import cn.teampancake.theaurorian.common.blocks.AurorianPortal;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import cn.teampancake.theaurorian.utils.ModCommonUtils;
 import net.minecraft.core.Direction;
@@ -16,7 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.Map;
 import java.util.Objects;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("SpellCheckingInspection")
 public class ModBlockStateProvider extends BlockStateProvider {
 
     private static final ResourceLocation CUTOUT = new ResourceLocation("cutout");
@@ -31,6 +32,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         this.registerLiquidModels();
         this.registerWallTorchModel();
+        this.registerAurorianPortalModel();
         this.registerAurorianFurnaceModel();
         this.registerAurorianFarmlandModel();
         this.registerSilentWoodLadderModel();
@@ -169,6 +171,27 @@ public class ModBlockStateProvider extends BlockStateProvider {
                     .modelFile(this.models().torchWall(this.name(block),
                             this.blockTexture(ModBlocks.SILENT_WOOD_TORCH.get())))
                     .rotationY(map.get(direction)).addModel();
+        }
+    }
+
+    private void registerAurorianPortalModel() {
+        Block block = ModBlocks.AURORIAN_PORTAL.get();
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        for (Direction.Axis axis : AurorianPortal.AXIS.getPossibleValues()) {
+            boolean flag = axis == Direction.Axis.X;
+            float x = flag ? 0.0F : 6.0F, z = flag ? 6.0F : 0.0F;
+            String name = this.name(block) + (flag ? "_ns" : "_ew");
+            ConfiguredModel.Builder<VariantBlockStateBuilder> builder1 = builder.partialState().with(AurorianPortal.AXIS, axis).modelForState();
+            ModelBuilder<BlockModelBuilder>.ElementBuilder elementBuilder = this.models().getBuilder(name)
+                    .texture("particle", this.blockTexture(block)).texture("portal", this.blockTexture(block))
+                    .element().from(x, 0.0F, z).to(10.0F + z, 16.0F, 10.0F + x);
+            if (axis == Direction.Axis.X) {
+                builder1.modelFile(elementBuilder.face(Direction.NORTH).uvs(0.0F, 0.0F, 16.0F, 16.0F).texture("#portal").end()
+                        .face(Direction.SOUTH).uvs(0.0F, 0.0F, 16.0F, 16.0F).texture("#portal").end().end()).addModel();
+            } else if (axis == Direction.Axis.Z) {
+                builder1.modelFile(elementBuilder.face(Direction.EAST).uvs(0.0F, 0.0F, 16.0F, 16.0F).texture("#portal").end()
+                        .face(Direction.WEST).uvs(0.0F, 0.0F, 16.0F, 16.0F).texture("#portal").end().end()).addModel();
+            }
         }
     }
 

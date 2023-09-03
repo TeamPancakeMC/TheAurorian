@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.model.layer;
+package cn.teampancake.theaurorian.client.renderer.layers;
 
 import cn.teampancake.theaurorian.common.entities.animal.AurorianSheep;
 import com.mojang.blaze3d.vertex.PoseStack;

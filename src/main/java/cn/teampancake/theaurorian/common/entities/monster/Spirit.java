@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.entities.ai.SpiritHauntGoal;
 import cn.teampancake.theaurorian.common.entities.ai.SpiritRunAwayGoal;
-import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;

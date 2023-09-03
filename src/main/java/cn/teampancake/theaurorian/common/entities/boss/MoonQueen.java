@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
 import cn.teampancake.theaurorian.common.entities.ai.ModRangedAttackGoal;
-import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.core.BlockPos;

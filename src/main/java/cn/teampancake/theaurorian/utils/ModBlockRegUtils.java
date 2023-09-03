@@ -14,7 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation","unused"})
 public class ModBlockRegUtils {
 
     public static RegistryObject<Block> register(String name, Supplier<Block> block) {

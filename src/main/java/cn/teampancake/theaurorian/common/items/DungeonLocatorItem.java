@@ -51,9 +51,9 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem{
             if (level instanceof ServerLevel serverLevel) {
                 //TODO Tagkey<Strucure>
                 dungeon = switch (this.getSelectedDungeon(itemstack)) {
-                    case "Moontemple" -> serverLevel.findNearestMapStructure(new TagKey<>(), player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 4, false);
-                    default -> serverLevel.findNearestMapStructure(new TagKey<>(), player, AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 2);
-                    case "Darkstone" -> serverLevel.findNearestMapStructure(new TagKey<>(), player, AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 6);
+                    case "Moontemple" -> serverLevel.findNearestMapStructure(, player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 4, false);
+                    default -> serverLevel.findNearestMapStructure(new TagKey<>(), player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 2);
+                    case "Darkstone" -> serverLevel.findNearestMapStructure(new TagKey<>(), player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 6);
                 };
             }
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));

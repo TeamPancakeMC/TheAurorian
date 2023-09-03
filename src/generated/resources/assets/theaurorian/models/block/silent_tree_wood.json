@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "theaurorian:block/silent_tree_log",
+    "side": "theaurorian:block/silent_tree_log"
+  }
+}

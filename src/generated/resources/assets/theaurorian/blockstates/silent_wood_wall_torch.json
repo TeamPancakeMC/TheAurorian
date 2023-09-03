@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "theaurorian:block/silent_wood_wall_torch"
+    },
+    "facing=north": {
+      "model": "theaurorian:block/silent_wood_wall_torch",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "theaurorian:block/silent_wood_wall_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "theaurorian:block/silent_wood_wall_torch",
+      "y": 180
+    }
+  }
+}

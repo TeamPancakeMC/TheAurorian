@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "theaurorian:block/dark_stone_bricks"
+  }
+}

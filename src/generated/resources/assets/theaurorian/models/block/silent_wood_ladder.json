@@ -1,0 +1,7 @@
+{
+  "parent": "theaurorian:block/silent_wood_ladder",
+  "textures": {
+    "particle": "theaurorian:block/silent_wood_ladder",
+    "texture": "theaurorian:block/silent_wood_ladder"
+  }
+}

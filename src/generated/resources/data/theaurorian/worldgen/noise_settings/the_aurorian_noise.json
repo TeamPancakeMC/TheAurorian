@@ -601,7 +601,7 @@
                       "then_run": {
                         "type": "minecraft:block",
                         "result_state": {
-                          "Name": "theaurorian:aurorian_grass_block_light",
+                          "Name": "theaurorian:aurorian_grass_light_block",
                           "Properties": {
                             "snowy": "false"
                           }

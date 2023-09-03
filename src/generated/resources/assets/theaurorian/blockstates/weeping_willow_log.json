@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "theaurorian:block/weeping_willow_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "theaurorian:block/weeping_willow_log"
+    },
+    "axis=z": {
+      "model": "theaurorian:block/weeping_willow_log_horizontal",
+      "x": 90
+    }
+  }
+}

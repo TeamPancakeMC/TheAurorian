@@ -74,7 +74,7 @@ public class ModDimensions {
         SurfaceRules.RuleSource forestRules = createNormalRuleSource(ModBiomes.AURORIAN_FOREST, ModBlocks.AURORIAN_GRASS_BLOCK.get());
         SurfaceRules.RuleSource plainRules = createNormalRuleSource(ModBiomes.AURORIAN_PLAINS, ModBlocks.AURORIAN_GRASS_BLOCK.get());
         SurfaceRules.RuleSource forestHillsRules = createNormalRuleSource(ModBiomes.AURORIAN_FOREST_HILLS, ModBlocks.AURORIAN_GRASS_BLOCK.get());
-        SurfaceRules.RuleSource weepingWillowForestRules = createNormalRuleSource(ModBiomes.WEEPING_WILLOW_FOREST, ModBlocks.AURORIAN_GRASS_BLOCK_LIGHT.get());
+        SurfaceRules.RuleSource weepingWillowForestRules = createNormalRuleSource(ModBiomes.WEEPING_WILLOW_FOREST, ModBlocks.AURORIAN_GRASS_LIGHT_BLOCK.get());
         builder.add(forestRules, plainRules, forestHillsRules, weepingWillowForestRules);
         return SurfaceRules.sequence(builder.build().toArray(SurfaceRules.RuleSource[]::new));
     }

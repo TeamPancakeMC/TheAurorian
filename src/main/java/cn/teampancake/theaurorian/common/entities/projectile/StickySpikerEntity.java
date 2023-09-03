@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.entities.projectile;
 
 import cn.teampancake.theaurorian.registry.ModEntityTypes;
 import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.registry.ModParticleTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -34,7 +35,8 @@ public class StickySpikerEntity extends ThrowableItemProjectile {
     public void handleEntityEvent(byte id) {
         if (id == 3 && this.level().isClientSide) {
             for (int i = 0; i < 8; ++i) {
-                //Todo: Should add a new particle.
+                this.level().addParticle(ModParticleTypes.STICK_SPIKER.get(),this.getX(),this.getY(),this.getZ(),0.0D,0.0D,0.0D);
+
             }
         }
     }

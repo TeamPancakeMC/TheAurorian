@@ -6,17 +6,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class MoonstoneHelper {
-    public static boolean handleMoonstoneDurability(ItemStack pStack, LivingEntity pAttacker) {
+    public static void handleMoonstoneDurability(ItemStack pStack, LivingEntity pAttacker) {
         Level level = pAttacker.level();
         if (level.isNight()) {
             if (AurorianUtil.randomChanceOf(0.5D)) {
                 pStack.setDamageValue(pStack.getDamageValue() - 1);
-                return true;
+                return;
             }
         }
-        pStack.hurtAndBreak(2, pAttacker, (p_43296_) -> {
-            p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-        });
-        return true;
+        pStack.hurtAndBreak(2, pAttacker, (player) -> player.broadcastBreakEvent(EquipmentSlot.MAINHAND));
     }
 }

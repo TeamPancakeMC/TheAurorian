@@ -21,6 +21,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
@@ -40,32 +41,32 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
         Entity entity = event.getEntity();
-        if (entity instanceof LivingEntity livingEntity) {
-            double baseHealth = livingEntity.getAttributeBaseValue(Attributes.MAX_HEALTH);
-            double baseAttackDamage = livingEntity.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
-            double baseMovementSpeed = livingEntity.getAttributeBaseValue(Attributes.MOVEMENT_SPEED);
-            if (livingEntity.getType().is(ModEntityTags.AFFECTED_BY_NIGHTMARE_MODE)) {
+        if (entity instanceof Monster monster) {
+            double baseHealth = monster.getAttributeBaseValue(Attributes.MAX_HEALTH);
+            double baseAttackDamage = monster.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
+            double baseMovementSpeed = monster.getAttributeBaseValue(Attributes.MOVEMENT_SPEED);
+            if (monster.getType().is(ModEntityTags.AFFECTED_BY_NIGHTMARE_MODE)) {
                 boolean nightmareMode = AurorianConfig.CONFIG_NIGHTMARE_MODE.get();
                 double multiplier = AurorianConfig.CONFIG_NIGHTMARE_MODE_MULTIPLIER.get();
                 double newHealth = nightmareMode ? baseHealth * multiplier * 2.0D : baseHealth;
                 double newAttackDamage = nightmareMode ? baseAttackDamage * multiplier * 2.0D : baseAttackDamage;
                 double newMovementSpeed = nightmareMode ? baseMovementSpeed * multiplier * 2.0D : baseMovementSpeed;
-                livingEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(newHealth);
-                livingEntity.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(newAttackDamage);
-                if (!(livingEntity instanceof CrystallineSprite)) {
-                    livingEntity.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newMovementSpeed);
+                monster.getAttribute(Attributes.MAX_HEALTH).setBaseValue(newHealth);
+                monster.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(newAttackDamage);
+                if (!(monster instanceof CrystallineSprite)) {
+                    monster.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newMovementSpeed);
                 }
-            } else if (livingEntity instanceof RunestoneKeeper runestoneKeeper) {
+            } else if (monster instanceof RunestoneKeeper runestoneKeeper) {
                 double healthMultiplier = AurorianConfig.CONFIG_RUNESTONE_KEEPER_HEALTH_MULIPLIER.get();
                 double damageMultiplier = AurorianConfig.CONFIG_RUNESTONE_KEEPER_DAMAGE_MULIPLIER.get();
                 runestoneKeeper.getAttribute(Attributes.MAX_HEALTH).setBaseValue(baseHealth * healthMultiplier);
                 runestoneKeeper.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(baseAttackDamage * damageMultiplier);
-            } else if (livingEntity instanceof SpiderMother spiderMother) {
+            } else if (monster instanceof SpiderMother spiderMother) {
                 double healthMultiplier = AurorianConfig.CONFIG_SPIDER_MOTHER_HEALTH_MULIPLIER.get();
                 double damageMultiplier = AurorianConfig.CONFIG_SPIDER_MOTHER_DAMAGE_MULIPLIER.get();
                 spiderMother.getAttribute(Attributes.MAX_HEALTH).setBaseValue(baseHealth * healthMultiplier);
                 spiderMother.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(baseAttackDamage * damageMultiplier);
-            } else if (livingEntity instanceof MoonQueen moonQueen) {
+            } else if (monster instanceof MoonQueen moonQueen) {
                 double healthMultiplier = AurorianConfig.CONFIG_MOON_QUEEN_HEALTH_MULIPLIER.get();
                 double damageMultiplier = AurorianConfig.CONFIG_MOON_QUEEN_DAMAGE_MULIPLIER.get();
                 moonQueen.getAttribute(Attributes.MAX_HEALTH).setBaseValue(baseHealth * healthMultiplier);

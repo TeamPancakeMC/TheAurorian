@@ -21,7 +21,7 @@ public class Spiderling extends Spider {
     }
 
     public static boolean checkSpiderlingSpawnRules(EntityType<Spiderling> spiderling, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(ModBlocks.DARK_STONE_BRICK.get()) && checkAnyLightMonsterSpawnRules(spiderling, level, spawnType, pos, random);
+        return level.getBlockState(pos.below()).is(ModBlocks.DARK_STONE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(spiderling, level, spawnType, pos, random);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

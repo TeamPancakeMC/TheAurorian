@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/stairs",
   "textures": {
-    "bottom": "minecraft:block/air",
-    "side": "minecraft:block/air",
-    "top": "minecraft:block/air"
+    "bottom": "theaurorian:block/aurorian_stone_brick",
+    "side": "theaurorian:block/aurorian_stone_brick",
+    "top": "theaurorian:block/aurorian_stone_brick"
   }
 }

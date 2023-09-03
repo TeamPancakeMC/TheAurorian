@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/inner_stairs",
   "textures": {
-    "bottom": "minecraft:block/air",
-    "side": "minecraft:block/air",
-    "top": "minecraft:block/air"
+    "bottom": "theaurorian:block/dark_stone_bricks",
+    "side": "theaurorian:block/dark_stone_bricks",
+    "top": "theaurorian:block/dark_stone_bricks"
   }
 }

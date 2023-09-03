@@ -14,6 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("deprecation")
 public class ModBlockRegUtils {
 
     public static RegistryObject<Block> register(String name, Supplier<Block> block) {
@@ -57,7 +58,7 @@ public class ModBlockRegUtils {
     }
 
     public static <T extends Block> RegistryObject<Block> stair(String name, Supplier<T> block, BlockBehaviour.Properties properties) {
-        return register(name, () -> new StairBlock(() -> block.get().defaultBlockState(), properties));
+        return register(name, () -> new StairBlock(block.get().defaultBlockState(), properties));
     }
 
     public static RegistryObject<Block> fence(String name, BlockBehaviour.Properties properties) {

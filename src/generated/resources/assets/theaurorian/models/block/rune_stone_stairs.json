@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/stairs",
   "textures": {
-    "bottom": "minecraft:block/air",
-    "side": "minecraft:block/air",
-    "top": "minecraft:block/air"
+    "bottom": "theaurorian:block/rune_stone",
+    "side": "theaurorian:block/rune_stone",
+    "top": "theaurorian:block/rune_stone"
   }
 }

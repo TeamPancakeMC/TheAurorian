@@ -71,8 +71,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(ModBlocks.INDIGO_MUSHROOM_CRYSTAL.get());
         this.simpleBlockItem(ModBlocks.SILENT_TREE_LOG.get());
         this.simpleBlockItem(ModBlocks.SILENT_TREE_WOOD.get());
+        this.simpleBlockItem(ModBlocks.SILENT_TREE_PLANKS.get());
         this.simpleBlockItem(ModBlocks.WEEPING_WILLOW_LOG.get());
         this.simpleBlockItem(ModBlocks.WEEPING_WILLOW_WOOD.get());
+        this.simpleBlockItem(ModBlocks.WEEPING_WILLOW_PLANKS.get());
         this.simpleBlockItem(ModBlocks.MOON_GLASS.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_GLASS.get());
         this.simpleBlockItem(ModBlocks.SILENT_TREE_LEAVES.get());

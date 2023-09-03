@@ -74,6 +74,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         this.simpleBlock(ModBlocks.UMBRA_STONE_CRACKED.get());
         this.simpleBlock(ModBlocks.UMBRA_STONE_ROOF_TILES.get());
         this.simpleBlock(ModBlocks.INDIGO_MUSHROOM_CRYSTAL.get());
+        this.simpleBlock(ModBlocks.SILENT_TREE_PLANKS.get());
+        this.simpleBlock(ModBlocks.WEEPING_WILLOW_PLANKS.get());
         this.simpleBlock(ModBlocks.SILENT_WOOD_TORCH.get(),
                 this.models().torch(this.name(ModBlocks.SILENT_WOOD_TORCH.get()),
                         this.blockTexture(ModBlocks.SILENT_WOOD_TORCH.get())));

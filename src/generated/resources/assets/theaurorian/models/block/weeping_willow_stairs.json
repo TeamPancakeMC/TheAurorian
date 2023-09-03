@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/stairs",
   "textures": {
-    "bottom": "minecraft:block/air",
-    "side": "minecraft:block/air",
-    "top": "minecraft:block/air"
+    "bottom": "theaurorian:block/weeping_willow_planks",
+    "side": "theaurorian:block/weeping_willow_planks",
+    "top": "theaurorian:block/weeping_willow_planks"
   }
 }

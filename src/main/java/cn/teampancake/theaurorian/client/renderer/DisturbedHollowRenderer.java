@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.client.renderer;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.ModModelLayers;
-import cn.teampancake.theaurorian.client.model.entity.ModZombieModel;
+import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
+import cn.teampancake.theaurorian.client.model.ModZombieModel;
 import cn.teampancake.theaurorian.common.entities.monster.DisturbedHollow;
 import net.minecraft.client.model.AbstractZombieModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

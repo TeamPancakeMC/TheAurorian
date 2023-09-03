@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.model;
+package cn.teampancake.theaurorian.client.renderer.layers;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import net.minecraft.client.model.geom.ModelLayerLocation;

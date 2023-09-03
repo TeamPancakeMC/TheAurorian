@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.model.entity;
+package cn.teampancake.theaurorian.client.model;
 
 import net.minecraft.client.model.AbstractZombieModel;
 import net.minecraft.client.model.geom.ModelPart;

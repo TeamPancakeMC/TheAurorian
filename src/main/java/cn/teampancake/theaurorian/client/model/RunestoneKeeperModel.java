@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.model.entity;
+package cn.teampancake.theaurorian.client.model;
 
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import net.minecraft.client.model.HumanoidModel;

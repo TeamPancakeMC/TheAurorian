@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.client.renderer;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.ModModelLayers;
-import cn.teampancake.theaurorian.client.model.entity.RunestoneKeeperModel;
+import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
+import cn.teampancake.theaurorian.client.model.RunestoneKeeperModel;
 import cn.teampancake.theaurorian.client.renderer.layers.HumanoidMonsterArmorLayer;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import net.minecraft.client.model.geom.ModelLayerLocation;

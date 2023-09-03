@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.ModModelLayers;
+import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import net.minecraft.client.model.HumanoidArmorModel;
 import net.minecraft.client.model.PlayerModel;

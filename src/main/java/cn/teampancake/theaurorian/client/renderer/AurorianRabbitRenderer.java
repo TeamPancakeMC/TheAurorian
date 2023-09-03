@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.ModModelLayers;
+import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.AurorianRabbit;
 import net.minecraft.client.model.RabbitModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

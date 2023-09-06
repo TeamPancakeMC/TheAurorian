@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:umbra_ingot_from_umbra_scrap"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_umbra_scrap": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theaurorian:umbra_scrap"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_umbra_scrap",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:umbra_ingot_from_umbra_scrap"
+    ]
+  },
+  "sends_telemetry_event": false
+}

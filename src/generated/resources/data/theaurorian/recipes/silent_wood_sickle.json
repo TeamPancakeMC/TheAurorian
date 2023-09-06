@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "theaurorian:aurorian_steel"
+    },
+    "I": {
+      "item": "theaurorian:silent_wood_stick"
+    }
+  },
+  "pattern": [
+    "##I",
+    "# I",
+    "  I"
+  ],
+  "result": {
+    "item": "theaurorian:silent_wood_sickle"
+  },
+  "show_notification": true
+}

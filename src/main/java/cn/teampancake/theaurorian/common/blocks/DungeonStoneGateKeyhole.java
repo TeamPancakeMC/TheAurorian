@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.registry.ModBlocks;
 import cn.teampancake.theaurorian.registry.ModItems;
 import cn.teampancake.theaurorian.utils.AurorianUtil;
 import net.minecraft.core.BlockPos;
@@ -28,7 +29,7 @@ public class DungeonStoneGateKeyhole extends Block implements ITooltipsItem {
     private final boolean lockPickable;
 
     public DungeonStoneGateKeyhole(Supplier<Item> keyItem, boolean lockPickable) {
-        super(Properties.copy(Blocks.BEDROCK));
+        super(ModBlocks.breakWithQueenPickaxe());
         this.keyItem = keyItem;
         this.lockPickable = lockPickable;
     }

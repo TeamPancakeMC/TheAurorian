@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "theaurorian:block/aurorian_dirt",
+    "top": "theaurorian:block/aurorian_farm_tile"
+  }
+}

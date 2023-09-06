@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "aurorian_steel",
+  "key": {
+    "#": {
+      "item": "theaurorian:aurorian_steel_nugget"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "theaurorian:aurorian_steel"
+  },
+  "show_notification": true
+}

@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.data.provider;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.TeaFood;
 import cn.teampancake.theaurorian.registry.ModBlocks;
+import cn.teampancake.theaurorian.registry.ModItems;
 import cn.teampancake.theaurorian.utils.ModCommonUtils;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -26,18 +27,21 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        this.simpleItem(ModItems.SILK_BERRY.get());
+        this.simpleItem(ModItems.LAVENDER_SEEDS.get());
         this.simpleBlockItem(ModBlocks.GEODE_ORE.get());
         this.simpleBlockItem(ModBlocks.CERULEAN_ORE.get());
         this.simpleBlockItem(ModBlocks.MOONSTONE_ORE.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_DIRT.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_STONE.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_COAL_ORE.get());
-        this.simpleBlockItem(ModBlocks.AURORIAN_FARMLAND.get());
-        this.simpleBlockItem(ModBlocks.AURORIAN_STONE_BRICK.get());
+        this.simpleBlockItem(ModBlocks.AURORIAN_FARM_TILE.get());
+        this.simpleBlockItem(ModBlocks.AURORIAN_STONE_BRICKS.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_COBBLESTONE.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_GRASS_BLOCK.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_GRASS_LIGHT_BLOCK.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
+        this.simpleBlockItem(ModBlocks.AURORIAN_FURNACE.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_PERIDOTITE.get());
         this.simpleBlockItem(ModBlocks.MOON_SAND.get());
         this.simpleBlockItem(ModBlocks.RUNE_STONE.get());
@@ -68,6 +72,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(ModBlocks.UMBRA_STONE.get());
         this.simpleBlockItem(ModBlocks.UMBRA_STONE_CRACKED.get());
         this.simpleBlockItem(ModBlocks.UMBRA_STONE_ROOF_TILES.get());
+        this.simpleBlockItem(ModBlocks.INDIGO_MUSHROOM.get());
+        this.simpleBlockItem(ModBlocks.INDIGO_MUSHROOM_BLOCK.get());
+        this.simpleBlockItem(ModBlocks.INDIGO_MUSHROOM_STEM.get());
         this.simpleBlockItem(ModBlocks.INDIGO_MUSHROOM_CRYSTAL.get());
         this.simpleBlockItem(ModBlocks.SILENT_TREE_LOG.get());
         this.simpleBlockItem(ModBlocks.SILENT_TREE_WOOD.get());
@@ -79,8 +86,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(ModBlocks.AURORIAN_GLASS.get());
         this.simpleBlockItem(ModBlocks.SILENT_TREE_LEAVES.get());
         this.simpleBlockItem(ModBlocks.WEEPING_WILLOW_LEAVES.get());
-        this.simpleBlockItem(ModBlocks.AURORIAN_GRASS.get());
-        this.simpleBlockItem(ModBlocks.AURORIAN_GRASS_LIGHT.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_STONE_STAIRS.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_STONE_BRICK_STAIRS.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_COBBLESTONE_STAIRS.get());
@@ -94,10 +99,15 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(ModBlocks.WEEPING_WILLOW_STAIRS.get());
         this.simpleBlockItem(ModBlocks.AURORIAN_PERIDOTITE_STAIRS.get());
         this.simpleBlockItem(ModBlocks.SMOOTH_AURORIAN_PERIDOTITE_STAIRS.get());
-        this.withExistingParent(this.name(ModBlocks.SILENT_WOOD_LADDER.get()), this.mcLoc("item/generated"))
-                .texture("layer0", this.modLoc("block/" + this.name(ModBlocks.SILENT_WOOD_LADDER.get())));
-        this.withExistingParent(this.name(ModBlocks.SILENT_WOOD_TORCH.get()), this.mcLoc("item/generated"))
-                .texture("layer0", this.modLoc("block/" + this.name(ModBlocks.SILENT_WOOD_TORCH.get())));
+        this.simpleBlockItem(ModBlocks.SILENT_WOOD_CRAFTING_TABLE.get());
+        this.simpleBlockItemWithParent(ModBlocks.AURORIAN_GRASS.get());
+        this.simpleBlockItemWithParent(ModBlocks.AURORIAN_GRASS_LIGHT.get());
+        this.simpleBlockItemWithParent(ModBlocks.PETUNIA_PLANT.get());
+        this.simpleBlockItemWithParent(ModBlocks.SILENT_WOOD_LADDER.get());
+        this.simpleBlockItemWithParent(ModBlocks.SILENT_WOOD_TORCH.get());
+        this.simpleBlockItemWithParent(ModBlocks.MOON_TORCH.get());
+        this.simpleBlockItemWithParent(ModBlocks.RUNE_STONE_BARS.get());
+        this.simpleBlockItemWithParent(ModBlocks.MOON_TEMPLE_BARS.get());
         this.withExistingParent(this.name(ModBlocks.AURORIAN_GLASS_PANE.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(ModBlocks.AURORIAN_GLASS.get())));
         this.withExistingParent(this.name(ModBlocks.MOON_GLASS_PANE.get()), this.mcLoc("item/generated"))
@@ -126,6 +136,11 @@ public class ModItemModelProvider extends ItemModelProvider {
     private void simpleBlockItem(Block block) {
         String path = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
         this.withExistingParent(path, this.modLoc("block/" + path));
+    }
+
+    private void simpleBlockItemWithParent(Block block) {
+        this.withExistingParent(this.name(block), this.mcLoc("item/generated"))
+                .texture("layer0", this.modLoc("block/" + this.name(block)));
     }
 
     private String name(Block block) {

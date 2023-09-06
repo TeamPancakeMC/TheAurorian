@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:moon_temple_cell_key_fragment"
+    },
+    {
+      "item": "theaurorian:moon_temple_cell_key_fragment"
+    },
+    {
+      "item": "theaurorian:moon_gem"
+    }
+  ],
+  "result": {
+    "item": "theaurorian:moon_temple_cell_key"
+  }
+}

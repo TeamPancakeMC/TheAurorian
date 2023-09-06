@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "umbra_ingot",
+  "key": {
+    "#": {
+      "item": "theaurorian:umbra_scrap"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "theaurorian:umbra_ingot"
+  },
+  "show_notification": true
+}

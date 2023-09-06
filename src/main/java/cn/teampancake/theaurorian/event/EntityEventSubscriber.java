@@ -9,6 +9,7 @@ import cn.teampancake.theaurorian.common.items.CrystallineShield;
 import cn.teampancake.theaurorian.common.items.ModArmorMaterials;
 import cn.teampancake.theaurorian.common.items.UmbraShield;
 import cn.teampancake.theaurorian.config.AurorianConfig;
+import cn.teampancake.theaurorian.data.tags.ModBlockTags;
 import cn.teampancake.theaurorian.data.tags.ModEntityTags;
 import cn.teampancake.theaurorian.registry.ModItems;
 import cn.teampancake.theaurorian.utils.AurorianSteelHelper;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -137,11 +139,14 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void playerBreakSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
-        ItemStack blockStack = new ItemStack(event.getState().getBlock());
+        BlockState state = event.getState();
+        ItemStack blockStack = new ItemStack(state.getBlock());
         ItemStack handStack = player.getItemInHand(player.getUsedItemHand());
         if (blockStack.is(Tags.Items.ORES) && handStack.is(ModItems.AURORIANITE_PICKAXE.get())) {
-            float originalSpeed = event.getOriginalSpeed();
-            event.setNewSpeed(originalSpeed * 1.4F);
+            event.setNewSpeed(event.getOriginalSpeed() * 1.4F);
+        } else if (state.is(ModBlockTags.DUNGEON_BRICKS)) {
+            boolean flag = handStack.is(ModItems.QUEENS_CHIPPER.get());
+            event.setNewSpeed(flag ? event.getOriginalSpeed() * 16.0F : 0.0F);
         }
     }
 

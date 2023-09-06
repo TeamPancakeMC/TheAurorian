@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lavender_bread": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theaurorian:lavender_bread"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_silk_berry_jam": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theaurorian:silk_berry_jam"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:silk_berry_jam_sandwich"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_silk_berry_jam",
+      "has_lavender_bread",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:silk_berry_jam_sandwich"
+    ]
+  },
+  "sends_telemetry_event": false
+}

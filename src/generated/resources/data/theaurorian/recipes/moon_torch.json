@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "theaurorian:silent_wood_stick"
+    },
+    "X": {
+      "item": "theaurorian:moon_gem"
+    }
+  },
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "result": {
+    "count": 4,
+    "item": "theaurorian:moon_torch"
+  },
+  "show_notification": true
+}

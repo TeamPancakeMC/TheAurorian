@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.registry.ModEntityTypes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,6 +21,10 @@ public class ModEntityTagsProvider extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
+        this.tag(Tags.EntityTypes.BOSSES)
+                .add(ModEntityTypes.RUNESTONE_KEEPER.get())
+                .add(ModEntityTypes.SPIDER_MOTHER.get())
+                .add(ModEntityTypes.MOON_QUEEN.get());
         this.tag(ModEntityTags.AFFECTED_BY_NIGHTMARE_MODE)
                 .add(ModEntityTypes.DISTURBED_HOLLOW.get())
                 .add(ModEntityTypes.UNDEAD_KNIGHT.get())

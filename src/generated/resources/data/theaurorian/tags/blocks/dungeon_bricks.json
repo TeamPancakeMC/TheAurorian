@@ -8,13 +8,12 @@
     "theaurorian:smooth_rune_stone",
     "theaurorian:smooth_moon_temple_bricks",
     "theaurorian:rune_stone_lamp",
-    "theaurorian:moon_temple_lamp",
     "theaurorian:dark_stone_lamp",
+    "theaurorian:moon_temple_lamp",
     "theaurorian:cerulean_block",
     "theaurorian:moonstone_block",
     "theaurorian:aurorian_coal_block",
     "theaurorian:aurorian_steel_block",
-    "theaurorian:mystical_barrier",
     "theaurorian:rune_stone_bars",
     "theaurorian:moon_temple_bars",
     "theaurorian:rune_stone_gate",
@@ -22,8 +21,10 @@
     "theaurorian:dark_stone_gate",
     "theaurorian:rune_stone_loot_gate",
     "theaurorian:moon_temple_cell_gate",
-    "theaurorian:rune_stone_stairs",
-    "theaurorian:moon_temple_stairs",
-    "theaurorian:dark_stone_stairs"
+    "theaurorian:dark_stone_gate_keyhole",
+    "theaurorian:moon_temple_gate_keyhole",
+    "theaurorian:rune_stone_gate_keyhole",
+    "theaurorian:rune_stone_loot_gate_keyhole",
+    "theaurorian:moon_temple_cell_gate_keyhole"
   ]
 }

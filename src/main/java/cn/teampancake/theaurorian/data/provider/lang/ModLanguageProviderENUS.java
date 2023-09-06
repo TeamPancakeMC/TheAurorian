@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.data.provider.lang;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import cn.teampancake.theaurorian.registry.ModEnchantments;
-import cn.teampancake.theaurorian.registry.ModTabs;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -18,12 +17,12 @@ public class ModLanguageProviderENUS extends LanguageProvider {
         this.add("itemGroup." + AurorianMod.MOD_ID, "The Aurorian");
         this.add(ModBlocks.AURORIAN_DIRT.get(), "Aurorian Dirt");
         this.add(ModBlocks.AURORIAN_STONE.get(), "Aurorian Stone");
-        this.add(ModBlocks.AURORIAN_STONE_BRICK.get(), "Aurorian Stone Brick");
+        this.add(ModBlocks.AURORIAN_STONE_BRICKS.get(), "Aurorian Stone Bricks");
         this.add(ModBlocks.AURORIAN_COBBLESTONE.get(), "Aurorian Cobblestone");
         this.add(ModBlocks.AURORIAN_COAL_ORE.get(), "Aurorian Coal Ore");
         this.add(ModBlocks.AURORIAN_GRASS_BLOCK.get(), "Aurorian Grass Block");
         this.add(ModBlocks.AURORIAN_GRASS_LIGHT_BLOCK.get(), "Light Aurorian Grass Block");
-        this.add(ModBlocks.AURORIAN_FARMLAND.get(), "Aurorian Farmland");
+        this.add(ModBlocks.AURORIAN_FARM_TILE.get(), "Aurorian Farm Tile");
         this.add(ModBlocks.AURORIAN_GLASS.get(), "Aurorian Glass");
         this.add(ModBlocks.MOON_GLASS.get(), "Moon Glass");
         this.add(ModBlocks.AURORIAN_GLASS_PANE.get(), "Aurorian Glass Pane");
@@ -67,11 +66,13 @@ public class ModLanguageProviderENUS extends LanguageProvider {
         this.add(ModBlocks.MOON_TEMPLE_GATE_KEYHOLE.get(), "Moon Temple Gate Keyhole");
         this.add(ModBlocks.RUNE_STONE_LOOT_GATE_KEYHOLE.get(), "Runestone Loot Gate Keyhole");
         this.add(ModBlocks.MOON_TEMPLE_CELL_GATE_KEYHOLE.get(), "Moon Temple Cell Gate Keyhole");
-        this.add(ModBlocks.INDIGO_MUSHROOM.get(), "Indigo Mushroom");
+        this.add(ModBlocks.INDIGO_MUSHROOM_BLOCK.get(), "Indigo Mushroom Block");
+        this.add(ModBlocks.INDIGO_MUSHROOM_STEM.get(), "Indigo Mushroom Stem");
         this.add(ModBlocks.INDIGO_MUSHROOM_CRYSTAL.get(), "Indigo Mushroom Crystal");
         this.add(ModBlocks.MOONLIGHT_FORGE.get(), "Moonlight Forge");
         this.add(ModBlocks.MOON_GEM.get(), "Moon Gem");
         this.add(ModBlocks.MOON_SAND.get(), "Moon Sand");
+        this.add(ModBlocks.MOON_TORCH.get(), "Moon Torch");
         this.add(ModBlocks.UMBRA_STONE.get(), "Umbra Stone");
         this.add(ModBlocks.UMBRA_STONE_CRACKED.get(), "Cracked Umbra Stone");
         this.add(ModBlocks.UMBRA_STONE_ROOF_TILES.get(), "Umbra Stone Roof Tiles");
@@ -81,6 +82,7 @@ public class ModLanguageProviderENUS extends LanguageProvider {
         this.add(ModBlocks.SILENT_TREE_WOOD.get(), "Silent Tree Wood");
         this.add(ModBlocks.SILENT_WOOD_TORCH.get(), "Silent Wood Torch");
         this.add(ModBlocks.SILENT_WOOD_LADDER.get(), "Silent Wood Ladder");
+        this.add(ModBlocks.SILENT_WOOD_CRAFTING_TABLE.get(), "Silent Wood Crafting");
         this.add(ModBlocks.WEEPING_WILLOW_LEAVES.get(), "Weeping Willow Leaves");
         this.add(ModBlocks.WEEPING_WILLOW_LOG.get(), "Weeping Willow Log");
         this.add(ModBlocks.WEEPING_WILLOW_PLANKS.get(), "Weeping Willow Planks");

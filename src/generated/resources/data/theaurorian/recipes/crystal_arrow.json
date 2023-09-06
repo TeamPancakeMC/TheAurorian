@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "theaurorian:silent_wood_stick"
+    },
+    "X": {
+      "item": "theaurorian:crystal"
+    },
+    "Y": {
+      "item": "theaurorian:silent_tree_leaves"
+    }
+  },
+  "pattern": [
+    "X",
+    "#",
+    "Y"
+  ],
+  "result": {
+    "count": 16,
+    "item": "theaurorian:crystal_arrow"
+  },
+  "show_notification": true
+}

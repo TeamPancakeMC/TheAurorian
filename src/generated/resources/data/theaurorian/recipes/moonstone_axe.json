@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "theaurorian:silent_wood_stick"
+    },
+    "X": {
+      "item": "theaurorian:moonstone_ingot"
+    }
+  },
+  "pattern": [
+    "XX",
+    "X#",
+    " #"
+  ],
+  "result": {
+    "item": "theaurorian:moonstone_axe"
+  },
+  "show_notification": true
+}

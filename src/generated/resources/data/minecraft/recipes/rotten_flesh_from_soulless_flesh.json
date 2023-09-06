@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:soulless_flesh"
+    }
+  ],
+  "result": {
+    "item": "minecraft:rotten_flesh"
+  }
+}

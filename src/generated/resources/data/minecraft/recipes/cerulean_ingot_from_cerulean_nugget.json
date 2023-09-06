@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "cerulean_ingot",
+  "key": {
+    "#": {
+      "item": "theaurorian:cerulean_nugget"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "theaurorian:cerulean_ingot"
+  },
+  "show_notification": true
+}

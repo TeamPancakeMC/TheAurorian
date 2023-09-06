@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "aurorian_coal",
+  "key": {
+    "#": {
+      "item": "theaurorian:aurorian_coal_nugget"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "theaurorian:aurorian_coal"
+  },
+  "show_notification": true
+}

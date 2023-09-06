@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:cooked_aurorian_pork"
+    },
+    {
+      "item": "theaurorian:cooked_aurorian_pork"
+    },
+    {
+      "item": "theaurorian:cooked_aurorian_pork"
+    },
+    {
+      "item": "theaurorian:cooked_aurorian_pork"
+    }
+  ],
+  "result": {
+    "item": "theaurorian:aurorian_bacon"
+  }
+}

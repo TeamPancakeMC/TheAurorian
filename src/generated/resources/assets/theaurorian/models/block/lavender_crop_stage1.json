@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "theaurorian:block/lavender_crop_stage1"
+  }
+}

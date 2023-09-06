@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "aurorian_coal",
+  "ingredient": {
+    "item": "theaurorian:aurorian_coal_ore"
+  },
+  "result": "theaurorian:aurorian_coal"
+}

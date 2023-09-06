@@ -1,0 +1,30 @@
+{
+  "values": [
+    "theaurorian:aurorian_stone",
+    "theaurorian:aurorian_stone_bricks",
+    "theaurorian:aurorian_cobblestone",
+    "theaurorian:aurorian_coal_ore",
+    "theaurorian:aurorian_furnace",
+    "theaurorian:aurorian_furnace_chimney",
+    "theaurorian:aurorian_portal_frame_bricks",
+    "theaurorian:aurorian_peridotite",
+    "theaurorian:smooth_aurorian_peridotite",
+    "theaurorian:moonstone_ore",
+    "theaurorian:cerulean_ore",
+    "theaurorian:geode_ore",
+    "theaurorian:indigo_mushroom_crystal",
+    "theaurorian:moonlight_forge",
+    "theaurorian:moon_gem",
+    "theaurorian:umbra_stone",
+    "theaurorian:umbra_stone_cracked",
+    "theaurorian:umbra_stone_roof_tiles",
+    "theaurorian:aurorian_stone_stairs",
+    "theaurorian:aurorian_stone_brick_stairs",
+    "theaurorian:aurorian_cobblestone_stairs",
+    "theaurorian:umbra_stone_stairs",
+    "theaurorian:umbra_stone_cracked_stairs",
+    "theaurorian:umbra_stone_roof_stairs",
+    "theaurorian:aurorian_peridotite_stairs",
+    "theaurorian:smooth_aurorian_peridotite_stairs"
+  ]
+}

@@ -13,7 +13,10 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
@@ -29,10 +32,10 @@ import java.util.function.Function;
 @SuppressWarnings("SpellCheckingInspection")
 public class ModDimensions {
 
-    public static final ResourceKey<NoiseGeneratorSettings> AURORIAN_NOISE_SETTINGS = ResourceKey.create(Registries.NOISE_SETTINGS, AurorianMod.prefix("aurorian_noise"));
+    public static final ResourceKey<NoiseGeneratorSettings> AURORIAN_NOISE_SETTINGS = ResourceKey.create(Registries.NOISE_SETTINGS, AurorianMod.prefix("the_aurorian_noise"));
     public static final ResourceKey<DimensionType> AURORIAN_DIMENSION_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE, AurorianMod.prefix("the_aurorian_type"));
-    public static final ResourceKey<LevelStem> AURORIAN_LEVEL_STEM =  ResourceKey.create(Registries.LEVEL_STEM, AurorianMod.prefix("the_aurorian"));
-    public static final ResourceKey<Level> AURORIAN_DIMENSION = ResourceKey.create(Registries.DIMENSION, AURORIAN_LEVEL_STEM.location());
+    public static final ResourceKey<LevelStem> AURORIAN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, AurorianMod.prefix("the_aurorian"));
+    public static final ResourceKey<Level> AURORIAN_DIMENSION = ResourceKey.create(Registries.DIMENSION, AurorianMod.prefix("the_aurorian"));
 
     public static final MultiNoiseBiomeSourceParameterList.Preset AURORIAN =
             new MultiNoiseBiomeSourceParameterList.Preset(AurorianMod.prefix("aurorian"),
@@ -63,7 +66,7 @@ public class ModDimensions {
         HolderGetter<Biome> biome = context.lookup(Registries.BIOME);
         HolderGetter<DimensionType> dimensionType = context.lookup(Registries.DIMENSION_TYPE);
         HolderGetter<NoiseGeneratorSettings> noiseSettings = context.lookup(Registries.NOISE_SETTINGS);
-        MultiNoiseBiomeSource biomeSource = MultiNoiseBiomeSource.createFromList(AURORIAN.provider().apply(biome::getOrThrow));
+        MultiNoiseBiomeSource biomeSource = MultiNoiseBiomeSource.createFromList(MultiNoiseBiomeSourceParameterList.Preset.NETHER.provider().apply(biome::getOrThrow));
         NoiseBasedChunkGenerator chunkGenerator = new NoiseBasedChunkGenerator(biomeSource, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
         LevelStem levelStem = new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE), chunkGenerator);
         context.register(AURORIAN_LEVEL_STEM, levelStem);

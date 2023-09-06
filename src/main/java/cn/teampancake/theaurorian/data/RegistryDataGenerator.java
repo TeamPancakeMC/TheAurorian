@@ -20,7 +20,7 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.BIOME, ModBiomes::bootstrap)
             .add(Registries.NOISE_SETTINGS, ModDimensions::bootstrapNoise)
             .add(Registries.DIMENSION_TYPE, ModDimensions::bootstrapType)
-//            .add(Registries.LEVEL_STEM, ModDimensions::bootstrapStem)
+            .add(Registries.LEVEL_STEM, ModDimensions::bootstrapStem)
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, ModPlacements::bootstrap);
 

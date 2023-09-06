@@ -7,6 +7,7 @@ import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -32,9 +33,11 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 ModItems.SPECTRAL_CHESTPLATE.get(),
                 ModItems.SPECTRAL_LEGGINGS.get(),
                 ModItems.SPECTRAL_BOOTS.get());
-
         tag(ModItemTags.AURORIAN_SLIME_BOOTS).add(ModItems.AURORIAN_SLIME_BOOTS.get());
+        tag(ItemTags.ARROWS).add(ModItems.CERULEAN_ARROW.get(), ModItems.CRYSTAL_ARROW.get());
         copy(ModBlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, ModItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
+        copy(ModBlockTags.SILENT_TREE_LOGS, ModItemTags.SILENT_TREE_LOGS);
+        copy(ModBlockTags.WEEPING_WILLOW_LOGS, ModItemTags.WEEPING_WILLOW_LOGS);
     }
 
 }

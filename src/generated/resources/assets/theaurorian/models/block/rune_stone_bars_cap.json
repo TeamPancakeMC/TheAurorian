@@ -1,0 +1,63 @@
+{
+  "ambientocclusion": false,
+  "elements": [
+    {
+      "faces": {
+        "east": {
+          "texture": "#bars"
+        },
+        "west": {
+          "texture": "#bars",
+          "uv": [
+            8.0,
+            0.0,
+            7.0,
+            16.0
+          ]
+        }
+      },
+      "from": [
+        8,
+        0,
+        8
+      ],
+      "to": [
+        8,
+        16,
+        9
+      ]
+    },
+    {
+      "faces": {
+        "north": {
+          "texture": "#bars",
+          "uv": [
+            9.0,
+            0.0,
+            7.0,
+            16.0
+          ]
+        },
+        "south": {
+          "texture": "#bars"
+        }
+      },
+      "from": [
+        7,
+        0,
+        9
+      ],
+      "to": [
+        9,
+        16,
+        9
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout_mipped",
+  "textures": {
+    "bars": "theaurorian:block/rune_stone_bars",
+    "edge": "theaurorian:block/rune_stone_bars",
+    "particle": "theaurorian:block/rune_stone_bars"
+  }
+}

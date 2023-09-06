@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:silk_berry_jam"
+    },
+    {
+      "item": "theaurorian:lavender_bread"
+    }
+  ],
+  "result": {
+    "item": "theaurorian:silk_berry_jam_sandwich"
+  }
+}

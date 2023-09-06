@@ -20,12 +20,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 
-public class DungeonLocatorItem extends Item implements ITooltipsItem{
+public class DungeonLocatorItem extends Item implements ITooltipsItem {
+
     public DungeonLocatorItem() {
-        super(new Properties()
-                .defaultDurability(30)
-                .stacksTo(1)
-                .rarity(Rarity.EPIC));
+        super(new Properties().defaultDurability(30).rarity(Rarity.EPIC));
     }
 
     @Override
@@ -48,14 +46,14 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem{
             }
         } else {
             BlockPos dungeon = null;
-            if (level instanceof ServerLevel serverLevel) {
-                //TODO Tagkey<Strucure>
-                dungeon = switch (this.getSelectedDungeon(itemstack)) {
-                    case "Moontemple" -> serverLevel.findNearestMapStructure(, player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 4, false);
-                    default -> serverLevel.findNearestMapStructure(new TagKey<>(), player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 2);
-                    case "Darkstone" -> serverLevel.findNearestMapStructure(new TagKey<>(), player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 6);
-                };
-            }
+//            if (level instanceof ServerLevel serverLevel) {
+//                //TODO Tagkey<Strucure>
+//                dungeon = switch (this.getSelectedDungeon(itemstack)) {
+//                    case "Moontemple" -> serverLevel.findNearestMapStructure(, player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 4, false);
+//                    default -> serverLevel.findNearestMapStructure(new TagKey<>(), player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 2);
+//                    case "Darkstone" -> serverLevel.findNearestMapStructure(new TagKey<>(), player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 6);
+//                };
+//            }
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
             if (dungeon != null) {
                 double lookx = 0.25D + -Math.sin((float) Math.toRadians(player.yHeadRot)) * Math.cos((float) Math.toRadians(player.getXRot()));
@@ -127,4 +125,5 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem{
             nbt.putString("dungeon", dungeon);
         }
     }
+
 }

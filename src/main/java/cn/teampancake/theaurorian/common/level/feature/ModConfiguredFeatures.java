@@ -29,8 +29,8 @@ public class ModConfiguredFeatures {
         FeatureUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(BlockStateProvider.simple(ModBlocks.AURORIAN_GRASS_LIGHT.get()), 32));
         FeatureUtils.register(context, PATCH_AURORIAN_FLOWER, Feature.FLOWER, new RandomPatchConfiguration(96, 6, 2,
                 PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new NoiseProvider(2345L,
-                        new NormalNoise.NoiseParameters(0, 1.0D), 0.020833334F, List.of(ModBlocks.LAVENDER_PLANT.get().defaultBlockState(),
-                        ModBlocks.PETUNIA_PLANT.get().defaultBlockState(), ModBlocks.SILK_BERRY_PLANT.get().defaultBlockState()))))));
+                        new NormalNoise.NoiseParameters(0, 1.0D), 0.020833334F, List.of(ModBlocks.LAVENDER_CROP.get().defaultBlockState(),
+                        ModBlocks.PETUNIA_PLANT.get().defaultBlockState(), ModBlocks.SILK_BERRY_CROP.get().defaultBlockState()))))));
         FeatureUtils.register(context, RANDOM_URNS, ModFeatures.RANDOM_URNS.get());
     }
 

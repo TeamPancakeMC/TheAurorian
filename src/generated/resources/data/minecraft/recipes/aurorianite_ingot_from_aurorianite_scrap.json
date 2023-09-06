@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "aurorianite_ingot",
+  "key": {
+    "#": {
+      "item": "theaurorian:aurorianite_scrap"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "theaurorian:aurorianite_ingot"
+  },
+  "show_notification": true
+}

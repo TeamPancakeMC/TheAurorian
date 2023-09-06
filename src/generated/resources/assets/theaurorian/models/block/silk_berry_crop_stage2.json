@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "theaurorian:block/silk_berry_crop_stage2"
+  }
+}

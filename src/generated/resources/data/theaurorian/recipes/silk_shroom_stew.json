@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:silk_berry"
+    },
+    {
+      "item": "theaurorian:silk_berry"
+    },
+    {
+      "item": "theaurorian:indigo_mushroom"
+    },
+    {
+      "item": "theaurorian:indigo_mushroom"
+    }
+  ],
+  "result": {
+    "item": "theaurorian:silk_shroom_stew"
+  }
+}

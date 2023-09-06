@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "theaurorian:aurorian_cobblestone"
+    },
+    "I": {
+      "item": "theaurorian:moon_gem"
+    },
+    "O": {
+      "item": "theaurorian:silent_wood_crafting_table"
+    },
+    "U": {
+      "item": "theaurorian:aurorian_furnace"
+    }
+  },
+  "pattern": [
+    " I ",
+    "#O#",
+    "#U#"
+  ],
+  "result": {
+    "item": "theaurorian:moonlight_forge"
+  },
+  "show_notification": true
+}

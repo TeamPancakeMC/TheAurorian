@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:cerulean_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "theaurorian:cerulean_ingot"
+  }
+}

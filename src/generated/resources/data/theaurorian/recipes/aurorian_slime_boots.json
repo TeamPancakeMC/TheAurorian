@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "item": "theaurorian:aurorian_slimeball"
+    },
+    "O": {
+      "item": "theaurorian:moon_gem"
+    }
+  },
+  "pattern": [
+    "I I",
+    "O O"
+  ],
+  "result": {
+    "item": "theaurorian:aurorian_slime_boots"
+  },
+  "show_notification": true
+}

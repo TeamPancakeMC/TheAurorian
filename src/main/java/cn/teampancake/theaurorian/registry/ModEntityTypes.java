@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.client.renderer.entity.*;
 import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
-import cn.teampancake.theaurorian.client.renderer.*;
 import cn.teampancake.theaurorian.common.entities.animal.*;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;

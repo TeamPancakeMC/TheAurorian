@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.renderer;
+package cn.teampancake.theaurorian.client.renderer.entity;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.entities.monster.CrystallineSprite;

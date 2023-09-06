@@ -1,8 +1,0 @@
-// 1.20.1	2023-09-02T19:04:44.6759115	Registries
-6a473d8fbf138c04de6a165880b83dc7b27b79cc data/theaurorian/dimension_type/the_aurorian_type.json
-fac4a9fe796cf20bd5f4af9b42e7e1eb7ee869dd data/theaurorian/worldgen/biome/aurorian_forest.json
-fac4a9fe796cf20bd5f4af9b42e7e1eb7ee869dd data/theaurorian/worldgen/biome/aurorian_forest_hills.json
-fac4a9fe796cf20bd5f4af9b42e7e1eb7ee869dd data/theaurorian/worldgen/biome/aurorian_lakes.json
-fac4a9fe796cf20bd5f4af9b42e7e1eb7ee869dd data/theaurorian/worldgen/biome/aurorian_plains.json
-fac4a9fe796cf20bd5f4af9b42e7e1eb7ee869dd data/theaurorian/worldgen/biome/weeping_willow_forest.json
-ca2612e2fef53884266d438c7289fabc0cc2c566 data/theaurorian/worldgen/noise_settings/aurorian_noise.json

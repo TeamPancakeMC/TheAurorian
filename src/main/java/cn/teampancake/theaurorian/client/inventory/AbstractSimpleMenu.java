@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.client.inventory;
 
-import cn.teampancake.theaurorian.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -88,7 +87,7 @@ public abstract class AbstractSimpleMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@NotNull Player player) {
-        Block block = ModBlocks.SCRAPPER.get();
+        Block block = this.getBlockEntity().getBlockState().getBlock();
         BlockPos pos = this.getBlockEntity().getBlockPos();
         return stillValid(ContainerLevelAccess.create(this.level, pos), player, block);
     }

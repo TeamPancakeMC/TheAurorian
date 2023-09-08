@@ -109,5 +109,4 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
         return new MoonlightForgeMenu(containerId, inventory, this);
     }
-
 }

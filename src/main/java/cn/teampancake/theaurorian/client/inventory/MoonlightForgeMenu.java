@@ -43,7 +43,43 @@ public class MoonlightForgeMenu extends AbstractContainerMenu {
 
     @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
-        return ItemStack.EMPTY;
+        ItemStack prevItem = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
+        if (slot.hasItem()) {
+            ItemStack slotItem = slot.getItem();
+            prevItem = slotItem.copy();
+            if (index == 2 ) {
+                if (!this.moveItemStackTo(slotItem, 3, 39, true)) {
+                    return ItemStack.EMPTY;
+                }
+                slot.onQuickCraft(slotItem, prevItem);
+            } else if(index != 0 && index != 1){
+                 if (index >= 3 && index < 30) {
+                    if (!this.moveItemStackTo(slotItem, 30, 39, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index >= 30 && index < 39 && !this.moveItemStackTo(slotItem, 3, 30, false)) {
+                    return ItemStack.EMPTY;
+                }else if (!this.moveItemStackTo(slotItem, 0, 2, true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.moveItemStackTo(slotItem, 3, 39, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (slotItem.isEmpty()) {
+                slot.set(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+
+            if (slotItem.getCount() == prevItem.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(player, slotItem);
+        }
+        return prevItem;
     }
 
     @Override

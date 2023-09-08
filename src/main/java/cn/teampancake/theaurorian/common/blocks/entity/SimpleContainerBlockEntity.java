@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntity {
+public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntity{
 
     protected LazyOptional<IItemHandler> lazyOptional = LazyOptional.empty();
     protected final SimpleContainerBlockEntity.Handler handler = new SimpleContainerBlockEntity.Handler();
@@ -86,7 +86,6 @@ public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntit
                 return false;
             }
         }
-
         return true;
     }
 
@@ -137,7 +136,5 @@ public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntit
         public NonNullList<ItemStack> getStacks() {
             return this.stacks;
         }
-
     }
-
 }

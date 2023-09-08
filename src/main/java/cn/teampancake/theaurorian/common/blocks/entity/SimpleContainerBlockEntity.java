@@ -58,12 +58,14 @@ public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntit
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.put("inventory", this.handler.serializeNBT());
+        ContainerHelper.saveAllItems(tag, this.handler.getStacks());
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
         this.handler.deserializeNBT(tag);
+        ContainerHelper.loadAllItems(tag, this.handler.getStacks());
     }
 
     @Override
@@ -94,8 +96,8 @@ public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntit
     }
 
     @Override
-    public ItemStack removeItem(int pIndex, int pCount) {
-        return ContainerHelper.removeItem(this.handler.getStacks(), pIndex, pCount);
+    public ItemStack removeItem(int index, int count) {
+        return ContainerHelper.removeItem(this.handler.getStacks(), index, count);
     }
 
     @Override
@@ -104,8 +106,11 @@ public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntit
     }
 
     @Override
-    public void setItem(int pSlot, ItemStack pStack) {
-
+    public void setItem(int index, ItemStack stack) {
+        this.handler.getStacks().set(index, stack);
+        if (stack.getCount() > this.getMaxStackSize()) {
+            stack.setCount(this.getMaxStackSize());
+        }
     }
 
     @Override

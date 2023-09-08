@@ -106,17 +106,6 @@ public class ScrapperBlockEntity extends SimpleContainerBlockEntity {
     }
 
     @Override
-    public boolean canPlaceItem(int index, ItemStack stack) {
-        if (index == 2) {
-            return false;
-        } else if (index != 1) {
-            return true;
-        } else {
-            return this.handler.getStackInSlot(1).is(ModItems.CRYSTAL.get());
-        }
-    }
-
-    @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
         return new ScrapperMenu(containerId, inventory, this);
     }

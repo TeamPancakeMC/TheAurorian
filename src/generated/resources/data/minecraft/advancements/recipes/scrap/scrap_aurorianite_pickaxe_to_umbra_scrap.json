@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aurorianite_pickaxe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theaurorian:aurorianite_pickaxe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:scrap_aurorianite_pickaxe_to_umbra_scrap"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_aurorianite_pickaxe",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:scrap_aurorianite_pickaxe_to_umbra_scrap"
+    ]
+  },
+  "sends_telemetry_event": false
+}

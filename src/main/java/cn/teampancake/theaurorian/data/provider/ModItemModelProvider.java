@@ -69,6 +69,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(ModBlocks.MOON_TEMPLE_GATE_KEYHOLE.get());
         this.simpleBlockItem(ModBlocks.RUNE_STONE_LOOT_GATE_KEYHOLE.get());
         this.simpleBlockItem(ModBlocks.MOON_TEMPLE_CELL_GATE_KEYHOLE.get());
+        this.simpleBlockItem(ModBlocks.SCRAPPER.get());
         this.simpleBlockItem(ModBlocks.UMBRA_STONE.get());
         this.simpleBlockItem(ModBlocks.UMBRA_STONE_CRACKED.get());
         this.simpleBlockItem(ModBlocks.UMBRA_STONE_ROOF_TILES.get());

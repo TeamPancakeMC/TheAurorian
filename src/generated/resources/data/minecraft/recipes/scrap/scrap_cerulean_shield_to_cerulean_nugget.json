@@ -1,0 +1,8 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 36,
+  "ingredient": {
+    "item": "theaurorian:cerulean_shield"
+  },
+  "result": "cerulean_nugget"
+}

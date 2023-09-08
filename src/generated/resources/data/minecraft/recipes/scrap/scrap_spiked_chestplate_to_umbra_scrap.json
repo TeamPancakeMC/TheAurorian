@@ -1,0 +1,8 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 9,
+  "ingredient": {
+    "item": "theaurorian:spiked_chestplate"
+  },
+  "result": "umbra_scrap"
+}

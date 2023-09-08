@@ -1,0 +1,8 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 2,
+  "ingredient": {
+    "item": "minecraft:diamond_pickaxe"
+  },
+  "result": "diamond"
+}

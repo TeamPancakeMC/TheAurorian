@@ -1,0 +1,8 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 24,
+  "ingredient": {
+    "item": "minecraft:golden_boots"
+  },
+  "result": "gold_nugget"
+}

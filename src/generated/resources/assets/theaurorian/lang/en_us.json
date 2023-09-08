@@ -60,6 +60,7 @@
   "block.theaurorian.rune_stone_loot_gate": "Runestone Loot Gate",
   "block.theaurorian.rune_stone_loot_gate_keyhole": "Runestone Loot Gate Keyhole",
   "block.theaurorian.rune_stone_stairs": "Runestone Stairs",
+  "block.theaurorian.scrapper": "Scrapper",
   "block.theaurorian.silent_tree_leaves": "Silent Tree Leaves",
   "block.theaurorian.silent_tree_log": "Silent Tree Log",
   "block.theaurorian.silent_tree_planks": "Silent Tree Planks",
@@ -209,5 +210,7 @@
   "item.theaurorian.undead_knight_spawn_egg": "Undead Knight Spawn Egg",
   "item.theaurorian.webbing": "Webbing",
   "item.theaurorian.weeping_willow_sap": "Weeping Willow Sap",
-  "itemGroup.theaurorian": "The Aurorian"
+  "itemGroup.theaurorian": "The Aurorian",
+  "theaurorian.container.moonlight_forge": "Moonlight Forge",
+  "theaurorian.container.scrapper": "Scrapper"
 }

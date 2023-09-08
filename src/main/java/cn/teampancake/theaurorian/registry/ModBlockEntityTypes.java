@@ -1,9 +1,13 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.client.renderer.block.MoonlightForgeRenderer;
 import cn.teampancake.theaurorian.common.blocks.entity.AurorianFurnaceBlockEntity;
 import cn.teampancake.theaurorian.common.blocks.entity.MoonlightForgeBlockEntity;
+import cn.teampancake.theaurorian.common.blocks.entity.ScrapperBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -16,5 +20,12 @@ public class ModBlockEntityTypes {
             () -> BlockEntityType.Builder.of(AurorianFurnaceBlockEntity::new, ModBlocks.AURORIAN_FURNACE.get()).build(null));
     public static final RegistryObject<BlockEntityType<MoonlightForgeBlockEntity>> MOONLIGHT_FORGE = BLOCK_ENTITY_TYPES.register("moonlight_forge",
             () -> BlockEntityType.Builder.of(MoonlightForgeBlockEntity::new, ModBlocks.MOONLIGHT_FORGE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ScrapperBlockEntity>> SCRAPPER = BLOCK_ENTITY_TYPES.register("scrapper",
+            () -> BlockEntityType.Builder.of(ScrapperBlockEntity::new, ModBlocks.MOONLIGHT_FORGE.get()).build(null));
+
+    @SubscribeEvent
+    public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(MOONLIGHT_FORGE.get(), MoonlightForgeRenderer::new);
+    }
 
 }

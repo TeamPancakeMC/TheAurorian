@@ -1,0 +1,8 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 48,
+  "ingredient": {
+    "item": "theaurorian:aurorian_steel_chestplate"
+  },
+  "result": "aurorian_steel_nugget"
+}

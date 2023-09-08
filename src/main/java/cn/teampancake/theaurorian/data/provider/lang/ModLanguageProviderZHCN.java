@@ -16,6 +16,8 @@ public class ModLanguageProviderZHCN extends LanguageProvider {
     @Override
     protected void addTranslations() {
         this.add("itemGroup." + AurorianMod.MOD_ID, "极光幽境");
+        this.add("theaurorian.container.scrapper", "粉碎器");
+        this.add("theaurorian.container.moonlight_forge", "月光融锻台");
         this.add(ModBlocks.AURORIAN_DIRT.get(), "极光泥土");
         this.add(ModBlocks.AURORIAN_STONE.get(), "极光石");
         this.add(ModBlocks.AURORIAN_STONE_BRICKS.get(), "极光石砖");
@@ -74,6 +76,7 @@ public class ModLanguageProviderZHCN extends LanguageProvider {
         this.add(ModBlocks.MOON_GEM.get(), "皎月宝石");
         this.add(ModBlocks.MOON_SAND.get(), "皎月沙");
         this.add(ModBlocks.MOON_TORCH.get(), "皎月火把");
+        this.add(ModBlocks.SCRAPPER.get(), "粉碎器");
         this.add(ModBlocks.UMBRA_STONE.get(), "本影石");
         this.add(ModBlocks.UMBRA_STONE_CRACKED.get(), "裂纹本影石");
         this.add(ModBlocks.UMBRA_STONE_ROOF_TILES.get(), "本影石瓦");

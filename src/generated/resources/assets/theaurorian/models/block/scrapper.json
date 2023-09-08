@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "theaurorian:block/aurorian_furnace_on",
+    "east": "theaurorian:block/scrapper_side",
+    "north": "theaurorian:block/scrapper_front",
+    "particle": "theaurorian:block/scrapper_front",
+    "south": "theaurorian:block/scrapper_side",
+    "up": "theaurorian:block/scrapper_top",
+    "west": "theaurorian:block/scrapper_side"
+  }
+}

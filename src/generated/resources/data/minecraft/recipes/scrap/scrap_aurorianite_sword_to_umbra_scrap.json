@@ -1,0 +1,8 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 4,
+  "ingredient": {
+    "item": "theaurorian:aurorianite_sword"
+  },
+  "result": "umbra_scrap"
+}

@@ -1,0 +1,8 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 9,
+  "ingredient": {
+    "item": "theaurorian:umbra_shield"
+  },
+  "result": "umbra_scrap"
+}

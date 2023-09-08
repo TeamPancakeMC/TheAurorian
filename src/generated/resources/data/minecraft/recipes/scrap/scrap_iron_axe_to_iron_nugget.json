@@ -1,0 +1,8 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 18,
+  "ingredient": {
+    "item": "minecraft:iron_axe"
+  },
+  "result": "iron_nugget"
+}

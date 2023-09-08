@@ -1,0 +1,8 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 4,
+  "ingredient": {
+    "item": "minecraft:diamond_leggings"
+  },
+  "result": "diamond"
+}

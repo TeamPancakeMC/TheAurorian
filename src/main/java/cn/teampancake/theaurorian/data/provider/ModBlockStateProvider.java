@@ -1,10 +1,7 @@
 package cn.teampancake.theaurorian.data.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.blocks.AbstractCropBlock;
-import cn.teampancake.theaurorian.common.blocks.AurorianFarmTile;
-import cn.teampancake.theaurorian.common.blocks.AurorianFurnace;
-import cn.teampancake.theaurorian.common.blocks.AurorianPortal;
+import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import cn.teampancake.theaurorian.utils.ModCommonUtils;
 import net.minecraft.core.Direction;
@@ -16,9 +13,7 @@ import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class ModBlockStateProvider extends BlockStateProvider {
@@ -26,6 +21,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
     private static final ResourceLocation CUTOUT = new ResourceLocation("cutout");
     private static final ResourceLocation CUTOUT_MIPPED = new ResourceLocation("cutout_mipped");
     private static final ResourceLocation TRANSLUCENT = new ResourceLocation("translucent");
+    private static final Map<Direction, Integer> DIRECTION_WITH_ROTATION =
+            Map.of(Direction.NORTH, 0, Direction.EAST, 90,
+            Direction.SOUTH, 180, Direction.WEST, 270);
 
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, AurorianMod.MOD_ID, exFileHelper);
@@ -33,12 +31,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        this.registerLiquidModels();
-        this.registerCraftingTableModel();
-        this.registerAurorianPortalModel();
-        this.registerAurorianFurnaceModel();
-        this.registerAurorianFarmlandModel();
-        this.registerSilentWoodLadderModel();
+        this.registerLiquidStates();
+        this.registerScrapperState();
+        this.registerCraftingTableState();
+        this.registerAurorianPortalState();
+        this.registerAurorianFurnaceState();
+        this.registerAurorianFarmlandState();
+        this.registerSilentWoodLadderState();
         this.simpleBlock(ModBlocks.GEODE_ORE.get());
         this.simpleBlock(ModBlocks.CERULEAN_ORE.get());
         this.simpleBlock(ModBlocks.MOONSTONE_ORE.get());
@@ -109,20 +108,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
         this.simpleBlockWithRenderType(ModBlocks.AURORIAN_GLASS.get(), CUTOUT);
         this.simpleBlockWithRenderType(ModBlocks.SILENT_TREE_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(ModBlocks.WEEPING_WILLOW_LEAVES.get(), CUTOUT_MIPPED);
-        this.registerBarModels(ModBlocks.RUNE_STONE_BARS.get());
-        this.registerBarModels(ModBlocks.MOON_TEMPLE_BARS.get());
-        this.registerGlassPaneModels(ModBlocks.MOON_GLASS_PANE.get());
-        this.registerGlassPaneModels(ModBlocks.AURORIAN_GLASS_PANE.get());
-        this.registerWallTorchModel(ModBlocks.MOON_WALL_TORCH.get());
-        this.registerWallTorchModel(ModBlocks.SILENT_WOOD_WALL_TORCH.get());
-        this.registerCropModels(ModBlocks.LAVENDER_CROP.get());
-        this.registerCropModels(ModBlocks.SILK_BERRY_CROP.get());
-        this.registerPlantModels(ModBlocks.PETUNIA_PLANT.get());
-        this.registerPlantModels(ModBlocks.INDIGO_MUSHROOM.get());
-        this.registerPlantModels(ModBlocks.AURORIAN_GRASS.get());
-        this.registerPlantModels(ModBlocks.AURORIAN_GRASS_LIGHT.get());
-        this.registerMushroomModels(ModBlocks.INDIGO_MUSHROOM_BLOCK.get());
-        this.registerMushroomModels(ModBlocks.INDIGO_MUSHROOM_STEM.get());
+        this.registerBarStates(ModBlocks.RUNE_STONE_BARS.get());
+        this.registerBarStates(ModBlocks.MOON_TEMPLE_BARS.get());
+        this.registerGlassPaneStates(ModBlocks.MOON_GLASS_PANE.get());
+        this.registerGlassPaneStates(ModBlocks.AURORIAN_GLASS_PANE.get());
+        this.registerWallTorchStates(ModBlocks.MOON_WALL_TORCH.get());
+        this.registerWallTorchStates(ModBlocks.SILENT_WOOD_WALL_TORCH.get());
+        this.registerCropStates(ModBlocks.LAVENDER_CROP.get());
+        this.registerCropStates(ModBlocks.SILK_BERRY_CROP.get());
+        this.registerPlantStates(ModBlocks.PETUNIA_PLANT.get());
+        this.registerPlantStates(ModBlocks.INDIGO_MUSHROOM.get());
+        this.registerPlantStates(ModBlocks.AURORIAN_GRASS.get());
+        this.registerPlantStates(ModBlocks.AURORIAN_GRASS_LIGHT.get());
+        this.registerMushroomStates(ModBlocks.INDIGO_MUSHROOM_BLOCK.get());
+        this.registerMushroomStates(ModBlocks.INDIGO_MUSHROOM_STEM.get());
         for (Block block : ModCommonUtils.getKnownBlocks()) {
             if (block instanceof StairBlock stairBlock) {
                 this.stairsBlock(stairBlock, this.blockTexture(stairBlock.base));
@@ -130,7 +129,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerBarModels(Block block) {
+    private void registerBarStates(Block block) {
         String name = this.name(block);
         ResourceLocation texture = this.blockTexture(block);
         ModelFile post = this.models().getBuilder(name + "_post").renderType(CUTOUT_MIPPED)
@@ -214,7 +213,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         builder.part().modelFile(sideAlt).rotationY(90).addModel().condition(PipeBlock.WEST, true).end();
     }
 
-    private void registerGlassPaneModels(Block block) {
+    private void registerGlassPaneStates(Block block) {
         String name = this.name(block);
         String side = name + "_side", sideAlt = name + "_side_alt";
         String noSide = name + "_noside", noSideAlt = name + "_noside_alt";
@@ -240,7 +239,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .rotationY(270).addModel().condition(IronBarsBlock.WEST, false).end();
     }
 
-    private void registerWallTorchModel(Block block) {
+    private void registerWallTorchStates(Block block) {
         Map<Direction, Integer> map = Map.of(Direction.NORTH, 270, Direction.EAST, 0,
                 Direction.SOUTH, 90, Direction.WEST, 180);
         VariantBlockStateBuilder builder = this.getVariantBuilder(block);
@@ -252,7 +251,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerCropModels(Block block) {
+    private void registerCropStates(Block block) {
         VariantBlockStateBuilder builder = this.getVariantBuilder(block);
         for (int stage : AbstractCropBlock.AGE.getPossibleValues()) {
             String name = this.name(block) + "_stage" + stage;
@@ -263,11 +262,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerPlantModels(Block block) {
+    private void registerPlantStates(Block block) {
         this.simpleBlock(block, this.models().cross(this.name(block), this.blockTexture(block)).renderType(CUTOUT));
     }
 
-    private void registerMushroomModels(Block block) {
+    private void registerMushroomStates(Block block) {
         MultiPartBlockStateBuilder builder = this.getMultipartBuilder(block);
         ResourceLocation parent = this.mcLoc("block/template_single_face");
         ResourceLocation outside = this.modLoc("block/" + this.name(block) + "_side");
@@ -287,7 +286,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerLiquidModels() {
+    private void registerLiquidStates() {
         this.simpleBlock(ModBlocks.MOLTEN_AURORIAN_STEEL.get(), this.models()
                 .getBuilder(ModBlocks.MOLTEN_AURORIAN_STEEL.getId().getPath())
                 .texture("particle", this.modLoc("block/molten_aurorian_steel")));
@@ -302,7 +301,25 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .texture("particle", this.modLoc("block/moon_water")));
     }
 
-    private void registerCraftingTableModel() {
+    private void registerScrapperState() {
+        Block block = ModBlocks.SCRAPPER.get();
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        ModelFile modelFile = this.models().withExistingParent(this.name(block), this.mcLoc("block/cube"))
+                .texture("particle", this.modLoc("block/scrapper_front"))
+                .texture("down", this.modLoc("block/aurorian_furnace_on"))
+                .texture("up", this.modLoc("block/scrapper_top"))
+                .texture("north", this.modLoc("block/scrapper_front"))
+                .texture("east", this.modLoc("block/scrapper_side"))
+                .texture("south", this.modLoc("block/scrapper_side"))
+                .texture("west", this.modLoc("block/scrapper_side"));
+        for (Direction direction : DIRECTION_WITH_ROTATION.keySet()) {
+            int y = DIRECTION_WITH_ROTATION.get(direction);
+            builder.partialState().with(Scrapper.FACING, direction).modelForState()
+                    .modelFile(modelFile).rotationY(y).addModel();
+        }
+    }
+
+    private void registerCraftingTableState() {
         String name = this.name(ModBlocks.SILENT_WOOD_CRAFTING_TABLE.get());
         ResourceLocation down = this.modLoc("block/" +
                 this.name(ModBlocks.SILENT_TREE_PLANKS.get()));
@@ -313,7 +330,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         this.simpleBlock(ModBlocks.SILENT_WOOD_CRAFTING_TABLE.get(), modelFile);
     }
 
-    private void registerAurorianPortalModel() {
+    private void registerAurorianPortalState() {
         Block block = ModBlocks.AURORIAN_PORTAL.get();
         VariantBlockStateBuilder builder = this.getVariantBuilder(block);
         for (Direction.Axis axis : AurorianPortal.AXIS.getPossibleValues()) {
@@ -334,27 +351,24 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerAurorianFurnaceModel() {
+    private void registerAurorianFurnaceState() {
         String name = this.name(ModBlocks.AURORIAN_FURNACE.get());
-        Map<Direction, Integer> map = Map.of(Direction.NORTH, 0, Direction.EAST, 90,
-                Direction.SOUTH, 180, Direction.WEST, 270);
         VariantBlockStateBuilder builder = this.getVariantBuilder(ModBlocks.AURORIAN_FURNACE.get());
         for (Direction direction : AurorianFurnace.FACING.getPossibleValues()) {
             for (Boolean lit : AurorianFurnace.LIT.getPossibleValues()) {
                 String front = name + (lit ? "_on" : "");
-                ConfiguredModel configuredModel = new ConfiguredModel(this.models()
+                ModelFile modelFile = new ConfiguredModel(this.models()
                         .orientable(front, this.modLoc("block/" + name + "_side"),
                                 this.modLoc("block/" + front),
-                                this.modLoc("block/" + name + "_top")));
+                                this.modLoc("block/" + name + "_top"))).model;
                 builder.partialState().with(AurorianFurnace.FACING, direction)
-                        .with(AurorianFurnace.LIT, lit).modelForState()
-                        .modelFile(configuredModel.model)
-                        .rotationY(map.get(direction)).addModel();
+                        .with(AurorianFurnace.LIT, lit).modelForState().modelFile(modelFile)
+                        .rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
             }
         }
     }
 
-    private void registerAurorianFarmlandModel() {
+    private void registerAurorianFarmlandState() {
         VariantBlockStateBuilder builder = this.getVariantBuilder(ModBlocks.AURORIAN_FARM_TILE.get());
         for (int i = 0; i <= AurorianFarmTile.MAX_MOISTURE; i++) {
             String name = "aurorian_farm_tile" + (i == AurorianFarmTile.MAX_MOISTURE ? "_moist" : "");
@@ -366,10 +380,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerSilentWoodLadderModel() {
+    private void registerSilentWoodLadderState() {
         String name = this.name(ModBlocks.SILENT_WOOD_LADDER.get());
-        Map<Direction, Integer> map = Map.of(Direction.NORTH, 0,
-                Direction.EAST, 90, Direction.SOUTH, 180, Direction.WEST, 270);
         VariantBlockStateBuilder builder = this.getVariantBuilder(ModBlocks.SILENT_WOOD_LADDER.get());
         ConfiguredModel configuredModel = new ConfiguredModel(this.models()
                 .withExistingParent(name, this.modLoc("block/" + name))
@@ -377,7 +389,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 .texture("texture", this.modLoc("block/" + name)));
         for (Direction direction : LadderBlock.FACING.getPossibleValues()) {
             builder.partialState().with(LadderBlock.FACING, direction).modelForState()
-                    .modelFile(configuredModel.model).rotationY(map.get(direction)).addModel();
+                    .modelFile(configuredModel.model).rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
         }
     }
 

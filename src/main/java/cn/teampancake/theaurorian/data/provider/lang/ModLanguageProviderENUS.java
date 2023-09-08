@@ -16,6 +16,8 @@ public class ModLanguageProviderENUS extends LanguageProvider {
     @Override
     protected void addTranslations() {
         this.add("itemGroup." + AurorianMod.MOD_ID, "The Aurorian");
+        this.add("theaurorian.container.scrapper", "Scrapper");
+        this.add("theaurorian.container.moonlight_forge", "Moonlight Forge");
         this.add(ModBlocks.AURORIAN_DIRT.get(), "Aurorian Dirt");
         this.add(ModBlocks.AURORIAN_STONE.get(), "Aurorian Stone");
         this.add(ModBlocks.AURORIAN_STONE_BRICKS.get(), "Aurorian Stone Bricks");
@@ -74,6 +76,7 @@ public class ModLanguageProviderENUS extends LanguageProvider {
         this.add(ModBlocks.MOON_GEM.get(), "Moon Gem");
         this.add(ModBlocks.MOON_SAND.get(), "Moon Sand");
         this.add(ModBlocks.MOON_TORCH.get(), "Moon Torch");
+        this.add(ModBlocks.SCRAPPER.get(), "Scrapper");
         this.add(ModBlocks.UMBRA_STONE.get(), "Umbra Stone");
         this.add(ModBlocks.UMBRA_STONE_CRACKED.get(), "Cracked Umbra Stone");
         this.add(ModBlocks.UMBRA_STONE_ROOF_TILES.get(), "Umbra Stone Roof Tiles");

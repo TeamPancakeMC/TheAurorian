@@ -1,0 +1,8 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 4,
+  "ingredient": {
+    "item": "theaurorian:living_divining_rod"
+  },
+  "result": "umbra_scrap"
+}

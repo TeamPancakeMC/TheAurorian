@@ -60,6 +60,7 @@
   "block.theaurorian.rune_stone_loot_gate": "符石宝藏室门",
   "block.theaurorian.rune_stone_loot_gate_keyhole": "符石宝藏室门锁孔",
   "block.theaurorian.rune_stone_stairs": "符石楼梯",
+  "block.theaurorian.scrapper": "粉碎器",
   "block.theaurorian.silent_tree_leaves": "谧树树叶",
   "block.theaurorian.silent_tree_log": "谧树原木",
   "block.theaurorian.silent_tree_planks": "谧树木板",
@@ -209,5 +210,7 @@
   "item.theaurorian.undead_knight_spawn_egg": "Undead Knight Spawn Egg",
   "item.theaurorian.webbing": "Webbing",
   "item.theaurorian.weeping_willow_sap": "Weeping Willow Sap",
-  "itemGroup.theaurorian": "极光幽境"
+  "itemGroup.theaurorian": "极光幽境",
+  "theaurorian.container.moonlight_forge": "月光融锻台",
+  "theaurorian.container.scrapper": "粉碎器"
 }

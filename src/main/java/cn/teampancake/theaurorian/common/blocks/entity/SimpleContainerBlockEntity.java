@@ -58,14 +58,12 @@ public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntit
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.put("inventory", this.handler.serializeNBT());
-        ContainerHelper.saveAllItems(tag, this.handler.getStacks());
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
         this.handler.deserializeNBT(tag);
-        ContainerHelper.loadAllItems(tag, this.handler.getStacks());
     }
 
     @Override

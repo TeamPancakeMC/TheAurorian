@@ -167,7 +167,7 @@ public class ModItems {
     public static final RegistryObject<Item> SILKBERRY_TEA = ITEMS.register("silk_berry_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
                     .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 100), 1.0F).build())));
-    public static final RegistryObject<Item> SEEDY_TEA = ITEMS.register("seedy_tea", () -> new TeaFood(new Item.Properties()
+    public static final RegistryObject<Item> LAVENDER_SEEDY_TEA = ITEMS.register("lavender_seedy_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
                     .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200), 1.0F).build())));
     public static final RegistryObject<Item> PETUNIA_TEA = ITEMS.register("petunia_tea", () -> new TeaFood(new Item.Properties()

@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.core;
+package cn.teampancake.theaurorian.compat;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import net.minecraftforge.api.distmarker.Dist;
@@ -9,7 +9,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModBlockCompat {
+public class VanillaBlockCompat {
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent

@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.core;
+package cn.teampancake.theaurorian.compat;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.CeruleanArrow;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @SuppressWarnings("SpellCheckingInspection")
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModItemCompat {
+public class VanillaItemCompat {
 
     @SubscribeEvent
     public static void registerCompostables(FMLCommonSetupEvent event) {

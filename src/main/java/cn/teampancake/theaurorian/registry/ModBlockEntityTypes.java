@@ -21,7 +21,7 @@ public class ModBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<MoonlightForgeBlockEntity>> MOONLIGHT_FORGE = BLOCK_ENTITY_TYPES.register("moonlight_forge",
             () -> BlockEntityType.Builder.of(MoonlightForgeBlockEntity::new, ModBlocks.MOONLIGHT_FORGE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ScrapperBlockEntity>> SCRAPPER = BLOCK_ENTITY_TYPES.register("scrapper",
-            () -> BlockEntityType.Builder.of(ScrapperBlockEntity::new, ModBlocks.MOONLIGHT_FORGE.get()).build(null));
+            () -> BlockEntityType.Builder.of(ScrapperBlockEntity::new, ModBlocks.SCRAPPER.get()).build(null));
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {

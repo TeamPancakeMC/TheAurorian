@@ -42,7 +42,7 @@ public class ScrapperScreen extends AbstractContainerScreen<ScrapperMenu> {
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
-        int scrapTime = this.menu.scrapper.scrapTime;
+        int scrapTime = this.menu.getScrapTime();
         guiGraphics.blit(CONTAINER_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
         PoseStack poseStack = guiGraphics.pose();
         poseStack.pushPose();
@@ -50,7 +50,7 @@ public class ScrapperScreen extends AbstractContainerScreen<ScrapperMenu> {
         float y = (float) (j + 37 + 8);
         poseStack.translate(x, y, 0.0F);
         if (scrapTime > 0) {
-            poseStack.mulPose(Axis.ZP.rotationDegrees(this.craftRotation));
+            poseStack.mulPose(Axis.ZP.rotation(this.craftRotation));
             this.craftRotation += 0.25F;
         }
         poseStack.translate(-x, -y, 0.0F);

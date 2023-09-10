@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.blocks.entity;
 import cn.teampancake.theaurorian.client.inventory.ScrapperMenu;
 import cn.teampancake.theaurorian.common.items.crafting.ScrapperRecipe;
 import cn.teampancake.theaurorian.registry.ModBlockEntityTypes;
-import cn.teampancake.theaurorian.registry.ModItems;
 import cn.teampancake.theaurorian.registry.ModRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -12,19 +11,19 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings("NotNullFieldNotInitialized")
 public class ScrapperBlockEntity extends SimpleContainerBlockEntity {
 
     public int scrapTime;
-    private Item ingredient;
+    private final ContainerData containerData = new Data();
     private final RecipeManager.CachedCheck<Container, ? extends ScrapperRecipe> quickCheck;
 
     public ScrapperBlockEntity(BlockPos pos, BlockState blockState) {
@@ -33,63 +32,60 @@ public class ScrapperBlockEntity extends SimpleContainerBlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ScrapperBlockEntity blockEntity) {
-        ItemStack ingredient = blockEntity.handler.getStackInSlot(0);
-        ItemStack consumables = blockEntity.handler.getStackInSlot(1);
-        if (consumables.is(ModItems.CRYSTAL.get())) {
-            consumables.shrink(1);
-            setChanged(level, pos, state);
-        }
-        NonNullList<ItemStack> inventory = blockEntity.handler.getStacks();
-        ScrapperRecipe recipe = !ingredient.isEmpty() ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
-        boolean flag1 = blockEntity.canScrap(level.registryAccess(), recipe, inventory, blockEntity.getMaxStackSize());
-        if (blockEntity.scrapTime > 0) {
-            if (--blockEntity.scrapTime == 0 && flag1) {
-                blockEntity.doScrap(level.registryAccess(), recipe, inventory, blockEntity.getMaxStackSize());
+        if (!level.isClientSide()) {
+            ItemStack ingredient = blockEntity.handler.getStackInSlot(0);
+            ItemStack consumables = blockEntity.handler.getStackInSlot(1);
+            NonNullList<ItemStack> inventory = blockEntity.handler.getStacks();
+            ScrapperRecipe recipe = !ingredient.isEmpty() ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
+            if (blockEntity.canWork(level.registryAccess(), recipe, inventory, blockEntity.getMaxStackSize()) && consumables.getCount() > 0) {
+                blockEntity.scrapTime++;
                 setChanged(level, pos, state);
-            } else if (!flag1 || !ingredient.is(blockEntity.ingredient)) {
+                if (blockEntity.scrapTime > 100) {
+                    blockEntity.startWork(level.registryAccess(), recipe, inventory, blockEntity.getMaxStackSize());
+                    blockEntity.scrapTime = 0;
+                    consumables.shrink(1);
+                    setChanged(level, pos, state);
+                }
+            } else {
                 blockEntity.scrapTime = 0;
                 setChanged(level, pos, state);
             }
-        } else if (flag1 && consumables.getCount() > 0) {
-            blockEntity.scrapTime = 100;
-            blockEntity.ingredient = ingredient.getItem();
-            setChanged(level, pos, state);
         }
     }
 
-    private boolean canScrap(RegistryAccess registryAccess, @Nullable ScrapperRecipe recipe, NonNullList<ItemStack> inventory, int maxStackSize) {
+    protected void startWork(RegistryAccess registryAccess, @Nullable Recipe<Container> recipe, NonNullList<ItemStack> inventory, int maxStackSize) {
+        if (recipe != null && this.canWork(registryAccess, recipe, inventory, maxStackSize)) {
+            ItemStack copyOfResultStack = recipe.assemble(this, registryAccess);
+            ItemStack itemStack = inventory.get(0), resultStack = inventory.get(2);
+            if (resultStack.isEmpty()) {
+                inventory.set(2, copyOfResultStack.copy());
+            } else if (resultStack.is(copyOfResultStack.getItem())) {
+                resultStack.grow(copyOfResultStack.getCount());
+            }
+            itemStack.shrink(1);
+        }
+    }
+
+    protected boolean canWork(RegistryAccess registryAccess, @Nullable Recipe<Container> recipe, NonNullList<ItemStack> inventory, int maxStackSize) {
         if (!inventory.get(0).isEmpty() && recipe != null) {
-            ItemStack stack1 = recipe.assemble(this, registryAccess);
-            if (stack1.isEmpty()) {
+            ItemStack copyOfResultStack = recipe.assemble(this, registryAccess);
+            if (copyOfResultStack.isEmpty()) {
                 return false;
             } else {
-                ItemStack stack2 = inventory.get(2);
-                int stackCount = stack2.getCount() + stack1.getCount();
-                if (stack2.isEmpty()) {
+                ItemStack resultStack = inventory.get(2);
+                int stackCount = resultStack.getCount() + copyOfResultStack.getCount();
+                if (resultStack.isEmpty()) {
                     return true;
-                } else if (ItemStack.isSameItem(stack2, stack1)) {
+                } else if (!ItemStack.isSameItem(resultStack, copyOfResultStack)) {
                     return false;
-                } else if (stackCount < maxStackSize && stackCount <= stack2.getMaxStackSize()) {
+                } else if (stackCount < maxStackSize && stackCount <= resultStack.getMaxStackSize()) {
                     return true;
                 } else {
-                    return stackCount <= stack1.getMaxStackSize();
+                    return stackCount <= copyOfResultStack.getMaxStackSize();
                 }
             }
         } else {
             return false;
-        }
-    }
-
-    private void doScrap(RegistryAccess registryAccess, @Nullable ScrapperRecipe recipe, NonNullList<ItemStack> inventory, int maxStackSize) {
-        if (recipe != null && this.canScrap(registryAccess, recipe, inventory, maxStackSize)) {
-            ItemStack stack2 = recipe.assemble(this, registryAccess);
-            ItemStack stack1 = inventory.get(0), stack3 = inventory.get(2);
-            if (stack3.isEmpty()) {
-                inventory.set(2, stack2.copy());
-            } else if (stack3.is(stack2.getItem())) {
-                stack3.grow(stack2.getCount());
-            }
-            stack1.shrink(1);
         }
     }
 
@@ -107,7 +103,28 @@ public class ScrapperBlockEntity extends SimpleContainerBlockEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new ScrapperMenu(containerId, inventory, this);
+        return new ScrapperMenu(containerId, inventory, this, this.containerData);
+    }
+
+    private class Data implements ContainerData {
+
+        @Override
+        public int get(int index) {
+            return ScrapperBlockEntity.this.scrapTime;
+        }
+
+        @Override
+        public void set(int index, int value) {
+            if (index == 0) {
+                ScrapperBlockEntity.this.scrapTime = value;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 1;
+        }
+
     }
 
 }

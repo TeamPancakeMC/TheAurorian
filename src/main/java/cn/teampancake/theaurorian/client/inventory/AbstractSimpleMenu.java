@@ -29,62 +29,6 @@ public abstract class AbstractSimpleMenu extends AbstractContainerMenu {
 
     abstract protected BaseContainerBlockEntity getBlockEntity();
 
-    abstract protected boolean slot1ItemFlag(ItemStack stack);
-
-    abstract protected boolean slot2ItemFlag(ItemStack stack);
-
-    @Override
-    public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
-        ItemStack itemStack = ItemStack.EMPTY;
-        Slot sourceSlot = slots.get(index);
-        int slotSize = this.slots.size();
-        int containerSize = this.getBlockEntity().getContainerSize();
-        if (sourceSlot.hasItem()) {
-            ItemStack sourceStack = sourceSlot.getItem();
-            itemStack = sourceStack.copy();
-            if (index == 2) {
-                if (!this.moveItemStackTo(sourceStack, containerSize, slotSize, Boolean.TRUE)) {
-                    return ItemStack.EMPTY;
-                }
-
-                sourceSlot.onQuickCraft(sourceStack, itemStack);
-            } else if (index != 0 && index != 1) {
-                if (this.slot1ItemFlag(sourceStack)) {
-                    if (!this.moveItemStackTo(sourceStack, (0), (1), Boolean.FALSE)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (this.slot2ItemFlag(sourceStack)) {
-                    if (!this.moveItemStackTo(sourceStack, (1), (2), Boolean.FALSE)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (index >= containerSize && index < 30) {
-                    if (!this.moveItemStackTo(sourceStack, (30), slotSize, Boolean.FALSE)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (index >= 30 && index < slotSize) {
-                    if (!this.moveItemStackTo(sourceStack, containerSize, (30), Boolean.FALSE)) {
-                        return ItemStack.EMPTY;
-                    }
-                }
-            } else if (!this.moveItemStackTo(sourceStack, containerSize, slotSize, Boolean.FALSE)) {
-                return ItemStack.EMPTY;
-            }
-
-            if (sourceStack.isEmpty()) {
-                sourceSlot.set(ItemStack.EMPTY);
-            } else {
-                sourceSlot.setChanged();
-            }
-
-            if (sourceStack.getCount() == itemStack.getCount()) {
-                return ItemStack.EMPTY;
-            }
-
-            sourceSlot.onTake(player, sourceStack);
-        }
-        return itemStack;
-    }
-
     @Override
     public boolean stillValid(@NotNull Player player) {
         Block block = this.getBlockEntity().getBlockState().getBlock();
@@ -107,38 +51,6 @@ public abstract class AbstractSimpleMenu extends AbstractContainerMenu {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(inventory, i, 8 + i * 18, 142));
         }
-    }
-
-    protected static class FirstSlot extends SlotItemHandler {
-
-        private final AbstractSimpleMenu menu;
-
-        public FirstSlot(AbstractSimpleMenu menu, IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-            this.menu = menu;
-        }
-
-        @Override
-        public boolean mayPlace(@NotNull ItemStack stack) {
-            return this.menu.slot1ItemFlag(stack);
-        }
-
-    }
-
-    protected static class SecondSlot extends SlotItemHandler {
-
-        private final AbstractSimpleMenu menu;
-
-        public SecondSlot(AbstractSimpleMenu menu, IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-            this.menu = menu;
-        }
-
-        @Override
-        public boolean mayPlace(@NotNull ItemStack stack) {
-            return this.menu.slot2ItemFlag(stack);
-        }
-
     }
 
     protected static class ResultSlot extends SlotItemHandler {

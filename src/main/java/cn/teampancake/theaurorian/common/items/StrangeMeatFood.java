@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.config.AurorianConfig;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -18,7 +17,7 @@ public class StrangeMeatFood extends Item implements ITooltipsItem {
     public StrangeMeatFood() {
         super(new Item.Properties()
                 .rarity(Rarity.EPIC)
-                .durability(AurorianConfig.Config_StrangeMeatUses.get())
+                .durability(10)
                 .food(new FoodProperties.Builder()
                         .nutrition(8)
                         .saturationMod(0.9F)

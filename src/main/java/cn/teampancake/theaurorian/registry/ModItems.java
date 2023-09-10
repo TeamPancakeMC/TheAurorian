@@ -191,6 +191,8 @@ public class ModItems {
     public static final RegistryObject<Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap", WeepingWillowSap::new);
     public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", ModBlocks.SILK_BERRY_CROP, new Item.Properties().food(
             new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
+    //TODO Translation and Recipe
+    public static final RegistryObject<Item> STRANGE_MEAT_FOOD = ITEMS.register("strange_meat_food", StrangeMeatFood::new);
 
     /**
      * Materials

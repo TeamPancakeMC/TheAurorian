@@ -8,7 +8,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -29,7 +28,7 @@ public class AurorianSteelHelper {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void getAurorianSteelInfo(ItemStack stack, Level worldIn, List<Component> tooltip) {
+    public static void getAurorianSteelInfo(ItemStack stack, List<Component> tooltip) {
         boolean canlevelup = hasEnchantToLevelUp(stack);
         if (Screen.hasShiftDown()) {
         if (!canlevelup) {
@@ -40,7 +39,7 @@ public class AurorianSteelHelper {
             tooltip.add(Component.translatable("string.theaurorian.tooltip.shiftinfo").withStyle(ChatFormatting.ITALIC));
         } else {
             if (canlevelup) {
-            Component nextenchant = getNextEnchantment(stack, worldIn);
+            Component nextenchant = getNextEnchantment(stack);
             if (nextenchant != null) {
             tooltip.add(Component.translatable("string.theaurorian.tooltip.auroriansteeltools.nextenchant").append(nextenchant).withStyle(ChatFormatting.LIGHT_PURPLE) );
             }
@@ -52,7 +51,7 @@ public class AurorianSteelHelper {
     /**
      * Returns the display name of the next enchantment it will level up.
      */
-    public static Component getNextEnchantment(ItemStack stack, Level worldIn) {
+    public static Component getNextEnchantment(ItemStack stack) {
         if (stack.isEnchanted()) {
             Map<Enchantment, Integer> enchs = EnchantmentHelper.getEnchantments(stack);
             for (Map.Entry<Enchantment, Integer> e : enchs.entrySet()) {

@@ -11,7 +11,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-@SuppressWarnings("ClassCanBeRecord")
 public class ScrapperRecipe implements Recipe<Container> {
 
     protected final ResourceLocation id;

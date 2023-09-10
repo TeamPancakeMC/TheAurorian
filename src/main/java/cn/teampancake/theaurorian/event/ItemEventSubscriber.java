@@ -20,7 +20,6 @@ import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -29,7 +28,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
-import java.util.stream.StreamSupport;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class ItemEventSubscriber {
@@ -51,14 +49,13 @@ public class ItemEventSubscriber {
         } else if (stack.getItem() instanceof TieredItem tieredItem) {
             repairItem = tieredItem.getTier().getRepairIngredient();
         }
-        Level level = event.getEntity() == null ? null : event.getEntity().level();
 
         if (repairItem == Ingredient.of(ModItems.AURORIAN_STEEL.get())) {
-            AurorianSteelHelper.getAurorianSteelInfo(stack, level, tooltip);
+            AurorianSteelHelper.getAurorianSteelInfo(stack, tooltip);
         }
 
         if(repairItem == Ingredient.of(ModItems.CRYSTALLINE_INGOT.get())){
-
+            //TODO CRYSTALLINE_INGOT TOOLTIP
         }
     }
 

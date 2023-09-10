@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.level.biome.AurorianBiomeBuilder;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.HolderGetter;
@@ -13,10 +12,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Climate;
-import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
-import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
+import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
@@ -37,21 +33,27 @@ public class ModDimensions {
     public static final ResourceKey<LevelStem> AURORIAN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, AurorianMod.prefix("the_aurorian"));
     public static final ResourceKey<Level> AURORIAN_DIMENSION = ResourceKey.create(Registries.DIMENSION, AurorianMod.prefix("the_aurorian"));
 
-    public static final MultiNoiseBiomeSourceParameterList.Preset AURORIAN =
-            new MultiNoiseBiomeSourceParameterList.Preset(AurorianMod.prefix("aurorian"),
+    public static final MultiNoiseBiomeSourceParameterList.Preset THE_AURORIAN =
+            new MultiNoiseBiomeSourceParameterList.Preset(AurorianMod.prefix("the_aurorian"),
             new MultiNoiseBiomeSourceParameterList.Preset.SourceProvider() {
         public <T> Climate.@NotNull ParameterList<T> apply(@NotNull Function<ResourceKey<Biome>, T> function) {
-            ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
-            (new AurorianBiomeBuilder()).addBiomes((pair) -> builder.add(pair.mapSecond(function)));
-            return new Climate.ParameterList<>(builder.build());
+            return new Climate.ParameterList<>(List.of(
+                    Pair.of(Climate.parameters(0.2F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F),
+                            function.apply(ModBiomes.AURORIAN_PLAINS)),
+                    Pair.of(Climate.parameters(0.2F, 0.0F, 1.5F, 0.0F, 0.0F, 0.0F, 0.0F),
+                            function.apply(ModBiomes.AURORIAN_FOREST_HILLS)),
+                    Pair.of(Climate.parameters(0.2F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F),
+                            function.apply(ModBiomes.AURORIAN_FOREST)),
+                    Pair.of(Climate.parameters(0.2F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F),
+                            function.apply(ModBiomes.WEEPING_WILLOW_FOREST))));
         }
     });
 
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
         NoiseGeneratorSettings settings = new NoiseGeneratorSettings(NoiseSettings.OVERWORLD_NOISE_SETTINGS, Blocks.STONE.defaultBlockState(),
-                ModBlocks.MOON_WATER.get().defaultBlockState(), NoiseRouterData.overworld(context.lookup(Registries.DENSITY_FUNCTION),
+                Blocks.WATER.defaultBlockState(), NoiseRouterData.overworld(context.lookup(Registries.DENSITY_FUNCTION),
                 context.lookup(Registries.NOISE), Boolean.FALSE, Boolean.FALSE), createSurfaceRule(),
-                List.of(), 63, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, Boolean.FALSE);
+                List.of(), 63, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE);
         context.register(AURORIAN_NOISE_SETTINGS, settings);
     }
 
@@ -66,7 +68,7 @@ public class ModDimensions {
         HolderGetter<Biome> biome = context.lookup(Registries.BIOME);
         HolderGetter<DimensionType> dimensionType = context.lookup(Registries.DIMENSION_TYPE);
         HolderGetter<NoiseGeneratorSettings> noiseSettings = context.lookup(Registries.NOISE_SETTINGS);
-        MultiNoiseBiomeSource biomeSource = MultiNoiseBiomeSource.createFromList(MultiNoiseBiomeSourceParameterList.Preset.NETHER.provider().apply(biome::getOrThrow));
+        MultiNoiseBiomeSource biomeSource = MultiNoiseBiomeSource.createFromList(THE_AURORIAN.provider().apply(biome::getOrThrow));
         NoiseBasedChunkGenerator chunkGenerator = new NoiseBasedChunkGenerator(biomeSource, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
         LevelStem levelStem = new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE), chunkGenerator);
         context.register(AURORIAN_LEVEL_STEM, levelStem);

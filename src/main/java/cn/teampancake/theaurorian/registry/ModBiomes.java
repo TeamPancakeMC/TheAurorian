@@ -19,7 +19,6 @@ public class ModBiomes {
 
     public static final ResourceKey<Biome> AURORIAN_FOREST = makeKey("aurorian_forest");
     public static final ResourceKey<Biome> AURORIAN_PLAINS = makeKey("aurorian_plains");
-    public static final ResourceKey<Biome> AURORIAN_LAKES = makeKey("aurorian_lakes");
     public static final ResourceKey<Biome> AURORIAN_FOREST_HILLS = makeKey("aurorian_forest_hills");
     public static final ResourceKey<Biome> WEEPING_WILLOW_FOREST = makeKey("weeping_willow_forest");
 
@@ -33,7 +32,6 @@ public class ModBiomes {
         BiomeGenerationSettings.Builder biomes = new BiomeGenerationSettings.Builder(featureGetter, carverGetter);
         context.register(AURORIAN_FOREST, biomeWithDefaults(biomes).build());
         context.register(AURORIAN_PLAINS, biomeWithDefaults(biomes).build());
-        context.register(AURORIAN_LAKES, biomeWithDefaults(biomes).build());
         context.register(AURORIAN_FOREST_HILLS, biomeWithDefaults(biomes).build());
         context.register(WEEPING_WILLOW_FOREST, biomeWithDefaults(biomes).build());
     }
@@ -45,8 +43,8 @@ public class ModBiomes {
     }
 
     private static BiomeSpecialEffects.Builder defaultAmbientBuilder() {
-        return new BiomeSpecialEffects.Builder().fogColor(0xC0FFD8).waterColor(0x3F76E4)
-                .waterFogColor(0x050533).skyColor(OverworldBiomes.calculateSkyColor(0.2F));
+        return new BiomeSpecialEffects.Builder().fogColor(0xC0FFD8).waterColor(0xFFFFFF)
+                .waterFogColor(0xFFFFFF).skyColor(OverworldBiomes.calculateSkyColor(0.2F));
     }
 
     private static MobSpawnSettings.Builder defaultMobSpawning() {

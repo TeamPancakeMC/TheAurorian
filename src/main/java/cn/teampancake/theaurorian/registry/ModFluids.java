@@ -29,10 +29,6 @@ public class ModFluids {
             () -> new ForgeFlowingFluid.Source(ModFluids.MOLTEN_MOONSTONE_PROPERTIES));
     public static final RegistryObject<FlowingFluid> MOLTEN_MOONSTONE_FLOWING = FLUIDS.register("molten_moonstone_flowing",
             () -> new ForgeFlowingFluid.Flowing(ModFluids.MOLTEN_MOONSTONE_PROPERTIES));
-    public static final RegistryObject<FlowingFluid> MOON_WATER_STILL = FLUIDS.register("moon_water_still",
-            () -> new ForgeFlowingFluid.Source(ModFluids.MOON_WATER_PROPERTIES));
-    public static final RegistryObject<FlowingFluid> MOON_WATER_FLOWING = FLUIDS.register("moon_water_flowing",
-            () -> new ForgeFlowingFluid.Flowing(ModFluids.MOON_WATER_PROPERTIES));
 
     //Fluid Properties
     private static final ForgeFlowingFluid.Properties MOLTEN_AURORIAN_STEEL_PROPERTIES = new ForgeFlowingFluid.Properties(
@@ -44,9 +40,6 @@ public class ModFluids {
     private static final ForgeFlowingFluid.Properties MOLTEN_MOONSTONE_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.MOLTEN_MOONSTONE, MOLTEN_MOONSTONE_STILL, MOLTEN_MOONSTONE_FLOWING)
             .slopeFindDistance(2).levelDecreasePerBlock(30).block(ModBlocks.MOLTEN_MOONSTONE);
-    private static final ForgeFlowingFluid.Properties MOON_WATER_PROPERTIES = new ForgeFlowingFluid.Properties(
-            ModFluidTypes.MOON_WATER, MOON_WATER_STILL, MOON_WATER_FLOWING)
-            .slopeFindDistance(4).levelDecreasePerBlock(5).block(ModBlocks.MOON_WATER);
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -57,8 +50,6 @@ public class ModFluids {
         ItemBlockRenderTypes.setRenderLayer(MOLTEN_CERULEAN_FLOWING.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(MOLTEN_MOONSTONE_STILL.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(MOLTEN_MOONSTONE_FLOWING.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(MOON_WATER_STILL.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(MOON_WATER_FLOWING.get(), RenderType.translucent());
     }
 
 }

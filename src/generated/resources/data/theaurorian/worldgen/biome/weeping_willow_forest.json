@@ -5,8 +5,8 @@
   "effects": {
     "fog_color": 12648408,
     "sky_color": 8233727,
-    "water_color": 4159204,
-    "water_fog_color": 329011
+    "water_color": 16777215,
+    "water_fog_color": 16777215
   },
   "features": [],
   "has_precipitation": false,

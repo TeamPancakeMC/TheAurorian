@@ -6,62 +6,50 @@
       "type": "minecraft:multi_noise",
       "biomes": [
         {
-          "biome": "minecraft:nether_wastes",
+          "biome": "theaurorian:aurorian_plains",
           "parameters": {
             "continentalness": 0.0,
+            "depth": 0.0,
+            "erosion": 1.0,
+            "humidity": 0.0,
+            "offset": 0.0,
+            "temperature": 0.2,
+            "weirdness": 0.0
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest_hills",
+          "parameters": {
+            "continentalness": 1.5,
             "depth": 0.0,
             "erosion": 0.0,
             "humidity": 0.0,
             "offset": 0.0,
-            "temperature": 0.0,
+            "temperature": 0.2,
             "weirdness": 0.0
           }
         },
         {
-          "biome": "minecraft:soul_sand_valley",
+          "biome": "theaurorian:aurorian_forest",
           "parameters": {
             "continentalness": 0.0,
             "depth": 0.0,
-            "erosion": 0.0,
-            "humidity": -0.5,
-            "offset": 0.0,
-            "temperature": 0.0,
-            "weirdness": 0.0
-          }
-        },
-        {
-          "biome": "minecraft:crimson_forest",
-          "parameters": {
-            "continentalness": 0.0,
-            "depth": 0.0,
-            "erosion": 0.0,
+            "erosion": 1.0,
             "humidity": 0.0,
             "offset": 0.0,
-            "temperature": 0.4,
+            "temperature": 0.2,
             "weirdness": 0.0
           }
         },
         {
-          "biome": "minecraft:warped_forest",
+          "biome": "theaurorian:weeping_willow_forest",
           "parameters": {
             "continentalness": 0.0,
             "depth": 0.0,
-            "erosion": 0.0,
-            "humidity": 0.5,
-            "offset": 0.375,
-            "temperature": 0.0,
-            "weirdness": 0.0
-          }
-        },
-        {
-          "biome": "minecraft:basalt_deltas",
-          "parameters": {
-            "continentalness": 0.0,
-            "depth": 0.0,
-            "erosion": 0.0,
+            "erosion": 1.0,
             "humidity": 0.0,
-            "offset": 0.175,
-            "temperature": -0.5,
+            "offset": 0.0,
+            "temperature": 0.2,
             "weirdness": 0.0
           }
         }

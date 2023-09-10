@@ -296,9 +296,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         this.simpleBlock(ModBlocks.MOLTEN_MOONSTONE.get(), this.models()
                 .getBuilder(ModBlocks.MOLTEN_MOONSTONE.getId().getPath())
                 .texture("particle", this.modLoc("block/molten_moonstone")));
-        this.simpleBlock(ModBlocks.MOON_WATER.get(), this.models()
-                .getBuilder(ModBlocks.MOON_WATER.getId().getPath())
-                .texture("particle", this.modLoc("block/moon_water")));
     }
 
     private void registerScrapperState() {

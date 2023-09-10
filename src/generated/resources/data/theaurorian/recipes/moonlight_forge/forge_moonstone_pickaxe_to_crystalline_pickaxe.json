@@ -1,0 +1,10 @@
+{
+  "type": "theaurorian:moonlight_forge",
+  "equipment": {
+    "item": "theaurorian:moonstone_pickaxe"
+  },
+  "result": "crystalline_pickaxe",
+  "upgrade_material": {
+    "item": "theaurorian:crystalline_ingot"
+  }
+}

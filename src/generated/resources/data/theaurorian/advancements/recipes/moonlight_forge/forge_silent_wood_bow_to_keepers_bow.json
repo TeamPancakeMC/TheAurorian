@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:forge_silent_wood_bow_to_keepers_bow"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_trophy_keeper": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theaurorian:trophy_keeper"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_trophy_keeper",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:forge_silent_wood_bow_to_keepers_bow"
+    ]
+  },
+  "sends_telemetry_event": false
+}

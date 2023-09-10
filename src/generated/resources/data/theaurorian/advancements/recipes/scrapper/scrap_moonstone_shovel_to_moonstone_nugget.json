@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_moonstone_shovel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theaurorian:moonstone_shovel"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:scrap_moonstone_shovel_to_moonstone_nugget"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_moonstone_shovel",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:scrap_moonstone_shovel_to_moonstone_nugget"
+    ]
+  },
+  "sends_telemetry_event": false
+}

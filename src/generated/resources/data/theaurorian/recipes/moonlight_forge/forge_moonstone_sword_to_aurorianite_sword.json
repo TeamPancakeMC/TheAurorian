@@ -1,0 +1,10 @@
+{
+  "type": "theaurorian:moonlight_forge",
+  "equipment": {
+    "item": "theaurorian:moonstone_sword"
+  },
+  "result": "aurorianite_sword",
+  "upgrade_material": {
+    "item": "theaurorian:aurorianite_ingot"
+  }
+}

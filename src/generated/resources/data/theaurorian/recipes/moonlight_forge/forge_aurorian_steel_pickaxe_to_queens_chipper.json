@@ -1,0 +1,10 @@
+{
+  "type": "theaurorian:moonlight_forge",
+  "equipment": {
+    "item": "theaurorian:aurorian_steel_pickaxe"
+  },
+  "result": "queens_chipper",
+  "upgrade_material": {
+    "item": "theaurorian:trophy_moon_queen"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aurorian_steel_axe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theaurorian:aurorian_steel_axe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:scrap_aurorian_steel_axe_to_aurorian_steel_nugget"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_aurorian_steel_axe",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:scrap_aurorian_steel_axe_to_aurorian_steel_nugget"
+    ]
+  },
+  "sends_telemetry_event": false
+}

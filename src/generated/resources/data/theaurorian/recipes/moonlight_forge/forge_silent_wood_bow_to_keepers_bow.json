@@ -1,0 +1,10 @@
+{
+  "type": "theaurorian:moonlight_forge",
+  "equipment": {
+    "item": "theaurorian:silent_wood_bow"
+  },
+  "result": "keepers_bow",
+  "upgrade_material": {
+    "item": "theaurorian:trophy_keeper"
+  }
+}

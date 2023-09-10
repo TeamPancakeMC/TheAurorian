@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -23,18 +24,6 @@ public abstract class BaseEntityBlockWithState extends BaseEntityBlock {
     protected BaseEntityBlockWithState(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
-    }
-
-    abstract protected ParticleOptions getParticleData();
-
-    @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (level.getBlockEntity(pos) instanceof MoonlightForgeBlockEntity blockEntity && blockEntity.isCrafting()) {
-            double d0 = (double) pos.getX() + random.nextDouble();
-            double d1 = (double) pos.getY() + 4.2D;
-            double d2 = (double) pos.getZ() + random.nextDouble();
-            level.addParticle(this.getParticleData(), d0, d1, d2, 0, -0.1D, 0);
-        }
     }
 
     @Override

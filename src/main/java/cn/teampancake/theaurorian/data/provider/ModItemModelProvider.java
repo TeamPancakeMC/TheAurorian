@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.data.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.items.TeaFood;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import cn.teampancake.theaurorian.registry.ModItems;
 import cn.teampancake.theaurorian.utils.ModCommonUtils;
@@ -121,7 +120,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 this.withExistingParent(key.getPath(), this.mcLoc("item/handheld"))
                         .texture("layer0", this.modLoc("item/" + key.getPath()));
             } else {
-                if (!(item instanceof TeaFood) && !(item instanceof BlockItem)) {
+                if (!(item instanceof BlockItem) && item != ModItems.SLEEPING_BLACK_TEA.get()) {
                     this.basicItem(item);
                 }
             }

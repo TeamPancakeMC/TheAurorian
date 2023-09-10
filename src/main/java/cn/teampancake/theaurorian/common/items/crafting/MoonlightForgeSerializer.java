@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.items.crafting;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -13,14 +12,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 
-public record ScrapperSerializer<T extends ScrapperRecipe>(ScrapperSerializer.Factory<T> factory) implements RecipeSerializer<T> {
+public record MoonlightForgeSerializer<T extends MoonlightForgeRecipe>(MoonlightForgeSerializer.Factory<T> factory) implements RecipeSerializer<T> {
 
     @Override
     public T fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {
-        JsonElement jsonElement = GsonHelper.isArrayNode(serializedRecipe, "ingredient") ?
-                GsonHelper.getAsJsonArray(serializedRecipe, "ingredient") :
-                GsonHelper.getAsJsonObject(serializedRecipe, "ingredient");
-        Ingredient ingredient = Ingredient.fromJson(jsonElement, Boolean.FALSE);
+        Ingredient equipment = Ingredient.fromJson(GsonHelper.getNonNull(serializedRecipe, "equipment"));
+        Ingredient upgradeMaterial = Ingredient.fromJson(GsonHelper.getNonNull(serializedRecipe, "upgrade_material"));
         ItemStack resultStack;
         if (serializedRecipe.get("result").isJsonObject()) {
             resultStack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(serializedRecipe, "result"));
@@ -29,27 +26,26 @@ public record ScrapperSerializer<T extends ScrapperRecipe>(ScrapperSerializer.Fa
             ResourceLocation resourceLocation = new ResourceLocation(s1);
             resultStack = new ItemStack(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(resourceLocation)));
         }
-        int amount = GsonHelper.getAsInt(serializedRecipe, "amount", 1);
-        return this.factory.create(recipeId, ingredient, resultStack, amount);
+        return this.factory.create(recipeId, equipment, upgradeMaterial, resultStack);
     }
 
     @Override
     public T fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-        Ingredient ingredient = Ingredient.fromNetwork(buffer);
+        Ingredient equipment = Ingredient.fromNetwork(buffer);
+        Ingredient upgradeMaterial = Ingredient.fromNetwork(buffer);
         ItemStack resultStack = buffer.readItem();
-        int amount = buffer.readVarInt();
-        return this.factory.create(recipeId, ingredient, resultStack, amount);
+        return this.factory.create(recipeId, equipment, upgradeMaterial, resultStack);
     }
 
     @Override
     public void toNetwork(FriendlyByteBuf buffer, T recipe) {
-        recipe.ingredient.toNetwork(buffer);
+        recipe.equipment.toNetwork(buffer);
+        recipe.upgradeMaterial.toNetwork(buffer);
         buffer.writeItem(recipe.result);
-        buffer.writeVarInt(recipe.amount);
     }
 
-    public interface Factory<T extends ScrapperRecipe> {
-        T create(ResourceLocation id, Ingredient ingredient, ItemStack result, int amount);
+    public interface Factory<T extends MoonlightForgeRecipe> {
+        T create(ResourceLocation id, Ingredient equipment, Ingredient upgradeMaterial, ItemStack result);
     }
 
 }

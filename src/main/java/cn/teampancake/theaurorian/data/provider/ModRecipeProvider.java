@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.data.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.data.recipes.MoonlightForgeRecipeBuilder;
 import cn.teampancake.theaurorian.data.recipes.ScrapperRecipeBuilder;
 import cn.teampancake.theaurorian.data.tags.ModItemTags;
 import cn.teampancake.theaurorian.registry.ModBlocks;
@@ -169,6 +170,19 @@ public class ModRecipeProvider extends RecipeProvider {
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.AURORIAN_PORK.get()),
                         RecipeCategory.FOOD, ModItems.COOKED_AURORIAN_PORK.get(), (0.3F), (200))
                 .unlockedBy(getHasName(ModItems.AURORIAN_PORK.get()), has(ModItems.AURORIAN_PORK.get())).save(consumer);
+        //Moonlight Forge Recipes
+        forging(consumer, ModItems.MOONSTONE_SWORD.get(), ModItems.UMBRA_INGOT.get(), ModItems.UMBRA_SWORD.get());
+        forging(consumer, ModItems.MOONSTONE_PICKAXE.get(), ModItems.UMBRA_INGOT.get(), ModItems.UMBRA_PICKAXE.get());
+        forging(consumer, ModItems.MOONSTONE_SHIELD.get(), ModItems.UMBRA_INGOT.get(), ModItems.UMBRA_SHIELD.get());
+        forging(consumer, ModItems.MOONSTONE_SWORD.get(), ModItems.AURORIANITE_INGOT.get(), ModItems.AURORIANITE_SWORD.get());
+        forging(consumer, ModItems.MOONSTONE_AXE.get(), ModItems.AURORIANITE_INGOT.get(), ModItems.AURORIANITE_AXE.get());
+        forging(consumer, ModItems.MOONSTONE_PICKAXE.get(), ModItems.AURORIANITE_INGOT.get(), ModItems.AURORIANITE_PICKAXE.get());
+        forging(consumer, ModItems.MOONSTONE_SWORD.get(), ModItems.CRYSTALLINE_INGOT.get(), ModItems.CRYSTALLINE_SWORD.get());
+        forging(consumer, ModItems.MOONSTONE_PICKAXE.get(), ModItems.CRYSTALLINE_INGOT.get(), ModItems.CRYSTALLINE_PICKAXE.get());
+        forging(consumer, ModItems.MOONSTONE_SHIELD.get(), ModItems.CRYSTALLINE_INGOT.get(), ModItems.CRYSTALLINE_SHIELD.get());
+        forging(consumer, ModItems.AURORIAN_STEEL_PICKAXE.get(), ModItems.TROPHY_MOON_QUEEN.get(), ModItems.QUEENS_CHIPPER.get());
+        forging(consumer, ModItems.MOONSTONE_SHIELD.get(), ModItems.TROPHY_MOON_QUEEN.get(), ModItems.MOON_SHIELD.get());
+        forging(consumer, ModItems.SILENT_WOOD_BOW.get(), ModItems.TROPHY_KEEPER.get(), ModItems.KEEPERS_BOW.get());
         //Scrapper Recipes For Mod
         scrapping(consumer, ModItems.UMBRA_SWORD.get(), ModItems.UMBRA_SCRAP.get(), 4);
         scrapping(consumer, ModItems.UMBRA_PICKAXE.get(), ModItems.UMBRA_SCRAP.get(), 6);
@@ -275,7 +289,7 @@ public class ModRecipeProvider extends RecipeProvider {
         this.buildNuggetToIngotRecipes(consumer, ModItems.AURORIAN_STEEL_NUGGET.get(),ModItems.AURORIAN_STEEL.get());
         this.buildTeaRecipes(consumer, ModItems.LAVENDER_TEA.get(), ModItems.LAVENDER.get());
         this.buildTeaRecipes(consumer, ModItems.SILKBERRY_TEA.get(), ModItems.SILK_BERRY.get());
-        this.buildTeaRecipes(consumer, ModItems.SEEDY_TEA.get(), ModItems.LAVENDER_SEEDS.get());
+        this.buildTeaRecipes(consumer, ModItems.LAVENDER_SEEDY_TEA.get(), ModItems.LAVENDER_SEEDS.get());
         this.buildTeaRecipes(consumer, ModItems.PETUNIA_TEA.get(), ModBlocks.PETUNIA_PLANT.get());
         this.buildArrowRecipes(consumer, ModItems.CERULEAN_ARROW.get(), ModItems.CERULEAN_NUGGET.get(), 1);
         this.buildArrowRecipes(consumer, ModItems.CRYSTAL_ARROW.get(), ModItems.CRYSTAL.get(), 16);
@@ -292,10 +306,15 @@ public class ModRecipeProvider extends RecipeProvider {
             }
         }
     }
+
+    private static void forging(Consumer<FinishedRecipe> consumer, ItemLike equipment, ItemLike upgradeMaterial, ItemLike result) {
+        MoonlightForgeRecipeBuilder.addRecipe(equipment, upgradeMaterial, result).unlockedBy(getHasName(upgradeMaterial), has(upgradeMaterial))
+                .save(consumer, AurorianMod.prefix("forge_" + getItemName(equipment) + "_to_" + getItemName(result)));
+    }
     
     private static void scrapping(Consumer<FinishedRecipe> consumer, ItemLike ingredient, ItemLike result, int amount) {
         ScrapperRecipeBuilder.addRecipe(ingredient, result, amount).unlockedBy(getHasName(ingredient), has(ingredient))
-                .save(consumer, "scrap_" + getItemName(ingredient) + "_to_" + getItemName(result));
+                .save(consumer, AurorianMod.prefix("scrap_" + getItemName(ingredient) + "_to_" + getItemName(result)));
     }
 
     private void buildArmorRecipes(Consumer<FinishedRecipe> consumer, ItemLike helmet,

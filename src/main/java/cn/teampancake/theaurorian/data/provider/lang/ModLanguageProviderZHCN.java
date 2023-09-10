@@ -171,7 +171,7 @@ public class ModLanguageProviderZHCN extends LanguageProvider {
         this.add(ModItems.KNIGHT_CHESTPLATE.get(), "骑士胸甲");
         this.add(ModItems.KNIGHT_LEGGINGS.get(), "骑士护腿");
         this.add(ModItems.KNIGHT_BOOTS.get(), "骑士靴子");
-        this.add(ModItems.LAVENDER_PLANT.get(), "薰衣草");
+        this.add(ModItems.LAVENDER.get(), "薰衣草");
         this.add(ModItems.LAVENDER_BREAD.get(), "薰衣草面包");
         this.add(ModItems.LAVENDER_TEA.get(), "薰衣草茶");
         this.add(ModItems.LIVING_DIVINING_ROD.get(), "生命卜窥权杖");

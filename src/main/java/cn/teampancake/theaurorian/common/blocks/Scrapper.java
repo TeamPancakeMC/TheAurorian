@@ -3,9 +3,9 @@ package cn.teampancake.theaurorian.common.blocks;
 import cn.teampancake.theaurorian.common.blocks.entity.ScrapperBlockEntity;
 import cn.teampancake.theaurorian.registry.ModBlockEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,8 +27,14 @@ public class Scrapper extends BaseEntityBlockWithState {
     }
 
     @Override
-    protected ParticleOptions getParticleData() {
-        return ParticleTypes.SMOKE;
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (level.getBlockEntity(pos) instanceof ScrapperBlockEntity blockEntity && blockEntity.scrapTime > 0) {
+            double r0 = random.nextDouble() * 6.0D / 16.0D + 0.5D;
+            double d0 = (double) pos.getX() + 0.5D;
+            double d1 = (double) pos.getY() + r0;
+            double d2 = (double) pos.getZ() + 0.5D;
+            level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        }
     }
 
     @Override
@@ -58,8 +64,7 @@ public class Scrapper extends BaseEntityBlockWithState {
         return new ScrapperBlockEntity(pos, state);
     }
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         return createTickerHelper(blockEntityType, ModBlockEntityTypes.SCRAPPER.get(), ScrapperBlockEntity::serverTick);
     }

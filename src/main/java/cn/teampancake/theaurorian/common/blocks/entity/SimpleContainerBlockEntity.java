@@ -21,8 +21,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntity{
@@ -136,5 +136,7 @@ public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntit
         public NonNullList<ItemStack> getStacks() {
             return this.stacks;
         }
+
     }
+
 }

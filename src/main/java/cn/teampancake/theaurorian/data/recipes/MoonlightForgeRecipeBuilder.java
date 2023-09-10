@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.data.recipes;
 
-import cn.teampancake.theaurorian.common.items.crafting.ScrapperRecipe;
+import cn.teampancake.theaurorian.common.items.crafting.MoonlightForgeRecipe;
 import cn.teampancake.theaurorian.registry.ModRecipes;
 import com.google.gson.JsonObject;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -24,24 +24,25 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Consumer;
 
 @ParametersAreNonnullByDefault
-public class ScrapperRecipeBuilder implements RecipeBuilder {
+public class MoonlightForgeRecipeBuilder implements RecipeBuilder {
 
-    private final Ingredient ingredient;
+    private final Ingredient equipment;
+    private final Ingredient upgradeMaterial;
     private final Item result;
-    private final int amount;
     private final Advancement.Builder advancement = Advancement.Builder.recipeAdvancement();
-    private final RecipeSerializer<? extends ScrapperRecipe> serializer;
+    private final RecipeSerializer<? extends MoonlightForgeRecipe> serializer;
 
-    public ScrapperRecipeBuilder(Ingredient ingredient, Item result, int amount,
-            RecipeSerializer<? extends ScrapperRecipe> serializer) {
-        this.ingredient = ingredient;
+    public MoonlightForgeRecipeBuilder(Ingredient equipment, Ingredient upgradeMaterial,
+            Item result, RecipeSerializer<? extends MoonlightForgeRecipe> serializer) {
+        this.equipment = equipment;
+        this.upgradeMaterial = upgradeMaterial;
         this.result = result;
-        this.amount = amount;
         this.serializer = serializer;
     }
 
-    public static ScrapperRecipeBuilder addRecipe(ItemLike input, ItemLike result, int amount) {
-        return new ScrapperRecipeBuilder(Ingredient.of(input), result.asItem(), amount, ModRecipes.SCRAPPER_SERIALIZER.get());
+    public static MoonlightForgeRecipeBuilder addRecipe(ItemLike equipment, ItemLike upgradeMaterial, ItemLike result) {
+        return new MoonlightForgeRecipeBuilder(Ingredient.of(equipment), Ingredient.of(upgradeMaterial),
+                result.asItem(), ModRecipes.MOONLIGHT_FORGE_SERIALIZER.get());
     }
 
     @Override
@@ -65,8 +66,9 @@ public class ScrapperRecipeBuilder implements RecipeBuilder {
         this.ensureValid(recipeId);
         this.advancement.parent(ROOT_RECIPE_ADVANCEMENT).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))
                 .rewards(AdvancementRewards.Builder.recipe(recipeId)).requirements(RequirementsStrategy.OR);
-        finishedRecipeConsumer.accept(new ScrapperRecipeBuilder.Result(recipeId.withPrefix("scrapper/"),
-                this.ingredient, this.result, this.amount, this.advancement, recipeId.withPrefix("recipes/scrapper/"), this.serializer));
+        finishedRecipeConsumer.accept(new MoonlightForgeRecipeBuilder.Result(recipeId.withPrefix("moonlight_forge/"),
+                this.equipment, this.upgradeMaterial, this.result, this.advancement,
+                recipeId.withPrefix("recipes/moonlight_forge/"), this.serializer));
     }
 
     private void ensureValid(ResourceLocation id) {
@@ -80,19 +82,20 @@ public class ScrapperRecipeBuilder implements RecipeBuilder {
     public static class Result implements FinishedRecipe {
 
         private final ResourceLocation id;
-        private final Ingredient ingredient;
+        private final Ingredient equipment;
+        private final Ingredient upgradeMaterial;
         private final Item result;
-        private final int amount;
         private final Advancement.Builder advancement;
         private final ResourceLocation advancementId;
-        private final RecipeSerializer<? extends ScrapperRecipe> serializer;
+        private final RecipeSerializer<? extends MoonlightForgeRecipe> serializer;
 
-        public Result(ResourceLocation id, Ingredient ingredient, Item result, int amount, Advancement.Builder advancement,
-                ResourceLocation advancementId, RecipeSerializer<? extends ScrapperRecipe> serializer) {
+        public Result(ResourceLocation id, Ingredient equipment, Ingredient upgradeMaterial,
+                Item result, Advancement.Builder advancement, ResourceLocation advancementId,
+                RecipeSerializer<? extends MoonlightForgeRecipe> serializer) {
             this.id = id;
-            this.ingredient = ingredient;
+            this.equipment = equipment;
+            this.upgradeMaterial = upgradeMaterial;
             this.result = result;
-            this.amount = amount;
             this.advancement = advancement;
             this.advancementId = advancementId;
             this.serializer = serializer;
@@ -101,9 +104,9 @@ public class ScrapperRecipeBuilder implements RecipeBuilder {
         @Override
         @SuppressWarnings("ConstantConditions")
         public void serializeRecipeData(JsonObject json) {
-            json.add("ingredient", this.ingredient.toJson());
+            json.add("equipment", this.equipment.toJson());
+            json.add("upgrade_material", this.upgradeMaterial.toJson());
             json.addProperty("result", ForgeRegistries.ITEMS.getKey(this.result).getPath());
-            json.addProperty("amount", this.amount);
         }
 
         @Override

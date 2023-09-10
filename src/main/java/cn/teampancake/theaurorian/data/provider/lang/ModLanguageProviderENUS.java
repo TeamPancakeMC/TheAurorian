@@ -191,7 +191,7 @@ public class ModLanguageProviderENUS extends LanguageProvider {
         this.add(ModItems.PLANT_FIBER.get(),"Plant Fiber");
         this.add(ModItems.QUEENS_CHIPPER.get(),"Queen's Chipper");
         this.add(ModItems.RUNESTONE_KEEPER_SPAWN_EGG.get(),"Runestone Keeper Spawn Egg");
-        this.add(ModItems.SEEDY_TEA.get(),"Seedy Tea");
+        this.add(ModItems.LAVENDER_SEEDY_TEA.get(),"Lavender Seedy Tea");
         this.add(ModItems.SILENT_WOOD_AXE.get(),"Silent Wood Axe");
         this.add(ModItems.SILENT_WOOD_HOE.get(),"Silent Wood Hoe");
         this.add(ModItems.SILENT_WOOD_PICKAXE.get(),"Silent Wood Pickaxe");

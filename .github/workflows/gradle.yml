@@ -1,0 +1,42 @@
+name: Pre-Build
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Make Gradle Wrapper Executable
+      run: chmod +x ./gradlew
+      working-directory: ${{ github.workspace }}
+
+    - name: Validate Gradle Wrapper
+      uses: gradle/wrapper-validation-action@v1
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Build
+      id: build
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: checkLicenses build publish
+      env:
+        SNAPSHOT: true
+        
+    - name: Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: TheAurorian
+        path: |
+            build/libs/

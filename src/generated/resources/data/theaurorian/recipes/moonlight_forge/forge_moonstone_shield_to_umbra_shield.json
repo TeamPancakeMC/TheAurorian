@@ -3,7 +3,7 @@
   "equipment": {
     "item": "theaurorian:moonstone_shield"
   },
-  "result": "umbra_shield",
+  "result": "theaurorian:umbra_shield",
   "upgrade_material": {
     "item": "theaurorian:umbra_ingot"
   }

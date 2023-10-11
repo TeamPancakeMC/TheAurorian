@@ -61,7 +61,7 @@ public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForge
         if (blockEntity.isPowered) {
             guiGraphics.blit(CONTAINER_LOCATION, i + 49, j + 31, 176, 41, 24, 24);
         } else if (!blockEntity.hasMoonLight) {
-            guiGraphics.blit(CONTAINER_LOCATION, i + 49, j + 31, 176, 41, 0, 24);
+            guiGraphics.blit(CONTAINER_LOCATION, i + 49, j + 31, 176, 41, 24, 24);
         }
 
         if (blockEntity.craftProgress > 0) {

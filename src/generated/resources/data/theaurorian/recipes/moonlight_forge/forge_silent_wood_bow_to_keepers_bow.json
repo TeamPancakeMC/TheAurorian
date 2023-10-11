@@ -3,7 +3,7 @@
   "equipment": {
     "item": "theaurorian:silent_wood_bow"
   },
-  "result": "keepers_bow",
+  "result": "theaurorian:keepers_bow",
   "upgrade_material": {
     "item": "theaurorian:trophy_keeper"
   }

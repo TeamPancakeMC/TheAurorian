@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.blocks;
 import cn.teampancake.theaurorian.common.blocks.entity.MoonlightForgeBlockEntity;
 import cn.teampancake.theaurorian.registry.ModBlockEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
@@ -40,6 +39,7 @@ public class MoonlightForge extends BaseEntityBlockWithState {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof MoonlightForgeBlockEntity blockEntity) {
             if (player instanceof ServerPlayer serverPlayer) {
+                blockEntity.updateClient();
                 NetworkHooks.openScreen(serverPlayer, blockEntity, pos);
             }
         }

@@ -7,6 +7,10 @@ import cn.teampancake.theaurorian.registry.ModRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -37,7 +41,8 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
             ItemStack upgradeMaterial = blockEntity.handler.getStackInSlot(1);
             NonNullList<ItemStack> inventory = blockEntity.handler.getStacks();
             blockEntity.isPowered = level.hasNeighborSignal(pos);
-            blockEntity.hasMoonLight = level.canSeeSky(pos) && level.isNight();
+            boolean sky = level.canSeeSky(pos.above());
+            blockEntity.hasMoonLight = sky && level.isNight();
             blockEntity.isCrafting = blockEntity.canWork(level.registryAccess(), recipe, inventory);
             if (blockEntity.isCrafting && upgradeMaterial.getCount() > 0) {
                 float heightPercent = (float) pos.getY() / (float) level.getHeight();
@@ -50,7 +55,7 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
                     tickInterval += 4;
                 }
                 if (level.getGameTime() % tickInterval == 0) {
-                    int newVal = blockEntity.craftProgress + 1;
+	                int newVal = blockEntity.craftProgress + 1;
                     if (newVal >= 100) {
                         blockEntity.stopCrafting();
                         blockEntity.startWork(level.registryAccess(), recipe, inventory);
@@ -59,19 +64,21 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
                     }
                 }
             }
+	        blockEntity.updateClient(); // Sync craft progress to client
         }
     }
 
     protected void startWork(RegistryAccess registryAccess, @Nullable Recipe<Container> recipe, NonNullList<ItemStack> inventory) {
         if (recipe != null && this.canWork(registryAccess, recipe, inventory)) {
             ItemStack copyOfResultStack = recipe.assemble(this, registryAccess);
-            ItemStack equipmentStack = inventory.get(0), resultStack = inventory.get(2);
+            ItemStack equipmentStack = inventory.get(0), resultStack = inventory.get(2), materialStack = inventory.get(1);
             if (equipmentStack.isEnchanted()) {
                 equipmentStack.getAllEnchantments().forEach(copyOfResultStack::enchant);
             }
             if (resultStack.isEmpty()) {
                 inventory.set(2, copyOfResultStack.copy());
                 equipmentStack.shrink(1);
+				materialStack.shrink(1);
             }
         }
     }
@@ -96,7 +103,7 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
         this.updateClient();
     }
 
-    private void updateClient() {
+    public void updateClient() {
         this.setChanged();
         if (this.level != null) {
             BlockState state = this.level.getBlockState(this.worldPosition);
@@ -108,5 +115,33 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
         return new MoonlightForgeMenu(containerId, inventory, this);
     }
+
+	@Override
+	public CompoundTag getUpdateTag() {
+		CompoundTag nbt = super.getUpdateTag();
+		this.saveAdditional(nbt);
+		return nbt;
+	}
+
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
+
+	@Override
+	public void load(CompoundTag tag) {
+		super.load(tag);
+		hasMoonLight = tag.getBoolean("has_moonlight");
+		isPowered = tag.getBoolean("is_powered");
+		craftProgress = tag.getInt("craft_progress");
+	}
+
+	@Override
+	public void saveAdditional(CompoundTag tag) {
+		super.saveAdditional(tag);
+		tag.putInt("craft_progress", craftProgress);
+		tag.putBoolean("is_powered", isPowered);
+		tag.putBoolean("has_moonlight", hasMoonLight);
+	}
 
 }

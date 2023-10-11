@@ -3,7 +3,7 @@
   "equipment": {
     "item": "theaurorian:moonstone_shield"
   },
-  "result": "crystalline_shield",
+  "result": "theaurorian:crystalline_shield",
   "upgrade_material": {
     "item": "theaurorian:crystalline_ingot"
   }

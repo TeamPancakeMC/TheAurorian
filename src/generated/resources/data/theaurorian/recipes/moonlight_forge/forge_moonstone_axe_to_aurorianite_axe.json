@@ -3,7 +3,7 @@
   "equipment": {
     "item": "theaurorian:moonstone_axe"
   },
-  "result": "aurorianite_axe",
+  "result": "theaurorian:aurorianite_axe",
   "upgrade_material": {
     "item": "theaurorian:aurorianite_ingot"
   }

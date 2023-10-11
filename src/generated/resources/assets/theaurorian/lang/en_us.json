@@ -216,6 +216,8 @@
   "item.theaurorian.webbing": "Webbing",
   "item.theaurorian.weeping_willow_sap": "Weeping Willow Sap",
   "itemGroup.theaurorian": "The Aurorian",
+  "string.theaurorian.gui.moonlight_forge.no_moonlight": "Can't see the moonlit sky!",
+  "string.theaurorian.gui.moonlight_forge.redstone": "Disabled by redstone!",
   "theaurorian.container.moonlight_forge": "Moonlight Forge",
   "theaurorian.container.scrapper": "Scrapper"
 }

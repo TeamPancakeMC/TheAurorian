@@ -18,6 +18,14 @@
         "west": {
           "uv": [1, 1, 15, 15],
           "texture": "#texture"
+        },
+        "up": {
+          "uv": [1, 1, 15, 15],
+          "texture": "#texture"
+        },
+        "down": {
+          "uv": [1, 1, 15, 15],
+          "texture": "#texture"
         }
       },
       "from": [1, 1, 1],
@@ -38,6 +46,14 @@
           "texture": "#overlay"
         },
         "west": {
+          "uv": [0, 0, 16, 16],
+          "texture": "#overlay"
+        },
+        "up": {
+          "uv": [0, 0, 16, 16],
+          "texture": "#overlay"
+        },
+        "down": {
           "uv": [0, 0, 16, 16],
           "texture": "#overlay"
         }

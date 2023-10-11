@@ -60,9 +60,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> DARK_STONE_LAYERS = normal("dark_stone_layers", breakWithQueenPickaxe());
     public static final RegistryObject<Block> SMOOTH_RUNE_STONE = normal("smooth_rune_stone", breakWithQueenPickaxe());
     public static final RegistryObject<Block> SMOOTH_MOON_TEMPLE_BRICKS = normal("smooth_moon_temple_bricks", breakWithQueenPickaxe());
-    public static final RegistryObject<Block> RUNE_STONE_LAMP = normal("rune_stone_lamp", breakWithQueenPickaxe().lightLevel(s -> 1));
-    public static final RegistryObject<Block> DARK_STONE_LAMP = normal("dark_stone_lamp", breakWithQueenPickaxe().lightLevel(s -> 1));
-    public static final RegistryObject<Block> MOON_TEMPLE_LAMP = normal("moon_temple_lamp", breakWithQueenPickaxe().lightLevel(s -> 1));
+    public static final RegistryObject<Block> RUNE_STONE_LAMP = normal("rune_stone_lamp", breakWithQueenPickaxe().lightLevel(s -> 15));
+    public static final RegistryObject<Block> DARK_STONE_LAMP = normal("dark_stone_lamp", breakWithQueenPickaxe().lightLevel(s -> 15));
+    public static final RegistryObject<Block> MOON_TEMPLE_LAMP = normal("moon_temple_lamp", breakWithQueenPickaxe().lightLevel(s -> 15));
     public static final RegistryObject<Block> CERULEAN_BLOCK = normal("cerulean_block", breakWithQueenPickaxe().mapColor(MapColor.METAL));
     public static final RegistryObject<Block> MOONSTONE_BLOCK = normal("moonstone_block", breakWithQueenPickaxe().mapColor(MapColor.METAL));
     public static final RegistryObject<Block> AURORIAN_COAL_BLOCK = normal("aurorian_coal_block", breakWithQueenPickaxe().mapColor(MapColor.METAL));
@@ -84,8 +84,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> INDIGO_MUSHROOM_BLOCK = register("indigo_mushroom_block", () -> new IndigoMushroom(copy(Blocks.BROWN_MUSHROOM_BLOCK).destroyTime(1.0F)));
     public static final RegistryObject<Block> INDIGO_MUSHROOM_STEM = register("indigo_mushroom_stem", () -> new HugeMushroomBlock(copy(Blocks.MUSHROOM_STEM).destroyTime(1.0F)));
     public static final RegistryObject<Block> INDIGO_MUSHROOM_CRYSTAL = normal("indigo_mushroom_crystal", of().mapColor(MapColor.COLOR_PURPLE).sound(SoundType.GLASS).lightLevel(s -> 1));
-    public static final RegistryObject<Block> MOONLIGHT_FORGE = register("moonlight_forge", () -> new MoonlightForge(defaultStoneProperties((2.0F)).mapColor(MapColor.METAL).sound(SoundType.METAL)));
-    public static final RegistryObject<Block> MOON_GEM = register("moon_gem", () -> new MoonGem(defaultStoneProperties(2.0F).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.METAL)));
+    public static final RegistryObject<Block> MOONLIGHT_FORGE = register("moonlight_forge", () -> new MoonlightForge(defaultStoneProperties((2.0F)).mapColor(MapColor.METAL).sound(SoundType.METAL).noOcclusion()));
+    public static final RegistryObject<Block> MOON_GEM = register("moon_gem", () -> new MoonGem(defaultStoneProperties(2.0F).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.METAL).noOcclusion()));
     public static final RegistryObject<Block> MOON_SAND = normal("moon_sand", copy(Blocks.SAND));
     public static final RegistryObject<Block> MOON_TORCH = register("moon_torch", () -> new TorchBlock(copy(Blocks.TORCH), ParticleTypes.CLOUD));
     public static final RegistryObject<Block> MOON_WALL_TORCH = BLOCKS.register("moon_wall_torch", () -> new WallTorchBlock(copy(Blocks.WALL_TORCH), ParticleTypes.CLOUD));

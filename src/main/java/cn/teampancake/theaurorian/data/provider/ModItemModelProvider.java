@@ -102,6 +102,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(ModBlocks.SILENT_WOOD_CRAFTING_TABLE.get());
         this.simpleBlockItemWithParent(ModBlocks.AURORIAN_GRASS.get());
         this.simpleBlockItemWithParent(ModBlocks.AURORIAN_GRASS_LIGHT.get());
+        this.simpleBlockItemWithParent(ModBlocks.LAVENDER_PLANT.get());
         this.simpleBlockItemWithParent(ModBlocks.PETUNIA_PLANT.get());
         this.simpleBlockItemWithParent(ModBlocks.SILENT_WOOD_LADDER.get());
         this.simpleBlockItemWithParent(ModBlocks.SILENT_WOOD_TORCH.get());
@@ -112,6 +113,8 @@ public class ModItemModelProvider extends ItemModelProvider {
                 .texture("layer0", this.modLoc("block/" + this.name(ModBlocks.AURORIAN_GLASS.get())));
         this.withExistingParent(this.name(ModBlocks.MOON_GLASS_PANE.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(ModBlocks.MOON_GLASS.get())));
+        this.withExistingParent(this.name(ModBlocks.SILENT_TREE_SAPLING.get()), this.mcLoc("item/generated"))
+                .texture("layer0", this.modLoc("block/" + this.name(ModBlocks.SILENT_TREE_SAPLING.get())));
         for (Item item : ModCommonUtils.getKnownItems()) {
             ResourceLocation key = ForgeRegistries.ITEMS.getKey(item);
             if (item instanceof ForgeSpawnEggItem) {

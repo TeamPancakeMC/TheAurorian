@@ -57,6 +57,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
         this.dropSelf(ModBlocks.SILENT_TREE_LOG.get());
         this.dropSelf(ModBlocks.SILENT_TREE_PLANKS.get());
         this.dropSelf(ModBlocks.SILENT_TREE_WOOD.get());
+        this.dropSelf(ModBlocks.SILENT_TREE_SAPLING.get());
         this.dropSelf(ModBlocks.SILENT_WOOD_TORCH.get());
         this.dropSelf(ModBlocks.SILENT_WOOD_LADDER.get());
         this.dropSelf(ModBlocks.WEEPING_WILLOW_LOG.get());
@@ -66,6 +67,7 @@ public class ModBlockLoot extends VanillaBlockLoot {
         this.dropWhenSilkTouch(ModBlocks.MOON_GLASS.get());
         this.dropWhenSilkTouch(ModBlocks.AURORIAN_GLASS_PANE.get());
         this.dropWhenSilkTouch(ModBlocks.MOON_GLASS_PANE.get());
+        this.dropWhenSilkTouch(ModBlocks.LAVENDER_PLANT.get());
         this.dropWhenSilkTouch(ModBlocks.PETUNIA_PLANT.get());
         this.dropWhenSilkTouch(ModBlocks.INDIGO_MUSHROOM_STEM.get());
         this.dropOther(ModBlocks.MOON_WALL_TORCH.get(), ModBlocks.MOON_TORCH.get());

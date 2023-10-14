@@ -84,6 +84,7 @@ public class ModLanguageProviderENUS extends LanguageProvider {
         this.add(ModBlocks.SILENT_TREE_LOG.get(), "Silent Tree Log");
         this.add(ModBlocks.SILENT_TREE_PLANKS.get(), "Silent Tree Planks");
         this.add(ModBlocks.SILENT_TREE_WOOD.get(), "Silent Tree Wood");
+        this.add(ModBlocks.SILENT_TREE_SAPLING.get(), "Silent Tree Sapling");
         this.add(ModBlocks.SILENT_WOOD_TORCH.get(), "Silent Wood Torch");
         this.add(ModBlocks.SILENT_WOOD_LADDER.get(), "Silent Wood Ladder");
         this.add(ModBlocks.SILENT_WOOD_CRAFTING_TABLE.get(), "Silent Wood Crafting");

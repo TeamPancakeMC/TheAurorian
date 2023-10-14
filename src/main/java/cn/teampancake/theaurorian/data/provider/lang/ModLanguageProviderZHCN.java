@@ -84,6 +84,7 @@ public class ModLanguageProviderZHCN extends LanguageProvider {
         this.add(ModBlocks.SILENT_TREE_LOG.get(), "谧树原木");
         this.add(ModBlocks.SILENT_TREE_PLANKS.get(), "谧树木板");
         this.add(ModBlocks.SILENT_TREE_WOOD.get(), "谧树木头");
+        this.add(ModBlocks.SILENT_TREE_SAPLING.get(), "谧树树苗");
         this.add(ModBlocks.SILENT_WOOD_TORCH.get(), "谧木火把");
         this.add(ModBlocks.SILENT_WOOD_LADDER.get(), "谧木梯子");
         this.add(ModBlocks.SILENT_WOOD_CRAFTING_TABLE.get(), "谧木工作台");

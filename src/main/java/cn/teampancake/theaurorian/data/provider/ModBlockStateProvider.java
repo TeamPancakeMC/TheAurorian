@@ -88,6 +88,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         this.blockTexture(ModBlocks.MOON_TORCH.get())));
         this.logBlock((RotatedPillarBlock) ModBlocks.SILENT_TREE_LOG.get());
         this.logBlock((RotatedPillarBlock) ModBlocks.WEEPING_WILLOW_LOG.get());
+        this.simpleBlock(ModBlocks.SILENT_TREE_SAPLING.get(),
+                this.models().cross(this.name(ModBlocks.SILENT_TREE_SAPLING.get()),
+                        this.blockTexture(ModBlocks.SILENT_TREE_SAPLING.get())).renderType(CUTOUT));
         this.axisBlock((RotatedPillarBlock) ModBlocks.SILENT_TREE_WOOD.get(),
                 this.modLoc("block/silent_tree_log"),
                 this.modLoc("block/silent_tree_log"));
@@ -116,6 +119,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         this.registerWallTorchStates(ModBlocks.SILENT_WOOD_WALL_TORCH.get());
         this.registerCropStates(ModBlocks.LAVENDER_CROP.get());
         this.registerCropStates(ModBlocks.SILK_BERRY_CROP.get());
+        this.registerPlantStates(ModBlocks.LAVENDER_PLANT.get());
         this.registerPlantStates(ModBlocks.PETUNIA_PLANT.get());
         this.registerPlantStates(ModBlocks.INDIGO_MUSHROOM.get());
         this.registerPlantStates(ModBlocks.AURORIAN_GRASS.get());

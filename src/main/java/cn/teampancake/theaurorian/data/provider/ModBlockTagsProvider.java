@@ -38,6 +38,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.PLANKS).add(ModBlocks.SILENT_TREE_PLANKS.get(), ModBlocks.WEEPING_WILLOW_PLANKS.get());
         this.tag(BlockTags.LEAVES).add(ModBlocks.SILENT_TREE_LEAVES.get(), ModBlocks.WEEPING_WILLOW_LEAVES.get());
         this.tag(BlockTags.LOGS).addTag(ModBlockTags.SILENT_TREE_LOGS).addTag(ModBlockTags.WEEPING_WILLOW_LOGS);
+        this.tag(BlockTags.SAPLINGS).add(ModBlocks.SILENT_TREE_SAPLING.get());
         this.tag(BlockTags.CROPS).add(ModBlocks.LAVENDER_CROP.get(), ModBlocks.SILK_BERRY_CROP.get());
         this.tag(BlockTags.NEEDS_STONE_TOOL).add(ModBlocks.MOONSTONE_ORE.get(), ModBlocks.CERULEAN_ORE.get());
         this.tag(BlockTags.NEEDS_IRON_TOOL).add(ModBlocks.GEODE_ORE.get(), ModBlocks.MOON_GEM.get(), ModBlocks.MOONLIGHT_FORGE.get());

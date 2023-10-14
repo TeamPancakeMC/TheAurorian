@@ -6,51 +6,4431 @@
       "type": "minecraft:multi_noise",
       "biomes": [
         {
-          "biome": "theaurorian:aurorian_plains",
+          "biome": "theaurorian:weeping_willow_forest",
           "parameters": {
-            "continentalness": 0.0,
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
             "depth": 0.0,
-            "erosion": 1.0,
-            "humidity": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
             "offset": 0.0,
-            "temperature": 0.2,
-            "weirdness": 0.0
-          }
-        },
-        {
-          "biome": "theaurorian:aurorian_forest_hills",
-          "parameters": {
-            "continentalness": 1.5,
-            "depth": 0.0,
-            "erosion": 0.0,
-            "humidity": 0.0,
-            "offset": 0.0,
-            "temperature": 0.2,
-            "weirdness": 0.0
-          }
-        },
-        {
-          "biome": "theaurorian:aurorian_forest",
-          "parameters": {
-            "continentalness": 0.0,
-            "depth": 0.0,
-            "erosion": 1.0,
-            "humidity": 0.0,
-            "offset": 0.0,
-            "temperature": 0.2,
-            "weirdness": 0.0
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
           }
         },
         {
           "biome": "theaurorian:weeping_willow_forest",
           "parameters": {
-            "continentalness": 0.0,
-            "depth": 0.0,
-            "erosion": 1.0,
-            "humidity": 0.0,
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
             "offset": 0.0,
-            "temperature": 0.2,
-            "weirdness": 0.0
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:weeping_willow_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.2,
+              0.55
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              -0.2225
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.19,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.2225,
+              0.05
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_forest",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              0.1,
+              0.3
+            ],
+            "offset": 0.0,
+            "temperature": [
+              0.55,
+              1.0
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              -0.2666,
+              -0.05
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              -0.35
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.45,
+              -0.15
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 0.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.01
+            ],
+            "depth": 1.0,
+            "erosion": [
+              -0.375,
+              0.05
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.05,
+              0.45
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              0.01,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.45,
+              0.55
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 0.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
+          }
+        },
+        {
+          "biome": "theaurorian:aurorian_plains",
+          "parameters": {
+            "continentalness": [
+              -0.11,
+              0.1
+            ],
+            "depth": 1.0,
+            "erosion": [
+              0.55,
+              1.0
+            ],
+            "humidity": [
+              -0.35,
+              -0.1
+            ],
+            "offset": 0.0,
+            "temperature": [
+              -0.15,
+              0.2
+            ],
+            "weirdness": [
+              0.05,
+              0.2666
+            ]
           }
         }
       ]

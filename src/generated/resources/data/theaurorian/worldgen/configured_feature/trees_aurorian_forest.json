@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "theaurorian:silent_tree",
+    "features": [
+      {
+        "chance": 0.33333334,
+        "feature": "theaurorian:silent_tree"
+      }
+    ]
+  }
+}

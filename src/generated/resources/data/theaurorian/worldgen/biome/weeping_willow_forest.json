@@ -1,5 +1,7 @@
 {
-  "carvers": {},
+  "carvers": {
+    "air": "minecraft:cave"
+  },
   "creature_spawn_probability": 0.3,
   "downfall": 0.0,
   "effects": {
@@ -8,7 +10,29 @@
     "water_color": 16777215,
     "water_fog_color": 16777215
   },
-  "features": [],
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "theaurorian:ore_aurorian_peridotite",
+      "theaurorian:ore_aurorian_dirt",
+      "theaurorian:ore_aurorian_coal",
+      "theaurorian:ore_moonstone",
+      "theaurorian:ore_cerulean",
+      "theaurorian:ore_geode"
+    ],
+    [],
+    [],
+    [
+      "theaurorian:patch_aurorian_flower_forest",
+      "theaurorian:patch_aurorian_grass_light_forest",
+      "theaurorian:patch_aurorian_grass_forest"
+    ]
+  ],
   "has_precipitation": false,
   "spawn_costs": {},
   "spawners": {

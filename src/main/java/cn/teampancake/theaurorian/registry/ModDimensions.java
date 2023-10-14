@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.level.biome.AurorianBiomeBuilder;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.HolderGetter;
@@ -12,7 +13,10 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
@@ -37,29 +41,24 @@ public class ModDimensions {
             new MultiNoiseBiomeSourceParameterList.Preset(AurorianMod.prefix("the_aurorian"),
             new MultiNoiseBiomeSourceParameterList.Preset.SourceProvider() {
         public <T> Climate.@NotNull ParameterList<T> apply(@NotNull Function<ResourceKey<Biome>, T> function) {
-            return new Climate.ParameterList<>(List.of(
-                    Pair.of(Climate.parameters(0.2F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F),
-                            function.apply(ModBiomes.AURORIAN_PLAINS)),
-                    Pair.of(Climate.parameters(0.2F, 0.0F, 1.5F, 0.0F, 0.0F, 0.0F, 0.0F),
-                            function.apply(ModBiomes.AURORIAN_FOREST_HILLS)),
-                    Pair.of(Climate.parameters(0.2F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F),
-                            function.apply(ModBiomes.AURORIAN_FOREST)),
-                    Pair.of(Climate.parameters(0.2F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F),
-                            function.apply(ModBiomes.WEEPING_WILLOW_FOREST))));
+            ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> points = ImmutableList.builder();
+            new AurorianBiomeBuilder().addBiomes((point, key) -> points.add(Pair.of(point, function.apply(key))));
+            return new Climate.ParameterList<>(points.build());
         }
     });
 
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
-        NoiseGeneratorSettings settings = new NoiseGeneratorSettings(NoiseSettings.OVERWORLD_NOISE_SETTINGS, Blocks.STONE.defaultBlockState(),
-                Blocks.WATER.defaultBlockState(), NoiseRouterData.overworld(context.lookup(Registries.DENSITY_FUNCTION),
-                context.lookup(Registries.NOISE), Boolean.FALSE, Boolean.FALSE), createSurfaceRule(),
-                List.of(), 63, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE);
+        NoiseSettings noiseSettings = NoiseSettings.create(-64, 256, (2), (1));
+        NoiseGeneratorSettings settings = new NoiseGeneratorSettings(noiseSettings, ModBlocks.AURORIAN_STONE.get().defaultBlockState(),
+                Blocks.AIR.defaultBlockState(), NoiseRouterData.overworld(context.lookup(Registries.DENSITY_FUNCTION),
+                context.lookup(Registries.NOISE), Boolean.FALSE, Boolean.FALSE), createSurfaceRule(), List.of(), 48,
+                Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE);
         context.register(AURORIAN_NOISE_SETTINGS, settings);
     }
 
     public static void bootstrapType(BootstapContext<DimensionType> context) {
         DimensionType dimensionType = new DimensionType(OptionalLong.empty(), Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, 1.0D,
-                Boolean.TRUE, Boolean.FALSE, -64, 384, 384, BlockTags.INFINIBURN_OVERWORLD, BuiltinDimensionTypes.OVERWORLD_EFFECTS, 0.0F,
+                Boolean.TRUE, Boolean.FALSE, -64, 256, 256, BlockTags.INFINIBURN_OVERWORLD, BuiltinDimensionTypes.OVERWORLD_EFFECTS, 0.0F,
                 new DimensionType.MonsterSettings(Boolean.FALSE, Boolean.TRUE, UniformInt.of(ConstantInt.ZERO.getValue(), 7), ConstantInt.ZERO.getValue()));
         context.register(AURORIAN_DIMENSION_TYPE, dimensionType);
     }
@@ -78,17 +77,18 @@ public class ModDimensions {
         ImmutableList.Builder<SurfaceRules.RuleSource> builder = ImmutableList.builder();
         SurfaceRules.RuleSource forestRules = createNormalRuleSource(ModBiomes.AURORIAN_FOREST, ModBlocks.AURORIAN_GRASS_BLOCK.get());
         SurfaceRules.RuleSource plainRules = createNormalRuleSource(ModBiomes.AURORIAN_PLAINS, ModBlocks.AURORIAN_GRASS_BLOCK.get());
-        SurfaceRules.RuleSource forestHillsRules = createNormalRuleSource(ModBiomes.AURORIAN_FOREST_HILLS, ModBlocks.AURORIAN_GRASS_BLOCK.get());
-        SurfaceRules.RuleSource weepingWillowForestRules = createNormalRuleSource(ModBiomes.WEEPING_WILLOW_FOREST, ModBlocks.AURORIAN_GRASS_LIGHT_BLOCK.get());
-        builder.add(forestRules, plainRules, forestHillsRules, weepingWillowForestRules);
+        SurfaceRules.RuleSource lakeRules = createNormalRuleSource(ModBiomes.AURORIAN_LAKES, ModBlocks.AURORIAN_GRASS_BLOCK.get());
+        SurfaceRules.RuleSource weepingWillowForestRules = createNormalRuleSource(
+                ModBiomes.WEEPING_WILLOW_FOREST, ModBlocks.AURORIAN_GRASS_LIGHT_BLOCK.get());
+        builder.add(forestRules, plainRules, lakeRules, weepingWillowForestRules);
         return SurfaceRules.sequence(builder.build().toArray(SurfaceRules.RuleSource[]::new));
     }
 
     private static SurfaceRules.RuleSource createNormalRuleSource(ResourceKey<Biome> resourceKey, Block surfaceBlock) {
         return SurfaceRules.ifTrue(SurfaceRules.isBiome(resourceKey), SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(),
                 SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(
-                        SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, ConstantInt.ZERO.getValue()),
-                                SurfaceRuleData.makeStateRule(surfaceBlock)), SurfaceRuleData.makeStateRule(ModBlocks.AURORIAN_DIRT.get()))),
+                                SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, ConstantInt.ZERO.getValue()),
+                                        SurfaceRuleData.makeStateRule(surfaceBlock)), SurfaceRuleData.makeStateRule(ModBlocks.AURORIAN_DIRT.get()))),
                         SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SurfaceRuleData.makeStateRule(ModBlocks.AURORIAN_DIRT.get())))));
     }
 

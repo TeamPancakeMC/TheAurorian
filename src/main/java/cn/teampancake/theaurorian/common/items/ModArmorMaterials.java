@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
@@ -111,7 +112,7 @@ public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
 
     @Override
     public String getName() {
-        return this.name;
+        return AurorianMod.MOD_ID + ":" + this.name;
     }
 
     @Override

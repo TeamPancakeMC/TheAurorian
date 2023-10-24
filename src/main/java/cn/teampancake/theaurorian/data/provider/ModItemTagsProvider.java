@@ -38,6 +38,28 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         copy(ModBlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, ModItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
         copy(ModBlockTags.SILENT_TREE_LOGS, ModItemTags.SILENT_TREE_LOGS);
         copy(ModBlockTags.WEEPING_WILLOW_LOGS, ModItemTags.WEEPING_WILLOW_LOGS);
+
+        this.tag(ItemTags.TRIMMABLE_ARMOR)
+                .add(ModItems.AURORIAN_STEEL_HELMET.get(),
+                        ModItems.AURORIAN_STEEL_CHESTPLATE.get(),
+                        ModItems.AURORIAN_STEEL_LEGGINGS.get(),
+                        ModItems.AURORIAN_STEEL_BOOTS.get(),
+                        ModItems.CERULEAN_HELMET.get(),
+                        ModItems.CERULEAN_CHESTPLATE.get(),
+                        ModItems.CERULEAN_LEGGINGS.get(),
+                        ModItems.CERULEAN_BOOTS.get(),
+                        ModItems.KNIGHT_HELMET.get(),
+                        ModItems.KNIGHT_CHESTPLATE.get(),
+                        ModItems.KNIGHT_LEGGINGS.get(),
+                        ModItems.KNIGHT_BOOTS.get(),
+                        ModItems.SPECTRAL_HELMET.get(),
+                        ModItems.SPECTRAL_CHESTPLATE.get(),
+                        ModItems.SPECTRAL_LEGGINGS.get(),
+                        ModItems.SPECTRAL_BOOTS.get(),
+                        ModItems.AURORIAN_SLIME_BOOTS.get(),
+                        ModItems.SPIKED_CHESTPLATE.get()
+                );
+
     }
 
 }

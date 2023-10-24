@@ -3,7 +3,7 @@
   "equipment": {
     "item": "theaurorian:moonstone_sword"
   },
-  "result": "theaurorian:crystalline_sword",
+  "result": "crystalline_sword",
   "upgrade_material": {
     "item": "theaurorian:crystalline_ingot"
   }

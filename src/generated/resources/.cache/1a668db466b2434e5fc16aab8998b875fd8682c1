@@ -1,0 +1,9 @@
+// 1.20.1	2023-10-25T03:55:19.605675	Tags for minecraft:item mod id theaurorian
+1a523c54854a12ed15e76951cb1079936b7fab43 data/minecraft/tags/items/arrows.json
+2907681e1a158403aa753b2b0f223c2c854bf65e data/minecraft/tags/items/trimmable_armor.json
+0d04a3bad8039f536e51e60b5e63c15372ee5480 data/theaurorian/tags/items/aurorian_slime_boots.json
+08a35025ad59c295c8fa98a578649eebc07a25e7 data/theaurorian/tags/items/aurotian_animal_unspawnable_on.json
+79b531fbf3d05b689b71768913f495159c3c4762 data/theaurorian/tags/items/dungeon_key.json
+afc60b9867b1ae19a025c505cf3567f1ae71a6b5 data/theaurorian/tags/items/silent_tree_logs.json
+7d3a33b9e178f66ab781b76ae6e85bb8c20f2eae data/theaurorian/tags/items/spectral_armor.json
+c231019d5abcd08768fbb43a3e447e25c5e3a570 data/theaurorian/tags/items/weeping_willow_logs.json

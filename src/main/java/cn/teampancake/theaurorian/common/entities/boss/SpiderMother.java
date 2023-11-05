@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.entities.boss;
 import cn.teampancake.theaurorian.common.entities.ai.ModRangedAttackGoal;
 import cn.teampancake.theaurorian.common.entities.monster.Spiderling;
 import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
-import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import cn.teampancake.theaurorian.registry.ModEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -323,7 +322,10 @@ public class SpiderMother extends Spider {
 
         @Override
         public boolean canUse() {
-            return this.mob.distanceToSqr(this.target) > 20 && this.mob.onGround();
+            this.target = this.mob.getTarget();
+            if (this.target == null) return false;
+
+            return this.mob.distanceToSqr(this.target) < 20 && this.mob.onGround();
         }
 
         @Override

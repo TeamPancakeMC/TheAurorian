@@ -31,6 +31,8 @@ public class ModEntityTagsProvider extends EntityTypeTagsProvider {
                 .add(ModEntityTypes.SPIDERLING.get())
                 .add(ModEntityTypes.MOON_ACOLYTE.get())
                 .add(ModEntityTypes.CRYSTALLINE_SPRITE.get());
+        this.tag(ModEntityTags.HAS_CUSTOM_DEATH_ANIMATION)
+                .add(ModEntityTypes.RUNESTONE_KEEPER.get());
     }
 
 }

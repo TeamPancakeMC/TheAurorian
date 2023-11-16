@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 public class ModEntityTags {
 
     public static final TagKey<EntityType<?>> AFFECTED_BY_NIGHTMARE_MODE = create("affected_by_nightmare_mode");
+    public static final TagKey<EntityType<?>> HAS_CUSTOM_DEATH_ANIMATION = create("has_custom_death_animation");
 
     private static TagKey<EntityType<?>> create(String name) {
         return TagKey.create(Registries.ENTITY_TYPE, AurorianMod.prefix(name));

@@ -78,7 +78,7 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void handleDamageEvent(LivingDamageEvent event) {
+    public static void onLivingDamage(LivingDamageEvent event) {
         LivingEntity target = event.getEntity();
         if (target != null) {
             for (ItemStack piece : target.getArmorSlots()) {

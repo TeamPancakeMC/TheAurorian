@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.data.provider.lang;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import cn.teampancake.theaurorian.registry.ModEnchantments;
+import cn.teampancake.theaurorian.registry.ModEntityTypes;
 import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -18,6 +19,8 @@ public class ModLanguageProviderZHCN extends LanguageProvider {
         this.add("itemGroup." + AurorianMod.MOD_ID, "极光幽境");
         this.add("theaurorian.container.scrapper", "粉碎器");
         this.add("theaurorian.container.moonlight_forge", "月光融锻台");
+
+        //MOD BLOCK
         this.add(ModBlocks.AURORIAN_DIRT.get(), "极光泥土");
         this.add(ModBlocks.AURORIAN_STONE.get(), "极光石");
         this.add(ModBlocks.AURORIAN_STONE_BRICKS.get(), "极光石砖");
@@ -229,6 +232,10 @@ public class ModLanguageProviderZHCN extends LanguageProvider {
         this.add(ModItems.WEEPING_WILLOW_SAP.get(), "垂柳树汁");
         this.add(ModItems.WEBBING.get(), "蛛网");
 
+        //MOD ENTITY
+        this.add(ModEntityTypes.RUNESTONE_KEEPER.get(), "符石守卫");
+        this.add(ModEntityTypes.SPIDER_MOTHER.get(), "蛛母");
+        this.add(ModEntityTypes.MOON_QUEEN.get(), "皎月女王");
 
         this.add(ModEnchantments.LIGHTNING_RESISTANCE.get(), "雷电抵御");
         this.add(ModEnchantments.LIGHTNING_DAMAGE.get(), "雷电");

@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.data.provider.lang;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import cn.teampancake.theaurorian.registry.ModEnchantments;
+import cn.teampancake.theaurorian.registry.ModEntityTypes;
 import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -18,6 +19,8 @@ public class ModLanguageProviderENUS extends LanguageProvider {
         this.add("itemGroup." + AurorianMod.MOD_ID, "The Aurorian");
         this.add("theaurorian.container.scrapper", "Scrapper");
         this.add("theaurorian.container.moonlight_forge", "Moonlight Forge");
+
+        //MOD BLOCK
         this.add(ModBlocks.AURORIAN_DIRT.get(), "Aurorian Dirt");
         this.add(ModBlocks.AURORIAN_STONE.get(), "Aurorian Stone");
         this.add(ModBlocks.AURORIAN_STONE_BRICKS.get(), "Aurorian Stone Bricks");
@@ -227,6 +230,11 @@ public class ModLanguageProviderENUS extends LanguageProvider {
         this.add(ModItems.UNDEAD_KNIGHT_SPAWN_EGG.get(),"Undead Knight Spawn Egg");
         this.add(ModItems.WEBBING.get(),"Webbing");
         this.add(ModItems.WEEPING_WILLOW_SAP.get(),"Weeping Willow Sap");
+
+        //MOD ENTITY
+        this.add(ModEntityTypes.RUNESTONE_KEEPER.get(), "Runestone Keeper");
+        this.add(ModEntityTypes.SPIDER_MOTHER.get(), "Spider Mother");
+        this.add(ModEntityTypes.MOON_QUEEN.get(), "Moon Queen");
 
         this.add(ModEnchantments.LIGHTNING_RESISTANCE.get(), "Lightning Resistance");
         this.add(ModEnchantments.LIGHTNING_DAMAGE.get(), "Lightning");

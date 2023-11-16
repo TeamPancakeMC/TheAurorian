@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.screen;
+package cn.teampancake.theaurorian.client.gui;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.inventory.MoonlightForgeMenu;

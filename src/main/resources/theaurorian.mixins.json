@@ -9,11 +9,12 @@
     "MixinAbstractFurnaceBlockEntity",
     "MixinBaseFireBlock",
     "MixinDiggerItem",
-    "MixinEntity",
+    "MixinLocateCommand",
     "MixinShearsItem",
     "MixinSwordItem"
   ],
   "client": [
+    "MixinLivingEntityRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
-import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.registry.ModEnchantments;
 import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.core.BlockPos;
@@ -37,6 +36,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 public class RunestoneKeeper extends Monster implements RangedAttackMob {
+
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState1 = new AnimationState();
+    public final AnimationState attackAnimationState2 = new AnimationState();
+    public final AnimationState attackAnimationState3 = new AnimationState();
+    public final AnimationState deathAnimationState = new AnimationState();
 
     private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(),
             BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
@@ -92,13 +97,16 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (this.level().isClientSide && this.tickCount % 2 == 0 && this.getHealth() < this.getMaxHealth() * 0.3F) {
-            double x = this.getX() + this.random.nextFloat();
-            double z = this.getZ() + this.random.nextFloat();
-            double xSpeed = this.random.nextGaussian() * 0.02D;
-            double ySpeed = this.random.nextGaussian() * 0.1D;
-            double zSpeed = this.random.nextGaussian() * 0.02D;
-            this.level().addParticle(ParticleTypes.SPLASH, x, this.getRandomY(), z, xSpeed, ySpeed, zSpeed);
+        if (this.level().isClientSide()) {
+            this.idleAnimationState.startIfStopped(this.tickCount);
+            if (this.tickCount % 2 == 0 && this.getHealth() < this.getMaxHealth() * 0.3F) {
+                double x = this.getX() + this.random.nextFloat();
+                double z = this.getZ() + this.random.nextFloat();
+                double xSpeed = this.random.nextGaussian() * 0.02D;
+                double ySpeed = this.random.nextGaussian() * 0.1D;
+                double zSpeed = this.random.nextGaussian() * 0.02D;
+                this.level().addParticle(ParticleTypes.SPLASH, x, this.getRandomY(), z, xSpeed, ySpeed, zSpeed);
+            }
         }
     }
 
@@ -143,6 +151,19 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    protected void tickDeath() {
+        ++this.deathTime;
+        if (this.deathTime > 60) {
+            if (!this.level().isClientSide() && !this.isRemoved()) {
+                this.level().broadcastEntityEvent(this, (byte)60);
+                this.remove(Entity.RemovalReason.KILLED);
+            }
+        } else if (this.level().isClientSide()) {
+            this.deathAnimationState.startIfStopped(this.tickCount);
         }
     }
 

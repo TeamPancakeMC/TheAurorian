@@ -35,6 +35,7 @@ public class VanillaBlockCompat {
         fireBlock.setFlammable(ModBlocks.WEEPING_WILLOW_LEAVES.get(), 30, 60);
         fireBlock.setFlammable(ModBlocks.AURORIAN_GRASS.get(), 60, 100);
         fireBlock.setFlammable(ModBlocks.AURORIAN_GRASS_LIGHT.get(), 60, 100);
+        fireBlock.setFlammable(ModBlocks.LAVENDER_PLANT.get(), 60, 100);
         fireBlock.setFlammable(ModBlocks.PETUNIA_PLANT.get(), 60, 100);
     }
 

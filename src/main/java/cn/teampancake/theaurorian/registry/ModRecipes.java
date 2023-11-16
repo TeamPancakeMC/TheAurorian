@@ -17,7 +17,7 @@ public class ModRecipes {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, AurorianMod.MOD_ID);
 
     public static final RegistryObject<RecipeSerializer<MoonlightForgeRecipe>> MOONLIGHT_FORGE_SERIALIZER =
-            RECIPE_SERIALIZERS.register("moonlight_forge", () -> new MoonlightForgeSerializer<>(MoonlightForgeRecipe::new));
+            RECIPE_SERIALIZERS.register("moonlight_forge", MoonlightForgeSerializer::new);
     public static final RegistryObject<RecipeSerializer<ScrapperRecipe>> SCRAPPER_SERIALIZER =
             RECIPE_SERIALIZERS.register("scrapper", () -> new ScrapperSerializer<>(ScrapperRecipe::new));
 

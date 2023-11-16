@@ -12,10 +12,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 
-public record MoonlightForgeSerializer<T extends MoonlightForgeRecipe>(MoonlightForgeSerializer.Factory<T> factory) implements RecipeSerializer<T> {
+public class MoonlightForgeSerializer implements RecipeSerializer<MoonlightForgeRecipe> {
 
     @Override
-    public T fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {
+    public MoonlightForgeRecipe fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {
         Ingredient equipment = Ingredient.fromJson(GsonHelper.getNonNull(serializedRecipe, "equipment"));
         Ingredient upgradeMaterial = Ingredient.fromJson(GsonHelper.getNonNull(serializedRecipe, "upgrade_material"));
         ItemStack resultStack;
@@ -26,26 +26,22 @@ public record MoonlightForgeSerializer<T extends MoonlightForgeRecipe>(Moonlight
             ResourceLocation resourceLocation = new ResourceLocation(s1);
             resultStack = new ItemStack(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(resourceLocation)));
         }
-        return this.factory.create(recipeId, equipment, upgradeMaterial, resultStack);
+        return new MoonlightForgeRecipe(recipeId, equipment, upgradeMaterial, resultStack);
     }
 
     @Override
-    public T fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+    public MoonlightForgeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
         Ingredient equipment = Ingredient.fromNetwork(buffer);
         Ingredient upgradeMaterial = Ingredient.fromNetwork(buffer);
         ItemStack resultStack = buffer.readItem();
-        return this.factory.create(recipeId, equipment, upgradeMaterial, resultStack);
+        return new MoonlightForgeRecipe(recipeId, equipment, upgradeMaterial, resultStack);
     }
 
     @Override
-    public void toNetwork(FriendlyByteBuf buffer, T recipe) {
+    public void toNetwork(FriendlyByteBuf buffer, MoonlightForgeRecipe recipe) {
         recipe.equipment.toNetwork(buffer);
         recipe.upgradeMaterial.toNetwork(buffer);
         buffer.writeItem(recipe.result);
-    }
-
-    public interface Factory<T extends MoonlightForgeRecipe> {
-        T create(ResourceLocation id, Ingredient equipment, Ingredient upgradeMaterial, ItemStack result);
     }
 
 }

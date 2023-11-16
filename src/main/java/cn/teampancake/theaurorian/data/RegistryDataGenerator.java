@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.common.level.feature.ModConfiguredFeatures;
 import cn.teampancake.theaurorian.common.level.placement.ModPlacements;
 import cn.teampancake.theaurorian.registry.ModBiomes;
 import cn.teampancake.theaurorian.registry.ModDimensions;
+import cn.teampancake.theaurorian.registry.ModTrimMaterials;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -22,7 +23,8 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.DIMENSION_TYPE, ModDimensions::bootstrapType)
             .add(Registries.LEVEL_STEM, ModDimensions::bootstrapStem)
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap)
-            .add(Registries.PLACED_FEATURE, ModPlacements::bootstrap);
+            .add(Registries.PLACED_FEATURE, ModPlacements::bootstrap)
+            .add(Registries.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
 
     public RegistryDataGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of(AurorianMod.MOD_ID));

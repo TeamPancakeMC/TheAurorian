@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.client.model.RunestoneKeeperModel;
 import cn.teampancake.theaurorian.client.renderer.entity.*;
 import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.*;
@@ -87,7 +88,7 @@ public class ModEntityTypes {
     //Boss
     public static final RegistryObject<EntityType<RunestoneKeeper>> RUNESTONE_KEEPER = ENTITY_TYPES.register("runestone_keeper",
             () -> EntityType.Builder.of(RunestoneKeeper::new, MobCategory.MONSTER).sized(1.4F, 4.2F)
-                    .clientTrackingRange(8).fireImmune().build("runestone_keeper"));
+                    .clientTrackingRange(8).fireImmune().build("runestone_dungeon_keeper"));
     public static final RegistryObject<EntityType<SpiderMother>> SPIDER_MOTHER = ENTITY_TYPES.register("spider_mother",
             () -> EntityType.Builder.of(SpiderMother::new, MobCategory.MONSTER).sized(2.8F, 1.8F)
                     .clientTrackingRange(8).fireImmune().build("spider_mother"));
@@ -134,8 +135,7 @@ public class ModEntityTypes {
         event.registerLayerDefinition(ModModelLayers.MOON_ACOLYTE, () -> zombieLayer);
         event.registerLayerDefinition(ModModelLayers.MOON_ACOLYTE_OUTER_LAYER, () -> outerLayer);
         event.registerLayerDefinition(ModModelLayers.SPIDERLING, SpiderModel::createSpiderBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.RUNESTONE_KEEPER, SkeletonModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.RUNESTONE_KEEPER_OUTER_LAYER, () -> outerLayer);
+        event.registerLayerDefinition(ModModelLayers.RUNESTONE_KEEPER, RunestoneKeeperModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.SPIDER_MOTHER, SpiderModel::createSpiderBodyLayer);
         event.registerLayerDefinition(ModModelLayers.MOON_QUEEN, () -> LayerDefinition.create(
                 PlayerModel.createMesh(CubeDeformation.NONE, false), 64, 64));

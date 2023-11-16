@@ -1,0 +1,9 @@
+{
+  "asset_name": "moonstone",
+  "description": {
+    "color": "#61697C",
+    "translate": "trim_material.theaurorian.moonstone"
+  },
+  "ingredient": "theaurorian:aurorianite_ingot",
+  "item_model_index": 0.75
+}

@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ShearsItem.class)
 public class MixinShearsItem {
+
     @Inject(method = "mineBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;hurtAndBreak(ILnet/minecraft/world/entity/LivingEntity;Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER))
     public void mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity livingEntity, CallbackInfoReturnable<Boolean> cir) {
         ShearsItem shearsItem = (ShearsItem) (Object) this;
@@ -22,4 +23,5 @@ public class MixinShearsItem {
             MoonstoneHelper.handleMoonstoneDurability(stack, livingEntity);
         }
     }
+
 }

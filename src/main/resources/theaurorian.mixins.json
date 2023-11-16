@@ -9,7 +9,6 @@
     "MixinAbstractFurnaceBlockEntity",
     "MixinBaseFireBlock",
     "MixinDiggerItem",
-    "MixinLocateCommand",
     "MixinShearsItem",
     "MixinSwordItem"
   ],

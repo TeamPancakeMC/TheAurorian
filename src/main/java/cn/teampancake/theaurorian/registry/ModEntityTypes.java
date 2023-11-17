@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.client.model.RunestoneBookModel;
 import cn.teampancake.theaurorian.client.model.RunestoneKeeperModel;
 import cn.teampancake.theaurorian.client.renderer.entity.*;
 import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
@@ -136,6 +137,7 @@ public class ModEntityTypes {
         event.registerLayerDefinition(ModModelLayers.MOON_ACOLYTE_OUTER_LAYER, () -> outerLayer);
         event.registerLayerDefinition(ModModelLayers.SPIDERLING, SpiderModel::createSpiderBodyLayer);
         event.registerLayerDefinition(ModModelLayers.RUNESTONE_KEEPER, RunestoneKeeperModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.SPIDER_MOTHER, SpiderModel::createSpiderBodyLayer);
         event.registerLayerDefinition(ModModelLayers.MOON_QUEEN, () -> LayerDefinition.create(
                 PlayerModel.createMesh(CubeDeformation.NONE, false), 64, 64));

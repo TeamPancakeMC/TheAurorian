@@ -8,7 +8,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class RunestoneDungeonKeeperAnimation {
+public class RunestoneKeeperAnimation {
     
     public static final AnimationDefinition IDLE = AnimationDefinition.Builder.withLength(4.5f).looping()
             .addAnimation("right_leg", new AnimationChannel(AnimationChannel.Targets.ROTATION,

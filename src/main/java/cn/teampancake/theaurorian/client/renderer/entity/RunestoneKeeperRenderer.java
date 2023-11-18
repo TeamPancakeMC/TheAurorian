@@ -24,7 +24,7 @@ public class RunestoneKeeperRenderer extends MobRenderer<RunestoneKeeper, Runest
 
     @Override
     protected void scale(RunestoneKeeper livingEntity, PoseStack matrixStack, float partialTickTime) {
-        matrixStack.scale(2.0F, 2.0F, 2.0F);
+        matrixStack.scale(1.5F, 1.5F, 1.5F);
     }
 
     @Override

@@ -13,7 +13,9 @@
     "MixinSwordItem"
   ],
   "client": [
-    "MixinLivingEntityRenderer"
+    "MixinHumanoidArmorLayer",
+    "MixinLivingEntityRenderer",
+    "MixinPlayerRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

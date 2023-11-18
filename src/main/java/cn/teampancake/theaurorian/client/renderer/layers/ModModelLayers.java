@@ -21,6 +21,10 @@ public class ModModelLayers {
     public static final ModelLayerLocation RUNESTONE_BOOKS = register("runestone_books");
     public static final ModelLayerLocation SPIDER_MOTHER = register("spider_mother");
     public static final ModelLayerLocation MOON_QUEEN = register("moon_queen");
+    public static final ModelLayerLocation AURORIAN_STEEL_ARMOR = register("aurorian_steel_armor");
+    public static final ModelLayerLocation CERULEAN_ARMOR = register("cerulean_armor");
+    public static final ModelLayerLocation KNIGHT_ARMOR = register("knight_armor");
+    public static final ModelLayerLocation SPECTRAL_ARMOR = register("spectral_armor");
 
     private static ModelLayerLocation register(String path) {
         return register(path, "main");

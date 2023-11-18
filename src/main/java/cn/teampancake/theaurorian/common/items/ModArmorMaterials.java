@@ -112,7 +112,7 @@ public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
 
     @Override
     public String getName() {
-        return AurorianMod.MOD_ID + ":" + this.name;
+        return this.name;
     }
 
     @Override

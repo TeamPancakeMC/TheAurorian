@@ -1,16 +1,20 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.RunestoneBookModel;
-import cn.teampancake.theaurorian.client.model.RunestoneKeeperModel;
+import cn.teampancake.theaurorian.client.model.*;
 import cn.teampancake.theaurorian.client.renderer.entity.*;
 import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
-import cn.teampancake.theaurorian.common.entities.animal.*;
+import cn.teampancake.theaurorian.common.entities.animal.AurorianPig;
+import cn.teampancake.theaurorian.common.entities.animal.AurorianRabbit;
+import cn.teampancake.theaurorian.common.entities.animal.AurorianSheep;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.*;
-import cn.teampancake.theaurorian.common.entities.projectile.*;
+import cn.teampancake.theaurorian.common.entities.projectile.CeruleanArrowEntity;
+import cn.teampancake.theaurorian.common.entities.projectile.CrystalArrowEntity;
+import cn.teampancake.theaurorian.common.entities.projectile.StickySpikerEntity;
+import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -141,6 +145,10 @@ public class ModEntityTypes {
         event.registerLayerDefinition(ModModelLayers.SPIDER_MOTHER, SpiderModel::createSpiderBodyLayer);
         event.registerLayerDefinition(ModModelLayers.MOON_QUEEN, () -> LayerDefinition.create(
                 PlayerModel.createMesh(CubeDeformation.NONE, false), 64, 64));
+        event.registerLayerDefinition(ModModelLayers.AURORIAN_STEEL_ARMOR, AurorianSteelArmorModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.CERULEAN_ARMOR, CeruleanArmorModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.KNIGHT_ARMOR, KnightArmorModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.SPECTRAL_ARMOR, SpectralArmorModel::createBodyLayer);
     }
 
     @SubscribeEvent

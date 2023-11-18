@@ -143,6 +143,7 @@ public class ModLanguageProviderENUS extends LanguageProvider {
         this.add(ModItems.AURORIAN_STONE_SWORD.get(),"Aurorian Stone Sword");
         this.add(ModItems.AURORIANITE_INGOT.get(),"Aurorianite Ingot");
         this.add(ModItems.AURORIANITE_SCRAP.get(),"Aurorianite Scrap");
+        this.add(ModItems.AURORIANITE_SWORD.get(), "Aurorianite Sword");
         this.add(ModItems.AURORIANITE_AXE.get(),"Aurorianite Axe");
         this.add(ModItems.AURORIANITE_PICKAXE.get(),"Aurorianite Pickaxe");
         this.add(ModItems.BEPSI.get(),"Bepsi");

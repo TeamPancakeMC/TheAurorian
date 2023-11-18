@@ -144,6 +144,7 @@ public class ModLanguageProviderZHCN extends LanguageProvider {
         this.add(ModItems.AURORIAN_STONE_SWORD.get(), "极光石剑");
         this.add(ModItems.AURORIANITE_INGOT.get(), "极光锭");
         this.add(ModItems.AURORIANITE_SCRAP.get(), "极光碎片");
+        this.add(ModItems.AURORIANITE_SWORD.get(), "极光剑");
         this.add(ModItems.AURORIANITE_AXE.get(), "极光斧");
         this.add(ModItems.AURORIANITE_PICKAXE.get(), "极光镐");
         this.add(ModItems.BEPSI.get(), "旦事可乐");
@@ -171,7 +172,7 @@ public class ModLanguageProviderZHCN extends LanguageProvider {
         this.add(ModItems.DISTURBED_HOLLOW_SPAWN_EGG.get(), "空谷之扰刷怪蛋");
         this.add(ModItems.DUNGEON_LOCATOR.get(), "地牢定位器");
         this.add(ModItems.KEEPERS_BOW.get(), "守卫之弓");
-        this.add(ModItems.KNIGHT_HELMET.get(), "守卫之弓");
+        this.add(ModItems.KNIGHT_HELMET.get(), "骑士头盔");
         this.add(ModItems.KNIGHT_CHESTPLATE.get(), "骑士胸甲");
         this.add(ModItems.KNIGHT_LEGGINGS.get(), "骑士护腿");
         this.add(ModItems.KNIGHT_BOOTS.get(), "骑士靴子");

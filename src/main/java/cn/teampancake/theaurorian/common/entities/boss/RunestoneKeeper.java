@@ -129,6 +129,15 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
     }
 
     @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 4) {
+            this.attackAnimationState1.start(this.tickCount);
+        } else {
+            super.handleEntityEvent(id);
+        }
+    }
+
+    @Override
     public void performRangedAttack(LivingEntity target, float velocity) {
         Arrow arrow = new Arrow(this.level(), this);
         double d0 = target.getX() - this.getX();
@@ -144,6 +153,7 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
 
     @Override
     public boolean doHurtTarget(Entity entity) {
+        this.level().broadcastEntityEvent(this, (byte)4);
         if (super.doHurtTarget(entity)) {
             if (entity instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 200));

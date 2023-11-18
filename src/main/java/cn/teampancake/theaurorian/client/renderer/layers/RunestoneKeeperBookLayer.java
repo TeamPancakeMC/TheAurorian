@@ -12,10 +12,12 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-@ParametersAreNonnullByDefault
+@OnlyIn(Dist.CLIENT)
 public class RunestoneKeeperBookLayer<T extends RunestoneKeeper, M extends EntityModel<T>> extends RenderLayer<T, M> {
 
     private static final ResourceLocation LAYER_LOCATION = AurorianMod.prefix("textures/entity/runestone_books.png");

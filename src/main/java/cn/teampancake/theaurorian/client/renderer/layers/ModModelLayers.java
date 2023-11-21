@@ -14,7 +14,6 @@ public class ModModelLayers {
     public static final ModelLayerLocation UNDEAD_KNIGHT = register("undead_knight");
     public static final ModelLayerLocation SPIRIT = register("spirit");
     public static final ModelLayerLocation MOON_ACOLYTE = register("moon_acolyte");
-    public static final ModelLayerLocation MOON_ACOLYTE_OUTER_LAYER = register("moon_acolyte", "outer");
     public static final ModelLayerLocation SPIDERLING = register("spiderling");
     public static final ModelLayerLocation CRYSTALLINE_SPRITE = register("crystalline_sprite");
     public static final ModelLayerLocation RUNESTONE_KEEPER = register("runestone_keeper");

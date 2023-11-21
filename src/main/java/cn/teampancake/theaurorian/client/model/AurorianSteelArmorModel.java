@@ -4,8 +4,11 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @SuppressWarnings("unused")
+@OnlyIn(Dist.CLIENT)
 public class AurorianSteelArmorModel<T extends LivingEntity> extends TAHumanoidModel<T> {
 
     public AurorianSteelArmorModel(ModelPart root) {

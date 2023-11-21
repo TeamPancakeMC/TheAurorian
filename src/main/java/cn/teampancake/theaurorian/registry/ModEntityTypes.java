@@ -15,7 +15,6 @@ import cn.teampancake.theaurorian.common.entities.projectile.CeruleanArrowEntity
 import cn.teampancake.theaurorian.common.entities.projectile.CrystalArrowEntity;
 import cn.teampancake.theaurorian.common.entities.projectile.StickySpikerEntity;
 import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.SlimeModel;
 import net.minecraft.client.model.SpiderModel;
@@ -130,18 +129,15 @@ public class ModEntityTypes {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        LayerDefinition zombieLayer = LayerDefinition.create(HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F), 64, 64);
-        LayerDefinition outerLayer = LayerDefinition.create(HumanoidModel.createMesh(new CubeDeformation(0.25F), 0.0F), 64, 64);
         event.registerLayerDefinition(ModModelLayers.AURORIAN_RABBIT, AurorianRabbitModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.AURORIAN_SHEEP, AurorianSheepModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.AURORIAN_PIG, AurorianPigModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.AURORIAN_SLIME, SlimeModel::createInnerBodyLayer);
         event.registerLayerDefinition(ModModelLayers.AURORIAN_SLIME_OUTER, SlimeModel::createOuterBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.DISTURBED_HOLLOW, () -> zombieLayer);
-        event.registerLayerDefinition(ModModelLayers.UNDEAD_KNIGHT, () -> zombieLayer);
-        event.registerLayerDefinition(ModModelLayers.SPIRIT, () -> zombieLayer);
-        event.registerLayerDefinition(ModModelLayers.MOON_ACOLYTE, () -> zombieLayer);
-        event.registerLayerDefinition(ModModelLayers.MOON_ACOLYTE_OUTER_LAYER, () -> outerLayer);
+        event.registerLayerDefinition(ModModelLayers.DISTURBED_HOLLOW, DisturbedHollowModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.UNDEAD_KNIGHT, UndeadKnightModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.SPIRIT, SpiritModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.MOON_ACOLYTE, MoonAcolyteModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.SPIDERLING, SpiderModel::createSpiderBodyLayer);
         event.registerLayerDefinition(ModModelLayers.RUNESTONE_KEEPER, RunestoneKeeperModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);

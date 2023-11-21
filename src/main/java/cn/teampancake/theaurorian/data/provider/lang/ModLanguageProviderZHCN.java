@@ -294,10 +294,21 @@ public class ModLanguageProviderZHCN extends LanguageProvider {
         this.add(ModItems.WEBBING.get(), "蛛网");
 
         //MOD ENTITY
+        this.add(ModEntityTypes.AURORIAN_RABBIT.get(), "极光兔");
+        this.add(ModEntityTypes.AURORIAN_SHEEP.get(), "极光羊");
+        this.add(ModEntityTypes.AURORIAN_PIG.get(), "极光猪");
+        this.add(ModEntityTypes.AURORIAN_SLIME.get(), "极光史莱姆");
+        this.add(ModEntityTypes.DISTURBED_HOLLOW.get(), "空谷之扰");
+        this.add(ModEntityTypes.UNDEAD_KNIGHT.get(), "不死骑士");
+        this.add(ModEntityTypes.SPIRIT.get(), "魂灵");
+        this.add(ModEntityTypes.MOON_ACOLYTE.get(), "皎月侍从");
+        this.add(ModEntityTypes.SPIDERLING.get(), "幼蛛");
+        this.add(ModEntityTypes.CRYSTALLINE_SPRITE.get(), "月凝晶魂");
         this.add(ModEntityTypes.RUNESTONE_KEEPER.get(), "符石守卫");
         this.add(ModEntityTypes.SPIDER_MOTHER.get(), "蛛母");
         this.add(ModEntityTypes.MOON_QUEEN.get(), "皎月女王");
 
+        //MOD ENCHANTMENT
         this.add(ModEnchantments.LIGHTNING_RESISTANCE.get(), "雷电抵御");
         this.add(ModEnchantments.LIGHTNING_DAMAGE.get(), "雷电");
         this.add(ModEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId() + ".desc", "降低“雷电”魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");

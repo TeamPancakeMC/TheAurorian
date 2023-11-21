@@ -293,10 +293,21 @@ public class ModLanguageProviderENUS extends LanguageProvider {
         this.add(ModItems.WEEPING_WILLOW_SAP.get(),"Weeping Willow Sap");
 
         //MOD ENTITY
+        this.add(ModEntityTypes.AURORIAN_RABBIT.get(), "Aurorian Rabbit");
+        this.add(ModEntityTypes.AURORIAN_SHEEP.get(), "Aurorian Sheep");
+        this.add(ModEntityTypes.AURORIAN_PIG.get(), "Aurorian Pig");
+        this.add(ModEntityTypes.AURORIAN_SLIME.get(), "Aurorian Slime");
+        this.add(ModEntityTypes.DISTURBED_HOLLOW.get(), "Disturbed Hollow");
+        this.add(ModEntityTypes.UNDEAD_KNIGHT.get(), "Undead Knight");
+        this.add(ModEntityTypes.SPIRIT.get(), "Spirit");
+        this.add(ModEntityTypes.MOON_ACOLYTE.get(), "Moon Acolyte");
+        this.add(ModEntityTypes.SPIDERLING.get(), "Spiderling");
+        this.add(ModEntityTypes.CRYSTALLINE_SPRITE.get(), "Crystalline Sprite");
         this.add(ModEntityTypes.RUNESTONE_KEEPER.get(), "Runestone Keeper");
         this.add(ModEntityTypes.SPIDER_MOTHER.get(), "Spider Mother");
         this.add(ModEntityTypes.MOON_QUEEN.get(), "Moon Queen");
 
+        //MOD ENCHANTMENT
         this.add(ModEnchantments.LIGHTNING_RESISTANCE.get(), "Lightning Resistance");
         this.add(ModEnchantments.LIGHTNING_DAMAGE.get(), "Lightning");
         this.add(ModEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId() + ".desc", "Negates damage that would have been done by lightning enchantment");

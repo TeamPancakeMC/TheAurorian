@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "theaurorian:aurorian_peridotite"
+  },
+  "result": "theaurorian:aurorian_peridotite_wall"
+}

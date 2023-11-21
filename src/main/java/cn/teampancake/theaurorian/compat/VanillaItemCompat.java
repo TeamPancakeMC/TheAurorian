@@ -4,7 +4,10 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.CeruleanArrow;
 import cn.teampancake.theaurorian.common.items.CrystalArrow;
 import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.utils.ModCommonUtils;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,6 +42,12 @@ public class VanillaItemCompat {
                 entity == null || entity.getUseItem() != stack ? 0.0F : (stack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F));
         ItemProperties.register(ModItems.KEEPERS_BOW.get(), AurorianMod.prefix("pulling"), ((stack, level, entity, seed) ->
                 entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
+        for (Item item : ModCommonUtils.getKnownItems()) {
+            if (item instanceof ShieldItem) {
+                ItemProperties.register(item, AurorianMod.prefix("blocking"), ((stack, level, entity, seed) ->
+                        entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
+            }
+        }
     }
 
 }

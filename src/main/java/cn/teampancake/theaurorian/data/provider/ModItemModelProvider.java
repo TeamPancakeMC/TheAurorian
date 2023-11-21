@@ -8,13 +8,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -67,11 +66,20 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(ModBlocks.AURORIAN_PERIDOTITE.get());
         this.simpleBlockItem(ModBlocks.MOON_SAND.get());
         this.simpleBlockItem(ModBlocks.RUNE_STONE.get());
+        this.simpleBlockItem(ModBlocks.SMOOTH_RUNE_STONE.get());
+        this.simpleBlockItem(ModBlocks.CHISELED_RUNE_STONE.get());
+        this.simpleBlockItem(ModBlocks.AURORIAN_CASTLE_RUNE_STONE.get());
+        this.simpleBlockItem(ModBlocks.AURORIAN_STEEL_CASTLE_RUNE_STONE.get());
+        this.simpleBlockItem(ModBlocks.CERULEAN_CASTLE_RUNE_STONE.get());
+        this.simpleBlockItem(ModBlocks.CRYSTALLINE_CASTLE_RUNE_STONE.get());
+        this.simpleBlockItem(ModBlocks.MOON_CASTLE_RUNE_STONE.get());
+        this.simpleBlockItem(ModBlocks.TRANSPARENT_RUNE_STONE.get());
+        this.simpleBlockItem(ModBlocks.UMBRA_CASTLE_RUNE_STONE.get());
+        this.simpleBlockItem(ModBlocks.RUNE_STONE_PILLAR.get());
         this.simpleBlockItem(ModBlocks.MOON_TEMPLE_BRICKS.get());
         this.simpleBlockItem(ModBlocks.DARK_STONE_BRICKS.get());
         this.simpleBlockItem(ModBlocks.DARK_STONE_FANCY.get());
         this.simpleBlockItem(ModBlocks.DARK_STONE_LAYERS.get());
-        this.simpleBlockItem(ModBlocks.SMOOTH_RUNE_STONE.get());
         this.simpleBlockItem(ModBlocks.SMOOTH_MOON_TEMPLE_BRICKS.get());
         this.simpleBlockItem(ModBlocks.SMOOTH_AURORIAN_PERIDOTITE.get());
         this.simpleBlockItem(ModBlocks.RUNE_STONE_LAMP.get());
@@ -109,19 +117,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(ModBlocks.AURORIAN_GLASS.get());
         this.simpleBlockItem(ModBlocks.SILENT_TREE_LEAVES.get());
         this.simpleBlockItem(ModBlocks.WEEPING_WILLOW_LEAVES.get());
-        this.simpleBlockItem(ModBlocks.AURORIAN_STONE_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.AURORIAN_STONE_BRICK_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.AURORIAN_COBBLESTONE_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.SILENT_WOOD_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.RUNE_STONE_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.MOON_TEMPLE_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.DARK_STONE_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.UMBRA_STONE_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.UMBRA_STONE_CRACKED_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.UMBRA_STONE_ROOF_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.WEEPING_WILLOW_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.AURORIAN_PERIDOTITE_STAIRS.get());
-        this.simpleBlockItem(ModBlocks.SMOOTH_AURORIAN_PERIDOTITE_STAIRS.get());
         this.simpleBlockItem(ModBlocks.SILENT_WOOD_CRAFTING_TABLE.get());
         this.simpleBlockItemWithParent(ModBlocks.AURORIAN_GRASS.get());
         this.simpleBlockItemWithParent(ModBlocks.AURORIAN_GRASS_LIGHT.get());
@@ -138,6 +133,13 @@ public class ModItemModelProvider extends ItemModelProvider {
                 .texture("layer0", this.modLoc("block/" + this.name(ModBlocks.MOON_GLASS.get())));
         this.withExistingParent(this.name(ModBlocks.SILENT_TREE_SAPLING.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(ModBlocks.SILENT_TREE_SAPLING.get())));
+
+        for (Block block : ModCommonUtils.getKnownBlocks()) {
+            if (block instanceof StairBlock || block instanceof SlabBlock) {
+                this.simpleBlockItem(block);
+            }
+        }
+
         for (Item item : ModCommonUtils.getKnownItems()) {
             ResourceLocation key = ForgeRegistries.ITEMS.getKey(item);
             if (item instanceof ForgeSpawnEggItem) {
@@ -145,10 +147,10 @@ public class ModItemModelProvider extends ItemModelProvider {
             } else if (item instanceof TieredItem) {
                 this.withExistingParent(key.getPath(), this.mcLoc("item/handheld"))
                         .texture("layer0", this.modLoc("item/" + key.getPath()));
-            } else {
-                if (!(item instanceof BlockItem) && item != ModItems.SLEEPING_BLACK_TEA.get()) {
-                    this.basicItem(item);
-                }
+            } else if (item instanceof ShieldItem) {
+                this.shieldItem(item);
+            } else if (!(item instanceof BlockItem) && item != ModItems.SLEEPING_BLACK_TEA.get()) {
+                this.basicItem(item);
             }
         }
 
@@ -170,6 +172,16 @@ public class ModItemModelProvider extends ItemModelProvider {
         trimmedArmorItem(ModItems.SPECTRAL_BOOTS);
         trimmedArmorItem(ModItems.AURORIAN_SLIME_BOOTS);
         trimmedArmorItem(ModItems.SPIKED_CHESTPLATE);
+    }
+
+    private void shieldItem(Item item) {
+        String path = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
+        this.withExistingParent(path + "_blocking", this.modLoc("item/ta_shield_blocking"))
+                .texture("layer0", this.modLoc("item/" + path));
+        this.withExistingParent(path, this.modLoc("item/ta_shield"))
+                .texture("layer0", this.modLoc("item/" + path))
+                .override().predicate(this.mcLoc("block"), 1.0F)
+                .model(this.getExistingFile(this.modLoc(path + "_blocking")));
     }
 
     private void trimmedArmorItem(RegistryObject<Item> itemRegistryObject) {
@@ -225,8 +237,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     private void simpleBlockItem(Block block) {
-        String path = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
-        this.withExistingParent(path, this.modLoc("block/" + path));
+        this.withExistingParent(this.name(block), this.modLoc("block/" + this.name(block)));
     }
 
     private void simpleBlockItemWithParent(Block block) {

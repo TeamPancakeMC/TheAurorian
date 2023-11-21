@@ -1,5 +1,13 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "theaurorian:item/ta_shield",
+  "overrides": [
+    {
+      "model": "theaurorian:item/moon_shield_blocking",
+      "predicate": {
+        "minecraft:block": 1.0
+      }
+    }
+  ],
   "textures": {
     "layer0": "theaurorian:item/moon_shield"
   }

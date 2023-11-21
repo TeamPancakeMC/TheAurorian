@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "theaurorian:block/moon_temple_slab"
+    },
+    "type=double": {
+      "model": "theaurorian:block/moon_temple_bricks"
+    },
+    "type=top": {
+      "model": "theaurorian:block/moon_temple_slab_top"
+    }
+  }
+}

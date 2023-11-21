@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.registry.ModBlocks;
 import cn.teampancake.theaurorian.utils.ModCommonUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -50,11 +51,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
         this.simpleBlock(ModBlocks.AURORIAN_PERIDOTITE.get());
         this.simpleBlock(ModBlocks.MOON_SAND.get());
         this.simpleBlock(ModBlocks.RUNE_STONE.get());
+        this.simpleBlock(ModBlocks.SMOOTH_RUNE_STONE.get());
+        this.simpleBlock(ModBlocks.CHISELED_RUNE_STONE.get());
+        this.simpleBlock(ModBlocks.AURORIAN_CASTLE_RUNE_STONE.get());
+        this.simpleBlock(ModBlocks.AURORIAN_STEEL_CASTLE_RUNE_STONE.get());
+        this.simpleBlock(ModBlocks.CERULEAN_CASTLE_RUNE_STONE.get());
+        this.simpleBlock(ModBlocks.CRYSTALLINE_CASTLE_RUNE_STONE.get());
+        this.simpleBlock(ModBlocks.MOON_CASTLE_RUNE_STONE.get());
+        this.simpleBlock(ModBlocks.TRANSPARENT_RUNE_STONE.get());
+        this.simpleBlock(ModBlocks.UMBRA_CASTLE_RUNE_STONE.get());
+        this.simpleBlock(ModBlocks.RUNE_STONE_PILLAR.get());
         this.simpleBlock(ModBlocks.MOON_TEMPLE_BRICKS.get());
         this.simpleBlock(ModBlocks.DARK_STONE_BRICKS.get());
         this.simpleBlock(ModBlocks.DARK_STONE_FANCY.get());
         this.simpleBlock(ModBlocks.DARK_STONE_LAYERS.get());
-        this.simpleBlock(ModBlocks.SMOOTH_RUNE_STONE.get());
         this.simpleBlock(ModBlocks.SMOOTH_MOON_TEMPLE_BRICKS.get());
         this.simpleBlock(ModBlocks.SMOOTH_AURORIAN_PERIDOTITE.get());
         this.simpleBlock(ModBlocks.RUNE_STONE_LAMP.get());
@@ -107,8 +117,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         this.modLoc("block/aurorian_grass_light_block"),
                         this.modLoc("block/aurorian_dirt"),
                         this.modLoc("block/aurorian_grass_light_block_top")));
-        this.simpleBlockWithRenderType(ModBlocks.MOON_GLASS.get(), CUTOUT);
-        this.simpleBlockWithRenderType(ModBlocks.AURORIAN_GLASS.get(), CUTOUT);
+        this.simpleBlockWithRenderType(ModBlocks.MOON_GLASS.get(), TRANSLUCENT);
+        this.simpleBlockWithRenderType(ModBlocks.AURORIAN_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(ModBlocks.SILENT_TREE_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(ModBlocks.WEEPING_WILLOW_LEAVES.get(), CUTOUT_MIPPED);
         this.registerBarStates(ModBlocks.RUNE_STONE_BARS.get());
@@ -129,6 +139,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
         for (Block block : ModCommonUtils.getKnownBlocks()) {
             if (block instanceof StairBlock stairBlock) {
                 this.stairsBlock(stairBlock, this.blockTexture(stairBlock.base));
+            } else if (block instanceof SlabBlockWithBase slabBlock) {
+                ResourceLocation texture = this.blockTexture(slabBlock.getBase());
+                this.slabBlock(slabBlock, texture, texture);
+            } else if (block instanceof WallBlockWithBase wallBlock) {
+                ResourceLocation texture = this.blockTexture(wallBlock.getBase());
+                this.wallBlock(wallBlock, this.blockTexture(wallBlock.getBase()));
+                this.simpleBlockItem(wallBlock, this.models().wallInventory(this.name(wallBlock), texture));
             }
         }
     }
@@ -224,22 +241,22 @@ public class ModBlockStateProvider extends BlockStateProvider {
         ResourceLocation edge = this.modLoc("block/" + name);
         ResourceLocation pane =  this.modLoc("block/" + name.replaceAll("_pane", ""));
         MultiPartBlockStateBuilder builder = this.getMultipartBuilder(block).part().modelFile(
-                this.models().panePost(name + "_post", pane, edge).renderType(CUTOUT)).addModel().end();
-        builder.part().modelFile(this.models().paneSide(side, pane, edge).renderType(CUTOUT))
+                this.models().panePost(name + "_post", pane, edge).renderType(TRANSLUCENT)).addModel().end();
+        builder.part().modelFile(this.models().paneSide(side, pane, edge).renderType(TRANSLUCENT))
                 .addModel().condition(IronBarsBlock.NORTH, true).end();
-        builder.part().modelFile(this.models().paneSide(side, pane, edge).renderType(CUTOUT))
+        builder.part().modelFile(this.models().paneSide(side, pane, edge).renderType(TRANSLUCENT))
                 .rotationY(90).addModel().condition(IronBarsBlock.WEST, true).end();
-        builder.part().modelFile(this.models().paneSideAlt(sideAlt, pane, edge).renderType(CUTOUT))
+        builder.part().modelFile(this.models().paneSideAlt(sideAlt, pane, edge).renderType(TRANSLUCENT))
                 .addModel().condition(IronBarsBlock.SOUTH, true).end();
-        builder.part().modelFile(this.models().paneSideAlt(sideAlt, pane, edge).renderType(CUTOUT))
+        builder.part().modelFile(this.models().paneSideAlt(sideAlt, pane, edge).renderType(TRANSLUCENT))
                 .rotationY(90).addModel().condition(IronBarsBlock.WEST, true).end();
-        builder.part().modelFile(this.models().paneNoSide(noSide, pane).renderType(CUTOUT))
+        builder.part().modelFile(this.models().paneNoSide(noSide, pane).renderType(TRANSLUCENT))
                 .addModel().condition(IronBarsBlock.NORTH, false).end();
-        builder.part().modelFile(this.models().paneNoSide(noSide, pane).renderType(CUTOUT))
+        builder.part().modelFile(this.models().paneNoSide(noSide, pane).renderType(TRANSLUCENT))
                 .rotationY(270).addModel().condition(IronBarsBlock.WEST, false).end();
-        builder.part().modelFile(this.models().paneNoSideAlt(noSideAlt, pane).renderType(CUTOUT))
+        builder.part().modelFile(this.models().paneNoSideAlt(noSideAlt, pane).renderType(TRANSLUCENT))
                 .addModel().condition(IronBarsBlock.EAST, false).end();
-        builder.part().modelFile(this.models().paneNoSideAlt(noSideAlt, pane).renderType(CUTOUT))
+        builder.part().modelFile(this.models().paneNoSideAlt(noSideAlt, pane).renderType(TRANSLUCENT))
                 .rotationY(270).addModel().condition(IronBarsBlock.WEST, false).end();
     }
 

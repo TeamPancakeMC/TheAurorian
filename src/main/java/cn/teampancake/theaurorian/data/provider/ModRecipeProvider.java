@@ -1,6 +1,8 @@
 package cn.teampancake.theaurorian.data.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.blocks.SlabBlockWithBase;
+import cn.teampancake.theaurorian.common.blocks.WallBlockWithBase;
 import cn.teampancake.theaurorian.data.recipes.MoonlightForgeRecipeBuilder;
 import cn.teampancake.theaurorian.data.recipes.ScrapperRecipeBuilder;
 import cn.teampancake.theaurorian.data.tags.ModItemTags;
@@ -303,6 +305,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 if (stairBlock.defaultMapColor() == Blocks.STONE.defaultMapColor()) {
                     stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, stairBlock, base);
                 }
+            } else if (block instanceof SlabBlockWithBase slabBlock) {
+                slab(consumer, RecipeCategory.BUILDING_BLOCKS, slabBlock, slabBlock.getBase());
+                if (slabBlock.defaultMapColor() == Blocks.STONE.defaultMapColor()) {
+                    stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, slabBlock, slabBlock.getBase(), 2);
+                }
+            } else if (block instanceof WallBlockWithBase wallBlock) {
+                wall(consumer, RecipeCategory.BUILDING_BLOCKS, wallBlock, wallBlock.getBase());
+                stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, wallBlock, wallBlock.getBase());
             }
         }
     }
@@ -333,7 +343,8 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(material), has(material)).save(consumer);
     }
 
-    private void buildBaseToolRecipes(Consumer<FinishedRecipe> consumer, ItemLike sword, ItemLike pickaxe, ItemLike shovel, ItemLike axe, ItemLike hoe, ItemLike material) {
+    private void buildBaseToolRecipes(Consumer<FinishedRecipe> consumer, ItemLike sword,
+            ItemLike pickaxe, ItemLike shovel, ItemLike axe, ItemLike hoe, ItemLike material) {
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, sword).define('#', ModItems.SILENT_WOOD_STICK.get()).define('X', material)
                 .pattern("X").pattern("X").pattern("#").unlockedBy(getHasName(material), has(material)).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pickaxe).define('#', ModItems.SILENT_WOOD_STICK.get()).define('X', material)

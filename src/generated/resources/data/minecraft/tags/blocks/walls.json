@@ -1,0 +1,24 @@
+{
+  "values": [
+    "theaurorian:aurorian_stone_wall",
+    "theaurorian:aurorian_stone_brick_wall",
+    "theaurorian:aurorian_cobblestone_wall",
+    "theaurorian:rune_stone_wall",
+    "theaurorian:smooth_rune_stone_wall",
+    "theaurorian:chiseled_rune_stone_wall",
+    "theaurorian:aurorian_castle_rune_stone_wall",
+    "theaurorian:aurorian_steel_castle_rune_stone_wall",
+    "theaurorian:cerulean_castle_rune_stone_wall",
+    "theaurorian:crystalline_castle_rune_stone_wall",
+    "theaurorian:moon_castle_rune_stone_wall",
+    "theaurorian:transparent_rune_stone_wall",
+    "theaurorian:umbra_castle_rune_stone_wall",
+    "theaurorian:moon_temple_wall",
+    "theaurorian:dark_stone_wall",
+    "theaurorian:umbra_stone_wall",
+    "theaurorian:umbra_stone_cracked_wall",
+    "theaurorian:umbra_stone_roof_wall",
+    "theaurorian:aurorian_peridotite_wall",
+    "theaurorian:smooth_aurorian_peridotite_wall"
+  ]
+}

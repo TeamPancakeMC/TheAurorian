@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "theaurorian:aurorian_cobblestone"
+  },
+  "result": "theaurorian:aurorian_cobblestone_wall"
+}

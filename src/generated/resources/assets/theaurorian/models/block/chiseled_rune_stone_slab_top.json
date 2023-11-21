@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "theaurorian:block/chiseled_rune_stone",
+    "side": "theaurorian:block/chiseled_rune_stone",
+    "top": "theaurorian:block/chiseled_rune_stone"
+  }
+}

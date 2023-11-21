@@ -1,5 +1,7 @@
 package cn.teampancake.theaurorian.utils;
 
+import cn.teampancake.theaurorian.common.blocks.SlabBlockWithBase;
+import cn.teampancake.theaurorian.common.blocks.WallBlockWithBase;
 import cn.teampancake.theaurorian.registry.ModBlocks;
 import cn.teampancake.theaurorian.registry.ModItems;
 import net.minecraft.world.item.BlockItem;
@@ -14,7 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings({"deprecation","unused"})
+@SuppressWarnings("deprecation")
 public class ModBlockRegUtils {
 
     public static RegistryObject<Block> register(String name, Supplier<Block> block) {
@@ -69,12 +71,12 @@ public class ModBlockRegUtils {
         return register(name, () -> new DoorBlock(properties, BlockSetType.register(blockSetType)));
     }
 
-    public static RegistryObject<Block> slab(String name, BlockBehaviour.Properties properties) {
-        return register(name, () -> new SlabBlock(properties));
+    public static <T extends Block> RegistryObject<Block> slab(String name, Supplier<T> base, BlockBehaviour.Properties properties) {
+        return register(name, () -> new SlabBlockWithBase(base.get(), properties));
     }
 
-    public static RegistryObject<Block> wall(String name, BlockBehaviour.Properties properties) {
-        return register(name, () -> new WallBlock(properties));
+    public static <T extends Block> RegistryObject<Block> wall(String name, Supplier<T> base, BlockBehaviour.Properties properties) {
+        return register(name, () -> new WallBlockWithBase(base.get(), properties));
     }
 
 }

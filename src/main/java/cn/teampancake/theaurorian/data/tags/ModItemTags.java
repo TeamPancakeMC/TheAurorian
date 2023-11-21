@@ -14,6 +14,7 @@ public class ModItemTags {
     public static final TagKey<Item> SILENT_TREE_LOGS = create("silent_tree_logs");
     public static final TagKey<Item> WEEPING_WILLOW_LOGS = create("weeping_willow_logs");
     public static final TagKey<Item> AURORIAN_SLIME_BOOTS = create("aurorian_slime_boots");
+    public static final TagKey<Item> HAS_CUSTOM_ARMOR_MODEL = create("has_custom_armor_model");
     public static final TagKey<Item> AUROTIAN_ANIMAL_UNSPAWNABLE_ON = create("aurotian_animal_unspawnable_on");
 
     private static TagKey<Item> create(String name) {

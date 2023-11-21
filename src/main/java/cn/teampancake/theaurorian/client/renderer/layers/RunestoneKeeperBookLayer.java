@@ -15,8 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 @OnlyIn(Dist.CLIENT)
 public class RunestoneKeeperBookLayer<T extends RunestoneKeeper, M extends EntityModel<T>> extends RenderLayer<T, M> {
 

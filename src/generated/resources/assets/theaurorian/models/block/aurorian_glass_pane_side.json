@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_glass_pane_side",
-  "render_type": "minecraft:cutout",
+  "render_type": "minecraft:translucent",
   "textures": {
     "edge": "theaurorian:block/aurorian_glass_pane",
     "pane": "theaurorian:block/aurorian_glass"

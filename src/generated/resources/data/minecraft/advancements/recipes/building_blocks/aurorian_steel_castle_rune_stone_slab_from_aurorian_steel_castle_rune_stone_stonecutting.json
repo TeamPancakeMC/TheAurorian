@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aurorian_steel_castle_rune_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theaurorian:aurorian_steel_castle_rune_stone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:aurorian_steel_castle_rune_stone_slab_from_aurorian_steel_castle_rune_stone_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_aurorian_steel_castle_rune_stone",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:aurorian_steel_castle_rune_stone_slab_from_aurorian_steel_castle_rune_stone_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

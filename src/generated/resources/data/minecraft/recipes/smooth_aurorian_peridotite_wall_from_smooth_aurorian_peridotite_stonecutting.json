@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "theaurorian:smooth_aurorian_peridotite"
+  },
+  "result": "theaurorian:smooth_aurorian_peridotite_wall"
+}

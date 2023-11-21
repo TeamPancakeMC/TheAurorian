@@ -7,9 +7,7 @@ import cn.teampancake.theaurorian.utils.ModCommonUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -51,18 +49,24 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 ModBlocks.AURORIAN_PERIDOTITE.get(), ModBlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), ModBlocks.MOONSTONE_ORE.get(),
                 ModBlocks.CERULEAN_ORE.get(), ModBlocks.GEODE_ORE.get(), ModBlocks.INDIGO_MUSHROOM_CRYSTAL.get(),
                 ModBlocks.MOONLIGHT_FORGE.get(), ModBlocks.MOON_GEM.get(), ModBlocks.UMBRA_STONE.get(),
-                ModBlocks.UMBRA_STONE_CRACKED.get(), ModBlocks.UMBRA_STONE_ROOF_TILES.get(),
-                ModBlocks.AURORIAN_STONE_STAIRS.get(), ModBlocks.AURORIAN_STONE_BRICK_STAIRS.get(),
-                ModBlocks.AURORIAN_COBBLESTONE_STAIRS.get(), ModBlocks.UMBRA_STONE_STAIRS.get(),
-                ModBlocks.UMBRA_STONE_CRACKED_STAIRS.get(), ModBlocks.UMBRA_STONE_ROOF_STAIRS.get(),
-                ModBlocks.AURORIAN_PERIDOTITE_STAIRS.get(), ModBlocks.SMOOTH_AURORIAN_PERIDOTITE_STAIRS.get());
+                ModBlocks.UMBRA_STONE_CRACKED.get(), ModBlocks.UMBRA_STONE_ROOF_TILES.get());
         this.tag(BlockTags.WOODEN_STAIRS).add(ModBlocks.SILENT_WOOD_STAIRS.get(), ModBlocks.WEEPING_WILLOW_STAIRS.get());
+        this.tag(BlockTags.WOODEN_SLABS).add(ModBlocks.SILENT_WOOD_SLAB.get(), ModBlocks.WEEPING_WILLOW_SLAB.get());
         this.tag(BlockTags.SAND).add(ModBlocks.MOON_SAND.get());
         for (Block block : ModCommonUtils.getKnownBlocks()) {
             float f1 = Blocks.BEDROCK.defaultDestroyTime();
             float f2 = Blocks.BEDROCK.getExplosionResistance();
-            if (block instanceof StairBlock && !block.defaultBlockState().ignitedByLava()) {
-                this.tag(BlockTags.STAIRS).add(block);
+            if (!block.defaultBlockState().ignitedByLava()) {
+                if (block instanceof StairBlock) {
+                    this.tag(BlockTags.STAIRS).add(block);
+                    this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
+                } else if (block instanceof SlabBlock) {
+                    this.tag(BlockTags.SLABS).add(block);
+                    this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
+                } else if (block instanceof WallBlock) {
+                    this.tag(BlockTags.WALLS).add(block);
+                    this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
+                }
             } else if (block.defaultDestroyTime() != f1 && block.getExplosionResistance() == f2) {
                 this.tag(ModBlockTags.DUNGEON_BRICKS).add(block);
             }

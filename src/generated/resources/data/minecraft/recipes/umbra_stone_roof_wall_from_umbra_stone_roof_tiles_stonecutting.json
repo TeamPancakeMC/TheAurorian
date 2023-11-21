@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "theaurorian:umbra_stone_roof_tiles"
+  },
+  "result": "theaurorian:umbra_stone_roof_wall"
+}

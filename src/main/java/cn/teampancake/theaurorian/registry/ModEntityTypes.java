@@ -15,7 +15,10 @@ import cn.teampancake.theaurorian.common.entities.projectile.CeruleanArrowEntity
 import cn.teampancake.theaurorian.common.entities.projectile.CrystalArrowEntity;
 import cn.teampancake.theaurorian.common.entities.projectile.StickySpikerEntity;
 import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.SlimeModel;
+import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -129,9 +132,9 @@ public class ModEntityTypes {
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         LayerDefinition zombieLayer = LayerDefinition.create(HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F), 64, 64);
         LayerDefinition outerLayer = LayerDefinition.create(HumanoidModel.createMesh(new CubeDeformation(0.25F), 0.0F), 64, 64);
-        event.registerLayerDefinition(ModModelLayers.AURORIAN_RABBIT, RabbitModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.AURORIAN_SHEEP, SheepModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.AURORIAN_PIG, () -> PigModel.createBodyLayer(new CubeDeformation(0.5F)));
+        event.registerLayerDefinition(ModModelLayers.AURORIAN_RABBIT, AurorianRabbitModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.AURORIAN_SHEEP, AurorianSheepModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.AURORIAN_PIG, AurorianPigModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.AURORIAN_SLIME, SlimeModel::createInnerBodyLayer);
         event.registerLayerDefinition(ModModelLayers.AURORIAN_SLIME_OUTER, SlimeModel::createOuterBodyLayer);
         event.registerLayerDefinition(ModModelLayers.DISTURBED_HOLLOW, () -> zombieLayer);
@@ -143,12 +146,11 @@ public class ModEntityTypes {
         event.registerLayerDefinition(ModModelLayers.RUNESTONE_KEEPER, RunestoneKeeperModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.SPIDER_MOTHER, SpiderModel::createSpiderBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.MOON_QUEEN, () -> LayerDefinition.create(
-                PlayerModel.createMesh(CubeDeformation.NONE, false), 64, 64));
-        event.registerLayerDefinition(ModModelLayers.AURORIAN_STEEL_ARMOR, AurorianSteelArmorModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.CERULEAN_ARMOR, CeruleanArmorModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.KNIGHT_ARMOR, KnightArmorModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.SPECTRAL_ARMOR, SpectralArmorModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.MOON_QUEEN, () -> LayerDefinition.create(PlayerModel.createMesh(CubeDeformation.NONE, false), 64, 64));
+        event.registerLayerDefinition(ModModelLayers.AURORIAN_STEEL_ARMOR, () -> LayerDefinition.create(AurorianSteelArmorModel.createBodyLayer(CubeDeformation.NONE), 128, 128));
+        event.registerLayerDefinition(ModModelLayers.CERULEAN_ARMOR, () -> LayerDefinition.create(CeruleanArmorModel.createBodyLayer(CubeDeformation.NONE), 128, 128));
+        event.registerLayerDefinition(ModModelLayers.KNIGHT_ARMOR, () -> LayerDefinition.create(KnightArmorModel.createBodyLayer(CubeDeformation.NONE), 128, 128));
+        event.registerLayerDefinition(ModModelLayers.SPECTRAL_ARMOR, () -> LayerDefinition.create(SpectralArmorModel.createBodyLayer(CubeDeformation.NONE), 128, 128));
     }
 
     @SubscribeEvent

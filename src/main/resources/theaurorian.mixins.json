@@ -10,10 +10,14 @@
         "MixinBaseFireBlock",
         "MixinDiggerItem",
         "MixinShearsItem",
+        "MixinSkyLightSectionStorage",
         "MixinSwordItem"
     ],
     "client": [
+        "MixinClientLevel",
+        "MixinFogRenderer",
         "MixinHumanoidArmorLayer",
+        "MixinLevelRenderer",
         "MixinLivingEntityRenderer",
         "MixinPlayerRenderer"
     ],

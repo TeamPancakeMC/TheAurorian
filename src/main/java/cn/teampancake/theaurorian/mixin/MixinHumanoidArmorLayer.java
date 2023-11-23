@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.mixin;
 
-import cn.teampancake.theaurorian.data.tags.ModItemTags;
+import cn.teampancake.theaurorian.data.tags.TAItemTags;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -23,7 +23,7 @@ public abstract class MixinHumanoidArmorLayer<T extends LivingEntity, M extends 
 
     @Inject(method = "renderArmorPiece", at = @At(value = "HEAD"), cancellable = true)
     private void renderArmorPiece(PoseStack poseStack, MultiBufferSource buffer, T livingEntity, EquipmentSlot slot, int packedLight, A model, CallbackInfo ci) {
-        if (livingEntity.getItemBySlot(slot).is(ModItemTags.HAS_CUSTOM_ARMOR_MODEL)) {
+        if (livingEntity.getItemBySlot(slot).is(TAItemTags.HAS_CUSTOM_ARMOR_MODEL)) {
             ci.cancel();
         }
     }

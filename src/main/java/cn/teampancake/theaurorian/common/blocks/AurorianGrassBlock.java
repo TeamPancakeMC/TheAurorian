@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.blocks;
 
+import cn.teampancake.theaurorian.registry.TABlocks;
 import cn.teampancake.theaurorian.utils.AurorianUtil;
-import cn.teampancake.theaurorian.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -40,7 +40,7 @@ public class AurorianGrassBlock extends GrassBlock {
                 int y = random.nextInt(5) - 3;
                 int z = random.nextInt(3) - 1;
                 BlockPos blockPos = new BlockPos(x, y, z);
-                if (serverLevel.getBlockState(blockPos).is(ModBlocks.AURORIAN_DIRT.get())) {
+                if (serverLevel.getBlockState(blockPos).is(TABlocks.AURORIAN_DIRT.get())) {
                     serverLevel.setBlockAndUpdate(blockPos, this.defaultBlockState());
                 }
             }

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.grower.SilentTreeGrower;
-import cn.teampancake.theaurorian.registry.ModBlocks;
+import cn.teampancake.theaurorian.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -15,7 +15,7 @@ public class SilentTreeSapling extends SaplingBlock {
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(ModBlocks.AURORIAN_GRASS_BLOCK.get()) || state.is(ModBlocks.AURORIAN_DIRT.get());
+        return state.is(TABlocks.AURORIAN_GRASS_BLOCK.get()) || state.is(TABlocks.AURORIAN_DIRT.get());
     }
 
 }

@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.data.tags.ModBlockTags;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.data.tags.TABlockTags;
+import cn.teampancake.theaurorian.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -26,6 +26,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class UndeadKnight extends Monster {
 
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
+
     public UndeadKnight(EntityType<? extends UndeadKnight> type, Level level) {
         super(type, level);
         this.xpReward = 20;
@@ -43,7 +46,7 @@ public class UndeadKnight extends Monster {
     }
 
     public static boolean checkUndeadKnightSpawnRules(EntityType<UndeadKnight> undeadKnight, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(ModBlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkMonsterSpawnRules(undeadKnight, level, spawnType, pos, random);
+        return level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkMonsterSpawnRules(undeadKnight, level, spawnType, pos, random);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -57,7 +60,25 @@ public class UndeadKnight extends Monster {
     }
 
     @Override
+    public void aiStep() {
+        super.aiStep();
+        if (this.level().isClientSide()) {
+            this.idleAnimationState.startIfStopped(this.tickCount);
+        }
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 4) {
+            this.attackAnimationState.start(this.tickCount);
+        } else {
+            super.handleEntityEvent(id);
+        }
+    }
+
+    @Override
     public boolean doHurtTarget(@NotNull Entity entity) {
+        this.level().broadcastEntityEvent(this, (byte)4);
         if (super.doHurtTarget(entity)) {
             if (entity instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 60));
@@ -69,23 +90,18 @@ public class UndeadKnight extends Monster {
     }
 
     @Override
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.ZOMBIE_AMBIENT;
-    }
-
-    @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.ZOMBIE_HURT;
+        return SoundEvents.IRON_GOLEM_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ZOMBIE_DEATH;
+        return SoundEvents.IRON_GOLEM_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ZOMBIE_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.IRON_GOLEM_STEP, 0.15F, 1.0F);
     }
 
     @Override
@@ -95,10 +111,10 @@ public class UndeadKnight extends Monster {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.AURORIAN_STONE_SWORD.get()));
-        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(ModItems.KNIGHT_CHESTPLATE.get()));
-        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(ModItems.KNIGHT_LEGGINGS.get()));
-        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(ModItems.KNIGHT_BOOTS.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(TAItems.AURORIAN_STONE_SWORD.get()));
+        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(TAItems.KNIGHT_CHESTPLATE.get()));
+        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(TAItems.KNIGHT_LEGGINGS.get()));
+        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(TAItems.KNIGHT_BOOTS.get()));
     }
 
     @Override

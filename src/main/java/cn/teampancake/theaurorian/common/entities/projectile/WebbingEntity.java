@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.projectile;
 
-import cn.teampancake.theaurorian.registry.ModEntityTypes;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.registry.TAEntityTypes;
+import cn.teampancake.theaurorian.registry.TAItems;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -18,16 +18,16 @@ public class WebbingEntity extends ThrowableItemProjectile {
     }
 
     public WebbingEntity(double x, double y, double z, Level level) {
-        super(ModEntityTypes.WEBBING.get(), x, y, z, level);
+        super(TAEntityTypes.WEBBING.get(), x, y, z, level);
     }
 
     public WebbingEntity(LivingEntity shooter, Level level) {
-        super(ModEntityTypes.WEBBING.get(), shooter, level);
+        super(TAEntityTypes.WEBBING.get(), shooter, level);
     }
 
     @Override
     protected Item getDefaultItem() {
-        return ModItems.WEBBING.get();
+        return TAItems.WEBBING.get();
     }
 
     @Override

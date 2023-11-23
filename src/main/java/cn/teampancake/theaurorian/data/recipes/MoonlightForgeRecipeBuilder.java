@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.data.recipes;
 
 import cn.teampancake.theaurorian.common.items.crafting.MoonlightForgeRecipe;
-import cn.teampancake.theaurorian.registry.ModRecipes;
+import cn.teampancake.theaurorian.registry.TARecipes;
 import com.google.gson.JsonObject;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
@@ -42,7 +42,7 @@ public class MoonlightForgeRecipeBuilder implements RecipeBuilder {
 
     public static MoonlightForgeRecipeBuilder addRecipe(ItemLike equipment, ItemLike upgradeMaterial, ItemLike result) {
         return new MoonlightForgeRecipeBuilder(Ingredient.of(equipment), Ingredient.of(upgradeMaterial),
-                result.asItem(), ModRecipes.MOONLIGHT_FORGE_SERIALIZER.get());
+                result.asItem(), TARecipes.MOONLIGHT_FORGE_SERIALIZER.get());
     }
 
     @Override

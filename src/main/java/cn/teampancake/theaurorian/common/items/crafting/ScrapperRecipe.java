@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.crafting;
 
-import cn.teampancake.theaurorian.registry.ModRecipes;
+import cn.teampancake.theaurorian.registry.TARecipes;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -56,12 +56,12 @@ public class ScrapperRecipe implements Recipe<Container> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.SCRAPPER_SERIALIZER.get();
+        return TARecipes.SCRAPPER_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return ModRecipes.SCRAPPER_RECIPE.get();
+        return TARecipes.SCRAPPER_RECIPE.get();
     }
 
 }

@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.client.inventory;
 
 import cn.teampancake.theaurorian.common.blocks.entity.ScrapperBlockEntity;
-import cn.teampancake.theaurorian.registry.ModItems;
-import cn.teampancake.theaurorian.registry.ModMenuTypes;
+import cn.teampancake.theaurorian.registry.TAItems;
+import cn.teampancake.theaurorian.registry.TAMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +26,7 @@ public class ScrapperMenu extends AbstractSimpleMenu {
     }
 
     public ScrapperMenu(int containerId, Inventory inventory, BlockEntity blockEntity, ContainerData containerData) {
-        super(ModMenuTypes.SCRAPPER_MENU.get(), containerId, inventory);
+        super(TAMenuTypes.SCRAPPER_MENU.get(), containerId, inventory);
         checkContainerSize(inventory, 3);
         this.scrapper = (ScrapperBlockEntity) blockEntity;
         this.containerData = containerData;
@@ -65,7 +65,7 @@ public class ScrapperMenu extends AbstractSimpleMenu {
                     if (!this.moveItemStackTo(sourceStack, 36, 37, Boolean.FALSE)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (sourceStack.is(ModItems.CRYSTAL.get())) {
+                } else if (sourceStack.is(TAItems.CRYSTAL.get())) {
                     if (!this.moveItemStackTo(sourceStack, 37, 38, Boolean.FALSE)) {
                         return ItemStack.EMPTY;
                     }
@@ -117,7 +117,7 @@ public class ScrapperMenu extends AbstractSimpleMenu {
 
         @Override
         public boolean mayPlace(@NotNull ItemStack stack) {
-            return stack.is(ModItems.CRYSTAL.get());
+            return stack.is(TAItems.CRYSTAL.get());
         }
 
     }

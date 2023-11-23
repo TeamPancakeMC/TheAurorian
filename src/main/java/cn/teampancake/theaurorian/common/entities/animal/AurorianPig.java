@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
-import cn.teampancake.theaurorian.data.tags.ModBlockTags;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.data.tags.TABlockTags;
+import cn.teampancake.theaurorian.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
@@ -19,11 +19,11 @@ public class AurorianPig extends Pig {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(ModItems.SILK_BERRY.get());
+        return stack.is(TAItems.SILK_BERRY.get());
     }
 
     public static boolean checkAurorianPigSpawnRules(EntityType<AurorianPig> aurorianPig, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return !level.getBlockState(pos.below()).is(ModBlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkAnimalSpawnRules(aurorianPig, level, spawnType, pos, random);
+        return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkAnimalSpawnRules(aurorianPig, level, spawnType, pos, random);
     }
 
 }

@@ -19,8 +19,7 @@ public class RunestoneKeeperModel<T extends RunestoneKeeper> extends Hierarchica
 
     public RunestoneKeeperModel(ModelPart root) {
         this.all2 = root.getChild("all2");
-        this.head = root.getChild("all2").getChild("all")
-                .getChild("body_all").getChild("head");
+        this.head = this.all2.getChild("all").getChild("body_all").getChild("head");
     }
 
     public static LayerDefinition createBodyLayer() {

@@ -2,7 +2,7 @@ package cn.teampancake.theaurorian.client.renderer.entity;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.model.UndeadKnightModel;
-import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
+import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.monster.UndeadKnight;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class UndeadKnightRenderer extends MobRenderer<UndeadKnight, UndeadKnightModel<UndeadKnight>> {
 
     public UndeadKnightRenderer(EntityRendererProvider.Context context) {
-        super(context, new UndeadKnightModel<>(context.bakeLayer(ModModelLayers.UNDEAD_KNIGHT)), 0.5F);
+        super(context, new UndeadKnightModel<>(context.bakeLayer(TAModelLayers.UNDEAD_KNIGHT)), 0.5F);
     }
 
     @Override

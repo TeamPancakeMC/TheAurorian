@@ -4,8 +4,8 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import cn.teampancake.theaurorian.common.items.ModArmorMaterials;
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.data.tags.ModItemTags;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.data.tags.TAItemTags;
+import cn.teampancake.theaurorian.registry.TAItems;
 import cn.teampancake.theaurorian.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.utils.AurorianUtil;
 import net.minecraft.ChatFormatting;
@@ -50,11 +50,11 @@ public class ItemEventSubscriber {
             repairItem = tieredItem.getTier().getRepairIngredient();
         }
 
-        if (repairItem == Ingredient.of(ModItems.AURORIAN_STEEL.get())) {
+        if (repairItem == Ingredient.of(TAItems.AURORIAN_STEEL.get())) {
             AurorianSteelHelper.getAurorianSteelInfo(stack, tooltip);
         }
 
-        if(repairItem == Ingredient.of(ModItems.CRYSTALLINE_INGOT.get())){
+        if(repairItem == Ingredient.of(TAItems.CRYSTALLINE_INGOT.get())){
             //TODO CRYSTALLINE_INGOT TOOLTIP
         }
     }
@@ -73,7 +73,7 @@ public class ItemEventSubscriber {
         Level level = entity.level();
         if(level.isClientSide()) return;
         entity.getArmorSlots().forEach(itemStack -> {
-            if (itemStack.is(ModItemTags.SPECTRAL_ARMOR)
+            if (itemStack.is(TAItemTags.SPECTRAL_ARMOR)
                     && AurorianUtil.randomChanceOf(AurorianConfig.CONFIG_SPECTRAL_ARMOR_CLEANSE_CHANCE.get())
                     && entity instanceof Player player) {
                 player.getActiveEffects().forEach(effectInstance -> {
@@ -90,7 +90,7 @@ public class ItemEventSubscriber {
         if (event.getEntity() instanceof Player player){
             if (!player.isShiftKeyDown() && !player.onGround()) return;
             player.getArmorSlots().forEach(stack -> {
-                if (stack.is(ModItems.AURORIAN_SLIME_BOOTS.get()) && player.getCooldowns().isOnCooldown(stack.getItem())) {
+                if (stack.is(TAItems.AURORIAN_SLIME_BOOTS.get()) && player.getCooldowns().isOnCooldown(stack.getItem())) {
                     player.setDeltaMovement(player.getDeltaMovement().x, 0.5, player.getDeltaMovement().z);
                     player.getCooldowns().addCooldown(stack.getItem(), AurorianConfig.Config_SlimeBootsCooldown.get());
                 }
@@ -102,7 +102,7 @@ public class ItemEventSubscriber {
     public static void SlimeBootsFall(LivingFallEvent event) {
         if (event.getEntity() instanceof Player player){
             player.getArmorSlots().forEach(stack -> {
-                if (stack.is(ModItems.AURORIAN_SLIME_BOOTS.get()) && event.getDistance() > 3f) {
+                if (stack.is(TAItems.AURORIAN_SLIME_BOOTS.get()) && event.getDistance() > 3f) {
                     player.setDeltaMovement(player.getDeltaMovement().x, 0.75, player.getDeltaMovement().z);
                     event.setCanceled(true);
                 }

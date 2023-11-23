@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.AurorianFurnaceBlockEntity;
-import cn.teampancake.theaurorian.registry.ModBlockEntityTypes;
+import cn.teampancake.theaurorian.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -41,7 +41,7 @@ public class AurorianFurnace extends FurnaceBlock {
 
     @Nullable @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide ? null : createTickerHelper(blockEntityType, ModBlockEntityTypes.AURORIAN_FURNACE.get(), AurorianFurnaceBlockEntity::serverTick);
+        return level.isClientSide ? null : createTickerHelper(blockEntityType, TABlockEntityTypes.AURORIAN_FURNACE.get(), AurorianFurnaceBlockEntity::serverTick);
     }
 
 }

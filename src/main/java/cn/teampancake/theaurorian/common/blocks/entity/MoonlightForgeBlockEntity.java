@@ -2,8 +2,8 @@ package cn.teampancake.theaurorian.common.blocks.entity;
 
 import cn.teampancake.theaurorian.client.inventory.MoonlightForgeMenu;
 import cn.teampancake.theaurorian.common.items.crafting.MoonlightForgeRecipe;
-import cn.teampancake.theaurorian.registry.ModBlockEntityTypes;
-import cn.teampancake.theaurorian.registry.ModRecipes;
+import cn.teampancake.theaurorian.registry.TABlockEntityTypes;
+import cn.teampancake.theaurorian.registry.TARecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -29,8 +29,8 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
     private final RecipeManager.CachedCheck<Container, ? extends MoonlightForgeRecipe> quickCheck;
 
     public MoonlightForgeBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlockEntityTypes.MOONLIGHT_FORGE.get(), pos, blockState);
-        this.quickCheck = RecipeManager.createCheck(ModRecipes.MOONLIGHT_FORGE_RECIPE.get());
+        super(TABlockEntityTypes.MOONLIGHT_FORGE.get(), pos, blockState);
+        this.quickCheck = RecipeManager.createCheck(TARecipes.MOONLIGHT_FORGE_RECIPE.get());
     }
 
     @SuppressWarnings("unused")

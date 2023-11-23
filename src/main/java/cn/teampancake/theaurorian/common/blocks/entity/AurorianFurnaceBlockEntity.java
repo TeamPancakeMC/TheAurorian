@@ -3,8 +3,8 @@ package cn.teampancake.theaurorian.common.blocks.entity;
 import cn.teampancake.theaurorian.common.blocks.AurorianFurnace;
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.mixin.InvokeAbstractFurnaceBlockEntity;
-import cn.teampancake.theaurorian.registry.ModBlockEntityTypes;
-import cn.teampancake.theaurorian.registry.ModBlocks;
+import cn.teampancake.theaurorian.registry.TABlockEntityTypes;
+import cn.teampancake.theaurorian.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
 
     public AurorianFurnaceBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlockEntityTypes.AURORIAN_FURNACE.get(), pos, blockState, RecipeType.SMELTING);
+        super(TABlockEntityTypes.AURORIAN_FURNACE.get(), pos, blockState, RecipeType.SMELTING);
     }
 
     public float getChimneySpeedMultiplier() {
@@ -30,7 +30,7 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         while (this.level != null && !(this.level.isEmptyBlock(this.worldPosition.above(y)))
                 && chimneyCount < AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
             y++;
-            if (this.level.getBlockState(this.worldPosition.above(y)).getBlock() == ModBlocks.AURORIAN_FURNACE_CHIMNEY.get()) {
+            if (this.level.getBlockState(this.worldPosition.above(y)).getBlock() == TABlocks.AURORIAN_FURNACE_CHIMNEY.get()) {
                 chimneyCount++;
             }
         }

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
-import cn.teampancake.theaurorian.registry.ModEnchantments;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.registry.TAEnchantments;
+import cn.teampancake.theaurorian.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerBossEvent;
@@ -179,8 +179,8 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
-        ItemStack swordStack = new ItemStack(ModItems.MOONSTONE_SWORD.get());
-        swordStack.enchant(ModEnchantments.LIGHTNING_DAMAGE.get(), 3);
+        ItemStack swordStack = new ItemStack(TAItems.MOONSTONE_SWORD.get());
+        swordStack.enchant(TAEnchantments.LIGHTNING_DAMAGE.get(), 3);
         swordStack.enchant(Enchantments.KNOCKBACK, 2);
         this.setItemSlot(EquipmentSlot.MAINHAND, swordStack);
     }

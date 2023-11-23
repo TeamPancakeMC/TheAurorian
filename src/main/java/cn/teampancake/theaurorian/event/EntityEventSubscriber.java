@@ -9,9 +9,9 @@ import cn.teampancake.theaurorian.common.items.CrystallineShield;
 import cn.teampancake.theaurorian.common.items.ModArmorMaterials;
 import cn.teampancake.theaurorian.common.items.UmbraShield;
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.data.tags.ModBlockTags;
-import cn.teampancake.theaurorian.data.tags.ModEntityTags;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.data.tags.TABlockTags;
+import cn.teampancake.theaurorian.data.tags.TAEntityTags;
+import cn.teampancake.theaurorian.registry.TAItems;
 import cn.teampancake.theaurorian.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.utils.AurorianUtil;
 import net.minecraft.server.level.ServerPlayer;
@@ -47,7 +47,7 @@ public class EntityEventSubscriber {
             double baseHealth = monster.getAttributeBaseValue(Attributes.MAX_HEALTH);
             double baseAttackDamage = monster.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
             double baseMovementSpeed = monster.getAttributeBaseValue(Attributes.MOVEMENT_SPEED);
-            if (monster.getType().is(ModEntityTags.AFFECTED_BY_NIGHTMARE_MODE)) {
+            if (monster.getType().is(TAEntityTags.AFFECTED_BY_NIGHTMARE_MODE)) {
                 boolean nightmareMode = AurorianConfig.CONFIG_NIGHTMARE_MODE.get();
                 double multiplier = AurorianConfig.CONFIG_NIGHTMARE_MODE_MULTIPLIER.get();
                 double newHealth = nightmareMode ? baseHealth * multiplier * 2.0D : baseHealth;
@@ -129,7 +129,7 @@ public class EntityEventSubscriber {
                 player.getCooldowns().addCooldown(item, 20);
             }
         }
-        if (item == ModItems.MOON_SHIELD.get()) {
+        if (item == TAItems.MOON_SHIELD.get()) {
             if (entity != null) {
                 entity.setPos(entity.getX(), entity.getY() + 5, entity.getZ());
             }
@@ -142,10 +142,10 @@ public class EntityEventSubscriber {
         BlockState state = event.getState();
         ItemStack blockStack = new ItemStack(state.getBlock());
         ItemStack handStack = player.getItemInHand(player.getUsedItemHand());
-        if (blockStack.is(Tags.Items.ORES) && handStack.is(ModItems.AURORIANITE_PICKAXE.get())) {
+        if (blockStack.is(Tags.Items.ORES) && handStack.is(TAItems.AURORIANITE_PICKAXE.get())) {
             event.setNewSpeed(event.getOriginalSpeed() * 1.4F);
-        } else if (state.is(ModBlockTags.DUNGEON_BRICKS)) {
-            boolean flag = handStack.is(ModItems.QUEENS_CHIPPER.get());
+        } else if (state.is(TABlockTags.DUNGEON_BRICKS)) {
+            boolean flag = handStack.is(TAItems.QUEENS_CHIPPER.get());
             event.setNewSpeed(flag ? event.getOriginalSpeed() * 16.0F : 0.0F);
         }
     }

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.registry.ModEntityTypes;
+import cn.teampancake.theaurorian.registry.TAEntityTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,7 +28,7 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
             level.playSound(null, player.getOnPos(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, pitch);
             if (this.getUseDuration(stack) - timeCharged >= 20 && !level.isClientSide) {
                 stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(player.getUsedItemHand()));
-                Arrow arrow = ModEntityTypes.CRYSTALLINE_BEAM.get().create(level);
+                Arrow arrow = TAEntityTypes.CRYSTALLINE_BEAM.get().create(level);
                 if (arrow != null) {
                     arrow.shoot(lookAngle.x, lookAngle.y, lookAngle.z,3.0F, 1.0F);
                     arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;

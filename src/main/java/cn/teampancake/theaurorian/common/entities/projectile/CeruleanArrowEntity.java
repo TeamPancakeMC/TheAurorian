@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.projectile;
 
-import cn.teampancake.theaurorian.registry.ModEntityTypes;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.registry.TAEntityTypes;
+import cn.teampancake.theaurorian.registry.TAItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -15,16 +15,16 @@ public class CeruleanArrowEntity extends AbstractArrow {
     }
 
     public CeruleanArrowEntity(double x, double y, double z, Level level) {
-        super(ModEntityTypes.CERULEAN_ARROW.get(), x, y, z, level);
+        super(TAEntityTypes.CERULEAN_ARROW.get(), x, y, z, level);
     }
 
     public CeruleanArrowEntity(LivingEntity shooter, Level level) {
-        super(ModEntityTypes.CERULEAN_ARROW.get(), shooter, level);
+        super(TAEntityTypes.CERULEAN_ARROW.get(), shooter, level);
     }
 
     @Override
     protected ItemStack getPickupItem() {
-        return new ItemStack(ModItems.CERULEAN_ARROW.get());
+        return new ItemStack(TAItems.CERULEAN_ARROW.get());
     }
 
 }

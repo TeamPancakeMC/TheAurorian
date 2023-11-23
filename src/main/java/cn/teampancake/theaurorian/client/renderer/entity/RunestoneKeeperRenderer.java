@@ -3,7 +3,7 @@ package cn.teampancake.theaurorian.client.renderer.entity;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.model.RunestoneBookModel;
 import cn.teampancake.theaurorian.client.model.RunestoneKeeperModel;
-import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
+import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.client.renderer.layers.RunestoneKeeperBookLayer;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -17,9 +17,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class RunestoneKeeperRenderer extends MobRenderer<RunestoneKeeper, RunestoneKeeperModel<RunestoneKeeper>> {
 
     public RunestoneKeeperRenderer(EntityRendererProvider.Context context) {
-        super(context, new RunestoneKeeperModel<>(context.bakeLayer(ModModelLayers.RUNESTONE_KEEPER)), 0.7F);
+        super(context, new RunestoneKeeperModel<>(context.bakeLayer(TAModelLayers.RUNESTONE_KEEPER)), 0.7F);
         this.addLayer(new RunestoneKeeperBookLayer<>(this,
-                new RunestoneBookModel<>(context.bakeLayer(ModModelLayers.RUNESTONE_BOOKS))));
+                new RunestoneBookModel<>(context.bakeLayer(TAModelLayers.RUNESTONE_BOOKS))));
     }
 
     @Override

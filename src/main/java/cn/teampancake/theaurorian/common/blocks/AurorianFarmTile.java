@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
-import cn.teampancake.theaurorian.registry.ModBlocks;
+import cn.teampancake.theaurorian.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -51,7 +51,7 @@ public class AurorianFarmTile extends FarmBlock {
     }
 
     private static void turnToAurorianDirt(@Nullable Entity entity, BlockState state, Level level, BlockPos pos) {
-        BlockState blockState = pushEntitiesUp(state, ModBlocks.AURORIAN_DIRT.get().defaultBlockState(), level, pos);
+        BlockState blockState = pushEntitiesUp(state, TABlocks.AURORIAN_DIRT.get().defaultBlockState(), level, pos);
         level.setBlockAndUpdate(pos, blockState);
         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, blockState));
     }

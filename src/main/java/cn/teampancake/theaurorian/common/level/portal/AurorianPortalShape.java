@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.level.portal;
 
-import cn.teampancake.theaurorian.registry.ModBlocks;
+import cn.teampancake.theaurorian.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -90,7 +90,7 @@ public class AurorianPortalShape extends PortalShape {
                         return i;
                     }
 
-                    if (blockState.is(ModBlocks.AURORIAN_PORTAL.get())) {
+                    if (blockState.is(TABlocks.AURORIAN_PORTAL.get())) {
                         ++this.numPortalBlocks;
                     }
                 }
@@ -101,13 +101,13 @@ public class AurorianPortalShape extends PortalShape {
     }
 
     private static boolean isEmpty(BlockState state) {
-        return state.isAir() || state.is(BlockTags.FIRE) || state.is(ModBlocks.AURORIAN_PORTAL.get());
+        return state.isAir() || state.is(BlockTags.FIRE) || state.is(TABlocks.AURORIAN_PORTAL.get());
     }
 
     @Override
     public void createPortalBlocks() {
         if (this.bottomLeft != null) {
-            BlockState blockState = ModBlocks.AURORIAN_PORTAL.get().defaultBlockState().setValue(NetherPortalBlock.AXIS, this.axis);
+            BlockState blockState = TABlocks.AURORIAN_PORTAL.get().defaultBlockState().setValue(NetherPortalBlock.AXIS, this.axis);
             BlockPos.betweenClosed(this.bottomLeft, this.bottomLeft.relative(Direction.UP, this.height - 1)
                     .relative(this.rightDir, this.width - 1)).forEach((pos) -> this.level.setBlock(pos, blockState, 18));
         }

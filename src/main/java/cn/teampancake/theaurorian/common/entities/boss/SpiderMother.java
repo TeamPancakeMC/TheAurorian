@@ -3,8 +3,8 @@ package cn.teampancake.theaurorian.common.entities.boss;
 import cn.teampancake.theaurorian.common.entities.ai.ModRangedAttackGoal;
 import cn.teampancake.theaurorian.common.entities.monster.Spiderling;
 import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
-import cn.teampancake.theaurorian.registry.ModBlocks;
-import cn.teampancake.theaurorian.registry.ModEntityTypes;
+import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.registry.TAEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -94,7 +94,7 @@ public class SpiderMother extends Spider {
         super.die(damageSource);
         final int size = 35;
         for (BlockPos pos : BlockPos.withinManhattan(this.getOnPos(), size, size, size)) {
-            if (this.level().getBlockState(pos).is(ModBlocks.MYSTICAL_BARRIER.get())) {
+            if (this.level().getBlockState(pos).is(TABlocks.MYSTICAL_BARRIER.get())) {
                 this.level().destroyBlock(pos, false);
             }
         }
@@ -242,7 +242,7 @@ public class SpiderMother extends Spider {
             }
             if (this.hangTime % 50 == 0) {
                 for (int i = 0; i < this.mob.getRandom().nextInt(5); i++) {
-                    Spiderling spiderling = new Spiderling(ModEntityTypes.SPIDERLING.get(), this.mob.level());
+                    Spiderling spiderling = new Spiderling(TAEntityTypes.SPIDERLING.get(), this.mob.level());
                     spiderling.setPos(this.mob.getDeltaMovement().add(0.0F, -0.5F, 0.0F));
                     spiderling.setTarget(mob.getTarget());
                     this.mob.level().addFreshEntity(spiderling);

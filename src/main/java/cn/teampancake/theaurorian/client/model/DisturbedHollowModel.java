@@ -2,20 +2,39 @@ package cn.teampancake.theaurorian.client.model;
 
 import cn.teampancake.theaurorian.common.entities.monster.DisturbedHollow;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.client.model.AgeableListModel;
+import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
-public class DisturbedHollowModel<T extends DisturbedHollow> extends SimpleHumanoidModel<T> {
+import java.util.function.Function;
 
+@OnlyIn(Dist.CLIENT)
+public class DisturbedHollowModel<T extends DisturbedHollow> extends AgeableListModel<T> {
+
+    public ModelPart head;
+    public ModelPart body;
+    public ModelPart rightArm;
+    public ModelPart leftArm;
     public ModelPart rightLeg;
     public ModelPart leftLeg;
 
     public DisturbedHollowModel(ModelPart root) {
-        super(root);
+        this(root, RenderType::entityCutoutNoCull);
+    }
+
+    public DisturbedHollowModel(ModelPart root, Function<ResourceLocation, RenderType> renderType) {
+        super(renderType, true, 16.0F, 0.0F, 2.0F, 2.0F, 24.0F);
+        this.head = root.getChild("head");
+        this.body = root.getChild("body");
+        this.rightArm = root.getChild("right_arm");
+        this.leftArm = root.getChild("left_arm");
         this.rightLeg = root.getChild("right_leg");
         this.leftLeg = root.getChild("left_leg");
     }
@@ -35,8 +54,21 @@ public class DisturbedHollowModel<T extends DisturbedHollow> extends SimpleHuman
         return LayerDefinition.create(meshDefinition, 64, 64);
     }
 
+    protected Iterable<ModelPart> headParts() {
+        return ImmutableList.of(this.head);
+    }
+
     protected Iterable<ModelPart> bodyParts() {
         return ImmutableList.of(this.body, this.rightArm, this.leftArm, this.rightLeg, this.leftLeg);
+    }
+
+    @Override
+    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+        this.head.xRot = headPitch * ((float)Math.PI / 180F);
+        this.rightLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.leftLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, entity.isAggressive(), this.attackTime, ageInTicks);
     }
 
 }

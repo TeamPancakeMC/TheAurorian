@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.event;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.registry.ModEntityTypes;
+import cn.teampancake.theaurorian.registry.TAEntityTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -21,11 +21,11 @@ public class ClientEventSubscriber {
     @SubscribeEvent
     public static void onRenderBossBars(CustomizeGuiOverlayEvent.BossEventProgress event) {
         if (event.getBossEvent().getName().getContents() instanceof TranslatableContents contents) {
-            if (contents.getKey().equals(ModEntityTypes.RUNESTONE_KEEPER.get().getDescriptionId())) {
+            if (contents.getKey().equals(TAEntityTypes.RUNESTONE_KEEPER.get().getDescriptionId())) {
                 event.setCanceled(true);
                 Font font = Minecraft.getInstance().font;
                 GuiGraphics graphics = event.getGuiGraphics();
-                Component description = ModEntityTypes.RUNESTONE_KEEPER.get().getDescription();
+                Component description = TAEntityTypes.RUNESTONE_KEEPER.get().getDescription();
                 int guiWidth = graphics.guiWidth();
                 int fontWidth = font.width(description);
                 int strX = guiWidth / 2 - fontWidth / 2;

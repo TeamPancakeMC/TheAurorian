@@ -2,8 +2,8 @@ package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.entities.ai.ZombieLikeAttackGoal;
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.registry.ModBlocks;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -24,6 +24,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class MoonAcolyte extends Monster {
 
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
+
     public MoonAcolyte(EntityType<? extends MoonAcolyte> type, Level level) {
         super(type, level);
     }
@@ -40,7 +43,7 @@ public class MoonAcolyte extends Monster {
     }
 
     public static boolean checkMoonAcolyteRules(EntityType<MoonAcolyte> moonAcolyte, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(ModBlocks.MOON_TEMPLE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(moonAcolyte, level, spawnType, pos, random);
+        return level.getBlockState(pos.below()).is(TABlocks.MOON_TEMPLE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(moonAcolyte, level, spawnType, pos, random);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -53,7 +56,25 @@ public class MoonAcolyte extends Monster {
     }
 
     @Override
+    public void aiStep() {
+        super.aiStep();
+        if (this.level().isClientSide()) {
+            this.idleAnimationState.startIfStopped(this.tickCount);
+        }
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 4) {
+            this.attackAnimationState.start(this.tickCount);
+        } else {
+            super.handleEntityEvent(id);
+        }
+    }
+
+    @Override
     public boolean doHurtTarget(@NotNull Entity entity) {
+        this.level().broadcastEntityEvent(this, (byte)4);
         if (super.doHurtTarget(entity)) {
             if (entity instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 20));
@@ -66,7 +87,7 @@ public class MoonAcolyte extends Monster {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
-        ItemStack swordStack = new ItemStack(ModItems.AURORIAN_STONE_SWORD.get());
+        ItemStack swordStack = new ItemStack(TAItems.AURORIAN_STONE_SWORD.get());
         swordStack.enchant(Enchantments.KNOCKBACK, 2);
         this.setItemSlot(EquipmentSlot.MAINHAND, swordStack);
     }

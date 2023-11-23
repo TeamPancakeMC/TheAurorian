@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
-import cn.teampancake.theaurorian.data.tags.ModBlockTags;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.data.tags.TABlockTags;
+import cn.teampancake.theaurorian.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
@@ -25,7 +25,7 @@ public class AurorianSheep extends Sheep {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(ModItems.SILK_BERRY.get());
+        return stack.is(TAItems.SILK_BERRY.get());
     }
 
     @Nullable @Override
@@ -49,7 +49,7 @@ public class AurorianSheep extends Sheep {
 
     @SuppressWarnings("unused")
     public static boolean checkAurorianSheepSpawnRules(EntityType<AurorianSheep> aurorianSheep, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return !level.getBlockState(pos.below()).is(ModBlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
+        return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
 }

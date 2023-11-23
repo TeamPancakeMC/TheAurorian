@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.registry.ModBlocks;
-import cn.teampancake.theaurorian.registry.ModEntityTypes;
+import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.registry.TAEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -47,7 +47,7 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
     }
 
     public static boolean checkCrystallineSpriteRules(EntityType<CrystallineSprite> crystallineSprite, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(ModBlocks.MOON_TEMPLE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(crystallineSprite, level, spawnType, pos, random);
+        return level.getBlockState(pos.below()).is(TABlocks.MOON_TEMPLE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(crystallineSprite, level, spawnType, pos, random);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -91,7 +91,7 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
 
     @Override
     public void performRangedAttack(LivingEntity target, float velocity) {
-        Arrow arrow = ModEntityTypes.CRYSTALLINE_BEAM.get().create(this.level());
+        Arrow arrow = TAEntityTypes.CRYSTALLINE_BEAM.get().create(this.level());
         if (arrow != null) {
             double d0 = target.getX() - this.getX();
             double d2 = target.getZ() - this.getZ();

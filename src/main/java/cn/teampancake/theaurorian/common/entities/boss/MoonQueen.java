@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
 import cn.teampancake.theaurorian.common.entities.ai.ModRangedAttackGoal;
-import cn.teampancake.theaurorian.registry.ModBlocks;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -121,7 +121,7 @@ public class MoonQueen extends Monster {
         final int size = 35;
         this.level().setBlockAndUpdate(this.getOnPos(), Blocks.CHEST.defaultBlockState());
         for (BlockPos pos : BlockPos.withinManhattan(this.getOnPos(), size, size, size)) {
-            if (this.level().getBlockState(pos).is(ModBlocks.MYSTICAL_BARRIER.get())) {
+            if (this.level().getBlockState(pos).is(TABlocks.MYSTICAL_BARRIER.get())) {
                 this.level().destroyBlock(pos, false);
             }
         }
@@ -178,10 +178,10 @@ public class MoonQueen extends Monster {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.MOONSTONE_SWORD.get()));
-        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(ModItems.KNIGHT_CHESTPLATE.get()));
-        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(ModItems.KNIGHT_LEGGINGS.get()));
-        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(ModItems.KNIGHT_BOOTS.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(TAItems.MOONSTONE_SWORD.get()));
+        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(TAItems.KNIGHT_CHESTPLATE.get()));
+        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(TAItems.KNIGHT_LEGGINGS.get()));
+        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(TAItems.KNIGHT_BOOTS.get()));
     }
 
     @Override
@@ -250,7 +250,7 @@ public class MoonQueen extends Monster {
         @Override
         public void startAttack() {
             this.chargeTime = 20;
-            this.monster.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(ModItems.MOON_SHIELD.get()));
+            this.monster.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(TAItems.MOON_SHIELD.get()));
             this.monster.startUsingItem(InteractionHand.OFF_HAND);
             this.attackWindUp = 40 - this.monster.getRandom().nextInt(10);
             double healthScale = this.monster.getHealth() / this.monster.getMaxHealth();
@@ -332,7 +332,7 @@ public class MoonQueen extends Monster {
             this.moonQueen.getNavigation().stop();
             this.strafeDirection = this.getRandomDirection();
             this.strafeTimer = 10;
-            this.moonQueen.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(ModItems.MOON_SHIELD.get()));
+            this.moonQueen.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(TAItems.MOON_SHIELD.get()));
             this.moonQueen.startUsingItem(InteractionHand.OFF_HAND);
         }
 

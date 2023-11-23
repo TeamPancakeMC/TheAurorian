@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.ScrapperBlockEntity;
-import cn.teampancake.theaurorian.registry.ModBlockEntityTypes;
+import cn.teampancake.theaurorian.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -66,7 +66,7 @@ public class Scrapper extends BaseEntityBlockWithState {
 
     @Nullable @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, ModBlockEntityTypes.SCRAPPER.get(), ScrapperBlockEntity::serverTick);
+        return createTickerHelper(blockEntityType, TABlockEntityTypes.SCRAPPER.get(), ScrapperBlockEntity::serverTick);
     }
 
 }

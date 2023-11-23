@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.mixin;
 
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.registry.TAItems;
 import cn.teampancake.theaurorian.utils.MoonstoneHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,7 +19,7 @@ public class MixinShearsItem {
     @Inject(method = "mineBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;hurtAndBreak(ILnet/minecraft/world/entity/LivingEntity;Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER))
     public void mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity livingEntity, CallbackInfoReturnable<Boolean> cir) {
         ShearsItem shearsItem = (ShearsItem) (Object) this;
-        if (shearsItem == ModItems.MOONSTONE_SICKLE.get()) {
+        if (shearsItem == TAItems.MOONSTONE_SICKLE.get()) {
             MoonstoneHelper.handleMoonstoneDurability(stack, livingEntity);
         }
     }

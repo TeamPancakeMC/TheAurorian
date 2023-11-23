@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.mixin;
 
 import cn.teampancake.theaurorian.common.level.portal.AurorianPortalShape;
-import cn.teampancake.theaurorian.registry.ModDimensions;
+import cn.teampancake.theaurorian.registry.TADimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -55,7 +55,7 @@ public class MixinBaseFireBlock {
     }
 
     private static boolean inAurorianPortalDimension(Level level) {
-        return level.dimension() == Level.OVERWORLD || level.dimension() == ModDimensions.AURORIAN_DIMENSION;
+        return level.dimension() == Level.OVERWORLD || level.dimension() == TADimensions.AURORIAN_DIMENSION;
     }
 
 }

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.registry.ModBlocks;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.registry.TAItems;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -12,13 +12,13 @@ import java.util.function.Supplier;
 @SuppressWarnings({"deprecation", "SpellCheckingInspection"})
 public enum ModToolTiers implements Tier {
 
-    SILENT_WOOD(0, 59, 3.0F, 0.0F, 20, () -> Ingredient.of(ModBlocks.SILENT_TREE_PLANKS.get())),
-    AURORIAN_STONE(0, 131, 4.5F, 1.5F, 14, () -> Ingredient.of(ModBlocks.AURORIAN_STONE.get())),
-    MOONSTONE(2, 250, 7.0F, 2.5F, 14, () -> Ingredient.of(ModBlocks.MOONSTONE_BLOCK.get())),
-    AURORIANITE(3, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(ModItems.AURORIANITE_INGOT.get())),
-    UMBRA(3, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(ModItems.UMBRA_INGOT.get())),
-    CRYSTALLINE(3, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(ModItems.CRYSTALLINE_INGOT.get())),
-    AURORIAN_STEEL(3, 1500, 8.5F, 3.5F, 10, () -> Ingredient.of(ModItems.AURORIAN_STEEL.get()));
+    SILENT_WOOD(0, 59, 3.0F, 0.0F, 20, () -> Ingredient.of(TABlocks.SILENT_TREE_PLANKS.get())),
+    AURORIAN_STONE(0, 131, 4.5F, 1.5F, 14, () -> Ingredient.of(TABlocks.AURORIAN_STONE.get())),
+    MOONSTONE(2, 250, 7.0F, 2.5F, 14, () -> Ingredient.of(TABlocks.MOONSTONE_BLOCK.get())),
+    AURORIANITE(3, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.AURORIANITE_INGOT.get())),
+    UMBRA(3, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.UMBRA_INGOT.get())),
+    CRYSTALLINE(3, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.CRYSTALLINE_INGOT.get())),
+    AURORIAN_STEEL(3, 1500, 8.5F, 3.5F, 10, () -> Ingredient.of(TAItems.AURORIAN_STEEL.get()));
 
     private final int level;
     private final int uses;

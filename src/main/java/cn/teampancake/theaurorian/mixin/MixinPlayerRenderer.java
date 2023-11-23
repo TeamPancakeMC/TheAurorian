@@ -4,7 +4,7 @@ import cn.teampancake.theaurorian.client.model.AurorianSteelArmorModel;
 import cn.teampancake.theaurorian.client.model.CeruleanArmorModel;
 import cn.teampancake.theaurorian.client.model.KnightArmorModel;
 import cn.teampancake.theaurorian.client.model.SpectralArmorModel;
-import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
+import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.client.renderer.layers.TAHumanoidArmorLayer;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -25,10 +25,10 @@ public abstract class MixinPlayerRenderer extends LivingEntityRenderer<AbstractC
 
     @Inject(method = "<init>", at = @At(value = "TAIL"))
     public void init(EntityRendererProvider.Context context, boolean useSlimModel, CallbackInfo ci) {
-        this.addLayer(new TAHumanoidArmorLayer<>(this, new AurorianSteelArmorModel<>(context.bakeLayer(ModModelLayers.AURORIAN_STEEL_ARMOR))));
-        this.addLayer(new TAHumanoidArmorLayer<>(this, new CeruleanArmorModel<>(context.bakeLayer(ModModelLayers.CERULEAN_ARMOR))));
-        this.addLayer(new TAHumanoidArmorLayer<>(this, new KnightArmorModel<>(context.bakeLayer(ModModelLayers.KNIGHT_ARMOR))));
-        this.addLayer(new TAHumanoidArmorLayer<>(this, new SpectralArmorModel<>(context.bakeLayer(ModModelLayers.SPECTRAL_ARMOR))));
+        this.addLayer(new TAHumanoidArmorLayer<>(this, new AurorianSteelArmorModel<>(context.bakeLayer(TAModelLayers.AURORIAN_STEEL_ARMOR))));
+        this.addLayer(new TAHumanoidArmorLayer<>(this, new CeruleanArmorModel<>(context.bakeLayer(TAModelLayers.CERULEAN_ARMOR))));
+        this.addLayer(new TAHumanoidArmorLayer<>(this, new KnightArmorModel<>(context.bakeLayer(TAModelLayers.KNIGHT_ARMOR))));
+        this.addLayer(new TAHumanoidArmorLayer<>(this, new SpectralArmorModel<>(context.bakeLayer(TAModelLayers.SPECTRAL_ARMOR))));
     }
 
 }

@@ -2,8 +2,8 @@ package cn.teampancake.theaurorian.common.blocks.entity;
 
 import cn.teampancake.theaurorian.client.inventory.ScrapperMenu;
 import cn.teampancake.theaurorian.common.items.crafting.ScrapperRecipe;
-import cn.teampancake.theaurorian.registry.ModBlockEntityTypes;
-import cn.teampancake.theaurorian.registry.ModRecipes;
+import cn.teampancake.theaurorian.registry.TABlockEntityTypes;
+import cn.teampancake.theaurorian.registry.TARecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -27,8 +27,8 @@ public class ScrapperBlockEntity extends SimpleContainerBlockEntity {
     private final RecipeManager.CachedCheck<Container, ? extends ScrapperRecipe> quickCheck;
 
     public ScrapperBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlockEntityTypes.SCRAPPER.get(), pos, blockState);
-        this.quickCheck = RecipeManager.createCheck(ModRecipes.SCRAPPER_RECIPE.get());
+        super(TABlockEntityTypes.SCRAPPER.get(), pos, blockState);
+        this.quickCheck = RecipeManager.createCheck(TARecipes.SCRAPPER_RECIPE.get());
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ScrapperBlockEntity blockEntity) {

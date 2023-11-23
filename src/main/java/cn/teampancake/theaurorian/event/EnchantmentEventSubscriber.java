@@ -2,7 +2,7 @@ package cn.teampancake.theaurorian.event;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.registry.ModEnchantments;
+import cn.teampancake.theaurorian.registry.TAEnchantments;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
@@ -33,12 +33,12 @@ public class EnchantmentEventSubscriber {
             return;
         }
 
-        int damageLevel = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.LIGHTNING_DAMAGE.get(), attacker);
+        int damageLevel = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.LIGHTNING_DAMAGE.get(), attacker);
         float extradamage = 0;
 
         for (ItemStack stack : target.getArmorSlots()) {
             boolean hasresist = false;
-            int resistanceLevel = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.LIGHTNING_RESISTANCE.get(), attacker);
+            int resistanceLevel = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.LIGHTNING_RESISTANCE.get(), attacker);
             if (resistanceLevel > 0) {
                 hasresist = true;
             }
@@ -64,7 +64,7 @@ public class EnchantmentEventSubscriber {
                 return;
             }
             boolean hasresist = false;
-            int resistanceLevel = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.LIGHTNING_RESISTANCE.get(), target);
+            int resistanceLevel = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.LIGHTNING_RESISTANCE.get(), target);
             if (resistanceLevel > 0) {
                 hasresist = true;
             }

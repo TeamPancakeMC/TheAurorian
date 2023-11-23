@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.data.recipes;
 
 import cn.teampancake.theaurorian.common.items.crafting.ScrapperRecipe;
-import cn.teampancake.theaurorian.registry.ModRecipes;
+import cn.teampancake.theaurorian.registry.TARecipes;
 import com.google.gson.JsonObject;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
@@ -41,7 +41,7 @@ public class ScrapperRecipeBuilder implements RecipeBuilder {
     }
 
     public static ScrapperRecipeBuilder addRecipe(ItemLike input, ItemLike result, int amount) {
-        return new ScrapperRecipeBuilder(Ingredient.of(input), result.asItem(), amount, ModRecipes.SCRAPPER_SERIALIZER.get());
+        return new ScrapperRecipeBuilder(Ingredient.of(input), result.asItem(), amount, TARecipes.SCRAPPER_SERIALIZER.get());
     }
 
     @Override

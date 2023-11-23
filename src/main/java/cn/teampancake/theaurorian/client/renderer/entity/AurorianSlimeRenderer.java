@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.renderer.layers.ModModelLayers;
+import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.monster.AurorianSlime;
 import net.minecraft.client.model.SlimeModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class AurorianSlimeRenderer extends MobRenderer<AurorianSlime, SlimeModel<AurorianSlime>> {
 
     public AurorianSlimeRenderer(EntityRendererProvider.Context context) {
-        super(context, new SlimeModel<>(context.bakeLayer(ModModelLayers.AURORIAN_SLIME)), 0.25F);
+        super(context, new SlimeModel<>(context.bakeLayer(TAModelLayers.AURORIAN_SLIME)), 0.25F);
     }
 
     @Override

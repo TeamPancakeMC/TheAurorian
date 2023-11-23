@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.entities.projectile;
 
-import cn.teampancake.theaurorian.registry.ModEntityTypes;
-import cn.teampancake.theaurorian.registry.ModItems;
-import cn.teampancake.theaurorian.registry.ModParticleTypes;
+import cn.teampancake.theaurorian.registry.TAEntityTypes;
+import cn.teampancake.theaurorian.registry.TAItems;
+import cn.teampancake.theaurorian.registry.TAParticleTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -19,23 +19,23 @@ public class StickySpikerEntity extends ThrowableItemProjectile {
     }
 
     public StickySpikerEntity(double x, double y, double z, Level level) {
-        super(ModEntityTypes.STICKY_SPIKER.get(), x, y, z, level);
+        super(TAEntityTypes.STICKY_SPIKER.get(), x, y, z, level);
     }
 
     public StickySpikerEntity(LivingEntity shooter, Level level) {
-        super(ModEntityTypes.STICKY_SPIKER.get(), shooter, level);
+        super(TAEntityTypes.STICKY_SPIKER.get(), shooter, level);
     }
 
     @Override
     protected Item getDefaultItem() {
-        return ModItems.STICKY_SPIKER.get();
+        return TAItems.STICKY_SPIKER.get();
     }
 
     @Override
     public void handleEntityEvent(byte id) {
         if (id == 3 && this.level().isClientSide) {
             for (int i = 0; i < 8; ++i) {
-                this.level().addParticle(ModParticleTypes.STICK_SPIKER.get(),this.getX(),this.getY(),this.getZ(),0.0D,0.0D,0.0D);
+                this.level().addParticle(TAParticleTypes.STICK_SPIKER.get(),this.getX(),this.getY(),this.getZ(),0.0D,0.0D,0.0D);
 
             }
         }

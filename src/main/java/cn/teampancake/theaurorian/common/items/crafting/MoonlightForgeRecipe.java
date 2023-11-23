@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.crafting;
 
-import cn.teampancake.theaurorian.registry.ModRecipes;
+import cn.teampancake.theaurorian.registry.TARecipes;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -52,12 +52,12 @@ public class MoonlightForgeRecipe implements Recipe<Container> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.MOONLIGHT_FORGE_SERIALIZER.get();
+        return TARecipes.MOONLIGHT_FORGE_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return ModRecipes.MOONLIGHT_FORGE_RECIPE.get();
+        return TARecipes.MOONLIGHT_FORGE_RECIPE.get();
     }
 
 }

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.level.portal;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.registry.ModBlocks;
+import cn.teampancake.theaurorian.registry.TABlocks;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.BlockUtil;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -48,7 +48,7 @@ public class AurorianPortalForcer implements ITeleporter {
     @SubscribeEvent
     public static void registerPointOfInterest(RegisterEvent event) {
         event.register(ForgeRegistries.Keys.POI_TYPES, registerHelper -> {
-            BlockState state = ModBlocks.AURORIAN_PORTAL.get().defaultBlockState();
+            BlockState state = TABlocks.AURORIAN_PORTAL.get().defaultBlockState();
             PoiType poiType = new PoiType(ImmutableSet.of(state), 0, 1);
             registerHelper.register("aurorian_portal", poiType);
             poi = ForgeRegistries.POI_TYPES.getHolder(poiType).get();
@@ -142,7 +142,7 @@ public class AurorianPortalForcer implements ITeleporter {
             for (int i3 = -1; i3 < 2; ++i3) {
                 for (int j3 = 0; j3 < 2; ++j3) {
                     for (int k3 = -1; k3 < 3; ++k3) {
-                        BlockState blockState = k3 < 0 ? ModBlocks.AURORIAN_PORTAL_FRAME_BRICKS.get().defaultBlockState() : Blocks.AIR.defaultBlockState();
+                        BlockState blockState = k3 < 0 ? TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get().defaultBlockState() : Blocks.AIR.defaultBlockState();
                         blockPos$mutableBlockpos.setWithOffset(blockPos, j3 * direction.getStepX() + i3 * direction1.getStepX(), k3, j3 * direction.getStepZ() + i3 * direction1.getStepZ());
                         this.level.setBlockAndUpdate(blockPos$mutableBlockpos, blockState);
                     }
@@ -153,11 +153,11 @@ public class AurorianPortalForcer implements ITeleporter {
             for (int j2 = -1; j2 < 4; ++j2) {
                 if (l1 == -1 || l1 == 2 || j2 == -1 || j2 == 3) {
                     blockPos$mutableBlockpos.setWithOffset(blockPos, l1 * direction.getStepX(), j2, l1 * direction.getStepZ());
-                    this.level.setBlock(blockPos$mutableBlockpos, ModBlocks.AURORIAN_PORTAL_FRAME_BRICKS.get().defaultBlockState(), 3);
+                    this.level.setBlock(blockPos$mutableBlockpos, TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get().defaultBlockState(), 3);
                 }
             }
         }
-        BlockState blockState = ModBlocks.AURORIAN_PORTAL.get().defaultBlockState().setValue(NetherPortalBlock.AXIS, axis);
+        BlockState blockState = TABlocks.AURORIAN_PORTAL.get().defaultBlockState().setValue(NetherPortalBlock.AXIS, axis);
         for (int k2 = 0; k2 < 2; ++k2) {
             for (int l2 = 0; l2 < 3; ++l2) {
                 blockPos$mutableBlockpos.setWithOffset(blockPos, k2 * direction.getStepX(), l2, k2 * direction.getStepZ());

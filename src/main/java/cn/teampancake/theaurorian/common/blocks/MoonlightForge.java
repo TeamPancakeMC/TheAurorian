@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.MoonlightForgeBlockEntity;
-import cn.teampancake.theaurorian.registry.ModBlockEntityTypes;
+import cn.teampancake.theaurorian.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BellAttachType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -79,7 +78,7 @@ public class MoonlightForge extends BaseEntityBlockWithState {
 
     @Nullable @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, ModBlockEntityTypes.MOONLIGHT_FORGE.get(), MoonlightForgeBlockEntity::serverTick);
+        return createTickerHelper(blockEntityType, TABlockEntityTypes.MOONLIGHT_FORGE.get(), MoonlightForgeBlockEntity::serverTick);
     }
 
 }

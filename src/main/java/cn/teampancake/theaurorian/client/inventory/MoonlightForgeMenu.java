@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.inventory;
 
 import cn.teampancake.theaurorian.common.blocks.entity.MoonlightForgeBlockEntity;
-import cn.teampancake.theaurorian.registry.ModMenuTypes;
+import cn.teampancake.theaurorian.registry.TAMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -21,13 +21,13 @@ public class MoonlightForgeMenu extends AbstractSimpleMenu {
     }
 
     public MoonlightForgeMenu(int containerId, Inventory inventory, BlockEntity blockEntity) {
-        super(ModMenuTypes.MOONLIGHT_FORGE_MENU.get(), containerId, inventory);
+        super(TAMenuTypes.MOONLIGHT_FORGE_MENU.get(), containerId, inventory);
         checkContainerSize(inventory, 3);
         this.moonlightForge = (MoonlightForgeBlockEntity) blockEntity;
         this.moonlightForge.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             this.addSlot(new SlotItemHandler(itemHandler, 0, 22, 35));
             this.addSlot(new SlotItemHandler(itemHandler, 1, 84, 35));
-            this.addSlot(new ModResultSlot(itemHandler, 2, 142, 35));
+            this.addSlot(new TAResultSlot(itemHandler, 2, 142, 35));
         });
     }
 

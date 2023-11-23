@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.items.ITooltipsItem;
-import cn.teampancake.theaurorian.registry.ModBlocks;
-import cn.teampancake.theaurorian.registry.ModItems;
+import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.registry.TAItems;
 import cn.teampancake.theaurorian.utils.AurorianUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,7 +16,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -29,7 +28,7 @@ public class DungeonStoneGateKeyhole extends Block implements ITooltipsItem {
     private final boolean lockPickable;
 
     public DungeonStoneGateKeyhole(Supplier<Item> keyItem, boolean lockPickable) {
-        super(ModBlocks.breakWithQueenPickaxe());
+        super(TABlocks.breakWithQueenPickaxe());
         this.keyItem = keyItem;
         this.lockPickable = lockPickable;
     }
@@ -44,7 +43,7 @@ public class DungeonStoneGateKeyhole extends Block implements ITooltipsItem {
         if (!player.isSteppingCarefully() && handStack.is(this.keyItem.get())) {
             this.breakGateBlock(level, pos, player);
             handStack.shrink(1);
-        } else if (!player.isSteppingCarefully() && handStack.is(ModItems.LOCK_PICKS.get()) && this.lockPickable) {
+        } else if (!player.isSteppingCarefully() && handStack.is(TAItems.LOCK_PICKS.get()) && this.lockPickable) {
             handStack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
             if (AurorianUtil.randomChanceOf(0.33F)) {
                 this.breakGateBlock(level, pos, player);

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.grower;
 
-import cn.teampancake.theaurorian.common.level.feature.ModConfiguredFeatures;
+import cn.teampancake.theaurorian.common.level.feature.TAConfiguredFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
@@ -11,7 +11,7 @@ public class SilentTreeGrower extends AbstractTreeGrower {
 
     @Nullable @Override
     protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-        return ModConfiguredFeatures.SILENT_TREE;
+        return TAConfiguredFeatures.SILENT_TREE;
     }
 
 }

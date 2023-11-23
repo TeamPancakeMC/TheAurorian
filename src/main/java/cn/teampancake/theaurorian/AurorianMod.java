@@ -21,19 +21,19 @@ public class AurorianMod {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON,
                 AurorianConfig.SPEC, "theaurorian/TheAurorian.toml");
-        ModTabs.TABS.register(modEventBus);
-        ModItems.ITEMS.register(modEventBus);
-        ModBlocks.BLOCKS.register(modEventBus);
-        ModFluids.FLUIDS.register(modEventBus);
-        ModFeatures.FEATURES.register(modEventBus);
-        ModMenuTypes.MENU_TYPES.register(modEventBus);
-        ModRecipes.RECIPE_TYPES.register(modEventBus);
-        ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
-        ModFluidTypes.FLUID_TYPES.register(modEventBus);
-        ModEntityTypes.ENTITY_TYPES.register(modEventBus);
-        ModEnchantments.ENCHANTMENTS.register(modEventBus);
-        ModParticleTypes.PARTICLE_TYPES.register(modEventBus);
-        ModBlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus);
+        TATabs.TABS.register(modEventBus);
+        TAItems.ITEMS.register(modEventBus);
+        TABlocks.BLOCKS.register(modEventBus);
+        TAFluids.FLUIDS.register(modEventBus);
+        TAFeatures.FEATURES.register(modEventBus);
+        TAMenuTypes.MENU_TYPES.register(modEventBus);
+        TARecipes.RECIPE_TYPES.register(modEventBus);
+        TARecipes.RECIPE_SERIALIZERS.register(modEventBus);
+        TAFluidTypes.FLUID_TYPES.register(modEventBus);
+        TAEntityTypes.ENTITY_TYPES.register(modEventBus);
+        TAEnchantments.ENCHANTMENTS.register(modEventBus);
+        TAParticleTypes.PARTICLE_TYPES.register(modEventBus);
+        TABlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
     }
 

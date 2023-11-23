@@ -1,9 +1,9 @@
 package cn.teampancake.theaurorian.common.level.feature;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.level.placement.ModPlacements;
-import cn.teampancake.theaurorian.registry.ModBlocks;
-import cn.teampancake.theaurorian.registry.ModFeatures;
+import cn.teampancake.theaurorian.common.level.placement.TAPlacements;
+import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.registry.TAFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -29,7 +29,7 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 import java.util.List;
 
-public class ModConfiguredFeatures {
+public class TAConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_GRASS = createKey("patch_aurorian_grass");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_GRASS_LIGHT = createKey("patch_aurorian_grass_light");
@@ -49,30 +49,30 @@ public class ModConfiguredFeatures {
     }
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
-        RuleTest ruleTest = new BlockMatchTest(ModBlocks.AURORIAN_STONE.get());
-        Holder<PlacedFeature> silentTreeLikeSpruce = context.lookup(Registries.PLACED_FEATURE).getOrThrow(ModPlacements.SILENT_TREE);
+        RuleTest ruleTest = new BlockMatchTest(TABlocks.AURORIAN_STONE.get());
+        Holder<PlacedFeature> silentTreeLikeSpruce = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.SILENT_TREE);
         FeatureUtils.register(context, PATCH_AURORIAN_GRASS, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(
-                BlockStateProvider.simple(ModBlocks.AURORIAN_GRASS.get()), 32));
+                BlockStateProvider.simple(TABlocks.AURORIAN_GRASS.get()), 32));
         FeatureUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(
-                BlockStateProvider.simple(ModBlocks.AURORIAN_GRASS_LIGHT.get()), 32));
+                BlockStateProvider.simple(TABlocks.AURORIAN_GRASS_LIGHT.get()), 32));
         FeatureUtils.register(context, PATCH_AURORIAN_FLOWER, Feature.FLOWER, new RandomPatchConfiguration(96, 6, 2,
                 PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new NoiseProvider(2345L,
-                        new NormalNoise.NoiseParameters(0, 1.0D), (0.020833334F),
-                        List.of(ModBlocks.LAVENDER_PLANT.get().defaultBlockState(),
-                        ModBlocks.PETUNIA_PLANT.get().defaultBlockState(), ModBlocks.SILK_BERRY_CROP.get().defaultBlockState()))))));
+                        new NormalNoise.NoiseParameters(0, 1.0D), 0.020833334F,
+                        List.of(TABlocks.LAVENDER_PLANT.get().defaultBlockState(),
+                        TABlocks.PETUNIA_PLANT.get().defaultBlockState(), TABlocks.SILK_BERRY_CROP.get().defaultBlockState()))))));
         FeatureUtils.register(context, TREES_AURORIAN_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
-                List.of(new WeightedPlacedFeature(silentTreeLikeSpruce, 0.33333334F)), silentTreeLikeSpruce));
-        FeatureUtils.register(context, SILENT_TREE, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(ModBlocks.SILENT_TREE_LOG.get()),
-                        new StraightTrunkPlacer(13, 6, 0), BlockStateProvider.simple(ModBlocks.SILENT_TREE_LEAVES.get()),
+                List.of(new WeightedPlacedFeature(silentTreeLikeSpruce, 0.7F)), silentTreeLikeSpruce));
+        FeatureUtils.register(context, SILENT_TREE, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()),
+                        new StraightTrunkPlacer(13, 6, 0), BlockStateProvider.simple(TABlocks.SILENT_TREE_LEAVES.get()),
                         new SpruceFoliagePlacer(UniformInt.of(2, 3), ConstantInt.of(1), UniformInt.of(4, 6)),
                         new TwoLayersFeatureSize(3, 3, 3))).ignoreVines().build());
-        FeatureUtils.register(context, ORE_AURORIAN_PERIDOTITE, Feature.ORE, new OreConfiguration(ruleTest, ModBlocks.AURORIAN_PERIDOTITE.get().defaultBlockState(), 33));
-        FeatureUtils.register(context, ORE_AURORIAN_DIRT, Feature.ORE, new OreConfiguration(ruleTest, ModBlocks.AURORIAN_DIRT.get().defaultBlockState(), 33));
-        FeatureUtils.register(context, ORE_AURORIAN_COAL, Feature.ORE, new OreConfiguration(ruleTest, ModBlocks.AURORIAN_COAL_ORE.get().defaultBlockState(), 12));
-        FeatureUtils.register(context, ORE_MOONSTONE, Feature.ORE, new OreConfiguration(ruleTest, ModBlocks.MOONSTONE_ORE.get().defaultBlockState(), 9));
-        FeatureUtils.register(context, ORE_CERULEAN, Feature.ORE, new OreConfiguration(ruleTest, ModBlocks.CERULEAN_ORE.get().defaultBlockState(), 7));
-        FeatureUtils.register(context, ORE_GEODE, Feature.ORE, new OreConfiguration(ruleTest, ModBlocks.GEODE_ORE.get().defaultBlockState(), 5));
-        FeatureUtils.register(context, RANDOM_URNS, ModFeatures.RANDOM_URNS.get());
+        FeatureUtils.register(context, ORE_AURORIAN_PERIDOTITE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_PERIDOTITE.get().defaultBlockState(), 33));
+        FeatureUtils.register(context, ORE_AURORIAN_DIRT, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_DIRT.get().defaultBlockState(), 33));
+        FeatureUtils.register(context, ORE_AURORIAN_COAL, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_COAL_ORE.get().defaultBlockState(), 12));
+        FeatureUtils.register(context, ORE_MOONSTONE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.MOONSTONE_ORE.get().defaultBlockState(), 9));
+        FeatureUtils.register(context, ORE_CERULEAN, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.CERULEAN_ORE.get().defaultBlockState(), 7));
+        FeatureUtils.register(context, ORE_GEODE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.GEODE_ORE.get().defaultBlockState(), 5));
+        FeatureUtils.register(context, RANDOM_URNS, TAFeatures.RANDOM_URNS.get());
     }
 
 }

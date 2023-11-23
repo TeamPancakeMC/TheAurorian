@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.level.placement;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.level.feature.ModConfiguredFeatures;
-import cn.teampancake.theaurorian.registry.ModBlocks;
+import cn.teampancake.theaurorian.common.level.feature.TAConfiguredFeatures;
+import cn.teampancake.theaurorian.registry.TABlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -15,7 +15,7 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 
-public class ModPlacements {
+public class TAPlacements {
 
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_GRASS_PLAINS = createKey("patch_aurorian_grass_plains");
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_GRASS_LIGHT_PLAINS = createKey("patch_aurorian_grass_light_plains");
@@ -39,11 +39,11 @@ public class ModPlacements {
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeature = context.lookup(Registries.CONFIGURED_FEATURE);
-        Holder<ConfiguredFeature<?, ?>> holder1 = configuredFeature.getOrThrow(ModConfiguredFeatures.PATCH_AURORIAN_GRASS);
-        Holder<ConfiguredFeature<?, ?>> holder2 = configuredFeature.getOrThrow(ModConfiguredFeatures.PATCH_AURORIAN_GRASS_LIGHT);
-        Holder<ConfiguredFeature<?, ?>> holder3 = configuredFeature.getOrThrow(ModConfiguredFeatures.PATCH_AURORIAN_FLOWER);
-        Holder<ConfiguredFeature<?, ?>> holder4 = configuredFeature.getOrThrow(ModConfiguredFeatures.TREES_AURORIAN_FOREST);
-        Holder<ConfiguredFeature<?, ?>> holder5 = configuredFeature.getOrThrow(ModConfiguredFeatures.SILENT_TREE);
+        Holder<ConfiguredFeature<?, ?>> holder1 = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_GRASS);
+        Holder<ConfiguredFeature<?, ?>> holder2 = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_GRASS_LIGHT);
+        Holder<ConfiguredFeature<?, ?>> holder3 = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_FLOWER);
+        Holder<ConfiguredFeature<?, ?>> holder4 = configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_AURORIAN_FOREST);
+        Holder<ConfiguredFeature<?, ?>> holder5 = configuredFeature.getOrThrow(TAConfiguredFeatures.SILENT_TREE);
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_PLAINS, holder1, NoiseThresholdCountPlacement.of((-0.8D), (5), (10)),
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT_PLAINS, holder2, NoiseThresholdCountPlacement.of((-0.8D), (5), (10)),
@@ -55,20 +55,20 @@ public class ModPlacements {
         PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_PLAINS, holder3, NoiseThresholdCountPlacement.of((-0.8D), (15), (4)),
                 RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
         PlacementUtils.register(context, TREES_AURORIAN_FOREST, holder4, VegetationPlacements.treePlacement(PlacementUtils.countExtra((10), (0.1F), (1))));
-        PlacementUtils.register(context, SILENT_TREE, holder5, PlacementUtils.filteredByBlockSurvival(ModBlocks.SILENT_TREE_SAPLING.get()));
-        PlacementUtils.register(context, ORE_AURORIAN_PERIDOTITE, configuredFeature.getOrThrow(ModConfiguredFeatures.ORE_AURORIAN_PERIDOTITE),
+        PlacementUtils.register(context, SILENT_TREE, holder5, PlacementUtils.filteredByBlockSurvival(TABlocks.SILENT_TREE_SAPLING.get()));
+        PlacementUtils.register(context, ORE_AURORIAN_PERIDOTITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_PERIDOTITE),
                 OrePlacements.commonOrePlacement(10, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(100))));
-        PlacementUtils.register(context, ORE_AURORIAN_DIRT, configuredFeature.getOrThrow(ModConfiguredFeatures.ORE_AURORIAN_DIRT),
+        PlacementUtils.register(context, ORE_AURORIAN_DIRT, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_DIRT),
                 OrePlacements.commonOrePlacement(10, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.top())));
-        PlacementUtils.register(context, ORE_AURORIAN_COAL, configuredFeature.getOrThrow(ModConfiguredFeatures.ORE_AURORIAN_COAL),
+        PlacementUtils.register(context, ORE_AURORIAN_COAL, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_COAL),
                 OrePlacements.commonOrePlacement(13, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(50), VerticalAnchor.belowTop(160))));
-        PlacementUtils.register(context, ORE_MOONSTONE, configuredFeature.getOrThrow(ModConfiguredFeatures.ORE_AURORIAN_COAL),
+        PlacementUtils.register(context, ORE_MOONSTONE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_COAL),
                 OrePlacements.commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(38))));
-        PlacementUtils.register(context, ORE_CERULEAN, configuredFeature.getOrThrow(ModConfiguredFeatures.ORE_AURORIAN_COAL),
+        PlacementUtils.register(context, ORE_CERULEAN, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_COAL),
                 OrePlacements.commonOrePlacement(13, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(75))));
-        PlacementUtils.register(context, ORE_GEODE, configuredFeature.getOrThrow(ModConfiguredFeatures.ORE_AURORIAN_COAL),
+        PlacementUtils.register(context, ORE_GEODE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_COAL),
                 OrePlacements.commonOrePlacement(8, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(50), VerticalAnchor.belowTop(160))));
-        PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(ModConfiguredFeatures.RANDOM_URNS));
+        PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URNS));
     }
 
 }

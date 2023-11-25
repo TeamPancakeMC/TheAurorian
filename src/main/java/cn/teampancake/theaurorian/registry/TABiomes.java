@@ -29,6 +29,7 @@ public class TABiomes {
     public static final ResourceKey<Biome> AURORIAN_RIVER = makeKey("aurorian_river");
     public static final ResourceKey<Biome> MOON_BEACH = makeKey("moon_beach");
     public static final ResourceKey<Biome> WEEPING_WILLOW_FOREST = makeKey("weeping_willow_forest");
+    public static final ResourceKey<Biome> UNDERGROUND = makeKey("underground");
 
     private static ResourceKey<Biome> makeKey(String name) {
         return ResourceKey.create(Registries.BIOME, AurorianMod.prefix(name));
@@ -48,6 +49,7 @@ public class TABiomes {
         context.register(AURORIAN_RIVER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(MOON_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(WEEPING_WILLOW_FOREST, biomeWithForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
+        context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
     }
 
     private static Biome.BiomeBuilder biomeWithForests(BiomeGenerationSettings.Builder biomeGenerationSettings) {

@@ -1,0 +1,42 @@
+{
+  "parent": {
+    "parent": {
+      "parent": {
+        "parent": {
+          "parent": {
+            "parent": {
+              "common_biomes": [
+                "theaurorian:aurorian_plains",
+                "theaurorian:aurorian_forest"
+              ],
+              "layer_type": "theaurorian:random_biomes",
+              "rare_biome_chance": 15,
+              "rare_biomes": [
+                "theaurorian:weeping_willow_forest"
+              ],
+              "salt": 1
+            },
+            "fuzzy": false,
+            "layer_type": "theaurorian:zoom",
+            "salt": 1000
+          },
+          "fuzzy": false,
+          "layer_type": "theaurorian:zoom",
+          "salt": 1001
+        },
+        "fuzzy": false,
+        "layer_type": "theaurorian:zoom",
+        "salt": 1002
+      },
+      "fuzzy": false,
+      "layer_type": "theaurorian:zoom",
+      "salt": 1003
+    },
+    "fuzzy": false,
+    "layer_type": "theaurorian:zoom",
+    "salt": 1004
+  },
+  "fuzzy": false,
+  "layer_type": "theaurorian:zoom",
+  "salt": 1005
+}

@@ -48,28 +48,6 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.copy(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, TAItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
         this.copy(TABlockTags.SILENT_TREE_LOGS, TAItemTags.SILENT_TREE_LOGS);
         this.copy(TABlockTags.WEEPING_WILLOW_LOGS, TAItemTags.WEEPING_WILLOW_LOGS);
-
-        this.tag(ItemTags.TRIMMABLE_ARMOR)
-                .add(TAItems.AURORIAN_STEEL_HELMET.get(),
-                        TAItems.AURORIAN_STEEL_CHESTPLATE.get(),
-                        TAItems.AURORIAN_STEEL_LEGGINGS.get(),
-                        TAItems.AURORIAN_STEEL_BOOTS.get(),
-                        TAItems.CERULEAN_HELMET.get(),
-                        TAItems.CERULEAN_CHESTPLATE.get(),
-                        TAItems.CERULEAN_LEGGINGS.get(),
-                        TAItems.CERULEAN_BOOTS.get(),
-                        TAItems.KNIGHT_HELMET.get(),
-                        TAItems.KNIGHT_CHESTPLATE.get(),
-                        TAItems.KNIGHT_LEGGINGS.get(),
-                        TAItems.KNIGHT_BOOTS.get(),
-                        TAItems.SPECTRAL_HELMET.get(),
-                        TAItems.SPECTRAL_CHESTPLATE.get(),
-                        TAItems.SPECTRAL_LEGGINGS.get(),
-                        TAItems.SPECTRAL_BOOTS.get(),
-                        TAItems.AURORIAN_SLIME_BOOTS.get(),
-                        TAItems.SPIKED_CHESTPLATE.get()
-                );
-
     }
 
 }

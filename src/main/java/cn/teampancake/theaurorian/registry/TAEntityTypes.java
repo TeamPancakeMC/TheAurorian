@@ -144,10 +144,10 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDER_MOTHER, SpiderModel::createSpiderBodyLayer);
         event.registerLayerDefinition(TAModelLayers.MOON_QUEEN, () -> LayerDefinition.create(PlayerModel.createMesh(CubeDeformation.NONE, false), 64, 64));
-        event.registerLayerDefinition(TAModelLayers.AURORIAN_STEEL_ARMOR, () -> LayerDefinition.create(AurorianSteelArmorModel.createBodyLayer(CubeDeformation.NONE), 128, 128));
-        event.registerLayerDefinition(TAModelLayers.CERULEAN_ARMOR, () -> LayerDefinition.create(CeruleanArmorModel.createBodyLayer(CubeDeformation.NONE), 128, 128));
-        event.registerLayerDefinition(TAModelLayers.KNIGHT_ARMOR, () -> LayerDefinition.create(KnightArmorModel.createBodyLayer(CubeDeformation.NONE), 128, 128));
-        event.registerLayerDefinition(TAModelLayers.SPECTRAL_ARMOR, () -> LayerDefinition.create(SpectralArmorModel.createBodyLayer(CubeDeformation.NONE), 128, 128));
+        event.registerLayerDefinition(TAModelLayers.AURORIAN_STEEL_ARMOR, AurorianSteelArmorModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.CERULEAN_ARMOR, CeruleanArmorModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.KNIGHT_ARMOR, KnightArmorModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.SPECTRAL_ARMOR, SpectralArmorModel::createBodyLayer);
     }
 
     @SubscribeEvent

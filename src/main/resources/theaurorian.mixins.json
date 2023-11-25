@@ -18,8 +18,7 @@
         "MixinFogRenderer",
         "MixinHumanoidArmorLayer",
         "MixinLevelRenderer",
-        "MixinLivingEntityRenderer",
-        "MixinPlayerRenderer"
+        "MixinLivingEntityRenderer"
     ],
     "injectors": {
         "defaultRequire": 1

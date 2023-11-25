@@ -30,6 +30,7 @@ public class TADataGenerator {
         generator.addProvider(event.includeServer(), new TAEntityTagsProvider(output, provider, existingFileHelper));
         generator.addProvider(event.includeClient(), new TABlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new TAItemModelProvider(output, existingFileHelper));
+        generator.addProvider(event.includeServer(), new TASoundProvider(output, existingFileHelper));
         generator.addProvider(event.includeServer(), new RegistryDataGenerator(output, provider));
         generator.addProvider(event.includeClient(), new TALanguageProviderENUS(output));
         generator.addProvider(event.includeClient(), new TALanguageProviderZHCN(output));

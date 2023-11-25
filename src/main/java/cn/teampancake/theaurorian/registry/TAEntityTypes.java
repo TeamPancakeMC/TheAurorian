@@ -15,9 +15,7 @@ import cn.teampancake.theaurorian.common.entities.projectile.CeruleanArrowEntity
 import cn.teampancake.theaurorian.common.entities.projectile.CrystalArrowEntity;
 import cn.teampancake.theaurorian.common.entities.projectile.StickySpikerEntity;
 import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
-import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.SlimeModel;
-import net.minecraft.client.model.SpiderModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -138,12 +136,12 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.UNDEAD_KNIGHT, UndeadKnightModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIRIT, SpiritModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.MOON_ACOLYTE, MoonAcolyteModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.SPIDERLING, SpiderModel::createSpiderBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.SPIDERLING, SpiderlingModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CRYSTALLINE_SPRITE, CrystallineSpriteModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_KEEPER, RunestoneKeeperModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.SPIDER_MOTHER, SpiderModel::createSpiderBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.MOON_QUEEN, () -> LayerDefinition.create(PlayerModel.createMesh(CubeDeformation.NONE, false), 64, 64));
+        event.registerLayerDefinition(TAModelLayers.SPIDER_MOTHER, SpiderMotherModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.MOON_QUEEN, MoonQueenModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_STEEL_ARMOR, AurorianSteelArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CERULEAN_ARMOR, CeruleanArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.KNIGHT_ARMOR, KnightArmorModel::createBodyLayer);

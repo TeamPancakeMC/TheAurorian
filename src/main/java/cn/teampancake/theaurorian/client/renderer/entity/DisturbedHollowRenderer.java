@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class DisturbedHollowRenderer extends MobRenderer<DisturbedHollow, DisturbedHollowModel<DisturbedHollow>> {
 
     public DisturbedHollowRenderer(EntityRendererProvider.Context context) {
-        super(context, new DisturbedHollowModel<>(context.bakeLayer(TAModelLayers.DISTURBED_HOLLOW).getChild("all")), 0.5F);
+        super(context, new DisturbedHollowModel<>(context.bakeLayer(TAModelLayers.DISTURBED_HOLLOW)), 0.5F);
     }
 
     @Override

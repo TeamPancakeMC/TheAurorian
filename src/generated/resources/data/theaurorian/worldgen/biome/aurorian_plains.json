@@ -1,14 +1,18 @@
 {
-  "carvers": {
-    "air": "minecraft:cave"
-  },
+  "carvers": {},
   "creature_spawn_probability": 0.3,
   "downfall": 0.0,
   "effects": {
     "fog_color": 12648408,
+    "music": {
+      "max_delay": 12000,
+      "min_delay": 600,
+      "replace_current_music": false,
+      "sound": "theaurorian:music"
+    },
     "sky_color": 8233727,
-    "water_color": 16777215,
-    "water_fog_color": 16777215
+    "water_color": -1,
+    "water_fog_color": -1
   },
   "features": [
     [],

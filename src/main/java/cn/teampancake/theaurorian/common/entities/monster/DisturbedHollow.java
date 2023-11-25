@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.common.entities.ai.ZombieLikeAttackGoal;
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,6 +18,9 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public class DisturbedHollow extends Monster {
+
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
 
     public DisturbedHollow(EntityType<? extends DisturbedHollow> type, Level level) {
         super(type, level);
@@ -41,6 +45,14 @@ public class DisturbedHollow extends Monster {
         builder.add(Attributes.FOLLOW_RANGE, 35.0D);
         builder.add(Attributes.ARMOR, 2.0F);
         return builder;
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (this.level().isClientSide()) {
+            this.idleAnimationState.startIfStopped(this.tickCount);
+        }
     }
 
     @Override

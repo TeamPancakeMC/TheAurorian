@@ -5,9 +5,10 @@ import cn.teampancake.theaurorian.common.level.placement.TAPlacements;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.Music;
+import net.minecraft.sounds.Musics;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
@@ -17,12 +18,16 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-@SuppressWarnings("SpellCheckingInspection")
+import java.awt.*;
+
+@SuppressWarnings({"SpellCheckingInspection", "OptionalGetWithoutIsPresent"})
 public class TABiomes {
 
     public static final ResourceKey<Biome> AURORIAN_FOREST = makeKey("aurorian_forest");
     public static final ResourceKey<Biome> AURORIAN_PLAINS = makeKey("aurorian_plains");
-    public static final ResourceKey<Biome> AURORIAN_LAKES = makeKey("aurorian_lakes");
+    public static final ResourceKey<Biome> AURORIAN_BEACH = makeKey("aurorian_beach");
+    public static final ResourceKey<Biome> AURORIAN_RIVER = makeKey("aurorian_river");
+    public static final ResourceKey<Biome> MOON_BEACH = makeKey("moon_beach");
     public static final ResourceKey<Biome> WEEPING_WILLOW_FOREST = makeKey("weeping_willow_forest");
 
     private static ResourceKey<Biome> makeKey(String name) {
@@ -39,7 +44,9 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_PLAINS)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_PLAINS)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_PLAINS)).build());
-        context.register(AURORIAN_LAKES, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
+        context.register(AURORIAN_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
+        context.register(AURORIAN_RIVER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
+        context.register(MOON_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(WEEPING_WILLOW_FOREST, biomeWithForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
     }
 
@@ -54,14 +61,14 @@ public class TABiomes {
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature(0.2F).downfall(0.0F)
                 .specialEffects(defaultAmbientBuilder().build()).mobSpawnSettings(defaultMobSpawning().build())
-                .generationSettings(defaultOreBuilder(biomeGenerationSettings)
-                        .addCarver(GenerationStep.Carving.AIR, Carvers.CAVE).build())
+                .generationSettings(defaultOreBuilder(biomeGenerationSettings).build())
                 .temperatureAdjustment(Biome.TemperatureModifier.NONE);
     }
 
     private static BiomeGenerationSettings.Builder defaultOreBuilder(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         GenerationStep.Decoration undergroundOre = GenerationStep.Decoration.UNDERGROUND_ORES;
-        return biomeGenerationSettings.addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_PERIDOTITE)
+        return biomeGenerationSettings
+                .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_PERIDOTITE)
                 .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_DIRT)
                 .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_COAL)
                 .addFeature(undergroundOre, TAPlacements.ORE_MOONSTONE)
@@ -70,8 +77,10 @@ public class TABiomes {
     }
 
     private static BiomeSpecialEffects.Builder defaultAmbientBuilder() {
-        return new BiomeSpecialEffects.Builder().fogColor(0xC0FFD8).waterColor(0xFFFFFF)
-                .waterFogColor(0xFFFFFF).skyColor(OverworldBiomes.calculateSkyColor(0.2F));
+        return new BiomeSpecialEffects.Builder().fogColor(0xC0FFD8).waterColor(Color.WHITE.getRGB())
+                .waterFogColor(Color.WHITE.getRGB()).skyColor(OverworldBiomes.calculateSkyColor(0.2F))
+                .backgroundMusic(new Music(TASoundEvents.BACKGROUND_MUSIC.getHolder().get(),
+                        Musics.THIRTY_SECONDS, Musics.TEN_MINUTES, Boolean.FALSE));
     }
 
     private static MobSpawnSettings.Builder defaultMobSpawning() {

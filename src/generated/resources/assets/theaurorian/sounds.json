@@ -1,0 +1,31 @@
+{
+  "music": {
+    "sounds": [
+      {
+        "name": "theaurorian:music/aurorian_1",
+        "stream": true
+      },
+      {
+        "name": "theaurorian:music/aurorian_2",
+        "stream": true
+      },
+      {
+        "name": "theaurorian:music/aurorian_3",
+        "stream": true
+      },
+      {
+        "name": "theaurorian:music/aurorian_4",
+        "stream": true
+      },
+      {
+        "name": "theaurorian:music/aurorian_5",
+        "stream": true
+      }
+    ]
+  },
+  "weeping_willow_bell": {
+    "sounds": [
+      "theaurorian:weeping_willow_bell"
+    ]
+  }
+}

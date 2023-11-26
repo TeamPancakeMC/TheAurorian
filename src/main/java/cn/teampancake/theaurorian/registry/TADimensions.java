@@ -63,11 +63,9 @@ public class TADimensions {
 
     private static RuleSource createSurfaceRule() {
         ImmutableList.Builder<RuleSource> builder = ImmutableList.builder();
-        RuleSource moonSand = SurfaceRuleData.makeStateRule(TABlocks.MOON_SAND.get());
         RuleSource aurorianDirt = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_DIRT.get());
         RuleSource aurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_GRASS_BLOCK.get());
         RuleSource aurorianGrassLightBlock = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_GRASS_LIGHT_BLOCK.get());
-        RuleSource aurorianSand = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_STONE.get());
         ConditionSource notUnderWater = waterBlockCheck(-1, ConstantInt.ZERO.getValue());
         ConditionSource notUnderDeepWater = waterStartCheck(-6, (-1));
         RuleSource overworldLike = sequence(

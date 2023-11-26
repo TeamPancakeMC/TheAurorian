@@ -49,6 +49,10 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
         this.simpleBlock(TABlocks.AURORIAN_PERIDOTITE.get());
         this.simpleBlock(TABlocks.MOON_SAND.get());
+        this.simpleBlock(TABlocks.MOON_SAND_RIVER.get());
+        this.simpleBlock(TABlocks.MOON_SAND_STONE_RIVER_1.get());
+        this.simpleBlock(TABlocks.MOON_SAND_STONE_RIVER_2.get());
+        this.simpleBlock(TABlocks.MOON_SAND_STONE_RIVER_3.get());
         this.simpleBlock(TABlocks.RUNE_STONE.get());
         this.simpleBlock(TABlocks.SMOOTH_RUNE_STONE.get());
         this.simpleBlock(TABlocks.CHISELED_RUNE_STONE.get());
@@ -128,6 +132,10 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerWallTorchStates(TABlocks.SILENT_WOOD_WALL_TORCH.get());
         this.registerCropStates(TABlocks.LAVENDER_CROP.get());
         this.registerCropStates(TABlocks.SILK_BERRY_CROP.get());
+        this.registerPlantStates(TABlocks.AURORIAN_FLOWER_1.get());
+        this.registerPlantStates(TABlocks.AURORIAN_FLOWER_2.get());
+        this.registerPlantStates(TABlocks.AURORIAN_FLOWER_3.get());
+        this.registerPlantStates(TABlocks.AURORIAN_FLOWER_4.get());
         this.registerPlantStates(TABlocks.LAVENDER_PLANT.get());
         this.registerPlantStates(TABlocks.PETUNIA_PLANT.get());
         this.registerPlantStates(TABlocks.INDIGO_MUSHROOM.get());
@@ -273,11 +281,11 @@ public class TABlockStateProvider extends BlockStateProvider {
 
     private void registerCropStates(Block block) {
         VariantBlockStateBuilder builder = this.getVariantBuilder(block);
-        for (int stage : AbstractCropBlock.AGE.getPossibleValues()) {
+        for (int stage : TACropBlock.AGE.getPossibleValues()) {
             String name = this.name(block) + "_stage" + stage;
             ResourceLocation texture = this.modLoc("block/" + name);
             ModelFile modelFile = this.models().crop(name, texture);
-            builder.partialState().with(AbstractCropBlock.AGE, stage)
+            builder.partialState().with(TACropBlock.AGE, stage)
                     .modelForState().modelFile(modelFile).addModel();
         }
     }

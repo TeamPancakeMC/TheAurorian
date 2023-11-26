@@ -6,11 +6,11 @@ import net.minecraft.world.level.block.BeetrootBlock;
 
 import java.util.function.Supplier;
 
-public class AbstractCropBlock extends BeetrootBlock {
+public class TACropBlock extends BeetrootBlock {
 
     private final Supplier<Item> cloneItem;
 
-    public AbstractCropBlock(Properties properties, Supplier<Item> cloneItem) {
+    public TACropBlock(Properties properties, Supplier<Item> cloneItem) {
         super(properties);
         this.cloneItem = cloneItem;
     }

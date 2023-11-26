@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.data.loot;
 
-import cn.teampancake.theaurorian.common.blocks.AbstractCropBlock;
+import cn.teampancake.theaurorian.common.blocks.TACropBlock;
 import cn.teampancake.theaurorian.registry.TABlocks;
 import cn.teampancake.theaurorian.registry.TAItems;
 import cn.teampancake.theaurorian.utils.TACommonUtils;
@@ -83,19 +83,19 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.add(TABlocks.AURORIAN_GRASS_LIGHT.get(), block -> this.createSilkTouchOrSicklesDispatchTable(block, TABlocks.AURORIAN_GRASS_LIGHT.get()));
         this.add(TABlocks.LAVENDER_CROP.get(), this.createCropDrops(TABlocks.LAVENDER_CROP.get(), TAItems.LAVENDER.get(), TAItems.LAVENDER_SEEDS.get(),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(TABlocks.LAVENDER_CROP.get())
-                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AbstractCropBlock.AGE, 3))));
+                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TACropBlock.AGE, 3))));
         this.add(TABlocks.SILK_BERRY_CROP.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
                 .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition
                                 .hasBlockStateProperties(TABlocks.SILK_BERRY_CROP.get())
                         .setProperties(StatePropertiesPredicate.Builder.properties()
-                                .hasProperty(AbstractCropBlock.AGE, 3)))
+                                .hasProperty(TACropBlock.AGE, 3)))
                         .add(LootItem.lootTableItem(TAItems.SILK_BERRY.get()))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))
                 .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition
                                 .hasBlockStateProperties(TABlocks.SILK_BERRY_CROP.get())
                         .setProperties(StatePropertiesPredicate.Builder.properties()
-                                .hasProperty(AbstractCropBlock.AGE, 2)))
+                                .hasProperty(TACropBlock.AGE, 2)))
                         .add(LootItem.lootTableItem(TAItems.SILK_BERRY.get()))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))));

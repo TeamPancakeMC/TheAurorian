@@ -8,15 +8,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.Util;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.StructureManager;
-import net.minecraft.world.level.biome.BiomeManager;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,7 +36,7 @@ import java.util.function.Predicate;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "ConstantConditions", "OptionalGetWithoutIsPresent"})
-public class TAChunkGenerator extends ChunkGenerator {
+public class TAChunkGenerator extends NoiseBasedChunkGenerator {
 
     public final ChunkGenerator chunkGenerator;
 
@@ -55,7 +52,7 @@ public class TAChunkGenerator extends ChunkGenerator {
     private static final BlockState[] EMPTY_COLUMN = new BlockState[0];
 
     public TAChunkGenerator(ChunkGenerator chunkGenerator, Holder<NoiseGeneratorSettings> noiseGenSettings) {
-        super(chunkGenerator.getBiomeSource());
+        super(chunkGenerator.getBiomeSource(), noiseGenSettings);
         this.chunkGenerator = chunkGenerator;
         this.noiseGeneratorSettings = noiseGenSettings;
         if (chunkGenerator instanceof NoiseBasedChunkGenerator noiseGen && noiseGen.generatorSettings().isBound()) {
@@ -87,44 +84,9 @@ public class TAChunkGenerator extends ChunkGenerator {
     }
 
     @Override
-    public void applyCarvers(WorldGenRegion level, long pSeed, RandomState random, BiomeManager biomeManager, StructureManager structureManager, ChunkAccess chunk, GenerationStep.Carving step) {
-        this.chunkGenerator.applyCarvers(level, pSeed, random, biomeManager, structureManager, chunk, step);
-    }
-
-    @Override
-    public void buildSurface(WorldGenRegion level, StructureManager structureManager, RandomState random, ChunkAccess chunk) {
-        this.chunkGenerator.buildSurface(level, structureManager, random, chunk);
-    }
-
-    @Override
-    public void spawnOriginalMobs(WorldGenRegion level) {
-        this.chunkGenerator.spawnOriginalMobs(level);
-    }
-
-    @Override
-    public int getSpawnHeight(LevelHeightAccessor level) {
-        return this.chunkGenerator.getSpawnHeight(level);
-    }
-
-    @Override
-    public int getGenDepth() {
-        return this.chunkGenerator.getGenDepth();
-    }
-
-    @Override
-    public int getSeaLevel() {
-        return this.chunkGenerator.getSeaLevel();
-    }
-
-    @Override
-    public int getMinY() {
-        return this.chunkGenerator.getMinY();
-    }
-
-    @Override
     public CompletableFuture<ChunkAccess> fillFromNoise(Executor executor, Blender blender, RandomState random, StructureManager structureManager, ChunkAccess chunkAccess) {
         if (this.warper.isEmpty()) {
-            return this.chunkGenerator.fillFromNoise(executor, blender, random, structureManager, chunkAccess);
+            return super.fillFromNoise(executor, blender, random, structureManager, chunkAccess);
         } else {
             NoiseSettings settings = this.noiseGeneratorSettings.value().noiseSettings();
             int cellHeight = settings.getCellHeight();
@@ -156,7 +118,7 @@ public class TAChunkGenerator extends ChunkGenerator {
     @Override
     public int getBaseHeight(int x, int z, Heightmap.Types heightMap, LevelHeightAccessor level, RandomState random) {
         if (this.warper.isEmpty()) {
-            return this.chunkGenerator.getBaseHeight(x, z, heightMap, level, random);
+            return super.getBaseHeight(x, z, heightMap, level, random);
         } else {
             NoiseSettings settings = this.noiseGeneratorSettings.value().noiseSettings();
             int minY = Math.max(settings.minY(), level.getMinBuildHeight());
@@ -170,7 +132,7 @@ public class TAChunkGenerator extends ChunkGenerator {
     @Override
     public NoiseColumn getBaseColumn(int x, int z, LevelHeightAccessor level, RandomState random) {
         if (this.warper.isEmpty()) {
-            return this.chunkGenerator.getBaseColumn(x, z, level, random);
+            return super.getBaseColumn(x, z, level, random);
         } else {
             NoiseSettings settings = this.noiseGeneratorSettings.value().noiseSettings();
             int minY = Math.max(settings.minY(), level.getMinBuildHeight());
@@ -320,11 +282,6 @@ public class TAChunkGenerator extends ChunkGenerator {
         }
 
         return state;
-    }
-
-    @Override
-    public void addDebugScreenInfo(List<String> info, RandomState random, BlockPos pos) {
-
     }
 
 }

@@ -8,11 +8,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Supplier;
 
-public class AbstractPlantBlock extends DeadBushBlock {
+public class TAPlantBlock extends DeadBushBlock {
 
     private final Supplier<Block> block;
 
-    public AbstractPlantBlock(Properties properties, Supplier<Block> block) {
+    public TAPlantBlock(Properties properties, Supplier<Block> block) {
         super(properties);
         this.block = block;
     }

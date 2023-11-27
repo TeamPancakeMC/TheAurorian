@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.event;
+package cn.teampancake.theaurorian.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import net.minecraftforge.fml.common.Mod;

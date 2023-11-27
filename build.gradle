@@ -134,6 +134,8 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
+//    implementation fg.deobf("curse.maven:l_ender-s-cataclysm-551586:4778613")
+
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
 }

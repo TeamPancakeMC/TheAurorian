@@ -87,7 +87,7 @@ public class MoonQueenModel<T extends MoonQueen> extends HierarchicalModel<T> {
         this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
         this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
         this.animate(entity.idleAnimationState, MoonQueenAnimation.IDLE, ageInTicks);
-        this.animate(entity.meleeAttackAnimationState, MoonQueenAnimation.MELEE_ATTACK, ageInTicks);
+        this.animate(entity.meleeAttackAnimationState, MoonQueenAnimation.MELEE_ATTACK, ageInTicks, 1.5F);
         this.animate(entity.defendAnimationState, MoonQueenAnimation.DEFEND, ageInTicks);
         if (!entity.isInWaterOrBubble()) {
             this.animateWalk(MoonQueenAnimation.WALK, limbSwing, limbSwingAmount, (1.5F), (2.5F));

@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.client.model;
 
+import cn.teampancake.theaurorian.client.animation.MoonQueenAnimation;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -83,8 +84,14 @@ public class MoonQueenModel<T extends MoonQueen> extends HierarchicalModel<T> {
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * ((float)Math.PI / 180F);
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+        this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
+        this.animate(entity.idleAnimationState, MoonQueenAnimation.IDLE, ageInTicks);
+        this.animate(entity.meleeAttackAnimationState, MoonQueenAnimation.MELEE_ATTACK, ageInTicks);
+        this.animate(entity.defendAnimationState, MoonQueenAnimation.DEFEND, ageInTicks);
+        if (!entity.isInWaterOrBubble()) {
+            this.animateWalk(MoonQueenAnimation.WALK, limbSwing, limbSwingAmount, (1.5F), (2.5F));
+        }
     }
 
     @Override

@@ -59,13 +59,13 @@ public class AurorianRabbitModel<T extends AurorianRabbit> extends EntityModel<T
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float f = ageInTicks - (float) entity.tickCount;
-        this.head.xRot = headPitch * ((float)Math.PI / 180F);
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+        this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
         this.jumpRotation = Mth.sin(entity.getJumpCompletion(f) * (float)Math.PI);
-        this.rightFrontLeg.xRot = (this.jumpRotation * -40.0F - 11.0F) * ((float)Math.PI / 180F);
-        this.leftFrontLeg.xRot = (this.jumpRotation * -40.0F - 11.0F) * ((float)Math.PI / 180F);
-        this.rightRearFoot.xRot = this.jumpRotation * 50.0F * ((float)Math.PI / 180F);
-        this.leftRearFoot.xRot = this.jumpRotation * 50.0F * ((float)Math.PI / 180F);
+        this.rightFrontLeg.xRot = (this.jumpRotation * -40.0F - 11.0F) * ((float)Math.PI / 180.0F);
+        this.leftFrontLeg.xRot = (this.jumpRotation * -40.0F - 11.0F) * ((float)Math.PI / 180.0F);
+        this.rightRearFoot.xRot = this.jumpRotation * 50.0F * ((float)Math.PI / 180.0F);
+        this.leftRearFoot.xRot = this.jumpRotation * 50.0F * ((float)Math.PI / 180.0F);
     }
 
     @Override

@@ -23,9 +23,7 @@ public abstract class MixinHumanoidArmorLayer<T extends LivingEntity, M extends 
 
     @Inject(method = "renderArmorPiece", at = @At(value = "HEAD"), cancellable = true)
     private void renderArmorPiece(PoseStack poseStack, MultiBufferSource buffer, T livingEntity, EquipmentSlot slot, int packedLight, A model, CallbackInfo ci) {
-        if (livingEntity.getItemBySlot(slot).is(TAItemTags.HAS_CUSTOM_ARMOR_MODEL)) {
-            ci.cancel();
-        }
+
     }
 
 }

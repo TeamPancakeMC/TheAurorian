@@ -98,7 +98,7 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
     public void aiStep() {
         super.aiStep();
         if (this.level().isClientSide()) {
-            this.idleAnimationState.startIfStopped(this.tickCount);
+            this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.walkAnimation.isMoving(), this.tickCount);
             if (this.tickCount % 2 == 0 && this.getHealth() < this.getMaxHealth() * 0.3F) {
                 double x = this.getX() + this.random.nextFloat();
                 double z = this.getZ() + this.random.nextFloat();
@@ -131,7 +131,7 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
     @Override
     public void handleEntityEvent(byte id) {
         if (id == 4) {
-            this.attackAnimationState1.start(this.tickCount);
+            this.attackAnimationState1.startIfStopped(this.tickCount);
         } else {
             super.handleEntityEvent(id);
         }

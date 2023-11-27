@@ -59,8 +59,8 @@ public class SpiritModel<T extends Spirit> extends EntityModel<T> {
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-        this.head.xRot = headPitch * ((float)Math.PI / 180F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
+        this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
         AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, entity.isAggressive(), this.attackTime, ageInTicks);
     }
 

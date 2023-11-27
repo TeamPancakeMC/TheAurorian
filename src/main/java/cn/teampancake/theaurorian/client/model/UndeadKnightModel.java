@@ -73,11 +73,13 @@ public class UndeadKnightModel<T extends UndeadKnight> extends HierarchicalModel
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * ((float)Math.PI / 180F);
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-        this.animateWalk(UndeadKnightAnimation.WALK, limbSwing, limbSwingAmount, (2.0F), (2.5F));
+        this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
         this.animate(entity.idleAnimationState, UndeadKnightAnimation.IDLE, ageInTicks);
         this.animate(entity.attackAnimationState, UndeadKnightAnimation.ATTACK, ageInTicks);
+        if (!entity.isInWaterOrBubble()) {
+            this.animateWalk(UndeadKnightAnimation.WALK, limbSwing, limbSwingAmount, (2.0F), (2.5F));
+        }
     }
 
     @Override

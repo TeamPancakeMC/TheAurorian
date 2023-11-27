@@ -10,9 +10,7 @@ import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -70,6 +68,15 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropWhenSilkTouch(TABlocks.LAVENDER_PLANT.get());
         this.dropWhenSilkTouch(TABlocks.PETUNIA_PLANT.get());
         this.dropWhenSilkTouch(TABlocks.INDIGO_MUSHROOM_STEM.get());
+        this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_1.get());
+        this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_2.get());
+        this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_3.get());
+        this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_4.get());
+        this.dropPottedContents(TABlocks.POTTED_AURORIAN_GRASS.get());
+        this.dropPottedContents(TABlocks.POTTED_LAVENDER_PLANT.get());
+        this.dropPottedContents(TABlocks.POTTED_PETUNIA_PLANT.get());
+        this.dropPottedContents(TABlocks.POTTED_SILENT_TREE_SAPLING.get());
+        this.dropPottedContents(TABlocks.POTTED_AURORIAN_GRASS_LIGHT.get());
         this.dropOther(TABlocks.MOON_WALL_TORCH.get(), TABlocks.MOON_TORCH.get());
         this.dropOther(TABlocks.SILENT_WOOD_WALL_TORCH.get(), TABlocks.SILENT_WOOD_TORCH.get());
         this.add(TABlocks.GEODE_ORE.get(), block -> this.createOreDrop(block, TAItems.CRYSTAL.get()));
@@ -101,10 +108,12 @@ public class TABlockLoot extends VanillaBlockLoot {
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))));
         for (Block block : TACommonUtils.getKnownBlocks()) {
             float f = Blocks.BEDROCK.getExplosionResistance();
-            boolean flag1 = block instanceof StairBlock stairBlock
-                    && stairBlock.getExplosionResistance() != f;
-            boolean flag2 = block.getExplosionResistance() == f;
-            if ((flag2 || flag1)) {
+            boolean isStair = block instanceof StairBlock;
+            boolean isSlab = block instanceof SlabBlock;
+            boolean isWall = block instanceof WallBlock;
+            boolean hardLikeBedrock = block.getExplosionResistance() == f;
+            boolean notHardLikeBedrock = block.getExplosionResistance() != f;
+            if ((hardLikeBedrock || ((isStair || isSlab || isWall) && notHardLikeBedrock))) {
                 this.dropSelf(block);
             }
         }

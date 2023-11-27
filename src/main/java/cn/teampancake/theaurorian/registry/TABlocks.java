@@ -102,9 +102,9 @@ public class TABlocks {
     public static final RegistryObject<Block> MOON_GEM = register("moon_gem", () -> new MoonGem(defaultStoneProperties(2.0F).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.METAL).noOcclusion()));
     public static final RegistryObject<Block> MOON_SAND = normal("moon_sand", copy(Blocks.SAND));
     public static final RegistryObject<Block> MOON_SAND_RIVER = normal("moon_sand_river", copy(Blocks.SAND));
-    public static final RegistryObject<Block> MOON_SAND_STONE_RIVER_1 = normal("moon_sand_stone_river_1", copy(Blocks.SANDSTONE));
-    public static final RegistryObject<Block> MOON_SAND_STONE_RIVER_2 = normal("moon_sand_stone_river_2", copy(Blocks.SANDSTONE));
-    public static final RegistryObject<Block> MOON_SAND_STONE_RIVER_3 = normal("moon_sand_stone_river_3", copy(Blocks.SANDSTONE));
+    public static final RegistryObject<Block> MOON_SAND_STONE_1 = normal("moon_sand_stone_1", copy(Blocks.SANDSTONE));
+    public static final RegistryObject<Block> MOON_SAND_STONE_2 = normal("moon_sand_stone_2", copy(Blocks.SANDSTONE));
+    public static final RegistryObject<Block> MOON_SAND_STONE_3 = normal("moon_sand_stone_3", copy(Blocks.SANDSTONE));
     public static final RegistryObject<Block> MOON_TORCH = register("moon_torch", () -> new TorchBlock(copy(Blocks.TORCH), ParticleTypes.CLOUD));
     public static final RegistryObject<Block> MOON_WALL_TORCH = BLOCKS.register("moon_wall_torch", () -> new WallTorchBlock(copy(Blocks.WALL_TORCH), ParticleTypes.CLOUD));
     public static final RegistryObject<Block> SCRAPPER = register("scrapper", () -> new Scrapper(defaultStoneProperties(2.0F)));
@@ -129,10 +129,10 @@ public class TABlocks {
     public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_3 = flowerPot(AURORIAN_FLOWER_3.getId().getPath(), AURORIAN_FLOWER_3);
     public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_4 = flowerPot(AURORIAN_FLOWER_4.getId().getPath(), AURORIAN_FLOWER_4);
     public static final RegistryObject<Block> POTTED_AURORIAN_GRASS = flowerPot(AURORIAN_GRASS.getId().getPath(), AURORIAN_GRASS);
-    public static final RegistryObject<Block> POTTED_AURORIAN_GRASS_LIGHT = flowerPot(AURORIAN_GRASS_LIGHT.getId().getPath(), AURORIAN_GRASS_LIGHT);
     public static final RegistryObject<Block> POTTED_LAVENDER_PLANT = flowerPot(LAVENDER_PLANT.getId().getPath(), LAVENDER_PLANT);
     public static final RegistryObject<Block> POTTED_PETUNIA_PLANT = flowerPot(PETUNIA_PLANT.getId().getPath(), PETUNIA_PLANT);
     public static final RegistryObject<Block> POTTED_SILENT_TREE_SAPLING = flowerPot(SILENT_TREE_SAPLING.getId().getPath(), SILENT_TREE_SAPLING);
+    public static final RegistryObject<Block> POTTED_AURORIAN_GRASS_LIGHT = flowerPot(AURORIAN_GRASS_LIGHT.getId().getPath(), AURORIAN_GRASS_LIGHT);
     public static final RegistryObject<Block> AURORIAN_STONE_STAIRS = stair("aurorian_stone_stairs", AURORIAN_STONE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_STONE_BRICK_STAIRS = stair("aurorian_stone_brick_stairs", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_COBBLESTONE_STAIRS = stair("aurorian_cobblestone_stairs", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));

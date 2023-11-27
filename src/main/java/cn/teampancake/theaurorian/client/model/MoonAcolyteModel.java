@@ -46,11 +46,13 @@ public class MoonAcolyteModel<T extends MoonAcolyte> extends HierarchicalModel<T
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * ((float)Math.PI / 180F);
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-        this.animateWalk(MoonAcolyteAnimation.WALK, limbSwing, limbSwingAmount, (2.0F), (2.5F));
+        this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
         this.animate(entity.idleAnimationState, MoonAcolyteAnimation.IDLE, ageInTicks);
         this.animate(entity.attackAnimationState, MoonAcolyteAnimation.ATTACK, ageInTicks);
+        if (!entity.isInWaterOrBubble()) {
+            this.animateWalk(MoonAcolyteAnimation.WALK, limbSwing, limbSwingAmount, (2.0F), (2.5F));
+        }
     }
 
     @Override

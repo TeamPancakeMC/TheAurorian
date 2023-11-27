@@ -40,6 +40,10 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_PORTAL.get(), "Aurorian Portal");
         this.add(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(), "Aurorian Portal Frame Brick");
         this.add(TABlocks.URN.get(), "Urn");
+        this.add(TABlocks.AURORIAN_FLOWER_1.get(), "Aurorian Flower");
+        this.add(TABlocks.AURORIAN_FLOWER_2.get(), "Aurorian Flower");
+        this.add(TABlocks.AURORIAN_FLOWER_3.get(), "Aurorian Flower");
+        this.add(TABlocks.AURORIAN_FLOWER_4.get(), "Aurorian Flower");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "Aurorian Peridotite");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "Smooth Aurorian Peridotite");
         this.add(TABlocks.MOONSTONE_ORE.get(), "Moonstone Ore");
@@ -87,6 +91,10 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.MOONLIGHT_FORGE.get(), "Moonlight Forge");
         this.add(TABlocks.MOON_GEM.get(), "Moon Gem");
         this.add(TABlocks.MOON_SAND.get(), "Moon Sand");
+        this.add(TABlocks.MOON_SAND_RIVER.get(), "River Moon Sand");
+        this.add(TABlocks.MOON_SAND_STONE_1.get(), "Moon Sandstone");
+        this.add(TABlocks.MOON_SAND_STONE_2.get(), "Moon Sandstone");
+        this.add(TABlocks.MOON_SAND_STONE_3.get(), "Moon Sandstone");
         this.add(TABlocks.MOON_TORCH.get(), "Moon Torch");
         this.add(TABlocks.SCRAPPER.get(), "Scrapper");
         this.add(TABlocks.UMBRA_STONE.get(), "Umbra Stone");

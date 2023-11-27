@@ -77,16 +77,18 @@ public class RunestoneKeeperModel<T extends RunestoneKeeper> extends Hierarchica
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * ((float)Math.PI / 180F);
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+        this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
         AnimationDefinition animationDefinition = entity.isSprinting() ?
                 RunestoneKeeperAnimation.RUN : RunestoneKeeperAnimation.WALK;
-        this.animateWalk(animationDefinition, limbSwing, limbSwingAmount, (2.0F), (2.5F));
         this.animate(entity.idleAnimationState, RunestoneKeeperAnimation.IDLE, ageInTicks);
         this.animate(entity.attackAnimationState1, RunestoneKeeperAnimation.ATTACK_1, ageInTicks);
         this.animate(entity.attackAnimationState2, RunestoneKeeperAnimation.ATTACK_2, ageInTicks);
         this.animate(entity.attackAnimationState3, RunestoneKeeperAnimation.ATTACK_3, ageInTicks);
         this.animate(entity.deathAnimationState, RunestoneKeeperAnimation.DEATH, ageInTicks);
+        if (!entity.isInWaterOrBubble()) {
+            this.animateWalk(animationDefinition, limbSwing, limbSwingAmount, (2.0F), (2.5F));
+        }
     }
 
     public @NotNull ModelPart root() {

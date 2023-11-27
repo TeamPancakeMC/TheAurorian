@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
 import cn.teampancake.theaurorian.common.entities.ai.ModRangedAttackGoal;
-import cn.teampancake.theaurorian.registry.TABlocks;
 import cn.teampancake.theaurorian.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -21,10 +20,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -34,7 +30,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
@@ -44,6 +39,10 @@ import java.util.EnumSet;
 
 @ParametersAreNonnullByDefault
 public class MoonQueen extends Monster {
+
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState meleeAttackAnimationState = new AnimationState();
+    public final AnimationState defendAnimationState = new AnimationState();
 
     private static final EntityDataAccessor<Boolean> WINDING_UP_CHARGE = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> CHARGING = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.BOOLEAN);
@@ -60,9 +59,9 @@ public class MoonQueen extends Monster {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new ChargeGoal(this));
-        this.goalSelector.addGoal(2, new SideStrafeGoal(this));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.35F, Boolean.FALSE));
+//        this.goalSelector.addGoal(1, new ChargeGoal(this));
+//        this.goalSelector.addGoal(2, new SideStrafeGoal(this));
+        this.goalSelector.addGoal(3, new MoonQueenAttackGoal(this));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -116,33 +115,27 @@ public class MoonQueen extends Monster {
     }
 
     @Override
-    public void die(DamageSource damageSource) {
-        super.die(damageSource);
-        final int size = 35;
-        this.level().setBlockAndUpdate(this.getOnPos(), Blocks.CHEST.defaultBlockState());
-        for (BlockPos pos : BlockPos.withinManhattan(this.getOnPos(), size, size, size)) {
-            if (this.level().getBlockState(pos).is(TABlocks.MYSTICAL_BARRIER.get())) {
-                this.level().destroyBlock(pos, false);
-            }
-        }
-    }
-
-    @Override
     public void aiStep() {
         super.aiStep();
-        if (this.level().isClientSide && this.tickCount % 2 == 0 && this.getEntityData().get(WINDING_UP_CHARGE)) {
-            double x = this.getX() + this.random.nextFloat();
-            double z = this.getZ() + this.random.nextFloat();
-            double xSpeed = this.random.nextGaussian() * 0.02D;
-            double ySpeed = this.random.nextGaussian() * 0.1D;
-            double zSpeed = this.random.nextGaussian() * 0.02D;
-            this.level().addParticle(ParticleTypes.ANGRY_VILLAGER, x, this.getRandomY(), z, xSpeed, ySpeed, zSpeed);
+        if (this.level().isClientSide) {
+            this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.walkAnimation.isMoving(), this.tickCount);
+            if (this.tickCount % 2 == 0 && this.getEntityData().get(WINDING_UP_CHARGE)) {
+                double x = this.getX() + this.random.nextFloat();
+                double z = this.getZ() + this.random.nextFloat();
+                double xSpeed = this.random.nextGaussian() * 0.02D;
+                double ySpeed = this.random.nextGaussian() * 0.1D;
+                double zSpeed = this.random.nextGaussian() * 0.02D;
+                this.level().addParticle(ParticleTypes.ANGRY_VILLAGER, x, this.getRandomY(), z, xSpeed, ySpeed, zSpeed);
+            }
         }
+
         if (this.getEntityData().get(CHARGE_HIT)) {
             if (this.level().isClientSide) {
+                this.defendAnimationState.start(this.tickCount);
                 this.level().playLocalSound(this.getOnPos(), SoundEvents.ANVIL_PLACE, SoundSource.PLAYERS, 1F, 1.5F, false);
             }
-            this.getEntityData().set(CHARGE_HIT, true);
+
+            this.getEntityData().set(CHARGE_HIT, false);
         }
     }
 
@@ -162,6 +155,15 @@ public class MoonQueen extends Monster {
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
         this.bossEvent.removePlayer(player);
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 4) {
+            this.meleeAttackAnimationState.startIfStopped(this.tickCount);
+        } else {
+            super.handleEntityEvent(id);
+        }
     }
 
     @Override
@@ -203,6 +205,78 @@ public class MoonQueen extends Monster {
         return 1;
     }
 
+    private static class MoonQueenAttackGoal extends MeleeAttackGoal {
+
+        private final MoonQueen moonQueen;
+        private int attackAnimationTick;
+
+        public MoonQueenAttackGoal(MoonQueen moonQueen) {
+            super(moonQueen, 1.35F, Boolean.FALSE);
+            this.moonQueen = moonQueen;
+        }
+
+        @Override
+        public void start() {
+            super.start();
+            this.attackAnimationTick = 0;
+            this.moonQueen.level().broadcastEntityEvent(this.moonQueen, (byte) 4);
+        }
+
+        @Override
+        public void stop() {
+            super.stop();
+            this.attackAnimationTick = 40;
+            this.moonQueen.meleeAttackAnimationState.stop();
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = this.moonQueen.getTarget();
+            if (target != null && this.attackAnimationTick <= 40) {
+                ++this.attackAnimationTick;
+                this.moonQueen.getLookControl().setLookAt(target, 30.0F, 30.0F);
+                double d0 = this.moonQueen.getPerceivedTargetDistanceSquareForMeleeAttack(target);
+                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
+                boolean flag0 = this.followingTargetEvenIfNotSeen || this.moonQueen.getSensing().hasLineOfSight(target);
+                boolean flag1 = this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D;
+                boolean flag2 = target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D;
+                boolean flag3 = this.moonQueen.getRandom().nextFloat() < 0.05F;
+                if (flag0 && this.ticksUntilNextPathRecalculation <= 0 && (flag1 || flag2 || flag3)) {
+                    this.pathedTargetX = target.getX();
+                    this.pathedTargetY = target.getY();
+                    this.pathedTargetZ = target.getZ();
+                    this.ticksUntilNextPathRecalculation = 4 + this.moonQueen.getRandom().nextInt(7);
+                    if (d0 > 1024.0D) {
+                        this.ticksUntilNextPathRecalculation += 10;
+                    } else if (d0 > 256.0D) {
+                        this.ticksUntilNextPathRecalculation += 5;
+                    }
+
+                    if (!this.moonQueen.getNavigation().moveTo(target, this.speedModifier)) {
+                        this.ticksUntilNextPathRecalculation += 15;
+                    }
+
+                    this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
+                }
+
+                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
+                if (this.attackAnimationTick == 9) {
+                    if (d0 <= this.getAttackReachSqr(target)) {
+                        this.moonQueen.doHurtTarget(target);
+                    }
+                }
+
+                if (this.attackAnimationTick == 19) {
+                    if (d0 <= this.getAttackReachSqr(target)) {
+                        this.resetAttackCooldown();
+                        this.moonQueen.doHurtTarget(target);
+                    }
+                }
+            }
+        }
+
+    }
+
     private static class ChargeGoal extends ModRangedAttackGoal {
 
         private int chargeTime = 0;
@@ -226,7 +300,11 @@ public class MoonQueen extends Monster {
                 this.chargeTime--;
             }
             switch (this.attackWindUp) {
-                case 1 -> this.setAttackLocation(target);
+                case 1 -> {
+                    if (target != null) {
+                        this.setAttackLocation(target);
+                    }
+                }
                 case 0 -> {
                     this.monster.getLookControl().setLookAt(this.targetX, this.targetY + this.monster.getEyeY(), this.targetZ);
                     this.monster.getEntityData().set(WINDING_UP_CHARGE, false);
@@ -240,9 +318,6 @@ public class MoonQueen extends Monster {
                     } else if (this.monster.getNavigation().isDone()) {
                         this.finishChargeAttack(null);
                     }
-                }
-                default -> {
-
                 }
             }
         }

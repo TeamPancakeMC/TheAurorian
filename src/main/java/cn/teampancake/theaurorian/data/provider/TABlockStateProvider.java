@@ -13,7 +13,9 @@ import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class TABlockStateProvider extends BlockStateProvider {
@@ -50,9 +52,9 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.AURORIAN_PERIDOTITE.get());
         this.simpleBlock(TABlocks.MOON_SAND.get());
         this.simpleBlock(TABlocks.MOON_SAND_RIVER.get());
-        this.simpleBlock(TABlocks.MOON_SAND_STONE_RIVER_1.get());
-        this.simpleBlock(TABlocks.MOON_SAND_STONE_RIVER_2.get());
-        this.simpleBlock(TABlocks.MOON_SAND_STONE_RIVER_3.get());
+        this.simpleBlock(TABlocks.MOON_SAND_STONE_1.get());
+        this.simpleBlock(TABlocks.MOON_SAND_STONE_2.get());
+        this.simpleBlock(TABlocks.MOON_SAND_STONE_3.get());
         this.simpleBlock(TABlocks.RUNE_STONE.get());
         this.simpleBlock(TABlocks.SMOOTH_RUNE_STONE.get());
         this.simpleBlock(TABlocks.CHISELED_RUNE_STONE.get());
@@ -153,6 +155,8 @@ public class TABlockStateProvider extends BlockStateProvider {
                 ResourceLocation texture = this.blockTexture(wallBlock.getBase());
                 this.wallBlock(wallBlock, this.blockTexture(wallBlock.getBase()));
                 this.simpleBlockItem(wallBlock, this.models().wallInventory(this.name(wallBlock), texture));
+            } else if (block instanceof FlowerPotBlock flowerPotBlock) {
+                this.pottedPlants(flowerPotBlock, flowerPotBlock.getContent());
             }
         }
     }
@@ -288,6 +292,11 @@ public class TABlockStateProvider extends BlockStateProvider {
             builder.partialState().with(TACropBlock.AGE, stage)
                     .modelForState().modelFile(modelFile).addModel();
         }
+    }
+
+    private void pottedPlants(Block block, Block content) {
+        this.simpleBlock(block, this.models().withExistingParent(this.name(block), "block/flower_pot_cross")
+                .renderType(CUTOUT).texture("plant", this.blockTexture(content)));
     }
 
     private void registerPlantStates(Block block) {

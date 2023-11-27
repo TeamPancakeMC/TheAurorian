@@ -5,27 +5,24 @@ import cn.teampancake.theaurorian.registry.TABlocks;
 import cn.teampancake.theaurorian.registry.TAItems;
 import cn.teampancake.theaurorian.utils.TACommonUtils;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.armortrim.TrimMaterial;
-import net.minecraft.world.item.armortrim.TrimMaterials;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
-import java.util.LinkedHashMap;
 import java.util.Objects;
 
 @SuppressWarnings({"ConstantConditions", "unused"})
 public class TAItemModelProvider extends ItemModelProvider {
+
     public TAItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, AurorianMod.MOD_ID, existingFileHelper);
     }
@@ -49,6 +46,10 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.AURORIAN_FURNACE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_PERIDOTITE.get());
         this.simpleBlockItem(TABlocks.MOON_SAND.get());
+        this.simpleBlockItem(TABlocks.MOON_SAND_RIVER.get());
+        this.simpleBlockItem(TABlocks.MOON_SAND_STONE_1.get());
+        this.simpleBlockItem(TABlocks.MOON_SAND_STONE_2.get());
+        this.simpleBlockItem(TABlocks.MOON_SAND_STONE_3.get());
         this.simpleBlockItem(TABlocks.RUNE_STONE.get());
         this.simpleBlockItem(TABlocks.SMOOTH_RUNE_STONE.get());
         this.simpleBlockItem(TABlocks.CHISELED_RUNE_STONE.get());
@@ -104,6 +105,10 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_GRASS.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_GRASS_LIGHT.get());
+        this.simpleBlockItemWithParent(TABlocks.AURORIAN_FLOWER_1.get());
+        this.simpleBlockItemWithParent(TABlocks.AURORIAN_FLOWER_2.get());
+        this.simpleBlockItemWithParent(TABlocks.AURORIAN_FLOWER_3.get());
+        this.simpleBlockItemWithParent(TABlocks.AURORIAN_FLOWER_4.get());
         this.simpleBlockItemWithParent(TABlocks.LAVENDER_PLANT.get());
         this.simpleBlockItemWithParent(TABlocks.PETUNIA_PLANT.get());
         this.simpleBlockItemWithParent(TABlocks.SILENT_WOOD_LADDER.get());

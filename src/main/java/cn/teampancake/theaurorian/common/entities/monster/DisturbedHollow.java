@@ -51,7 +51,7 @@ public class DisturbedHollow extends Monster {
     public void aiStep() {
         super.aiStep();
         if (this.level().isClientSide()) {
-            this.idleAnimationState.startIfStopped(this.tickCount);
+            this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.walkAnimation.isMoving(), this.tickCount);
         }
     }
 

@@ -59,14 +59,14 @@ public class MoonAcolyte extends Monster {
     public void aiStep() {
         super.aiStep();
         if (this.level().isClientSide()) {
-            this.idleAnimationState.startIfStopped(this.tickCount);
+            this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.walkAnimation.isMoving(), this.tickCount);
         }
     }
 
     @Override
     public void handleEntityEvent(byte id) {
         if (id == 4) {
-            this.attackAnimationState.start(this.tickCount);
+            this.attackAnimationState.startIfStopped(this.tickCount);
         } else {
             super.handleEntityEvent(id);
         }

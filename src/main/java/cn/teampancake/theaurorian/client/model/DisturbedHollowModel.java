@@ -42,11 +42,13 @@ public class DisturbedHollowModel<T extends DisturbedHollow> extends Hierarchica
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * ((float)Math.PI / 180F);
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-        this.animateWalk(DisturbedHollowAnimation.WALK, limbSwing, limbSwingAmount, (1.5F), (2.5F));
+        this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
         this.animate(entity.idleAnimationState, DisturbedHollowAnimation.IDLE, ageInTicks);
         this.animate(entity.attackAnimationState, DisturbedHollowAnimation.ATTACK, ageInTicks);
+        if (!entity.isInWaterOrBubble()) {
+            this.animateWalk(DisturbedHollowAnimation.WALK, limbSwing, limbSwingAmount, (1.5F), (2.5F));
+        }
     }
 
     @Override

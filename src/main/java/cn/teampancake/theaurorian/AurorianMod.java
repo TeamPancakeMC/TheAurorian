@@ -49,6 +49,7 @@ public class AurorianMod {
         TABlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus);
         TABiomeLayerStack.BIOME_LAYER_STACKS.register(modEventBus);
         TABiomeLayers.BIOME_LAYER_TYPES.register(modEventBus);
+        TAMobEffects.MOB_EFFECTS.register(modEventBus);
         modEventBus.addListener(this::registerExtraStuff);
         modEventBus.addListener(this::setRegistriesForDatapack);
         MinecraftForge.EVENT_BUS.register(this);

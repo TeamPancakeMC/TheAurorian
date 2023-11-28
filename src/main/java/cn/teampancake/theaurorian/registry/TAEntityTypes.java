@@ -12,10 +12,7 @@ import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.*;
-import cn.teampancake.theaurorian.common.entities.projectile.CeruleanArrowEntity;
-import cn.teampancake.theaurorian.common.entities.projectile.CrystalArrowEntity;
-import cn.teampancake.theaurorian.common.entities.projectile.StickySpikerEntity;
-import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
+import cn.teampancake.theaurorian.common.entities.projectile.*;
 import net.minecraft.client.model.SlimeModel;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.Entity;
@@ -57,6 +54,9 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<WebbingEntity>> WEBBING = ENTITY_TYPES.register("webbing",
             () -> EntityType.Builder.<WebbingEntity>of(WebbingEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
                     .clientTrackingRange(4).updateInterval(10).build("webbing"));
+    public static final RegistryObject<EntityType<EyeOfDisturbedEntity>> EYE_OF_DISTURBED = ENTITY_TYPES.register("eye_of_disturbed",
+            () -> EntityType.Builder.<EyeOfDisturbedEntity>of(EyeOfDisturbedEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
+                    .clientTrackingRange(4).updateInterval(10).build("eye_of_disturbed"));
     //Animal
     public static final RegistryObject<EntityType<AurorianRabbit>> AURORIAN_RABBIT = ENTITY_TYPES.register("aurorian_rabbit",
             () -> EntityType.Builder.of(AurorianRabbit::new, MobCategory.CREATURE).sized(0.4F, 0.5F)
@@ -111,6 +111,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(CRYSTAL_ARROW.get(), CrystalArrowRenderer::new);
         event.registerEntityRenderer(STICKY_SPIKER.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(WEBBING.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(EYE_OF_DISTURBED.get(), EyeOfDisturbedRenderer::new);
         event.registerEntityRenderer(AURORIAN_RABBIT.get(), AurorianRabbitRenderer::new);
         event.registerEntityRenderer(AURORIAN_SHEEP.get(), AurorianSheepRenderer::new);
         event.registerEntityRenderer(AURORIAN_PIG.get(), AurorianPigRenderer::new);

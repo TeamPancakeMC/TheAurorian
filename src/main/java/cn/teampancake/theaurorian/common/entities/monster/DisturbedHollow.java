@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.entities.ai.ZombieLikeAttackGoal;
+import cn.teampancake.theaurorian.common.entities.projectile.EyeOfDisturbedEntity;
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class DisturbedHollow extends Monster {
@@ -30,6 +32,7 @@ public class DisturbedHollow extends Monster {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new ZombieLikeAttackGoal(this));
+        this.goalSelector.addGoal(3, new ShootingDisturbedEyeGoal(this));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -56,6 +59,15 @@ public class DisturbedHollow extends Monster {
     }
 
     @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 4) {
+            this.attackAnimationState.startIfStopped(this.tickCount);
+        } else {
+            super.handleEntityEvent(id);
+        }
+    }
+
+    @Override
     public boolean doHurtTarget(@NotNull Entity entity) {
         if (super.doHurtTarget(entity)) {
             if (entity instanceof LivingEntity livingEntity) {
@@ -70,6 +82,65 @@ public class DisturbedHollow extends Monster {
     @Override
     public int getMaxSpawnClusterSize() {
         return 3 * AurorianConfig.CONFIG_RUNESTONE_DUNGEON_MOB_DENSITY.get();
+    }
+
+    private static class ShootingDisturbedEyeGoal extends Goal {
+
+        private final DisturbedHollow disturbedHollow;
+        private int chargeTime;
+
+        public ShootingDisturbedEyeGoal(DisturbedHollow disturbedHollow) {
+            this.disturbedHollow = disturbedHollow;
+        }
+
+        @Override
+        public boolean canUse() {
+            LivingEntity target = this.disturbedHollow.getTarget();
+            return target != null && this.disturbedHollow.distanceToSqr(target) > this.getAttackReachSqr(target);
+        }
+
+        @Override
+        public void start() {
+            this.chargeTime = 0;
+            this.disturbedHollow.level().broadcastEntityEvent(this.disturbedHollow, (byte) 4);
+        }
+
+        @Override
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = this.disturbedHollow.getTarget();
+            if (target != null) {
+                if (target.distanceToSqr(this.disturbedHollow) < 4096.0F && this.disturbedHollow.hasLineOfSight(target)) {
+                    Level level = this.disturbedHollow.level();
+                    ++this.chargeTime;
+                    if (this.chargeTime == 20) {
+                        Vec3 vec3 = this.disturbedHollow.getViewVector(1.0F);
+                        double d2 = target.getX() - (this.disturbedHollow.getX() + vec3.x * 4.0D);
+                        double d3 = target.getY(0.5D) - (0.5D + this.disturbedHollow.getY(0.5D));
+                        double d4 = target.getZ() - (this.disturbedHollow.getZ() + vec3.z * 4.0D);
+                        EyeOfDisturbedEntity eyeOfDisturbed = new EyeOfDisturbedEntity(level, this.disturbedHollow, d2, d3, d4);
+                        level.levelEvent(1002, this.disturbedHollow.blockPosition(), 0);
+                        double x = this.disturbedHollow.getX() + vec3.x * 5.0D;
+                        double y = this.disturbedHollow.getY(0.5D) + 0.5D;
+                        double z = eyeOfDisturbed.getZ() + vec3.z * 5.0D;
+                        eyeOfDisturbed.setPos(x, y, z);
+                        level.addFreshEntity(eyeOfDisturbed);
+                        this.chargeTime = -60;
+                    }
+                } else if (this.chargeTime > 0) {
+                    --this.chargeTime;
+                }
+            }
+        }
+
+        private double getAttackReachSqr(LivingEntity attackTarget) {
+            return this.disturbedHollow.getBbWidth() * 2.0F * this.disturbedHollow.getBbWidth() * 2.0F + attackTarget.getBbWidth();
+        }
+
     }
 
 }

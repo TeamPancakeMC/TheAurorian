@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.data.provider;
+package cn.teampancake.theaurorian.data.provider.tag;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.data.tags.TAEntityTags;

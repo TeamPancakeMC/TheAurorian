@@ -11,8 +11,7 @@
     "MixinDiggerItem",
     "MixinShearsItem",
     "MixinSkyLightSectionStorage",
-    "MixinSwordItem",
-    "MoveControlMixin"
+    "MixinSwordItem"
   ],
   "client": [
     "MixinClientLevel",

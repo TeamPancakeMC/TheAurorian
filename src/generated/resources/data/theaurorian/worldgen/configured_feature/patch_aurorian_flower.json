@@ -27,6 +27,15 @@
                 "Properties": {
                   "age": "0"
                 }
+              },
+              {
+                "Name": "theaurorian:aurorian_flower_1"
+              },
+              {
+                "Name": "theaurorian:aurorian_flower_2"
+              },
+              {
+                "Name": "theaurorian:aurorian_flower_3"
               }
             ]
           }

@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cross",
   "render_type": "minecraft:cutout",
   "textures": {
-    "cross": "theaurorian:block/aurorian_flower_4"
+    "cross": "theaurorian:block/equinox_flower"
   }
 }

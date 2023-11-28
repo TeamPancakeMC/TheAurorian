@@ -126,10 +126,14 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlockWithRenderType(TABlocks.AURORIAN_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.SILENT_TREE_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.WEEPING_WILLOW_LEAVES.get(), CUTOUT_MIPPED);
+        this.paneBlockWithRenderType((IronBarsBlock) TABlocks.MOON_GLASS_PANE.get(),
+                this.blockTexture(TABlocks.MOON_GLASS.get()),
+                this.blockTexture(TABlocks.MOON_GLASS_PANE.get()), TRANSLUCENT);
+        this.paneBlockWithRenderType((IronBarsBlock) TABlocks.AURORIAN_GLASS_PANE.get(),
+                this.blockTexture(TABlocks.AURORIAN_GLASS.get()),
+                this.blockTexture(TABlocks.AURORIAN_GLASS_PANE.get()), TRANSLUCENT);
         this.registerBarStates(TABlocks.RUNE_STONE_BARS.get());
         this.registerBarStates(TABlocks.MOON_TEMPLE_BARS.get());
-        this.registerGlassPaneStates(TABlocks.MOON_GLASS_PANE.get());
-        this.registerGlassPaneStates(TABlocks.AURORIAN_GLASS_PANE.get());
         this.registerWallTorchStates(TABlocks.MOON_WALL_TORCH.get());
         this.registerWallTorchStates(TABlocks.SILENT_WOOD_WALL_TORCH.get());
         this.registerCropStates(TABlocks.LAVENDER_CROP.get());
@@ -137,7 +141,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerPlantStates(TABlocks.AURORIAN_FLOWER_1.get());
         this.registerPlantStates(TABlocks.AURORIAN_FLOWER_2.get());
         this.registerPlantStates(TABlocks.AURORIAN_FLOWER_3.get());
-        this.registerPlantStates(TABlocks.AURORIAN_FLOWER_4.get());
+        this.registerPlantStates(TABlocks.EQUINOX_FLOWER.get());
         this.registerPlantStates(TABlocks.LAVENDER_PLANT.get());
         this.registerPlantStates(TABlocks.PETUNIA_PLANT.get());
         this.registerPlantStates(TABlocks.INDIGO_MUSHROOM.get());
@@ -153,10 +157,10 @@ public class TABlockStateProvider extends BlockStateProvider {
                 this.slabBlock(slabBlock, texture, texture);
             } else if (block instanceof WallBlockWithBase wallBlock) {
                 ResourceLocation texture = this.blockTexture(wallBlock.getBase());
-                this.wallBlock(wallBlock, this.blockTexture(wallBlock.getBase()));
+                this.wallBlock(wallBlock, texture);
                 this.simpleBlockItem(wallBlock, this.models().wallInventory(this.name(wallBlock), texture));
             } else if (block instanceof FlowerPotBlock flowerPotBlock) {
-                this.pottedPlants(flowerPotBlock, flowerPotBlock.getContent());
+                this.registerPottedPlantStates(flowerPotBlock, flowerPotBlock.getContent());
             }
         }
     }
@@ -245,32 +249,6 @@ public class TABlockStateProvider extends BlockStateProvider {
         builder.part().modelFile(sideAlt).rotationY(90).addModel().condition(PipeBlock.WEST, true).end();
     }
 
-    private void registerGlassPaneStates(Block block) {
-        String name = this.name(block);
-        String side = name + "_side", sideAlt = name + "_side_alt";
-        String noSide = name + "_noside", noSideAlt = name + "_noside_alt";
-        ResourceLocation edge = this.modLoc("block/" + name);
-        ResourceLocation pane =  this.modLoc("block/" + name.replaceAll("_pane", ""));
-        MultiPartBlockStateBuilder builder = this.getMultipartBuilder(block).part().modelFile(
-                this.models().panePost(name + "_post", pane, edge).renderType(TRANSLUCENT)).addModel().end();
-        builder.part().modelFile(this.models().paneSide(side, pane, edge).renderType(TRANSLUCENT))
-                .addModel().condition(IronBarsBlock.NORTH, true).end();
-        builder.part().modelFile(this.models().paneSide(side, pane, edge).renderType(TRANSLUCENT))
-                .rotationY(90).addModel().condition(IronBarsBlock.WEST, true).end();
-        builder.part().modelFile(this.models().paneSideAlt(sideAlt, pane, edge).renderType(TRANSLUCENT))
-                .addModel().condition(IronBarsBlock.SOUTH, true).end();
-        builder.part().modelFile(this.models().paneSideAlt(sideAlt, pane, edge).renderType(TRANSLUCENT))
-                .rotationY(90).addModel().condition(IronBarsBlock.WEST, true).end();
-        builder.part().modelFile(this.models().paneNoSide(noSide, pane).renderType(TRANSLUCENT))
-                .addModel().condition(IronBarsBlock.NORTH, false).end();
-        builder.part().modelFile(this.models().paneNoSide(noSide, pane).renderType(TRANSLUCENT))
-                .rotationY(270).addModel().condition(IronBarsBlock.WEST, false).end();
-        builder.part().modelFile(this.models().paneNoSideAlt(noSideAlt, pane).renderType(TRANSLUCENT))
-                .addModel().condition(IronBarsBlock.EAST, false).end();
-        builder.part().modelFile(this.models().paneNoSideAlt(noSideAlt, pane).renderType(TRANSLUCENT))
-                .rotationY(270).addModel().condition(IronBarsBlock.WEST, false).end();
-    }
-
     private void registerWallTorchStates(Block block) {
         Map<Direction, Integer> map = Map.of(Direction.NORTH, 270, Direction.EAST, 0,
                 Direction.SOUTH, 90, Direction.WEST, 180);
@@ -294,7 +272,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void pottedPlants(Block block, Block content) {
+    private void registerPottedPlantStates(Block block, Block content) {
         this.simpleBlock(block, this.models().withExistingParent(this.name(block), "block/flower_pot_cross")
                 .renderType(CUTOUT).texture("plant", this.blockTexture(content)));
     }
@@ -347,9 +325,8 @@ public class TABlockStateProvider extends BlockStateProvider {
                 .texture("south", this.modLoc("block/scrapper_side"))
                 .texture("west", this.modLoc("block/scrapper_side"));
         for (Direction direction : DIRECTION_WITH_ROTATION.keySet()) {
-            int y = DIRECTION_WITH_ROTATION.get(direction);
-            builder.partialState().with(Scrapper.FACING, direction).modelForState()
-                    .modelFile(modelFile).rotationY(y).addModel();
+            builder.partialState().with(Scrapper.FACING, direction).modelForState().modelFile(modelFile)
+                    .rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
         }
     }
 

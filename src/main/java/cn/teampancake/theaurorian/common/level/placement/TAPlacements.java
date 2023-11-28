@@ -48,9 +48,9 @@ public class TAPlacements {
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT_PLAINS, holder2, NoiseThresholdCountPlacement.of((-0.8D), (5), (10)),
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-        PlacementUtils.register(context, PATCH_AURORIAN_GRASS_FOREST, holder1, VegetationPlacements.worldSurfaceSquaredWithCount(2));
+        PlacementUtils.register(context, PATCH_AURORIAN_GRASS_FOREST, holder1, VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT_FOREST, holder2, VegetationPlacements.worldSurfaceSquaredWithCount(2));
-        PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_FOREST, holder3, CountPlacement.of(3),
+        PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_FOREST, holder3, CountPlacement.of(6),
                 RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
         PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_PLAINS, holder3, NoiseThresholdCountPlacement.of((-0.8D), (15), (4)),
                 RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());

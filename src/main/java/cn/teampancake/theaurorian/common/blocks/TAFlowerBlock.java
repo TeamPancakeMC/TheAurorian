@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
+import cn.teampancake.theaurorian.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -21,6 +22,11 @@ public class TAFlowerBlock extends BushBlock {
     public TAFlowerBlock() {
         super(Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS)
                 .offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY));
+    }
+
+    @Override
+    protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+        return state.is(TABlocks.AURORIAN_GRASS_BLOCK.get()) || state.is(TABlocks.AURORIAN_GRASS_LIGHT_BLOCK.get());
     }
 
     @Override

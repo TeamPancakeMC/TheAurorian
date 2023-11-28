@@ -1,10 +1,7 @@
 package cn.teampancake.theaurorian.data.provider.lang;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.registry.TABlocks;
-import cn.teampancake.theaurorian.registry.TAEnchantments;
-import cn.teampancake.theaurorian.registry.TAEntityTypes;
-import cn.teampancake.theaurorian.registry.TAItems;
+import cn.teampancake.theaurorian.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -43,7 +40,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.AURORIAN_FLOWER_1.get(), "极光花");
         this.add(TABlocks.AURORIAN_FLOWER_2.get(), "极光花");
         this.add(TABlocks.AURORIAN_FLOWER_3.get(), "极光花");
-        this.add(TABlocks.AURORIAN_FLOWER_4.get(), "极光花");
+        this.add(TABlocks.EQUINOX_FLOWER.get(), "极光花");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "极光橄榄岩");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "平滑极光橄榄岩");
         this.add(TABlocks.MOONSTONE_ORE.get(), "皎月石矿石");
@@ -192,6 +189,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(), "极光猪刷怪蛋");
         this.add(TAItems.AURORIAN_RABBIT_SPAWN_EGG.get(), "极光兔刷怪蛋");
         this.add(TAItems.AURORIAN_SHEEP_SPAWN_EGG.get(), "极光羊刷怪蛋");
+        this.add(TAItems.AURORIAN_PIXIE_SPAWN_EGG.get(), "极光精灵刷怪蛋");
         this.add(TAItems.AURORIAN_SLIME_SPAWN_EGG.get(), "极光史莱姆刷怪蛋");
         this.add(TAItems.AURORIAN_SLIME_BOOTS.get(), "极光粘液靴子");
         this.add(TAItems.AURORIAN_SLIMEBALL.get(), "极光粘液球");
@@ -305,6 +303,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "极光兔");
         this.add(TAEntityTypes.AURORIAN_SHEEP.get(), "极光羊");
         this.add(TAEntityTypes.AURORIAN_PIG.get(), "极光猪");
+        this.add(TAEntityTypes.AURORIAN_PIXIE.get(), "极光精灵");
         this.add(TAEntityTypes.AURORIAN_SLIME.get(), "极光史莱姆");
         this.add(TAEntityTypes.DISTURBED_HOLLOW.get(), "空谷之扰");
         this.add(TAEntityTypes.UNDEAD_KNIGHT.get(), "不死骑士");
@@ -321,6 +320,16 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get(), "雷电");
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId() + ".desc", "降低“雷电”魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId() + ".desc", "根据对方穿戴的护甲数量造成额外伤害");
+
+        //MOD PAINTING
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.AURORIAN_STEEL.get()), "极光钢");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.PROGRESSION.get()), "前进");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.DUNGEON.get()), "地牢");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.KEEPER.get()), "守卫");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.KNIGHT.get()), "骑士");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.MOON.get()), "皎月");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.PORTAL.get()), "传送门");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.SLIME.get()), "史莱姆");
     }
 
 }

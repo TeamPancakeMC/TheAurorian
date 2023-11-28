@@ -59,7 +59,11 @@ public class TAConfiguredFeatures {
                 PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new NoiseProvider(2345L,
                         new NormalNoise.NoiseParameters(0, 1.0D), 0.020833334F,
                         List.of(TABlocks.LAVENDER_PLANT.get().defaultBlockState(),
-                        TABlocks.PETUNIA_PLANT.get().defaultBlockState(), TABlocks.SILK_BERRY_CROP.get().defaultBlockState()))))));
+                                TABlocks.PETUNIA_PLANT.get().defaultBlockState(),
+                                TABlocks.SILK_BERRY_CROP.get().defaultBlockState(),
+                                TABlocks.AURORIAN_FLOWER_1.get().defaultBlockState(),
+                                TABlocks.AURORIAN_FLOWER_2.get().defaultBlockState(),
+                                TABlocks.AURORIAN_FLOWER_3.get().defaultBlockState()))))));
         FeatureUtils.register(context, TREES_AURORIAN_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
                 List.of(new WeightedPlacedFeature(silentTreeLikeSpruce, 0.7F)), silentTreeLikeSpruce));
         FeatureUtils.register(context, SILENT_TREE, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()),

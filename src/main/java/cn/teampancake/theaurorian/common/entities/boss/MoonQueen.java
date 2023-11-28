@@ -219,7 +219,6 @@ public class MoonQueen extends Monster {
         public void start() {
             super.start();
             this.attackAnimationTick = 0;
-            this.moonQueen.level().broadcastEntityEvent(this.moonQueen, (byte) 4);
         }
 
         @Override
@@ -233,14 +232,18 @@ public class MoonQueen extends Monster {
         public void tick() {
             LivingEntity target = this.moonQueen.getTarget();
             if (target != null && this.attackAnimationTick <= 40) {
-                ++this.attackAnimationTick;
                 this.moonQueen.getLookControl().setLookAt(target, 30.0F, 30.0F);
-                double d0 = this.moonQueen.getPerceivedTargetDistanceSquareForMeleeAttack(target);
                 this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
                 boolean flag0 = this.followingTargetEvenIfNotSeen || this.moonQueen.getSensing().hasLineOfSight(target);
                 boolean flag1 = this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D;
                 boolean flag2 = target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D;
                 boolean flag3 = this.moonQueen.getRandom().nextFloat() < 0.05F;
+                double d0 = this.moonQueen.getPerceivedTargetDistanceSquareForMeleeAttack(target);
+                if (this.moonQueen.isAlive() && this.attackAnimationTick == 0 && d0 <= this.getAttackReachSqr(target)
+                        && this.moonQueen.doHurtTarget(target) && this.ticksUntilNextAttack <= 0) {
+                    this.moonQueen.level().broadcastEntityEvent(this.moonQueen, (byte) 4);
+                }
+                ++this.attackAnimationTick;
                 if (flag0 && this.ticksUntilNextPathRecalculation <= 0 && (flag1 || flag2 || flag3)) {
                     this.pathedTargetX = target.getX();
                     this.pathedTargetY = target.getY();
@@ -260,16 +263,22 @@ public class MoonQueen extends Monster {
                 }
 
                 this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
-                if (this.attackAnimationTick == 9) {
+                if (this.attackAnimationTick > 6 && this.attackAnimationTick <= 8) {
                     if (d0 <= this.getAttackReachSqr(target)) {
                         this.moonQueen.doHurtTarget(target);
                     }
                 }
 
-                if (this.attackAnimationTick == 19) {
+                if (this.attackAnimationTick > 12 && this.attackAnimationTick <= 14) {
                     if (d0 <= this.getAttackReachSqr(target)) {
-                        this.resetAttackCooldown();
                         this.moonQueen.doHurtTarget(target);
+                    }
+                }
+
+                if (this.attackAnimationTick > 20) {
+                    this.resetAttackCooldown();
+                    if (this.moonQueen.level().isClientSide) {
+                        this.moonQueen.meleeAttackAnimationState.stop();
                     }
                 }
             }

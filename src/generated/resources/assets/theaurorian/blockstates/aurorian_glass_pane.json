@@ -15,11 +15,10 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/aurorian_glass_pane_side",
-        "y": 90
+        "model": "theaurorian:block/aurorian_glass_pane_noside"
       },
       "when": {
-        "west": "true"
+        "north": "false"
       }
     },
     {
@@ -28,6 +27,15 @@
       },
       "when": {
         "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theaurorian:block/aurorian_glass_pane_noside_alt",
+        "y": 90
+      },
+      "when": {
+        "south": "false"
       }
     },
     {
@@ -41,14 +49,6 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/aurorian_glass_pane_noside"
-      },
-      "when": {
-        "north": "false"
-      }
-    },
-    {
-      "apply": {
         "model": "theaurorian:block/aurorian_glass_pane_noside",
         "y": 270
       },
@@ -58,19 +58,19 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/aurorian_glass_pane_noside_alt"
+        "model": "theaurorian:block/aurorian_glass_pane_side",
+        "y": 90
       },
       "when": {
-        "east": "false"
+        "east": "true"
       }
     },
     {
       "apply": {
-        "model": "theaurorian:block/aurorian_glass_pane_noside_alt",
-        "y": 270
+        "model": "theaurorian:block/aurorian_glass_pane_noside_alt"
       },
       "when": {
-        "west": "false"
+        "east": "false"
       }
     }
   ]

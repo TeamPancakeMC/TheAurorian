@@ -34,10 +34,10 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_GRASS_BLOCK = register("aurorian_grass_block", () -> new AurorianGrassBlock(copy(Blocks.GRASS_BLOCK)));
     public static final RegistryObject<Block> AURORIAN_GRASS_LIGHT_BLOCK = register("aurorian_grass_light_block", () -> new AurorianGrassBlock(copy(Blocks.GRASS_BLOCK).lightLevel(s -> 2)));
     public static final RegistryObject<Block> AURORIAN_FARM_TILE = register("aurorian_farm_tile", () -> new AurorianFarmTile(copy(Blocks.FARMLAND)));
-    public static final RegistryObject<Block> AURORIAN_GLASS = register("aurorian_glass", () -> new GlassBlock(copy(Blocks.GLASS)));
     public static final RegistryObject<Block> MOON_GLASS = register("moon_glass", () -> new GlassBlock(copy(Blocks.GLASS)));
-    public static final RegistryObject<Block> AURORIAN_GLASS_PANE = register("aurorian_glass_pane", () -> new IronBarsBlock(copy(Blocks.GLASS_PANE)));
     public static final RegistryObject<Block> MOON_GLASS_PANE = register("moon_glass_pane", () -> new IronBarsBlock(copy(Blocks.GLASS_PANE)));
+    public static final RegistryObject<Block> AURORIAN_GLASS = register("aurorian_glass", () -> new GlassBlock(copy(Blocks.GLASS)));
+    public static final RegistryObject<Block> AURORIAN_GLASS_PANE = register("aurorian_glass_pane", () -> new IronBarsBlock(copy(Blocks.GLASS_PANE)));
     public static final RegistryObject<Block> AURORIAN_GRASS = register("aurorian_grass", () -> new TAPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> AURORIAN_GRASS_LIGHT = register("aurorian_grass_light", () -> new TAPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_LIGHT_BLOCK));
     public static final RegistryObject<Block> AURORIAN_FURNACE = register("aurorian_furnace", () -> new AurorianFurnace(defaultStoneProperties(3.5F)));
@@ -48,7 +48,7 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_FLOWER_1 = register("aurorian_flower_1", TAFlowerBlock::new);
     public static final RegistryObject<Block> AURORIAN_FLOWER_2 = register("aurorian_flower_2", TAFlowerBlock::new);
     public static final RegistryObject<Block> AURORIAN_FLOWER_3 = register("aurorian_flower_3", TAFlowerBlock::new);
-    public static final RegistryObject<Block> AURORIAN_FLOWER_4 = register("aurorian_flower_4", TAFlowerBlock::new);
+    public static final RegistryObject<Block> EQUINOX_FLOWER = register("equinox_flower", TAFlowerBlock::new);
     public static final RegistryObject<Block> LAVENDER_CROP = BLOCKS.register("lavender_crop", () -> new TACropBlock(copy(Blocks.GRASS), TAItems.LAVENDER_SEEDS));
     public static final RegistryObject<Block> SILK_BERRY_CROP = BLOCKS.register("silk_berry_crop", () -> new TACropBlock(copy(Blocks.GRASS), TAItems.SILK_BERRY));
     public static final RegistryObject<Block> LAVENDER_PLANT = register("lavender_plant", () -> new TAPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
@@ -127,12 +127,12 @@ public class TABlocks {
     public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_1 = flowerPot(AURORIAN_FLOWER_1.getId().getPath(), AURORIAN_FLOWER_1);
     public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_2 = flowerPot(AURORIAN_FLOWER_2.getId().getPath(), AURORIAN_FLOWER_2);
     public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_3 = flowerPot(AURORIAN_FLOWER_3.getId().getPath(), AURORIAN_FLOWER_3);
-    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_4 = flowerPot(AURORIAN_FLOWER_4.getId().getPath(), AURORIAN_FLOWER_4);
-    public static final RegistryObject<Block> POTTED_AURORIAN_GRASS = flowerPot(AURORIAN_GRASS.getId().getPath(), AURORIAN_GRASS);
+    public static final RegistryObject<Block> POTTED_EQUINOX_FLOWER = flowerPot(EQUINOX_FLOWER.getId().getPath(), EQUINOX_FLOWER);
     public static final RegistryObject<Block> POTTED_LAVENDER_PLANT = flowerPot(LAVENDER_PLANT.getId().getPath(), LAVENDER_PLANT);
     public static final RegistryObject<Block> POTTED_PETUNIA_PLANT = flowerPot(PETUNIA_PLANT.getId().getPath(), PETUNIA_PLANT);
-    public static final RegistryObject<Block> POTTED_SILENT_TREE_SAPLING = flowerPot(SILENT_TREE_SAPLING.getId().getPath(), SILENT_TREE_SAPLING);
+    public static final RegistryObject<Block> POTTED_AURORIAN_GRASS = flowerPot(AURORIAN_GRASS.getId().getPath(), AURORIAN_GRASS);
     public static final RegistryObject<Block> POTTED_AURORIAN_GRASS_LIGHT = flowerPot(AURORIAN_GRASS_LIGHT.getId().getPath(), AURORIAN_GRASS_LIGHT);
+    public static final RegistryObject<Block> POTTED_SILENT_TREE_SAPLING = flowerPot(SILENT_TREE_SAPLING.getId().getPath(), SILENT_TREE_SAPLING);
     public static final RegistryObject<Block> AURORIAN_STONE_STAIRS = stair("aurorian_stone_stairs", AURORIAN_STONE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_STONE_BRICK_STAIRS = stair("aurorian_stone_brick_stairs", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_COBBLESTONE_STAIRS = stair("aurorian_cobblestone_stairs", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));

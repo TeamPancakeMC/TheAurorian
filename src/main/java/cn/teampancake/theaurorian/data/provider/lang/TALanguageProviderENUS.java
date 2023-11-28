@@ -1,10 +1,7 @@
 package cn.teampancake.theaurorian.data.provider.lang;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.registry.TABlocks;
-import cn.teampancake.theaurorian.registry.TAEnchantments;
-import cn.teampancake.theaurorian.registry.TAEntityTypes;
-import cn.teampancake.theaurorian.registry.TAItems;
+import cn.teampancake.theaurorian.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -43,7 +40,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_FLOWER_1.get(), "Aurorian Flower");
         this.add(TABlocks.AURORIAN_FLOWER_2.get(), "Aurorian Flower");
         this.add(TABlocks.AURORIAN_FLOWER_3.get(), "Aurorian Flower");
-        this.add(TABlocks.AURORIAN_FLOWER_4.get(), "Aurorian Flower");
+        this.add(TABlocks.EQUINOX_FLOWER.get(), "Aurorian Flower");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "Aurorian Peridotite");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "Smooth Aurorian Peridotite");
         this.add(TABlocks.MOONSTONE_ORE.get(), "Moonstone Ore");
@@ -176,6 +173,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.UMBRA_STONE_ROOF_WALL.get(), "Umbra Stone Roof Tiles Wall");
         this.add(TABlocks.AURORIAN_PERIDOTITE_WALL.get(), "Aurorian Peridotite Wall");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE_WALL.get(), "Smooth Aurorian Peridotite Wall");
+
         //MOD ITEM
         this.add(TAItems.DARK_STONE_KEY.get(),"Dark Stone Key");
         this.add(TAItems.MOON_TEMPLE_KEY.get(),"Moon Temple Key");
@@ -191,6 +189,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(),"Aurorian Pig Spawn Egg");
         this.add(TAItems.AURORIAN_RABBIT_SPAWN_EGG.get(),"Aurorian Rabbit Spawn Egg");
         this.add(TAItems.AURORIAN_SHEEP_SPAWN_EGG.get(),"Aurorian Sheep Spawn Egg");
+        this.add(TAItems.AURORIAN_PIXIE_SPAWN_EGG.get(), "Aurorian Pixie Spawn Egg");
         this.add(TAItems.AURORIAN_SLIME_SPAWN_EGG.get(),"Aurorian Slime Spawn Egg");
         this.add(TAItems.AURORIAN_SLIME_BOOTS.get(),"Aurorian Slime Boots");
         this.add(TAItems.AURORIAN_SLIMEBALL.get(),"Aurorian Slime Ball");
@@ -304,6 +303,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "Aurorian Rabbit");
         this.add(TAEntityTypes.AURORIAN_SHEEP.get(), "Aurorian Sheep");
         this.add(TAEntityTypes.AURORIAN_PIG.get(), "Aurorian Pig");
+        this.add(TAEntityTypes.AURORIAN_PIXIE.get(), "Aurorian Pixie");
         this.add(TAEntityTypes.AURORIAN_SLIME.get(), "Aurorian Slime");
         this.add(TAEntityTypes.DISTURBED_HOLLOW.get(), "Disturbed Hollow");
         this.add(TAEntityTypes.UNDEAD_KNIGHT.get(), "Undead Knight");
@@ -320,6 +320,16 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get(), "Lightning");
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId() + ".desc", "Negates damage that would have been done by lightning enchantment");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId()+ ".desc", "Does extra damage depending on how much armor the target is wearing");
+
+        //MOD PAINTING
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.AURORIAN_STEEL.get()), "Aurorian Steel");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.PROGRESSION.get()), "Progression");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.DUNGEON.get()), "Dungeon");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.KEEPER.get()), "Keeper");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.KNIGHT.get()), "Knight");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.MOON.get()), "Moon");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.PORTAL.get()), "Portal");
+        this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.SLIME.get()), "Slime");
     }
 
 }

@@ -47,6 +47,7 @@ public class AurorianMod {
         TAEnchantments.ENCHANTMENTS.register(modEventBus);
         TAParticleTypes.PARTICLE_TYPES.register(modEventBus);
         TABlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus);
+        TAPaintingVariants.PAINTING_VARIANTS.register(modEventBus);
         TABiomeLayerStack.BIOME_LAYER_STACKS.register(modEventBus);
         TABiomeLayers.BIOME_LAYER_TYPES.register(modEventBus);
         TAMobEffects.MOB_EFFECTS.register(modEventBus);

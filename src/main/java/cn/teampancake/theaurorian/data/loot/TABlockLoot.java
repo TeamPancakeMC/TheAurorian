@@ -71,7 +71,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_1.get());
         this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_2.get());
         this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_3.get());
-        this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_4.get());
+        this.dropPottedContents(TABlocks.POTTED_EQUINOX_FLOWER.get());
         this.dropPottedContents(TABlocks.POTTED_AURORIAN_GRASS.get());
         this.dropPottedContents(TABlocks.POTTED_LAVENDER_PLANT.get());
         this.dropPottedContents(TABlocks.POTTED_PETUNIA_PLANT.get());

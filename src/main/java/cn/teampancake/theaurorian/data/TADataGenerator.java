@@ -4,6 +4,10 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.data.provider.*;
 import cn.teampancake.theaurorian.data.provider.lang.TALanguageProviderENUS;
 import cn.teampancake.theaurorian.data.provider.lang.TALanguageProviderZHCN;
+import cn.teampancake.theaurorian.data.provider.tag.TABlockTagsProvider;
+import cn.teampancake.theaurorian.data.provider.tag.TAEntityTagsProvider;
+import cn.teampancake.theaurorian.data.provider.tag.TAItemTagsProvider;
+import cn.teampancake.theaurorian.data.provider.tag.TAPaintingVariantTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -27,6 +31,7 @@ public class TADataGenerator {
         generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeServer(), new TAItemTagsProvider(
                 output, provider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeServer(), new TAPaintingVariantTagsProvider(output, provider, existingFileHelper));
         generator.addProvider(event.includeServer(), new TAEntityTagsProvider(output, provider, existingFileHelper));
         generator.addProvider(event.includeClient(), new TABlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new TAItemModelProvider(output, existingFileHelper));

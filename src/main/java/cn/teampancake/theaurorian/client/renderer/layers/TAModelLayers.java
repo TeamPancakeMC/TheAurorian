@@ -8,6 +8,7 @@ public class TAModelLayers {
     public static final ModelLayerLocation AURORIAN_RABBIT = register("aurorian_rabbit");
     public static final ModelLayerLocation AURORIAN_SHEEP = register("aurorian_sheep");
     public static final ModelLayerLocation AURORIAN_PIG = register("aurorian_pig");
+    public static final ModelLayerLocation AURORIAN_PIXIE = register("aurorian_pixie");
     public static final ModelLayerLocation AURORIAN_SLIME = register("aurorian_slime");
     public static final ModelLayerLocation AURORIAN_SLIME_OUTER = register("aurorian_slime", "outer");
     public static final ModelLayerLocation DISTURBED_HOLLOW = register("disturbed_hollow");

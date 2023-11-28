@@ -26,11 +26,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "theaurorian:aurorian_flower_4"
+          "name": "theaurorian:equinox_flower"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "theaurorian:blocks/potted_aurorian_flower_4"
+  "random_sequence": "theaurorian:blocks/potted_equinox_flower"
 }

@@ -28,6 +28,7 @@ public class UndeadKnight extends Monster {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
+    public float attackAnimationTick;
 
     public UndeadKnight(EntityType<? extends UndeadKnight> type, Level level) {
         super(type, level);
@@ -62,6 +63,9 @@ public class UndeadKnight extends Monster {
     @Override
     public void aiStep() {
         super.aiStep();
+        if (this.attackAnimationTick <= 25.0F) {
+            ++this.attackAnimationTick;
+        }
         if (this.level().isClientSide()) {
             this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.walkAnimation.isMoving(), this.tickCount);
         }
@@ -70,6 +74,7 @@ public class UndeadKnight extends Monster {
     @Override
     public void handleEntityEvent(byte id) {
         if (id == 4) {
+            this.attackAnimationTick = 0.0F;
             this.attackAnimationState.startIfStopped(this.tickCount);
         } else {
             super.handleEntityEvent(id);
@@ -78,6 +83,7 @@ public class UndeadKnight extends Monster {
 
     @Override
     public boolean doHurtTarget(@NotNull Entity entity) {
+        this.attackAnimationTick = 0.0F;
         this.level().broadcastEntityEvent(this, (byte)4);
         if (super.doHurtTarget(entity)) {
             if (entity instanceof LivingEntity livingEntity) {

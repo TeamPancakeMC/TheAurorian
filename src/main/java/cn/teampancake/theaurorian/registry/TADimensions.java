@@ -20,6 +20,7 @@ import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.*;
+import net.minecraft.world.level.levelgen.placement.CaveSurface;
 
 import java.util.List;
 import java.util.OptionalLong;
@@ -66,16 +67,26 @@ public class TADimensions {
         RuleSource aurorianDirt = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_DIRT.get());
         RuleSource aurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_GRASS_BLOCK.get());
         RuleSource aurorianGrassLightBlock = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_GRASS_LIGHT_BLOCK.get());
+        RuleSource moonSand = SurfaceRuleData.makeStateRule(TABlocks.MOON_SAND.get());
+        RuleSource moonSandstone1 = SurfaceRuleData.makeStateRule(TABlocks.MOON_SAND_STONE_1.get());
+        RuleSource moonSandstone2 = SurfaceRuleData.makeStateRule(TABlocks.MOON_SAND_STONE_2.get());
+        RuleSource moonSandstone3 = SurfaceRuleData.makeStateRule(TABlocks.MOON_SAND_STONE_3.get());
         ConditionSource notUnderWater = waterBlockCheck(-1, ConstantInt.ZERO.getValue());
-        ConditionSource notUnderDeepWater = waterStartCheck(-6, (-1));
+//        ConditionSource notUnderDeepWater = waterStartCheck(-6, (-1));
         RuleSource overworldLike = sequence(
                 ifTrue(ON_FLOOR, sequence(
                         ifTrue(isBiome(TABiomes.AURORIAN_RIVER),
                                 sequence(ifTrue(ON_CEILING, aurorianDirt), ifTrue(notUnderWater, aurorianGrassBlock), aurorianDirt)),
                         ifTrue(notUnderWater, sequence(
                                 ifTrue(isBiome(TABiomes.AURORIAN_PLAINS, TABiomes.AURORIAN_FOREST), aurorianGrassBlock),
-                                ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST), aurorianGrassLightBlock))),
-                ifTrue(notUnderDeepWater, sequence(ifTrue(UNDER_FLOOR, aurorianDirt))))));
+                                ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST), aurorianGrassLightBlock),
+                                ifTrue(isBiome(TABiomes.MOON_DESERT), moonSand))),
+                ifTrue(notUnderWater, sequence(ifTrue(UNDER_FLOOR, sequence(
+                        ifTrue(not(isBiome(TABiomes.MOON_DESERT)), aurorianDirt))),
+                        ifTrue(isBiome(TABiomes.MOON_DESERT), sequence(ifTrue(UNDER_FLOOR, moonSandstone1),
+                                ifTrue(stoneDepthCheck(0, Boolean.TRUE, (4), CaveSurface.FLOOR), moonSandstone2),
+                                ifTrue(stoneDepthCheck(0, Boolean.TRUE, (6), CaveSurface.FLOOR), moonSandstone3)
+                        )))))));
         RuleSource bedrockFloor = ifTrue(verticalGradient("bedrock_floor", VerticalAnchor.bottom(),
                 VerticalAnchor.aboveBottom(5)), SurfaceRuleData.BEDROCK);
         builder.add(bedrockFloor).add(overworldLike);

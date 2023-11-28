@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.common.level.placement.TAPlacements;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
@@ -23,15 +24,15 @@ import java.awt.*;
 @SuppressWarnings({"SpellCheckingInspection", "OptionalGetWithoutIsPresent"})
 public class TABiomes {
 
-    public static final ResourceKey<Biome> AURORIAN_FOREST = makeKey("aurorian_forest");
-    public static final ResourceKey<Biome> AURORIAN_PLAINS = makeKey("aurorian_plains");
-    public static final ResourceKey<Biome> AURORIAN_BEACH = makeKey("aurorian_beach");
-    public static final ResourceKey<Biome> AURORIAN_RIVER = makeKey("aurorian_river");
-    public static final ResourceKey<Biome> MOON_BEACH = makeKey("moon_beach");
-    public static final ResourceKey<Biome> WEEPING_WILLOW_FOREST = makeKey("weeping_willow_forest");
-    public static final ResourceKey<Biome> UNDERGROUND = makeKey("underground");
+    public static final ResourceKey<Biome> AURORIAN_FOREST = createKey("aurorian_forest");
+    public static final ResourceKey<Biome> AURORIAN_PLAINS = createKey("aurorian_plains");
+    public static final ResourceKey<Biome> AURORIAN_BEACH = createKey("aurorian_beach");
+    public static final ResourceKey<Biome> AURORIAN_RIVER = createKey("aurorian_river");
+    public static final ResourceKey<Biome> WEEPING_WILLOW_FOREST = createKey("weeping_willow_forest");
+    public static final ResourceKey<Biome> MOON_DESERT = createKey("moon_desert");
+    public static final ResourceKey<Biome> UNDERGROUND = createKey("underground");
 
-    private static ResourceKey<Biome> makeKey(String name) {
+    private static ResourceKey<Biome> createKey(String name) {
         return ResourceKey.create(Registries.BIOME, AurorianMod.prefix(name));
     }
 
@@ -47,8 +48,8 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_PLAINS)).build());
         context.register(AURORIAN_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(AURORIAN_RIVER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
-        context.register(MOON_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(WEEPING_WILLOW_FOREST, biomeWithForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
+        context.register(MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
     }
 
@@ -69,7 +70,7 @@ public class TABiomes {
 
     private static BiomeGenerationSettings.Builder defaultOreBuilder(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         GenerationStep.Decoration undergroundOre = GenerationStep.Decoration.UNDERGROUND_ORES;
-        return biomeGenerationSettings
+        return biomeGenerationSettings.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
                 .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_PERIDOTITE)
                 .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_DIRT)
                 .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_COAL)

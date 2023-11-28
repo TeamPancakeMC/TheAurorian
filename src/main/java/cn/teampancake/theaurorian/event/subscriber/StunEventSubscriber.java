@@ -15,7 +15,6 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class StunEventSubscriber {
-
     @SubscribeEvent
     public static void onPlayerAttack(AttackEntityEvent event) {
         event.setCanceled(event.getEntity().hasEffect(TAMobEffects.STUN.get()));
@@ -31,7 +30,9 @@ public class StunEventSubscriber {
 
     @SubscribeEvent
     public static void onUseItem(LivingEntityUseItemEvent event) {
-        event.setCanceled(event.isCancelable() && event.getEntity().hasEffect(TAMobEffects.STUN.get()));
+        if (event.isCancelable() && event.getEntity().hasEffect(TAMobEffects.STUN.get())) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent
@@ -55,41 +56,11 @@ public class StunEventSubscriber {
         event.setCanceled(event.isCancelable() && event.getPlayer().hasEffect(TAMobEffects.STUN.get()));
     }
 
-//    @SubscribeEvent
-//    public void onPlayerInteract(PlayerInteractEvent.EntityInteract event) {
-//        if (event.isCancelable() && event.getEntity().hasEffect((MobEffect)ModEffect.EFFECTSTUN.get())) {
-//            event.setCanceled(true);
-//        }
-//    }
-//    @SubscribeEvent
-//    public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-//        if (event.isCancelable() && event.getEntity().hasEffect((MobEffect)ModEffect.EFFECTSTUN.get())) {
-//            event.setCanceled(true);
-//        }
-//    }
-//    @SubscribeEvent
-//    public void onPlayerInteract(PlayerInteractEvent.LeftClickBlock event) {
-//        if (event.isCancelable() && event.getEntity().hasEffect((MobEffect)ModEffect.EFFECTSTUN.get())) {
-//            event.setCanceled(true);
-//        }
-//    }
-//    @SubscribeEvent
-//    public void onPlayerInteract(PlayerInteractEvent.RightClickItem event) {
-//        if (event.isCancelable() && event.getEntity().hasEffect((MobEffect)ModEffect.EFFECTSTUN.get())) {
-//            event.setCanceled(true);
-//        }
-//    }
-//    @SubscribeEvent
-//    public void onPlayerLeftClick(PlayerInteractEvent.LeftClickBlock event) {
-//        Player player = event.getEntity();
-//        if (player.hasEffect((MobEffect)ModEffect.EFFECTSTUN.get())) {
-//            event.setCanceled(true);
-//        }
-//    }
-
     @SubscribeEvent
     public static void onPlayerInteract(PlayerInteractEvent event) {
-        event.setCanceled(event.isCancelable() && event.getEntity().hasEffect(TAMobEffects.STUN.get()));
+        if (event.isCancelable() && event.getEntity().hasEffect(TAMobEffects.STUN.get())){
+            event.setCanceled(true);
+        }
     }
 
 }

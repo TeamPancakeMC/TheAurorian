@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.registry.TAMobEffects;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
@@ -18,20 +19,25 @@ public class StunEventSubscriber {
 
     @SubscribeEvent
     public static void onPlayerAttack(AttackEntityEvent event) {
-        event.setCanceled(event.getEntity().hasEffect(TAMobEffects.STUN.get()));
+        if (event.getEntity().hasEffect(TAMobEffects.STUN.get())) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent
     public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
-        if (entity.hasEffect(TAMobEffects.STUN.get())) {
+        if (entity.getEffect(TAMobEffects.STUN.get()) != null) {
             entity.setDeltaMovement(0.0, 0.0, 0.0);
         }
     }
 
     @SubscribeEvent
     public static void onUseItem(LivingEntityUseItemEvent event) {
-        event.setCanceled(event.isCancelable() && event.getEntity().hasEffect(TAMobEffects.STUN.get()));
+        LivingEntity living = event.getEntity();
+        if (event.isCancelable() && living.hasEffect(TAMobEffects.STUN.get())) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent
@@ -47,12 +53,16 @@ public class StunEventSubscriber {
     @SubscribeEvent
     public static void onFillBucket(FillBucketEvent event) {
         LivingEntity living = event.getEntity();
-        event.setCanceled(living != null && living.hasEffect(TAMobEffects.STUN.get()));
+        if (living != null && living.hasEffect(TAMobEffects.STUN.get())) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent
     public static void onBreakBlock(BlockEvent.BreakEvent event) {
-        event.setCanceled(event.isCancelable() && event.getPlayer().hasEffect(TAMobEffects.STUN.get()));
+        if (event.isCancelable() && event.getPlayer().hasEffect(TAMobEffects.STUN.get())) {
+            event.setCanceled(true);
+        }
     }
 
 //    @SubscribeEvent
@@ -89,7 +99,9 @@ public class StunEventSubscriber {
 
     @SubscribeEvent
     public static void onPlayerInteract(PlayerInteractEvent event) {
-        event.setCanceled(event.isCancelable() && event.getEntity().hasEffect(TAMobEffects.STUN.get()));
+        if (event.isCancelable() && event.getEntity().hasEffect(TAMobEffects.STUN.get())) {
+            event.setCanceled(true);
+        }
     }
 
 }

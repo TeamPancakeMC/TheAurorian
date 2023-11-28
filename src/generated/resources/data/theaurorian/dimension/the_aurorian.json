@@ -15,7 +15,7 @@
               "-1.0": "theaurorian:aurorian_forest",
               "-3.0": "theaurorian:underground"
             },
-            "depth": 0.05,
+            "depth": 0.06,
             "key_biome": "theaurorian:aurorian_forest",
             "scale": 0.1
           },
@@ -39,10 +39,19 @@
           },
           {
             "biome_layers": {
+              "-1.0": "theaurorian:moon_desert",
+              "-3.0": "theaurorian:underground"
+            },
+            "depth": 0.06,
+            "key_biome": "theaurorian:moon_desert",
+            "scale": 0.03
+          },
+          {
+            "biome_layers": {
               "-1.0": "theaurorian:weeping_willow_forest",
               "-3.0": "theaurorian:underground"
             },
-            "depth": 0.05,
+            "depth": 0.07,
             "key_biome": "theaurorian:weeping_willow_forest",
             "scale": 0.05
           }

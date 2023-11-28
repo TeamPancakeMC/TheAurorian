@@ -1,5 +1,7 @@
 {
-  "carvers": {},
+  "carvers": {
+    "air": "minecraft:cave"
+  },
   "creature_spawn_probability": 0.3,
   "downfall": 0.0,
   "effects": {

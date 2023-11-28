@@ -12,7 +12,8 @@
               "layer_type": "theaurorian:random_biomes",
               "rare_biome_chance": 15,
               "rare_biomes": [
-                "theaurorian:weeping_willow_forest"
+                "theaurorian:weeping_willow_forest",
+                "theaurorian:moon_desert"
               ],
               "salt": 1
             },

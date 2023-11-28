@@ -138,7 +138,7 @@ public class TAItemModelProvider extends ItemModelProvider {
                 this.bowItem(item);
             } else if (item instanceof ShieldItem) {
                 this.shieldItem(item);
-            } else if (!(item instanceof BlockItem) && item != TAItems.SLEEPING_BLACK_TEA.get()) {
+            } else if (!(item instanceof BlockItem)) {
                 this.basicItem(item);
             }
         }
@@ -148,15 +148,14 @@ public class TAItemModelProvider extends ItemModelProvider {
         String name = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
         Map<Integer, Float> pulls = Map.of(0, 0.0F, 1, 0.65F, 2, 0.9F);
         ModelFile.UncheckedModelFile bowModel = new ModelFile.UncheckedModelFile(this.modLoc("item/" + name));
-        ItemModelBuilder.OverrideBuilder overrideBuilder = this.withExistingParent(name, this.modLoc("item/ta_bow"))
-                .texture("layer0", this.modLoc("item/" + name)).override();
+        ItemModelBuilder modelBuilder = this.withExistingParent(name, this.modLoc("item/ta_bow"))
+                .texture("layer0", this.modLoc("item/" + name));
         for (int i = 0; i < pulls.size(); i++) {
             String path = name + "_pulling_" + i;
             this.getBuilder(path).parent(bowModel).texture("layer0", this.modLoc("item/" + path));
-            overrideBuilder.predicate(this.mcLoc("pulling"), 1).predicate(this.mcLoc("pull"), pulls.get(i))
-                    .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + path)));
+            modelBuilder.override().predicate(this.mcLoc("pulling"), 1).predicate(this.mcLoc("pull"), pulls.get(i))
+                    .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + path))).end();
         }
-        overrideBuilder.end();
     }
 
     private void shieldItem(Item item) {

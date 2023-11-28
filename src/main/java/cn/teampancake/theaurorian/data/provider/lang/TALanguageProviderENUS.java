@@ -40,7 +40,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_FLOWER_1.get(), "Aurorian Flower");
         this.add(TABlocks.AURORIAN_FLOWER_2.get(), "Aurorian Flower");
         this.add(TABlocks.AURORIAN_FLOWER_3.get(), "Aurorian Flower");
-        this.add(TABlocks.EQUINOX_FLOWER.get(), "Aurorian Flower");
+        this.add(TABlocks.EQUINOX_FLOWER.get(), "Equinox Flower");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "Aurorian Peridotite");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "Smooth Aurorian Peridotite");
         this.add(TABlocks.MOONSTONE_ORE.get(), "Moonstone Ore");

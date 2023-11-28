@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.client.model.*;
 import cn.teampancake.theaurorian.client.renderer.entity.*;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.AurorianPig;
+import cn.teampancake.theaurorian.common.entities.animal.AurorianPixie;
 import cn.teampancake.theaurorian.common.entities.animal.AurorianRabbit;
 import cn.teampancake.theaurorian.common.entities.animal.AurorianSheep;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
@@ -16,8 +17,6 @@ import cn.teampancake.theaurorian.common.entities.projectile.CrystalArrowEntity;
 import cn.teampancake.theaurorian.common.entities.projectile.StickySpikerEntity;
 import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
 import net.minecraft.client.model.SlimeModel;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -68,6 +67,9 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<AurorianPig>> AURORIAN_PIG = ENTITY_TYPES.register("aurorian_pig",
             () -> EntityType.Builder.of(AurorianPig::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
                     .clientTrackingRange(10).build("aurorian_pig"));
+    public static final RegistryObject<EntityType<AurorianPixie>> AURORIAN_PIXIE = ENTITY_TYPES.register("aurorian_pixie",
+            () -> EntityType.Builder.of(AurorianPixie::new, MobCategory.CREATURE).sized(0.4F, 0.4F)
+                    .clientTrackingRange(8).build("aurorian_pixie"));
     //Monster
     public static final RegistryObject<EntityType<AurorianSlime>> AURORIAN_SLIME = ENTITY_TYPES.register("aurorian_slime",
             () -> EntityType.Builder.of(AurorianSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F)
@@ -112,6 +114,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(AURORIAN_RABBIT.get(), AurorianRabbitRenderer::new);
         event.registerEntityRenderer(AURORIAN_SHEEP.get(), AurorianSheepRenderer::new);
         event.registerEntityRenderer(AURORIAN_PIG.get(), AurorianPigRenderer::new);
+        event.registerEntityRenderer(AURORIAN_PIXIE.get(), AurorianPixieRenderer::new);
         event.registerEntityRenderer(AURORIAN_SLIME.get(), AurorianSlimeRenderer::new);
         event.registerEntityRenderer(DISTURBED_HOLLOW.get(), DisturbedHollowRenderer::new);
         event.registerEntityRenderer(UNDEAD_KNIGHT.get(), UndeadKnightRenderer::new);
@@ -130,6 +133,7 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.AURORIAN_RABBIT, AurorianRabbitModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SHEEP, AurorianSheepModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_PIG, AurorianPigModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.AURORIAN_PIXIE, AurorianPixieModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME, SlimeModel::createInnerBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME_OUTER, SlimeModel::createOuterBodyLayer);
         event.registerLayerDefinition(TAModelLayers.DISTURBED_HOLLOW, DisturbedHollowModel::createBodyLayer);
@@ -167,6 +171,7 @@ public class TAEntityTypes {
         event.put(AURORIAN_RABBIT.get(), AurorianRabbit.createAttributes().build());
         event.put(AURORIAN_SHEEP.get(), AurorianSheep.createAttributes().build());
         event.put(AURORIAN_PIG.get(), AurorianPig.createAttributes().build());
+        event.put(AURORIAN_PIXIE.get(), AurorianPixie.createAttributes().build());
         event.put(AURORIAN_SLIME.get(), AurorianSlime.createMobAttributes().build());
         event.put(DISTURBED_HOLLOW.get(), DisturbedHollow.createAttributes().build());
         event.put(UNDEAD_KNIGHT.get(), UndeadKnight.createAttributes().build());

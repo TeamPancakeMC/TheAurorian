@@ -12,12 +12,12 @@ import net.minecraft.resources.ResourceLocation;
 public class SpiderlingRenderer extends MobRenderer<Spiderling, SpiderlingModel<Spiderling>> {
 
     public SpiderlingRenderer(EntityRendererProvider.Context context) {
-        super(context, new SpiderlingModel<>(context.bakeLayer(TAModelLayers.SPIDERLING)), 0.8F);
+        super(context, new SpiderlingModel<>(context.bakeLayer(TAModelLayers.SPIDERLING)), 0.5F);
     }
 
     @Override
     protected void scale(Spiderling livingEntity, PoseStack poseStack, float partialTickTime) {
-        poseStack.scale(0.5F, 0.5F, 0.5F);
+        poseStack.scale(0.7F, 0.7F, 0.7F);
     }
 
     @Override

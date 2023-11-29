@@ -1,26 +1,27 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "cn.teampancake.theaurorian.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "refmap": "theaurorian.refmap.json",
-  "mixins": [
-    "InvokeAbstractFurnaceBlockEntity",
-    "MixinAbstractFurnaceBlockEntity",
-    "MixinBaseFireBlock",
-    "MixinDiggerItem",
-    "MixinShearsItem",
-    "MixinSkyLightSectionStorage",
-    "MixinSwordItem"
-  ],
-  "client": [
-    "MixinClientLevel",
-    "MixinFogRenderer",
-    "MixinHumanoidArmorLayer",
-    "MixinLevelRenderer",
-    "MixinLivingEntityRenderer"
-  ],
-  "injectors": {
-    "defaultRequire": 1
+    "required": true,
+    "minVersion": "0.8",
+    "package": "cn.teampancake.theaurorian.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "theaurorian.refmap.json",
+    "mixins": [
+        "InvokeAbstractFurnaceBlockEntity",
+        "MixinAbstractFurnaceBlockEntity",
+        "MixinBaseFireBlock",
+        "MixinDataGenerator",
+        "MixinDiggerItem",
+        "MixinShearsItem",
+        "MixinSkyLightSectionStorage",
+        "MixinSwordItem"
+    ],
+    "client": [
+        "MixinClientLevel",
+        "MixinFogRenderer",
+        "MixinHumanoidArmorLayer",
+        "MixinLevelRenderer",
+        "MixinLivingEntityRenderer"
+    ],
+    "injectors": {
+        "defaultRequire": 1
   }
 }

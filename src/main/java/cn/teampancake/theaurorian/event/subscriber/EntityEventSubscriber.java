@@ -12,6 +12,7 @@ import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.data.tags.TABlockTags;
 import cn.teampancake.theaurorian.data.tags.TAEntityTags;
 import cn.teampancake.theaurorian.registry.TAItems;
+import cn.teampancake.theaurorian.registry.TAMobEffects;
 import cn.teampancake.theaurorian.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.utils.AurorianUtil;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,6 +32,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -75,6 +77,11 @@ public class EntityEventSubscriber {
                 moonQueen.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(baseAttackDamage * damageMultiplier);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onLivingHeal(LivingHealEvent event) {
+        event.setCanceled(event.getEntity() instanceof Player player && player.hasEffect(TAMobEffects.MOON_CURSE.get()));
     }
 
     @SubscribeEvent

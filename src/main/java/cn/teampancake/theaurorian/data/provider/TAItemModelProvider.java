@@ -10,14 +10,12 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Map;
 import java.util.Objects;
 
 @SuppressWarnings({"ConstantConditions", "unused"})
@@ -146,15 +144,18 @@ public class TAItemModelProvider extends ItemModelProvider {
 
     private void bowItem(Item item) {
         String name = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
-        Map<Integer, Float> pulls = Map.of(0, 0.0F, 1, 0.65F, 2, 0.9F);
         ModelFile.UncheckedModelFile bowModel = new ModelFile.UncheckedModelFile(this.modLoc("item/" + name));
-        ItemModelBuilder modelBuilder = this.withExistingParent(name, this.modLoc("item/ta_bow"))
-                .texture("layer0", this.modLoc("item/" + name));
-        for (int i = 0; i < pulls.size(); i++) {
+        this.withExistingParent(name, this.modLoc("item/ta_bow"))
+                .texture("layer0", this.modLoc("item/" + name))
+                .override().predicate(this.mcLoc("pulling"), 1)
+                .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_pulling_0"))).end()
+                .override().predicate(this.mcLoc("pulling"), 1).predicate(this.mcLoc("pull"), 0.65F)
+                .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_pulling_1"))).end()
+                .override().predicate(this.mcLoc("pulling"), 1).predicate(this.mcLoc("pull"), 0.9F)
+                .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_pulling_2"))).end();
+        for (int i = 0; i < 3; i++) {
             String path = name + "_pulling_" + i;
             this.getBuilder(path).parent(bowModel).texture("layer0", this.modLoc("item/" + path));
-            modelBuilder.override().predicate(this.mcLoc("pulling"), 1).predicate(this.mcLoc("pull"), pulls.get(i))
-                    .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + path))).end();
         }
     }
 

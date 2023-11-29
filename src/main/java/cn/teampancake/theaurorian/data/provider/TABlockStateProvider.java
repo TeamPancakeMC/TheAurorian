@@ -8,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -282,23 +283,24 @@ public class TABlockStateProvider extends BlockStateProvider {
     }
 
     private void registerMushroomStates(Block block) {
-        MultiPartBlockStateBuilder builder = this.getMultipartBuilder(block);
         ResourceLocation parent = this.mcLoc("block/template_single_face");
         ResourceLocation outside = this.modLoc("block/" + this.name(block) + "_side");
         ResourceLocation inside = this.modLoc("block/" + this.name(block) + "_inside");
         ModelFile outsideModel = this.models().singleTexture(this.name(block), parent, outside).renderType(TRANSLUCENT);
         ModelFile insideModel = this.models().singleTexture(this.name(block), parent, inside).renderType(TRANSLUCENT);
-        Map<Integer, Integer> map = Map.of((0), (90), (1), (270), (2), (0), (3), (180), (4), (270), (5), (90));
-        Map<Direction, BooleanProperty> properties = PipeBlock.PROPERTY_BY_DIRECTION;
-        for (Direction direction : Direction.values()) {
-            boolean flag = direction == Direction.NORTH;
-            int yRot = map.get(direction.get3DDataValue());
-            BooleanProperty property = properties.get(direction);
-            builder.part().modelFile(outsideModel).uvLock(!flag).rotationY(yRot)
-                    .addModel().condition(property, Boolean.TRUE).end();
-            builder.part().modelFile(insideModel).uvLock(Boolean.FALSE).rotationY(yRot)
-                    .addModel().condition(property, Boolean.FALSE).end();
-        }
+        this.getMultipartBuilder(block).part().modelFile(outsideModel).addModel().condition(BlockStateProperties.NORTH, true).end()
+                .part().modelFile(outsideModel).addModel().condition(BlockStateProperties.EAST, true).end()
+                .part().modelFile(outsideModel).rotationY(90).uvLock(true).addModel().condition(BlockStateProperties.SOUTH, true).end()
+                .part().modelFile(outsideModel).rotationY(180).uvLock(true).addModel().condition(BlockStateProperties.WEST, true).end()
+                .part().modelFile(outsideModel).rotationY(270).uvLock(true).addModel().condition(BlockStateProperties.UP, true).end()
+                .part().modelFile(outsideModel).rotationX(270).uvLock(true).addModel().condition(BlockStateProperties.DOWN, true).end()
+                .part().modelFile(outsideModel).rotationX(90).uvLock(true).addModel().condition(BlockStateProperties.NORTH, false).end()
+                .part().modelFile(insideModel).addModel().condition(BlockStateProperties.EAST, false).end()
+                .part().modelFile(insideModel).rotationY(90).uvLock(false).addModel().condition(BlockStateProperties.SOUTH, false).end()
+                .part().modelFile(insideModel).rotationY(180).uvLock(false).addModel().condition(BlockStateProperties.WEST, false).end()
+                .part().modelFile(insideModel).rotationY(270).uvLock(false).addModel().condition(BlockStateProperties.UP, false).end()
+                .part().modelFile(insideModel).rotationX(270).uvLock(false).addModel().condition(BlockStateProperties.DOWN, false).end()
+                .part().modelFile(insideModel).rotationX(90).uvLock(false).addModel().end();
     }
 
     private void registerLiquidStates() {

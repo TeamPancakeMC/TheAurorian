@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.data.provider.lang;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.effect.TAMobEffect;
 import cn.teampancake.theaurorian.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -314,6 +315,10 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), "Runestone Keeper");
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), "Spider Mother");
         this.add(TAEntityTypes.MOON_QUEEN.get(), "Moon Queen");
+
+        //MOB EFFECT
+        this.add(TAMobEffects.STUN.get(), "Stun");
+        this.add(TAMobEffects.MOON_CURSE.get(), "Moon Curse");
 
         //MOD ENCHANTMENT
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "Lightning Resistance");

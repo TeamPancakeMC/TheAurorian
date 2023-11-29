@@ -315,6 +315,10 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), "蛛母");
         this.add(TAEntityTypes.MOON_QUEEN.get(), "皎月女王");
 
+        //MOB EFFECT
+        this.add(TAMobEffects.STUN.get(), "眩晕");
+        this.add(TAMobEffects.MOON_CURSE.get(), "皎月之咒");
+
         //MOD ENCHANTMENT
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "雷电抵御");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get(), "雷电");

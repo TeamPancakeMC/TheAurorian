@@ -1,9 +1,11 @@
 package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.AurorianSteelArmorModel;
 import cn.teampancake.theaurorian.common.items.*;
-import cn.teampancake.theaurorian.common.items.armor.*;
+import cn.teampancake.theaurorian.common.items.armor.AurorianSteelArmor;
+import cn.teampancake.theaurorian.common.items.armor.ceruleanArmor;
+import cn.teampancake.theaurorian.common.items.armor.knightArmor;
+import cn.teampancake.theaurorian.common.items.armor.spectralArmor;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -16,7 +18,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Random;
 
-import static cn.teampancake.theaurorian.common.items.ModArmorMaterials.*;
 import static cn.teampancake.theaurorian.utils.TAItemRegUtils.*;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
@@ -153,7 +154,7 @@ public class TAItems {
     /**
      * BowItem
      */
-    public static final RegistryObject<Item> SILENT_WOOD_BOW = ITEMS.register("silent_wood_bow", () -> new BowItem(new Item.Properties()));
+    public static final RegistryObject<Item> SILENT_WOOD_BOW = ITEMS.register("silent_wood_bow", () -> new BowItem(new Item.Properties().durability(384)));
     public static final RegistryObject<Item> KEEPERS_BOW = ITEMS.register("keepers_bow", KeepersBow::new);
 
     /**

@@ -56,7 +56,7 @@ public class TAEntityTypes {
                     .clientTrackingRange(4).updateInterval(10).build("webbing"));
     public static final RegistryObject<EntityType<EyeOfDisturbedEntity>> EYE_OF_DISTURBED = ENTITY_TYPES.register("eye_of_disturbed",
             () -> EntityType.Builder.<EyeOfDisturbedEntity>of(EyeOfDisturbedEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
-                    .clientTrackingRange(4).updateInterval(10).build("eye_of_disturbed"));
+                    .clientTrackingRange(4).updateInterval(10).fireImmune().build("eye_of_disturbed"));
     //Animal
     public static final RegistryObject<EntityType<AurorianRabbit>> AURORIAN_RABBIT = ENTITY_TYPES.register("aurorian_rabbit",
             () -> EntityType.Builder.of(AurorianRabbit::new, MobCategory.CREATURE).sized(0.4F, 0.5F)

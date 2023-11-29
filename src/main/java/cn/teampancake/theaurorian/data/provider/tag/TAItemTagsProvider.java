@@ -25,6 +25,8 @@ public class TAItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        this.tag(Tags.Items.TOOLS_BOWS).add(TAItems.SILENT_WOOD_BOW.get())
+                .add(TAItems.KEEPERS_BOW.get());
         this.tag(Tags.Items.TOOLS_SHIELDS).add(TAItems.CERULEAN_SHIELD.get(),
                 TAItems.CRYSTALLINE_SHIELD.get(), TAItems.MOON_SHIELD.get(),
                 TAItems.UMBRA_SHIELD.get(), TAItems.MOONSTONE_SHIELD.get());
@@ -43,8 +45,8 @@ public class TAItemTagsProvider extends ItemTagsProvider {
                 TAItems.KNIGHT_BOOTS.get(), TAItems.SPECTRAL_HELMET.get(),
                 TAItems.SPECTRAL_CHESTPLATE.get(), TAItems.SPECTRAL_LEGGINGS.get(),
                 TAItems.SPECTRAL_BOOTS.get());
-        this.tag(TAItemTags.AURORIAN_SLIME_BOOTS).add(TAItems.AURORIAN_SLIME_BOOTS.get());
         this.tag(ItemTags.ARROWS).add(TAItems.CERULEAN_ARROW.get(), TAItems.CRYSTAL_ARROW.get());
+        this.tag(TAItemTags.AURORIAN_SLIME_BOOTS).add(TAItems.AURORIAN_SLIME_BOOTS.get());
         this.copy(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, TAItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
         this.copy(TABlockTags.SILENT_TREE_LOGS, TAItemTags.SILENT_TREE_LOGS);
         this.copy(TABlockTags.WEEPING_WILLOW_LOGS, TAItemTags.WEEPING_WILLOW_LOGS);

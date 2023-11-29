@@ -48,7 +48,9 @@ public class EyeOfDisturbedEntity extends AbstractHurtingProjectile {
     protected void onHitEntity(EntityHitResult result) {
         if (!this.level().isClientSide) {
             Entity entity = result.getEntity();
-            entity.hurt(this.damageSources().magic(), 2.0F);
+            if (entity != this.getOwner()) {
+                entity.hurt(this.damageSources().magic(), 2.0F);
+            }
         }
     }
 

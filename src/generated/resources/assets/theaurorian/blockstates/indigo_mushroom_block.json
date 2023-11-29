@@ -2,21 +2,38 @@
   "multipart": [
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_block",
-        "uvlock": true,
-        "y": 90
+        "model": "theaurorian:block/indigo_mushroom_block"
       },
       "when": {
-        "down": "true"
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theaurorian:block/indigo_mushroom_block"
+      },
+      "when": {
+        "east": "true"
       }
     },
     {
       "apply": {
         "model": "theaurorian:block/indigo_mushroom_block",
+        "uvlock": true,
         "y": 90
       },
       "when": {
-        "down": "false"
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theaurorian:block/indigo_mushroom_block",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "west": "true"
       }
     },
     {
@@ -32,23 +49,18 @@
     {
       "apply": {
         "model": "theaurorian:block/indigo_mushroom_block",
-        "y": 270
+        "uvlock": true,
+        "x": 270
       },
       "when": {
-        "up": "false"
+        "down": "true"
       }
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_block"
-      },
-      "when": {
-        "north": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "theaurorian:block/indigo_mushroom_block"
+        "model": "theaurorian:block/indigo_mushroom_block",
+        "uvlock": true,
+        "x": 90
       },
       "when": {
         "north": "false"
@@ -56,18 +68,16 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_block",
-        "uvlock": true,
-        "y": 180
+        "model": "theaurorian:block/indigo_mushroom_block"
       },
       "when": {
-        "south": "true"
+        "east": "false"
       }
     },
     {
       "apply": {
         "model": "theaurorian:block/indigo_mushroom_block",
-        "y": 180
+        "y": 90
       },
       "when": {
         "south": "false"
@@ -76,17 +86,7 @@
     {
       "apply": {
         "model": "theaurorian:block/indigo_mushroom_block",
-        "uvlock": true,
-        "y": 270
-      },
-      "when": {
-        "west": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "theaurorian:block/indigo_mushroom_block",
-        "y": 270
+        "y": 180
       },
       "when": {
         "west": "false"
@@ -95,20 +95,25 @@
     {
       "apply": {
         "model": "theaurorian:block/indigo_mushroom_block",
-        "uvlock": true,
-        "y": 90
+        "y": 270
       },
       "when": {
-        "east": "true"
+        "up": "false"
       }
     },
     {
       "apply": {
         "model": "theaurorian:block/indigo_mushroom_block",
-        "y": 90
+        "x": 270
       },
       "when": {
-        "east": "false"
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "theaurorian:block/indigo_mushroom_block",
+        "x": 90
       }
     }
   ]

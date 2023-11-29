@@ -154,6 +154,8 @@
   "block.theaurorian.weeping_willow_slab": "Weeping Willow Slab",
   "block.theaurorian.weeping_willow_stairs": "Weeping Willow Stairs",
   "block.theaurorian.weeping_willow_wood": "Weeping Willow Wood",
+  "effect.theaurorian.moon_curse": "Moon Curse",
+  "effect.theaurorian.stun": "Stun",
   "enchantment.theaurorian.lightning": "Lightning",
   "enchantment.theaurorian.lightning.desc": "Does extra damage depending on how much armor the target is wearing",
   "enchantment.theaurorian.lightning_resistance": "Lightning Resistance",

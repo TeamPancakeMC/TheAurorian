@@ -4,7 +4,6 @@
     {
       "model": "theaurorian:item/keepers_bow_pulling_0",
       "predicate": {
-        "minecraft:pull": 0.0,
         "minecraft:pulling": 1.0
       }
     },

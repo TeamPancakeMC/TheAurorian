@@ -7,7 +7,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 
-public class KeepersBow extends BowItem implements ITooltipsItem{
+public class KeepersBow extends BowItem implements ITooltipsItem {
+
     public KeepersBow() {
         super(new Properties()
                 .defaultDurability(512)
@@ -27,4 +28,5 @@ public class KeepersBow extends BowItem implements ITooltipsItem{
             }
         }
     }
+
 }

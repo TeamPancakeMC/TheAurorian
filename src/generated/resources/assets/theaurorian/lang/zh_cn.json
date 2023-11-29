@@ -154,6 +154,8 @@
   "block.theaurorian.weeping_willow_slab": "垂柳木台阶",
   "block.theaurorian.weeping_willow_stairs": "垂柳木楼梯",
   "block.theaurorian.weeping_willow_wood": "垂柳木头",
+  "effect.theaurorian.moon_curse": "皎月之咒",
+  "effect.theaurorian.stun": "眩晕",
   "enchantment.theaurorian.lightning": "雷电",
   "enchantment.theaurorian.lightning.desc": "根据对方穿戴的护甲数量造成额外伤害",
   "enchantment.theaurorian.lightning_resistance": "雷电抵御",

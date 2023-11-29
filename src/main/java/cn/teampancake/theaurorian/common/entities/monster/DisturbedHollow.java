@@ -100,9 +100,20 @@ public class DisturbedHollow extends Monster {
         }
 
         @Override
+        public boolean canContinueToUse() {
+            return this.canUse() || this.disturbedHollow.getNavigation().isDone();
+        }
+
+        @Override
         public void start() {
             this.chargeTime = 0;
+            this.disturbedHollow.setAggressive(true);
             this.disturbedHollow.level().broadcastEntityEvent(this.disturbedHollow, (byte) 4);
+        }
+
+        @Override
+        public void stop() {
+            this.disturbedHollow.setAggressive(false);
         }
 
         @Override
@@ -127,6 +138,7 @@ public class DisturbedHollow extends Monster {
                         double x = this.disturbedHollow.getX() + vec3.x * 5.0D;
                         double y = this.disturbedHollow.getY(0.5D) + 0.5D;
                         double z = eyeOfDisturbed.getZ() + vec3.z * 5.0D;
+                        eyeOfDisturbed.setOwner(this.disturbedHollow);
                         eyeOfDisturbed.setPos(x, y, z);
                         level.addFreshEntity(eyeOfDisturbed);
                         this.chargeTime = -60;

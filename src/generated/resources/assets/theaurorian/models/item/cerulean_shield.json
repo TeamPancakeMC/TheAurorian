@@ -4,7 +4,7 @@
     {
       "model": "theaurorian:item/cerulean_shield_blocking",
       "predicate": {
-        "minecraft:block": 1.0
+        "theaurorian:blocking": 1.0
       }
     }
   ],

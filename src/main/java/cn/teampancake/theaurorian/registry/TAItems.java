@@ -3,9 +3,9 @@ package cn.teampancake.theaurorian.registry;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.*;
 import cn.teampancake.theaurorian.common.items.armor.AurorianSteelArmor;
-import cn.teampancake.theaurorian.common.items.armor.ceruleanArmor;
-import cn.teampancake.theaurorian.common.items.armor.knightArmor;
-import cn.teampancake.theaurorian.common.items.armor.spectralArmor;
+import cn.teampancake.theaurorian.common.items.armor.CeruleanArmor;
+import cn.teampancake.theaurorian.common.items.armor.KnightArmor;
+import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -38,29 +38,29 @@ public class TAItems {
     public static final RegistryObject<Item> AURORIAN_STEEL_BOOTS = ITEMS.register("aurorian_steel_boots",
             () -> new AurorianSteelArmor(BOOTS));
     public static final RegistryObject<Item> CERULEAN_HELMET = ITEMS.register("cerulean_helmet",
-            () -> new ceruleanArmor(HELMET));
+            () -> new CeruleanArmor(HELMET));
     public static final RegistryObject<Item> CERULEAN_CHESTPLATE = ITEMS.register("cerulean_chestplate",
-            () -> new ceruleanArmor(CHESTPLATE));
+            () -> new CeruleanArmor(CHESTPLATE));
     public static final RegistryObject<Item> CERULEAN_LEGGINGS = ITEMS.register("cerulean_leggings",
-            () -> new ceruleanArmor(LEGGINGS));
+            () -> new CeruleanArmor(LEGGINGS));
     public static final RegistryObject<Item> CERULEAN_BOOTS = ITEMS.register("cerulean_boots",
-            () -> new ceruleanArmor(BOOTS));
+            () -> new CeruleanArmor(BOOTS));
     public static final RegistryObject<Item> KNIGHT_HELMET = ITEMS.register("knight_helmet",
-            () -> new knightArmor(HELMET));
+            () -> new KnightArmor(HELMET));
     public static final RegistryObject<Item> KNIGHT_CHESTPLATE = ITEMS.register("knight_chestplate",
-            () -> new knightArmor(CHESTPLATE));
+            () -> new KnightArmor(CHESTPLATE));
     public static final RegistryObject<Item> KNIGHT_LEGGINGS = ITEMS.register("knight_leggings",
-            () -> new knightArmor(LEGGINGS));
+            () -> new KnightArmor(LEGGINGS));
     public static final RegistryObject<Item> KNIGHT_BOOTS = ITEMS.register("knight_boots",
-            () -> new knightArmor(BOOTS));
+            () -> new KnightArmor(BOOTS));
     public static final RegistryObject<Item> SPECTRAL_HELMET = ITEMS.register("spectral_helmet",
-            () -> new spectralArmor(HELMET));
+            () -> new SpectralArmor(HELMET));
     public static final RegistryObject<Item> SPECTRAL_CHESTPLATE = ITEMS.register("spectral_chestplate",
-            () -> new spectralArmor(CHESTPLATE));
+            () -> new SpectralArmor(CHESTPLATE));
     public static final RegistryObject<Item> SPECTRAL_LEGGINGS = ITEMS.register("spectral_leggings",
-            () -> new spectralArmor(LEGGINGS));
+            () -> new SpectralArmor(LEGGINGS));
     public static final RegistryObject<Item> SPECTRAL_BOOTS = ITEMS.register("spectral_boots",
-            () -> new spectralArmor(BOOTS));
+            () -> new SpectralArmor(BOOTS));
     public static final RegistryObject<Item> AURORIAN_SLIME_BOOTS = ITEMS.register("aurorian_slime_boots",
             () -> new ArmorItem(ModArmorMaterials.AURORIAN_SLIME, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> SPIKED_CHESTPLATE = ITEMS.register("spiked_chestplate", SpikedItemArmor::new);

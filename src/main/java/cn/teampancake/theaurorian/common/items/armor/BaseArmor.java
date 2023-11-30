@@ -8,6 +8,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +34,7 @@ public abstract class BaseArmor<T extends HumanoidModel<?>> extends ArmorItem im
         });
     }
 
+    @OnlyIn(Dist.CLIENT)
     protected abstract T getModel();
 
     public HumanoidModel<?> getHumanoidModel(EquipmentSlot slot,HumanoidModel<?> _default, T _default2) {

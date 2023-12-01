@@ -14,9 +14,7 @@ public class AurorianUtil {
      * return true 75% of the time.
      */
     public static boolean randomChanceOf(double percent) {
-        Random r = new Random();
-        double gen = r.nextDouble();
-        return gen <= percent;
+        return new Random().nextDouble() <= percent;
     }
 
     /**

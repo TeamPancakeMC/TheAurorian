@@ -6,6 +6,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
@@ -48,7 +49,7 @@ public class EyeOfDisturbedEntity extends AbstractHurtingProjectile {
     protected void onHitEntity(EntityHitResult result) {
         if (!this.level().isClientSide) {
             Entity entity = result.getEntity();
-            if (entity != this.getOwner()) {
+            if (this.getOwner() instanceof Monster monster && entity == monster.getTarget()) {
                 entity.hurt(this.damageSources().magic(), 2.0F);
             }
         }

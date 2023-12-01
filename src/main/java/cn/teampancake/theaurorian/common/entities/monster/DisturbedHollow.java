@@ -43,7 +43,7 @@ public class DisturbedHollow extends Monster {
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
         builder.add(Attributes.MAX_HEALTH, 20.0F);
-        builder.add(Attributes.MOVEMENT_SPEED, 0.3F);
+        builder.add(Attributes.MOVEMENT_SPEED, 0.2F);
         builder.add(Attributes.ATTACK_DAMAGE, 3.0F);
         builder.add(Attributes.FOLLOW_RANGE, 35.0D);
         builder.add(Attributes.ARMOR, 2.0F);
@@ -129,6 +129,7 @@ public class DisturbedHollow extends Monster {
                     Level level = this.disturbedHollow.level();
                     ++this.chargeTime;
                     if (this.chargeTime == 20) {
+                        this.disturbedHollow.setDeltaMovement(Vec3.ZERO);
                         Vec3 vec3 = this.disturbedHollow.getViewVector(1.0F);
                         double d2 = target.getX() - (this.disturbedHollow.getX() + vec3.x * 4.0D);
                         double d3 = target.getY(0.5D) - (0.5D + this.disturbedHollow.getY(0.5D));

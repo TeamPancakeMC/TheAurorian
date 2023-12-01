@@ -52,7 +52,7 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 TABlocks.UMBRA_STONE_CRACKED.get(), TABlocks.UMBRA_STONE_ROOF_TILES.get());
         this.tag(BlockTags.WOODEN_STAIRS).add(TABlocks.SILENT_WOOD_STAIRS.get(), TABlocks.WEEPING_WILLOW_STAIRS.get());
         this.tag(BlockTags.WOODEN_SLABS).add(TABlocks.SILENT_WOOD_SLAB.get(), TABlocks.WEEPING_WILLOW_SLAB.get());
-        this.tag(BlockTags.SAND).add(TABlocks.MOON_SAND.get());
+        this.tag(BlockTags.SAND).add(TABlocks.MOON_SAND.get(), TABlocks.BRIGHT_MOON_SAND.get());
         for (Block block : TACommonUtils.getKnownBlocks()) {
             float f1 = Blocks.BEDROCK.defaultDestroyTime();
             float f2 = Blocks.BEDROCK.getExplosionResistance();

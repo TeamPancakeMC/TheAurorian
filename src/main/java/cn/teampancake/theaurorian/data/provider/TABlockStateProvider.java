@@ -56,6 +56,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.MOON_SAND_STONE_1.get());
         this.simpleBlock(TABlocks.MOON_SAND_STONE_2.get());
         this.simpleBlock(TABlocks.MOON_SAND_STONE_3.get());
+        this.simpleBlock(TABlocks.BRIGHT_MOON_SAND.get());
         this.simpleBlock(TABlocks.RUNE_STONE.get());
         this.simpleBlock(TABlocks.SMOOTH_RUNE_STONE.get());
         this.simpleBlock(TABlocks.CHISELED_RUNE_STONE.get());
@@ -288,6 +289,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         ResourceLocation inside = this.modLoc("block/" + this.name(block) + "_inside");
         ModelFile outsideModel = this.models().singleTexture(this.name(block), parent, outside).renderType(TRANSLUCENT);
         ModelFile insideModel = this.models().singleTexture(this.name(block), parent, inside).renderType(TRANSLUCENT);
+        this.models().withExistingParent(this.name(block) + "_inventory", this.mcLoc("block/cube_all"));
         this.getMultipartBuilder(block).part().modelFile(outsideModel).addModel().condition(BlockStateProperties.NORTH, true).end()
                 .part().modelFile(outsideModel).addModel().condition(BlockStateProperties.EAST, true).end()
                 .part().modelFile(outsideModel).rotationY(90).uvLock(true).addModel().condition(BlockStateProperties.SOUTH, true).end()
@@ -406,12 +408,12 @@ public class TABlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private String name(Block block) {
-        return Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
-    }
-
     private void simpleBlockWithRenderType(Block block, ResourceLocation type) {
         simpleBlock(block, models().cubeAll(this.name(block), this.blockTexture(block)).renderType(type));
+    }
+
+    private String name(Block block) {
+        return Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getPath();
     }
 
 }

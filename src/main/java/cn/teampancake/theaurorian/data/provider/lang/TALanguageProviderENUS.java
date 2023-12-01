@@ -93,6 +93,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.MOON_SAND_STONE_1.get(), "Moon Sandstone");
         this.add(TABlocks.MOON_SAND_STONE_2.get(), "Moon Sandstone");
         this.add(TABlocks.MOON_SAND_STONE_3.get(), "Moon Sandstone");
+        this.add(TABlocks.BRIGHT_MOON_SAND.get(), "Bright Moon Sand");
         this.add(TABlocks.MOON_TORCH.get(), "Moon Torch");
         this.add(TABlocks.SCRAPPER.get(), "Scrapper");
         this.add(TABlocks.UMBRA_STONE.get(), "Umbra Stone");
@@ -301,6 +302,12 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.WEEPING_WILLOW_SAP.get(),"Weeping Willow Sap");
 
         //MOD ENTITY
+        this.add(TAEntityTypes.CRYSTALLINE_BEAM.get(), "Crystalline Beam");
+        this.add(TAEntityTypes.CERULEAN_ARROW.get(), "Cerulean Arrow");
+        this.add(TAEntityTypes.CRYSTAL_ARROW.get(), "Crystal Arrow");
+        this.add(TAEntityTypes.STICKY_SPIKER.get(), "Sticky Spiker");
+        this.add(TAEntityTypes.WEBBING.get(), "Webbing");
+        this.add(TAEntityTypes.EYE_OF_DISTURBED.get(), "Eye Of Disturbed");
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "Aurorian Rabbit");
         this.add(TAEntityTypes.AURORIAN_SHEEP.get(), "Aurorian Sheep");
         this.add(TAEntityTypes.AURORIAN_PIG.get(), "Aurorian Pig");

@@ -48,6 +48,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.MOON_SAND_STONE_1.get());
         this.simpleBlockItem(TABlocks.MOON_SAND_STONE_2.get());
         this.simpleBlockItem(TABlocks.MOON_SAND_STONE_3.get());
+        this.simpleBlockItem(TABlocks.BRIGHT_MOON_SAND.get());
         this.simpleBlockItem(TABlocks.RUNE_STONE.get());
         this.simpleBlockItem(TABlocks.SMOOTH_RUNE_STONE.get());
         this.simpleBlockItem(TABlocks.CHISELED_RUNE_STONE.get());
@@ -87,8 +88,6 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.UMBRA_STONE_CRACKED.get());
         this.simpleBlockItem(TABlocks.UMBRA_STONE_ROOF_TILES.get());
         this.simpleBlockItem(TABlocks.INDIGO_MUSHROOM.get());
-        this.simpleBlockItem(TABlocks.INDIGO_MUSHROOM_BLOCK.get());
-        this.simpleBlockItem(TABlocks.INDIGO_MUSHROOM_STEM.get());
         this.simpleBlockItem(TABlocks.INDIGO_MUSHROOM_CRYSTAL.get());
         this.simpleBlockItem(TABlocks.SILENT_TREE_LOG.get());
         this.simpleBlockItem(TABlocks.SILENT_TREE_WOOD.get());
@@ -114,6 +113,10 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItemWithParent(TABlocks.MOON_TORCH.get());
         this.simpleBlockItemWithParent(TABlocks.RUNE_STONE_BARS.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_TEMPLE_BARS.get());
+        this.withExistingParent(TABlocks.INDIGO_MUSHROOM_BLOCK.getId().getPath(),
+                this.modLoc("block/indigo_mushroom_block_inventory"));
+        this.withExistingParent(TABlocks.INDIGO_MUSHROOM_STEM.getId().getPath(),
+                this.modLoc("block/indigo_mushroom_stem_inventory"));
         this.withExistingParent(this.name(TABlocks.AURORIAN_GLASS_PANE.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.AURORIAN_GLASS.get())));
         this.withExistingParent(this.name(TABlocks.MOON_GLASS_PANE.get()), this.mcLoc("item/generated"))
@@ -125,6 +128,7 @@ public class TAItemModelProvider extends ItemModelProvider {
                 this.simpleBlockItem(block);
             }
         }
+
         for (Item item : TACommonUtils.getKnownItems()) {
             ResourceLocation key = ForgeRegistries.ITEMS.getKey(item);
             if (item instanceof ForgeSpawnEggItem) {
@@ -147,11 +151,11 @@ public class TAItemModelProvider extends ItemModelProvider {
         ModelFile.UncheckedModelFile bowModel = new ModelFile.UncheckedModelFile(this.modLoc("item/" + name));
         this.withExistingParent(name, this.modLoc("item/ta_bow"))
                 .texture("layer0", this.modLoc("item/" + name))
-                .override().predicate(this.mcLoc("pulling"), 1)
+                .override().predicate(this.modLoc("pulling"), 1)
                 .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_pulling_0"))).end()
-                .override().predicate(this.mcLoc("pulling"), 1).predicate(this.mcLoc("pull"), 0.65F)
+                .override().predicate(this.modLoc("pulling"), 1).predicate(this.modLoc("pull"), 0.65F)
                 .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_pulling_1"))).end()
-                .override().predicate(this.mcLoc("pulling"), 1).predicate(this.mcLoc("pull"), 0.9F)
+                .override().predicate(this.modLoc("pulling"), 1).predicate(this.modLoc("pull"), 0.9F)
                 .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_pulling_2"))).end();
         for (int i = 0; i < 3; i++) {
             String path = name + "_pulling_" + i;
@@ -165,7 +169,7 @@ public class TAItemModelProvider extends ItemModelProvider {
                 .texture("layer0", this.modLoc("item/" + name));
         this.withExistingParent(name, this.modLoc("item/ta_shield"))
                 .texture("layer0", this.modLoc("item/" + name))
-                .override().predicate(this.mcLoc("block"), 1.0F)
+                .override().predicate(this.modLoc("blocking"), 1.0F)
                 .model(this.getExistingFile(this.modLoc(name + "_blocking")));
     }
 

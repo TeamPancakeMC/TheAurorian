@@ -92,6 +92,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.MOON_SAND_STONE_1.get(), "皎月砂岩");
         this.add(TABlocks.MOON_SAND_STONE_2.get(), "皎月砂岩");
         this.add(TABlocks.MOON_SAND_STONE_3.get(), "皎月砂岩");
+        this.add(TABlocks.BRIGHT_MOON_SAND.get(), "皓月沙");
         this.add(TABlocks.MOON_TORCH.get(), "皎月火把");
         this.add(TABlocks.SCRAPPER.get(), "粉碎器");
         this.add(TABlocks.UMBRA_STONE.get(), "本影石");
@@ -300,6 +301,12 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.WEBBING.get(), "蛛网");
 
         //MOD ENTITY
+        this.add(TAEntityTypes.CRYSTALLINE_BEAM.get(), "月凝晶射线");
+        this.add(TAEntityTypes.CERULEAN_ARROW.get(), "晶蓝箭");
+        this.add(TAEntityTypes.CRYSTAL_ARROW.get(), "水晶箭");
+        this.add(TAEntityTypes.STICKY_SPIKER.get(), "粘性尖刺");
+        this.add(TAEntityTypes.WEBBING.get(), "蛛母之网");
+        this.add(TAEntityTypes.EYE_OF_DISTURBED.get(), "空谷之眼");
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "极光兔");
         this.add(TAEntityTypes.AURORIAN_SHEEP.get(), "极光羊");
         this.add(TAEntityTypes.AURORIAN_PIG.get(), "极光猪");

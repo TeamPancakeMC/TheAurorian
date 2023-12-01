@@ -138,6 +138,8 @@ dependencies {
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
+    implementation fg.deobf("curse.maven:thirst-was-taken-679270:4871261")
+
 }
 
 tasks.named('processResources', ProcessResources).configure {

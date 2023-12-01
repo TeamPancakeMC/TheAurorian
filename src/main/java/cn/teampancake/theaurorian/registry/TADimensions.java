@@ -34,7 +34,20 @@ public class TADimensions {
     public static final ResourceKey<DimensionType> AURORIAN_DIMENSION_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE, AurorianMod.prefix("the_aurorian_type"));
     public static final ResourceKey<LevelStem> AURORIAN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, AurorianMod.prefix("the_aurorian"));
     public static final ResourceKey<Level> AURORIAN_DIMENSION = ResourceKey.create(Registries.DIMENSION, AurorianMod.prefix("the_aurorian"));
+    public static int[] daySkyColors = new int[] {0x80e3ec, 0x8d60d7, 0x3b76da, 0x69c941};
 
+    //Current Phase
+    public static int Phase_State;
+    //Day Counter
+    public static int Days;
+
+    public static int getPhase_State(float t) {
+        if((int)t != Days) {
+            Phase_State = (int) (Math.random() * 3);
+            Days= (int)t;
+        }
+        return Phase_State;
+    }
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
         NoiseGeneratorSettings settings = new NoiseGeneratorSettings(NoiseSettings.OVERWORLD_NOISE_SETTINGS,
                 TABlocks.AURORIAN_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), NoiseRouterData.none(),

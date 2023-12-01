@@ -31,7 +31,7 @@ public abstract class MixinClientLevel extends Level {
     public void getSkyColor(Vec3 pos, float partialTick, CallbackInfoReturnable<Vec3> cir) {
         if (this.dimension() == TADimensions.AURORIAN_DIMENSION) {
             float timeOfDay = this.dimensionType().timeOfDay(1000L);
-            int rgb = this.smoothColorTransition(this.dayTime() / 24000.0F);
+            int rgb = this.smoothColorTransition(this.dayTime()/24000F);
             Vec3 vec3 = pos.subtract(2.0D, 2.0D, 2.0D).scale(0.25D);
             Vec3 vec31 = CubicSampler.gaussianSampleVec3(vec3, (x, y, z) -> Vec3.fromRGB24(rgb));
             float f1 = Mth.cos(timeOfDay * ((float) Math.PI * 2F)) * 2.0F + 0.5F;
@@ -44,7 +44,7 @@ public abstract class MixinClientLevel extends Level {
 
     private int smoothColorTransition(float t) {
         Color currentColor = new Color(0x010e34);
-        Color targetColor = new Color(0x80e3ec);
+        Color targetColor = new Color(TADimensions.daySkyColors[TADimensions.getPhase_State(t)]);
         double d = Math.sin(2.0F * Math.PI * t + 0.25F * Math.PI);
         d = (d + 1.0D) / 2.0D;
         int r = currentColor.getRed() + (int) ((targetColor.getRed() - currentColor.getRed()) * d);

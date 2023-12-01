@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian;
 
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
+import cn.teampancake.theaurorian.compat.ThirstWasTakenCompat;
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.registry.*;
 import net.minecraft.core.Registry;
@@ -10,6 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -54,6 +56,10 @@ public class AurorianMod {
         modEventBus.addListener(this::registerExtraStuff);
         modEventBus.addListener(this::setRegistriesForDatapack);
         MinecraftForge.EVENT_BUS.register(this);
+
+        if(ModList.get().isLoaded("thirst")){
+            ThirstWasTakenCompat.init();
+        }
     }
 
     public void registerExtraStuff(RegisterEvent event) {

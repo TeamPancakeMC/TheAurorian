@@ -1,13 +1,9 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.registry.TABlocks;
-import cn.teampancake.theaurorian.utils.AurorianUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -16,20 +12,6 @@ public class AurorianGrassBlock extends GrassBlock {
 
     public AurorianGrassBlock(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (level.isClientSide && (level.isEmptyBlock(pos.above()) || level.getBlockState(pos.above()).getBlock() instanceof BushBlock)) {
-            if (AurorianUtil.randomChanceOf(0.01) && AurorianUtil.randomChanceOf(0.5)) {
-                double d0 = pos.getX() + 0.5D;
-                double d1 = pos.getY() + random.nextDouble() * 6.0D / 16.0D;
-                double d2 = pos.getZ() + 0.5D;
-                double d3 = 4 * random.nextDouble();
-                double mo = 0.1D * random.nextDouble();
-                level.addParticle(ParticleTypes.FIREWORK, d0, d1 + 4 + d3, d2, mo, 0.0D, mo);
-            }
-        }
     }
 
     @Override

@@ -29,6 +29,10 @@ public class TAFluids {
             () -> new ForgeFlowingFluid.Source(TAFluids.MOLTEN_MOONSTONE_PROPERTIES));
     public static final RegistryObject<FlowingFluid> MOLTEN_MOONSTONE_FLOWING = FLUIDS.register("molten_moonstone_flowing",
             () -> new ForgeFlowingFluid.Flowing(TAFluids.MOLTEN_MOONSTONE_PROPERTIES));
+    public static final RegistryObject<FlowingFluid> MOON_WATER_STILL = FLUIDS.register("moon_water_still",
+            () -> new ForgeFlowingFluid.Source(TAFluids.MOON_WATER_PROPERTIES));
+    public static final RegistryObject<FlowingFluid> MOON_WATER_FLOWING = FLUIDS.register("moon_water_flowing",
+            () -> new ForgeFlowingFluid.Flowing(TAFluids.MOON_WATER_PROPERTIES));
 
     //Fluid Properties
     private static final ForgeFlowingFluid.Properties MOLTEN_AURORIAN_STEEL_PROPERTIES = new ForgeFlowingFluid.Properties(
@@ -40,6 +44,8 @@ public class TAFluids {
     private static final ForgeFlowingFluid.Properties MOLTEN_MOONSTONE_PROPERTIES = new ForgeFlowingFluid.Properties(
             TAFluidTypes.MOLTEN_MOONSTONE, MOLTEN_MOONSTONE_STILL, MOLTEN_MOONSTONE_FLOWING)
             .slopeFindDistance(2).levelDecreasePerBlock(30).block(TABlocks.MOLTEN_MOONSTONE);
+    private static final ForgeFlowingFluid.Properties MOON_WATER_PROPERTIES = new ForgeFlowingFluid.Properties(
+            TAFluidTypes.MOON_WATER, MOON_WATER_STILL, MOON_WATER_FLOWING).block(TABlocks.MOON_WATER);
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -50,6 +56,8 @@ public class TAFluids {
         ItemBlockRenderTypes.setRenderLayer(MOLTEN_CERULEAN_FLOWING.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(MOLTEN_MOONSTONE_STILL.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(MOLTEN_MOONSTONE_FLOWING.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(MOON_WATER_STILL.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(MOON_WATER_FLOWING.get(), RenderType.translucent());
     }
 
 }

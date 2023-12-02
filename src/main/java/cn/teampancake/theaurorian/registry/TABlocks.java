@@ -26,6 +26,8 @@ public class TABlocks {
             () -> new LiquidBlock(TAFluids.MOLTEN_CERULEAN_STILL, copy(Blocks.LAVA)));
     public static final RegistryObject<LiquidBlock> MOLTEN_MOONSTONE = BLOCKS.register("molten_moonstone",
             () -> new LiquidBlock(TAFluids.MOLTEN_MOONSTONE_STILL, copy(Blocks.LAVA)));
+    public static final RegistryObject<LiquidBlock> MOON_WATER = BLOCKS.register("moon_water",
+            () -> new LiquidBlock(TAFluids.MOON_WATER_STILL, copy(Blocks.WATER)));
     public static final RegistryObject<Block> AURORIAN_DIRT = normal("aurorian_dirt", copy(Blocks.DIRT));
     public static final RegistryObject<Block> AURORIAN_STONE = normal("aurorian_stone", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_STONE_BRICKS = normal("aurorian_stone_bricks", defaultStoneProperties(2.0F));

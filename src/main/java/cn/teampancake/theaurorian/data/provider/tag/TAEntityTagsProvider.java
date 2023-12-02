@@ -8,7 +8,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -20,7 +19,7 @@ public class TAEntityTagsProvider extends EntityTypeTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.@NotNull Provider provider) {
+    protected void addTags(HolderLookup.Provider provider) {
         this.tag(Tags.EntityTypes.BOSSES)
                 .add(TAEntityTypes.RUNESTONE_KEEPER.get())
                 .add(TAEntityTypes.SPIDER_MOTHER.get())

@@ -34,6 +34,7 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_GRASS = createKey("patch_aurorian_grass");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_GRASS_LIGHT = createKey("patch_aurorian_grass_light");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_FLOWER = createKey("patch_aurorian_flower");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_EQUINOX_FLOWER = createKey("patch_equinox_flower");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_AURORIAN_FOREST = createKey("trees_aurorian_forest");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_AURORIAN_PERIDOTITE = createKey("ore_aurorian_peridotite");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_AURORIAN_DIRT = createKey("ore_aurorian_dirt");
@@ -64,6 +65,8 @@ public class TAConfiguredFeatures {
                                 TABlocks.AURORIAN_FLOWER_1.get().defaultBlockState(),
                                 TABlocks.AURORIAN_FLOWER_2.get().defaultBlockState(),
                                 TABlocks.AURORIAN_FLOWER_3.get().defaultBlockState()))))));
+        FeatureUtils.register(context, PATCH_EQUINOX_FLOWER, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
+                Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(TABlocks.EQUINOX_FLOWER.get()))));
         FeatureUtils.register(context, TREES_AURORIAN_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
                 List.of(new WeightedPlacedFeature(silentTreeLikeSpruce, 0.7F)), silentTreeLikeSpruce));
         FeatureUtils.register(context, SILENT_TREE, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()),

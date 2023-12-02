@@ -17,7 +17,8 @@
                     "rare_biome_chance": 15,
                     "rare_biomes": [
                       "theaurorian:weeping_willow_forest",
-                      "theaurorian:bright_moon_desert"
+                      "theaurorian:bright_moon_desert",
+                      "theaurorian:equinox_flower_plains"
                     ],
                     "salt": 1
                   },

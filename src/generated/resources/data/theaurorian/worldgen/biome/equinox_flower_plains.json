@@ -12,6 +12,12 @@
       "replace_current_music": false,
       "sound": "theaurorian:music"
     },
+    "particle": {
+      "options": {
+        "type": "minecraft:soul"
+      },
+      "probability": 0.0125
+    },
     "sky_color": 8233727,
     "water_color": -1,
     "water_fog_color": -1
@@ -30,6 +36,11 @@
       "theaurorian:ore_moonstone",
       "theaurorian:ore_cerulean",
       "theaurorian:ore_geode"
+    ],
+    [],
+    [],
+    [
+      "theaurorian:patch_equinox_flower"
     ]
   ],
   "has_precipitation": false,

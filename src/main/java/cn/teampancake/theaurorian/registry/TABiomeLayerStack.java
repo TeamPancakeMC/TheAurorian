@@ -35,7 +35,8 @@ public class TABiomeLayerStack {
     public static void bootstrap(BootstapContext<BiomeLayerFactory> context) {
         BiomeLayerFactory biomes = new RandomBiomeLayer.Factory(1L, 15,
                 ImmutableList.of(TABiomes.AURORIAN_PLAINS, TABiomes.AURORIAN_FOREST),
-                ImmutableList.of(TABiomes.WEEPING_WILLOW_FOREST, TABiomes.MOON_DESERT));
+                ImmutableList.of(TABiomes.WEEPING_WILLOW_FOREST,
+                        TABiomes.BRIGHT_MOON_DESERT, TABiomes.EQUINOX_FLOWER_PLAINS));
         biomes = new ZoomLayer.Factory(1000L, false, Holder.direct(biomes));
         biomes = new ZoomLayer.Factory(1001L, false, Holder.direct(biomes));
         biomes = new ZoomLayer.Factory(1002L, false, Holder.direct(biomes));
@@ -53,7 +54,8 @@ public class TABiomeLayerStack {
     public static Holder<BiomeLayerFactory> getDefaultLayer() {
         BiomeLayerFactory biomes = new RandomBiomeLayer.Factory(1L, 15,
                 ImmutableList.of(TABiomes.AURORIAN_PLAINS, TABiomes.AURORIAN_FOREST),
-                ImmutableList.of(TABiomes.WEEPING_WILLOW_FOREST, TABiomes.MOON_DESERT));
+                ImmutableList.of(TABiomes.WEEPING_WILLOW_FOREST,
+                        TABiomes.BRIGHT_MOON_DESERT, TABiomes.EQUINOX_FLOWER_PLAINS));
         biomes = new ZoomLayer.Factory(1000L, false, Holder.direct(biomes));
         biomes = new ZoomLayer.Factory(1001L, false, Holder.direct(biomes));
         biomes = new ZoomLayer.Factory(1002L, false, Holder.direct(biomes));

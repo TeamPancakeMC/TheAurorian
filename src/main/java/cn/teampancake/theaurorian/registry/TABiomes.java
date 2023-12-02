@@ -3,6 +3,8 @@ package cn.teampancake.theaurorian.registry;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.level.placement.TAPlacements;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.Carvers;
@@ -11,10 +13,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
-import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -28,8 +27,9 @@ public class TABiomes {
     public static final ResourceKey<Biome> AURORIAN_PLAINS = createKey("aurorian_plains");
     public static final ResourceKey<Biome> AURORIAN_BEACH = createKey("aurorian_beach");
     public static final ResourceKey<Biome> AURORIAN_RIVER = createKey("aurorian_river");
+    public static final ResourceKey<Biome> EQUINOX_FLOWER_PLAINS = createKey("equinox_flower_plains");
     public static final ResourceKey<Biome> WEEPING_WILLOW_FOREST = createKey("weeping_willow_forest");
-    public static final ResourceKey<Biome> MOON_DESERT = createKey("moon_desert");
+    public static final ResourceKey<Biome> BRIGHT_MOON_DESERT = createKey("bright_moon_desert");
     public static final ResourceKey<Biome> UNDERGROUND = createKey("underground");
 
     private static ResourceKey<Biome> createKey(String name) {
@@ -40,30 +40,42 @@ public class TABiomes {
         HolderGetter<PlacedFeature> featureGetter = context.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredWorldCarver<?>> carverGetter = context.lookup(Registries.CONFIGURED_CARVER);
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
-        context.register(AURORIAN_FOREST, biomeWithForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+        context.register(AURORIAN_FOREST, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)).build());
-        context.register(AURORIAN_PLAINS, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+        context.register(AURORIAN_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_PLAINS)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_PLAINS)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_PLAINS)).build());
+                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_PLAINS),
+                ParticleTypes.FIREWORK, 0.0375F).build());
         context.register(AURORIAN_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(AURORIAN_RIVER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
-        context.register(WEEPING_WILLOW_FOREST, biomeWithForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
-        context.register(MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
+        context.register(EQUINOX_FLOWER_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+                .addFeature(vegetalDecoration, TAPlacements.PATCH_EQUINOX_FLOWER), ParticleTypes.SOUL, 0.0125F).build());
+        context.register(WEEPING_WILLOW_FOREST, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
+        context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
     }
 
-    private static Biome.BiomeBuilder biomeWithForests(BiomeGenerationSettings.Builder biomeGenerationSettings) {
+    private static Biome.BiomeBuilder biomeOfForests(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
-        return biomeWithDefaults(biomeGenerationSettings
+        return biomeWithParticle(biomeGenerationSettings
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_FOREST)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_FOREST));
+                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_FOREST),
+                ParticleTypes.FIREWORK, 0.0375F);
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature(0.2F).downfall(0.0F)
                 .specialEffects(defaultAmbientBuilder().build()).mobSpawnSettings(defaultMobSpawning().build())
+                .generationSettings(defaultOreBuilder(biomeGenerationSettings).build())
+                .temperatureAdjustment(Biome.TemperatureModifier.NONE);
+    }
+
+    private static Biome.BiomeBuilder biomeWithParticle(
+            BiomeGenerationSettings.Builder biomeGenerationSettings, ParticleOptions options, float probability) {
+        return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature(0.2F).downfall(0.0F)
+                .specialEffects(defaultAmbientWithParticleBuilder(options, probability).build()).mobSpawnSettings(defaultMobSpawning().build())
                 .generationSettings(defaultOreBuilder(biomeGenerationSettings).build())
                 .temperatureAdjustment(Biome.TemperatureModifier.NONE);
     }
@@ -86,6 +98,10 @@ public class TABiomes {
                         Musics.THIRTY_SECONDS, Musics.TEN_MINUTES, Boolean.FALSE));
     }
 
+    private static BiomeSpecialEffects.Builder defaultAmbientWithParticleBuilder(ParticleOptions options, float probability) {
+        return defaultAmbientBuilder().ambientParticle(new AmbientParticleSettings(options, probability));
+    }
+
     private static MobSpawnSettings.Builder defaultMobSpawning() {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
         spawnInfo.creatureGenerationProbability(0.3F);
@@ -93,7 +109,7 @@ public class TABiomes {
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_SHEEP.get(), 5, 1, 3));
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_PIG.get(), 5, 1, 3));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.CRYSTALLINE_SPRITE.get(), 65, 2, 2));
-        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 95, 1, 4));
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 45, 1, 4));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_ACOLYTE.get(), 35, 1, 2));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.SPIRIT.get(), 2, 1, 2));
         return spawnInfo;

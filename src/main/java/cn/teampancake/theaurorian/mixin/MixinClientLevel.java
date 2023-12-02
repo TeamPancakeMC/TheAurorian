@@ -1,10 +1,13 @@
 package cn.teampancake.theaurorian.mixin;
 
+import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.event.TAEventFactory;
 import cn.teampancake.theaurorian.registry.TADimensions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.CubicSampler;
 import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -18,10 +21,17 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 @Mixin(ClientLevel.class)
 public abstract class MixinClientLevel extends Level {
+
+    private ResourceLocation currentPhase = AurorianMod.prefix("ta_cyan");
+    private int dayCount;
 
     protected MixinClientLevel(WritableLevelData levelData, ResourceKey<Level> dimension, RegistryAccess registryAccess, Holder<DimensionType> dimensionTypeRegistration, Supplier<ProfilerFiller> profiler, boolean isClientSide, boolean isDebug, long biomeZoomSeed, int maxChainedNeighborUpdates) {
         super(levelData, dimension, registryAccess, dimensionTypeRegistration, profiler, isClientSide, isDebug, biomeZoomSeed, maxChainedNeighborUpdates);
@@ -44,13 +54,33 @@ public abstract class MixinClientLevel extends Level {
 
     private int smoothColorTransition(float t) {
         Color currentColor = new Color(0x010e34);
-        Color targetColor = new Color(TADimensions.daySkyColors[TADimensions.getPhase_State(t)]);
+        Color targetColor = new Color(this.getDaySkyColorMap().get(this.getPhaseState(t)));
         double d = Math.sin(2.0F * Math.PI * t + 0.25F * Math.PI);
         d = (d + 1.0D) / 2.0D;
         int r = currentColor.getRed() + (int) ((targetColor.getRed() - currentColor.getRed()) * d);
         int g = currentColor.getGreen() + (int) ((targetColor.getGreen() - currentColor.getGreen()) * d);
         int b = currentColor.getBlue() + (int) ((targetColor.getBlue() - currentColor.getBlue()) * d);
         return new Color(r, g, b).getRGB();
+    }
+
+    private ResourceLocation getPhaseState(float t) {
+        if((int)t != this.dayCount) {
+            List<ResourceLocation> colorNames = new ArrayList<>(this.getDaySkyColorMap().keySet());
+            this.currentPhase = colorNames.get((int) (Math.random() * this.getDaySkyColorMap().size()));
+            this.dayCount = (int)t;
+        }
+        return this.currentPhase;
+    }
+
+    private Map<ResourceLocation, Integer> getDaySkyColorMap() {
+        Map<ResourceLocation, Integer> map = new HashMap<>();
+        map.put(AurorianMod.prefix("ta_cyan"), 0x80e3ec);
+        map.put(AurorianMod.prefix("ta_purple"), 0x8d60d7);
+        map.put(AurorianMod.prefix("ta_orange"), 0xfff089);
+        map.put(AurorianMod.prefix("ta_lime"), 0x69c941);
+        map.put(AurorianMod.prefix("ta_pink"), 0xf49cae);
+        TAEventFactory.onRegisterAurorianSkyColor(map);
+        return map;
     }
 
 }

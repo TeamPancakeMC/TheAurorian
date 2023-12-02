@@ -39,12 +39,21 @@
           },
           {
             "biome_layers": {
-              "-1.0": "theaurorian:moon_desert",
+              "-1.0": "theaurorian:bright_moon_desert",
               "-3.0": "theaurorian:underground"
             },
             "depth": 0.06,
-            "key_biome": "theaurorian:moon_desert",
+            "key_biome": "theaurorian:bright_moon_desert",
             "scale": 0.03
+          },
+          {
+            "biome_layers": {
+              "-1.0": "theaurorian:equinox_flower_plains",
+              "-3.0": "theaurorian:underground"
+            },
+            "depth": 0.06,
+            "key_biome": "theaurorian:equinox_flower_plains",
+            "scale": 0.02
           },
           {
             "biome_layers": {

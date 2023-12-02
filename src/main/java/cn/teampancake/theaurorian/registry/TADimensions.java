@@ -15,12 +15,9 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.placement.CaveSurface;
 
 import java.util.List;
 import java.util.OptionalLong;
@@ -34,7 +31,7 @@ public class TADimensions {
     public static final ResourceKey<DimensionType> AURORIAN_DIMENSION_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE, AurorianMod.prefix("the_aurorian_type"));
     public static final ResourceKey<LevelStem> AURORIAN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, AurorianMod.prefix("the_aurorian"));
     public static final ResourceKey<Level> AURORIAN_DIMENSION = ResourceKey.create(Registries.DIMENSION, AurorianMod.prefix("the_aurorian"));
-    public static int[] daySkyColors = new int[] {0x80e3ec, 0x8d60d7, 0x3b76da, 0x69c941};
+    public static int[] daySkyColors = new int[] {0x80e3ec, 0x8d60d7, 0xfff089, 0x69c941, 0xf49cae};
 
     //Current Phase
     public static int Phase_State;
@@ -43,21 +40,22 @@ public class TADimensions {
 
     public static int getPhase_State(float t) {
         if((int)t != Days) {
-            Phase_State = (int) (Math.random() * 3);
-            Days= (int)t;
+            Phase_State = (int) (Math.random() * daySkyColors.length);
+            Days = (int)t;
         }
         return Phase_State;
     }
+
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
         NoiseGeneratorSettings settings = new NoiseGeneratorSettings(NoiseSettings.OVERWORLD_NOISE_SETTINGS,
-                TABlocks.AURORIAN_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), NoiseRouterData.none(),
+                TABlocks.AURORIAN_STONE.get().defaultBlockState(), TABlocks.MOON_WATER.get().defaultBlockState(), NoiseRouterData.none(),
                 createSurfaceRule(), List.of(), 3, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE);
         context.register(AURORIAN_NOISE_SETTINGS, settings);
     }
 
     public static void bootstrapType(BootstapContext<DimensionType> context) {
         DimensionType dimensionType = new DimensionType(OptionalLong.empty(), Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, 1.0D,
-                Boolean.TRUE, Boolean.FALSE, -64, 384, 384, BlockTags.INFINIBURN_OVERWORLD, BuiltinDimensionTypes.OVERWORLD_EFFECTS, 0.0F,
+                Boolean.TRUE, Boolean.FALSE, -64, 384, 384, BlockTags.INFINIBURN_OVERWORLD, AurorianMod.prefix("aurorian"), 0.0F,
                 new DimensionType.MonsterSettings(Boolean.FALSE, Boolean.TRUE, UniformInt.of(ConstantInt.ZERO.getValue(), 7), ConstantInt.ZERO.getValue()));
         context.register(AURORIAN_DIMENSION_TYPE, dimensionType);
     }
@@ -79,27 +77,21 @@ public class TADimensions {
         ImmutableList.Builder<RuleSource> builder = ImmutableList.builder();
         RuleSource aurorianDirt = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_DIRT.get());
         RuleSource aurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_GRASS_BLOCK.get());
-        RuleSource aurorianGrassLightBlock = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_GRASS_LIGHT_BLOCK.get());
-        RuleSource moonSand = SurfaceRuleData.makeStateRule(TABlocks.MOON_SAND.get());
-        RuleSource moonSandstone1 = SurfaceRuleData.makeStateRule(TABlocks.MOON_SAND_STONE_1.get());
-        RuleSource moonSandstone2 = SurfaceRuleData.makeStateRule(TABlocks.MOON_SAND_STONE_2.get());
-        RuleSource moonSandstone3 = SurfaceRuleData.makeStateRule(TABlocks.MOON_SAND_STONE_3.get());
+        RuleSource lightAurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get());
+        RuleSource redAurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
+        RuleSource brightMoonSand = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SAND.get());
+        RuleSource brightMoonSandstone = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SANDSTONE.get());
         ConditionSource notUnderWater = waterBlockCheck(-1, ConstantInt.ZERO.getValue());
 //        ConditionSource notUnderDeepWater = waterStartCheck(-6, (-1));
-        RuleSource overworldLike = sequence(
-                ifTrue(ON_FLOOR, sequence(
-                        ifTrue(isBiome(TABiomes.AURORIAN_RIVER),
-                                sequence(ifTrue(ON_CEILING, aurorianDirt), ifTrue(notUnderWater, aurorianGrassBlock), aurorianDirt)),
-                        ifTrue(notUnderWater, sequence(
-                                ifTrue(isBiome(TABiomes.AURORIAN_PLAINS, TABiomes.AURORIAN_FOREST), aurorianGrassBlock),
-                                ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST), aurorianGrassLightBlock),
-                                ifTrue(isBiome(TABiomes.MOON_DESERT), moonSand))),
-                ifTrue(notUnderWater, sequence(ifTrue(UNDER_FLOOR, sequence(
-                        ifTrue(not(isBiome(TABiomes.MOON_DESERT)), aurorianDirt))),
-                        ifTrue(isBiome(TABiomes.MOON_DESERT), sequence(ifTrue(UNDER_FLOOR, moonSandstone1),
-                                ifTrue(stoneDepthCheck(0, Boolean.TRUE, (4), CaveSurface.FLOOR), moonSandstone2),
-                                ifTrue(stoneDepthCheck(0, Boolean.TRUE, (6), CaveSurface.FLOOR), moonSandstone3)
-                        )))))));
+        RuleSource overworldLike = sequence(ifTrue(ON_FLOOR, sequence(
+                ifTrue(isBiome(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_PLAINS),
+                        sequence(ifTrue(notUnderWater, aurorianGrassBlock), aurorianDirt)),
+                ifTrue(isBiome(TABiomes.EQUINOX_FLOWER_PLAINS),
+                        sequence(ifTrue(notUnderWater, redAurorianGrassBlock), aurorianDirt)),
+                ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST),
+                        sequence(ifTrue(notUnderWater, lightAurorianGrassBlock), aurorianDirt)),
+                ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT),
+                        sequence(ifTrue(notUnderWater, brightMoonSand), brightMoonSandstone)))));
         RuleSource bedrockFloor = ifTrue(verticalGradient("bedrock_floor", VerticalAnchor.bottom(),
                 VerticalAnchor.aboveBottom(5)), SurfaceRuleData.BEDROCK);
         builder.add(bedrockFloor).add(overworldLike);

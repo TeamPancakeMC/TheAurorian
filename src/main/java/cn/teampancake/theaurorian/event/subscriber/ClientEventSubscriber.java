@@ -1,6 +1,8 @@
 package cn.teampancake.theaurorian.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
+import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.registry.TAEntityTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -10,6 +12,7 @@ import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
+import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -50,6 +53,17 @@ public class ClientEventSubscriber {
         graphics.blit(atlasLocation, (guiWidth - barWidth) / 2, event.getY() + barYOffset, 0, 0, progress, barHeight);
         graphics.drawString(font, description, strX, event.getY() + textYOffset, textColor);
         event.setIncrement(frameHeight + 3);
+    }
+
+    @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class ModBusEvents {
+
+        @SubscribeEvent
+        public static void registerDimensionEffects(RegisterDimensionSpecialEffectsEvent event) {
+            new TASkyRenderer();
+            event.register(AurorianMod.prefix("aurorian"), new TASpecialEffects());
+        }
+
     }
 
 }

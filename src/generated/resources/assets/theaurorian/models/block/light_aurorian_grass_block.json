@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "theaurorian:block/aurorian_dirt",
+    "side": "theaurorian:block/light_aurorian_grass_block",
+    "top": "theaurorian:block/light_aurorian_grass_block_top"
+  }
+}

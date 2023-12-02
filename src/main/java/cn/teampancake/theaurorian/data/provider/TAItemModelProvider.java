@@ -39,7 +39,8 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.AURORIAN_STONE_BRICKS.get());
         this.simpleBlockItem(TABlocks.AURORIAN_COBBLESTONE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_GRASS_BLOCK.get());
-        this.simpleBlockItem(TABlocks.AURORIAN_GRASS_LIGHT_BLOCK.get());
+        this.simpleBlockItem(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get());
+        this.simpleBlockItem(TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
         this.simpleBlockItem(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
         this.simpleBlockItem(TABlocks.AURORIAN_FURNACE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_PERIDOTITE.get());
@@ -49,6 +50,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.MOON_SAND_STONE_2.get());
         this.simpleBlockItem(TABlocks.MOON_SAND_STONE_3.get());
         this.simpleBlockItem(TABlocks.BRIGHT_MOON_SAND.get());
+        this.simpleBlockItem(TABlocks.BRIGHT_MOON_SANDSTONE.get());
         this.simpleBlockItem(TABlocks.RUNE_STONE.get());
         this.simpleBlockItem(TABlocks.SMOOTH_RUNE_STONE.get());
         this.simpleBlockItem(TABlocks.CHISELED_RUNE_STONE.get());

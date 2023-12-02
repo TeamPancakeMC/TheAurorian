@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "theaurorian:aurorian_grass_light_block"
+              "name": "theaurorian:light_aurorian_grass_block"
             },
             {
               "type": "minecraft:item",
@@ -41,5 +41,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "theaurorian:blocks/aurorian_grass_light_block"
+  "random_sequence": "theaurorian:blocks/light_aurorian_grass_block"
 }

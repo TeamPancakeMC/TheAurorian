@@ -57,6 +57,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.MOON_SAND_STONE_2.get());
         this.simpleBlock(TABlocks.MOON_SAND_STONE_3.get());
         this.simpleBlock(TABlocks.BRIGHT_MOON_SAND.get());
+        this.simpleBlock(TABlocks.BRIGHT_MOON_SANDSTONE.get());
         this.simpleBlock(TABlocks.RUNE_STONE.get());
         this.simpleBlock(TABlocks.SMOOTH_RUNE_STONE.get());
         this.simpleBlock(TABlocks.CHISELED_RUNE_STONE.get());
@@ -119,11 +120,16 @@ public class TABlockStateProvider extends BlockStateProvider {
                         this.modLoc("block/aurorian_grass_block"),
                         this.modLoc("block/aurorian_dirt"),
                         this.modLoc("block/aurorian_grass_block_top")));
-        this.simpleBlock(TABlocks.AURORIAN_GRASS_LIGHT_BLOCK.get(),
-                this.models().cubeBottomTop("aurorian_grass_light_block",
-                        this.modLoc("block/aurorian_grass_light_block"),
+        this.simpleBlock(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(),
+                this.models().cubeBottomTop("light_aurorian_grass_block",
+                        this.modLoc("block/light_aurorian_grass_block"),
                         this.modLoc("block/aurorian_dirt"),
-                        this.modLoc("block/aurorian_grass_light_block_top")));
+                        this.modLoc("block/light_aurorian_grass_block_top")));
+        this.simpleBlock(TABlocks.RED_AURORIAN_GRASS_BLOCK.get(),
+                this.models().cubeBottomTop("red_aurorian_grass_block",
+                        this.modLoc("block/red_aurorian_grass_block"),
+                        this.modLoc("block/aurorian_dirt"),
+                        this.modLoc("block/red_aurorian_grass_block_top")));
         this.simpleBlockWithRenderType(TABlocks.MOON_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.AURORIAN_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.SILENT_TREE_LEAVES.get(), CUTOUT_MIPPED);

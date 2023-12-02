@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.data.provider.lang;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.effect.TAMobEffect;
 import cn.teampancake.theaurorian.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -25,7 +24,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_COBBLESTONE.get(), "Aurorian Cobblestone");
         this.add(TABlocks.AURORIAN_COAL_ORE.get(), "Aurorian Coal Ore");
         this.add(TABlocks.AURORIAN_GRASS_BLOCK.get(), "Aurorian Grass Block");
-        this.add(TABlocks.AURORIAN_GRASS_LIGHT_BLOCK.get(), "Light Aurorian Grass Block");
+        this.add(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), "Light Aurorian Grass Block");
+        this.add(TABlocks.RED_AURORIAN_GRASS_BLOCK.get(), "Red Aurorian Grass Block");
         this.add(TABlocks.AURORIAN_FARM_TILE.get(), "Aurorian Farm Tile");
         this.add(TABlocks.AURORIAN_GLASS.get(), "Aurorian Glass");
         this.add(TABlocks.MOON_GLASS.get(), "Moon Glass");
@@ -94,6 +94,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.MOON_SAND_STONE_2.get(), "Moon Sandstone");
         this.add(TABlocks.MOON_SAND_STONE_3.get(), "Moon Sandstone");
         this.add(TABlocks.BRIGHT_MOON_SAND.get(), "Bright Moon Sand");
+        this.add(TABlocks.BRIGHT_MOON_SANDSTONE.get(), "Bright Moon Sandstone");
         this.add(TABlocks.MOON_TORCH.get(), "Moon Torch");
         this.add(TABlocks.SCRAPPER.get(), "Scrapper");
         this.add(TABlocks.UMBRA_STONE.get(), "Umbra Stone");

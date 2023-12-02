@@ -9,10 +9,8 @@ import net.minecraft.tags.PaintingVariantTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.concurrent.CompletableFuture;
 
-@ParametersAreNonnullByDefault
 public class TAPaintingVariantTagsProvider extends PaintingVariantTagsProvider {
 
     public TAPaintingVariantTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {

@@ -315,6 +315,9 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.MOLTEN_MOONSTONE.get(), this.models()
                 .getBuilder(TABlocks.MOLTEN_MOONSTONE.getId().getPath())
                 .texture("particle", this.modLoc("block/molten_moonstone")));
+        this.simpleBlock(TABlocks.MOON_WATER.get(), this.models()
+                .getBuilder(TABlocks.MOON_WATER.getId().getPath())
+                .texture("particle", this.modLoc("block/moon_water")));
     }
 
     private void registerScrapperState() {

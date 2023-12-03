@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.mixin;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.event.TAEventFactory;
 import cn.teampancake.theaurorian.registry.TADimensions;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
@@ -22,9 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 @Mixin(ClientLevel.class)
@@ -54,7 +51,7 @@ public abstract class MixinClientLevel extends Level {
 
     private int smoothColorTransition(float t) {
         Color currentColor = new Color(0x010e34);
-        Color targetColor = new Color(this.getDaySkyColorMap().get(this.getPhaseState(t)));
+        Color targetColor = new Color(TADimensions.DAY_SKY_COLORS.get(this.getPhaseState(t)));
         double d = Math.sin(2.0F * Math.PI * t + 0.25F * Math.PI);
         d = (d + 1.0D) / 2.0D;
         int r = currentColor.getRed() + (int) ((targetColor.getRed() - currentColor.getRed()) * d);
@@ -65,22 +62,11 @@ public abstract class MixinClientLevel extends Level {
 
     private ResourceLocation getPhaseState(float t) {
         if((int)t != this.dayCount) {
-            List<ResourceLocation> colorNames = new ArrayList<>(this.getDaySkyColorMap().keySet());
-            this.currentPhase = colorNames.get((int) (Math.random() * this.getDaySkyColorMap().size()));
+            List<ResourceLocation> colorNames = new ArrayList<>(TADimensions.DAY_SKY_COLORS.keySet());
+            this.currentPhase = colorNames.get((int) (Math.random() * TADimensions.DAY_SKY_COLORS.size()));
             this.dayCount = (int)t;
         }
         return this.currentPhase;
-    }
-
-    private Map<ResourceLocation, Integer> getDaySkyColorMap() {
-        Map<ResourceLocation, Integer> map = new HashMap<>();
-        map.put(AurorianMod.prefix("ta_cyan"), 0x80e3ec);
-        map.put(AurorianMod.prefix("ta_purple"), 0x8d60d7);
-        map.put(AurorianMod.prefix("ta_orange"), 0xfff089);
-        map.put(AurorianMod.prefix("ta_lime"), 0x69c941);
-        map.put(AurorianMod.prefix("ta_pink"), 0xf49cae);
-        TAEventFactory.onRegisterAurorianSkyColor(map);
-        return map;
     }
 
 }

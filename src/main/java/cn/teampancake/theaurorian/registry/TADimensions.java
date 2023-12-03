@@ -4,12 +4,14 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeBuilder;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
+import cn.teampancake.theaurorian.event.TAEventFactory;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -19,7 +21,9 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.OptionalLong;
 
 import static net.minecraft.world.level.levelgen.SurfaceRules.*;
@@ -31,6 +35,16 @@ public class TADimensions {
     public static final ResourceKey<DimensionType> AURORIAN_DIMENSION_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE, AurorianMod.prefix("the_aurorian_type"));
     public static final ResourceKey<LevelStem> AURORIAN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, AurorianMod.prefix("the_aurorian"));
     public static final ResourceKey<Level> AURORIAN_DIMENSION = ResourceKey.create(Registries.DIMENSION, AurorianMod.prefix("the_aurorian"));
+    public static final Map<ResourceLocation, Integer> DAY_SKY_COLORS = new HashMap<>();
+
+    static {
+        DAY_SKY_COLORS.put(AurorianMod.prefix("ta_cyan"), 0x80e3ec);
+        DAY_SKY_COLORS.put(AurorianMod.prefix("ta_purple"), 0x8d60d7);
+        DAY_SKY_COLORS.put(AurorianMod.prefix("ta_orange"), 0xfff089);
+        DAY_SKY_COLORS.put(AurorianMod.prefix("ta_lime"), 0x69c941);
+        DAY_SKY_COLORS.put(AurorianMod.prefix("ta_pink"), 0xf49cae);
+        TAEventFactory.onRegisterAurorianSkyColor(DAY_SKY_COLORS);
+    }
 
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
         NoiseGeneratorSettings settings = new NoiseGeneratorSettings(NoiseSettings.OVERWORLD_NOISE_SETTINGS,

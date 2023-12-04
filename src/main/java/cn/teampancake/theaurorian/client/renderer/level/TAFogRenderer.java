@@ -72,15 +72,12 @@ public class TAFogRenderer {
             Vec3 vec3 = TASkyRenderer.getSkyColor(level, activeRenderInfo.getPosition());
             Vec3 vec32 = TASkyRenderer.getSkyColor(level, activeRenderInfo.getPosition());
             f4 = 1.0F - (float)Math.pow(f4, 0.25D);
-            float f6 = (float)vec3.x;
-            float f8 = (float)vec3.y;
-            float f10 = (float)vec3.z;
             fogRed = (float)vec32.x();
             fogGreen = (float)vec32.y();
             fogBlue = (float)vec32.z();
-            fogRed += (f6 - fogRed) * f4;
-            fogGreen += (f8 - fogGreen) * f4;
-            fogBlue += (f10 - fogBlue) * f4;
+            fogRed += ((float)vec3.x - fogRed) * f4;
+            fogGreen += ((float)vec3.y - fogGreen) * f4;
+            fogBlue += ((float)vec3.z - fogBlue) * f4;
             biomeChangedTime = -1L;
         }
 

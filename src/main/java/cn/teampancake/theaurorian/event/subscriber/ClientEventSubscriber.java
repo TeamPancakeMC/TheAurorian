@@ -6,17 +6,22 @@ import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.registry.TADimensions;
 import cn.teampancake.theaurorian.registry.TAEntityTypes;
+import cn.teampancake.theaurorian.registry.TAFluidTypes;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.material.FogType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, value = Dist.CLIENT)
@@ -70,6 +75,18 @@ public class ClientEventSubscriber {
             event.setRed(colors[0]);
             event.setGreen(colors[1]);
             event.setBlue(colors[2]);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRenderFog(ViewportEvent.RenderFog event) {
+        Camera camera = event.getCamera();
+        BlockGetter level = camera.level;
+        FluidType fluidType = level.getFluidState(camera.blockPosition).getFluidType();
+        if (event.getType() == FogType.WATER && fluidType == TAFluidTypes.MOON_WATER.get()) {
+            event.setCanceled(true);
+            event.setNearPlaneDistance(-8.0F);
+            event.setFarPlaneDistance(96.0F);
         }
     }
 

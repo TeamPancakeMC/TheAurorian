@@ -6,36 +6,46 @@
         "type": "minecraft:simple_block",
         "config": {
           "to_place": {
-            "type": "minecraft:noise_provider",
-            "noise": {
-              "amplitudes": [
-                1.0
-              ],
-              "firstOctave": 0
-            },
-            "scale": 0.020833334,
-            "seed": 2345,
-            "states": [
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
               {
-                "Name": "theaurorian:lavender_plant"
+                "data": {
+                  "Name": "theaurorian:lavender_plant"
+                },
+                "weight": 1
               },
               {
-                "Name": "theaurorian:petunia_plant"
+                "data": {
+                  "Name": "theaurorian:petunia_plant"
+                },
+                "weight": 1
               },
               {
-                "Name": "theaurorian:silk_berry_crop",
-                "Properties": {
-                  "age": "0"
-                }
+                "data": {
+                  "Name": "theaurorian:silk_berry_crop",
+                  "Properties": {
+                    "age": "0"
+                  }
+                },
+                "weight": 1
               },
               {
-                "Name": "theaurorian:aurorian_flower_1"
+                "data": {
+                  "Name": "theaurorian:aurorian_flower_1"
+                },
+                "weight": 1
               },
               {
-                "Name": "theaurorian:aurorian_flower_2"
+                "data": {
+                  "Name": "theaurorian:aurorian_flower_2"
+                },
+                "weight": 1
               },
               {
-                "Name": "theaurorian:aurorian_flower_3"
+                "data": {
+                  "Name": "theaurorian:aurorian_flower_3"
+                },
+                "weight": 1
               }
             ]
           }
@@ -51,8 +61,8 @@
         }
       ]
     },
-    "tries": 96,
-    "xz_spread": 6,
-    "y_spread": 2
+    "tries": 16,
+    "xz_spread": 7,
+    "y_spread": 3
   }
 }

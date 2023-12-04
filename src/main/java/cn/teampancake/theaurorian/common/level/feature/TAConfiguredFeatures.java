@@ -11,8 +11,10 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
@@ -21,6 +23,8 @@ import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSi
 import net.minecraft.world.level.levelgen.feature.foliageplacers.SpruceFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
@@ -56,17 +60,16 @@ public class TAConfiguredFeatures {
                 BlockStateProvider.simple(TABlocks.AURORIAN_GRASS.get()), 32));
         FeatureUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(
                 BlockStateProvider.simple(TABlocks.AURORIAN_GRASS_LIGHT.get()), 32));
-        FeatureUtils.register(context, PATCH_AURORIAN_FLOWER, Feature.FLOWER, new RandomPatchConfiguration(96, 6, 2,
-                PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new NoiseProvider(2345L,
-                        new NormalNoise.NoiseParameters(0, 1.0D), 0.020833334F,
-                        List.of(TABlocks.LAVENDER_PLANT.get().defaultBlockState(),
-                                TABlocks.PETUNIA_PLANT.get().defaultBlockState(),
-                                TABlocks.SILK_BERRY_CROP.get().defaultBlockState(),
-                                TABlocks.AURORIAN_FLOWER_1.get().defaultBlockState(),
-                                TABlocks.AURORIAN_FLOWER_2.get().defaultBlockState(),
-                                TABlocks.AURORIAN_FLOWER_3.get().defaultBlockState()))))));
-        FeatureUtils.register(context, PATCH_EQUINOX_FLOWER, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
-                Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(TABlocks.EQUINOX_FLOWER.get()))));
+        FeatureUtils.register(context, PATCH_AURORIAN_FLOWER, Feature.FLOWER, VegetationFeatures.grassPatch(
+                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                        .add(TABlocks.LAVENDER_PLANT.get().defaultBlockState(), 1)
+                        .add(TABlocks.PETUNIA_PLANT.get().defaultBlockState(), 1)
+                        .add(TABlocks.SILK_BERRY_CROP.get().defaultBlockState(), 1)
+                        .add(TABlocks.AURORIAN_FLOWER_1.get().defaultBlockState(), 1)
+                        .add(TABlocks.AURORIAN_FLOWER_2.get().defaultBlockState(), 1)
+                        .add(TABlocks.AURORIAN_FLOWER_3.get().defaultBlockState(), 1).build()), 16));
+        FeatureUtils.register(context, PATCH_EQUINOX_FLOWER, Feature.FLOWER, VegetationFeatures.grassPatch(
+                BlockStateProvider.simple(TABlocks.EQUINOX_FLOWER.get()), 16));
         FeatureUtils.register(context, TREES_AURORIAN_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
                 List.of(new WeightedPlacedFeature(silentTreeLikeSpruce, 0.7F)), silentTreeLikeSpruce));
         FeatureUtils.register(context, SILENT_TREE, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()),

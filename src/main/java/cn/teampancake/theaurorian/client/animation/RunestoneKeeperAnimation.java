@@ -294,7 +294,7 @@ public class RunestoneKeeperAnimation {
                     new Keyframe(1.1676667f, KeyframeAnimations.degreeVec(-25.19f, -5.51f, 3.51f), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(1.3433333f, KeyframeAnimations.degreeVec(-10.08f, -7.4f, 1.31f), AnimationChannel.Interpolations.LINEAR))).build();
 
-    public static final AnimationDefinition ATTACK_1 = AnimationDefinition.Builder.withLength(0.75f).looping()
+    public static final AnimationDefinition ATTACK_1 = AnimationDefinition.Builder.withLength(0.75f)
             .addAnimation("all", new AnimationChannel(AnimationChannel.Targets.POSITION,
                     new Keyframe(0f, KeyframeAnimations.posVec(0f, -0.2f, 0f), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(0.75f, KeyframeAnimations.posVec(0f, -0.2f, 0f), AnimationChannel.Interpolations.LINEAR)))
@@ -377,7 +377,7 @@ public class RunestoneKeeperAnimation {
                     new Keyframe(0.5f, KeyframeAnimations.posVec(0f, -3f, 0f), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(0.75f, KeyframeAnimations.posVec(0f, -1f, 0f), AnimationChannel.Interpolations.LINEAR))).build();
 
-    public static final AnimationDefinition ATTACK_2 = AnimationDefinition.Builder.withLength(3.5f).looping()
+    public static final AnimationDefinition ATTACK_2 = AnimationDefinition.Builder.withLength(3.5f)
             .addAnimation("all", new AnimationChannel(AnimationChannel.Targets.POSITION,
                     new Keyframe(0f, KeyframeAnimations.posVec(0f, -0.2f, 0f), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(3.5f, KeyframeAnimations.posVec(0f, -0.2f, 0f), AnimationChannel.Interpolations.LINEAR)))
@@ -477,7 +477,7 @@ public class RunestoneKeeperAnimation {
                     new Keyframe(3f, KeyframeAnimations.degreeVec(-10f, 0f, 0f), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(3.5f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.LINEAR))).build();
 
-    public static final AnimationDefinition ATTACK_3 = AnimationDefinition.Builder.withLength(1f).looping()
+    public static final AnimationDefinition ATTACK_3 = AnimationDefinition.Builder.withLength(1f)
             .addAnimation("all", new AnimationChannel(AnimationChannel.Targets.POSITION,
                     new Keyframe(0f, KeyframeAnimations.posVec(0f, -0.2f, 0f), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(1f, KeyframeAnimations.posVec(0f, -0.2f, 0f), AnimationChannel.Interpolations.LINEAR)))
@@ -560,7 +560,7 @@ public class RunestoneKeeperAnimation {
                     new Keyframe(0.4167667f, KeyframeAnimations.degreeVec(12.44f, 9.94f, -1.31f), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.LINEAR))).build();
 
-    public static final AnimationDefinition DEATH = AnimationDefinition.Builder.withLength(3f).looping()
+    public static final AnimationDefinition DEATH = AnimationDefinition.Builder.withLength(3f)
             .addAnimation("all", new AnimationChannel(AnimationChannel.Targets.POSITION,
                     new Keyframe(0f, KeyframeAnimations.posVec(0f, -0.2f, 0f), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(0.25f, KeyframeAnimations.posVec(0f, -0.2f, 3f), AnimationChannel.Interpolations.LINEAR),

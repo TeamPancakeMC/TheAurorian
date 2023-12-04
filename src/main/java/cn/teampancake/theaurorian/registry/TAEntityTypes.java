@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.model.*;
+import cn.teampancake.theaurorian.client.model.circle.LunaCircleModel;
 import cn.teampancake.theaurorian.client.renderer.entity.*;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.AurorianPig;
@@ -13,6 +14,7 @@ import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.*;
 import cn.teampancake.theaurorian.common.entities.projectile.*;
+import cn.teampancake.theaurorian.common.entities.technical.LunaCircleEntity;
 import net.minecraft.client.model.SlimeModel;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.Entity;
@@ -57,6 +59,9 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<EyeOfDisturbedEntity>> EYE_OF_DISTURBED = ENTITY_TYPES.register("eye_of_disturbed",
             () -> EntityType.Builder.<EyeOfDisturbedEntity>of(EyeOfDisturbedEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
                     .clientTrackingRange(4).updateInterval(10).fireImmune().build("eye_of_disturbed"));
+    public static final RegistryObject<EntityType<LunaCircleEntity>> LUNA_CIRCLE = ENTITY_TYPES.register("luna_circle",
+            () -> EntityType.Builder.of(LunaCircleEntity::new, MobCategory.MISC).sized(5.0F, 0.1F)
+                    .clientTrackingRange(4).updateInterval(10).build("luna_circle"));
     //Animal
     public static final RegistryObject<EntityType<AurorianRabbit>> AURORIAN_RABBIT = ENTITY_TYPES.register("aurorian_rabbit",
             () -> EntityType.Builder.of(AurorianRabbit::new, MobCategory.CREATURE).sized(0.4F, 0.5F)
@@ -68,7 +73,7 @@ public class TAEntityTypes {
             () -> EntityType.Builder.of(AurorianPig::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
                     .clientTrackingRange(10).build("aurorian_pig"));
     public static final RegistryObject<EntityType<AurorianPixie>> AURORIAN_PIXIE = ENTITY_TYPES.register("aurorian_pixie",
-            () -> EntityType.Builder.of(AurorianPixie::new, MobCategory.CREATURE).sized(0.4F, 0.4F)
+            () -> EntityType.Builder.of(AurorianPixie::new, MobCategory.CREATURE).sized(0.6F, 0.375F)
                     .clientTrackingRange(8).build("aurorian_pixie"));
     //Monster
     public static final RegistryObject<EntityType<AurorianSlime>> AURORIAN_SLIME = ENTITY_TYPES.register("aurorian_slime",
@@ -112,6 +117,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(STICKY_SPIKER.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(WEBBING.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(EYE_OF_DISTURBED.get(), EyeOfDisturbedRenderer::new);
+        event.registerEntityRenderer(LUNA_CIRCLE.get(), LunaCircleRenderer::new);
         event.registerEntityRenderer(AURORIAN_RABBIT.get(), AurorianRabbitRenderer::new);
         event.registerEntityRenderer(AURORIAN_SHEEP.get(), AurorianSheepRenderer::new);
         event.registerEntityRenderer(AURORIAN_PIG.get(), AurorianPigRenderer::new);
@@ -131,6 +137,7 @@ public class TAEntityTypes {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(TAModelLayers.LUNA_CIRCLE, LunaCircleModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_RABBIT, AurorianRabbitModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SHEEP, AurorianSheepModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_PIG, AurorianPigModel::createBodyLayer);

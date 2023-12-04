@@ -34,12 +34,9 @@ public class AurorianPixieModel<T extends AurorianPixie> extends HierarchicalMod
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.animate(entity.idleAnimationState, AurorianPixieAnimation.IDLE, ageInTicks);
         this.animate(entity.tradeAnimationState, AurorianPixieAnimation.TRADE, ageInTicks);
-        if (!entity.isResting()) {
-            this.animate(entity.flyAnimationState, AurorianPixieAnimation.FLY, ageInTicks);
-        } else if (entity.isResting() && !entity.isInWaterOrBubble()) {
-            this.animate(entity.idleAnimationState, AurorianPixieAnimation.IDLE, ageInTicks);
-        }
+        this.animate(entity.flyAnimationState, AurorianPixieAnimation.FLY, ageInTicks);
     }
 
     @Override

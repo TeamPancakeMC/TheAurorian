@@ -4,14 +4,12 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeBuilder;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
-import cn.teampancake.theaurorian.event.TAEventFactory;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -21,9 +19,7 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.OptionalLong;
 
 import static net.minecraft.world.level.levelgen.SurfaceRules.*;
@@ -35,16 +31,6 @@ public class TADimensions {
     public static final ResourceKey<DimensionType> AURORIAN_DIMENSION_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE, AurorianMod.prefix("the_aurorian_type"));
     public static final ResourceKey<LevelStem> AURORIAN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, AurorianMod.prefix("the_aurorian"));
     public static final ResourceKey<Level> AURORIAN_DIMENSION = ResourceKey.create(Registries.DIMENSION, AurorianMod.prefix("the_aurorian"));
-    public static final Map<ResourceLocation, Integer> DAY_SKY_COLORS = new HashMap<>();
-
-    static {
-        DAY_SKY_COLORS.put(AurorianMod.prefix("ta_cyan"), 0x80e3ec);
-        DAY_SKY_COLORS.put(AurorianMod.prefix("ta_purple"), 0x8d60d7);
-        DAY_SKY_COLORS.put(AurorianMod.prefix("ta_orange"), 0xfff089);
-        DAY_SKY_COLORS.put(AurorianMod.prefix("ta_lime"), 0x69c941);
-        DAY_SKY_COLORS.put(AurorianMod.prefix("ta_pink"), 0xf49cae);
-        TAEventFactory.onRegisterAurorianSkyColor(DAY_SKY_COLORS);
-    }
 
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
         NoiseGeneratorSettings settings = new NoiseGeneratorSettings(NoiseSettings.OVERWORLD_NOISE_SETTINGS,
@@ -55,7 +41,7 @@ public class TADimensions {
 
     public static void bootstrapType(BootstapContext<DimensionType> context) {
         DimensionType dimensionType = new DimensionType(OptionalLong.empty(), Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, 1.0D,
-                Boolean.TRUE, Boolean.FALSE, -64, 384, 384, BlockTags.INFINIBURN_OVERWORLD, AurorianMod.prefix("aurorian"), 0.0F,
+                Boolean.TRUE, Boolean.FALSE, -64, 384, 384, BlockTags.INFINIBURN_OVERWORLD, AurorianMod.prefix("aurorian"), 15.0F,
                 new DimensionType.MonsterSettings(Boolean.FALSE, Boolean.TRUE, UniformInt.of(ConstantInt.ZERO.getValue(), 7), ConstantInt.ZERO.getValue()));
         context.register(AURORIAN_DIMENSION_TYPE, dimensionType);
     }
@@ -82,16 +68,15 @@ public class TADimensions {
         RuleSource brightMoonSand = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SAND.get());
         RuleSource brightMoonSandstone = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SANDSTONE.get());
         ConditionSource notUnderWater = waterBlockCheck(-1, ConstantInt.ZERO.getValue());
-//        ConditionSource notUnderDeepWater = waterStartCheck(-6, (-1));
-        RuleSource overworldLike = sequence(ifTrue(ON_FLOOR, sequence(
-                ifTrue(isBiome(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_PLAINS),
-                        sequence(ifTrue(notUnderWater, aurorianGrassBlock), aurorianDirt)),
-                ifTrue(isBiome(TABiomes.EQUINOX_FLOWER_PLAINS),
-                        sequence(ifTrue(notUnderWater, redAurorianGrassBlock), aurorianDirt)),
-                ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST),
-                        sequence(ifTrue(notUnderWater, lightAurorianGrassBlock), aurorianDirt)),
-                ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT),
-                        sequence(ifTrue(notUnderWater, brightMoonSand), brightMoonSandstone)))));
+        ConditionSource notUnderDeepWater = waterStartCheck(-6, (-1));
+        RuleSource overworldLike = sequence(
+                ifTrue(ON_FLOOR, sequence(ifTrue(notUnderWater, sequence(
+                        ifTrue(isBiome(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_PLAINS), aurorianGrassBlock),
+                        ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST), lightAurorianGrassBlock),
+                        ifTrue(isBiome(TABiomes.EQUINOX_FLOWER_PLAINS), redAurorianGrassBlock),
+                        ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSand))))),
+                ifTrue(notUnderDeepWater, sequence(ifTrue(UNDER_FLOOR, sequence(
+                        ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSandstone), aurorianDirt)))));
         RuleSource bedrockFloor = ifTrue(verticalGradient("bedrock_floor", VerticalAnchor.bottom(),
                 VerticalAnchor.aboveBottom(5)), SurfaceRuleData.BEDROCK);
         builder.add(bedrockFloor).add(overworldLike);

@@ -77,11 +77,10 @@
                 {
                   "type": "minecraft:condition",
                   "if_true": {
-                    "type": "minecraft:biome",
-                    "biome_is": [
-                      "theaurorian:aurorian_forest",
-                      "theaurorian:aurorian_plains"
-                    ]
+                    "type": "minecraft:water",
+                    "add_stone_depth": false,
+                    "offset": -1,
+                    "surface_depth_multiplier": 0
                   },
                   "then_run": {
                     "type": "minecraft:sequence",
@@ -89,10 +88,11 @@
                       {
                         "type": "minecraft:condition",
                         "if_true": {
-                          "type": "minecraft:water",
-                          "add_stone_depth": false,
-                          "offset": -1,
-                          "surface_depth_multiplier": 0
+                          "type": "minecraft:biome",
+                          "biome_is": [
+                            "theaurorian:aurorian_forest",
+                            "theaurorian:aurorian_plains"
+                          ]
                         },
                         "then_run": {
                           "type": "minecraft:block",
@@ -105,70 +105,12 @@
                         }
                       },
                       {
-                        "type": "minecraft:block",
-                        "result_state": {
-                          "Name": "theaurorian:aurorian_dirt"
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "minecraft:condition",
-                  "if_true": {
-                    "type": "minecraft:biome",
-                    "biome_is": [
-                      "theaurorian:equinox_flower_plains"
-                    ]
-                  },
-                  "then_run": {
-                    "type": "minecraft:sequence",
-                    "sequence": [
-                      {
                         "type": "minecraft:condition",
                         "if_true": {
-                          "type": "minecraft:water",
-                          "add_stone_depth": false,
-                          "offset": -1,
-                          "surface_depth_multiplier": 0
-                        },
-                        "then_run": {
-                          "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "theaurorian:red_aurorian_grass_block",
-                            "Properties": {
-                              "snowy": "false"
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "minecraft:block",
-                        "result_state": {
-                          "Name": "theaurorian:aurorian_dirt"
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "minecraft:condition",
-                  "if_true": {
-                    "type": "minecraft:biome",
-                    "biome_is": [
-                      "theaurorian:weeping_willow_forest"
-                    ]
-                  },
-                  "then_run": {
-                    "type": "minecraft:sequence",
-                    "sequence": [
-                      {
-                        "type": "minecraft:condition",
-                        "if_true": {
-                          "type": "minecraft:water",
-                          "add_stone_depth": false,
-                          "offset": -1,
-                          "surface_depth_multiplier": 0
+                          "type": "minecraft:biome",
+                          "biome_is": [
+                            "theaurorian:weeping_willow_forest"
+                          ]
                         },
                         "then_run": {
                           "type": "minecraft:block",
@@ -181,32 +123,30 @@
                         }
                       },
                       {
-                        "type": "minecraft:block",
-                        "result_state": {
-                          "Name": "theaurorian:aurorian_dirt"
+                        "type": "minecraft:condition",
+                        "if_true": {
+                          "type": "minecraft:biome",
+                          "biome_is": [
+                            "theaurorian:equinox_flower_plains"
+                          ]
+                        },
+                        "then_run": {
+                          "type": "minecraft:block",
+                          "result_state": {
+                            "Name": "theaurorian:red_aurorian_grass_block",
+                            "Properties": {
+                              "snowy": "false"
+                            }
+                          }
                         }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "minecraft:condition",
-                  "if_true": {
-                    "type": "minecraft:biome",
-                    "biome_is": [
-                      "theaurorian:bright_moon_desert"
-                    ]
-                  },
-                  "then_run": {
-                    "type": "minecraft:sequence",
-                    "sequence": [
+                      },
                       {
                         "type": "minecraft:condition",
                         "if_true": {
-                          "type": "minecraft:water",
-                          "add_stone_depth": false,
-                          "offset": -1,
-                          "surface_depth_multiplier": 0
+                          "type": "minecraft:biome",
+                          "biome_is": [
+                            "theaurorian:bright_moon_desert"
+                          ]
                         },
                         "then_run": {
                           "type": "minecraft:block",
@@ -214,11 +154,55 @@
                             "Name": "theaurorian:bright_moon_sand"
                           }
                         }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:water",
+              "add_stone_depth": true,
+              "offset": -6,
+              "surface_depth_multiplier": -1
+            },
+            "then_run": {
+              "type": "minecraft:sequence",
+              "sequence": [
+                {
+                  "type": "minecraft:condition",
+                  "if_true": {
+                    "type": "minecraft:stone_depth",
+                    "add_surface_depth": true,
+                    "offset": 0,
+                    "secondary_depth_range": 0,
+                    "surface_type": "floor"
+                  },
+                  "then_run": {
+                    "type": "minecraft:sequence",
+                    "sequence": [
+                      {
+                        "type": "minecraft:condition",
+                        "if_true": {
+                          "type": "minecraft:biome",
+                          "biome_is": [
+                            "theaurorian:bright_moon_desert"
+                          ]
+                        },
+                        "then_run": {
+                          "type": "minecraft:block",
+                          "result_state": {
+                            "Name": "theaurorian:bright_moon_sandstone"
+                          }
+                        }
                       },
                       {
                         "type": "minecraft:block",
                         "result_state": {
-                          "Name": "theaurorian:bright_moon_sandstone"
+                          "Name": "theaurorian:aurorian_dirt"
                         }
                       }
                     ]

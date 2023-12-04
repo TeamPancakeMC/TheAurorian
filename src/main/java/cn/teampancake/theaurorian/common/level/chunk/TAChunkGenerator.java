@@ -38,17 +38,16 @@ import java.util.function.Predicate;
 @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "ConstantConditions", "OptionalGetWithoutIsPresent"})
 public class TAChunkGenerator extends NoiseBasedChunkGenerator {
 
-    public final ChunkGenerator chunkGenerator;
-
     public static final Codec<TAChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             ChunkGenerator.CODEC.fieldOf("wrapped_generator").forGetter(o -> o.chunkGenerator),
             NoiseGeneratorSettings.CODEC.fieldOf("noise_generation_settings").forGetter(o -> o.noiseGeneratorSettings)
     ).apply(instance, TAChunkGenerator::new));
 
-    private final Holder<NoiseGeneratorSettings> noiseGeneratorSettings;
+    private final ChunkGenerator chunkGenerator;
     private final BlockState defaultBlock;
     private final BlockState defaultFluid;
     private final Optional<TANoiseSampler> warper;
+    private final Holder<NoiseGeneratorSettings> noiseGeneratorSettings;
     private static final BlockState[] EMPTY_COLUMN = new BlockState[0];
 
     public TAChunkGenerator(ChunkGenerator chunkGenerator, Holder<NoiseGeneratorSettings> noiseGenSettings) {

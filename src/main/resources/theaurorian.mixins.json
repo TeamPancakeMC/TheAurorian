@@ -13,8 +13,6 @@
         "MixinSwordItem"
     ],
     "client": [
-        "MixinClientLevel",
-        "MixinFogRenderer",
         "MixinLivingEntityRenderer"
     ],
     "injectors": {

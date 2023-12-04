@@ -1,5 +1,8 @@
 package cn.teampancake.theaurorian.client.renderer.level;
 
+import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.event.TAEventFactory;
+import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -11,14 +14,25 @@ import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.CubicSampler;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @SuppressWarnings({"ConstantConditions", "SameParameterValue"})
 public class TASkyRenderer {
 
+    private static ResourceLocation currentPhase = AurorianMod.prefix("ta_cyan");
     private static VertexBuffer starBuffer;
+    private static int dayCount;
 
     public TASkyRenderer() {
         this.createStars();
@@ -27,7 +41,7 @@ public class TASkyRenderer {
     public static boolean renderSky(ClientLevel level, PoseStack poseStack, Matrix4f projectionMatrix, float partialTick, Camera camera, Runnable skyFogSetup) {
         LevelRenderer levelRenderer = Minecraft.getInstance().levelRenderer;
         skyFogSetup.run();
-        Vec3 vec3 = level.getSkyColor(camera.getPosition(), partialTick);
+        Vec3 vec3 = getSkyColor(level, camera.getPosition());
         FogRenderer.levelFogColor();
         BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
         ShaderInstance positionShader = GameRenderer.getPositionShader();
@@ -38,7 +52,8 @@ public class TASkyRenderer {
         levelRenderer.skyBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, shaderInstance);
         VertexBuffer.unbind();
         RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
+                GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         poseStack.pushPose();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
@@ -81,6 +96,46 @@ public class TASkyRenderer {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.depthMask(true);
         return true;
+    }
+
+    public static Map<ResourceLocation, Integer> getDaySkyColors() {
+        Map<ResourceLocation, Integer> map = new HashMap<>();
+        map.put(AurorianMod.prefix("ta_cyan"), 0x80e3ec);
+        map.put(AurorianMod.prefix("ta_purple"), 0x8d60d7);
+        map.put(AurorianMod.prefix("ta_orange"), 0xfff089);
+        map.put(AurorianMod.prefix("ta_lime"), 0x69c941);
+        map.put(AurorianMod.prefix("ta_pink"), 0xf49cae);
+        TAEventFactory.onRegisterAurorianSkyColor(map);
+        return ImmutableMap.copyOf(map);
+    }
+
+    public static Vec3 getSkyColor(ClientLevel level, Vec3 pos) {
+        float timeOfDay = level.dimensionType().timeOfDay(1000L);
+        int rgbColor = smoothColorTransition(level.dayTime() / 24000.0F);
+        Vec3 vec3 = pos.subtract(2.0D, 2.0D, 2.0D).scale(0.25D);
+        Vec3 vec31 = CubicSampler.gaussianSampleVec3(vec3, (x, y, z) -> Vec3.fromRGB24(rgbColor));
+        float f1 = Mth.cos(timeOfDay * ((float) Math.PI * 2F)) * 2.0F + 0.5F;
+        return new Vec3((float) vec31.x * f1, (float) vec31.y * f1, (float) vec31.z * f1);
+    }
+
+    private static int smoothColorTransition(float t) {
+        Color currentColor = new Color(0x010e34);
+        Color targetColor = new Color(getDaySkyColors().get(getPhaseState(t)));
+        double d = Math.sin(2.0F * Math.PI * t + 0.25F * Math.PI);
+        d = (d + 1.0D) / 2.0D;
+        int r = currentColor.getRed() + (int) ((targetColor.getRed() - currentColor.getRed()) * d);
+        int g = currentColor.getGreen() + (int) ((targetColor.getGreen() - currentColor.getGreen()) * d);
+        int b = currentColor.getBlue() + (int) ((targetColor.getBlue() - currentColor.getBlue()) * d);
+        return new Color(r, g, b).getRGB();
+    }
+
+    private static ResourceLocation getPhaseState(float t) {
+        if((int)t != dayCount) {
+            List<ResourceLocation> colorNames = new ArrayList<>(getDaySkyColors().keySet());
+            currentPhase = colorNames.get((int) (Math.random() * getDaySkyColors().size()));
+            dayCount = (int)t;
+        }
+        return currentPhase;
     }
 
     private void createStars() {

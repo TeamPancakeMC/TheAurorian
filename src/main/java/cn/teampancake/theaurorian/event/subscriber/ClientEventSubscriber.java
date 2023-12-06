@@ -81,8 +81,8 @@ public class ClientEventSubscriber {
     @SubscribeEvent
     public static void onRenderFog(ViewportEvent.RenderFog event) {
         Camera camera = event.getCamera();
-        BlockGetter level = camera.level;
-        FluidType fluidType = level.getFluidState(camera.blockPosition).getFluidType();
+        BlockGetter level = camera.getEntity().level();
+        FluidType fluidType = level.getFluidState(camera.getBlockPosition()).getFluidType();
         if (event.getType() == FogType.WATER && fluidType == TAFluidTypes.MOON_WATER.get()) {
             event.setCanceled(true);
             event.setNearPlaneDistance(-8.0F);

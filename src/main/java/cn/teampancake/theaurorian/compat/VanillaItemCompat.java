@@ -22,7 +22,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import java.util.Map;
 
 @SuppressWarnings("SpellCheckingInspection")
-@Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class VanillaItemCompat {
 
     @SubscribeEvent
@@ -33,41 +33,46 @@ public class VanillaItemCompat {
         map.put(TAItems.SILENT_WOOD_STICK.get(), 100);
         map.put(TAItems.SILENT_WOOD_BOW.get(), 300);
         map.put(TAItems.AURORIAN_COAL.get(), 1500);
-        map.forEach((item, integer) -> {
+        for (Item item : map.keySet()) {
             if (event.getItemStack().getItem() == item) {
-                event.setBurnTime(integer);
-            }
-        });
-    }
-
-    @SubscribeEvent
-    public static void registerCompostables(FMLCommonSetupEvent event) {
-
-    }
-
-    @SubscribeEvent
-    public static void registerDispenser(FMLCommonSetupEvent event) {
-        DispenserBlock.registerBehavior(TAItems.CERULEAN_ARROW.get(), new CeruleanArrow.Dispense());
-        DispenserBlock.registerBehavior(TAItems.CRYSTAL_ARROW.get(), new CrystalArrow.Dispense());
-    }
-
-    @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
-    public static void registerItemProperties(FMLClientSetupEvent event) {
-        ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), AurorianMod.prefix("pull"), ((stack, level, entity, seed) ->
-                entity == null || entity.getUseItem() != stack ? 0.0F : (stack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F));
-        ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), AurorianMod.prefix("pulling"), ((stack, level, entity, seed) ->
-                entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
-        ItemProperties.register(TAItems.KEEPERS_BOW.get(), AurorianMod.prefix("pull"), ((stack, level, entity, seed) ->
-                entity == null || entity.getUseItem() != stack ? 0.0F : (stack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F));
-        ItemProperties.register(TAItems.KEEPERS_BOW.get(), AurorianMod.prefix("pulling"), ((stack, level, entity, seed) ->
-                entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
-        for (Item item : TACommonUtils.getKnownItems()) {
-            if (item instanceof ShieldItem) {
-                ItemProperties.register(item, AurorianMod.prefix("blocking"), ((stack, level, entity, seed) ->
-                        entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
+                event.setBurnTime(map.get(item));
             }
         }
+    }
+
+    @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class BusModEvents {
+
+        @SubscribeEvent
+        public static void registerCompostables(FMLCommonSetupEvent event) {
+
+        }
+
+        @SubscribeEvent
+        public static void registerDispenser(FMLCommonSetupEvent event) {
+            DispenserBlock.registerBehavior(TAItems.CERULEAN_ARROW.get(), new CeruleanArrow.Dispense());
+            DispenserBlock.registerBehavior(TAItems.CRYSTAL_ARROW.get(), new CrystalArrow.Dispense());
+        }
+
+        @SubscribeEvent
+        @OnlyIn(Dist.CLIENT)
+        public static void registerItemProperties(FMLClientSetupEvent event) {
+            ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), AurorianMod.prefix("pull"), ((stack, level, entity, seed) ->
+                    entity == null || entity.getUseItem() != stack ? 0.0F : (stack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F));
+            ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), AurorianMod.prefix("pulling"), ((stack, level, entity, seed) ->
+                    entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
+            ItemProperties.register(TAItems.KEEPERS_BOW.get(), AurorianMod.prefix("pull"), ((stack, level, entity, seed) ->
+                    entity == null || entity.getUseItem() != stack ? 0.0F : (stack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F));
+            ItemProperties.register(TAItems.KEEPERS_BOW.get(), AurorianMod.prefix("pulling"), ((stack, level, entity, seed) ->
+                    entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
+            for (Item item : TACommonUtils.getKnownItems()) {
+                if (item instanceof ShieldItem) {
+                    ItemProperties.register(item, AurorianMod.prefix("blocking"), ((stack, level, entity, seed) ->
+                            entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
+                }
+            }
+        }
+
     }
 
 }

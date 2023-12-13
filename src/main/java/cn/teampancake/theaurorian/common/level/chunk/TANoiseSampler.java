@@ -31,14 +31,14 @@ public class TANoiseSampler {
         }
     });
 
-    public TANoiseSampler(int width, int height, int yCount, BiomeSource source, NoiseSlider topslide, NoiseSlider bottomslide, NoiseSettings settings, BlendedNoise blend, NoiseModifier modifier) {
+    public TANoiseSampler(int width, int height, int yCount, BiomeSource source, NoiseSlider topSlide, NoiseSlider bottomSlide, NoiseSettings settings, BlendedNoise blend, NoiseModifier modifier) {
         this.cellWidth = width;
         this.cellHeight = height;
         this.cellCountY = yCount;
         this.biomeSource = source;
         this.noiseSettings = settings;
-        this.topSlide = topslide;
-        this.bottomSlide = bottomslide;
+        this.topSlide = topSlide;
+        this.bottomSlide = bottomSlide;
         this.blendedNoise = blend;
         this.dimensionDensityFactor = source instanceof TABiomeSource biomeSource ? biomeSource.getBaseFactor() : 1.0F;
         this.dimensionDensityOffset = source instanceof TABiomeSource biomeSource ? biomeSource.getBaseOffset() : 0.0F;

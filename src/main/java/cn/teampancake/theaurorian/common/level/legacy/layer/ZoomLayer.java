@@ -21,8 +21,8 @@ public enum ZoomLayer implements AreaTransformer1 {
 	NORMAL,
 	FUZZY {
 		@Override
-		protected ResourceKey<Biome> modeOrRandom(BigContext<?> context, ResourceKey<Biome> p_76980_, ResourceKey<Biome> p_76981_, ResourceKey<Biome> p_76982_, ResourceKey<Biome> p_76983_) {
-			return context.random(p_76980_, p_76981_, p_76982_, p_76983_);
+		protected ResourceKey<Biome> modeOrRandom(BigContext<?> context, ResourceKey<Biome> tl, ResourceKey<Biome> tr, ResourceKey<Biome> bl, ResourceKey<Biome> br) {
+			return context.random(tl, tr, bl, br);
 		}
 	};
 
@@ -62,31 +62,32 @@ public enum ZoomLayer implements AreaTransformer1 {
 		}
 	}
 
-	protected ResourceKey<Biome> modeOrRandom(BigContext<?> p_76960_, ResourceKey<Biome> p_76961_, ResourceKey<Biome> p_76962_, ResourceKey<Biome> p_76963_, ResourceKey<Biome> p_76964_) {
-		if (p_76962_ == p_76963_ && p_76963_ == p_76964_) {
-			return p_76962_;
-		} else if (p_76961_ == p_76962_ && p_76961_ == p_76963_) {
-			return p_76961_;
-		} else if (p_76961_ == p_76962_ && p_76961_ == p_76964_) {
-			return p_76961_;
-		} else if (p_76961_ == p_76963_ && p_76961_ == p_76964_) {
-			return p_76961_;
-		} else if (p_76961_ == p_76962_ && p_76963_ != p_76964_) {
-			return p_76961_;
-		} else if (p_76961_ == p_76963_ && p_76962_ != p_76964_) {
-			return p_76961_;
-		} else if (p_76961_ == p_76964_ && p_76962_ != p_76963_) {
-			return p_76961_;
-		} else if (p_76962_ == p_76963_ && p_76961_ != p_76964_) {
-			return p_76962_;
-		} else if (p_76962_ == p_76964_ && p_76961_ != p_76963_) {
-			return p_76962_;
+	protected ResourceKey<Biome> modeOrRandom(BigContext<?> context, ResourceKey<Biome> tl, ResourceKey<Biome> tr, ResourceKey<Biome> bl, ResourceKey<Biome> br) {
+		if (tr == bl && bl == br) {
+			return tr;
+		} else if (tl == tr && tl == bl) {
+			return tl;
+		} else if (tl == tr && tl == br) {
+			return tl;
+		} else if (tl == bl && tl == br) {
+			return tl;
+		} else if (tl == tr && bl != br) {
+			return tl;
+		} else if (tl == bl && tr != br) {
+			return tl;
+		} else if (tl == br && tr != bl) {
+			return tl;
+		} else if (tr == bl && tl != br) {
+			return tr;
+		} else if (tr == br && tl != bl) {
+			return tr;
 		} else {
-			return p_76963_ == p_76964_ && p_76961_ != p_76962_ ? p_76963_ : p_76960_.random(p_76961_, p_76962_, p_76963_, p_76964_);
+			return bl == br && tl != tr ? bl : context.random(tl, tr, bl, br);
 		}
 	}
 
 	public record Factory(long salt, boolean fuzzy, Holder<BiomeLayerFactory> parent) implements BiomeLayerFactory {
+
 		public static final Codec<Factory> CODEC = RecordCodecBuilder.create(inst -> inst.group(
 				Codec.LONG.fieldOf("salt").forGetter(Factory::salt),
 				Codec.BOOL.fieldOf("fuzzy").forGetter(Factory::fuzzy),

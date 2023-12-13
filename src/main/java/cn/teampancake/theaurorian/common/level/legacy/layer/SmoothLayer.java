@@ -34,6 +34,7 @@ public enum SmoothLayer implements CastleTransformer {
 	}
 
 	public record Factory(long salt, Holder<BiomeLayerFactory> parent) implements BiomeLayerFactory {
+
 		public static final Codec<Factory> CODEC = RecordCodecBuilder.create(inst -> inst.group(
 				Codec.LONG.fieldOf("salt").forGetter(Factory::salt),
 				TABiomeLayerStack.HOLDER_CODEC.fieldOf("parent").forGetter(Factory::parent)
@@ -48,6 +49,7 @@ public enum SmoothLayer implements CastleTransformer {
 		public BiomeLayerType getType() {
 			return TABiomeLayers.SMOOTH.get();
 		}
+
 	}
 
 }

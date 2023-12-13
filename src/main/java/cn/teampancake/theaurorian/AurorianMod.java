@@ -28,7 +28,6 @@ import java.util.Objects;
 public class AurorianMod {
 
     public static final String MOD_ID = "theaurorian";
-    public static final String REGISTRY_NAMESPACE = "aurorian";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public AurorianMod() {
@@ -56,8 +55,7 @@ public class AurorianMod {
         modEventBus.addListener(this::registerExtraStuff);
         modEventBus.addListener(this::setRegistriesForDatapack);
         MinecraftForge.EVENT_BUS.register(this);
-
-        if(ModList.get().isLoaded("thirst")){
+        if (ModList.get().isLoaded("thirst")) {
             ThirstWasTakenCompat.init();
         }
     }
@@ -79,7 +77,7 @@ public class AurorianMod {
     }
 
     public static ResourceLocation namedRegistry(String name) {
-        return new ResourceLocation(REGISTRY_NAMESPACE, name.toLowerCase(Locale.ROOT));
+        return new ResourceLocation("aurorian", name.toLowerCase(Locale.ROOT));
     }
 
 }

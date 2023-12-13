@@ -6,7 +6,7 @@ import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.CrystallineSprite;
 import cn.teampancake.theaurorian.common.items.CrystallineShield;
-import cn.teampancake.theaurorian.common.items.ModArmorMaterials;
+import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.items.UmbraShield;
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.data.tags.TABlockTags;
@@ -90,7 +90,7 @@ public class EntityEventSubscriber {
         if (target != null) {
             for (ItemStack piece : target.getArmorSlots()) {
                 if (piece.getItem() instanceof ArmorItem armorItem) {
-                    if (armorItem.getMaterial() == ModArmorMaterials.AURORIAN_STEEL) {
+                    if (armorItem.getMaterial() == TAArmorMaterials.AURORIAN_STEEL) {
                         AurorianSteelHelper.handleAurorianSteelDurability(piece);
                     }
                 }
@@ -101,7 +101,7 @@ public class EntityEventSubscriber {
             float chance = 0.00F;
             for (ItemStack piece : livingEntity.getArmorSlots()) {
                 if (piece.getItem() instanceof ArmorItem armorItem) {
-                    if (armorItem.getMaterial() == ModArmorMaterials.SPECTRAL) {
+                    if (armorItem.getMaterial() == TAArmorMaterials.SPECTRAL) {
                         chance += AurorianConfig.CONFIG_SPECTRAL_ARMOR_CLEANSE_CHANCE.get();
                     }
                 }

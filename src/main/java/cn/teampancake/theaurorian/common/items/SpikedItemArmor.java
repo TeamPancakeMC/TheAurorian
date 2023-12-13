@@ -19,7 +19,7 @@ import static net.minecraft.world.item.ArmorItem.Type.CHESTPLATE;
 public class SpikedItemArmor extends ArmorItem implements ITooltipsItem{
 
     public SpikedItemArmor() {
-        super(ModArmorMaterials.SPECTRAL, CHESTPLATE, new Item.Properties());
+        super(TAArmorMaterials.SPECTRAL, CHESTPLATE, new Item.Properties());
     }
 
     @Override

@@ -24,7 +24,7 @@ import java.util.List;
 public class AurorianiteSword extends SwordItem implements ITooltipsItem{
 
     public AurorianiteSword() {
-        super(ModToolTiers.AURORIANITE, 4, -2.4F,new Properties().rarity(Rarity.EPIC));
+        super(TAToolTiers.AURORIANITE, 4, -2.4F,new Properties().rarity(Rarity.EPIC));
     }
 
 

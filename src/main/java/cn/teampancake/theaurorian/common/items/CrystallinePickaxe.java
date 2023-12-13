@@ -20,7 +20,7 @@ import java.util.Optional;
 
 public class CrystallinePickaxe extends PickaxeItem implements ITooltipsItem{
     public CrystallinePickaxe() {
-        super(ModToolTiers.CRYSTALLINE, 1, -2.8F, new Properties().rarity(Rarity.EPIC));
+        super(TAToolTiers.CRYSTALLINE, 1, -2.8F, new Properties().rarity(Rarity.EPIC));
     }
 
     @Override

@@ -15,7 +15,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class AurorianStoneAxe extends AxeItem implements ITooltipsItem {
 
     public AurorianStoneAxe() {
-        super(ModToolTiers.AURORIAN_STONE, 8.0F, -3.2F, new Properties());
+        super(TAToolTiers.AURORIAN_STONE, 8.0F, -3.2F, new Properties());
     }
 
     @Override

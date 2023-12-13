@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 public class CrystallineSword extends SwordItem implements ITooltipsItem {
 
     public CrystallineSword() {
-        super(ModToolTiers.CRYSTALLINE, 3, -2.4F, new Properties().rarity(Rarity.EPIC).defaultDurability(512));
+        super(TAToolTiers.CRYSTALLINE, 3, -2.4F, new Properties().rarity(Rarity.EPIC).defaultDurability(512));
     }
 
     @Override

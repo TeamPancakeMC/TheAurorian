@@ -29,108 +29,92 @@ public class TAItems {
     /**
      * Armor Item
      */
-    public static final RegistryObject<Item> AURORIAN_STEEL_HELMET = ITEMS.register("aurorian_steel_helmet",
-            () -> new AurorianSteelArmor(HELMET));
-    public static final RegistryObject<Item> AURORIAN_STEEL_CHESTPLATE = ITEMS.register("aurorian_steel_chestplate",
-            () -> new AurorianSteelArmor(CHESTPLATE));
-    public static final RegistryObject<Item> AURORIAN_STEEL_LEGGINGS = ITEMS.register("aurorian_steel_leggings",
-            () -> new AurorianSteelArmor(LEGGINGS));
-    public static final RegistryObject<Item> AURORIAN_STEEL_BOOTS = ITEMS.register("aurorian_steel_boots",
-            () -> new AurorianSteelArmor(BOOTS));
-    public static final RegistryObject<Item> CERULEAN_HELMET = ITEMS.register("cerulean_helmet",
-            () -> new CeruleanArmor(HELMET));
-    public static final RegistryObject<Item> CERULEAN_CHESTPLATE = ITEMS.register("cerulean_chestplate",
-            () -> new CeruleanArmor(CHESTPLATE));
-    public static final RegistryObject<Item> CERULEAN_LEGGINGS = ITEMS.register("cerulean_leggings",
-            () -> new CeruleanArmor(LEGGINGS));
-    public static final RegistryObject<Item> CERULEAN_BOOTS = ITEMS.register("cerulean_boots",
-            () -> new CeruleanArmor(BOOTS));
-    public static final RegistryObject<Item> KNIGHT_HELMET = ITEMS.register("knight_helmet",
-            () -> new KnightArmor(HELMET));
-    public static final RegistryObject<Item> KNIGHT_CHESTPLATE = ITEMS.register("knight_chestplate",
-            () -> new KnightArmor(CHESTPLATE));
-    public static final RegistryObject<Item> KNIGHT_LEGGINGS = ITEMS.register("knight_leggings",
-            () -> new KnightArmor(LEGGINGS));
-    public static final RegistryObject<Item> KNIGHT_BOOTS = ITEMS.register("knight_boots",
-            () -> new KnightArmor(BOOTS));
-    public static final RegistryObject<Item> SPECTRAL_HELMET = ITEMS.register("spectral_helmet",
-            () -> new SpectralArmor(HELMET));
-    public static final RegistryObject<Item> SPECTRAL_CHESTPLATE = ITEMS.register("spectral_chestplate",
-            () -> new SpectralArmor(CHESTPLATE));
-    public static final RegistryObject<Item> SPECTRAL_LEGGINGS = ITEMS.register("spectral_leggings",
-            () -> new SpectralArmor(LEGGINGS));
-    public static final RegistryObject<Item> SPECTRAL_BOOTS = ITEMS.register("spectral_boots",
-            () -> new SpectralArmor(BOOTS));
-    public static final RegistryObject<Item> AURORIAN_SLIME_BOOTS = ITEMS.register("aurorian_slime_boots",
-            () -> new ArmorItem(ModArmorMaterials.AURORIAN_SLIME, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> AURORIAN_STEEL_HELMET = ITEMS.register("aurorian_steel_helmet", () -> new AurorianSteelArmor(HELMET));
+    public static final RegistryObject<Item> AURORIAN_STEEL_CHESTPLATE = ITEMS.register("aurorian_steel_chestplate", () -> new AurorianSteelArmor(CHESTPLATE));
+    public static final RegistryObject<Item> AURORIAN_STEEL_LEGGINGS = ITEMS.register("aurorian_steel_leggings", () -> new AurorianSteelArmor(LEGGINGS));
+    public static final RegistryObject<Item> AURORIAN_STEEL_BOOTS = ITEMS.register("aurorian_steel_boots", () -> new AurorianSteelArmor(BOOTS));
+    public static final RegistryObject<Item> CERULEAN_HELMET = ITEMS.register("cerulean_helmet", () -> new CeruleanArmor(HELMET));
+    public static final RegistryObject<Item> CERULEAN_CHESTPLATE = ITEMS.register("cerulean_chestplate", () -> new CeruleanArmor(CHESTPLATE));
+    public static final RegistryObject<Item> CERULEAN_LEGGINGS = ITEMS.register("cerulean_leggings", () -> new CeruleanArmor(LEGGINGS));
+    public static final RegistryObject<Item> CERULEAN_BOOTS = ITEMS.register("cerulean_boots", () -> new CeruleanArmor(BOOTS));
+    public static final RegistryObject<Item> KNIGHT_HELMET = ITEMS.register("knight_helmet", () -> new KnightArmor(HELMET));
+    public static final RegistryObject<Item> KNIGHT_CHESTPLATE = ITEMS.register("knight_chestplate", () -> new KnightArmor(CHESTPLATE));
+    public static final RegistryObject<Item> KNIGHT_LEGGINGS = ITEMS.register("knight_leggings", () -> new KnightArmor(LEGGINGS));
+    public static final RegistryObject<Item> KNIGHT_BOOTS = ITEMS.register("knight_boots", () -> new KnightArmor(BOOTS));
+    public static final RegistryObject<Item> SPECTRAL_HELMET = ITEMS.register("spectral_helmet", () -> new SpectralArmor(HELMET));
+    public static final RegistryObject<Item> SPECTRAL_CHESTPLATE = ITEMS.register("spectral_chestplate", () -> new SpectralArmor(CHESTPLATE));
+    public static final RegistryObject<Item> SPECTRAL_LEGGINGS = ITEMS.register("spectral_leggings", () -> new SpectralArmor(LEGGINGS));
+    public static final RegistryObject<Item> SPECTRAL_BOOTS = ITEMS.register("spectral_boots", () -> new SpectralArmor(BOOTS));
     public static final RegistryObject<Item> SPIKED_CHESTPLATE = ITEMS.register("spiked_chestplate", SpikedItemArmor::new);
+    public static final RegistryObject<Item> AURORIAN_SLIME_BOOTS = ITEMS.register("aurorian_slime_boots",
+            () -> new ArmorItem(TAArmorMaterials.AURORIAN_SLIME, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
 
     /**
      * SwordItem
      */
     public static final RegistryObject<Item> AURORIAN_STEEL_SWORD = ITEMS.register("aurorian_steel_sword",
-            () -> new SwordItem(ModToolTiers.AURORIAN_STEEL, 3, -2.4F, new Item.Properties()));
+            () -> new SwordItem(TAToolTiers.AURORIAN_STEEL, 3, -2.4F, new Item.Properties()));
     public static final RegistryObject<Item> AURORIAN_STONE_SWORD = ITEMS.register("aurorian_stone_sword",
-            () -> new SwordItem(ModToolTiers.AURORIAN_STONE, 3, -2.4F, new Item.Properties()));
+            () -> new SwordItem(TAToolTiers.AURORIAN_STONE, 3, -2.4F, new Item.Properties()));
     public static final RegistryObject<Item> SILENT_WOOD_SWORD = ITEMS.register("silent_wood_sword",
-            () -> new SwordItem(ModToolTiers.SILENT_WOOD, 4, -1.6F, new Item.Properties()));
+            () -> new SwordItem(TAToolTiers.SILENT_WOOD, 4, -1.6F, new Item.Properties()));
     public static final RegistryObject<Item> UMBRA_SWORD = ITEMS.register("umbra_sword", UmbraSword::new);
     public static final RegistryObject<Item> AURORIANITE_SWORD = ITEMS.register("aurorianite_sword", AurorianiteSword::new);
     public static final RegistryObject<Item> CRYSTALLINE_SWORD = ITEMS.register("crystalline_sword", CrystallineSword::new);
     public static final RegistryObject<Item> MOONSTONE_SWORD = ITEMS.register("moonstone_sword",
-            () -> new SwordItem(ModToolTiers.SILENT_WOOD, 4, -1.6F, new Item.Properties()));
+            () -> new SwordItem(TAToolTiers.SILENT_WOOD, 4, -1.6F, new Item.Properties()));
 
     /**
      * ShovelItem
      */
     public static final RegistryObject<Item> AURORIAN_STEEL_SHOVEL = ITEMS.register("aurorian_steel_shovel",
-            () -> new ShovelItem(ModToolTiers.AURORIAN_STEEL, 1.5F, -3.0F, new Item.Properties()));
+            () -> new ShovelItem(TAToolTiers.AURORIAN_STEEL, 1.5F, -3.0F, new Item.Properties()));
     public static final RegistryObject<Item> AURORIAN_STONE_SHOVEL = ITEMS.register("aurorian_stone_shovel",
-            () -> new ShovelItem(ModToolTiers.AURORIAN_STONE, 1.5F, -3.0F, new Item.Properties()));
+            () -> new ShovelItem(TAToolTiers.AURORIAN_STONE, 1.5F, -3.0F, new Item.Properties()));
     public static final RegistryObject<Item> SILENT_WOOD_SHOVEL = ITEMS.register("silent_wood_shovel",
-            () -> new ShovelItem(ModToolTiers.SILENT_WOOD, 1.5F, -3.0F, new Item.Properties()));
+            () -> new ShovelItem(TAToolTiers.SILENT_WOOD, 1.5F, -3.0F, new Item.Properties()));
     public static final RegistryObject<Item> MOONSTONE_SHOVEL = ITEMS.register("moonstone_shovel",
-            () -> new ShovelItem(ModToolTiers.SILENT_WOOD, 1.5F, -3.0F, new Item.Properties()));
+            () -> new ShovelItem(TAToolTiers.SILENT_WOOD, 1.5F, -3.0F, new Item.Properties()));
 
     /**
      * AxeItem
      */
     public static final RegistryObject<Item> AURORIAN_STEEL_AXE = ITEMS.register("aurorian_steel_axe",
-            () -> new AxeItem(ModToolTiers.AURORIAN_STEEL, 6.0F, -3.0F, new Item.Properties()));
+            () -> new AxeItem(TAToolTiers.AURORIAN_STEEL, 6.0F, -3.0F, new Item.Properties()));
     public static final RegistryObject<Item> AURORIANITE_AXE = ITEMS.register("aurorianite_axe", AurorianiteAxe::new);
     public static final RegistryObject<Item> AURORIAN_STONE_AXE = ITEMS.register("aurorian_stone_axe", AurorianStoneAxe::new);
     public static final RegistryObject<Item> SILENT_WOOD_AXE = ITEMS.register("silent_wood_axe",
-            () -> new AxeItem(ModToolTiers.SILENT_WOOD, 6.0F, -3.2F, new Item.Properties()));
+            () -> new AxeItem(TAToolTiers.SILENT_WOOD, 6.0F, -3.2F, new Item.Properties()));
     public static final RegistryObject<Item> MOONSTONE_AXE = ITEMS.register("moonstone_axe",
-            () -> new AxeItem(ModToolTiers.SILENT_WOOD, 6.0F, -3.0F, new Item.Properties()));
+            () -> new AxeItem(TAToolTiers.SILENT_WOOD, 6.0F, -3.0F, new Item.Properties()));
 
     /**
      * PickaxeItem
      */
     public static final RegistryObject<Item> AURORIAN_STEEL_PICKAXE = ITEMS.register("aurorian_steel_pickaxe",
-            () -> new PickaxeItem(ModToolTiers.AURORIAN_STEEL, 1, -2.8F, new Item.Properties()));
+            () -> new PickaxeItem(TAToolTiers.AURORIAN_STEEL, 1, -2.8F, new Item.Properties()));
     public static final RegistryObject<Item> AURORIANITE_PICKAXE = ITEMS.register("aurorianite_pickaxe",
-            () -> new PickaxeItem(ModToolTiers.AURORIANITE, 1, -3.0F, new Item.Properties().rarity(Rarity.EPIC)));
+            () -> new PickaxeItem(TAToolTiers.AURORIANITE, 1, -3.0F, new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> UMBRA_PICKAXE = ITEMS.register("umbra_pickaxe", UmbraPickaxe::new);
     public static final RegistryObject<Item> CRYSTALLINE_PICKAXE = ITEMS.register("crystalline_pickaxe", CrystallinePickaxe::new);
     public static final RegistryObject<Item> AURORIAN_STONE_PICKAXE = ITEMS.register("aurorian_stone_pickaxe", AurorianStonePickaxe::new);
     public static final RegistryObject<Item> SILENT_WOOD_PICKAXE = ITEMS.register("silent_wood_pickaxe",
-            () -> new PickaxeItem(ModToolTiers.SILENT_WOOD, 1, -2.8F, new Item.Properties()));
+            () -> new PickaxeItem(TAToolTiers.SILENT_WOOD, 1, -2.8F, new Item.Properties()));
     public static final RegistryObject<Item> MOONSTONE_PICKAXE = ITEMS.register("moonstone_pickaxe",
-            () -> new PickaxeItem(ModToolTiers.SILENT_WOOD, 1, -2.8F, new Item.Properties()));
+            () -> new PickaxeItem(TAToolTiers.SILENT_WOOD, 1, -2.8F, new Item.Properties()));
     public static final RegistryObject<Item> QUEENS_CHIPPER = ITEMS.register("queens_chipper", QueensChipper::new);
 
     /**
      * HoeItem
      */
     public static final RegistryObject<Item> AURORIAN_STEEL_HOE = ITEMS.register("aurorian_steel_hoe",
-            () -> new HoeItem(ModToolTiers.AURORIAN_STEEL, -2, -1.0F, new Item.Properties()));
+            () -> new HoeItem(TAToolTiers.AURORIAN_STEEL, -2, -1.0F, new Item.Properties()));
     public static final RegistryObject<Item> AURORIAN_STONE_HOE = ITEMS.register("aurorian_stone_hoe",
-            () -> new HoeItem(ModToolTiers.AURORIAN_STONE, -1, -1.0F, new Item.Properties()));
+            () -> new HoeItem(TAToolTiers.AURORIAN_STONE, -1, -1.0F, new Item.Properties()));
     public static final RegistryObject<Item> SILENT_WOOD_HOE = ITEMS.register("silent_wood_hoe",
-            () -> new HoeItem(ModToolTiers.SILENT_WOOD, -2, -1.0F, new Item.Properties()));
+            () -> new HoeItem(TAToolTiers.SILENT_WOOD, -2, -1.0F, new Item.Properties()));
     public static final RegistryObject<Item> MOONSTONE_HOE = ITEMS.register("moonstone_hoe",
-            () -> new HoeItem(ModToolTiers.SILENT_WOOD, -2, -1.0F, new Item.Properties()));
+            () -> new HoeItem(TAToolTiers.SILENT_WOOD, -2, -1.0F, new Item.Properties()));
 
     /**
      * ShearsItem

@@ -5,7 +5,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -15,7 +14,7 @@ import java.util.Objects;
 public class UmbraPickaxe extends PickaxeItem implements ITooltipsItem {
 
     public UmbraPickaxe() {
-        super(ModToolTiers.UMBRA, 5, 1.2f, new Properties().rarity(Rarity.EPIC));
+        super(TAToolTiers.UMBRA, 5, 1.2f, new Properties().rarity(Rarity.EPIC));
     }
 
     @Override

@@ -2,7 +2,7 @@ package cn.teampancake.theaurorian.common.items.armor;
 
 import cn.teampancake.theaurorian.client.model.KnightArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
-import cn.teampancake.theaurorian.common.items.ModArmorMaterials;
+import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 public class KnightArmor extends BaseArmor<KnightArmorModel> {
 
     public KnightArmor(Type pType) {
-        super(ModArmorMaterials.KNIGHT, pType, new Item.Properties().rarity(Rarity.RARE));
+        super(TAArmorMaterials.KNIGHT, pType, new Item.Properties().rarity(Rarity.RARE));
     }
 
     @Override

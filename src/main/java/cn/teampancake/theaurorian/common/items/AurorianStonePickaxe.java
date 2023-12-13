@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 public class AurorianStonePickaxe extends PickaxeItem {
 
     public AurorianStonePickaxe() {
-        super(ModToolTiers.AURORIAN_STONE, 1, -2.8F, new Properties());
+        super(TAToolTiers.AURORIAN_STONE, 1, -2.8F, new Properties());
     }
 
     @Override

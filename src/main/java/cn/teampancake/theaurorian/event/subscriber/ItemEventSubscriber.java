@@ -2,7 +2,7 @@ package cn.teampancake.theaurorian.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.ITooltipsItem;
-import cn.teampancake.theaurorian.common.items.ModArmorMaterials;
+import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.config.AurorianConfig;
 import cn.teampancake.theaurorian.data.tags.TAItemTags;
 import cn.teampancake.theaurorian.registry.TAItems;
@@ -42,7 +42,7 @@ public class ItemEventSubscriber {
 
         Ingredient repairItem = null;
         if (stack.getItem() instanceof ArmorItem armorItem){
-            if (armorItem.getMaterial() == ModArmorMaterials.SPECTRAL) {
+            if (armorItem.getMaterial() == TAArmorMaterials.SPECTRAL) {
                 showTooltips(tooltip, ForgeRegistries.ITEMS.getKey(armorItem));
                 repairItem = armorItem.getMaterial().getRepairIngredient();
             }

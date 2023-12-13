@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class QueensChipper extends PickaxeItem {
 
     public QueensChipper() {
-        super(ModToolTiers.AURORIAN_STEEL, (5), (-1.2f), new Properties().rarity(Rarity.RARE));
+        super(TAToolTiers.AURORIAN_STEEL, (5), (-1.2f), new Properties().rarity(Rarity.RARE));
     }
 
     @Override

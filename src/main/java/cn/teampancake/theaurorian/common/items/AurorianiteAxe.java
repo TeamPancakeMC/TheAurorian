@@ -17,7 +17,7 @@ import java.util.List;
 public class AurorianiteAxe extends AxeItem implements ITooltipsItem{
 
     public AurorianiteAxe() {
-        super(ModToolTiers.AURORIANITE, 12.0F, -3.5F,new Properties().rarity(Rarity.EPIC));
+        super(TAToolTiers.AURORIANITE, 12.0F, -3.5F,new Properties().rarity(Rarity.EPIC));
     }
 
     @Override

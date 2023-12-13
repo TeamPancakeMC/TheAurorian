@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"deprecation", "SpellCheckingInspection"})
-public enum ModToolTiers implements Tier {
+public enum TAToolTiers implements Tier {
 
     SILENT_WOOD(0, 59, 3.0F, 0.0F, 20, () -> Ingredient.of(TABlocks.SILENT_TREE_PLANKS.get())),
     AURORIAN_STONE(0, 131, 4.5F, 1.5F, 14, () -> Ingredient.of(TABlocks.AURORIAN_STONE.get())),
@@ -27,8 +27,8 @@ public enum ModToolTiers implements Tier {
     private final int enchantmentValue;
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
-    ModToolTiers(int level, int uses, float speed, float damage,
-                 int enchantmentValue, Supplier<Ingredient> repairIngredient) {
+    TAToolTiers(int level, int uses, float speed, float damage,
+                int enchantmentValue, Supplier<Ingredient> repairIngredient) {
         this.level = level;
         this.uses = uses;
         this.speed = speed;

@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.config.AurorianConfig;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -10,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public class UmbraSword extends SwordItem implements ITooltipsItem {
 
     public UmbraSword() {
-        super(ModToolTiers.UMBRA, 7, 1.6f, new Properties().rarity(Rarity.EPIC));
+        super(TAToolTiers.UMBRA, 7, 1.6f, new Properties().rarity(Rarity.EPIC));
     }
 
     @Override

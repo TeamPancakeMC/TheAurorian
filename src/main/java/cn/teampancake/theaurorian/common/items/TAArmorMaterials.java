@@ -15,7 +15,7 @@ import java.util.EnumMap;
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
-public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
+public enum TAArmorMaterials implements StringRepresentable, ArmorMaterial {
 
     CERULEAN("cerulean", 20,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
@@ -72,8 +72,8 @@ public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
     private final float knockbackResistance;
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
-    ModArmorMaterials(String name, int durabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int enchantmentValue,
-                      SoundEvent sound, float toughness, float knockbackResistance, Supplier<Ingredient> ingredientSupplier) {
+    TAArmorMaterials(String name, int durabilityMultiplier, EnumMap<ArmorItem.Type, Integer> protectionFunctionForType, int enchantmentValue,
+                     SoundEvent sound, float toughness, float knockbackResistance, Supplier<Ingredient> ingredientSupplier) {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
         this.protectionFunctionForType = protectionFunctionForType;

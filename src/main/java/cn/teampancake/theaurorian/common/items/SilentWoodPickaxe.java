@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 
 public class SilentWoodPickaxe extends PickaxeItem {
     public SilentWoodPickaxe() {
-        super(ModToolTiers.SILENT_WOOD, 2, -1.2f, new Properties());
+        super(TAToolTiers.SILENT_WOOD, 2, -1.2f, new Properties());
     }
 
 

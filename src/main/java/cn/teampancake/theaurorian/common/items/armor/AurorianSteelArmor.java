@@ -2,7 +2,7 @@ package cn.teampancake.theaurorian.common.items.armor;
 
 import cn.teampancake.theaurorian.client.model.AurorianSteelArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
-import cn.teampancake.theaurorian.common.items.ModArmorMaterials;
+import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 public class AurorianSteelArmor extends BaseArmor<AurorianSteelArmorModel> {
 
     public AurorianSteelArmor(Type pType) {
-        super(ModArmorMaterials.AURORIAN_STEEL, pType, new Item.Properties().rarity(Rarity.RARE));
+        super(TAArmorMaterials.AURORIAN_STEEL, pType, new Item.Properties().rarity(Rarity.RARE));
     }
 
     @Override

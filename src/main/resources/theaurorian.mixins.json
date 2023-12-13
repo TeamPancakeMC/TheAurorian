@@ -8,7 +8,6 @@
         "InvokeAbstractFurnaceBlockEntity",
         "MixinAbstractFurnaceBlockEntity",
         "MixinDiggerItem",
-        "MixinShearsItem",
         "MixinSwordItem"
     ],
     "client": [],

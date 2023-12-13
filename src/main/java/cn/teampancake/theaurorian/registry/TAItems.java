@@ -123,8 +123,7 @@ public class TAItems {
             () -> new ShearsItem(new Item.Properties().durability(50)));
     public static final RegistryObject<Item> AURORIAN_STONE_SICKLE = ITEMS.register("aurorian_stone_sickle",
             () -> new ShearsItem(new Item.Properties().durability(150)));
-    public static final RegistryObject<Item> MOONSTONE_SICKLE = ITEMS.register("moonstone_sickle",
-            () -> new ShearsItem(new Item.Properties().durability(250)));
+    public static final RegistryObject<Item> MOONSTONE_SICKLE = ITEMS.register("moonstone_sickle", MoonstoneSickle::new);
 
     /**
      * ShieldItem

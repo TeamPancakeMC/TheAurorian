@@ -52,8 +52,7 @@ public class TAItems {
     /**
      * SwordItem
      */
-    public static final RegistryObject<Item> AURORIAN_STEEL_SWORD = ITEMS.register("aurorian_steel_sword",
-            () -> new SwordItem(TAToolTiers.AURORIAN_STEEL, 3, -2.4F, new Item.Properties()));
+    public static final RegistryObject<Item> AURORIAN_STEEL_SWORD = ITEMS.register("aurorian_steel_sword", AurorianSteelSword::new);
     public static final RegistryObject<Item> AURORIAN_STONE_SWORD = ITEMS.register("aurorian_stone_sword",
             () -> new SwordItem(TAToolTiers.AURORIAN_STONE, 3, -2.4F, new Item.Properties()));
     public static final RegistryObject<Item> SILENT_WOOD_SWORD = ITEMS.register("silent_wood_sword",

@@ -6,8 +6,7 @@
     "refmap": "theaurorian.refmap.json",
     "mixins": [
         "InvokeAbstractFurnaceBlockEntity",
-        "MixinDiggerItem",
-        "MixinSwordItem"
+        "MixinDiggerItem"
     ],
     "client": [],
     "injectors": {

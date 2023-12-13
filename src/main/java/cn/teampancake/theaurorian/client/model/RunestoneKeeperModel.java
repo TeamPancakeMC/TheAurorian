@@ -2,11 +2,14 @@ package cn.teampancake.theaurorian.client.model;
 
 import cn.teampancake.theaurorian.client.animation.RunestoneKeeperAnimation;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -16,6 +19,7 @@ public class RunestoneKeeperModel<T extends RunestoneKeeper> extends Hierarchica
 
     private final ModelPart all2;
     private final ModelPart head;
+    private int hurtTime;
 
     public RunestoneKeeperModel(ModelPart root) {
         this.all2 = root.getChild("all2");
@@ -77,6 +81,7 @@ public class RunestoneKeeperModel<T extends RunestoneKeeper> extends Hierarchica
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.hurtTime = entity.hurtTime;
         this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
         this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
         AnimationDefinition animationDefinition = entity.isSprinting() ?
@@ -89,6 +94,12 @@ public class RunestoneKeeperModel<T extends RunestoneKeeper> extends Hierarchica
         if (!entity.isInWaterOrBubble()) {
             this.animateWalk(animationDefinition, limbSwing, limbSwingAmount, (2.0F), (2.5F));
         }
+    }
+
+    @Override
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        int i = OverlayTexture.pack(OverlayTexture.u(0.0F), OverlayTexture.v(this.hurtTime > 0));
+        this.root().render(poseStack, buffer, packedLight, i, red, green, blue, alpha);
     }
 
     public @NotNull ModelPart root() {

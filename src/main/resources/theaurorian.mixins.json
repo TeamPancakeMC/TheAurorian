@@ -11,9 +11,7 @@
         "MixinShearsItem",
         "MixinSwordItem"
     ],
-    "client": [
-        "MixinLivingEntityRenderer"
-    ],
+    "client": [],
     "injectors": {
         "defaultRequire": 1
   }

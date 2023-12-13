@@ -33,8 +33,6 @@ public class TAEntityTagsProvider extends EntityTypeTagsProvider {
                 .add(TAEntityTypes.SPIDERLING.get())
                 .add(TAEntityTypes.MOON_ACOLYTE.get())
                 .add(TAEntityTypes.CRYSTALLINE_SPRITE.get());
-        this.tag(TAEntityTags.HAS_CUSTOM_DEATH_ANIMATION)
-                .add(TAEntityTypes.RUNESTONE_KEEPER.get());
     }
 
 }

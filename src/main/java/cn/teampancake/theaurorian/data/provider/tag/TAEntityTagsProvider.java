@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.registry.TAEntityTypes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -20,6 +21,8 @@ public class TAEntityTagsProvider extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
+                .add(TAEntityTypes.AURORIAN_PIXIE.get());
         this.tag(Tags.EntityTypes.BOSSES)
                 .add(TAEntityTypes.RUNESTONE_KEEPER.get())
                 .add(TAEntityTypes.SPIDER_MOTHER.get())

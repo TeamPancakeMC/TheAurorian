@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.client.model;
 
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -9,7 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @SuppressWarnings("unused")
 @OnlyIn(Dist.CLIENT)
-public class AurorianSteelArmorModel extends TAHumanoidModel {
+public class AurorianSteelArmorModel extends HumanoidModel<LivingEntity> {
 
     public AurorianSteelArmorModel(ModelPart root) {
         super(root);

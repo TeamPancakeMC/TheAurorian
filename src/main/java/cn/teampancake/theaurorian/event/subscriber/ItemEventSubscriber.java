@@ -8,8 +8,6 @@ import cn.teampancake.theaurorian.data.tags.TAItemTags;
 import cn.teampancake.theaurorian.registry.TAItems;
 import cn.teampancake.theaurorian.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.utils.AurorianUtil;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,6 +26,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
+import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class ItemEventSubscriber {
@@ -37,13 +36,13 @@ public class ItemEventSubscriber {
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
         if (stack.getItem() instanceof ITooltipsItem tooltipsItem && tooltipsItem.isHasTooltips()) {
-            showTooltips(tooltip, ForgeRegistries.ITEMS.getKey(stack.getItem()));
+            showTooltips(tooltip, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(stack.getItem())));
         }
 
         Ingredient repairItem = null;
-        if (stack.getItem() instanceof ArmorItem armorItem){
+        if (stack.getItem() instanceof ArmorItem armorItem) {
             if (armorItem.getMaterial() == TAArmorMaterials.SPECTRAL) {
-                showTooltips(tooltip, ForgeRegistries.ITEMS.getKey(armorItem));
+                showTooltips(tooltip, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(armorItem)));
                 repairItem = armorItem.getMaterial().getRepairIngredient();
             }
         } else if (stack.getItem() instanceof TieredItem tieredItem) {
@@ -54,19 +53,16 @@ public class ItemEventSubscriber {
             AurorianSteelHelper.getAurorianSteelInfo(stack, tooltip);
         }
 
-        if(repairItem == Ingredient.of(TAItems.CRYSTALLINE_INGOT.get())){
+        if (repairItem == Ingredient.of(TAItems.CRYSTALLINE_INGOT.get())){
             //TODO CRYSTALLINE_INGOT TOOLTIP
         }
     }
 
     private static void showTooltips(List<Component> tooltip, ResourceLocation key) {
         String keyPart = "string.theaurorian.tooltip.";
-        if (!Screen.hasShiftDown()) {
-            tooltip.add(Component.translatable(keyPart + "shiftinfo").withStyle(ChatFormatting.ITALIC));
-        } else if (key != null) {
-            tooltip.add(Component.translatable(keyPart + key.getPath()));
-        }
+        tooltip.add(Component.translatable(keyPart + key.getPath()));
     }
+
     @SubscribeEvent
     public static void onSpectralSuit(LivingAttackEvent event) {
         LivingEntity entity = event.getEntity();
@@ -87,7 +83,7 @@ public class ItemEventSubscriber {
 
     @SubscribeEvent
     public static void SlimeBootsJump(LivingEvent.LivingJumpEvent event) {
-        if (event.getEntity() instanceof Player player){
+        if (event.getEntity() instanceof Player player) {
             if (!player.isShiftKeyDown() && !player.onGround()) return;
             player.getArmorSlots().forEach(stack -> {
                 if (stack.is(TAItems.AURORIAN_SLIME_BOOTS.get()) && player.getCooldowns().isOnCooldown(stack.getItem())) {
@@ -109,4 +105,5 @@ public class ItemEventSubscriber {
             });
         }
     }
+
 }

@@ -130,6 +130,7 @@ public class TASkyRenderer {
     }
 
     private static ResourceLocation getPhaseState(float t) {
+        t = t + 12000;
         if((int)t != dayCount) {
             List<ResourceLocation> colorNames = new ArrayList<>(getDaySkyColors().keySet());
             currentPhase = colorNames.get((int) (Math.random() * getDaySkyColors().size()));

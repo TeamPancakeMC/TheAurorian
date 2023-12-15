@@ -51,8 +51,6 @@ public class DungeonStoneGateKeyhole extends DungeonStoneGate {
             } else {
                 level.playSound(null, player.getOnPos(), SoundEvents.ITEM_BREAK, SoundSource.NEUTRAL, 0.5F, 1F);
             }
-        } else if (level.isClientSide) {
-            player.sendSystemMessage(Component.literal("Unlocked: " + state.getValue(UNLOCKED) + ", Destroyed: " + state.getValue(DESTROYED)));
         }
         return InteractionResult.SUCCESS;
     }

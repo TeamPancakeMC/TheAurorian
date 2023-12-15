@@ -35,13 +35,13 @@ public class TADimensions {
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
         NoiseGeneratorSettings settings = new NoiseGeneratorSettings(NoiseSettings.OVERWORLD_NOISE_SETTINGS,
                 TABlocks.AURORIAN_STONE.get().defaultBlockState(), TABlocks.MOON_WATER.get().defaultBlockState(), NoiseRouterData.none(),
-                createSurfaceRule(), List.of(), 3, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE);
+                createSurfaceRule(), List.of(), 4, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE);
         context.register(AURORIAN_NOISE_SETTINGS, settings);
     }
 
     public static void bootstrapType(BootstapContext<DimensionType> context) {
         DimensionType dimensionType = new DimensionType(OptionalLong.empty(), Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, 1.0D,
-                Boolean.TRUE, Boolean.FALSE, -64, 384, 384, BlockTags.INFINIBURN_OVERWORLD, AurorianMod.prefix("aurorian"), 15.0F,
+                Boolean.TRUE, Boolean.FALSE, -64, 384, 384, BlockTags.INFINIBURN_OVERWORLD, AurorianMod.prefix("aurorian"), 0.0F,
                 new DimensionType.MonsterSettings(Boolean.FALSE, Boolean.TRUE, UniformInt.of(ConstantInt.ZERO.getValue(), 7), ConstantInt.ZERO.getValue()));
         context.register(AURORIAN_DIMENSION_TYPE, dimensionType);
     }
@@ -51,7 +51,7 @@ public class TADimensions {
         HolderGetter<DimensionType> dimensionType = context.lookup(Registries.DIMENSION_TYPE);
         HolderGetter<NoiseGeneratorSettings> noiseSettings = context.lookup(Registries.NOISE_SETTINGS);
         NoiseBasedChunkGenerator chunkGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
-                TABiomeBuilder.makeBiomeList(biome, biome.getOrThrow(TABiomes.UNDERGROUND)), -1.25F, 2.5F,
+                TABiomeBuilder.makeBiomeList(biome), -1.25F, 2.5F,
                 context.lookup(TABiomeLayerStack.BIOME_STACK_KEY).getOrThrow(TABiomeLayerStack.BIOMES_ALONG_STREAMS)),
                 noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
         LevelStem levelStem = new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
@@ -71,10 +71,9 @@ public class TADimensions {
         ConditionSource notUnderDeepWater = waterStartCheck(-6, (-1));
         RuleSource overworldLike = sequence(
                 ifTrue(ON_FLOOR, sequence(ifTrue(notUnderWater, sequence(
-                        ifTrue(isBiome(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_PLAINS), aurorianGrassBlock),
                         ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST), lightAurorianGrassBlock),
                         ifTrue(isBiome(TABiomes.EQUINOX_FLOWER_PLAINS), redAurorianGrassBlock),
-                        ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSand))))),
+                        ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSand), aurorianGrassBlock)))),
                 ifTrue(notUnderDeepWater, sequence(ifTrue(UNDER_FLOOR, sequence(
                         ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSandstone), aurorianDirt)))));
         RuleSource bedrockFloor = ifTrue(verticalGradient("bedrock_floor", VerticalAnchor.bottom(),

@@ -3,7 +3,7 @@ package cn.teampancake.theaurorian.registry;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.level.biome.layer.FilteredBiomeLayer;
 import cn.teampancake.theaurorian.common.level.biome.layer.RandomBiomeLayer;
-import cn.teampancake.theaurorian.common.level.biome.layer.RiverLayer;
+import cn.teampancake.theaurorian.common.level.biome.layer.SeamLayer;
 import cn.teampancake.theaurorian.common.level.legacy.layer.BiomeLayerType;
 import cn.teampancake.theaurorian.common.level.legacy.layer.SmoothLayer;
 import cn.teampancake.theaurorian.common.level.legacy.layer.ZoomLayer;
@@ -26,7 +26,7 @@ public class TABiomeLayers {
     public static final Codec<BiomeLayerType> CODEC = ExtraCodecs.lazyInitializedCodec(() -> REGISTRY.get().getCodec());
 
     public static final RegistryObject<BiomeLayerType> ZOOM = registerType("zoom", () -> () -> ZoomLayer.Factory.CODEC);
-    public static final RegistryObject<BiomeLayerType> RIVER = registerType("river", () -> () -> RiverLayer.Factory.CODEC);
+    public static final RegistryObject<BiomeLayerType> RIVER = registerType("river", () -> () -> SeamLayer.Factory.CODEC);
     public static final RegistryObject<BiomeLayerType> SMOOTH = registerType("smooth", () -> () -> SmoothLayer.Factory.CODEC);
     public static final RegistryObject<BiomeLayerType> FILTERED = registerType("filtered", () -> () -> FilteredBiomeLayer.Factory.CODEC);
     public static final RegistryObject<BiomeLayerType> RANDOM_BIOMES = registerType("random_biomes", () -> () -> RandomBiomeLayer.Factory.CODEC);

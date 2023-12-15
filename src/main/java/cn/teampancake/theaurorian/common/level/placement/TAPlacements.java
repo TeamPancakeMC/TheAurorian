@@ -55,7 +55,7 @@ public class TAPlacements {
         PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_FOREST, patchAurorianFlowerHolder, VegetationPlacements.worldSurfaceSquaredWithCount(5));
         PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_PLAINS, patchAurorianFlowerHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_EQUINOX_FLOWER, patchEquinoxFlowerHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
-        PlacementUtils.register(context, TREES_AURORIAN_FOREST, treesAurorianForestHolder, VegetationPlacements.treePlacement(PlacementUtils.countExtra((10), (0.1F), (1))));
+        PlacementUtils.register(context, TREES_AURORIAN_FOREST, treesAurorianForestHolder, VegetationPlacements.treePlacement(PlacementUtils.countExtra((6), (0.1F), (1))));
         PlacementUtils.register(context, SILENT_TREE, silentTreeHolder, PlacementUtils.filteredByBlockSurvival(TABlocks.SILENT_TREE_SAPLING.get()));
         PlacementUtils.register(context, ORE_AURORIAN_PERIDOTITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_PERIDOTITE),
                 OrePlacements.commonOrePlacement(10, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(100))));

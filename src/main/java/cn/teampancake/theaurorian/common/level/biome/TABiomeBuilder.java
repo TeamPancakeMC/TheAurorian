@@ -15,23 +15,23 @@ import java.util.function.Consumer;
 
 public class TABiomeBuilder {
 
-    public static List<TATerrainColumn> makeBiomeList(HolderGetter<Biome> biomeRegistry, Holder<Biome> undergroundBiome) {
-        return List.of(
-                biomeColumnWithUnderground(0.05F, 0.1F, biomeRegistry, TABiomes.AURORIAN_PLAINS, undergroundBiome),
-                biomeColumnWithUnderground(0.06F, 0.1F, biomeRegistry, TABiomes.AURORIAN_FOREST, undergroundBiome),
-                biomeColumnWithUnderground(0.06F, 0.02F, biomeRegistry, TABiomes.EQUINOX_FLOWER_PLAINS, undergroundBiome),
-                biomeColumnWithUnderground(0.07F, 0.05F, biomeRegistry, TABiomes.WEEPING_WILLOW_FOREST, undergroundBiome),
-                biomeColumnWithUnderground(0.06F, 0.03F, biomeRegistry, TABiomes.BRIGHT_MOON_DESERT, undergroundBiome),
-                biomeColumnWithUnderground(-1.65F, 0.25F, biomeRegistry, TABiomes.AURORIAN_RIVER, undergroundBiome)
-        );
+    public static List<TATerrainColumn> makeBiomeList(HolderGetter<Biome> biomeRegistry) {
+        return List.of(biomeColumnWithUnderground(0.25F, 0.3F, biomeRegistry, TABiomes.AURORIAN_PLAINS),
+                biomeColumnWithUnderground(0.25F, 0.3F, biomeRegistry, TABiomes.AURORIAN_FOREST),
+                biomeColumnWithUnderground(0.4F, 0.4F, biomeRegistry, TABiomes.AURORIAN_FOREST_HILL),
+                biomeColumnWithUnderground(0.25F, 0.3F, biomeRegistry, TABiomes.EQUINOX_FLOWER_PLAINS),
+                biomeColumnWithUnderground(0.3F, 0.4F, biomeRegistry, TABiomes.WEEPING_WILLOW_FOREST),
+                biomeColumnWithUnderground(0.3F, 0.4F, biomeRegistry, TABiomes.BRIGHT_MOON_DESERT),
+                biomeColumnWithUnderground(-1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_RIVER),
+                biomeColumnWithUnderground(-1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_LAKE));
     }
 
-    private static TATerrainColumn biomeColumnWithUnderground(float noiseDepth, float noiseScale, HolderGetter<Biome> biomeRegistry, ResourceKey<Biome> key, Holder<Biome> undergroundBiome) {
+    private static TATerrainColumn biomeColumnWithUnderground(float noiseDepth, float noiseScale, HolderGetter<Biome> biomeRegistry, ResourceKey<Biome> key) {
         Holder.Reference<Biome> biomeHolder = biomeRegistry.getOrThrow(key);
         biomeHolder.bindKey(key);
         return makeColumn(noiseDepth, noiseScale, biomeHolder, treeMap -> {
             treeMap.put(Math.min(noiseDepth - 1, -1), biomeHolder);
-            treeMap.put(Math.min(noiseDepth - 3, -3), undergroundBiome);
+            treeMap.put(Math.min(noiseDepth - 3, -3), biomeRegistry.getOrThrow(TABiomes.UNDERGROUND));
         });
     }
 

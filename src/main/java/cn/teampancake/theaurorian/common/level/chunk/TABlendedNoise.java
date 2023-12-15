@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.synth.PerlinNoise;
 public class TABlendedNoise extends BlendedNoise {
 
     public TABlendedNoise(RandomSource random) {
-        super(random, 0.9999999814507745, 0.9999999814507745, 80.0, 160.0, 0.0D);
+        super(random, 0.25D, 0.125D, 80.0D, 160.0D, 8.0D);
     }
 
     public double sampleAndClampNoise(int x, int y, int z, double scaleXZ, double scaleY, double factorXZ, double factorY) {
@@ -18,7 +18,7 @@ public class TABlendedNoise extends BlendedNoise {
         double d1 = 0.0D;
         double d2 = 0.0D;
         double scale = 1.0D;
-        for(int oct = 0; oct < 8; ++oct) {
+        for (int oct = 0; oct < 8; ++oct) {
             ImprovedNoise improvedNoise = this.mainNoise.getOctaveNoise(oct);
             if (improvedNoise != null) {
                 double xn = PerlinNoise.wrap((double)x * factorXZ * scale);

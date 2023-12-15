@@ -20,7 +20,7 @@ import net.minecraft.world.level.biome.Biome;
 import java.util.List;
 import java.util.function.LongFunction;
 
-public record RiverLayer(ResourceKey<Biome> partitioningBiome, List<ResourceKey<Biome>> excludedBiomeNeighbors, List<Pair<ResourceKey<Biome>, ResourceKey<Biome>>> excludedBiomeIntersections) implements CastleTransformer {
+public record SeamLayer(ResourceKey<Biome> partitioningBiome, List<ResourceKey<Biome>> excludedBiomeNeighbors, List<Pair<ResourceKey<Biome>, ResourceKey<Biome>>> excludedBiomeIntersections) implements CastleTransformer {
 
     @Override
     public ResourceKey<Biome> apply(Context context, ResourceKey<Biome> up, ResourceKey<Biome> left, ResourceKey<Biome> down, ResourceKey<Biome> right, ResourceKey<Biome> mid) {
@@ -74,14 +74,14 @@ public record RiverLayer(ResourceKey<Biome> partitioningBiome, List<ResourceKey<
         private final List<ResourceKey<Biome>> excludedBiomeNeighbors;
         private final List<Pair<ResourceKey<Biome>, ResourceKey<Biome>>> excludedBiomeIntersections;
         private final Holder<BiomeLayerFactory> parent;
-        private final RiverLayer instance;
+        private final SeamLayer instance;
 
         public Factory(long salt, ResourceKey<Biome> partitioningBiome, List<ResourceKey<Biome>> excludedBiomeNeighbors, List<Pair<ResourceKey<Biome>, ResourceKey<Biome>>> excludedBiomeIntersections, Holder<BiomeLayerFactory> parent) {
             this.salt = salt;
             this.partitioningBiome = partitioningBiome;
             this.excludedBiomeNeighbors = excludedBiomeNeighbors;
             this.excludedBiomeIntersections = excludedBiomeIntersections;
-            this.instance = new RiverLayer(partitioningBiome, excludedBiomeNeighbors, excludedBiomeIntersections);
+            this.instance = new SeamLayer(partitioningBiome, excludedBiomeNeighbors, excludedBiomeIntersections);
             this.parent = parent;
         }
 

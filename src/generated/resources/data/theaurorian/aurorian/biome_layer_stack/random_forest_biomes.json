@@ -7,11 +7,13 @@
             "parent": {
               "common_biomes": [
                 "theaurorian:aurorian_plains",
-                "theaurorian:aurorian_forest"
+                "theaurorian:aurorian_forest",
+                "theaurorian:aurorian_forest_hill"
               ],
               "layer_type": "theaurorian:random_biomes",
               "rare_biome_chance": 15,
               "rare_biomes": [
+                "theaurorian:aurorian_lake",
                 "theaurorian:weeping_willow_forest",
                 "theaurorian:bright_moon_desert",
                 "theaurorian:equinox_flower_plains"

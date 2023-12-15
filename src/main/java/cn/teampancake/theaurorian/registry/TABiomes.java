@@ -27,6 +27,8 @@ public class TABiomes {
     public static final ResourceKey<Biome> AURORIAN_PLAINS = createKey("aurorian_plains");
     public static final ResourceKey<Biome> AURORIAN_BEACH = createKey("aurorian_beach");
     public static final ResourceKey<Biome> AURORIAN_RIVER = createKey("aurorian_river");
+    public static final ResourceKey<Biome> AURORIAN_LAKE = createKey("aurorian_lake");
+    public static final ResourceKey<Biome> AURORIAN_FOREST_HILL = createKey("aurorian_forest_hill");
     public static final ResourceKey<Biome> EQUINOX_FLOWER_PLAINS = createKey("equinox_flower_plains");
     public static final ResourceKey<Biome> WEEPING_WILLOW_FOREST = createKey("weeping_willow_forest");
     public static final ResourceKey<Biome> BRIGHT_MOON_DESERT = createKey("bright_moon_desert");
@@ -42,6 +44,8 @@ public class TABiomes {
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
         context.register(AURORIAN_FOREST, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)).build());
+        context.register(AURORIAN_FOREST_HILL, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+                .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)).build());
         context.register(AURORIAN_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_PLAINS)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_PLAINS)
@@ -49,6 +53,7 @@ public class TABiomes {
                 ParticleTypes.FIREWORK, 0.00375F).build());
         context.register(AURORIAN_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(AURORIAN_RIVER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
+        context.register(AURORIAN_LAKE, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(EQUINOX_FLOWER_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_EQUINOX_FLOWER), ParticleTypes.SOUL, 0.0025F).build());
         context.register(WEEPING_WILLOW_FOREST, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
@@ -59,9 +64,9 @@ public class TABiomes {
     private static Biome.BiomeBuilder biomeOfForests(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
         return biomeWithParticle(biomeGenerationSettings
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_FOREST)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_FOREST),
+                        .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_FOREST)
+                        .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
+                        .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_FOREST),
                 ParticleTypes.FIREWORK, 0.00625F);
     }
 
@@ -75,7 +80,8 @@ public class TABiomes {
     private static Biome.BiomeBuilder biomeWithParticle(
             BiomeGenerationSettings.Builder biomeGenerationSettings, ParticleOptions options, float probability) {
         return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature(0.2F).downfall(0.0F)
-                .specialEffects(defaultAmbientWithParticleBuilder(options, probability).build()).mobSpawnSettings(defaultMobSpawning().build())
+                .specialEffects(defaultAmbientWithParticleBuilder(options, probability).build())
+                .mobSpawnSettings(defaultMobSpawning().build())
                 .generationSettings(defaultOreBuilder(biomeGenerationSettings).build())
                 .temperatureAdjustment(Biome.TemperatureModifier.NONE);
     }
@@ -83,6 +89,7 @@ public class TABiomes {
     private static BiomeGenerationSettings.Builder defaultOreBuilder(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         GenerationStep.Decoration undergroundOre = GenerationStep.Decoration.UNDERGROUND_ORES;
         return biomeGenerationSettings.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
+                .addCarver(GenerationStep.Carving.AIR, Carvers.CAVE_EXTRA_UNDERGROUND)
                 .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_PERIDOTITE)
                 .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_DIRT)
                 .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_COAL)

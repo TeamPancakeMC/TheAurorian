@@ -9,10 +9,10 @@ import cn.teampancake.theaurorian.registry.TAItems;
 import cn.teampancake.theaurorian.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.utils.AurorianUtil;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -36,13 +36,13 @@ public class ItemEventSubscriber {
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
         if (stack.getItem() instanceof ITooltipsItem tooltipsItem && tooltipsItem.isHasTooltips()) {
-            showTooltips(tooltip, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(stack.getItem())));
+            showTooltips(tooltip, stack.getItem());
         }
 
         Ingredient repairItem = null;
         if (stack.getItem() instanceof ArmorItem armorItem) {
             if (armorItem.getMaterial() == TAArmorMaterials.SPECTRAL) {
-                showTooltips(tooltip, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(armorItem)));
+                showTooltips(tooltip, armorItem);
                 repairItem = armorItem.getMaterial().getRepairIngredient();
             }
         } else if (stack.getItem() instanceof TieredItem tieredItem) {
@@ -58,9 +58,10 @@ public class ItemEventSubscriber {
         }
     }
 
-    private static void showTooltips(List<Component> tooltip, ResourceLocation key) {
+    private static void showTooltips(List<Component> tooltip, Item item) {
         String keyPart = "string.theaurorian.tooltip.";
-        tooltip.add(Component.translatable(keyPart + key.getPath()));
+        String path = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
+        tooltip.add(Component.translatable(keyPart + path));
     }
 
     @SubscribeEvent

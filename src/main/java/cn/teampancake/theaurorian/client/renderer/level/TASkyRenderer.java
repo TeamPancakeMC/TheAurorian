@@ -111,7 +111,7 @@ public class TASkyRenderer {
 
     public static Vec3 getSkyColor(ClientLevel level, Vec3 pos) {
         float timeOfDay = level.dimensionType().timeOfDay(1000L);
-        int rgbColor = smoothColorTransition(level.dayTime() / 24000.0F);
+        int rgbColor = smoothColorTransition((level.dayTime() + 12000L) / 24000.0F);
         Vec3 vec3 = pos.subtract(2.0D, 2.0D, 2.0D).scale(0.25D);
         Vec3 vec31 = CubicSampler.gaussianSampleVec3(vec3, (x, y, z) -> Vec3.fromRGB24(rgbColor));
         float f1 = Mth.cos(timeOfDay * ((float) Math.PI * 2F)) * 2.0F + 0.5F;

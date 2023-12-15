@@ -8,7 +8,9 @@
         "InvokeAbstractFurnaceBlockEntity",
         "MixinDiggerItem"
     ],
-    "client": [],
+    "client": [
+        "MixinLightTexture"
+    ],
     "injectors": {
         "defaultRequire": 1
   }

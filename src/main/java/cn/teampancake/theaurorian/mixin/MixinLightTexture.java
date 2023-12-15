@@ -19,7 +19,7 @@ public class MixinLightTexture {
     private float updateLightTexture(float f) {
         ClientLevel level = this.minecraft.level;
         if (level != null && level.dimension() == TADimensions.AURORIAN_DIMENSION) {
-            return Math.min(f, 0.4F);
+            return Math.min(f, 0.35F);
         }
 
         return f;

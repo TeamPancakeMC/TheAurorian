@@ -27,10 +27,12 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), "Light Aurorian Grass Block");
         this.add(TABlocks.RED_AURORIAN_GRASS_BLOCK.get(), "Red Aurorian Grass Block");
         this.add(TABlocks.AURORIAN_FARM_TILE.get(), "Aurorian Farm Tile");
-        this.add(TABlocks.AURORIAN_GLASS.get(), "Aurorian Glass");
         this.add(TABlocks.MOON_GLASS.get(), "Moon Glass");
-        this.add(TABlocks.AURORIAN_GLASS_PANE.get(), "Aurorian Glass Pane");
+        this.add(TABlocks.AURORIAN_GLASS.get(), "Aurorian Glass");
+        this.add(TABlocks.DARK_STONE_GLASS.get(), "Dark Stone Glass");
         this.add(TABlocks.MOON_GLASS_PANE.get(), "Moon Glass Pane");
+        this.add(TABlocks.AURORIAN_GLASS_PANE.get(), "Aurorian Glass Pane");
+        this.add(TABlocks.DARK_STONE_GLASS_PANE.get(), "Dark Stone Glass Pane");
         this.add(TABlocks.AURORIAN_GRASS.get(), "Aurorian Grass");
         this.add(TABlocks.AURORIAN_GRASS_LIGHT.get(), "Light Aurorian Grass");
         this.add(TABlocks.AURORIAN_FURNACE.get(), "Aurorian Furnace");
@@ -58,10 +60,14 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.TRANSPARENT_RUNE_STONE.get(), "Transparent Runestone");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE.get(), "Umbra Castle Runestone");
         this.add(TABlocks.RUNE_STONE_PILLAR.get(), "Runestone Pillar");
+        this.add(TABlocks.DARK_STONE_PILLAR.get(), "Dark Stone Pillar");
+        this.add(TABlocks.MOON_TEMPLE_PILLAR.get(), "Moon Temple Pillar");
         this.add(TABlocks.MOON_TEMPLE_BRICKS.get(), "Moon Temple Bricks");
         this.add(TABlocks.DARK_STONE_BRICKS.get(), "Dark Stone Bricks");
         this.add(TABlocks.DARK_STONE_FANCY.get(), "Dark Stone Fancy");
         this.add(TABlocks.DARK_STONE_LAYERS.get(), "Dark Stone Layers");
+        this.add(TABlocks.SMOOTH_DARK_STONE_BRICKS.get(), "Smooth Dark Stone");
+        this.add(TABlocks.CHISELED_DARK_STONE_BRICKS.get(), "Chiseled Dark Stone");
         this.add(TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get(), "Smooth Moon Temple Bricks");
         this.add(TABlocks.RUNE_STONE_LAMP.get(), "Runestone Lamp");
         this.add(TABlocks.DARK_STONE_LAMP.get(), "Dark Stone Lamp");
@@ -72,6 +78,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_STEEL_BLOCK.get(), "Aurorian Steel Block");
         this.add(TABlocks.MYSTICAL_BARRIER.get(), "Mystical Barrier");
         this.add(TABlocks.RUNE_STONE_BARS.get(), "Rune stone Bars");
+        this.add(TABlocks.DARK_STOME_BARS.get(), "Dark stone Bars");
         this.add(TABlocks.MOON_TEMPLE_BARS.get(), "Moon Temple Bars");
         this.add(TABlocks.RUNE_STONE_GATE.get(), "Runestone Gate");
         this.add(TABlocks.DARK_STONE_GATE.get(), "Dark Stone Gate");
@@ -100,6 +107,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.UMBRA_STONE.get(), "Umbra Stone");
         this.add(TABlocks.UMBRA_STONE_CRACKED.get(), "Cracked Umbra Stone");
         this.add(TABlocks.UMBRA_STONE_ROOF_TILES.get(), "Umbra Stone Roof Tiles");
+        this.add(TABlocks.SILENT_BUSH_LEAVES.get(), "Silent Bush Leaves");
         this.add(TABlocks.SILENT_TREE_LEAVES.get(), "Silent Tree Leaves");
         this.add(TABlocks.SILENT_TREE_LOG.get(), "Silent Tree Log");
         this.add(TABlocks.SILENT_TREE_PLANKS.get(), "Silent Tree Planks");
@@ -126,8 +134,12 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.MOON_CASTLE_RUNE_STONE_STAIRS.get(), "Moon Castle Runestone Stairs");
         this.add(TABlocks.TRANSPARENT_RUNE_STONE_STAIRS.get(), "Transparent Runestone Stairs");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE_STAIRS.get(), "Umbra Castle Runestone Stairs");
-        this.add(TABlocks.MOON_TEMPLE_STAIRS.get(), "Moon Temple Stairs");
-        this.add(TABlocks.DARK_STONE_STAIRS.get(), "Dark Stone Stairs");
+        this.add(TABlocks.DARK_STONE_BRICK_STAIRS.get(), "Dark Stone Brick Stairs");
+        this.add(TABlocks.SMOOTH_DARK_STONE_BRICK_STAIRS.get(), "Smooth Dark Stone Brick Stairs");
+        this.add(TABlocks.CHISELED_DARK_STONE_BRICK_STAIRS.get(), "Chiseled Dark Stone Brick Stairs");
+        this.add(TABlocks.MOON_TEMPLE_BRICK_STAIRS.get(), "Moon Temple Brick Stairs");
+        this.add(TABlocks.SMOOTH_MOON_TEMPLE_BRICK_STAIRS.get(), "Smooth Moon Temple Brick Stairs");
+        this.add(TABlocks.CHISELED_MOON_TEMPLE_BRICK_STAIRS.get(), "Chiseled Moon Temple Brick Stairs");
         this.add(TABlocks.UMBRA_STONE_STAIRS.get(), "Umbra Stone Stairs");
         this.add(TABlocks.UMBRA_STONE_CRACKED_STAIRS.get(), "Cracked Umbra Stone Stairs");
         this.add(TABlocks.UMBRA_STONE_ROOF_STAIRS.get(), "Umbra Stone Roof Tiles Stairs");
@@ -148,8 +160,12 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.MOON_CASTLE_RUNE_STONE_SLAB.get(), "Moon Castle Runestone Slab");
         this.add(TABlocks.TRANSPARENT_RUNE_STONE_SLAB.get(), "Transparent Runestone Slab");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE_SLAB.get(), "Umbra Castle Runestone Slab");
-        this.add(TABlocks.MOON_TEMPLE_SLAB.get(), "Moon Temple Slab");
-        this.add(TABlocks.DARK_STONE_SLAB.get(), "Dark Stone Slab");
+        this.add(TABlocks.DARK_STONE_BRICK_SLAB.get(), "Dark Stone Brick Slab");
+        this.add(TABlocks.SMOOTH_DARK_STONE_BRICK_SLAB.get(), "Smooth Dark Stone Brick Slab");
+        this.add(TABlocks.CHISELED_DARK_STONE_BRICK_SLAB.get(), "Chiseled Dark Stone Brick Slab");
+        this.add(TABlocks.MOON_TEMPLE_BRICK_SLAB.get(), "Moon Temple Brick Slab");
+        this.add(TABlocks.SMOOTH_MOON_TEMPLE_BRICK_SLAB.get(), "Smooth Moon Temple Brick Slab");
+        this.add(TABlocks.CHISELED_MOON_TEMPLE_BRICK_SLAB.get(), "Chiseled Moon Temple Brick Slab");
         this.add(TABlocks.UMBRA_STONE_SLAB.get(), "Umbra Stone Slab");
         this.add(TABlocks.UMBRA_STONE_CRACKED_SLAB.get(), "Cracked Umbra Stone Slab");
         this.add(TABlocks.UMBRA_STONE_ROOF_SLAB.get(), "Umbra Stone Roof Tiles Slab");
@@ -169,8 +185,12 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.MOON_CASTLE_RUNE_STONE_WALL.get(), "Moon Castle Runestone Wall");
         this.add(TABlocks.TRANSPARENT_RUNE_STONE_WALL.get(), "Transparent Runestone Wall");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE_WALL.get(), "Umbra Castle Runestone Wall");
-        this.add(TABlocks.MOON_TEMPLE_WALL.get(), "Moon Temple Wall");
-        this.add(TABlocks.DARK_STONE_WALL.get(), "Dark Stone Wall");
+        this.add(TABlocks.DARK_STONE_BRICK_WALL.get(), "Dark Stone Brick Wall");
+        this.add(TABlocks.SMOOTH_DARK_STONE_BRICK_WALL.get(), "Smooth Dark Stone Brick Wall");
+        this.add(TABlocks.CHISELED_DARK_STONE_BRICK_WALL.get(), "Chiseled Dark Stone Brick Wall");
+        this.add(TABlocks.MOON_TEMPLE_BRICK_WALL.get(), "Moon Temple Brick Wall");
+        this.add(TABlocks.SMOOTH_MOON_TEMPLE_BRICK_WALL.get(), "Smooth Moon Temple Brick Wall");
+        this.add(TABlocks.CHISELED_MOON_TEMPLE_BRICK_WALL.get(), "Chiseled Moon Temple Brick Wall");
         this.add(TABlocks.UMBRA_STONE_WALL.get(), "Umbra Stone Wall");
         this.add(TABlocks.UMBRA_STONE_CRACKED_WALL.get(), "Cracked Umbra Stone Wall");
         this.add(TABlocks.UMBRA_STONE_ROOF_WALL.get(), "Umbra Stone Roof Tiles Wall");
@@ -189,6 +209,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_COAL.get(),"Aurorian Coal");
         this.add(TAItems.AURORIAN_COAL_NUGGET.get(),"Aurorian Coal Nugget");
         this.add(TAItems.AURORIAN_PORK.get(),"Aurorian Pork");
+        this.add(TAItems.MOON_FISH_SPAWN_EGG.get(), "Moon Fish Spawn Egg");
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(),"Aurorian Pig Spawn Egg");
         this.add(TAItems.AURORIAN_RABBIT_SPAWN_EGG.get(),"Aurorian Rabbit Spawn Egg");
         this.add(TAItems.AURORIAN_SHEEP_SPAWN_EGG.get(),"Aurorian Sheep Spawn Egg");
@@ -250,7 +271,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.LAVENDER_TEA.get(),"Lavender Tea");
         this.add(TAItems.LAVENDER_SEEDS.get(),"Lavender Seeds");
         this.add(TAItems.LIVING_DIVINING_ROD.get(),"Living Divining Rod");
+        this.add(TAItems.MOON_FISH_BUCKET.get(), "Moon Fish Bucket");
         this.add(TAItems.LOCK_PICKS.get(),"Lock Picks");
+        this.add(TAItems.DEVELOPER_GIFT.get(), "Developer Gift");
         this.add(TAItems.MOON_ACOLYTE_SPAWN_EGG.get(),"Moon Acolyte Spawn Egg");
         this.add(TAItems.MOON_QUEEN_SPAWN_EGG.get(),"Moon Queen Spawn Egg");
         this.add(TAItems.MOONSTONE_INGOT.get(),"Moonstone Ingot");
@@ -273,6 +296,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.SILENT_WOOD_SHOVEL.get(),"Silent Wood Shovel");
         this.add(TAItems.SILENT_WOOD_SWORD.get(),"Silent Wood Sword");
         this.add(TAItems.SILENT_WOOD_BOW.get(),"Silent Wood Bow");
+        this.add(TAItems.SILENT_WOOD_STICK.get(), "Silent Wood Stick");
+        this.add(TAItems.BLUE_BERRY.get(),"Blue Berry");
         this.add(TAItems.SILK_BERRY.get(),"Silk Berry");
         this.add(TAItems.SILK_BERRY_JAM.get(),"Silk Berry Jam");
         this.add(TAItems.SILK_BERRY_JAM_SANDWICH.get(),"Silk Berry Jam Sandwich");
@@ -280,6 +305,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.SILK_SHROOM_STEW.get(),"Silk Shroom Stew");
         this.add(TAItems.SLEEPING_BLACK_TEA.get(),"Sleeping Black Tea");
         this.add(TAItems.SOULLESS_FLESH.get(),"Soulless Flesh");
+        this.add(TAItems.MOON_FISH.get(), "Moon Fish");
         this.add(TAItems.SPECTRAL_SILK.get(),"Spectral Silk");
         this.add(TAItems.SPECTRAL_HELMET.get(),"Spectral Helmet");
         this.add(TAItems.SPECTRAL_CHESTPLATE.get(),"Spectral Chestplate");
@@ -299,8 +325,14 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.UMBRA_SWORD.get(),"Umbra Sword");
         this.add(TAItems.UMBRA_PICKAXE.get(),"Umbra Pickaxe");
         this.add(TAItems.UNDEAD_KNIGHT_SPAWN_EGG.get(),"Undead Knight Spawn Egg");
-        this.add(TAItems.WEBBING.get(),"Webbing");
+        this.add(TAItems.AURORIAN_CHAIN.get(),"Aurorian Chain");
+        this.add(TAItems.AURORIAN_BERRY.get(),"Aurorian Berry");
+        this.add(TAItems.AURORIAN_CRYSTAL.get(),"Aurorian Crystal");
+        this.add(TAItems.EQUINOX_MUSHROOM.get(),"Equinox Mushroom");
+        this.add(TAItems.WORLD_SCROLL_FRAGMENT.get(),"World Scroll Fragment");
+        this.add(TAItems.WORLD_SCROLL.get(),"World Scroll");
         this.add(TAItems.WEEPING_WILLOW_SAP.get(),"Weeping Willow Sap");
+        this.add(TAItems.WEBBING.get(),"Webbing");
 
         //MOD ENTITY
         this.add(TAEntityTypes.CRYSTALLINE_BEAM.get(), "Crystalline Beam");
@@ -309,6 +341,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.STICKY_SPIKER.get(), "Sticky Spiker");
         this.add(TAEntityTypes.WEBBING.get(), "Webbing");
         this.add(TAEntityTypes.EYE_OF_DISTURBED.get(), "Eye Of Disturbed");
+        this.add(TAEntityTypes.MOON_FISH.get(), "Moon Fish");
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "Aurorian Rabbit");
         this.add(TAEntityTypes.AURORIAN_SHEEP.get(), "Aurorian Sheep");
         this.add(TAEntityTypes.AURORIAN_PIG.get(), "Aurorian Pig");

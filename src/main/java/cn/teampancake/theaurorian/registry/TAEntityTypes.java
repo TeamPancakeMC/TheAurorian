@@ -5,10 +5,7 @@ import cn.teampancake.theaurorian.client.model.*;
 import cn.teampancake.theaurorian.client.model.circle.LunaCircleModel;
 import cn.teampancake.theaurorian.client.renderer.entity.*;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
-import cn.teampancake.theaurorian.common.entities.animal.AurorianPig;
-import cn.teampancake.theaurorian.common.entities.animal.AurorianPixie;
-import cn.teampancake.theaurorian.common.entities.animal.AurorianRabbit;
-import cn.teampancake.theaurorian.common.entities.animal.AurorianSheep;
+import cn.teampancake.theaurorian.common.entities.animal.*;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
@@ -21,6 +18,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -63,6 +61,9 @@ public class TAEntityTypes {
             () -> EntityType.Builder.of(LunaCircleEntity::new, MobCategory.MISC).sized(5.0F, 0.1F)
                     .clientTrackingRange(4).updateInterval(10).build("luna_circle"));
     //Animal
+    public static final RegistryObject<EntityType<MoonFish>> MOON_FISH = ENTITY_TYPES.register("moon_fish",
+            () -> EntityType.Builder.of(MoonFish::new, MobCategory.CREATURE).sized(0.3F, 0.3F)
+                    .clientTrackingRange(4).build("quartz_fish"));
     public static final RegistryObject<EntityType<AurorianRabbit>> AURORIAN_RABBIT = ENTITY_TYPES.register("aurorian_rabbit",
             () -> EntityType.Builder.of(AurorianRabbit::new, MobCategory.CREATURE).sized(0.4F, 0.5F)
                     .clientTrackingRange(8).build("aurorian_rabbit"));
@@ -118,6 +119,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(WEBBING.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(EYE_OF_DISTURBED.get(), EyeOfDisturbedRenderer::new);
         event.registerEntityRenderer(LUNA_CIRCLE.get(), LunaCircleRenderer::new);
+        event.registerEntityRenderer(MOON_FISH.get(), MoonFishRenderer::new);
         event.registerEntityRenderer(AURORIAN_RABBIT.get(), AurorianRabbitRenderer::new);
         event.registerEntityRenderer(AURORIAN_SHEEP.get(), AurorianSheepRenderer::new);
         event.registerEntityRenderer(AURORIAN_PIG.get(), AurorianPigRenderer::new);
@@ -138,6 +140,7 @@ public class TAEntityTypes {
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(TAModelLayers.LUNA_CIRCLE, LunaCircleModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.QUARTZ_FISH, MoonFishModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_RABBIT, AurorianRabbitModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SHEEP, AurorianSheepModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_PIG, AurorianPigModel::createBodyLayer);
@@ -162,20 +165,22 @@ public class TAEntityTypes {
 
     @SubscribeEvent
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
-        normalEntitySpawn(event, AURORIAN_RABBIT.get(), AurorianRabbit::checkAurorianRabbitSpawnRules);
-        normalEntitySpawn(event, AURORIAN_SHEEP.get(), AurorianSheep::checkAurorianSheepSpawnRules);
-        normalEntitySpawn(event, AURORIAN_PIG.get(), AurorianPig::checkAurorianPigSpawnRules);
-        normalEntitySpawn(event, AURORIAN_SLIME.get(), AurorianSlime::checkAurorianSlimeSpawnRules);
-        normalEntitySpawn(event, DISTURBED_HOLLOW.get(), Monster::checkMonsterSpawnRules);
-        normalEntitySpawn(event, UNDEAD_KNIGHT.get(), UndeadKnight::checkUndeadKnightSpawnRules);
-        normalEntitySpawn(event, SPIRIT.get(), Spirit::checkSpiritSpawnRules);
-        normalEntitySpawn(event, MOON_ACOLYTE.get(), MoonAcolyte::checkMoonAcolyteRules);
-        normalEntitySpawn(event, SPIDERLING.get(), Spiderling::checkSpiderlingSpawnRules);
-        normalEntitySpawn(event, CRYSTALLINE_SPRITE.get(), CrystallineSprite::checkCrystallineSpriteRules);
+        normalEntitySpawn(event, MOON_FISH.get(), SpawnPlacements.Type.IN_WATER, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+        normalEntitySpawn(event, AURORIAN_RABBIT.get(), SpawnPlacements.Type.ON_GROUND, AurorianRabbit::checkAurorianRabbitSpawnRules);
+        normalEntitySpawn(event, AURORIAN_SHEEP.get(), SpawnPlacements.Type.ON_GROUND, AurorianSheep::checkAurorianSheepSpawnRules);
+        normalEntitySpawn(event, AURORIAN_PIG.get(), SpawnPlacements.Type.ON_GROUND, AurorianPig::checkAurorianPigSpawnRules);
+        normalEntitySpawn(event, AURORIAN_SLIME.get(), SpawnPlacements.Type.ON_GROUND, AurorianSlime::checkAurorianSlimeSpawnRules);
+        normalEntitySpawn(event, DISTURBED_HOLLOW.get(), SpawnPlacements.Type.ON_GROUND, Monster::checkMonsterSpawnRules);
+        normalEntitySpawn(event, UNDEAD_KNIGHT.get(), SpawnPlacements.Type.ON_GROUND, UndeadKnight::checkUndeadKnightSpawnRules);
+        normalEntitySpawn(event, SPIRIT.get(), SpawnPlacements.Type.ON_GROUND, Spirit::checkSpiritSpawnRules);
+        normalEntitySpawn(event, MOON_ACOLYTE.get(), SpawnPlacements.Type.ON_GROUND, MoonAcolyte::checkMoonAcolyteRules);
+        normalEntitySpawn(event, SPIDERLING.get(), SpawnPlacements.Type.ON_GROUND, Spiderling::checkSpiderlingSpawnRules);
+        normalEntitySpawn(event, CRYSTALLINE_SPRITE.get(), SpawnPlacements.Type.ON_GROUND, CrystallineSprite::checkCrystallineSpriteRules);
     }
 
     @SubscribeEvent
     public static void addEntityAttributes(EntityAttributeCreationEvent event) {
+        event.put(MOON_FISH.get(), MoonFish.createAttributes().build());
         event.put(AURORIAN_RABBIT.get(), AurorianRabbit.createAttributes().build());
         event.put(AURORIAN_SHEEP.get(), AurorianSheep.createAttributes().build());
         event.put(AURORIAN_PIG.get(), AurorianPig.createAttributes().build());
@@ -192,8 +197,8 @@ public class TAEntityTypes {
         event.put(MOON_QUEEN.get(), MoonQueen.createAttributes().build());
     }
 
-    private static <T extends Entity> void normalEntitySpawn(SpawnPlacementRegisterEvent event, EntityType<T> entityType, SpawnPlacements.SpawnPredicate<T> predicate) {
-        event.register(entityType, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, predicate, SpawnPlacementRegisterEvent.Operation.REPLACE);
+    private static <T extends Entity> void normalEntitySpawn(SpawnPlacementRegisterEvent event, EntityType<T> entityType, SpawnPlacements.Type type, SpawnPlacements.SpawnPredicate<T> predicate) {
+        event.register(entityType, type, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, predicate, SpawnPlacementRegisterEvent.Operation.REPLACE);
     }
 
 }

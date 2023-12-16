@@ -66,6 +66,8 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.DARK_STONE_BRICKS.get());
         this.simpleBlockItem(TABlocks.DARK_STONE_FANCY.get());
         this.simpleBlockItem(TABlocks.DARK_STONE_LAYERS.get());
+        this.simpleBlockItem(TABlocks.SMOOTH_DARK_STONE_BRICKS.get());
+        this.simpleBlockItem(TABlocks.CHISELED_DARK_STONE_BRICKS.get());
         this.simpleBlockItem(TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get());
         this.simpleBlockItem(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get());
         this.simpleBlockItem(TABlocks.RUNE_STONE_LAMP.get());
@@ -99,6 +101,8 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.WEEPING_WILLOW_PLANKS.get());
         this.simpleBlockItem(TABlocks.MOON_GLASS.get());
         this.simpleBlockItem(TABlocks.AURORIAN_GLASS.get());
+        this.simpleBlockItem(TABlocks.DARK_STONE_GLASS.get());
+        this.simpleBlockItem(TABlocks.SILENT_BUSH_LEAVES.get());
         this.simpleBlockItem(TABlocks.SILENT_TREE_LEAVES.get());
         this.simpleBlockItem(TABlocks.WEEPING_WILLOW_LEAVES.get());
         this.simpleBlockItem(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get());
@@ -114,15 +118,18 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItemWithParent(TABlocks.SILENT_WOOD_TORCH.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_TORCH.get());
         this.simpleBlockItemWithParent(TABlocks.RUNE_STONE_BARS.get());
+        this.simpleBlockItemWithParent(TABlocks.DARK_STOME_BARS.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_TEMPLE_BARS.get());
         this.withExistingParent(TABlocks.INDIGO_MUSHROOM_BLOCK.getId().getPath(),
                 this.modLoc("block/indigo_mushroom_block_inventory"));
         this.withExistingParent(TABlocks.INDIGO_MUSHROOM_STEM.getId().getPath(),
                 this.modLoc("block/indigo_mushroom_stem_inventory"));
-        this.withExistingParent(this.name(TABlocks.AURORIAN_GLASS_PANE.get()), this.mcLoc("item/generated"))
-                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.AURORIAN_GLASS.get())));
         this.withExistingParent(this.name(TABlocks.MOON_GLASS_PANE.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.MOON_GLASS.get())));
+        this.withExistingParent(this.name(TABlocks.AURORIAN_GLASS_PANE.get()), this.mcLoc("item/generated"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.AURORIAN_GLASS.get())));
+        this.withExistingParent(this.name(TABlocks.DARK_STONE_GLASS_PANE.get()), this.mcLoc("item/generated"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.DARK_STONE_GLASS.get())));
         this.withExistingParent(this.name(TABlocks.SILENT_TREE_SAPLING.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_SAPLING.get())));
         for (Block block : TACommonUtils.getKnownBlocks()) {

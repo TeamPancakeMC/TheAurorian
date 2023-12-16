@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.data.loot;
 
+import cn.teampancake.theaurorian.common.blocks.BlueBerryBush;
 import cn.teampancake.theaurorian.common.blocks.TACropBlock;
 import cn.teampancake.theaurorian.registry.TABlocks;
 import cn.teampancake.theaurorian.registry.TAItems;
@@ -61,10 +62,12 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.WEEPING_WILLOW_LOG.get());
         this.dropSelf(TABlocks.WEEPING_WILLOW_PLANKS.get());
         this.dropSelf(TABlocks.WEEPING_WILLOW_WOOD.get());
-        this.dropWhenSilkTouch(TABlocks.AURORIAN_GLASS.get());
         this.dropWhenSilkTouch(TABlocks.MOON_GLASS.get());
-        this.dropWhenSilkTouch(TABlocks.AURORIAN_GLASS_PANE.get());
+        this.dropWhenSilkTouch(TABlocks.AURORIAN_GLASS.get());
+        this.dropWhenSilkTouch(TABlocks.DARK_STONE_GLASS.get());
         this.dropWhenSilkTouch(TABlocks.MOON_GLASS_PANE.get());
+        this.dropWhenSilkTouch(TABlocks.AURORIAN_GLASS_PANE.get());
+        this.dropWhenSilkTouch(TABlocks.DARK_STONE_GLASS_PANE.get());
         this.dropWhenSilkTouch(TABlocks.LAVENDER_PLANT.get());
         this.dropWhenSilkTouch(TABlocks.PETUNIA_PLANT.get());
         this.dropWhenSilkTouch(TABlocks.INDIGO_MUSHROOM_STEM.get());
@@ -105,6 +108,21 @@ public class TABlockLoot extends VanillaBlockLoot {
                         .setProperties(StatePropertiesPredicate.Builder.properties()
                                 .hasProperty(TACropBlock.AGE, 2)))
                         .add(LootItem.lootTableItem(TAItems.SILK_BERRY.get()))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))));
+        this.add(TABlocks.BLUE_BERRY_BUSH.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
+                .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition
+                                .hasBlockStateProperties(TABlocks.BLUE_BERRY_BUSH.get())
+                        .setProperties(StatePropertiesPredicate.Builder.properties()
+                                .hasProperty(BlueBerryBush.AGE, 3)))
+                        .add(LootItem.lootTableItem(TAItems.BLUE_BERRY.get()))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))
+                .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition
+                                .hasBlockStateProperties(TABlocks.BLUE_BERRY_BUSH.get())
+                        .setProperties(StatePropertiesPredicate.Builder.properties()
+                                .hasProperty(BlueBerryBush.AGE, 2)))
+                        .add(LootItem.lootTableItem(TAItems.BLUE_BERRY.get()))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))));
         for (Block block : TACommonUtils.getKnownBlocks()) {

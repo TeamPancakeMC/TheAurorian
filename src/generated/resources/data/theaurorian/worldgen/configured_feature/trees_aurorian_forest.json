@@ -4,8 +4,12 @@
     "default": "theaurorian:silent_tree",
     "features": [
       {
-        "chance": 0.5,
+        "chance": 0.4,
         "feature": "theaurorian:silent_tree"
+      },
+      {
+        "chance": 0.4,
+        "feature": "theaurorian:silent_bush"
       }
     ]
   }

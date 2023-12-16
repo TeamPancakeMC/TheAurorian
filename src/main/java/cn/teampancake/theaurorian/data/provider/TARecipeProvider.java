@@ -44,6 +44,8 @@ public class TARecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(TABlocks.AURORIAN_COBBLESTONE.get()), has(TABlocks.AURORIAN_COBBLESTONE.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.RUNE_STONE_BARS.get(), 16).define('#', TABlocks.RUNE_STONE.get())
                 .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.RUNE_STONE.get()), has(TABlocks.RUNE_STONE.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.DARK_STOME_BARS.get(), 16).define('#', TABlocks.DARK_STONE_BRICKS.get())
+                .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.DARK_STONE_BRICKS.get()), has(TABlocks.DARK_STONE_BRICKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.MOON_TEMPLE_BARS.get(), 16).define('#', TABlocks.MOON_TEMPLE_BRICKS.get())
                 .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.MOON_TEMPLE_BRICKS.get()), has(TABlocks.MOON_TEMPLE_BRICKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.AURORIAN_FURNACE_CHIMNEY.get())
@@ -65,10 +67,12 @@ public class TARecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.SILENT_WOOD_TORCH.get(), 4)
                 .define('#', TAItems.SILENT_WOOD_STICK.get()).define('X', Ingredient.of(TAItems.AURORIAN_COAL.get()))
                 .pattern("X").pattern("#").unlockedBy(getHasName(Items.STONE_PICKAXE), has(Items.STONE_PICKAXE)).save(consumer);
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.AURORIAN_GLASS_PANE.get(), 16).define('#', TABlocks.AURORIAN_GLASS.get())
-                .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.AURORIAN_GLASS.get()), has(TABlocks.MOON_SAND.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.MOON_GLASS_PANE.get(), 16).define('#', TABlocks.MOON_GLASS.get())
                 .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.MOON_GLASS.get()), has(TABlocks.MOON_SAND.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.AURORIAN_GLASS_PANE.get(), 16).define('#', TABlocks.AURORIAN_GLASS.get())
+                .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.AURORIAN_GLASS.get()), has(TABlocks.MOON_SAND.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.DARK_STONE_GLASS_PANE.get(), 16).define('#', TABlocks.DARK_STONE_GLASS.get())
+                .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.DARK_STONE_GLASS.get()), has(TABlocks.MOON_SAND.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.SILENT_WOOD_CRAFTING_TABLE.get())
                 .define('#', TABlocks.SILENT_TREE_PLANKS.get()).define('X', Blocks.CRAFTING_TABLE)
                 .pattern(" # ").pattern("#X#").pattern(" # ")
@@ -165,6 +169,9 @@ public class TARecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(TABlocks.AURORIAN_PERIDOTITE.get()), has(TABlocks.AURORIAN_PERIDOTITE.get())).save(consumer);
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(TABlocks.RUNE_STONE.get()),
                         RecipeCategory.BUILDING_BLOCKS, TABlocks.SMOOTH_RUNE_STONE.get(), (0.1F), (200))
+                .unlockedBy(getHasName(TABlocks.RUNE_STONE.get()), has(TABlocks.RUNE_STONE.get())).save(consumer);
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(TABlocks.DARK_STONE_BRICKS.get()),
+                        RecipeCategory.BUILDING_BLOCKS, TABlocks.SMOOTH_DARK_STONE_BRICKS.get(), (0.1F), (200))
                 .unlockedBy(getHasName(TABlocks.RUNE_STONE.get()), has(TABlocks.RUNE_STONE.get())).save(consumer);
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(TABlocks.MOON_TEMPLE_BRICKS.get()),
                         RecipeCategory.BUILDING_BLOCKS, TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get(), (0.1F), (200))

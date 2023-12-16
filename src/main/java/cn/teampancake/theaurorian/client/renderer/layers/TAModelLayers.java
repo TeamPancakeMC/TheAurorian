@@ -6,6 +6,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 public class TAModelLayers {
 
     public static final ModelLayerLocation LUNA_CIRCLE = register("luna_circle");
+    public static final ModelLayerLocation QUARTZ_FISH = register("quartz_fish");
     public static final ModelLayerLocation AURORIAN_RABBIT = register("aurorian_rabbit");
     public static final ModelLayerLocation AURORIAN_SHEEP = register("aurorian_sheep");
     public static final ModelLayerLocation AURORIAN_PIG = register("aurorian_pig");

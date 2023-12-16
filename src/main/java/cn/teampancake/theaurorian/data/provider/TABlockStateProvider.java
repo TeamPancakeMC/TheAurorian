@@ -69,11 +69,16 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.TRANSPARENT_RUNE_STONE.get());
         this.simpleBlock(TABlocks.UMBRA_CASTLE_RUNE_STONE.get());
         this.simpleBlock(TABlocks.RUNE_STONE_PILLAR.get());
+        this.simpleBlock(TABlocks.DARK_STONE_PILLAR.get());
+        this.simpleBlock(TABlocks.MOON_TEMPLE_PILLAR.get());
         this.simpleBlock(TABlocks.MOON_TEMPLE_BRICKS.get());
         this.simpleBlock(TABlocks.DARK_STONE_BRICKS.get());
         this.simpleBlock(TABlocks.DARK_STONE_FANCY.get());
         this.simpleBlock(TABlocks.DARK_STONE_LAYERS.get());
+        this.simpleBlock(TABlocks.SMOOTH_DARK_STONE_BRICKS.get());
+        this.simpleBlock(TABlocks.CHISELED_DARK_STONE_BRICKS.get());
         this.simpleBlock(TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get());
+        this.simpleBlock(TABlocks.CHISELED_MOON_TEMPLE_BRICKS.get());
         this.simpleBlock(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get());
         this.simpleBlock(TABlocks.RUNE_STONE_LAMP.get());
         this.simpleBlock(TABlocks.DARK_STONE_LAMP.get());
@@ -132,6 +137,8 @@ public class TABlockStateProvider extends BlockStateProvider {
                         this.modLoc("block/red_aurorian_grass_block_top")));
         this.simpleBlockWithRenderType(TABlocks.MOON_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.AURORIAN_GLASS.get(), TRANSLUCENT);
+        this.simpleBlockWithRenderType(TABlocks.DARK_STONE_GLASS.get(), TRANSLUCENT);
+        this.simpleBlockWithRenderType(TABlocks.SILENT_BUSH_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.SILENT_TREE_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.WEEPING_WILLOW_LEAVES.get(), CUTOUT_MIPPED);
         this.paneBlockWithRenderType((IronBarsBlock) TABlocks.MOON_GLASS_PANE.get(),
@@ -140,12 +147,17 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.paneBlockWithRenderType((IronBarsBlock) TABlocks.AURORIAN_GLASS_PANE.get(),
                 this.blockTexture(TABlocks.AURORIAN_GLASS.get()),
                 this.blockTexture(TABlocks.AURORIAN_GLASS_PANE.get()), TRANSLUCENT);
+        this.paneBlockWithRenderType((IronBarsBlock) TABlocks.DARK_STONE_GLASS_PANE.get(),
+                this.blockTexture(TABlocks.DARK_STONE_GLASS.get()),
+                this.blockTexture(TABlocks.DARK_STONE_GLASS_PANE.get()), TRANSLUCENT);
         this.registerBarStates(TABlocks.RUNE_STONE_BARS.get());
+        this.registerBarStates(TABlocks.DARK_STOME_BARS.get());
         this.registerBarStates(TABlocks.MOON_TEMPLE_BARS.get());
         this.registerWallTorchStates(TABlocks.MOON_WALL_TORCH.get());
         this.registerWallTorchStates(TABlocks.SILENT_WOOD_WALL_TORCH.get());
         this.registerCropStates(TABlocks.LAVENDER_CROP.get());
         this.registerCropStates(TABlocks.SILK_BERRY_CROP.get());
+        this.registerCrossStates(TABlocks.BLUE_BERRY_BUSH.get());
         this.registerPlantStates(TABlocks.AURORIAN_FLOWER_1.get());
         this.registerPlantStates(TABlocks.AURORIAN_FLOWER_2.get());
         this.registerPlantStates(TABlocks.AURORIAN_FLOWER_3.get());
@@ -275,6 +287,17 @@ public class TABlockStateProvider extends BlockStateProvider {
             String name = this.name(block) + "_stage" + stage;
             ResourceLocation texture = this.modLoc("block/" + name);
             ModelFile modelFile = this.models().crop(name, texture);
+            builder.partialState().with(TACropBlock.AGE, stage)
+                    .modelForState().modelFile(modelFile).addModel();
+        }
+    }
+
+    private void registerCrossStates(Block block) {
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        for (int stage : TACropBlock.AGE.getPossibleValues()) {
+            String name = this.name(block) + "_stage" + stage;
+            ResourceLocation texture = this.modLoc("block/" + name);
+            ModelFile modelFile = this.models().cross(name, texture);
             builder.partialState().with(TACropBlock.AGE, stage)
                     .modelForState().modelFile(modelFile).addModel();
         }

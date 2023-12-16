@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "theaurorian:block/smooth_dark_stone_bricks"
+  }
+}

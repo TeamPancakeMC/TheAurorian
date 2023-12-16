@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "theaurorian:dark_stone_bricks"
-  },
-  "result": "theaurorian:dark_stone_stairs"
-}

@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -163,6 +164,7 @@ public class TAItems {
     /**
      * Food
      */
+    public static final RegistryObject<Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap", WeepingWillowSap::new);
     public static final RegistryObject<Item> SILK_BERRY_JAM = food("silk_berry_jam", 2, 0.5F, false);
     public static final RegistryObject<Item> SILK_BERRY_JAM_SANDWICH = food("silk_berry_jam_sandwich", 6, 0.9F, true);
     public static final RegistryObject<Item> AURORIAN_PORK = food("aurorian_pork", 3, 0.3F, false);
@@ -172,10 +174,11 @@ public class TAItems {
     public static final RegistryObject<Item> SILK_SHROOM_STEW = food("silk_shroom_stew", 6, 1F, false);
     public static final RegistryObject<Item> LAVENDER_BREAD = food("lavender_bread", 4, 0.4F, false);
     public static final RegistryObject<Item> SOULLESS_FLESH = food("soulless_flesh", 2, 0.1F, false);
+    public static final RegistryObject<Item> MOON_FISH = food("moon_fish", 2, 0.1F, false);
     public static final RegistryObject<Item> LAVENDER_SEEDS = alias("lavender_seeds", TABlocks.LAVENDER_CROP, new Item.Properties());
-    public static final RegistryObject<Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap", WeepingWillowSap::new);
-    public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", TABlocks.SILK_BERRY_CROP, new Item.Properties().food(
-            new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
+    public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", TABlocks.SILK_BERRY_CROP, new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
+    public static final RegistryObject<Item> BLUE_BERRY = alias("blue_berry", TABlocks.BLUE_BERRY_BUSH, new Item.Properties().food(Foods.SWEET_BERRIES));
     //TODO Translation and Recipe
 //    public static final RegistryObject<Item> STRANGE_MEAT_FOOD = ITEMS.register("strange_meat_food", StrangeMeatFood::new);
 
@@ -233,6 +236,7 @@ public class TAItems {
     /**
      * Spawn Egg
      */
+    public static final RegistryObject<Item> MOON_FISH_SPAWN_EGG = spawnEgg("moon_fish", TAEntityTypes.MOON_FISH, 0xd1ccc5, 0x594a48);
     public static final RegistryObject<Item> AURORIAN_RABBIT_SPAWN_EGG = spawnEgg("aurorian_rabbit", TAEntityTypes.AURORIAN_RABBIT, 0xc2e5e5, 0x43a2ec);
     public static final RegistryObject<Item> AURORIAN_SHEEP_SPAWN_EGG = spawnEgg("aurorian_sheep", TAEntityTypes.AURORIAN_SHEEP, 0x97b4f2, 0x7197ea);
     public static final RegistryObject<Item> AURORIAN_PIG_SPAWN_EGG = spawnEgg("aurorian_pig", TAEntityTypes.AURORIAN_PIG, 0xc6dfff, 0x5d6f93);
@@ -256,12 +260,19 @@ public class TAItems {
     public static final RegistryObject<Item> CERULEAN_NUGGET = normal("cerulean_nugget", true);
     public static final RegistryObject<Item> AURORIAN_COAL_NUGGET = normal("aurorian_coal_nugget", true);
     public static final RegistryObject<Item> MOONSTONE_NUGGET = normal("moonstone_nugget", true);
+    public static final RegistryObject<Item> AURORIAN_CHAIN = normal("aurorian_chain", false);
+    public static final RegistryObject<Item> AURORIAN_BERRY = normal("aurorian_berry", false);
+    public static final RegistryObject<Item> AURORIAN_CRYSTAL = normal("aurorian_crystal", false);
+    public static final RegistryObject<Item> EQUINOX_MUSHROOM = normal("equinox_mushroom", false);
+    public static final RegistryObject<Item> WORLD_SCROLL_FRAGMENT = normal("world_scroll_fragment", false);
+    public static final RegistryObject<Item> WORLD_SCROLL = ITEMS.register("world_scroll", WorldScroll::new);
     public static final RegistryObject<Item> LOCK_PICKS = ITEMS.register("lock_picks",
             () -> new Item(new Item.Properties().stacksTo(1).durability(10)));
     public static final RegistryObject<Item> DUNGEON_LOCATOR = ITEMS.register("dungeon_locator", DungeonLocatorItem::new);
     public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(),
             SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.WEBBING::get, 0.5F, (0.4F / (new Random().nextFloat() * 0.4F + 0.8F))));
     public static final RegistryObject<Item> LIVING_DIVINING_ROD = ITEMS.register("living_divining_rod", LivingDiviningRod::new);
-
+    public static final RegistryObject<Item> MOON_FISH_BUCKET = ITEMS.register("moon_fish_bucket", MoonFishBucket::new);
+    public static final RegistryObject<Item> DEVELOPER_GIFT = ITEMS.register("developer_gift", DeveloperGift::new);
 
 }

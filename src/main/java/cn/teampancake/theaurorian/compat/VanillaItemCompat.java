@@ -62,7 +62,7 @@ public class VanillaItemCompat {
             ComposterBlock.add(0.3F, TAItems.WEEPING_WILLOW_SAP.get());
             ComposterBlock.add(0.3F, TAItems.LAVENDER_SEEDS.get());
             ComposterBlock.add(0.3F, TAItems.SILK_BERRY.get());
-            ComposterBlock.add(0.3F, TAItems.BLUE_BERRY.get());
+            ComposterBlock.add(0.3F, TAItems.BLUEBERRY.get());
             ComposterBlock.add(0.85F, TAItems.LAVENDER_BREAD.get());
         }
 

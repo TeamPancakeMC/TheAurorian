@@ -27,7 +27,7 @@ public class BlueBerryBush extends SweetBerryBushBlock {
 
     @Override
     public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
-        return new ItemStack(TAItems.BLUE_BERRY.get());
+        return new ItemStack(TAItems.BLUEBERRY.get());
     }
 
     @Override
@@ -39,7 +39,7 @@ public class BlueBerryBush extends SweetBerryBushBlock {
         } else if (i > 1) {
             int j = 1 + level.random.nextInt(2);
             float pitch = 0.8F + level.random.nextFloat() * 0.4F;
-            popResource(level, pos, new ItemStack(TAItems.BLUE_BERRY.get(), j + (flag ? 1 : 0)));
+            popResource(level, pos, new ItemStack(TAItems.BLUEBERRY.get(), j + (flag ? 1 : 0)));
             level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, pitch);
             BlockState blockstate = state.setValue(AGE, 1);
             level.setBlock(pos, blockstate, 2);

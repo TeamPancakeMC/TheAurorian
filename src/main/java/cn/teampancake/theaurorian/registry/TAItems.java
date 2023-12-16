@@ -178,7 +178,7 @@ public class TAItems {
     public static final RegistryObject<Item> LAVENDER_SEEDS = alias("lavender_seeds", TABlocks.LAVENDER_CROP, new Item.Properties());
     public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", TABlocks.SILK_BERRY_CROP, new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
-    public static final RegistryObject<Item> BLUE_BERRY = alias("blue_berry", TABlocks.BLUE_BERRY_BUSH, new Item.Properties().food(Foods.SWEET_BERRIES));
+    public static final RegistryObject<Item> BLUEBERRY = alias("blueberry", TABlocks.BLUEBERRY_BUSH, new Item.Properties().food(Foods.SWEET_BERRIES));
     //TODO Translation and Recipe
 //    public static final RegistryObject<Item> STRANGE_MEAT_FOOD = ITEMS.register("strange_meat_food", StrangeMeatFood::new);
 

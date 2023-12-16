@@ -110,19 +110,19 @@ public class TABlockLoot extends VanillaBlockLoot {
                         .add(LootItem.lootTableItem(TAItems.SILK_BERRY.get()))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))));
-        this.add(TABlocks.BLUE_BERRY_BUSH.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
+        this.add(TABlocks.BLUEBERRY_BUSH.get(), block -> this.applyExplosionDecay(block, LootTable.lootTable()
                 .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition
-                                .hasBlockStateProperties(TABlocks.BLUE_BERRY_BUSH.get())
+                                .hasBlockStateProperties(TABlocks.BLUEBERRY_BUSH.get())
                         .setProperties(StatePropertiesPredicate.Builder.properties()
                                 .hasProperty(BlueBerryBush.AGE, 3)))
-                        .add(LootItem.lootTableItem(TAItems.BLUE_BERRY.get()))
+                        .add(LootItem.lootTableItem(TAItems.BLUEBERRY.get()))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))
                 .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition
-                                .hasBlockStateProperties(TABlocks.BLUE_BERRY_BUSH.get())
+                                .hasBlockStateProperties(TABlocks.BLUEBERRY_BUSH.get())
                         .setProperties(StatePropertiesPredicate.Builder.properties()
                                 .hasProperty(BlueBerryBush.AGE, 2)))
-                        .add(LootItem.lootTableItem(TAItems.BLUE_BERRY.get()))
+                        .add(LootItem.lootTableItem(TAItems.BLUEBERRY.get()))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))));
         for (Block block : TACommonUtils.getKnownBlocks()) {

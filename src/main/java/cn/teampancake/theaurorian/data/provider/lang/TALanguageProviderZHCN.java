@@ -296,7 +296,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.SILENT_WOOD_SWORD.get(), "谧木剑");
         this.add(TAItems.SILENT_WOOD_BOW.get(), "谧木弓");
         this.add(TAItems.SILENT_WOOD_STICK.get(), "谧木棍");
-        this.add(TAItems.BLUE_BERRY.get(),"蓝莓");
+        this.add(TAItems.BLUEBERRY.get(),"蓝莓");
         this.add(TAItems.SILK_BERRY.get(), "桑葚");
         this.add(TAItems.SILK_BERRY_JAM.get(), "桑葚酱");
         this.add(TAItems.SILK_BERRY_JAM_SANDWICH.get(), "桑葚酱三明治");

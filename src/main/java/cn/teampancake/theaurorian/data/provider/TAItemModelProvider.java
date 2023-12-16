@@ -28,6 +28,7 @@ public class TAItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         this.simpleItem(TAItems.SILK_BERRY.get());
+        this.simpleItem(TAItems.BLUEBERRY.get());
         this.simpleItem(TAItems.LAVENDER_SEEDS.get());
         this.simpleBlockItem(TABlocks.GEODE_ORE.get());
         this.simpleBlockItem(TABlocks.CERULEAN_ORE.get());

@@ -297,7 +297,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.SILENT_WOOD_SWORD.get(),"Silent Wood Sword");
         this.add(TAItems.SILENT_WOOD_BOW.get(),"Silent Wood Bow");
         this.add(TAItems.SILENT_WOOD_STICK.get(), "Silent Wood Stick");
-        this.add(TAItems.BLUE_BERRY.get(),"Blue Berry");
+        this.add(TAItems.BLUEBERRY.get(),"Blueberry");
         this.add(TAItems.SILK_BERRY.get(),"Silk Berry");
         this.add(TAItems.SILK_BERRY_JAM.get(),"Silk Berry Jam");
         this.add(TAItems.SILK_BERRY_JAM_SANDWICH.get(),"Silk Berry Jam Sandwich");

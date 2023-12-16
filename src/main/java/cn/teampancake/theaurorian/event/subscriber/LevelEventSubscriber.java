@@ -10,7 +10,7 @@ public class LevelEventSubscriber {
 
     @SubscribeEvent
     public static void registerAurorianSkyColor(RegisterAurorianSkyColorEvent event) {
-        event.register(AurorianMod.prefix("ta_red"), 0xf10029);
+
     }
 
 }

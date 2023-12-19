@@ -297,12 +297,12 @@ public class TARecipeProvider extends RecipeProvider {
         this.buildNuggetToIngotRecipes(consumer, TAItems.AURORIAN_COAL_NUGGET.get(), TAItems.AURORIAN_COAL.get());
         this.buildNuggetToIngotRecipes(consumer, TAItems.AURORIAN_STEEL_NUGGET.get(), TAItems.AURORIAN_STEEL.get());
         this.buildTeaRecipes(consumer, TAItems.LAVENDER_TEA.get(), TAItems.LAVENDER.get());
-        this.buildTeaRecipes(consumer, TAItems.SILKBERRY_TEA.get(), TAItems.SILK_BERRY.get());
+        this.buildTeaRecipes(consumer, TAItems.SILK_BERRY_TEA.get(), TAItems.SILK_BERRY.get());
         this.buildTeaRecipes(consumer, TAItems.LAVENDER_SEEDY_TEA.get(), TAItems.LAVENDER_SEEDS.get());
         this.buildTeaRecipes(consumer, TAItems.PETUNIA_TEA.get(), TABlocks.PETUNIA_PLANT.get());
         this.buildArrowRecipes(consumer, TAItems.CERULEAN_ARROW.get(), TAItems.CERULEAN_NUGGET.get(), 1);
         this.buildArrowRecipes(consumer, TAItems.CRYSTAL_ARROW.get(), TAItems.CRYSTAL.get(), 16);
-        this.buildSickleRecipes(consumer, TAItems.AURORIAN_STEEL_SICKLE.get(), TAItems.AURORIAN_STEEL.get());
+        this.buildSickleRecipes(consumer, TAItems.SILENT_WOOD_SICKLE.get(), TAItems.AURORIAN_STEEL.get());
         this.buildSickleRecipes(consumer, TAItems.AURORIAN_STONE_SICKLE.get(), TABlocks.AURORIAN_COBBLESTONE.get());
         this.buildSickleRecipes(consumer, TAItems.MOONSTONE_SICKLE.get(), TAItems.MOONSTONE_INGOT.get());
         for (Block block : TACommonUtils.getKnownBlocks()) {

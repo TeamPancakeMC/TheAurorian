@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "theaurorian:block/moon_temple_pillar"
+    "end": "theaurorian:block/moon_temple_pillar_top",
+    "side": "theaurorian:block/moon_temple_pillar"
   }
 }

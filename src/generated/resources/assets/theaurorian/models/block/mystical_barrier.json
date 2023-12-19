@@ -1,0 +1,31 @@
+{
+  "parent": "minecraft:block/orientable",
+  "elements": [
+    {
+      "faces": {
+        "north": {
+          "texture": "#front"
+        },
+        "south": {
+          "texture": "minecraft:back"
+        }
+      },
+      "from": [
+        0,
+        0,
+        6
+      ],
+      "to": [
+        16,
+        16,
+        10
+      ]
+    }
+  ],
+  "textures": {
+    "back": "theaurorian:block/mystical_barrier_out",
+    "front": "theaurorian:block/mystical_barrier",
+    "particle": "theaurorian:block/mystical_barrier_out",
+    "side": "theaurorian:block/mystical_barrier"
+  }
+}

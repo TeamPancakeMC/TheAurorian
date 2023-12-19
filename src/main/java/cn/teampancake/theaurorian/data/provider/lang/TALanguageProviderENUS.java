@@ -44,6 +44,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_FLOWER_2.get(), "Aurorian Flower");
         this.add(TABlocks.AURORIAN_FLOWER_3.get(), "Aurorian Flower");
         this.add(TABlocks.EQUINOX_FLOWER.get(), "Equinox Flower");
+        this.add(TABlocks.LAVENDER_PLANT.get(), "Lavender Plant");
+        this.add(TABlocks.PETUNIA_PLANT.get(), "Petunia Plant");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "Aurorian Peridotite");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "Smooth Aurorian Peridotite");
         this.add(TABlocks.MOONSTONE_ORE.get(), "Moonstone Ore");
@@ -69,6 +71,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.SMOOTH_DARK_STONE_BRICKS.get(), "Smooth Dark Stone");
         this.add(TABlocks.CHISELED_DARK_STONE_BRICKS.get(), "Chiseled Dark Stone");
         this.add(TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get(), "Smooth Moon Temple Bricks");
+        this.add(TABlocks.CHISELED_MOON_TEMPLE_BRICKS.get(), "Chiseled Moon Temple Bricks");
         this.add(TABlocks.RUNE_STONE_LAMP.get(), "Runestone Lamp");
         this.add(TABlocks.DARK_STONE_LAMP.get(), "Dark Stone Lamp");
         this.add(TABlocks.MOON_TEMPLE_LAMP.get(), "Moon Temple Lamp");
@@ -222,12 +225,12 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_STEEL_AXE.get(),"Aurorian Steel Axe");
         this.add(TAItems.AURORIAN_STEEL_PICKAXE.get(),"Aurorian Steel Pickaxe");
         this.add(TAItems.AURORIAN_STEEL_SHOVEL.get(),"Aurorian Steel Shovel");
-        this.add(TAItems.AURORIAN_STONE_SICKLE.get(),"Aurorian Steel Sickle");
         this.add(TAItems.AURORIAN_STEEL_SWORD.get(),"Aurorian Steel Sword");
         this.add(TAItems.AURORIAN_STEEL_HELMET.get(),"Aurorian Steel Helmet");
         this.add(TAItems.AURORIAN_STEEL_CHESTPLATE.get(),"Aurorian Steel Chestplate");
         this.add(TAItems.AURORIAN_STEEL_LEGGINGS.get(),"Aurorian Steel Leggings");
         this.add(TAItems.AURORIAN_STEEL_BOOTS.get(),"Aurorian Steel Boots");
+        this.add(TAItems.AURORIAN_STONE_SICKLE.get(),"Aurorian Stone Sickle");
         this.add(TAItems.AURORIAN_STONE_AXE.get(),"Aurorian Stone Axe");
         this.add(TAItems.AURORIAN_STONE_PICKAXE.get(),"Aurorian Stone Pickaxe");
         this.add(TAItems.AURORIAN_STONE_SHOVEL.get(),"Aurorian Stone Shovel");
@@ -271,6 +274,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.LAVENDER_TEA.get(),"Lavender Tea");
         this.add(TAItems.LAVENDER_SEEDS.get(),"Lavender Seeds");
         this.add(TAItems.LIVING_DIVINING_ROD.get(),"Living Divining Rod");
+        this.add(TAItems.MOON_WATER_BUCKET.get(), "Moon Water Bucket");
         this.add(TAItems.MOON_FISH_BUCKET.get(), "Moon Fish Bucket");
         this.add(TAItems.LOCK_PICKS.get(),"Lock Picks");
         this.add(TAItems.DEVELOPER_GIFT.get(), "Developer Gift");
@@ -290,6 +294,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.QUEENS_CHIPPER.get(),"Queen's Chipper");
         this.add(TAItems.RUNESTONE_KEEPER_SPAWN_EGG.get(),"Runestone Keeper Spawn Egg");
         this.add(TAItems.LAVENDER_SEEDY_TEA.get(),"Lavender Seedy Tea");
+        this.add(TAItems.SILENT_WOOD_SICKLE.get(),"Silent Wood Sickle");
         this.add(TAItems.SILENT_WOOD_AXE.get(),"Silent Wood Axe");
         this.add(TAItems.SILENT_WOOD_HOE.get(),"Silent Wood Hoe");
         this.add(TAItems.SILENT_WOOD_PICKAXE.get(),"Silent Wood Pickaxe");
@@ -297,15 +302,17 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.SILENT_WOOD_SWORD.get(),"Silent Wood Sword");
         this.add(TAItems.SILENT_WOOD_BOW.get(),"Silent Wood Bow");
         this.add(TAItems.SILENT_WOOD_STICK.get(), "Silent Wood Stick");
+        this.add(TAItems.WICK_GRASS.get(), "Wick Grass");
         this.add(TAItems.BLUEBERRY.get(),"Blueberry");
         this.add(TAItems.SILK_BERRY.get(),"Silk Berry");
         this.add(TAItems.SILK_BERRY_JAM.get(),"Silk Berry Jam");
         this.add(TAItems.SILK_BERRY_JAM_SANDWICH.get(),"Silk Berry Jam Sandwich");
-        this.add(TAItems.SILKBERRY_TEA.get(),"Slik Berry Tea");
+        this.add(TAItems.SILK_BERRY_TEA.get(),"Slik Berry Tea");
         this.add(TAItems.SILK_SHROOM_STEW.get(),"Silk Shroom Stew");
         this.add(TAItems.SLEEPING_BLACK_TEA.get(),"Sleeping Black Tea");
         this.add(TAItems.SOULLESS_FLESH.get(),"Soulless Flesh");
         this.add(TAItems.MOON_FISH.get(), "Moon Fish");
+        this.add(TAItems.WHITE_CHOCOLATE.get(), "White Chocolate");
         this.add(TAItems.SPECTRAL_SILK.get(),"Spectral Silk");
         this.add(TAItems.SPECTRAL_HELMET.get(),"Spectral Helmet");
         this.add(TAItems.SPECTRAL_CHESTPLATE.get(),"Spectral Chestplate");

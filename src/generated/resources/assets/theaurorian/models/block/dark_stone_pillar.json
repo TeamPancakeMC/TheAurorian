@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "theaurorian:block/dark_stone_pillar"
+    "end": "theaurorian:block/dark_stone_pillar_top",
+    "side": "theaurorian:block/dark_stone_pillar"
   }
 }

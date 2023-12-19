@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "axis=x": {
+      "model": "theaurorian:block/moon_temple_pillar_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
       "model": "theaurorian:block/moon_temple_pillar"
+    },
+    "axis=z": {
+      "model": "theaurorian:block/moon_temple_pillar_horizontal",
+      "x": 90
     }
   }
 }

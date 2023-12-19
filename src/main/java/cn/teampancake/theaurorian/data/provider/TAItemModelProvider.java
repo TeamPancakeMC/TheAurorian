@@ -63,6 +63,8 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.TRANSPARENT_RUNE_STONE.get());
         this.simpleBlockItem(TABlocks.UMBRA_CASTLE_RUNE_STONE.get());
         this.simpleBlockItem(TABlocks.RUNE_STONE_PILLAR.get());
+        this.simpleBlockItem(TABlocks.DARK_STONE_PILLAR.get());
+        this.simpleBlockItem(TABlocks.MOON_TEMPLE_PILLAR.get());
         this.simpleBlockItem(TABlocks.MOON_TEMPLE_BRICKS.get());
         this.simpleBlockItem(TABlocks.DARK_STONE_BRICKS.get());
         this.simpleBlockItem(TABlocks.DARK_STONE_FANCY.get());
@@ -70,6 +72,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.SMOOTH_DARK_STONE_BRICKS.get());
         this.simpleBlockItem(TABlocks.CHISELED_DARK_STONE_BRICKS.get());
         this.simpleBlockItem(TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get());
+        this.simpleBlockItem(TABlocks.CHISELED_MOON_TEMPLE_BRICKS.get());
         this.simpleBlockItem(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get());
         this.simpleBlockItem(TABlocks.RUNE_STONE_LAMP.get());
         this.simpleBlockItem(TABlocks.DARK_STONE_LAMP.get());
@@ -115,9 +118,11 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItemWithParent(TABlocks.EQUINOX_FLOWER.get());
         this.simpleBlockItemWithParent(TABlocks.LAVENDER_PLANT.get());
         this.simpleBlockItemWithParent(TABlocks.PETUNIA_PLANT.get());
+        this.simpleBlockItemWithParent(TABlocks.WICK_GRASS.get());
         this.simpleBlockItemWithParent(TABlocks.SILENT_WOOD_LADDER.get());
         this.simpleBlockItemWithParent(TABlocks.SILENT_WOOD_TORCH.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_TORCH.get());
+        this.simpleBlockItemWithParent(TABlocks.MYSTICAL_BARRIER.get());
         this.simpleBlockItemWithParent(TABlocks.RUNE_STONE_BARS.get());
         this.simpleBlockItemWithParent(TABlocks.DARK_STOME_BARS.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_TEMPLE_BARS.get());

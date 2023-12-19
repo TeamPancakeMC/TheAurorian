@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -37,6 +38,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerLiquidStates();
         this.registerScrapperState();
         this.registerCraftingTableState();
+        this.registerMysticalBarrierState();
         this.registerAurorianPortalState();
         this.registerAurorianFurnaceState();
         this.registerAurorianFarmlandState();
@@ -68,9 +70,6 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.MOON_CASTLE_RUNE_STONE.get());
         this.simpleBlock(TABlocks.TRANSPARENT_RUNE_STONE.get());
         this.simpleBlock(TABlocks.UMBRA_CASTLE_RUNE_STONE.get());
-        this.simpleBlock(TABlocks.RUNE_STONE_PILLAR.get());
-        this.simpleBlock(TABlocks.DARK_STONE_PILLAR.get());
-        this.simpleBlock(TABlocks.MOON_TEMPLE_PILLAR.get());
         this.simpleBlock(TABlocks.MOON_TEMPLE_BRICKS.get());
         this.simpleBlock(TABlocks.DARK_STONE_BRICKS.get());
         this.simpleBlock(TABlocks.DARK_STONE_FANCY.get());
@@ -109,6 +108,9 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.MOON_TORCH.get(),
                 this.models().torch(this.name(TABlocks.MOON_TORCH.get()),
                         this.blockTexture(TABlocks.MOON_TORCH.get())));
+        this.simpleBlock(TABlocks.RUNE_STONE_PILLAR.get());
+        this.logBlock((RotatedPillarBlock) TABlocks.DARK_STONE_PILLAR.get());
+        this.logBlock((RotatedPillarBlock) TABlocks.MOON_TEMPLE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.SILENT_TREE_LOG.get());
         this.logBlock((RotatedPillarBlock) TABlocks.WEEPING_WILLOW_LOG.get());
         this.simpleBlock(TABlocks.SILENT_TREE_SAPLING.get(),
@@ -167,6 +169,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerPlantStates(TABlocks.INDIGO_MUSHROOM.get());
         this.registerPlantStates(TABlocks.AURORIAN_GRASS.get());
         this.registerPlantStates(TABlocks.AURORIAN_GRASS_LIGHT.get());
+        this.registerDoublePlantStates(TABlocks.WICK_GRASS.get());
         this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_BLOCK.get());
         this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_STEM.get());
         for (Block block : TACommonUtils.getKnownBlocks()) {
@@ -312,6 +315,17 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(block, this.models().cross(this.name(block), this.blockTexture(block)).renderType(CUTOUT));
     }
 
+    private void registerDoublePlantStates(Block block) {
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        for (DoubleBlockHalf half : DoublePlantBlock.HALF.getPossibleValues()) {
+            String name = this.name(block) + "_" + half.toString();
+            ResourceLocation texture = this.modLoc("block/" + name);
+            ModelFile modelFile = this.models().cross(name, texture).renderType(CUTOUT);
+            builder.partialState().with(DoublePlantBlock.HALF, half)
+                    .modelForState().modelFile(modelFile).addModel();
+        }
+    }
+
     private void registerMushroomStates(Block block) {
         ResourceLocation parent = this.mcLoc("block/template_single_face");
         ResourceLocation outside = this.modLoc("block/" + this.name(block) + "_side");
@@ -360,9 +374,9 @@ public class TABlockStateProvider extends BlockStateProvider {
                 .texture("east", this.modLoc("block/scrapper_side"))
                 .texture("south", this.modLoc("block/scrapper_side"))
                 .texture("west", this.modLoc("block/scrapper_side"));
-        for (Direction direction : DIRECTION_WITH_ROTATION.keySet()) {
+        for (Direction direction : Scrapper.FACING.getPossibleValues()) {
             builder.partialState().with(Scrapper.FACING, direction).modelForState().modelFile(modelFile)
-                    .rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
+                    .rotationY(direction.get2DDataValue() * 90).addModel();
         }
     }
 
@@ -375,6 +389,23 @@ public class TABlockStateProvider extends BlockStateProvider {
         ResourceLocation top = this.modLoc("block/" + name + "_top");
         ModelFile modelFile = this.models().cube(name, down, top, front, side, side, front);
         this.simpleBlock(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get(), modelFile);
+    }
+
+    private void registerMysticalBarrierState() {
+        Block block = TABlocks.MYSTICAL_BARRIER.get();
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        ModelFile modelFile = this.models().withExistingParent(this.name(block), this.mcLoc("block/orientable"))
+                .texture("particle", this.modLoc("block/mystical_barrier_out"))
+                .texture("back", this.modLoc("block/mystical_barrier_out"))
+                .texture("front", this.modLoc("block/mystical_barrier"))
+                .texture("side", this.modLoc("block/mystical_barrier"))
+                .element().from(0.0F, 0.0F, 6.0F).to(16.0F, 16.0F, 10.0F)
+                .face(Direction.NORTH).uvs( 0.0F, 0.0F, 16.0F, 16.0F).texture("#front").end()
+                .face(Direction.SOUTH).uvs( 0.0F, 0.0F, 16.0F, 16.0F).texture("back").end().end();
+        for (Direction direction : MysticalBarrier.FACING.getPossibleValues()) {
+            builder.partialState().with(MysticalBarrier.FACING, direction).modelForState()
+                    .modelFile(modelFile).rotationY(direction.get2DDataValue() * 90).addModel();
+        }
     }
 
     private void registerAurorianPortalState() {
@@ -435,8 +466,9 @@ public class TABlockStateProvider extends BlockStateProvider {
                 .texture("particle", this.modLoc("block/" + name))
                 .texture("texture", this.modLoc("block/" + name)));
         for (Direction direction : LadderBlock.FACING.getPossibleValues()) {
-            builder.partialState().with(LadderBlock.FACING, direction).modelForState()
-                    .modelFile(configuredModel.model).rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
+            builder.partialState().with(LadderBlock.FACING, direction)
+                    .modelForState().modelFile(configuredModel.model)
+                    .rotationY(direction.get2DDataValue() * 90).addModel();
         }
     }
 

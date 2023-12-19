@@ -1,0 +1,189 @@
+{
+  "type": "minecraft:flower",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "0"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "1"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "2"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "3"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "4"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "5"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "6"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "7"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "8"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "9"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "10"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "11"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "12"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "13"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "14"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:wick_grass",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "15"
+                  }
+                },
+                "weight": 1
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    },
+    "tries": 6,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
+}

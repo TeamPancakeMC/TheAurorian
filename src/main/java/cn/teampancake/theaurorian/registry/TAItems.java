@@ -6,6 +6,8 @@ import cn.teampancake.theaurorian.common.items.armor.AurorianSteelArmor;
 import cn.teampancake.theaurorian.common.items.armor.CeruleanArmor;
 import cn.teampancake.theaurorian.common.items.armor.KnightArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
+import cn.teampancake.theaurorian.common.items.developer.SleepingBlackTea;
+import cn.teampancake.theaurorian.common.items.developer.WhiteChocolate;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -13,6 +15,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -119,7 +122,7 @@ public class TAItems {
     /**
      * ShearsItem
      */
-    public static final RegistryObject<Item> AURORIAN_STEEL_SICKLE = ITEMS.register("silent_wood_sickle",
+    public static final RegistryObject<Item> SILENT_WOOD_SICKLE = ITEMS.register("silent_wood_sickle",
             () -> new ShearsItem(new Item.Properties().durability(50)));
     public static final RegistryObject<Item> AURORIAN_STONE_SICKLE = ITEMS.register("aurorian_stone_sickle",
             () -> new ShearsItem(new Item.Properties().durability(150)));
@@ -144,13 +147,10 @@ public class TAItems {
      * Tea
      */
     public static final RegistryObject<Item> TEA_CUP = normal("tea_cup", false);
-    public static final RegistryObject<Item> BEPSI = ITEMS.register("bepsi", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
-                    .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F).build())));
     public static final RegistryObject<Item> LAVENDER_TEA = ITEMS.register("lavender_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
                     .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300), 1.0F).build())));
-    public static final RegistryObject<Item> SILKBERRY_TEA = ITEMS.register("silk_berry_tea", () -> new TeaFood(new Item.Properties()
+    public static final RegistryObject<Item> SILK_BERRY_TEA = ITEMS.register("silk_berry_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
                     .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 100), 1.0F).build())));
     public static final RegistryObject<Item> LAVENDER_SEEDY_TEA = ITEMS.register("lavender_seedy_tea", () -> new TeaFood(new Item.Properties()
@@ -159,7 +159,9 @@ public class TAItems {
     public static final RegistryObject<Item> PETUNIA_TEA = ITEMS.register("petunia_tea", () -> new TeaFood(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
                     .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 300), 1.0F).build())));
-    public static final RegistryObject<Item> SLEEPING_BLACK_TEA = ITEMS.register("sleeping_black_tea", SleepingBlackTea::new);
+    public static final RegistryObject<Item> BEPSI = ITEMS.register("bepsi", () -> new TeaFood(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
+                    .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F).build())));
 
     /**
      * Food
@@ -168,8 +170,8 @@ public class TAItems {
     public static final RegistryObject<Item> SILK_BERRY_JAM = food("silk_berry_jam", 2, 0.5F, false);
     public static final RegistryObject<Item> SILK_BERRY_JAM_SANDWICH = food("silk_berry_jam_sandwich", 6, 0.9F, true);
     public static final RegistryObject<Item> AURORIAN_PORK = food("aurorian_pork", 3, 0.3F, false);
-    public static final RegistryObject<Item> AURORIAN_BACON = food("aurorian_bacon", 2, 0.8F, true);
     public static final RegistryObject<Item> COOKED_AURORIAN_PORK = food("cooked_aurorian_pork", 8, 0.8F, true);
+    public static final RegistryObject<Item> AURORIAN_BACON = food("aurorian_bacon", 2, 0.8F, true);
     public static final RegistryObject<Item> AURORIAN_SLIMEBALL = food("aurorian_slimeball", 1, 0.2F, false);
     public static final RegistryObject<Item> SILK_SHROOM_STEW = food("silk_shroom_stew", 6, 1F, false);
     public static final RegistryObject<Item> LAVENDER_BREAD = food("lavender_bread", 4, 0.4F, false);
@@ -179,6 +181,8 @@ public class TAItems {
     public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", TABlocks.SILK_BERRY_CROP, new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
     public static final RegistryObject<Item> BLUEBERRY = alias("blueberry", TABlocks.BLUEBERRY_BUSH, new Item.Properties().food(Foods.SWEET_BERRIES));
+    public static final RegistryObject<Item> WICK_GRASS = ITEMS.register("wick_grass",
+            () -> new DoubleHighBlockItem(TABlocks.WICK_GRASS.get(), new Item.Properties()));
     //TODO Translation and Recipe
 //    public static final RegistryObject<Item> STRANGE_MEAT_FOOD = ITEMS.register("strange_meat_food", StrangeMeatFood::new);
 
@@ -272,7 +276,15 @@ public class TAItems {
     public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(),
             SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.WEBBING::get, 0.5F, (0.4F / (new Random().nextFloat() * 0.4F + 0.8F))));
     public static final RegistryObject<Item> LIVING_DIVINING_ROD = ITEMS.register("living_divining_rod", LivingDiviningRod::new);
-    public static final RegistryObject<Item> MOON_FISH_BUCKET = ITEMS.register("moon_fish_bucket", MoonFishBucket::new);
+    public static final RegistryObject<Item> MOON_WATER_BUCKET = ITEMS.register("moon_water_bucket", () -> new BucketItem(TAFluids.MOON_WATER_STILL, new Item.Properties()));
+    public static final RegistryObject<Item> MOON_FISH_BUCKET = ITEMS.register("moon_fish_bucket", () -> new MobBucketItem(TAEntityTypes.MOON_FISH,
+            () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
     public static final RegistryObject<Item> DEVELOPER_GIFT = ITEMS.register("developer_gift", DeveloperGift::new);
+
+    /**
+     * Developer Item
+     */
+    public static final RegistryObject<Item> SLEEPING_BLACK_TEA = ITEMS.register("sleeping_black_tea", SleepingBlackTea::new);
+    public static final RegistryObject<Item> WHITE_CHOCOLATE = ITEMS.register("white_chocolate", WhiteChocolate::new);
 
 }

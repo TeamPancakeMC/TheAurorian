@@ -66,7 +66,8 @@ public class TABiomes {
         return biomeWithParticle(biomeGenerationSettings
                         .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_FOREST)
                         .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
-                        .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_FOREST),
+                        .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_FOREST)
+                        .addFeature(vegetalDecoration, TAPlacements.RANDOM_WEAK_GRASS),
                 ParticleTypes.FIREWORK, 0.00625F);
     }
 

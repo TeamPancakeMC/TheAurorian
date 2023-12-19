@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "theaurorian:block/wick_grass_lower"
+    },
+    "half=upper": {
+      "model": "theaurorian:block/wick_grass_upper"
+    }
+  }
+}

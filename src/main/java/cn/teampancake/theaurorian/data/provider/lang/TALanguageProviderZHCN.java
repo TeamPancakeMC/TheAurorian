@@ -44,6 +44,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.AURORIAN_FLOWER_2.get(), "极光花");
         this.add(TABlocks.AURORIAN_FLOWER_3.get(), "极光花");
         this.add(TABlocks.EQUINOX_FLOWER.get(), "彼岸花");
+        this.add(TABlocks.LAVENDER_PLANT.get(), "薰衣草");
+        this.add(TABlocks.PETUNIA_PLANT.get(), "牵牛花");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "极光橄榄岩");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "平滑极光橄榄岩");
         this.add(TABlocks.MOONSTONE_ORE.get(), "皎月石矿石");
@@ -69,6 +71,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.SMOOTH_DARK_STONE_BRICKS.get(), "平滑暗石");
         this.add(TABlocks.CHISELED_DARK_STONE_BRICKS.get(), "雕纹暗石");
         this.add(TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get(), "平滑月宫砖块");
+        this.add(TABlocks.CHISELED_MOON_TEMPLE_BRICKS.get(), "雕纹月宫砖块");
         this.add(TABlocks.RUNE_STONE_LAMP.get(), "符石灯");
         this.add(TABlocks.DARK_STONE_LAMP.get(), "暗石灯");
         this.add(TABlocks.MOON_TEMPLE_LAMP.get(), "月宫灯");
@@ -270,6 +273,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.LAVENDER_BREAD.get(), "薰衣草面包");
         this.add(TAItems.LAVENDER_TEA.get(), "薰衣草茶");
         this.add(TAItems.LIVING_DIVINING_ROD.get(), "生命卜窥权杖");
+        this.add(TAItems.MOON_WATER_BUCKET.get(), "皎月水桶");
         this.add(TAItems.MOON_FISH_BUCKET.get(), "皎月鱼桶");
         this.add(TAItems.LOCK_PICKS.get(), "开锁器");
         this.add(TAItems.DEVELOPER_GIFT.get(), "开发者礼物");
@@ -289,6 +293,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.QUEENS_CHIPPER.get(), "女王镐");
         this.add(TAItems.RUNESTONE_KEEPER_SPAWN_EGG.get(), "符石守卫刷怪蛋");
         this.add(TAItems.LAVENDER_SEEDY_TEA.get(), "薰衣草籽茶");
+        this.add(TAItems.SILENT_WOOD_SICKLE.get(),"谧木镰");
         this.add(TAItems.SILENT_WOOD_AXE.get(), "谧木斧");
         this.add(TAItems.SILENT_WOOD_HOE.get(), "谧木锄");
         this.add(TAItems.SILENT_WOOD_PICKAXE.get(), "谧木镐");
@@ -296,15 +301,17 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.SILENT_WOOD_SWORD.get(), "谧木剑");
         this.add(TAItems.SILENT_WOOD_BOW.get(), "谧木弓");
         this.add(TAItems.SILENT_WOOD_STICK.get(), "谧木棍");
+        this.add(TAItems.WICK_GRASS.get(), "灯芯草");
         this.add(TAItems.BLUEBERRY.get(),"蓝莓");
         this.add(TAItems.SILK_BERRY.get(), "桑葚");
         this.add(TAItems.SILK_BERRY_JAM.get(), "桑葚酱");
         this.add(TAItems.SILK_BERRY_JAM_SANDWICH.get(), "桑葚酱三明治");
-        this.add(TAItems.SILKBERRY_TEA.get(), "桑葚茶");
+        this.add(TAItems.SILK_BERRY_TEA.get(), "桑葚茶");
         this.add(TAItems.SILK_SHROOM_STEW.get(), "桑葚煲");
         this.add(TAItems.SLEEPING_BLACK_TEA.get(), "昏睡红茶");
         this.add(TAItems.SOULLESS_FLESH.get(), "魂灭之肉");
         this.add(TAItems.MOON_FISH.get(), "生皎月鱼");
+        this.add(TAItems.WHITE_CHOCOLATE.get(), "白巧克力");
         this.add(TAItems.SPECTRAL_SILK.get(), "幽冥丝绸");
         this.add(TAItems.SPECTRAL_HELMET.get(), "幽冥头盔");
         this.add(TAItems.SPECTRAL_CHESTPLATE.get(), "幽冥胸甲");

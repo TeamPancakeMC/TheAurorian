@@ -7,14 +7,18 @@ import net.minecraft.world.item.Item;
 
 public class TAItemTags {
 
+    public static final TagKey<Item> IS_UNCOMMON = create("is_uncommon");
+    public static final TagKey<Item> IS_RARE = create("is_rare");
+    public static final TagKey<Item> IS_EPIC = create("is_epic");
+    public static final TagKey<Item> IS_LEGENDARY = create("is_legendary");
+    public static final TagKey<Item> IS_MYTHICAL = create("is_mythical");
     public static final TagKey<Item> DUNGEON_KEY = create("dungeon_key");
     public static final TagKey<Item> SPECTRAL_ARMOR = create("spectral_armor");
     public static final TagKey<Item> DUNGEON_BRICKS = create("dungeon_bricks");
     public static final TagKey<Item> SILENT_TREE_LOGS = create("silent_tree_logs");
     public static final TagKey<Item> WEEPING_WILLOW_LOGS = create("weeping_willow_logs");
     public static final TagKey<Item> AURORIAN_GRASS_BLOCK = create("aurorian_grass_block");
-    public static final TagKey<Item> AURORIAN_SLIME_BOOTS = create("aurorian_slime_boots");
-    public static final TagKey<Item> HAS_CUSTOM_ARMOR_MODEL = create("has_custom_armor_model");
+    public static final TagKey<Item> HAS_CUSTOM_TOOLTIPS = create("has_custom_tooltips");
     public static final TagKey<Item> AUROTIAN_ANIMAL_UNSPAWNABLE_ON = create("aurotian_animal_unspawnable_on");
 
     private static TagKey<Item> create(String name) {

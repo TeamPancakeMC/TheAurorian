@@ -75,6 +75,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_2.get());
         this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_3.get());
         this.dropPottedContents(TABlocks.POTTED_EQUINOX_FLOWER.get());
+        this.dropPottedContents(TABlocks.POTTED_WICK_GRASS.get());
         this.dropPottedContents(TABlocks.POTTED_AURORIAN_GRASS.get());
         this.dropPottedContents(TABlocks.POTTED_LAVENDER_PLANT.get());
         this.dropPottedContents(TABlocks.POTTED_PETUNIA_PLANT.get());
@@ -140,7 +141,7 @@ public class TABlockLoot extends VanillaBlockLoot {
 
     private LootTable.Builder createSilkTouchOrSicklesDispatchTable(Block block, ItemLike itemLike) {
         final LootItemCondition.Builder hasSickles = MatchTool.toolMatches(ItemPredicate.Builder.item()
-                .of(TAItems.AURORIAN_STONE_SICKLE.get(), TAItems.AURORIAN_STEEL_SICKLE.get(), TAItems.MOONSTONE_SICKLE.get()));
+                .of(TAItems.AURORIAN_STONE_SICKLE.get(), TAItems.SILENT_WOOD_SICKLE.get(), TAItems.MOONSTONE_SICKLE.get()));
         return createSelfDropDispatchTable(block, hasSickles, this.applyExplosionDecay(block, LootItem.lootTableItem(itemLike)));
     }
 

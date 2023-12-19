@@ -3,14 +3,17 @@ package cn.teampancake.theaurorian.compat;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.CeruleanArrow;
 import cn.teampancake.theaurorian.common.items.CrystalArrow;
-import cn.teampancake.theaurorian.common.items.MoonFishBucket;
 import cn.teampancake.theaurorian.registry.TABlocks;
 import cn.teampancake.theaurorian.registry.TAItems;
 import cn.teampancake.theaurorian.utils.TACommonUtils;
 import com.google.common.collect.Maps;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ShieldItem;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.api.distmarker.Dist;
@@ -63,14 +66,16 @@ public class VanillaItemCompat {
             ComposterBlock.add(0.3F, TAItems.LAVENDER_SEEDS.get());
             ComposterBlock.add(0.3F, TAItems.SILK_BERRY.get());
             ComposterBlock.add(0.3F, TAItems.BLUEBERRY.get());
+            ComposterBlock.add(0.65F, TAItems.WICK_GRASS.get());
             ComposterBlock.add(0.85F, TAItems.LAVENDER_BREAD.get());
         }
 
         @SubscribeEvent
-        public static void registerDispenser(FMLCommonSetupEvent event) {
+        public static void registerDispenserBehavior(FMLCommonSetupEvent event) {
             DispenserBlock.registerBehavior(TAItems.CERULEAN_ARROW.get(), new CeruleanArrow.Dispense());
             DispenserBlock.registerBehavior(TAItems.CRYSTAL_ARROW.get(), new CrystalArrow.Dispense());
-            DispenserBlock.registerBehavior(TAItems.MOON_FISH_BUCKET.get(), new MoonFishBucket.Dispense());
+            DispenserBlock.registerBehavior(TAItems.MOON_WATER_BUCKET.get(), new DispenseBucket());
+            DispenserBlock.registerBehavior(TAItems.MOON_FISH_BUCKET.get(), new DispenseBucket());
         }
 
         @SubscribeEvent
@@ -89,6 +94,26 @@ public class VanillaItemCompat {
                     ItemProperties.register(item, AurorianMod.prefix("blocking"), ((stack, level, entity, seed) ->
                             entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
                 }
+            }
+        }
+
+    }
+
+    @MethodsReturnNonnullByDefault
+    private static class DispenseBucket extends DefaultDispenseItemBehavior {
+
+        private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
+
+        @Override
+        public ItemStack execute(BlockSource source, ItemStack stack) {
+            DispensibleContainerItem containerItem = (DispensibleContainerItem)stack.getItem();
+            BlockPos blockPos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+            Level level = source.getLevel();
+            if (containerItem.emptyContents(null, level, blockPos, null, stack)) {
+                containerItem.checkExtraContent(null, level, stack, blockPos);
+                return new ItemStack(Items.BUCKET);
+            } else {
+                return this.defaultDispenseItemBehavior.dispense(source, stack);
             }
         }
 

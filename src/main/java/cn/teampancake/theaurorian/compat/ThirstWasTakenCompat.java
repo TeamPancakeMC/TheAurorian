@@ -8,17 +8,19 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ThirstWasTakenCompat {
+
     public static boolean init = false;
 
-    public ThirstWasTakenCompat(){
+    public ThirstWasTakenCompat() {
     }
-    public static void init(){
+
+    public static void init() {
         MinecraftForge.EVENT_BUS.register(ThirstWasTakenCompat.class);
     }
 
     public static void DrinkList(){
         ThirstHelper.addDrink(TAItems.LAVENDER_TEA.get(),10,14);
-        ThirstHelper.addDrink(TAItems.SILKBERRY_TEA.get(),10,14);
+        ThirstHelper.addDrink(TAItems.SILK_BERRY_TEA.get(),10,14);
         ThirstHelper.addDrink(TAItems.LAVENDER_SEEDY_TEA.get(),10,14);
         ThirstHelper.addDrink(TAItems.PETUNIA_TEA.get(),10,14);
         ThirstHelper.addDrink(TAItems.SLEEPING_BLACK_TEA.get(),10,14);
@@ -30,7 +32,7 @@ public class ThirstWasTakenCompat {
     public static void registerDrinks(LivingEntityUseItemEvent.Finish event){
         if(!init){
             DrinkList();
-            init=true;
+            init = true;
         }
     }
 
@@ -38,7 +40,7 @@ public class ThirstWasTakenCompat {
     public static void registerDrinks(RenderTooltipEvent.GatherComponents event){
         if(!init){
             DrinkList();
-            init=true;
+            init = true;
         }
     }
 

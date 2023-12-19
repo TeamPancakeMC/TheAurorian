@@ -47,7 +47,7 @@ public class TAFluids {
             TAFluidTypes.MOLTEN_MOONSTONE, MOLTEN_MOONSTONE_STILL, MOLTEN_MOONSTONE_FLOWING)
             .slopeFindDistance(2).levelDecreasePerBlock(30).block(TABlocks.MOLTEN_MOONSTONE);
     private static final ForgeFlowingFluid.Properties MOON_WATER_PROPERTIES = new ForgeFlowingFluid.Properties(
-            TAFluidTypes.MOON_WATER, MOON_WATER_STILL, MOON_WATER_FLOWING).block(TABlocks.MOON_WATER);
+            TAFluidTypes.MOON_WATER, MOON_WATER_STILL, MOON_WATER_FLOWING).block(TABlocks.MOON_WATER).bucket(TAItems.MOON_WATER_BUCKET);
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent

@@ -6,10 +6,6 @@
       {
         "chance": 0.4,
         "feature": "theaurorian:silent_tree"
-      },
-      {
-        "chance": 0.2,
-        "feature": "theaurorian:silent_bush"
       }
     ]
   }

@@ -22,8 +22,9 @@ public class AurorianPig extends Pig {
         return stack.is(TAItems.SILK_BERRY.get());
     }
 
+    @SuppressWarnings("unused")
     public static boolean checkAurorianPigSpawnRules(EntityType<AurorianPig> aurorianPig, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkAnimalSpawnRules(aurorianPig, level, spawnType, pos, random);
+        return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
     }
 
 }

@@ -6,8 +6,7 @@ import cn.teampancake.theaurorian.common.items.armor.AurorianSteelArmor;
 import cn.teampancake.theaurorian.common.items.armor.CeruleanArmor;
 import cn.teampancake.theaurorian.common.items.armor.KnightArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
-import cn.teampancake.theaurorian.common.items.developer.SleepingBlackTea;
-import cn.teampancake.theaurorian.common.items.developer.WhiteChocolate;
+import cn.teampancake.theaurorian.common.items.developer.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -286,5 +285,8 @@ public class TAItems {
      */
     public static final RegistryObject<Item> SLEEPING_BLACK_TEA = ITEMS.register("sleeping_black_tea", SleepingBlackTea::new);
     public static final RegistryObject<Item> WHITE_CHOCOLATE = ITEMS.register("white_chocolate", WhiteChocolate::new);
+    public static final RegistryObject<Item> RED_BOOK = ITEMS.register("red_book", RedBook::new);
+    public static final RegistryObject<Item> RED_BOOK_RING = ITEMS.register("red_book_ring", RedBookRing::new);
+    public static final RegistryObject<Item> STAR_OCEAN_CROSSBOW = ITEMS.register("star_ocean_crossbow", StarOceanCrossbow::new);
 
 }

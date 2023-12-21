@@ -18,7 +18,8 @@ import java.util.List;
 @SuppressWarnings("deprecation")
 public class TATooltipRenderUtils {
 
-    public static void renderTooltips(RenderTooltipEvent.Pre event, ResourceLocation tooltips, boolean isAdvanced, int outerColor, int intermediateColor, int innerColor, int[] xOffset, int[] yOffset, int[] uOffset, int[] vOffset, int[] uWidth, int[] vHeight) {
+    public static void renderTooltips(RenderTooltipEvent.Pre event, ResourceLocation tooltips, boolean isAdvanced, int outerColor, int intermediateColor, int innerColor,
+                                      int textureWidth, int textureHeight, int textTopOffset, int[] xOffset, int[] yOffset, int[] uOffset, int[] vOffset, int[] uWidth, int[] vHeight) {
         ClientTooltipPositioner tooltipPositioner = event.getTooltipPositioner();
         List<ClientTooltipComponent> components = event.getComponents();
         GuiGraphics graphics = event.getGraphics();
@@ -37,16 +38,14 @@ public class TATooltipRenderUtils {
                 i0 = k;
             }
         }
-        int tooltipWidth = i0;
-        int tooltipHeight = j0;
+        int tooltipWidth = i0, tooltipHeight = j0;
         Vector2ic vector2ic = tooltipPositioner.positionTooltip(width, height, mouseX, mouseY, tooltipWidth, tooltipHeight);
-        int tooltipPosX = vector2ic.x();
-        int tooltipPosY = vector2ic.y();
+        int tooltipPosX = vector2ic.x(), tooltipPosY = vector2ic.y();
         graphics.drawManaged(() -> {
             int i = tooltipPosX - 3;
             int j = tooltipPosY - 3;
             int k = tooltipWidth + 3 + 3;
-            int l = tooltipHeight + 3 + 7;
+            int l = tooltipHeight + 3 + 3 + textTopOffset + 2;
             TooltipRenderUtil.renderRectangle(graphics, i, j, k, l, 400, -267386864);
             TooltipRenderUtil.renderHorizontalLine(graphics, i, j - 1, k, 400, outerColor);
             TooltipRenderUtil.renderHorizontalLine(graphics, i, j + l, k, 400, outerColor);
@@ -59,7 +58,7 @@ public class TATooltipRenderUtils {
             TooltipRenderUtil.renderFrameGradient(graphics, i, j + 1, k, l, 400, intermediateColor, intermediateColor);
         });
         graphics.pose().translate(0.0F, 0.0F, 400.0F);
-        int k1 = tooltipPosY + 2;
+        int k1 = tooltipPosY + textTopOffset;
         for (int l1 = 0; l1 < components.size(); ++l1) {
             ClientTooltipComponent component = components.get(l1);
             int textWidth = component.getWidth(font);
@@ -67,17 +66,19 @@ public class TATooltipRenderUtils {
             component.renderText(font, k0, k1, graphics.pose().last().pose(), graphics.bufferSource());
             k1 += component.getHeight() + (l1 == 0 ? 2 : 0);
         }
-        k1 = tooltipPosY + 2;
+        k1 = tooltipPosY + textTopOffset;
         RenderSystem.enableBlend();
-        int x1 = tooltipPosX + (tooltipWidth - uWidth[4]) / 2;
-        graphics.blit(tooltips, mouseX + xOffset[0], mouseY + yOffset[0], uOffset[0], vOffset[0], uWidth[0], vHeight[0], 48, 32);
-        graphics.blit(tooltips, mouseX + xOffset[1], mouseY + tooltipHeight + yOffset[1], uOffset[1], vOffset[1], uWidth[1], vHeight[1], 48, 32);
-        graphics.blit(tooltips, mouseX + tooltipWidth + xOffset[2], mouseY + yOffset[2], uOffset[2], vOffset[2], uWidth[2], vHeight[2], 48, 32);
-        graphics.blit(tooltips, mouseX + tooltipWidth + xOffset[3], mouseY + tooltipHeight + yOffset[3], uOffset[3], vOffset[3], uWidth[3], vHeight[3], 48, 32);
-        graphics.blit(tooltips, x1, mouseY + yOffset[4], uOffset[4], vOffset[4], uWidth[4], vHeight[4], 48, 32);
+        int yd1 = mouseY + tooltipHeight + yOffset[1] + textTopOffset + 2;
+        int yd2 = mouseY + tooltipHeight + yOffset[3] + textTopOffset + 2;
+        graphics.blit(tooltips, tooltipPosX + xOffset[0], mouseY + yOffset[0], uOffset[0], vOffset[0], uWidth[0], vHeight[0], textureWidth, textureHeight);
+        graphics.blit(tooltips, tooltipPosX + xOffset[1], yd1, uOffset[1], vOffset[1], uWidth[1], vHeight[1], textureWidth, textureHeight);
+        graphics.blit(tooltips, tooltipPosX + tooltipWidth + xOffset[2], mouseY + yOffset[2], uOffset[2], vOffset[2], uWidth[2], vHeight[2], textureWidth, textureHeight);
+        graphics.blit(tooltips, tooltipPosX + tooltipWidth + xOffset[3], yd2, uOffset[3], vOffset[3], uWidth[3], vHeight[3], textureWidth, textureHeight);
+        graphics.blit(tooltips, tooltipPosX + (tooltipWidth - uWidth[4]) / 2, mouseY + yOffset[4], uOffset[4], vOffset[4], uWidth[4], vHeight[4], textureWidth, textureHeight);
         if (isAdvanced) {
             int x2 = tooltipPosX + (tooltipWidth - uWidth[5]) / 2;
-            graphics.blit(tooltips, x2, mouseY + tooltipHeight + yOffset[5], uOffset[5], vOffset[5], uWidth[5], vHeight[5], 48, 32);
+            int y2 = mouseY + tooltipHeight + yOffset[5];
+            graphics.blit(tooltips, x2, y2, uOffset[5], vOffset[5], uWidth[5], vHeight[5], textureWidth, textureHeight);
         }
         RenderSystem.disableBlend();
         for (int k2 = 0; k2 < components.size(); ++k2) {

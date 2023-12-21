@@ -31,6 +31,7 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.copy(TABlockTags.WEEPING_WILLOW_LOGS, TAItemTags.WEEPING_WILLOW_LOGS);
         this.copy(TABlockTags.AURORIAN_GRASS_BLOCK, TAItemTags.AURORIAN_GRASS_BLOCK);
         this.copy(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, TAItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
+        this.tag(Tags.Items.TOOLS_CROSSBOWS).add(TAItems.STAR_OCEAN_CROSSBOW.get());
         this.tag(Tags.Items.TOOLS_BOWS).add(TAItems.SILENT_WOOD_BOW.get()).add(TAItems.KEEPERS_BOW.get());
         this.tag(Tags.Items.TOOLS_SHIELDS).add(TAItems.CERULEAN_SHIELD.get(), TAItems.CRYSTALLINE_SHIELD.get(),
                 TAItems.MOON_SHIELD.get(), TAItems.UMBRA_SHIELD.get(), TAItems.MOONSTONE_SHIELD.get());
@@ -40,11 +41,13 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.tag(TAItemTags.SPECTRAL_ARMOR).add(TAItems.SPECTRAL_HELMET.get(), TAItems.SPECTRAL_CHESTPLATE.get(),
                 TAItems.SPECTRAL_LEGGINGS.get(), TAItems.SPECTRAL_BOOTS.get());
         this.tag(TAItemTags.HAS_CUSTOM_TOOLTIPS).addTag(TAItemTags.IS_UNCOMMON).addTag(TAItemTags.IS_RARE)
-                .addTag(TAItemTags.IS_EPIC).addTag(TAItemTags.IS_LEGENDARY).addTag(TAItemTags.IS_MYTHICAL);
+                .addTag(TAItemTags.IS_EPIC).addTag(TAItemTags.IS_LEGENDARY).addTag(TAItemTags.IS_MYTHICAL)
+                .add(TAItems.WHITE_CHOCOLATE.get(), TAItems.RED_BOOK.get(), TAItems.RED_BOOK_RING.get(),
+                        TAItems.STAR_OCEAN_CROSSBOW.get());
         this.tag(TAItemTags.IS_EPIC).add(TAItems.AURORIAN_STEEL.get());
         this.tag(TAItemTags.IS_LEGENDARY).add(TAItems.TROPHY_KEEPER.get(), TAItems.TROPHY_SPIDER_MOTHER.get(),
                 TAItems.TROPHY_MOON_QUEEN.get(), TAItems.DEVELOPER_GIFT.get(), TAItems.AURORIAN_CRYSTAL.get());
-        this.tag(TAItemTags.IS_MYTHICAL).add(TAItems.SLEEPING_BLACK_TEA.get(), TAItems.WHITE_CHOCOLATE.get());
+        this.tag(TAItemTags.IS_MYTHICAL).add(TAItems.SLEEPING_BLACK_TEA.get());
         for (Item item : TACommonUtils.getKnownItems()) {
             if (!(item instanceof IDeveloperItem)) {
                 if (item.canBeDepleted()) {

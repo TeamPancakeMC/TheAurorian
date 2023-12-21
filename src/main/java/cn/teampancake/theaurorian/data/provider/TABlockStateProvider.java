@@ -82,6 +82,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.RUNE_STONE_LAMP.get());
         this.simpleBlock(TABlocks.DARK_STONE_LAMP.get());
         this.simpleBlock(TABlocks.MOON_TEMPLE_LAMP.get());
+        this.simpleBlock(TABlocks.VOID_STONE.get());
         this.simpleBlock(TABlocks.CERULEAN_BLOCK.get());
         this.simpleBlock(TABlocks.MOONSTONE_BLOCK.get());
         this.simpleBlock(TABlocks.AURORIAN_COAL_BLOCK.get());
@@ -108,7 +109,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.MOON_TORCH.get(),
                 this.models().torch(this.name(TABlocks.MOON_TORCH.get()),
                         this.blockTexture(TABlocks.MOON_TORCH.get())));
-        this.simpleBlock(TABlocks.RUNE_STONE_PILLAR.get());
+        this.logBlock((RotatedPillarBlock) TABlocks.RUNE_STONE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.DARK_STONE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.MOON_TEMPLE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.SILENT_TREE_LOG.get());

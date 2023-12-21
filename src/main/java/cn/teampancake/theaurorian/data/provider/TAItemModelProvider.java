@@ -77,6 +77,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.RUNE_STONE_LAMP.get());
         this.simpleBlockItem(TABlocks.DARK_STONE_LAMP.get());
         this.simpleBlockItem(TABlocks.MOON_TEMPLE_LAMP.get());
+        this.simpleBlockItem(TABlocks.VOID_STONE.get());
         this.simpleBlockItem(TABlocks.CERULEAN_BLOCK.get());
         this.simpleBlockItem(TABlocks.MOONSTONE_BLOCK.get());
         this.simpleBlockItem(TABlocks.AURORIAN_COAL_BLOCK.get());
@@ -153,6 +154,8 @@ public class TAItemModelProvider extends ItemModelProvider {
                         .texture("layer0", this.modLoc("item/" + key.getPath()));
             } else if (item instanceof BowItem) {
                 this.bowItem(item);
+            } else if (item instanceof CrossbowItem) {
+                this.crossbowItem(item);
             } else if (item instanceof ShieldItem) {
                 this.shieldItem(item);
             } else if (!(item instanceof BlockItem)) {
@@ -176,6 +179,37 @@ public class TAItemModelProvider extends ItemModelProvider {
             String path = name + "_pulling_" + i;
             this.getBuilder(path).parent(bowModel).texture("layer0", this.modLoc("item/" + path));
         }
+    }
+
+    private void crossbowItem(Item item) {
+        String name = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
+        ModelFile.UncheckedModelFile crossbowModel = new ModelFile.UncheckedModelFile(this.modLoc("item/" + name));
+        this.withExistingParent(name, this.modLoc("item/ta_crossbow"))
+                .texture("layer0", this.modLoc("item/" + name + "_standby"))
+                .override().predicate(this.modLoc("arrow_pulling"), 1)
+                .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_arrow_pulling_0"))).end()
+                .override().predicate(this.modLoc("arrow_pulling"), 1).predicate(this.modLoc("pull"), 0.58F)
+                .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_arrow_pulling_1"))).end()
+                .override().predicate(this.modLoc("arrow_pulling"), 1).predicate(this.modLoc("pull"), 1.0F)
+                .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_arrow_pulling_2"))).end()
+                .override().predicate(this.modLoc("arrow_charged"), 1)
+                .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_arrow_charged"))).end()
+                .override().predicate(this.modLoc("firework_pulling"), 1)
+                .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_firework_pulling_0"))).end()
+                .override().predicate(this.modLoc("firework_pulling"), 1).predicate(this.modLoc("pull"), 0.58F)
+                .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_firework_pulling_1"))).end()
+                .override().predicate(this.modLoc("firework_pulling"), 1).predicate(this.modLoc("pull"), 1.0F)
+                .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_firework_pulling_2"))).end()
+                .override().predicate(this.modLoc("firework_charged"), 1)
+                .model(new ModelFile.UncheckedModelFile(this.modLoc("item/" + name + "_firework_charged"))).end();
+        this.getBuilder(name + "_arrow_pulling_0").parent(crossbowModel).texture("layer0", this.modLoc("item/" + name + "_arrow_pulling_0"));
+        this.getBuilder(name + "_arrow_pulling_1").parent(crossbowModel).texture("layer0", this.modLoc("item/" + name + "_arrow_pulling_1"));
+        this.getBuilder(name + "_arrow_pulling_2").parent(crossbowModel).texture("layer0", this.modLoc("item/" + name + "_arrow_pulling_2"));
+        this.getBuilder(name + "_arrow_charged").parent(crossbowModel).texture("layer0", this.modLoc("item/" + name + "_arrow_charged"));
+        this.getBuilder(name + "_firework_pulling_0").parent(crossbowModel).texture("layer0", this.modLoc("item/" + name + "_firework_pulling_0"));
+        this.getBuilder(name + "_firework_pulling_1").parent(crossbowModel).texture("layer0", this.modLoc("item/" + name + "_firework_pulling_1"));
+        this.getBuilder(name + "_firework_pulling_2").parent(crossbowModel).texture("layer0", this.modLoc("item/" + name + "_firework_pulling_2"));
+        this.getBuilder(name + "_firework_charged").parent(crossbowModel).texture("layer0", this.modLoc("item/" + name + "_firework_charged"));
     }
 
     private void shieldItem(Item item) {

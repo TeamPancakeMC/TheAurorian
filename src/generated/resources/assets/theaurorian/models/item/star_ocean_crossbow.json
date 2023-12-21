@@ -1,0 +1,60 @@
+{
+  "parent": "theaurorian:item/ta_crossbow",
+  "overrides": [
+    {
+      "model": "theaurorian:item/star_ocean_crossbow_arrow_pulling_0",
+      "predicate": {
+        "theaurorian:arrow_pulling": 1.0
+      }
+    },
+    {
+      "model": "theaurorian:item/star_ocean_crossbow_arrow_pulling_1",
+      "predicate": {
+        "theaurorian:arrow_pulling": 1.0,
+        "theaurorian:pull": 0.58
+      }
+    },
+    {
+      "model": "theaurorian:item/star_ocean_crossbow_arrow_pulling_2",
+      "predicate": {
+        "theaurorian:arrow_pulling": 1.0,
+        "theaurorian:pull": 1.0
+      }
+    },
+    {
+      "model": "theaurorian:item/star_ocean_crossbow_arrow_charged",
+      "predicate": {
+        "theaurorian:arrow_charged": 1.0
+      }
+    },
+    {
+      "model": "theaurorian:item/star_ocean_crossbow_firework_pulling_0",
+      "predicate": {
+        "theaurorian:firework_pulling": 1.0
+      }
+    },
+    {
+      "model": "theaurorian:item/star_ocean_crossbow_firework_pulling_1",
+      "predicate": {
+        "theaurorian:firework_pulling": 1.0,
+        "theaurorian:pull": 0.58
+      }
+    },
+    {
+      "model": "theaurorian:item/star_ocean_crossbow_firework_pulling_2",
+      "predicate": {
+        "theaurorian:firework_pulling": 1.0,
+        "theaurorian:pull": 1.0
+      }
+    },
+    {
+      "model": "theaurorian:item/star_ocean_crossbow_firework_charged",
+      "predicate": {
+        "theaurorian:firework_charged": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "theaurorian:item/star_ocean_crossbow_standby"
+  }
+}

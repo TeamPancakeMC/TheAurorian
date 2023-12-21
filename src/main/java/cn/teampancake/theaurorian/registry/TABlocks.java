@@ -71,7 +71,7 @@ public class TABlocks {
     public static final RegistryObject<Block> MOON_CASTLE_RUNE_STONE = normal("moon_castle_rune_stone", breakWithQueenPickaxe());
     public static final RegistryObject<Block> TRANSPARENT_RUNE_STONE = normal("transparent_rune_stone", breakWithQueenPickaxe());
     public static final RegistryObject<Block> UMBRA_CASTLE_RUNE_STONE = normal("umbra_castle_rune_stone", breakWithQueenPickaxe());
-    public static final RegistryObject<Block> RUNE_STONE_PILLAR = normal("rune_stone_pillar", breakWithQueenPickaxe());
+    public static final RegistryObject<Block> RUNE_STONE_PILLAR = register("rune_stone_pillar", () -> new RotatedPillarBlock(breakWithQueenPickaxe()));
     public static final RegistryObject<Block> DARK_STONE_PILLAR = register("dark_stone_pillar", () -> new RotatedPillarBlock(breakWithQueenPickaxe()));
     public static final RegistryObject<Block> MOON_TEMPLE_PILLAR = register("moon_temple_pillar", () -> new RotatedPillarBlock(breakWithQueenPickaxe()));
     public static final RegistryObject<Block> MOON_TEMPLE_BRICKS = normal("moon_temple_bricks", breakWithQueenPickaxe());
@@ -85,6 +85,7 @@ public class TABlocks {
     public static final RegistryObject<Block> RUNE_STONE_LAMP = normal("rune_stone_lamp", breakWithQueenPickaxe().lightLevel(s -> 15));
     public static final RegistryObject<Block> DARK_STONE_LAMP = normal("dark_stone_lamp", breakWithQueenPickaxe().lightLevel(s -> 15));
     public static final RegistryObject<Block> MOON_TEMPLE_LAMP = normal("moon_temple_lamp", breakWithQueenPickaxe().lightLevel(s -> 15));
+    public static final RegistryObject<Block> VOID_STONE = normal("void_stone", breakWithQueenPickaxe().lightLevel(s -> 7));
     public static final RegistryObject<Block> CERULEAN_BLOCK = normal("cerulean_block", breakWithQueenPickaxe().mapColor(MapColor.METAL));
     public static final RegistryObject<Block> MOONSTONE_BLOCK = normal("moonstone_block", breakWithQueenPickaxe().mapColor(MapColor.METAL));
     public static final RegistryObject<Block> AURORIAN_COAL_BLOCK = normal("aurorian_coal_block", breakWithQueenPickaxe().mapColor(MapColor.METAL));

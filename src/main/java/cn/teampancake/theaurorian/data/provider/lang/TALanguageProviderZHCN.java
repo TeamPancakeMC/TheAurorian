@@ -75,6 +75,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.RUNE_STONE_LAMP.get(), "符石灯");
         this.add(TABlocks.DARK_STONE_LAMP.get(), "暗石灯");
         this.add(TABlocks.MOON_TEMPLE_LAMP.get(), "月宫灯");
+        this.add(TABlocks.VOID_STONE.get(), "虚空石");
         this.add(TABlocks.CERULEAN_BLOCK.get(), "晶蓝块");
         this.add(TABlocks.MOONSTONE_BLOCK.get(), "皎月石块");
         this.add(TABlocks.AURORIAN_COAL_BLOCK.get(), "极光煤块");
@@ -335,6 +336,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_BERRY.get(),"极光浆果");
         this.add(TAItems.AURORIAN_CRYSTAL.get(),"极光水晶");
         this.add(TAItems.EQUINOX_MUSHROOM.get(),"彼岸蘑菇");
+        this.add(TAItems.RED_BOOK.get(), "红皮书");
+        this.add(TAItems.RED_BOOK_RING.get(), "红皮书戒指");
+        this.add(TAItems.STAR_OCEAN_CROSSBOW.get(), "星弩");
         this.add(TAItems.WORLD_SCROLL_FRAGMENT.get(),"世界残卷");
         this.add(TAItems.WORLD_SCROLL.get(),"世界卷轴");
         this.add(TAItems.WEEPING_WILLOW_SAP.get(), "垂柳树汁");

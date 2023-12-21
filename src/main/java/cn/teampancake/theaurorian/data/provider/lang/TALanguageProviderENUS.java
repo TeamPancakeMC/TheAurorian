@@ -75,6 +75,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.RUNE_STONE_LAMP.get(), "Runestone Lamp");
         this.add(TABlocks.DARK_STONE_LAMP.get(), "Dark Stone Lamp");
         this.add(TABlocks.MOON_TEMPLE_LAMP.get(), "Moon Temple Lamp");
+        this.add(TABlocks.VOID_STONE.get(), "Void Stone");
         this.add(TABlocks.CERULEAN_BLOCK.get(), "Cerulean Block");
         this.add(TABlocks.MOONSTONE_BLOCK.get(), "Moonstone Block");
         this.add(TABlocks.AURORIAN_COAL_BLOCK.get(), "Aurorian Coal Block");
@@ -336,6 +337,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_BERRY.get(),"Aurorian Berry");
         this.add(TAItems.AURORIAN_CRYSTAL.get(),"Aurorian Crystal");
         this.add(TAItems.EQUINOX_MUSHROOM.get(),"Equinox Mushroom");
+        this.add(TAItems.RED_BOOK.get(), "Red Book");
+        this.add(TAItems.RED_BOOK_RING.get(), "Red Book Ring");
+        this.add(TAItems.STAR_OCEAN_CROSSBOW.get(), "Star Ocean Crossbow");
         this.add(TAItems.WORLD_SCROLL_FRAGMENT.get(),"World Scroll Fragment");
         this.add(TAItems.WORLD_SCROLL.get(),"World Scroll");
         this.add(TAItems.WEEPING_WILLOW_SAP.get(),"Weeping Willow Sap");

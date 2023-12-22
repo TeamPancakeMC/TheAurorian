@@ -18,8 +18,9 @@ import java.util.List;
 @SuppressWarnings("deprecation")
 public class TATooltipRenderUtils {
 
-    public static void renderTooltips(RenderTooltipEvent.Pre event, ResourceLocation tooltips, boolean isAdvanced, int outerColor, int intermediateColor, int innerColor,
-                                      int textureWidth, int textureHeight, int textTopOffset, int[] xOffset, int[] yOffset, int[] uOffset, int[] vOffset, int[] uWidth, int[] vHeight) {
+    public static void renderTooltips(
+            RenderTooltipEvent.Pre event, ResourceLocation tooltips, int outerColor, int intermediateColor, int innerColor, int textureWidth,
+            int textureHeight, int textTopOffset, int[] xOffset, int[] yOffset, int[] uOffset, int[] vOffset, int[] uWidth, int[] vHeight) {
         ClientTooltipPositioner tooltipPositioner = event.getTooltipPositioner();
         List<ClientTooltipComponent> components = event.getComponents();
         GuiGraphics graphics = event.getGraphics();
@@ -74,11 +75,13 @@ public class TATooltipRenderUtils {
         graphics.blit(tooltips, tooltipPosX + xOffset[1], yd1, uOffset[1], vOffset[1], uWidth[1], vHeight[1], textureWidth, textureHeight);
         graphics.blit(tooltips, tooltipPosX + tooltipWidth + xOffset[2], mouseY + yOffset[2], uOffset[2], vOffset[2], uWidth[2], vHeight[2], textureWidth, textureHeight);
         graphics.blit(tooltips, tooltipPosX + tooltipWidth + xOffset[3], yd2, uOffset[3], vOffset[3], uWidth[3], vHeight[3], textureWidth, textureHeight);
-        graphics.blit(tooltips, tooltipPosX + (tooltipWidth - uWidth[4]) / 2, mouseY + yOffset[4], uOffset[4], vOffset[4], uWidth[4], vHeight[4], textureWidth, textureHeight);
-        if (isAdvanced) {
-            int x2 = tooltipPosX + (tooltipWidth - uWidth[5]) / 2;
-            int y2 = mouseY + tooltipHeight + yOffset[5];
-            graphics.blit(tooltips, x2, y2, uOffset[5], vOffset[5], uWidth[5], vHeight[5], textureWidth, textureHeight);
+        if (uWidth.length > 4) {
+            graphics.blit(tooltips, tooltipPosX + (tooltipWidth - uWidth[4]) / 2, mouseY + yOffset[4], uOffset[4], vOffset[4], uWidth[4], vHeight[4], textureWidth, textureHeight);
+            if (uWidth.length > 5) {
+                int x2 = tooltipPosX + (tooltipWidth - uWidth[5]) / 2;
+                int y2 = mouseY + tooltipHeight + yOffset[5];
+                graphics.blit(tooltips, x2, y2, uOffset[5], vOffset[5], uWidth[5], vHeight[5], textureWidth, textureHeight);
+            }
         }
         RenderSystem.disableBlend();
         for (int k2 = 0; k2 < components.size(); ++k2) {

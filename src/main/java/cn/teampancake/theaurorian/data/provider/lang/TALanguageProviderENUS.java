@@ -46,6 +46,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.EQUINOX_FLOWER.get(), "Equinox Flower");
         this.add(TABlocks.LAVENDER_PLANT.get(), "Lavender Plant");
         this.add(TABlocks.PETUNIA_PLANT.get(), "Petunia Plant");
+        this.add(TABlocks.WICK_GRASS.get(), "Wick Grass");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "Aurorian Peridotite");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "Smooth Aurorian Peridotite");
         this.add(TABlocks.MOONSTONE_ORE.get(), "Moonstone Ore");
@@ -303,7 +304,6 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.SILENT_WOOD_SWORD.get(),"Silent Wood Sword");
         this.add(TAItems.SILENT_WOOD_BOW.get(),"Silent Wood Bow");
         this.add(TAItems.SILENT_WOOD_STICK.get(), "Silent Wood Stick");
-        this.add(TAItems.WICK_GRASS.get(), "Wick Grass");
         this.add(TAItems.BLUEBERRY.get(),"Blueberry");
         this.add(TAItems.SILK_BERRY.get(),"Silk Berry");
         this.add(TAItems.SILK_BERRY_JAM.get(),"Silk Berry Jam");
@@ -337,9 +337,11 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_BERRY.get(),"Aurorian Berry");
         this.add(TAItems.AURORIAN_CRYSTAL.get(),"Aurorian Crystal");
         this.add(TAItems.EQUINOX_MUSHROOM.get(),"Equinox Mushroom");
+        this.add(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(),"Dream Dyeing Crystal Fragment");
         this.add(TAItems.RED_BOOK.get(), "Red Book");
         this.add(TAItems.RED_BOOK_RING.get(), "Red Book Ring");
         this.add(TAItems.STAR_OCEAN_CROSSBOW.get(), "Star Ocean Crossbow");
+        this.add(TAItems.CAT_BELL.get(), "Cat Bell");
         this.add(TAItems.WORLD_SCROLL_FRAGMENT.get(),"World Scroll Fragment");
         this.add(TAItems.WORLD_SCROLL.get(),"World Scroll");
         this.add(TAItems.WEEPING_WILLOW_SAP.get(),"Weeping Willow Sap");

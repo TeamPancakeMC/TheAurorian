@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "theaurorian:item/dream_dyeing_crystal_fragment"
+  }
+}

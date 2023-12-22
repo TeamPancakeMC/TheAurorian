@@ -180,8 +180,6 @@ public class TAItems {
     public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", TABlocks.SILK_BERRY_CROP, new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
     public static final RegistryObject<Item> BLUEBERRY = alias("blueberry", TABlocks.BLUEBERRY_BUSH, new Item.Properties().food(Foods.SWEET_BERRIES));
-    public static final RegistryObject<Item> WICK_GRASS = ITEMS.register("wick_grass",
-            () -> new DoubleHighBlockItem(TABlocks.WICK_GRASS.get(), new Item.Properties()));
     //TODO Translation and Recipe
 //    public static final RegistryObject<Item> STRANGE_MEAT_FOOD = ITEMS.register("strange_meat_food", StrangeMeatFood::new);
 
@@ -267,6 +265,7 @@ public class TAItems {
     public static final RegistryObject<Item> AURORIAN_BERRY = normal("aurorian_berry", false);
     public static final RegistryObject<Item> AURORIAN_CRYSTAL = normal("aurorian_crystal", false);
     public static final RegistryObject<Item> EQUINOX_MUSHROOM = normal("equinox_mushroom", false);
+    public static final RegistryObject<Item> DREAM_DYEING_CRYSTAL_FRAGMENT = normal("dream_dyeing_crystal_fragment", true);
     public static final RegistryObject<Item> WORLD_SCROLL_FRAGMENT = normal("world_scroll_fragment", false);
     public static final RegistryObject<Item> WORLD_SCROLL = ITEMS.register("world_scroll", WorldScroll::new);
     public static final RegistryObject<Item> LOCK_PICKS = ITEMS.register("lock_picks",
@@ -288,5 +287,6 @@ public class TAItems {
     public static final RegistryObject<Item> RED_BOOK = ITEMS.register("red_book", RedBook::new);
     public static final RegistryObject<Item> RED_BOOK_RING = ITEMS.register("red_book_ring", RedBookRing::new);
     public static final RegistryObject<Item> STAR_OCEAN_CROSSBOW = ITEMS.register("star_ocean_crossbow", StarOceanCrossbow::new);
+    public static final RegistryObject<Item> CAT_BELL = ITEMS.register("cat_bell", CatBell::new);
 
 }

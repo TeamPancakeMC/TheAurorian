@@ -43,7 +43,7 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.tag(TAItemTags.HAS_CUSTOM_TOOLTIPS).addTag(TAItemTags.IS_UNCOMMON).addTag(TAItemTags.IS_RARE)
                 .addTag(TAItemTags.IS_EPIC).addTag(TAItemTags.IS_LEGENDARY).addTag(TAItemTags.IS_MYTHICAL)
                 .add(TAItems.WHITE_CHOCOLATE.get(), TAItems.RED_BOOK.get(), TAItems.RED_BOOK_RING.get(),
-                        TAItems.STAR_OCEAN_CROSSBOW.get());
+                        TAItems.STAR_OCEAN_CROSSBOW.get(), TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(), TAItems.CAT_BELL.get());
         this.tag(TAItemTags.IS_EPIC).add(TAItems.AURORIAN_STEEL.get());
         this.tag(TAItemTags.IS_LEGENDARY).add(TAItems.TROPHY_KEEPER.get(), TAItems.TROPHY_SPIDER_MOTHER.get(),
                 TAItems.TROPHY_MOON_QUEEN.get(), TAItems.DEVELOPER_GIFT.get(), TAItems.AURORIAN_CRYSTAL.get());

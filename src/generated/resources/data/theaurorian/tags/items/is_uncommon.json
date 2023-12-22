@@ -25,6 +25,7 @@
     "theaurorian:aurorian_flower_2",
     "theaurorian:aurorian_flower_3",
     "theaurorian:equinox_flower",
+    "theaurorian:wick_grass",
     "theaurorian:lavender_plant",
     "theaurorian:petunia_plant",
     "theaurorian:smooth_aurorian_peridotite",
@@ -182,7 +183,6 @@
     "theaurorian:umbra_stone_roof_wall",
     "theaurorian:aurorian_peridotite_wall",
     "theaurorian:smooth_aurorian_peridotite_wall",
-    "theaurorian:lavender_seeds",
-    "theaurorian:wick_grass"
+    "theaurorian:lavender_seeds"
   ]
 }

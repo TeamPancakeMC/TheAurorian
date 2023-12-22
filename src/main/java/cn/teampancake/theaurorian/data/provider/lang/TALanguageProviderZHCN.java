@@ -46,6 +46,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.EQUINOX_FLOWER.get(), "彼岸花");
         this.add(TABlocks.LAVENDER_PLANT.get(), "薰衣草");
         this.add(TABlocks.PETUNIA_PLANT.get(), "牵牛花");
+        this.add(TABlocks.WICK_GRASS.get(), "灯芯草");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "极光橄榄岩");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "平滑极光橄榄岩");
         this.add(TABlocks.MOONSTONE_ORE.get(), "皎月石矿石");
@@ -302,7 +303,6 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.SILENT_WOOD_SWORD.get(), "谧木剑");
         this.add(TAItems.SILENT_WOOD_BOW.get(), "谧木弓");
         this.add(TAItems.SILENT_WOOD_STICK.get(), "谧木棍");
-        this.add(TAItems.WICK_GRASS.get(), "灯芯草");
         this.add(TAItems.BLUEBERRY.get(),"蓝莓");
         this.add(TAItems.SILK_BERRY.get(), "桑葚");
         this.add(TAItems.SILK_BERRY_JAM.get(), "桑葚酱");
@@ -335,10 +335,12 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_CHAIN.get(),"极光锁链");
         this.add(TAItems.AURORIAN_BERRY.get(),"极光浆果");
         this.add(TAItems.AURORIAN_CRYSTAL.get(),"极光水晶");
+        this.add(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(),"融梦水晶碎片");
         this.add(TAItems.EQUINOX_MUSHROOM.get(),"彼岸蘑菇");
         this.add(TAItems.RED_BOOK.get(), "红皮书");
         this.add(TAItems.RED_BOOK_RING.get(), "红皮书戒指");
         this.add(TAItems.STAR_OCEAN_CROSSBOW.get(), "星弩");
+        this.add(TAItems.CAT_BELL.get(), "猫猫的铃铛");
         this.add(TAItems.WORLD_SCROLL_FRAGMENT.get(),"世界残卷");
         this.add(TAItems.WORLD_SCROLL.get(),"世界卷轴");
         this.add(TAItems.WEEPING_WILLOW_SAP.get(), "垂柳树汁");

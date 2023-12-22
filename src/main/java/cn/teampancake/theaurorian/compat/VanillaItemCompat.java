@@ -50,23 +50,23 @@ public class VanillaItemCompat {
 
         @SubscribeEvent
         public static void registerCompostables(FMLCommonSetupEvent event) {
-            ComposterBlock.add(0.3F, TABlocks.AURORIAN_GRASS.get().asItem());
-            ComposterBlock.add(0.3F, TABlocks.AURORIAN_GRASS_LIGHT.get().asItem());
-            ComposterBlock.add(0.3F, TABlocks.SILENT_TREE_SAPLING.get().asItem());
-            ComposterBlock.add(0.3F, TABlocks.SILENT_BUSH_LEAVES.get().asItem());
-            ComposterBlock.add(0.3F, TABlocks.SILENT_TREE_LEAVES.get().asItem());
-            ComposterBlock.add(0.3F, TABlocks.WEEPING_WILLOW_LEAVES.get().asItem());
-            ComposterBlock.add(0.65F, TABlocks.AURORIAN_FLOWER_1.get().asItem());
-            ComposterBlock.add(0.65F, TABlocks.AURORIAN_FLOWER_2.get().asItem());
-            ComposterBlock.add(0.65F, TABlocks.AURORIAN_FLOWER_3.get().asItem());
-            ComposterBlock.add(0.65F, TABlocks.EQUINOX_FLOWER.get().asItem());
-            ComposterBlock.add(0.65F, TABlocks.LAVENDER_PLANT.get().asItem());
-            ComposterBlock.add(0.65F, TABlocks.PETUNIA_PLANT.get().asItem());
+            ComposterBlock.add(0.3F, TABlocks.AURORIAN_GRASS.get());
+            ComposterBlock.add(0.3F, TABlocks.AURORIAN_GRASS_LIGHT.get());
+            ComposterBlock.add(0.3F, TABlocks.SILENT_TREE_SAPLING.get());
+            ComposterBlock.add(0.3F, TABlocks.SILENT_BUSH_LEAVES.get());
+            ComposterBlock.add(0.3F, TABlocks.SILENT_TREE_LEAVES.get());
+            ComposterBlock.add(0.3F, TABlocks.WEEPING_WILLOW_LEAVES.get());
+            ComposterBlock.add(0.65F, TABlocks.AURORIAN_FLOWER_1.get());
+            ComposterBlock.add(0.65F, TABlocks.AURORIAN_FLOWER_2.get());
+            ComposterBlock.add(0.65F, TABlocks.AURORIAN_FLOWER_3.get());
+            ComposterBlock.add(0.65F, TABlocks.EQUINOX_FLOWER.get());
+            ComposterBlock.add(0.65F, TABlocks.LAVENDER_PLANT.get());
+            ComposterBlock.add(0.65F, TABlocks.PETUNIA_PLANT.get());
+            ComposterBlock.add(0.65F, TABlocks.WICK_GRASS.get());
             ComposterBlock.add(0.3F, TAItems.WEEPING_WILLOW_SAP.get());
             ComposterBlock.add(0.3F, TAItems.LAVENDER_SEEDS.get());
             ComposterBlock.add(0.3F, TAItems.SILK_BERRY.get());
             ComposterBlock.add(0.3F, TAItems.BLUEBERRY.get());
-            ComposterBlock.add(0.65F, TAItems.WICK_GRASS.get());
             ComposterBlock.add(0.85F, TAItems.LAVENDER_BREAD.get());
         }
 

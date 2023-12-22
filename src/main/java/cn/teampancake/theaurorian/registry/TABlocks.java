@@ -53,7 +53,7 @@ public class TABlocks {
     public static final RegistryObject<Block> LAVENDER_CROP = BLOCKS.register("lavender_crop", () -> new TACropBlock(copy(Blocks.GRASS), TAItems.LAVENDER_SEEDS));
     public static final RegistryObject<Block> SILK_BERRY_CROP = BLOCKS.register("silk_berry_crop", () -> new TACropBlock(copy(Blocks.GRASS), TAItems.SILK_BERRY));
     public static final RegistryObject<Block> BLUEBERRY_BUSH = BLOCKS.register("blueberry_bush", BlueBerryBush::new);
-    public static final RegistryObject<Block> WICK_GRASS = BLOCKS.register("wick_grass", WickGrass::new);
+    public static final RegistryObject<Block> WICK_GRASS = register("wick_grass", WickGrass::new);
     public static final RegistryObject<Block> LAVENDER_PLANT = register("lavender_plant", () -> new TAPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> PETUNIA_PLANT = register("petunia_plant", () -> new TAPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE = normal("smooth_aurorian_peridotite", defaultStoneProperties(5.0F));

@@ -63,12 +63,11 @@ public class TABiomes {
 
     private static Biome.BiomeBuilder biomeOfForests(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
-        return biomeWithParticle(biomeGenerationSettings
+        return biomeWithDefaults(biomeGenerationSettings
                         .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_FOREST)
                         .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
                         .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_FOREST)
-                        .addFeature(vegetalDecoration, TAPlacements.RANDOM_WEAK_GRASS),
-                ParticleTypes.FIREWORK, 0.00625F);
+                        .addFeature(vegetalDecoration, TAPlacements.RANDOM_WEAK_GRASS));
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings) {

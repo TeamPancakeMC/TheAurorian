@@ -16,8 +16,8 @@ import java.util.function.Consumer;
 public class TABiomeBuilder {
 
     public static List<TATerrainColumn> makeBiomeList(HolderGetter<Biome> biomeRegistry) {
-        return List.of(biomeColumnWithUnderground(0.25F, 0.3F, biomeRegistry, TABiomes.AURORIAN_PLAINS),
-                biomeColumnWithUnderground(0.25F, 0.3F, biomeRegistry, TABiomes.AURORIAN_FOREST),
+        return List.of(biomeColumnWithUnderground(0.3F, 0.3F, biomeRegistry, TABiomes.AURORIAN_PLAINS),
+                biomeColumnWithUnderground(0.3F, 0.3F, biomeRegistry, TABiomes.AURORIAN_FOREST),
                 biomeColumnWithUnderground(0.4F, 0.4F, biomeRegistry, TABiomes.AURORIAN_FOREST_HILL),
                 biomeColumnWithUnderground(0.25F, 0.3F, biomeRegistry, TABiomes.EQUINOX_FLOWER_PLAINS),
                 biomeColumnWithUnderground(0.3F, 0.4F, biomeRegistry, TABiomes.WEEPING_WILLOW_FOREST),

@@ -15,7 +15,7 @@
               "-1.0": "theaurorian:aurorian_forest",
               "-3.0": "theaurorian:underground"
             },
-            "depth": 0.25,
+            "depth": 0.3,
             "key_biome": "theaurorian:aurorian_forest",
             "scale": 0.3
           },
@@ -42,7 +42,7 @@
               "-1.0": "theaurorian:aurorian_plains",
               "-3.0": "theaurorian:underground"
             },
-            "depth": 0.25,
+            "depth": 0.3,
             "key_biome": "theaurorian:aurorian_plains",
             "scale": 0.3
           },

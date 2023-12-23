@@ -43,7 +43,8 @@ public class TABiomeLayerStack {
         biomes = new ZoomLayer.Factory(1005L, false, Holder.direct(biomes));
         BiomeLayerFactory riverLayer = new SeamLayer.Factory(1L, TABiomes.AURORIAN_RIVER,
                 List.of(TABiomes.BRIGHT_MOON_DESERT, TABiomes.AURORIAN_FOREST_HILL, TABiomes.AURORIAN_LAKE),
-                List.of(Pair.of(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_FOREST_HILL)), Holder.direct(biomes));
+                List.of(Pair.of(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_FOREST_HILL),
+                        Pair.of(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_RIVER)), Holder.direct(biomes));
         riverLayer = new SmoothLayer.Factory(7000L, Holder.direct(riverLayer));
         Holder.Reference<BiomeLayerFactory> randomBiomes = context.register(RANDOM_FOREST_BIOMES, biomes);
         context.register(BIOMES_ALONG_STREAMS, new FilteredBiomeLayer.Factory(100L,
@@ -63,7 +64,8 @@ public class TABiomeLayerStack {
         biomes = new ZoomLayer.Factory(1005L, false, Holder.direct(biomes));
         BiomeLayerFactory riverLayer = new SeamLayer.Factory(1L, TABiomes.AURORIAN_RIVER,
                 List.of(TABiomes.BRIGHT_MOON_DESERT, TABiomes.AURORIAN_FOREST_HILL, TABiomes.AURORIAN_LAKE),
-                List.of(Pair.of(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_FOREST_HILL)), Holder.direct(biomes));
+                List.of(Pair.of(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_FOREST_HILL),
+                        Pair.of(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_RIVER)), Holder.direct(biomes));
         riverLayer = new SmoothLayer.Factory(7000L, Holder.direct(riverLayer));
         return Holder.direct(new FilteredBiomeLayer.Factory(100L, TABiomes.AURORIAN_RIVER,
                 Holder.direct(riverLayer), Holder.direct(biomes)));

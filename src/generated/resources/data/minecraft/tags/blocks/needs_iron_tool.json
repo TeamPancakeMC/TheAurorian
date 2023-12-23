@@ -2,6 +2,9 @@
   "values": [
     "theaurorian:geode_ore",
     "theaurorian:moon_gem",
-    "theaurorian:moonlight_forge"
+    "theaurorian:moonlight_forge",
+    "theaurorian:cerulean_block",
+    "theaurorian:moonstone_block",
+    "theaurorian:aurorian_steel_block"
   ]
 }

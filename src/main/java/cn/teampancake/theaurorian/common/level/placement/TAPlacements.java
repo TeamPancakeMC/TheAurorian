@@ -25,6 +25,8 @@ public class TAPlacements {
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_FLOWER_FOREST = createKey("patch_aurorian_flower_forest");
     public static final ResourceKey<PlacedFeature> PATCH_EQUINOX_FLOWER = createKey("patch_equinox_flower");
     public static final ResourceKey<PlacedFeature> TREES_AURORIAN_FOREST = createKey("trees_aurorian_forest");
+    public static final ResourceKey<PlacedFeature> RANDOM_FALLEN_SILENT_LOG = createKey("random_fallen_silent_log");
+    public static final ResourceKey<PlacedFeature> RANDOM_CRYSTAL_CLUSTER = createKey("random_crystal_cluster");
     public static final ResourceKey<PlacedFeature> RANDOM_WEAK_GRASS = createKey("random_weak_grass");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_PERIDOTITE = createKey("ore_aurorian_peridotite");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_DIRT = createKey("ore_aurorian_dirt");
@@ -46,6 +48,8 @@ public class TAPlacements {
         Holder<ConfiguredFeature<?, ?>> patchAurorianFlowerHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_FLOWER);
         Holder<ConfiguredFeature<?, ?>> patchEquinoxFlowerHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_EQUINOX_FLOWER);
         Holder<ConfiguredFeature<?, ?>> treesAurorianForestHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_AURORIAN_FOREST);
+        Holder<ConfiguredFeature<?, ?>> randomFallenSilentLogHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_AURORIAN_FOREST);
+        Holder<ConfiguredFeature<?, ?>> randomCrystalClusterHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_CRYSTAL_CLUSTER);
         Holder<ConfiguredFeature<?, ?>> randomWickGrassHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_WEAK_GRASS);
         Holder<ConfiguredFeature<?, ?>> silentTreeHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.SILENT_TREE);
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_PLAINS, patchAurorianGrassHolder, NoiseThresholdCountPlacement.of((-0.8D), (5), (10)),
@@ -58,6 +62,8 @@ public class TAPlacements {
         PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_PLAINS, patchAurorianFlowerHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_EQUINOX_FLOWER, patchEquinoxFlowerHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, TREES_AURORIAN_FOREST, treesAurorianForestHolder, VegetationPlacements.treePlacement(PlacementUtils.countExtra((10), (0.1F), (1))));
+        PlacementUtils.register(context, RANDOM_FALLEN_SILENT_LOG, randomFallenSilentLogHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
+        PlacementUtils.register(context, RANDOM_CRYSTAL_CLUSTER, randomCrystalClusterHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, RANDOM_WEAK_GRASS, randomWickGrassHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, SILENT_TREE, silentTreeHolder, PlacementUtils.filteredByBlockSurvival(TABlocks.SILENT_TREE_SAPLING.get()));
         PlacementUtils.register(context, ORE_AURORIAN_PERIDOTITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_PERIDOTITE),
@@ -72,7 +78,7 @@ public class TAPlacements {
                 OrePlacements.commonOrePlacement(13, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(75))));
         PlacementUtils.register(context, ORE_GEODE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_COAL),
                 OrePlacements.commonOrePlacement(8, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(50), VerticalAnchor.belowTop(160))));
-        PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URNS));
+        PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URN));
     }
 
 }

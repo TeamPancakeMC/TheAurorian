@@ -9,6 +9,8 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
@@ -21,6 +23,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -42,8 +45,10 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
         this.dropSelf(TABlocks.AURORIAN_PERIDOTITE.get());
         this.dropSelf(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get());
-        this.dropSelf(TABlocks.MOONSTONE_ORE.get());
         this.dropSelf(TABlocks.CERULEAN_ORE.get());
+        this.dropSelf(TABlocks.MOONSTONE_ORE.get());
+        this.dropSelf(TABlocks.CERULEAN_BLOCK.get());
+        this.dropSelf(TABlocks.MOONSTONE_BLOCK.get());
         this.dropSelf(TABlocks.INDIGO_MUSHROOM.get());
         this.dropSelf(TABlocks.INDIGO_MUSHROOM_CRYSTAL.get());
         this.dropSelf(TABlocks.MOONLIGHT_FORGE.get());
@@ -83,6 +88,14 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropPottedContents(TABlocks.POTTED_AURORIAN_GRASS_LIGHT.get());
         this.dropOther(TABlocks.MOON_WALL_TORCH.get(), TABlocks.MOON_TORCH.get());
         this.dropOther(TABlocks.SILENT_WOOD_WALL_TORCH.get(), TABlocks.SILENT_WOOD_TORCH.get());
+        this.dropNuggets(TABlocks.CERULEAN_CLUSTER.get(), TAItems.CERULEAN_NUGGET.get(), 7.0F, 9.0F);
+        this.dropNuggets(TABlocks.LARGE_CERULEAN_BUD.get(), TAItems.CERULEAN_NUGGET.get(), 5.0F, 6.0F);
+        this.dropNuggets(TABlocks.MEDIUM_CERULEAN_BUD.get(), TAItems.CERULEAN_NUGGET.get(), 3.0F, 4.0F);
+        this.dropNuggets(TABlocks.SMALL_CERULEAN_BUD.get(), TAItems.CERULEAN_NUGGET.get(), 0.0F, 2.0F);
+        this.dropNuggets(TABlocks.MOONSTONE_CLUSTER.get(), TAItems.MOONSTONE_NUGGET.get(), 7.0F, 9.0F);
+        this.dropNuggets(TABlocks.LARGE_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 5.0F, 6.0F);
+        this.dropNuggets(TABlocks.MEDIUM_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 3.0F, 4.0F);
+        this.dropNuggets(TABlocks.SMALL_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 0.0F, 2.0F);
         this.add(TABlocks.GEODE_ORE.get(), block -> this.createOreDrop(block, TAItems.CRYSTAL.get()));
         this.add(TABlocks.AURORIAN_COAL_ORE.get(), block -> this.createOreDrop(block, TAItems.AURORIAN_COAL.get()));
         this.add(TABlocks.INDIGO_MUSHROOM_BLOCK.get(), block -> createMushroomBlockDrop(block, TABlocks.INDIGO_MUSHROOM.get()));
@@ -137,6 +150,15 @@ public class TABlockLoot extends VanillaBlockLoot {
                 this.dropSelf(block);
             }
         }
+    }
+
+    private void dropNuggets(Block clusterBlock, Item nuggetItem, float min, float max) {
+        this.add(clusterBlock, block -> createSilkTouchDispatchTable(block, LootItem.lootTableItem(nuggetItem)
+                .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)))
+                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES)))
+                .otherwise(this.applyExplosionDecay(block, LootItem.lootTableItem(nuggetItem)
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))))));
     }
 
     private LootTable.Builder createSilkTouchOrSicklesDispatchTable(Block block, ItemLike itemLike) {

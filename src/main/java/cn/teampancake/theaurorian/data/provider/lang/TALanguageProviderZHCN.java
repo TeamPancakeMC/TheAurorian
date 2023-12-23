@@ -46,7 +46,6 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.EQUINOX_FLOWER.get(), "彼岸花");
         this.add(TABlocks.LAVENDER_PLANT.get(), "薰衣草");
         this.add(TABlocks.PETUNIA_PLANT.get(), "牵牛花");
-        this.add(TABlocks.WICK_GRASS.get(), "灯芯草");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "极光橄榄岩");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "平滑极光橄榄岩");
         this.add(TABlocks.MOONSTONE_ORE.get(), "皎月石矿石");
@@ -81,6 +80,14 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.MOONSTONE_BLOCK.get(), "皎月石块");
         this.add(TABlocks.AURORIAN_COAL_BLOCK.get(), "极光煤块");
         this.add(TABlocks.AURORIAN_STEEL_BLOCK.get(), "极光钢块");
+        this.add(TABlocks.CERULEAN_CLUSTER.get(), "晶蓝簇");
+        this.add(TABlocks.LARGE_CERULEAN_BUD.get(), "大型晶蓝芽");
+        this.add(TABlocks.MEDIUM_CERULEAN_BUD.get(), "中型晶蓝芽");
+        this.add(TABlocks.SMALL_CERULEAN_BUD.get(), "小型晶蓝芽");
+        this.add(TABlocks.MOONSTONE_CLUSTER.get(), "皎月石簇");
+        this.add(TABlocks.LARGE_MOONSTONE_BUD.get(), "大型皎月石芽");
+        this.add(TABlocks.MEDIUM_MOONSTONE_BUD.get(), "中型皎月石芽");
+        this.add(TABlocks.SMALL_MOONSTONE_BUD.get(), "小型皎月石芽");
         this.add(TABlocks.MYSTICAL_BARRIER.get(), "神秘屏障");
         this.add(TABlocks.RUNE_STONE_BARS.get(), "符石栏杆");
         this.add(TABlocks.DARK_STOME_BARS.get(), "暗石栏杆");
@@ -303,6 +310,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.SILENT_WOOD_SWORD.get(), "谧木剑");
         this.add(TAItems.SILENT_WOOD_BOW.get(), "谧木弓");
         this.add(TAItems.SILENT_WOOD_STICK.get(), "谧木棍");
+        this.add(TAItems.WICK_GRASS.get(), "灯芯草");
         this.add(TAItems.BLUEBERRY.get(),"蓝莓");
         this.add(TAItems.SILK_BERRY.get(), "桑葚");
         this.add(TAItems.SILK_BERRY_JAM.get(), "桑葚酱");

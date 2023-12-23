@@ -35,7 +35,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class MoonQueen extends Monster {
+public class MoonQueen extends AbstractAurorianBoss {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState meleeAttackAnimationState = new AnimationState();
@@ -179,7 +179,6 @@ public class MoonQueen extends Monster {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        amount = Math.min(amount, this.getMaxHealth() / 2.0F);
         if ((source.getEntity() != null && this.isGlinting()) || this.isInvulnerableTo(source)) {
             return false;
         }

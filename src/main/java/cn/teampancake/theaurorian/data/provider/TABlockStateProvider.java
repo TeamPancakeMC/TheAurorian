@@ -37,6 +37,7 @@ public class TABlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         this.registerLiquidStates();
         this.registerScrapperState();
+        this.registerWickGrassStates();
         this.registerCraftingTableState();
         this.registerMysticalBarrierState();
         this.registerAurorianPortalState();
@@ -170,7 +171,6 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerPlantStates(TABlocks.INDIGO_MUSHROOM.get());
         this.registerPlantStates(TABlocks.AURORIAN_GRASS.get());
         this.registerPlantStates(TABlocks.AURORIAN_GRASS_LIGHT.get());
-        this.registerDoublePlantStates(TABlocks.WICK_GRASS.get());
         this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_BLOCK.get());
         this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_STEM.get());
         for (Block block : TACommonUtils.getKnownBlocks()) {
@@ -185,6 +185,8 @@ public class TABlockStateProvider extends BlockStateProvider {
                 this.simpleBlockItem(wallBlock, this.models().wallInventory(this.name(wallBlock), texture));
             } else if (block instanceof FlowerPotBlock flowerPotBlock) {
                 this.registerPottedPlantStates(flowerPotBlock, flowerPotBlock.getContent());
+            } else if (block instanceof TAClusterBlock clusterBlock) {
+                this.registerClusterStates(clusterBlock);
             }
         }
     }
@@ -307,6 +309,26 @@ public class TABlockStateProvider extends BlockStateProvider {
         }
     }
 
+    private void registerClusterStates(Block block) {
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        ResourceLocation texture = this.modLoc("block/" + this.name(block));
+        ModelFile modelFile = this.models().cross(this.name(block), texture).renderType(CUTOUT);
+        for (int level : TAClusterBlock.LEVEL.getPossibleValues()) {
+            builder.partialState().with(TAClusterBlock.FACING, Direction.EAST).with(TAClusterBlock.LEVEL, level)
+                    .modelForState().rotationX(90).rotationY(90).modelFile(modelFile).addModel()
+                    .partialState().with(TAClusterBlock.FACING, Direction.WEST).with(TAClusterBlock.LEVEL, level)
+                    .modelForState().rotationX(90).rotationY(270).modelFile(modelFile).addModel()
+                    .partialState().with(TAClusterBlock.FACING, Direction.SOUTH).with(TAClusterBlock.LEVEL, level)
+                    .modelForState().rotationX(90).rotationY(180).modelFile(modelFile).addModel()
+                    .partialState().with(TAClusterBlock.FACING, Direction.NORTH).with(TAClusterBlock.LEVEL, level)
+                    .modelForState().rotationX(90).modelFile(modelFile).addModel()
+                    .partialState().with(TAClusterBlock.FACING, Direction.DOWN).with(TAClusterBlock.LEVEL, level)
+                    .modelForState().rotationX(180).modelFile(modelFile).addModel()
+                    .partialState().with(TAClusterBlock.FACING, Direction.UP).with(TAClusterBlock.LEVEL, level)
+                    .modelForState().modelFile(modelFile).addModel();
+        }
+    }
+
     private void registerPottedPlantStates(Block block, Block content) {
         this.simpleBlock(block, this.models().withExistingParent(this.name(block), "block/flower_pot_cross")
                 .renderType(CUTOUT).texture("plant", this.blockTexture(content)));
@@ -316,24 +338,13 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(block, this.models().cross(this.name(block), this.blockTexture(block)).renderType(CUTOUT));
     }
 
-    private void registerDoublePlantStates(Block block) {
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
-        for (DoubleBlockHalf half : DoublePlantBlock.HALF.getPossibleValues()) {
-            String name = this.name(block) + "_" + half.toString();
-            ResourceLocation texture = this.modLoc("block/" + name);
-            ModelFile modelFile = this.models().cross(name, texture).renderType(CUTOUT);
-            builder.partialState().with(DoublePlantBlock.HALF, half)
-                    .modelForState().modelFile(modelFile).addModel();
-        }
-    }
-
     private void registerMushroomStates(Block block) {
         ResourceLocation parent = this.mcLoc("block/template_single_face");
         ResourceLocation outside = this.modLoc("block/" + this.name(block) + "_side");
         ResourceLocation inside = this.modLoc("block/" + this.name(block) + "_inside");
         ModelFile outsideModel = this.models().singleTexture(this.name(block), parent, outside).renderType(TRANSLUCENT);
         ModelFile insideModel = this.models().singleTexture(this.name(block), parent, inside).renderType(TRANSLUCENT);
-        this.models().withExistingParent(this.name(block) + "_inventory", this.mcLoc("block/cube_all"));
+        this.models().withExistingParent(this.name(block) + "_inventory", this.mcLoc("block/cube_all")).texture("texture", outside);
         this.getMultipartBuilder(block).part().modelFile(outsideModel).addModel().condition(BlockStateProperties.NORTH, true).end()
                 .part().modelFile(outsideModel).addModel().condition(BlockStateProperties.EAST, true).end()
                 .part().modelFile(outsideModel).rotationY(90).uvLock(true).addModel().condition(BlockStateProperties.SOUTH, true).end()
@@ -378,6 +389,19 @@ public class TABlockStateProvider extends BlockStateProvider {
         for (Direction direction : Scrapper.FACING.getPossibleValues()) {
             builder.partialState().with(Scrapper.FACING, direction).modelForState().modelFile(modelFile)
                     .rotationY(direction.get2DDataValue() * 90).addModel();
+        }
+    }
+
+    private void registerWickGrassStates() {
+        VariantBlockStateBuilder builder = this.getVariantBuilder(TABlocks.WICK_GRASS.get());
+        for (DoubleBlockHalf half : DoublePlantBlock.HALF.getPossibleValues()) {
+            for (int level : WickGrass.LEVEL.getPossibleValues()) {
+                String name = this.name(TABlocks.WICK_GRASS.get()) + "_" + half.toString();
+                ResourceLocation texture = this.modLoc("block/" + name);
+                ModelFile modelFile = this.models().cross(name, texture).renderType(CUTOUT);
+                builder.partialState().with(DoublePlantBlock.HALF, half).with(WickGrass.LEVEL, level)
+                        .modelForState().modelFile(modelFile).addModel();
+            }
         }
     }
 

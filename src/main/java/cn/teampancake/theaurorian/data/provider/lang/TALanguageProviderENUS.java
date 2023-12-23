@@ -46,7 +46,6 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.EQUINOX_FLOWER.get(), "Equinox Flower");
         this.add(TABlocks.LAVENDER_PLANT.get(), "Lavender Plant");
         this.add(TABlocks.PETUNIA_PLANT.get(), "Petunia Plant");
-        this.add(TABlocks.WICK_GRASS.get(), "Wick Grass");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "Aurorian Peridotite");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "Smooth Aurorian Peridotite");
         this.add(TABlocks.MOONSTONE_ORE.get(), "Moonstone Ore");
@@ -81,6 +80,14 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.MOONSTONE_BLOCK.get(), "Moonstone Block");
         this.add(TABlocks.AURORIAN_COAL_BLOCK.get(), "Aurorian Coal Block");
         this.add(TABlocks.AURORIAN_STEEL_BLOCK.get(), "Aurorian Steel Block");
+        this.add(TABlocks.CERULEAN_CLUSTER.get(), "Cerulean Cluster");
+        this.add(TABlocks.LARGE_CERULEAN_BUD.get(), "Large Cerulean Bud");
+        this.add(TABlocks.MEDIUM_CERULEAN_BUD.get(), "Medium Cerulean Bud");
+        this.add(TABlocks.SMALL_CERULEAN_BUD.get(), "Small Cerulean Bud");
+        this.add(TABlocks.MOONSTONE_CLUSTER.get(), "Cerulean Cluster");
+        this.add(TABlocks.LARGE_MOONSTONE_BUD.get(), "Large Moonstone Bud");
+        this.add(TABlocks.MEDIUM_MOONSTONE_BUD.get(), "Medium Moonstone Bud");
+        this.add(TABlocks.SMALL_MOONSTONE_BUD.get(), "Small Moonstone Bud");
         this.add(TABlocks.MYSTICAL_BARRIER.get(), "Mystical Barrier");
         this.add(TABlocks.RUNE_STONE_BARS.get(), "Rune stone Bars");
         this.add(TABlocks.DARK_STOME_BARS.get(), "Dark stone Bars");
@@ -304,6 +311,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.SILENT_WOOD_SWORD.get(),"Silent Wood Sword");
         this.add(TAItems.SILENT_WOOD_BOW.get(),"Silent Wood Bow");
         this.add(TAItems.SILENT_WOOD_STICK.get(), "Silent Wood Stick");
+        this.add(TAItems.WICK_GRASS.get(), "Wick Grass");
         this.add(TAItems.BLUEBERRY.get(),"Blueberry");
         this.add(TAItems.SILK_BERRY.get(),"Silk Berry");
         this.add(TAItems.SILK_BERRY_JAM.get(),"Silk Berry Jam");

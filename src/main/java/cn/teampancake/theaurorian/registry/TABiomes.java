@@ -43,14 +43,17 @@ public class TABiomes {
         HolderGetter<ConfiguredWorldCarver<?>> carverGetter = context.lookup(Registries.CONFIGURED_CARVER);
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
         context.register(AURORIAN_FOREST, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)).build());
+                .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)
+                .addFeature(vegetalDecoration, TAPlacements.RANDOM_FALLEN_SILENT_LOG)
+                .addFeature(vegetalDecoration, TAPlacements.RANDOM_CRYSTAL_CLUSTER)).build());
         context.register(AURORIAN_FOREST_HILL, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)).build());
+                .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)
+                .addFeature(vegetalDecoration, TAPlacements.RANDOM_FALLEN_SILENT_LOG)
+                .addFeature(vegetalDecoration, TAPlacements.RANDOM_CRYSTAL_CLUSTER)).build());
         context.register(AURORIAN_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_PLAINS)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_PLAINS)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_PLAINS),
-                ParticleTypes.FIREWORK, 0.00375F).build());
+                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_PLAINS), ParticleTypes.FIREWORK, 0.00375F).build());
         context.register(AURORIAN_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(AURORIAN_RIVER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(AURORIAN_LAKE, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());

@@ -1,0 +1,1437 @@
+{
+  "type": "minecraft:flower",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "0",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "2",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "3",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "4",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "5",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "6",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "7",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "8",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "9",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "10",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "11",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "12",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "13",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "14",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:cerulean_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "15",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "0",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "2",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "3",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "4",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "5",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "6",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "7",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "8",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "9",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "10",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "11",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "12",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "13",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "14",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "15",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "0",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "2",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "3",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "4",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "5",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "6",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "7",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "8",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "9",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "10",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "11",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "12",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "13",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "14",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "15",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "0",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "2",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "3",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "4",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "5",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "6",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "7",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "8",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "9",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "10",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "11",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "12",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "13",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "14",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_cerulean_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "15",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "0",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "2",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "3",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "4",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "5",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "6",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "7",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "8",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "9",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "10",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "11",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "12",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "13",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "14",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:moonstone_cluster",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "15",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "0",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "2",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "3",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "4",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "5",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "6",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "7",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "8",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "9",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "10",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "11",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "12",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "13",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "14",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:large_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "15",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "0",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "2",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "3",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "4",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "5",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "6",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "7",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "8",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "9",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "10",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "11",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "12",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "13",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "14",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:medium_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "15",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "0",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "1",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "2",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "3",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "4",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "5",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "6",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "7",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "8",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "9",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "10",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "11",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "12",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "13",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "14",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:small_moonstone_bud",
+                  "Properties": {
+                    "facing": "up",
+                    "level": "15",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 1
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    },
+    "tries": 6,
+    "xz_spread": 7,
+    "y_spread": 3
+  }
+}

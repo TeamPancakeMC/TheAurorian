@@ -2,8 +2,8 @@ package cn.teampancake.theaurorian.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.*;
+import cn.teampancake.theaurorian.common.level.feature.TAConfiguredFeatures;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -53,7 +53,7 @@ public class TABlocks {
     public static final RegistryObject<Block> LAVENDER_CROP = BLOCKS.register("lavender_crop", () -> new TACropBlock(copy(Blocks.GRASS), TAItems.LAVENDER_SEEDS));
     public static final RegistryObject<Block> SILK_BERRY_CROP = BLOCKS.register("silk_berry_crop", () -> new TACropBlock(copy(Blocks.GRASS), TAItems.SILK_BERRY));
     public static final RegistryObject<Block> BLUEBERRY_BUSH = BLOCKS.register("blueberry_bush", BlueBerryBush::new);
-    public static final RegistryObject<Block> WICK_GRASS = register("wick_grass", WickGrass::new);
+    public static final RegistryObject<Block> WICK_GRASS = BLOCKS.register("wick_grass", WickGrass::new);
     public static final RegistryObject<Block> LAVENDER_PLANT = register("lavender_plant", () -> new TAPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> PETUNIA_PLANT = register("petunia_plant", () -> new TAPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE = normal("smooth_aurorian_peridotite", defaultStoneProperties(5.0F));
@@ -86,10 +86,6 @@ public class TABlocks {
     public static final RegistryObject<Block> DARK_STONE_LAMP = normal("dark_stone_lamp", breakWithQueenPickaxe().lightLevel(s -> 15));
     public static final RegistryObject<Block> MOON_TEMPLE_LAMP = normal("moon_temple_lamp", breakWithQueenPickaxe().lightLevel(s -> 15));
     public static final RegistryObject<Block> VOID_STONE = normal("void_stone", breakWithQueenPickaxe().lightLevel(s -> 7));
-    public static final RegistryObject<Block> CERULEAN_BLOCK = normal("cerulean_block", breakWithQueenPickaxe().mapColor(MapColor.METAL));
-    public static final RegistryObject<Block> MOONSTONE_BLOCK = normal("moonstone_block", breakWithQueenPickaxe().mapColor(MapColor.METAL));
-    public static final RegistryObject<Block> AURORIAN_COAL_BLOCK = normal("aurorian_coal_block", breakWithQueenPickaxe().mapColor(MapColor.METAL));
-    public static final RegistryObject<Block> AURORIAN_STEEL_BLOCK = normal("aurorian_steel_block", breakWithQueenPickaxe().mapColor(MapColor.METAL));
     public static final RegistryObject<Block> MYSTICAL_BARRIER = register("mystical_barrier", () -> new MysticalBarrier(copy(Blocks.BEDROCK)));
     public static final RegistryObject<Block> RUNE_STONE_BARS = register("rune_stone_bars", () -> new IronBarsBlock(breakWithQueenPickaxe().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> DARK_STOME_BARS = register("dark_stone_bars", () -> new IronBarsBlock(breakWithQueenPickaxe().mapColor(MapColor.METAL)));
@@ -104,7 +100,19 @@ public class TABlocks {
     public static final RegistryObject<Block> RUNE_STONE_GATE_KEYHOLE = register("rune_stone_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.RUNE_STONE_KEY, RUNE_STONE_GATE, Boolean.FALSE));
     public static final RegistryObject<Block> RUNE_STONE_LOOT_GATE_KEYHOLE = register("rune_stone_loot_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.RUNE_STONE_LOOT_KEY, RUNE_STONE_LOOT_GATE));
     public static final RegistryObject<Block> MOON_TEMPLE_CELL_GATE_KEYHOLE = register("moon_temple_cell_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.MOON_TEMPLE_CELL_KEY, MOON_TEMPLE_CELL_GATE));
-    public static final RegistryObject<Block> INDIGO_MUSHROOM = register("indigo_mushroom", () -> new MushroomBlock(copy(Blocks.BROWN_MUSHROOM), TreeFeatures.HUGE_BROWN_MUSHROOM));
+    public static final RegistryObject<Block> CERULEAN_BLOCK = normal("cerulean_block", defaultStoneProperties(3.0F).mapColor(MapColor.METAL));
+    public static final RegistryObject<Block> MOONSTONE_BLOCK = normal("moonstone_block", defaultStoneProperties(3.0F).mapColor(MapColor.METAL));
+    public static final RegistryObject<Block> AURORIAN_COAL_BLOCK = normal("aurorian_coal_block", defaultStoneProperties(5.0F).mapColor(MapColor.METAL));
+    public static final RegistryObject<Block> AURORIAN_STEEL_BLOCK = normal("aurorian_steel_block", defaultStoneProperties(5.0F).mapColor(MapColor.METAL));
+    public static final RegistryObject<Block> CERULEAN_CLUSTER = register("cerulean_cluster", () -> new TAClusterBlock(7, 3, copy(Blocks.AMETHYST_CLUSTER)));
+    public static final RegistryObject<Block> LARGE_CERULEAN_BUD = register("large_cerulean_bud", () -> new TAClusterBlock(5, 3, copy(Blocks.LARGE_AMETHYST_BUD)));
+    public static final RegistryObject<Block> MEDIUM_CERULEAN_BUD = register("medium_cerulean_bud", () -> new TAClusterBlock(4, 3, copy(Blocks.MEDIUM_AMETHYST_BUD)));
+    public static final RegistryObject<Block> SMALL_CERULEAN_BUD = register("small_cerulean_bud", () -> new TAClusterBlock(3, 4, copy(Blocks.SMALL_AMETHYST_BUD)));
+    public static final RegistryObject<Block> MOONSTONE_CLUSTER = register("moonstone_cluster", () -> new TAClusterBlock(7, 3, copy(Blocks.AMETHYST_CLUSTER)));
+    public static final RegistryObject<Block> LARGE_MOONSTONE_BUD = register("large_moonstone_bud", () -> new TAClusterBlock(5, 3, copy(Blocks.LARGE_AMETHYST_BUD)));
+    public static final RegistryObject<Block> MEDIUM_MOONSTONE_BUD = register("medium_moonstone_bud", () -> new TAClusterBlock(4, 3, copy(Blocks.MEDIUM_AMETHYST_BUD)));
+    public static final RegistryObject<Block> SMALL_MOONSTONE_BUD = register("small_moonstone_bud", () -> new TAClusterBlock(3, 4, copy(Blocks.SMALL_AMETHYST_BUD)));
+    public static final RegistryObject<Block> INDIGO_MUSHROOM = register("indigo_mushroom", () -> new IndigoMushroomBlock(copy(Blocks.BROWN_MUSHROOM), TAConfiguredFeatures.HUGE_INDIGO_MUSHROOM));
     public static final RegistryObject<Block> INDIGO_MUSHROOM_BLOCK = register("indigo_mushroom_block", () -> new IndigoMushroom(copy(Blocks.BROWN_MUSHROOM_BLOCK).destroyTime(1.0F)));
     public static final RegistryObject<Block> INDIGO_MUSHROOM_STEM = register("indigo_mushroom_stem", () -> new HugeMushroomBlock(copy(Blocks.MUSHROOM_STEM).destroyTime(1.0F)));
     public static final RegistryObject<Block> INDIGO_MUSHROOM_CRYSTAL = normal("indigo_mushroom_crystal", of().mapColor(MapColor.COLOR_PURPLE).sound(SoundType.GLASS).lightLevel(s -> 1));
@@ -242,8 +250,7 @@ public class TABlocks {
 
     private static BlockBehaviour.Properties defaultStoneProperties(float destroyTime) {
         return of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM)
-                .requiresCorrectToolForDrops().destroyTime(destroyTime)
-                .explosionResistance((destroyTime * 5.0F));
+                .requiresCorrectToolForDrops().strength(destroyTime, (destroyTime * 5.0F));
     }
 
     @SuppressWarnings("deprecation")

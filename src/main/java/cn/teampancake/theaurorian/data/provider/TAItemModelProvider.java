@@ -96,7 +96,6 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.UMBRA_STONE.get());
         this.simpleBlockItem(TABlocks.UMBRA_STONE_CRACKED.get());
         this.simpleBlockItem(TABlocks.UMBRA_STONE_ROOF_TILES.get());
-        this.simpleBlockItem(TABlocks.INDIGO_MUSHROOM.get());
         this.simpleBlockItem(TABlocks.INDIGO_MUSHROOM_CRYSTAL.get());
         this.simpleBlockItem(TABlocks.SILENT_TREE_LOG.get());
         this.simpleBlockItem(TABlocks.SILENT_TREE_WOOD.get());
@@ -139,6 +138,24 @@ public class TAItemModelProvider extends ItemModelProvider {
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.DARK_STONE_GLASS.get())));
         this.withExistingParent(this.name(TABlocks.SILENT_TREE_SAPLING.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_SAPLING.get())));
+        this.withExistingParent(this.name(TABlocks.INDIGO_MUSHROOM.get()), this.mcLoc("item/generated"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.INDIGO_MUSHROOM.get())));
+        this.withExistingParent(this.name(TABlocks.CERULEAN_CLUSTER.get()), this.modLoc("item/ta_cluster"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.CERULEAN_CLUSTER.get())));
+        this.withExistingParent(this.name(TABlocks.LARGE_CERULEAN_BUD.get()), this.modLoc("item/ta_large_bud"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.LARGE_CERULEAN_BUD.get())));
+        this.withExistingParent(this.name(TABlocks.MEDIUM_CERULEAN_BUD.get()), this.modLoc("item/ta_medium_bud"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.MEDIUM_CERULEAN_BUD.get())));
+        this.withExistingParent(this.name(TABlocks.SMALL_CERULEAN_BUD.get()), this.modLoc("item/ta_small_bud"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.SMALL_CERULEAN_BUD.get())));
+        this.withExistingParent(this.name(TABlocks.MOONSTONE_CLUSTER.get()), this.modLoc("item/ta_cluster"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.MOONSTONE_CLUSTER.get())));
+        this.withExistingParent(this.name(TABlocks.LARGE_MOONSTONE_BUD.get()), this.modLoc("item/ta_large_bud"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.LARGE_MOONSTONE_BUD.get())));
+        this.withExistingParent(this.name(TABlocks.MEDIUM_MOONSTONE_BUD.get()), this.modLoc("item/ta_medium_bud"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.MEDIUM_MOONSTONE_BUD.get())));
+        this.withExistingParent(this.name(TABlocks.SMALL_MOONSTONE_BUD.get()), this.modLoc("item/ta_small_bud"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.SMALL_MOONSTONE_BUD.get())));
         for (Block block : TACommonUtils.getKnownBlocks()) {
             if (block instanceof StairBlock || block instanceof SlabBlock) {
                 this.simpleBlockItem(block);
@@ -150,8 +167,7 @@ public class TAItemModelProvider extends ItemModelProvider {
             if (item instanceof ForgeSpawnEggItem) {
                 this.withExistingParent(key.getPath(), this.mcLoc("item/template_spawn_egg"));
             } else if (item instanceof TieredItem) {
-                this.withExistingParent(key.getPath(), this.mcLoc("item/handheld"))
-                        .texture("layer0", this.modLoc("item/" + key.getPath()));
+                this.withExistingParent(key.getPath(), this.mcLoc("item/handheld")).texture("layer0", this.modLoc("item/" + key.getPath()));
             } else if (item instanceof BowItem) {
                 this.bowItem(item);
             } else if (item instanceof CrossbowItem) {

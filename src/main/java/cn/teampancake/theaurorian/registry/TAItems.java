@@ -165,6 +165,7 @@ public class TAItems {
     /**
      * Food
      */
+    public static final RegistryObject<Item> WICK_GRASS = ITEMS.register("wick_grass", () -> new DoubleHighBlockItem(TABlocks.WICK_GRASS.get(), new Item.Properties()));
     public static final RegistryObject<Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap", WeepingWillowSap::new);
     public static final RegistryObject<Item> SILK_BERRY_JAM = food("silk_berry_jam", 2, 0.5F, false);
     public static final RegistryObject<Item> SILK_BERRY_JAM_SANDWICH = food("silk_berry_jam_sandwich", 6, 0.9F, true);

@@ -53,6 +53,10 @@
         [
           "theaurorian:aurorian_forest",
           "theaurorian:aurorian_forest_hill"
+        ],
+        [
+          "theaurorian:aurorian_forest",
+          "theaurorian:aurorian_river"
         ]
       ],
       "excluded_neighbor_biomes": [

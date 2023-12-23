@@ -42,7 +42,8 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.FALL_DAMAGE_RESETTING).add(TABlocks.BLUEBERRY_BUSH.get());
         this.tag(BlockTags.SWORD_EFFICIENT).add(TABlocks.BLUEBERRY_BUSH.get());
         this.tag(BlockTags.NEEDS_STONE_TOOL).add(TABlocks.MOONSTONE_ORE.get(), TABlocks.CERULEAN_ORE.get());
-        this.tag(BlockTags.NEEDS_IRON_TOOL).add(TABlocks.GEODE_ORE.get(), TABlocks.MOON_GEM.get(), TABlocks.MOONLIGHT_FORGE.get());
+        this.tag(BlockTags.NEEDS_IRON_TOOL).add(TABlocks.GEODE_ORE.get(), TABlocks.MOON_GEM.get(), TABlocks.MOONLIGHT_FORGE.get(),
+                TABlocks.CERULEAN_BLOCK.get(), TABlocks.MOONSTONE_BLOCK.get(), TABlocks.AURORIAN_STEEL_BLOCK.get());
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get(), TABlocks.BLUEBERRY_BUSH.get());
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(TABlocks.MOON_SAND.get(), TABlocks.AURORIAN_FARM_TILE.get(),
                 TABlocks.AURORIAN_DIRT.get(), TABlocks.AURORIAN_GRASS_BLOCK.get(),
@@ -51,8 +52,9 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 TABlocks.AURORIAN_COBBLESTONE.get(), TABlocks.AURORIAN_COAL_ORE.get(), TABlocks.AURORIAN_FURNACE.get(),
                 TABlocks.AURORIAN_FURNACE_CHIMNEY.get(), TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(),
                 TABlocks.AURORIAN_PERIDOTITE.get(), TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), TABlocks.MOONSTONE_ORE.get(),
-                TABlocks.CERULEAN_ORE.get(), TABlocks.GEODE_ORE.get(), TABlocks.INDIGO_MUSHROOM_CRYSTAL.get(),
-                TABlocks.MOONLIGHT_FORGE.get(), TABlocks.MOON_GEM.get(), TABlocks.UMBRA_STONE.get(),
+                TABlocks.CERULEAN_ORE.get(), TABlocks.GEODE_ORE.get(), TABlocks.CERULEAN_BLOCK.get(), TABlocks.MOONSTONE_BLOCK.get(),
+                TABlocks.AURORIAN_COAL_BLOCK.get(), TABlocks.AURORIAN_STEEL_BLOCK.get(),
+                TABlocks.INDIGO_MUSHROOM_CRYSTAL.get(), TABlocks.MOONLIGHT_FORGE.get(), TABlocks.MOON_GEM.get(), TABlocks.UMBRA_STONE.get(),
                 TABlocks.UMBRA_STONE_CRACKED.get(), TABlocks.UMBRA_STONE_ROOF_TILES.get(), TABlocks.MOON_SAND_STONE_1.get(),
                 TABlocks.MOON_SAND_STONE_2.get(), TABlocks.MOON_SAND_STONE_3.get(), TABlocks.BRIGHT_MOON_SANDSTONE.get());
         this.tag(BlockTags.WOODEN_STAIRS).add(TABlocks.SILENT_WOOD_STAIRS.get(), TABlocks.WEEPING_WILLOW_STAIRS.get());

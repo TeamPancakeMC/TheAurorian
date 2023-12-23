@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.level.feature.tree.trunk;
 
-import cn.teampancake.theaurorian.registry.TATrunkPlacerTypes;
+import cn.teampancake.theaurorian.common.registry.TATrunkPlacerTypes;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

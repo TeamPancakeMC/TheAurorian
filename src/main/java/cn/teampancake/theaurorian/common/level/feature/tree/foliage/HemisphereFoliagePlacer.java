@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.level.feature.tree.foliage;
 
-import cn.teampancake.theaurorian.registry.TAFoliagePlacerTypes;
+import cn.teampancake.theaurorian.common.registry.TAFoliagePlacerTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;

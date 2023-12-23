@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.level.feature.tree.decorators;
 
 import cn.teampancake.theaurorian.common.blocks.TAClusterBlock;
-import cn.teampancake.theaurorian.registry.TATreeDecoratorTypes;
-import cn.teampancake.theaurorian.utils.TACommonUtils;
+import cn.teampancake.theaurorian.common.registry.TATreeDecoratorTypes;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

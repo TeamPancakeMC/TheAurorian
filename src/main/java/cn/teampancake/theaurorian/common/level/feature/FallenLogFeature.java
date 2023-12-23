@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.level.feature;
 
+import cn.teampancake.theaurorian.common.data.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.level.feature.config.FallenLogConfig;
-import cn.teampancake.theaurorian.data.tags.TABlockTags;
-import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;

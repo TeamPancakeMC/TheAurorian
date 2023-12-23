@@ -100,7 +100,7 @@ sourceSets.main.resources {
 }
 
 repositories {
-
+    maven { url = "https://lss233.littleservice.cn/repositories/minecraft" }
     maven {
         name 'Curse Maven'
         url = "https://www.cursemaven.com"

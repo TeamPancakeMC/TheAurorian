@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.projectile;
 
-import cn.teampancake.theaurorian.registry.TAEntityTypes;
+import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;

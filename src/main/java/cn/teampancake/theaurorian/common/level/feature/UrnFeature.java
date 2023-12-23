@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.level.feature;
 
-import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;

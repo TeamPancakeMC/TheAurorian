@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
-import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.data.tags.TABlockTags;
-import cn.teampancake.theaurorian.registry.TAItems;
+import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import cn.teampancake.theaurorian.common.data.tags.TABlockTags;
+import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;

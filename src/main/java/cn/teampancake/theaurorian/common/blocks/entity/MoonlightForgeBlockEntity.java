@@ -2,8 +2,8 @@ package cn.teampancake.theaurorian.common.blocks.entity;
 
 import cn.teampancake.theaurorian.client.inventory.MoonlightForgeMenu;
 import cn.teampancake.theaurorian.common.items.crafting.MoonlightForgeRecipe;
-import cn.teampancake.theaurorian.registry.TABlockEntityTypes;
-import cn.teampancake.theaurorian.registry.TARecipes;
+import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
+import cn.teampancake.theaurorian.common.registry.TARecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;

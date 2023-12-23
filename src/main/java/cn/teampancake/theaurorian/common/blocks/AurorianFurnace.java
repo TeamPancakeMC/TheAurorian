@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.AurorianFurnaceBlockEntity;
-import cn.teampancake.theaurorian.registry.TABlockEntityTypes;
+import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;

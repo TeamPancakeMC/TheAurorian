@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.compat;
 
-import cn.teampancake.theaurorian.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.TAItems;
 import dev.ghen.thirst.api.ThirstHelper;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.MinecraftForge;

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.ai;
 
 import cn.teampancake.theaurorian.common.entities.monster.Spirit;
-import cn.teampancake.theaurorian.utils.EntityHelper;
+import cn.teampancake.theaurorian.common.utils.EntityHelper;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;

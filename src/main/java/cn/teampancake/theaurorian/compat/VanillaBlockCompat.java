@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.compat;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraftforge.api.distmarker.Dist;

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.utils.AurorianUtil;
-import cn.teampancake.theaurorian.utils.EntityHelper;
+import cn.teampancake.theaurorian.common.utils.AurorianUtil;
+import cn.teampancake.theaurorian.common.utils.EntityHelper;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;

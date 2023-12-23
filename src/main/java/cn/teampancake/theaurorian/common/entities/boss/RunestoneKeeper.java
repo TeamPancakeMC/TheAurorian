@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
-import cn.teampancake.theaurorian.registry.TAEnchantments;
-import cn.teampancake.theaurorian.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.TAEnchantments;
+import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerBossEvent;

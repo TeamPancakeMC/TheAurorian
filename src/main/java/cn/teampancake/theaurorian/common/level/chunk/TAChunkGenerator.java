@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.level.chunk;
 
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
-import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.common.registry.TABlocks;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;

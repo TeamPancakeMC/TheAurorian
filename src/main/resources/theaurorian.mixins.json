@@ -6,7 +6,8 @@
     "refmap": "theaurorian.refmap.json",
     "mixins": [
         "InvokeAbstractFurnaceBlockEntity",
-        "MixinDiggerItem"
+        "MixinDiggerItem",
+        "MixinLevel"
     ],
     "client": [
         "MixinLightTexture"

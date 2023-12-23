@@ -15,7 +15,7 @@ public class WickParticle extends SimpleAnimatedParticle {
 
     public WickParticle(ClientLevel level, double x, double y, double z, SpriteSet sprites) {
         super(level, x, y, z, sprites, 0.0125F);
-        this.lifetime = (int)(8.0D / (Math.random() * 0.8D + 0.2D)) + 4;
+        this.lifetime = (int)(8.0D / (Math.random() * 0.8D + 0.2D));
         this.halfLife = this.lifetime / 2;
     }
 
@@ -72,6 +72,7 @@ public class WickParticle extends SimpleAnimatedParticle {
         public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             WickParticle particle = new WickParticle(level, x, y, z, this.sprite);
             particle.pickSprite(this.sprite);
+            particle.scale(1.5F);
             return particle;
         }
     }

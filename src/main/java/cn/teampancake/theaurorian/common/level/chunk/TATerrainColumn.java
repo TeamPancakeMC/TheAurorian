@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.level.chunk;
 
-import cn.teampancake.theaurorian.utils.Codecs;
+import cn.teampancake.theaurorian.common.utils.Codecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.floats.Float2ObjectAVLTreeMap;

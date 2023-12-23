@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
-import cn.teampancake.theaurorian.data.tags.TABlockTags;
-import cn.teampancake.theaurorian.registry.TAItems;
+import cn.teampancake.theaurorian.common.data.tags.TABlockTags;
+import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;

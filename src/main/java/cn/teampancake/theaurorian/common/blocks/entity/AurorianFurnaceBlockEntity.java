@@ -1,10 +1,10 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
 import cn.teampancake.theaurorian.common.blocks.AurorianFurnace;
-import cn.teampancake.theaurorian.config.AurorianConfig;
-import cn.teampancake.theaurorian.mixin.InvokeAbstractFurnaceBlockEntity;
-import cn.teampancake.theaurorian.registry.TABlockEntityTypes;
-import cn.teampancake.theaurorian.registry.TABlocks;
+import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import cn.teampancake.theaurorian.common.mixin.InvokeAbstractFurnaceBlockEntity;
+import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
+import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;

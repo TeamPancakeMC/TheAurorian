@@ -5,7 +5,7 @@ import cn.teampancake.theaurorian.common.level.chunk.TATerrainColumn;
 import cn.teampancake.theaurorian.common.level.legacy.area.LazyArea;
 import cn.teampancake.theaurorian.common.level.legacy.context.LazyAreaContext;
 import cn.teampancake.theaurorian.common.level.legacy.layer.BiomeLayerFactory;
-import cn.teampancake.theaurorian.registry.TABiomeLayerStack;
+import cn.teampancake.theaurorian.common.registry.TABiomeLayerStack;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

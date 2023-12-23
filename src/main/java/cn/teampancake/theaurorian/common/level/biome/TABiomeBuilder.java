@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.level.biome;
 
 import cn.teampancake.theaurorian.common.level.chunk.TATerrainColumn;
-import cn.teampancake.theaurorian.registry.TABiomes;
+import cn.teampancake.theaurorian.common.registry.TABiomes;
 import it.unimi.dsi.fastutil.floats.Float2ObjectAVLTreeMap;
 import it.unimi.dsi.fastutil.floats.Float2ObjectSortedMap;
 import net.minecraft.Util;

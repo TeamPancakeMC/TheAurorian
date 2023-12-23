@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.entities.projectile;
 
-import cn.teampancake.theaurorian.registry.TAEntityTypes;
-import cn.teampancake.theaurorian.registry.TAItems;
-import cn.teampancake.theaurorian.registry.TAParticleTypes;
+import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
+import cn.teampancake.theaurorian.common.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.ai;
 
-import cn.teampancake.theaurorian.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.TemptGoal;

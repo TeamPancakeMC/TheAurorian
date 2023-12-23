@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.crafting;
 
-import cn.teampancake.theaurorian.registry.TARecipes;
+import cn.teampancake.theaurorian.common.registry.TARecipes;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;

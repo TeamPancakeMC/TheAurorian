@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items.developer;
 
 import cn.teampancake.theaurorian.common.items.TeaFood;
-import cn.teampancake.theaurorian.registry.TAMobEffects;
+import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;

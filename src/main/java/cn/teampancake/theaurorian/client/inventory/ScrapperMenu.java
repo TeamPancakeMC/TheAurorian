@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.client.inventory;
 
 import cn.teampancake.theaurorian.common.blocks.entity.ScrapperBlockEntity;
-import cn.teampancake.theaurorian.registry.TAItems;
-import cn.teampancake.theaurorian.registry.TAMenuTypes;
+import cn.teampancake.theaurorian.common.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.TAMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

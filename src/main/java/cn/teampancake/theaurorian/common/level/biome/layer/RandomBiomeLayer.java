@@ -6,7 +6,7 @@ import cn.teampancake.theaurorian.common.level.legacy.context.LazyAreaContext;
 import cn.teampancake.theaurorian.common.level.legacy.layer.BiomeLayerFactory;
 import cn.teampancake.theaurorian.common.level.legacy.layer.BiomeLayerType;
 import cn.teampancake.theaurorian.common.level.legacy.layer.traits.AreaTransformer0;
-import cn.teampancake.theaurorian.registry.TABiomeLayers;
+import cn.teampancake.theaurorian.common.registry.TABiomeLayers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.Registries;

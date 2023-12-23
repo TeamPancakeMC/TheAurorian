@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer.level;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.event.TAEventFactory;
+import cn.teampancake.theaurorian.common.event.TAEventFactory;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;

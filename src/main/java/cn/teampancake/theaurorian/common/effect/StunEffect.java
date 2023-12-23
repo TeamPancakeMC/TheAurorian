@@ -5,7 +5,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
-public class StunEffect extends MobEffect {
+public class StunEffect extends TAMobEffect {
 
     private static final String STUN_UUID = "e8c3b0b0-3d6c-11eb-b378-0242ac130002";
 

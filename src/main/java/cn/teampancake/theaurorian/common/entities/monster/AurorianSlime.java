@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
-import cn.teampancake.theaurorian.common.data.tags.TABlockTags;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;

@@ -1,7 +1,10 @@
 package cn.teampancake.theaurorian;
 
+import cn.teampancake.theaurorian.client.gui.hud.ShieldHudRenderer;
+import cn.teampancake.theaurorian.common.data.pack.MaxShieldLoader;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
+import cn.teampancake.theaurorian.common.network.TAMessages;
 import cn.teampancake.theaurorian.compat.ThirstWasTakenCompat;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.registry.*;
@@ -10,12 +13,16 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DataPackRegistryEvent;
 import net.minecraftforge.registries.RegisterEvent;
 import org.apache.logging.log4j.LogManager;
@@ -55,11 +62,19 @@ public class AurorianMod {
         TABiomeLayerStack.BIOME_LAYER_STACKS.register(modEventBus);
         TABiomeLayers.BIOME_LAYER_TYPES.register(modEventBus);
         TAMobEffects.MOB_EFFECTS.register(modEventBus);
+        TAShields.SHIELD.register(modEventBus);
         modEventBus.addListener(this::registerExtraStuff);
         modEventBus.addListener(this::setRegistriesForDatapack);
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(TAShields::onNewRegistry);;
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.addListener(this::onDataPackLoad);
         if (ModList.get().isLoaded("thirst")) {
             ThirstWasTakenCompat.init();
+        }
+
+        if(FMLEnvironment.dist.isClient()) {
+            modEventBus.addListener(ShieldHudRenderer::registerThirstOverlay);
         }
     }
 
@@ -83,4 +98,11 @@ public class AurorianMod {
         return new ResourceLocation("aurorian", name.toLowerCase(Locale.ROOT));
     }
 
+    @SubscribeEvent
+    public void onDataPackLoad(AddReloadListenerEvent event) {
+        event.addListener(new MaxShieldLoader());
+    }
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        TAMessages.register();
+    }
 }

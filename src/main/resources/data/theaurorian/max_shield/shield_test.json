@@ -1,0 +1,38 @@
+[
+  {
+    "id": "dimension",
+    "type": "shield:common",
+    "location": "minecraft:the_nether",
+    "max_shield": 5
+  },
+  {
+    "id": "item",
+    "type": "shield:common",
+    "location": "minecraft:stone",
+    "max_shield": 5
+  },
+  {
+    "id": "achievements",
+    "type": "shield:common",
+    "location": "minecraft:story/root",
+    "max_shield": 5
+  },
+  {
+    "id": "entity",
+    "type": "shield:common",
+    "location": "minecraft:pig",
+    "max_shield": 5
+  },
+  {
+    "id": "armor",
+    "type": "shield:common",
+    "location": "minecraft:leather_helmet",
+    "max_shield": 5
+  },
+  {
+    "id": "buff",
+    "type": "shield:common",
+    "location": "minecraft:night_vision",
+    "max_shield": 5
+  }
+]

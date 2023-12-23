@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.registry;
+package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.level.feature.tree.trunk.StraightWithFallenLeavesTrunkPlacer;

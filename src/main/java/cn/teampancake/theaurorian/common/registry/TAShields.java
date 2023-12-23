@@ -6,14 +6,17 @@ import cn.teampancake.theaurorian.api.IShield;
 import cn.teampancake.theaurorian.common.shield.AurorianShield;
 import cn.teampancake.theaurorian.common.shield.CommonShield;
 import cn.teampancake.theaurorian.common.shield.TempShield;
+import com.google.common.collect.Maps;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.*;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class TAShields {
+    public static final Map<Class<? extends IShield>,ResourceLocation> SHIELD_MAP = Maps.newHashMap();
     public static final ResourceKey<Registry<IShield>> SHIELD_KEY = ResourceKey.createRegistryKey(AurorianMod.prefix("shield"));
     public static final DeferredRegister<IShield> SHIELD = DeferredRegister.create(SHIELD_KEY, AurorianMod.MOD_ID);
 
@@ -22,7 +25,9 @@ public class TAShields {
     public static final RegistryObject<IShield> TEMP = register("temp", ()->new TempShield(100,0.0f,0.0f,0xFF800000));
 
     public static RegistryObject<IShield> register(String name, Supplier<? extends IShield> supplier) {
-        return SHIELD.register(name, supplier);
+        RegistryObject<IShield> register = SHIELD.register(name, supplier);
+        SHIELD_MAP.put(register.get().getClass(),register.getId());
+        return register;
     }
 
     public static ResourceLocation getKey(IShield shield) {
@@ -31,15 +36,4 @@ public class TAShields {
                 .findFirst().map(RegistryObject::getId)
                 .orElseThrow(() -> new IllegalArgumentException("Shield " + shield + " is not registered"));
     }
-
-
-    public static void onNewRegistry(NewRegistryEvent event) {
-        event.create(new RegistryBuilder<>().setName(SHIELD_KEY.location()));
-    }
-
-
-
-
-
-
 }

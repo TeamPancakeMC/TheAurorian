@@ -24,7 +24,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DataPackRegistryEvent;
+import net.minecraftforge.registries.NewRegistryEvent;
 import net.minecraftforge.registries.RegisterEvent;
+import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -66,7 +68,7 @@ public class AurorianMod {
         modEventBus.addListener(this::registerExtraStuff);
         modEventBus.addListener(this::setRegistriesForDatapack);
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(TAShields::onNewRegistry);;
+        modEventBus.addListener(this::onNewRegistry);;
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener(this::onDataPackLoad);
         if (ModList.get().isLoaded("thirst")) {
@@ -104,5 +106,10 @@ public class AurorianMod {
     }
     private void commonSetup(final FMLCommonSetupEvent event) {
         TAMessages.register();
+    }
+
+    public void onNewRegistry(NewRegistryEvent event) {
+        event.create(new RegistryBuilder<>().setName(TAShields.SHIELD_KEY.location()));
+        event.create(new RegistryBuilder<>().setName(TARunes.RUNE_KEY.location()));
     }
 }

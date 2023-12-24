@@ -49,6 +49,7 @@ public class ItemEventSubscriber {
     private static final ResourceLocation STAR_OCEAN_CROSSBOW = AurorianMod.prefix("textures/gui/tooltips/star_ocean_crossbow.png");
     private static final ResourceLocation DREAM_DYEING_CRYSTAL_FRAGMENT = AurorianMod.prefix("textures/gui/tooltips/dream_dyeing_crystal_fragment.png");
     private static final ResourceLocation CAT_BELL = AurorianMod.prefix("textures/gui/tooltips/cat_bell.png");
+    private static final ResourceLocation TSLAT_SWORD = AurorianMod.prefix("textures/gui/tooltips/tslat_sword.png");
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
@@ -146,6 +147,15 @@ public class ItemEventSubscriber {
                 int[] vHeight = new int[] {9, 9, 9, 9};
                 TATooltipRenderUtils.renderTooltips(event, CAT_BELL, (0xff272736), (0xff4b5bab),
                         (0xff272736), (48), (32), (0), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
+            } else if (itemStack.is(TAItems.TSLAT_SWORD.get())) {
+                int[] xOffset = new int[] {-4, -4, -1, -1};
+                int[] yOffset = new int[] {-16, -13, -16, -13, -19};
+                int[] uOffset = new int[] {0, 0, 5, 5, 10};
+                int[] vOffset = new int[] {0, 5, 0, 5, 0};
+                int[] uWidth = new int[] {5, 5, 5, 5, 22};
+                int[] vHeight = new int[] {5, 5, 5, 5, 7};
+                TATooltipRenderUtils.renderTooltips(event, TSLAT_SWORD, (-267386864), (0xff37f037),
+                        (-267386864), (64), (64), (2), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
             }
         }
     }

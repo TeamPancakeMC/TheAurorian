@@ -289,5 +289,6 @@ public class TAItems {
     public static final RegistryObject<Item> RED_BOOK_RING = ITEMS.register("red_book_ring", RedBookRing::new);
     public static final RegistryObject<Item> STAR_OCEAN_CROSSBOW = ITEMS.register("star_ocean_crossbow", StarOceanCrossbow::new);
     public static final RegistryObject<Item> CAT_BELL = ITEMS.register("cat_bell", CatBell::new);
+    public static final RegistryObject<Item> TSLAT_SWORD = ITEMS.register("tslat_sword", TslatSword::new);
 
 }

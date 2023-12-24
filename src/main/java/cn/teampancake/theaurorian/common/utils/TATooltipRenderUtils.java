@@ -1,31 +1,37 @@
 package cn.teampancake.theaurorian.common.utils;
 
+import cn.teampancake.theaurorian.client.text.FitWidthCharSink;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTextTooltip;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import org.joml.Vector2ic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "ConstantConditions"})
 public class TATooltipRenderUtils {
+
+    private static boolean shouldFlip = false;
 
     public static void renderTooltips(
             RenderTooltipEvent.Pre event, ResourceLocation tooltips, int outerColor, int intermediateColor, int innerColor, int textureWidth,
             int textureHeight, int textTopOffset, int[] xOffset, int[] yOffset, int[] uOffset, int[] vOffset, int[] uWidth, int[] vHeight) {
         ClientTooltipPositioner tooltipPositioner = event.getTooltipPositioner();
-        List<ClientTooltipComponent> components = event.getComponents();
+        List<ClientTooltipComponent> components = new ArrayList<>(event.getComponents());
         GuiGraphics graphics = event.getGraphics();
         Font font = event.getFont();
-        graphics.pose().pushPose();
         int mouseX = event.getX();
         int mouseY = event.getY();
         int width = event.getScreenWidth();
@@ -40,8 +46,10 @@ public class TATooltipRenderUtils {
             }
         }
         int tooltipWidth = i0, tooltipHeight = j0;
+        fixTooltipComponent(components, font, mouseX, width);
         Vector2ic vector2ic = tooltipPositioner.positionTooltip(width, height, mouseX, mouseY, tooltipWidth, tooltipHeight);
-        int tooltipPosX = vector2ic.x(), tooltipPosY = vector2ic.y();
+        int tooltipPosX = shouldFlip ? vector2ic.x() - 16 + i0 : vector2ic.x() + 12, tooltipPosY = vector2ic.y();
+        graphics.pose().pushPose();
         graphics.drawManaged(() -> {
             int i = tooltipPosX - 3;
             int j = tooltipPosY - 3;
@@ -90,6 +98,65 @@ public class TATooltipRenderUtils {
             k1 += component.getHeight() + (k2 == 0 ? 2 : 0);
         }
         graphics.pose().popPose();
+    }
+
+    public static void fixTooltipComponent(List<ClientTooltipComponent> components, Font font, int x, int width) {
+        shouldFlip = false;
+        int forcedWidth = 0;
+        for (ClientTooltipComponent component : components) {
+            if (!(component instanceof ClientTextTooltip)) {
+                int fontWidth = component.getWidth(font);
+                if (fontWidth > forcedWidth) {
+                    forcedWidth = fontWidth;
+                }
+            }
+        }
+
+        int maxWidth = width - 20 - x;
+        if (forcedWidth > maxWidth || maxWidth < 100) {
+            shouldFlip = true;
+            maxWidth = x - 28;
+        }
+
+        wrapNewLines(components);
+        wrapLongLines(components, font, maxWidth);
+    }
+
+    private static void wrapLongLines(List<ClientTooltipComponent> components, Font font, int maxSize) {
+        for (int i = 0; i < components.size(); i++) {
+            if (components.get(i) instanceof ClientTextTooltip clientTextTooltip) {
+                Component component = FitWidthCharSink.get(clientTextTooltip.text);
+                if (!component.getSiblings().isEmpty()) {
+                    List<ClientTooltipComponent> wrapped = font.split(component, maxSize).stream().map(ClientTooltipComponent::create).toList();
+                    components.remove(i);
+                    components.addAll(i, wrapped);
+                }
+            }
+        }
+    }
+
+    private static void wrapNewLines(List<ClientTooltipComponent> components) {
+        for (int i = 0; i < components.size(); i++) {
+            if (components.get(i) instanceof ClientTextTooltip clientTextTooltip) {
+                Component component = FitWidthCharSink.get(clientTextTooltip.text);
+                List<Component> children = component.getSiblings();
+                for (int j = 0; j < children.size() - 1; j++) {
+                    if ((children.get(j).getString() + children.get(j + 1).getString()).equals("\\n")) {
+                        components.set(i, ClientTooltipComponent.create(textWithChildren(children, 0, j).getVisualOrderText()));
+                        components.add(i + 1, ClientTooltipComponent.create(textWithChildren(children, j + 2, children.size()).getVisualOrderText()));
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private static Component textWithChildren(List<Component> children, int from, int end) {
+        MutableComponent text = Component.literal("");
+        for (int i = from; i < end; i++) {
+            text.append(children.get(i));
+        }
+        return text;
     }
 
 }

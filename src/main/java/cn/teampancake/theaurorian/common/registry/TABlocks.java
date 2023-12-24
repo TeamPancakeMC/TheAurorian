@@ -117,7 +117,7 @@ public class TABlocks {
     public static final RegistryObject<Block> INDIGO_MUSHROOM_STEM = register("indigo_mushroom_stem", () -> new HugeMushroomBlock(copy(Blocks.MUSHROOM_STEM).destroyTime(1.0F)));
     public static final RegistryObject<Block> INDIGO_MUSHROOM_CRYSTAL = normal("indigo_mushroom_crystal", of().mapColor(MapColor.COLOR_PURPLE).sound(SoundType.GLASS).lightLevel(s -> 1));
     public static final RegistryObject<Block> MOONLIGHT_FORGE = register("moonlight_forge", () -> new MoonlightForge(defaultStoneProperties((2.0F)).mapColor(MapColor.METAL).sound(SoundType.METAL).noOcclusion()));
-    public static final RegistryObject<Block> MOON_GEM = register("moon_gem", () -> new MoonGem(defaultStoneProperties(2.0F).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.METAL).noOcclusion()));
+    public static final RegistryObject<Block> MOON_GEM = normal("moon_gem", defaultStoneProperties(2.0F).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.METAL).noOcclusion());
     public static final RegistryObject<Block> MOON_SAND = normal("moon_sand", copy(Blocks.SAND));
     public static final RegistryObject<Block> MOON_SAND_RIVER = normal("moon_sand_river", copy(Blocks.SAND));
     public static final RegistryObject<Block> MOON_SAND_STONE_1 = normal("moon_sand_stone_1", copy(Blocks.SANDSTONE));

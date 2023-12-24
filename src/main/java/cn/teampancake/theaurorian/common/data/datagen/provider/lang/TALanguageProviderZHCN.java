@@ -349,6 +349,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.RED_BOOK_RING.get(), "红皮书戒指");
         this.add(TAItems.STAR_OCEAN_CROSSBOW.get(), "星弩");
         this.add(TAItems.CAT_BELL.get(), "猫猫的铃铛");
+        this.add(TAItems.TSLAT_SWORD.get(), "Tslat的剑");
         this.add(TAItems.WORLD_SCROLL_FRAGMENT.get(),"世界残卷");
         this.add(TAItems.WORLD_SCROLL.get(),"世界卷轴");
         this.add(TAItems.WEEPING_WILLOW_SAP.get(), "垂柳树汁");

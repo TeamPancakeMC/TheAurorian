@@ -43,7 +43,19 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.tag(TAItemTags.HAS_CUSTOM_TOOLTIPS).addTag(TAItemTags.IS_UNCOMMON).addTag(TAItemTags.IS_RARE)
                 .addTag(TAItemTags.IS_EPIC).addTag(TAItemTags.IS_LEGENDARY).addTag(TAItemTags.IS_MYTHICAL)
                 .add(TAItems.WHITE_CHOCOLATE.get(), TAItems.RED_BOOK.get(), TAItems.RED_BOOK_RING.get(),
-                        TAItems.STAR_OCEAN_CROSSBOW.get(), TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(), TAItems.CAT_BELL.get());
+                        TAItems.STAR_OCEAN_CROSSBOW.get(), TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(),
+                        TAItems.CAT_BELL.get(), TAItems.TSLAT_SWORD.get());
+        this.tag(TAItemTags.IS_RARE).addTag(TAItemTags.DUNGEON_KEY).add(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get(),
+                TAItems.TEA_CUP.get(), TAItems.WICK_GRASS.get(), TAItems.AURORIAN_COAL.get(), TAItems.AURORIANITE_INGOT.get(),
+                TAItems.CERULEAN_INGOT.get(), TAItems.CRYSTALLINE_INGOT.get(), TAItems.MOONSTONE_INGOT.get(),
+                TAItems.UMBRA_INGOT.get(), TAItems.LAVENDER.get(), TAItems.PLANT_FIBER.get(),
+                TAItems.AURORIANITE_SCRAP.get(), TAItems.CRYSTALLINE_SCRAP.get(), TAItems.UMBRA_SCRAP.get(),
+                TAItems.SPECTRAL_SILK.get(), TAItems.DARK_AMULET.get(), TAItems.DUNGEON_KEEPER_AMULET.get(),
+                TAItems.CERULEAN_ARROW.get(), TAItems.CRYSTAL_ARROW.get(), TAItems.ABSORPTION_ORB.get(),
+                TAItems.SILENT_WOOD_STICK.get(), TAItems.STICKY_SPIKER.get(), TAItems.CRYSTALLINE_SPRITE.get(), TAItems.CRYSTAL.get(),
+                TAItems.AURORIAN_CHAIN.get(), TAItems.AURORIAN_BERRY.get(), TAItems.EQUINOX_MUSHROOM.get(),
+                TAItems.WORLD_SCROLL_FRAGMENT.get(), TAItems.WORLD_SCROLL.get(), TAItems.WEBBING.get(),
+                TAItems.LIVING_DIVINING_ROD.get(), TAItems.MOON_WATER_BUCKET.get(), TAItems.MOON_FISH_BUCKET.get());
         this.tag(TAItemTags.IS_EPIC).add(TAItems.AURORIAN_STEEL.get());
         this.tag(TAItemTags.IS_LEGENDARY).add(TAItems.TROPHY_KEEPER.get(), TAItems.TROPHY_SPIDER_MOTHER.get(),
                 TAItems.TROPHY_MOON_QUEEN.get(), TAItems.DEVELOPER_GIFT.get(), TAItems.AURORIAN_CRYSTAL.get());

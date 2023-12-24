@@ -350,6 +350,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.RED_BOOK_RING.get(), "Red Book Ring");
         this.add(TAItems.STAR_OCEAN_CROSSBOW.get(), "Star Ocean Crossbow");
         this.add(TAItems.CAT_BELL.get(), "Cat Bell");
+        this.add(TAItems.TSLAT_SWORD.get(), "Tslat's Sword");
         this.add(TAItems.WORLD_SCROLL_FRAGMENT.get(),"World Scroll Fragment");
         this.add(TAItems.WORLD_SCROLL.get(),"World Scroll");
         this.add(TAItems.WEEPING_WILLOW_SAP.get(),"Weeping Willow Sap");

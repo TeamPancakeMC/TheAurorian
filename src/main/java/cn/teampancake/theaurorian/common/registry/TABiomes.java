@@ -12,6 +12,7 @@ import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -70,7 +71,9 @@ public class TABiomes {
                         .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_FOREST)
                         .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
                         .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_FOREST)
-                        .addFeature(vegetalDecoration, TAPlacements.RANDOM_WEAK_GRASS));
+                        .addFeature(vegetalDecoration, TAPlacements.RANDOM_WEAK_GRASS))
+                .mobSpawnSettings(defaultMobSpawning().addSpawn(MobCategory.CREATURE,
+                        new MobSpawnSettings.SpawnerData(EntityType.ALLAY, (1), (1), (2))).build());
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings) {

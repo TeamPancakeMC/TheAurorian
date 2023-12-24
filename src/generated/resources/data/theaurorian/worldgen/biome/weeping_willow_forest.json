@@ -72,6 +72,12 @@
         "maxCount": 8,
         "minCount": 8,
         "weight": 25
+      },
+      {
+        "type": "minecraft:allay",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 1
       }
     ],
     "misc": [],

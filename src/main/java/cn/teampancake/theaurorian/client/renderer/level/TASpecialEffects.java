@@ -2,14 +2,18 @@ package cn.teampancake.theaurorian.client.renderer.level;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -39,6 +43,26 @@ public class TASpecialEffects extends DimensionSpecialEffects {
     @Override
     public boolean renderSky(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
         return TASkyRenderer.renderSky(level, poseStack, projectionMatrix, partialTick, camera, setupFog);
+    }
+
+    @Override
+    public void adjustLightmapColors(ClientLevel level, float partialTicks, float skyDarken, float blockLightRedFlicker, float skyLight, int pixelX, int pixelY, Vector3f colors) {
+        GameRenderer gameRenderer = Minecraft.getInstance().gameRenderer;
+        float f = Math.min(level.getSkyDarken(partialTicks), 0.35F);
+        float f1 = level.getSkyFlashTime() > 0 ? 1.0F : f * 0.95F + 0.05F;
+        float f8 = LightTexture.getBrightness(level.dimensionType(), pixelY) * f1;
+        float f9 = LightTexture.getBrightness(level.dimensionType(), pixelX) * blockLightRedFlicker;
+        float f10 = f9 * ((f9 * 0.6F + 0.4F) * 0.6F + 0.4F);
+        float f11 = f9 * (f9 * f9 * 0.6F + 0.4F);
+        colors.set(f9, f10, f11);
+        Vector3f vector3f = (new Vector3f(f, f, 1.0F)).lerp(new Vector3f(1.0F, 1.0F, 1.0F), 0.35F);
+        colors.add((new Vector3f(vector3f)).mul(f8));
+        colors.lerp(new Vector3f(0.75F, 0.75F, 0.75F), 0.04F);
+        if (gameRenderer.getDarkenWorldAmount(partialTicks) > 0.0F) {
+            float f12 = gameRenderer.getDarkenWorldAmount(partialTicks);
+            Vector3f vector3f3 = (new Vector3f(colors)).mul(0.7F, 0.6F, 0.6F);
+            colors.lerp(vector3f3, f12);
+        }
     }
 
 }

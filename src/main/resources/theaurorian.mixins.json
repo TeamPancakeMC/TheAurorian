@@ -9,9 +9,7 @@
         "MixinDiggerItem",
         "MixinLevel"
     ],
-    "client": [
-        "MixinLightTexture"
-    ],
+    "client": [],
     "injectors": {
         "defaultRequire": 1
   }

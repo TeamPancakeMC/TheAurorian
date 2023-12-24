@@ -4,7 +4,7 @@
     "default": "theaurorian:silent_tree",
     "features": [
       {
-        "chance": 0.4,
+        "chance": 0.3,
         "feature": "theaurorian:silent_tree"
       }
     ]

@@ -37,7 +37,7 @@ public class CrystalBudDecorator extends TreeDecorator {
         if (random.nextFloat() < this.probability) {
             context.logs().forEach(pos -> {
                 for (Direction direction : Direction.Plane.HORIZONTAL) {
-                    if (random.nextFloat() <= 0.3F) {
+                    if (random.nextFloat() <= 0.1F) {
                         Direction opposite = direction.getOpposite();
                         BlockPos blockPos = pos.offset(opposite.getStepX(), 0, opposite.getStepZ());
                         BlockState budState = this.clusterBudList().get(random.nextInt(this.clusterBudList().size()));

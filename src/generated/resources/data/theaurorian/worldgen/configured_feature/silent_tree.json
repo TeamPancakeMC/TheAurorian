@@ -4,7 +4,7 @@
     "decorators": [
       {
         "type": "theaurorian:crystal_bud",
-        "probability": 0.3
+        "probability": 0.05
       }
     ],
     "dirt_provider": {

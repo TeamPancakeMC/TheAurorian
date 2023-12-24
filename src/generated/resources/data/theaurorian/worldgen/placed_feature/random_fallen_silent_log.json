@@ -1,19 +1,9 @@
 {
-  "feature": "theaurorian:trees_aurorian_forest",
+  "feature": "theaurorian:random_fallen_silent_log",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 1
-    },
-    {
-      "type": "minecraft:in_square"
-    },
-    {
-      "type": "minecraft:heightmap",
-      "heightmap": "WORLD_SURFACE_WG"
-    },
-    {
-      "type": "minecraft:biome"
+      "type": "minecraft:rarity_filter",
+      "chance": 2
     }
   ]
 }

@@ -26,26 +26,31 @@ public class FallenLogFeature extends Feature<FallenLogConfig> {
         WorldGenLevel level = context.level();
         RandomSource random = context.random();
         BlockPos originPos = context.origin();
-        Direction direction = Direction.getRandom(random);
+        Direction direction = Direction.from2DDataValue(random.nextInt(4));
         Direction.Axis axis = direction.getAxis();
         int randomLength = random.nextInt(6, 13);
         boolean canPlace = true;
         for (int i = 0; i < randomLength; i++) {
             BlockPos relativePos = originPos.relative(direction, i);
-            canPlace = level.getBlockState(relativePos).canBeReplaced() && level.getBlockState(relativePos.below()).is(TABlockTags.AURORIAN_GRASS_BLOCK);
+            boolean canBeReplaced = level.getBlockState(relativePos).canBeReplaced() && level.getBlockState(relativePos.above()).canBeReplaced();
+            canPlace = canBeReplaced && level.getBlockState(relativePos.below()).is(TABlockTags.AURORIAN_GRASS_BLOCK);
         }
 
-        for (int i = 0; i < randomLength; ++i) {
-            BlockPos relativePos = originPos.relative(direction, i);
-            BlockState logState = config.logState().getState(random, relativePos).setValue(RotatedPillarBlock.AXIS, axis);
-            BlockState mushroomState = TABlocks.INDIGO_MUSHROOM.get().defaultBlockState();
-            level.setBlock(relativePos, logState, Block.UPDATE_CLIENTS);
-            if (random.nextFloat() < config.mushroomChance()) {
-                level.setBlock(relativePos.above(), mushroomState, Block.UPDATE_CLIENTS);
+        if (canPlace) {
+            for (int i = 0; i < randomLength; ++i) {
+                BlockPos relativePos = originPos.relative(direction, i);
+                BlockState logState = config.logState().getState(random, relativePos).setValue(RotatedPillarBlock.AXIS, axis);
+                BlockState mushroomState = TABlocks.INDIGO_MUSHROOM.get().defaultBlockState();
+                level.setBlock(relativePos, logState, Block.UPDATE_CLIENTS);
+                if (random.nextFloat() < config.mushroomChance()) {
+                    level.setBlock(relativePos.above(), mushroomState, Block.UPDATE_CLIENTS);
+                }
             }
+
+            return true;
         }
 
-        return canPlace;
+        return false;
     }
 
 }

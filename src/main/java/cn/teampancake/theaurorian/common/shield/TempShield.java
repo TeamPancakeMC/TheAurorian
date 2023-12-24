@@ -8,27 +8,23 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 
-public class TempShield extends BaseShield{
+public class TempShield extends BaseShield {
+
     private IShield shieldType;
+
     public TempShield(int priority, float shield, float maxShield, int color) {
         super(priority, shield, maxShield,color);
     }
-
 
     @Override
     public IShield copy() {
         return new TempShield(getPriority(),getShield(), getMaxShield(),getColor());
     }
 
-    public IShield getTempShield() {
-        return shieldType;
-    }
-
     public void setTempShield(IShield shieldType) {
         this.shieldType = shieldType;
         this.increaseShield(shieldType.getShield());
         this.increaseMaxShield(shieldType.getMaxShield());
-
     }
 
     public void clearTempShield(ServerPlayer player){
@@ -58,18 +54,14 @@ public class TempShield extends BaseShield{
     @Override
     public float naturalRecovery(LivingEntity entity) {
         if (this.shieldType != null) {
-            float v = this.shieldType.naturalRecovery(entity);
-            System.out.println("naturalRecovery :" + v);
-            return v;
+            return this.shieldType.naturalRecovery(entity);
         }
         return super.naturalRecovery(entity);
     }
 
     @Override
     public boolean isNaturalRecovery(LivingEntity entity) {
-        System.out.println("isNaturalRecovery :" + this.shieldType);
         if (this.shieldType != null) {
-            System.out.println("isNaturalRecovery :" + this.shieldType.isNaturalRecovery(entity));
             return this.shieldType.isNaturalRecovery(entity);
         }
         return super.isNaturalRecovery(entity);
@@ -98,4 +90,5 @@ public class TempShield extends BaseShield{
         }
         return super.isDamageNegated(entity, source, damage);
     }
+
 }

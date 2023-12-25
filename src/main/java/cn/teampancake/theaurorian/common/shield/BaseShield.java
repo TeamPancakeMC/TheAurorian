@@ -14,6 +14,7 @@ public abstract class BaseShield implements IShield {
     private final MaxShieldData maxShieldData;
     private float shield;
     private final int color;
+    public float rate = 0.0f;
 
     public BaseShield(int priority, float shield, float maxShield, int color) {
         this.priority = priority;
@@ -52,6 +53,13 @@ public abstract class BaseShield implements IShield {
         this.shield = Math.min(this.shield + shield, this.maxShieldData.getMaxShield());
     }
 
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
 
     @Override
     public void increaseMaxShield(float maxShield) {
@@ -78,6 +86,7 @@ public abstract class BaseShield implements IShield {
         CompoundTag compoundTag = new CompoundTag();
         compoundTag.putFloat("shield", this.shield);
         compoundTag.put("maxShieldData", this.maxShieldData.serializeNBT());
+        compoundTag.putFloat("rate",rate);
         return compoundTag;
     }
 
@@ -85,6 +94,7 @@ public abstract class BaseShield implements IShield {
     public void deserializeNBT(CompoundTag compoundTag) {
         this.shield = compoundTag.getFloat("shield");
         this.maxShieldData.deserializeNBT(compoundTag.getCompound("maxShieldData"));
+        this.rate = compoundTag.getFloat("rate");
     }
 
     @Override

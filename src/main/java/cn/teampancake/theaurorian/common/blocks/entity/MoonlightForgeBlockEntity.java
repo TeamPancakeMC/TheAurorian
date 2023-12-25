@@ -93,6 +93,7 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
         }
     }
 
+
     public boolean isCrafting() {
         return !this.isPowered && this.hasMoonLight && this.craftProgress > 0;
     }

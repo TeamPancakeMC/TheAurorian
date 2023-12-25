@@ -12,17 +12,13 @@ import net.minecraft.world.entity.LivingEntity;
 import static net.minecraft.tags.DamageTypeTags.*;
 
 public class CommonShield extends BaseShield{
-    public float rate = 0.25f;
     protected static final TagKey<DamageType>[] DAMAGE_TYPE_TAGS = new TagKey[]{
             IS_FIRE,IS_PROJECTILE,IS_EXPLOSION,IS_FALL,WITCH_RESISTANT_TO
     };
     public CommonShield(int priority,float shield, float maxShield,int color) {
         super(priority, shield, maxShield,color);
+        this.rate = 0.25f;
     }
-    public CommonShield(int maxShield) {
-        super(0, maxShield, maxShield,0xFF808080);
-    }
-
 
     @Override
     public IShield copy() {
@@ -32,26 +28,6 @@ public class CommonShield extends BaseShield{
     @Override
     public float naturalRecovery(LivingEntity entity) {
         return 1.0f;
-    }
-    public float getRate() {
-        return rate;
-    }
-
-    public void setRate(float rate) {
-        this.rate = rate;
-    }
-
-    @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag compoundTag = super.serializeNBT();
-        compoundTag.putFloat("rate",rate);
-        return compoundTag;
-    }
-
-    @Override
-    public void deserializeNBT(CompoundTag compoundTag) {
-        super.deserializeNBT(compoundTag);
-        this.rate = compoundTag.getFloat("rate");
     }
 
     @Override

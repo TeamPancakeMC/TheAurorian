@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.data.pack.MaxShieldLoader;
 import cn.teampancake.theaurorian.common.effect.TempShieldEffect;
 import cn.teampancake.theaurorian.common.network.TAMessages;
 import cn.teampancake.theaurorian.common.network.message.ShieldSyncS2CMessage;
+import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import cn.teampancake.theaurorian.common.registry.TAShields;
 import cn.teampancake.theaurorian.common.shield.MaxShieldData;
 import cn.teampancake.theaurorian.common.shield.TempShield;
@@ -188,5 +189,18 @@ public class ShieldSubscriber {
                 }
             });
         }
+    }
+    //极光护盾免疫眩晕
+    @SubscribeEvent
+    public static void onMobEffect(MobEffectEvent.Applicable event) {
+        LivingEntity entity = event.getEntity();
+        ShieldCap.getCapability(entity).ifPresent(cap -> {
+            IShield iShield = cap.getShieldMap().get(TAShields.AURORIAN.getId());
+            if (iShield != null && iShield.getShield() / iShield.getMaxShield() > 0.85f) {
+                if (event.getEffectInstance().getEffect() == TAMobEffects.STUN.get()) {
+                    event.setResult(MobEffectEvent.Result.DENY);
+                }
+            }
+        });
     }
 }

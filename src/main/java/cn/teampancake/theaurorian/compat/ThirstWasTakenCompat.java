@@ -18,14 +18,16 @@ public class ThirstWasTakenCompat {
         MinecraftForge.EVENT_BUS.register(ThirstWasTakenCompat.class);
     }
 
-    public static void DrinkList(){
-        ThirstHelper.addDrink(TAItems.LAVENDER_TEA.get(),10,14);
-        ThirstHelper.addDrink(TAItems.SILK_BERRY_TEA.get(),10,14);
-        ThirstHelper.addDrink(TAItems.LAVENDER_SEEDY_TEA.get(),10,14);
-        ThirstHelper.addDrink(TAItems.PETUNIA_TEA.get(),10,14);
-        ThirstHelper.addDrink(TAItems.SLEEPING_BLACK_TEA.get(),10,14);
-        ThirstHelper.addDrink(TAItems.BEPSI.get(),6,8);
-        ThirstHelper.addFood(TAItems.SILK_SHROOM_STEW.get(),4,4);
+    public static void DrinkList() {
+        ThirstHelper.addDrink(TAItems.LAVENDER_TEA.get(), 10, 14);
+        ThirstHelper.addDrink(TAItems.SILK_BERRY_TEA.get(), 10, 14);
+        ThirstHelper.addDrink(TAItems.LAVENDER_SEEDY_TEA.get(), 10, 14);
+        ThirstHelper.addDrink(TAItems.PETUNIA_TEA.get(), 10, 14);
+        ThirstHelper.addDrink(TAItems.SLEEPING_BLACK_TEA.get(),10, 14);
+        ThirstHelper.addDrink(TAItems.BEPSI.get(), 6, 8);
+        ThirstHelper.addDrink(TAItems.AURORIAN_SPECIALTY_DRINK.get(), 8, 14);
+        ThirstHelper.addDrink(TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK.get(), 10, 14);
+        ThirstHelper.addFood(TAItems.SILK_SHROOM_STEW.get(), 4, 4);
     }
 
     @SubscribeEvent

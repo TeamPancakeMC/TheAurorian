@@ -1,16 +1,17 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "cn.teampancake.theaurorian.common.mixin",
-    "compatibilityLevel": "JAVA_17",
-    "refmap": "theaurorian.refmap.json",
-    "mixins": [
-        "InvokeAbstractFurnaceBlockEntity",
-        "MixinDiggerItem",
-        "MixinLevel"
-    ],
-    "client": [],
-    "injectors": {
-        "defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cn.teampancake.theaurorian.common.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "theaurorian.refmap.json",
+  "mixins": [
+    "InvokeAbstractFurnaceBlockEntity",
+    "MixinDiggerItem",
+    "MixinLevel",
+    "PlayerListMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
   }
 }

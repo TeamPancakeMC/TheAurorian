@@ -9,6 +9,10 @@ public class AurorianConfig {
     public static final ForgeConfigSpec SPEC;
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
+    //是否默认出生在极光维度
+    public static final ForgeConfigSpec.BooleanValue CONFIG_DEFAULT_SPAWN_IN_AURORIAN_DIMENSION;
+
+
     //Compat
     public static final ForgeConfigSpec.BooleanValue CONFIG_ENABLE_TINKERS_CONSTRUCT_COMPATIBILITY;
     public static final ForgeConfigSpec.BooleanValue CONFIG_ENABLE_CONSTRUCTS_ARMORY_COMPATIBILITY;
@@ -93,6 +97,13 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_AurorianSteel_Enchants;
     public static final ForgeConfigSpec.IntValue Config_AurorianSteel_Enchants_WhitelistBlacklist;
     public static final ForgeConfigSpec.DoubleValue CONFIG_SPECTRAL_ARMOR_CLEANSE_CHANCE;
+
+    static {
+        BUILDER.push("Spawn");
+        CONFIG_DEFAULT_SPAWN_IN_AURORIAN_DIMENSION = BUILDER
+                .comment("Set to true to make players spawn in the Aurorian Dimension by default")
+                .define("DefaultSpawnInAurorianDimension", true);
+    }
 
     //Compat
     static {

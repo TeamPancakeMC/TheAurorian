@@ -22,11 +22,11 @@ public class MixinDiggerItem extends TieredItem {
         super(tier, properties);
     }
 
-    @Inject(method = "mineBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;hurtAndBreak(ILnet/minecraft/world/entity/LivingEntity;Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER))
-    public void mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity livingEntity, CallbackInfoReturnable<Boolean> cir) {
-        if (this.getTier() == TAToolTiers.AURORIAN_STEEL) {
-            AurorianSteelHelper.handleAurorianSteelDurability(stack);
-        }
-    }
+//    @Inject(method = "mineBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;hurtAndBreak(ILnet/minecraft/world/entity/LivingEntity;Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER))
+//    public void mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity livingEntity, CallbackInfoReturnable<Boolean> cir) {
+//        if (this.getTier() == TAToolTiers.AURORIAN_STEEL) {
+//            AurorianSteelHelper.handleAurorianSteelDurability(stack);
+//        }
+//    }
 
 }

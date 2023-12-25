@@ -44,12 +44,12 @@ public class TABiomes {
         HolderGetter<ConfiguredWorldCarver<?>> carverGetter = context.lookup(Registries.CONFIGURED_CARVER);
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
         context.register(AURORIAN_FOREST, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)
                 .addFeature(vegetalDecoration, TAPlacements.RANDOM_FALLEN_SILENT_LOG)
+                .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)
                 .addFeature(vegetalDecoration, TAPlacements.RANDOM_CRYSTAL_CLUSTER)).build());
         context.register(AURORIAN_FOREST_HILL, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)
                 .addFeature(vegetalDecoration, TAPlacements.RANDOM_FALLEN_SILENT_LOG)
+                .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)
                 .addFeature(vegetalDecoration, TAPlacements.RANDOM_CRYSTAL_CLUSTER)).build());
         context.register(AURORIAN_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_PLAINS)

@@ -28,11 +28,11 @@ public class FallenLogFeature extends Feature<FallenLogConfig> {
         BlockPos originPos = context.origin();
         Direction direction = Direction.from2DDataValue(random.nextInt(4));
         Direction.Axis axis = direction.getAxis();
-        int randomLength = random.nextInt(6, 13);
+        int randomLength = random.nextInt(7, 10);
         boolean canPlace = true;
         for (int i = 0; i < randomLength; i++) {
             BlockPos relativePos = originPos.relative(direction, i);
-            boolean canBeReplaced = level.getBlockState(relativePos).canBeReplaced() && level.getBlockState(relativePos.above()).canBeReplaced();
+            boolean canBeReplaced = level.getBlockState(relativePos).canBeReplaced() && level.getBlockState(relativePos.above()).isAir();
             canPlace = canBeReplaced && level.getBlockState(relativePos.below()).is(TABlockTags.AURORIAN_GRASS_BLOCK);
         }
 

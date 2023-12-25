@@ -1,10 +1,10 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
-import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.common.utils.AurorianUtil;
@@ -32,7 +32,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
-import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 @SuppressWarnings("ConstantConditions")
@@ -162,9 +161,10 @@ public class ItemEventSubscriber {
 
     @SubscribeEvent
     public static void onRenderItemTooltips(ItemTooltipEvent event) {
+        boolean flag = event.getEntity().getAbilities().instabuild;
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
-        if (stack.getItem() instanceof ITooltipsItem tooltipsItem && tooltipsItem.isHasTooltips()) {
+        if (stack.getItem() instanceof ITooltipsItem tooltipsItem && tooltipsItem.isHasTooltips() && !flag) {
             showTooltips(tooltip, stack.getItem());
         }
 
@@ -195,9 +195,7 @@ public class ItemEventSubscriber {
     }
 
     private static void showTooltips(List<Component> tooltip, Item item) {
-        String keyPart = "string.theaurorian.tooltip.";
-        String path = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
-        tooltip.add(Component.translatable(keyPart + path));
+        tooltip.add(Component.translatable("tooltips." + item.getDescriptionId()));
     }
 
     @SubscribeEvent

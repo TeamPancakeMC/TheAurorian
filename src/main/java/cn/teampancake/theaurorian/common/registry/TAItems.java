@@ -178,9 +178,20 @@ public class TAItems {
     public static final RegistryObject<Item> SOULLESS_FLESH = food("soulless_flesh", 2, 0.1F, false);
     public static final RegistryObject<Item> MOON_FISH = food("moon_fish", 2, 0.1F, false);
     public static final RegistryObject<Item> LAVENDER_SEEDS = alias("lavender_seeds", TABlocks.LAVENDER_CROP, new Item.Properties());
-    public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", TABlocks.SILK_BERRY_CROP, new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1F).build()));
+    public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", TABlocks.SILK_BERRY_CROP,
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod((0.1F)).build()));
     public static final RegistryObject<Item> BLUEBERRY = alias("blueberry", TABlocks.BLUEBERRY_BUSH, new Item.Properties().food(Foods.SWEET_BERRIES));
+    public static final RegistryObject<Item> CANDY = food("candy", 4, 0.2F, false);
+    public static final RegistryObject<Item> CANDY_CANE = ITEMS.register("candy_cane", () -> new Item(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(4).saturationMod((0.4F))
+                    .effect(() -> new MobEffectInstance(MobEffects.LUCK, 300), 1.0F).build())));
+    public static final RegistryObject<Item> GINGERBREAD_MAN = ITEMS.register("gingerbread_man", () -> new Item(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(6).saturationMod((0.4F))
+                    .effect(() -> new MobEffectInstance(TAMobEffects.WARN.get(), 1200), 1.0F).build())));
+    public static final RegistryObject<Item> AURORIAN_SPECIALTY_DRINK = ITEMS.register("aurorian_specialty_drink", () -> new Item(new Item.Properties()
+            .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600), 1.0F).build())));
+    public static final RegistryObject<Item> MOONLIT_BLUEBERRY_SPECIALTY_DRINK = ITEMS.register("moonlit_blueberry_specialty_drink", () -> new Item(new Item.Properties()
+            .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 1), 1.0F).build())));
     //TODO Translation and Recipe
 //    public static final RegistryObject<Item> STRANGE_MEAT_FOOD = ITEMS.register("strange_meat_food", StrangeMeatFood::new);
 
@@ -207,11 +218,11 @@ public class TAItems {
      * Key
      */
     public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY_FRAGMENT = normal("moon_temple_cell_key_fragment", true);
-    public static final RegistryObject<Item> RUNE_STONE_KEY = ITEMS.register("rune_stone_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
-    public static final RegistryObject<Item> DARK_STONE_KEY = ITEMS.register("dark_stone_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
-    public static final RegistryObject<Item> MOON_TEMPLE_KEY = ITEMS.register("moon_temple_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
-    public static final RegistryObject<Item> RUNE_STONE_LOOT_KEY = ITEMS.register("rune_stone_loot_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
-    public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY = ITEMS.register("moon_temple_cell_key", () -> new AbstractSpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> RUNE_STONE_KEY = ITEMS.register("rune_stone_key", () -> new TASpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> DARK_STONE_KEY = ITEMS.register("dark_stone_key", () -> new TASpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> MOON_TEMPLE_KEY = ITEMS.register("moon_temple_key", () -> new TASpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> RUNE_STONE_LOOT_KEY = ITEMS.register("rune_stone_loot_key", () -> new TASpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
+    public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY = ITEMS.register("moon_temple_cell_key", () -> new TASpecialItem(new Item.Properties().rarity(Rarity.UNCOMMON), true));
 
     /**
      * Arrow

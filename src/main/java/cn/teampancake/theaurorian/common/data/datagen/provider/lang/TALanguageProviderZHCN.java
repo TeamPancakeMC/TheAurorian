@@ -3,7 +3,10 @@ package cn.teampancake.theaurorian.common.data.datagen.provider.lang;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
+
+import java.util.function.Supplier;
 
 public class TALanguageProviderZHCN extends LanguageProvider {
 
@@ -232,6 +235,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_STEEL.get(), "极光钢锭");
         this.add(TAItems.AURORIAN_STEEL_NUGGET.get(), "极光钢块");
         this.add(TAItems.AURORIAN_STEEL_AXE.get(), "极光钢斧");
+        this.add(TAItems.AURORIAN_STEEL_HOE.get(), "极光钢锄");
         this.add(TAItems.AURORIAN_STEEL_PICKAXE.get(), "极光钢镐");
         this.add(TAItems.AURORIAN_STEEL_SHOVEL.get(), "极光钢铲");
         this.add(TAItems.AURORIAN_STEEL_SWORD.get(), "极光钢剑");
@@ -241,6 +245,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_STEEL_BOOTS.get(), "极光钢靴子");
         this.add(TAItems.AURORIAN_STONE_SICKLE.get(), "极光石镰");
         this.add(TAItems.AURORIAN_STONE_AXE.get(), "极光石斧");
+        this.add(TAItems.AURORIAN_STONE_HOE.get(), "极光石锄");
         this.add(TAItems.AURORIAN_STONE_PICKAXE.get(), "极光石镐");
         this.add(TAItems.AURORIAN_STONE_SHOVEL.get(), "极光石铲");
         this.add(TAItems.AURORIAN_STONE_SWORD.get(), "极光石剑");
@@ -291,6 +296,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.MOONSTONE_INGOT.get(), "皎月石锭");
         this.add(TAItems.MOONSTONE_NUGGET.get(), "皎月石块");
         this.add(TAItems.MOON_SHIELD.get(), "皎月之盾");
+        this.add(TAItems.MOONSTONE_SHIELD.get(), "皎月石盾");
         this.add(TAItems.MOONSTONE_AXE.get(), "皎月石斧");
         this.add(TAItems.MOONSTONE_HOE.get(), "皎月石锄");
         this.add(TAItems.MOONSTONE_PICKAXE.get(), "皎月石镐");
@@ -321,6 +327,11 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.SOULLESS_FLESH.get(), "魂灭之肉");
         this.add(TAItems.MOON_FISH.get(), "生皎月鱼");
         this.add(TAItems.WHITE_CHOCOLATE.get(), "白巧克力");
+        this.add(TAItems.CANDY.get(), "糖果");
+        this.add(TAItems.CANDY_CANE.get(), "拐杖糖");
+        this.add(TAItems.GINGERBREAD_MAN.get(), "姜饼人");
+        this.add(TAItems.AURORIAN_SPECIALTY_DRINK.get(), "极光特饮");
+        this.add(TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK.get(), "皎月蓝莓特饮");
         this.add(TAItems.SPECTRAL_SILK.get(), "幽冥丝绸");
         this.add(TAItems.SPECTRAL_HELMET.get(), "幽冥头盔");
         this.add(TAItems.SPECTRAL_CHESTPLATE.get(), "幽冥胸甲");
@@ -397,6 +408,122 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.MOON.get()), "皎月");
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.PORTAL.get()), "传送门");
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.SLIME.get()), "史莱姆");
+
+        //MOD TOOLTIPS
+        this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
+        this.addTooltips(TAItems.AURORIAN_STEEL_CHESTPLATE, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
+        this.addTooltips(TAItems.AURORIAN_STEEL_LEGGINGS, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
+        this.addTooltips(TAItems.AURORIAN_STEEL_BOOTS, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
+        this.addTooltips(TAItems.CERULEAN_HELMET, "强度不错的蓝色盔甲，能暂时保护你探索这个世界.");
+        this.addTooltips(TAItems.CERULEAN_CHESTPLATE, "强度不错的蓝色盔甲，能暂时保护你探索这个世界.");
+        this.addTooltips(TAItems.CERULEAN_LEGGINGS, "强度不错的蓝色盔甲，能暂时保护你探索这个世界.");
+        this.addTooltips(TAItems.CERULEAN_BOOTS, "强度不错的蓝色套盔甲，能暂时保护你探索这个世界.");
+        this.addTooltips(TAItems.KNIGHT_HELMET, "被诅咒的骑士之物.穿上整套将附有力量I增幅！");
+        this.addTooltips(TAItems.KNIGHT_CHESTPLATE, "被诅咒的骑士之物.穿上整套将附有力量I增幅！");
+        this.addTooltips(TAItems.KNIGHT_LEGGINGS, "被诅咒的骑士之物.穿上整套将附有力量I增幅！");
+        this.addTooltips(TAItems.KNIGHT_BOOTS, "被诅咒的骑士之物.穿上整套将附有力量I增幅!");
+        this.addTooltips(TAItems.SPECTRAL_HELMET, "附着魂灵的残念.每件盔甲都有 6% 的几率在攻击时净化身上的负面效果！");
+        this.addTooltips(TAItems.SPECTRAL_CHESTPLATE, "附着魂灵的残念.每件盔甲都有 6% 的几率在攻击时净化身上的负面效果！");
+        this.addTooltips(TAItems.SPECTRAL_LEGGINGS, "附着魂灵的残念.每件盔甲都有 6% 的几率在攻击时净化身上的负面效果！");
+        this.addTooltips(TAItems.SPECTRAL_BOOTS, "附着魂灵的残念.每件盔甲都有 6% 的几率在攻击时净化身上的负面效果！");
+        this.addTooltips(TAItems.SPIKED_CHESTPLATE, "反击那些攻击你的敌人.潜行时将会获得荆棘III附魔与缓慢I效果！");
+        this.addTooltips(TAItems.AURORIAN_SLIME_BOOTS, "用处不错，但黏糊糊的感觉并不好.潜行时起跳会跳得更高，并且还能消除摔落伤害！");
+        this.addTooltips(TAItems.AURORIAN_STEEL_SWORD, "真正的极光赐福！剑上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
+        this.addTooltips(TAItems.AURORIAN_STONE_SWORD, "仅仅只比木剑强力一点点.");
+        this.addTooltips(TAItems.SILENT_WOOD_SWORD, "即使是防身也并不推荐.");
+        this.addTooltips(TAItems.UMBRA_SWORD, "诅咒之剑！右击消耗 20 点耐久度，立即获得伤害吸收、虚弱、缓慢 II、抗性提升 III 各 6 秒，冷却时间 45 秒.");
+        this.addTooltips(TAItems.AURORIANITE_SWORD, "极光让周围的人与我一同失重！右键时消耗五点耐久，让自己与周围的所有生物获得持续三秒的飘浮效果，冷却时间为三十秒.");
+        this.addTooltips(TAItems.CRYSTALLINE_SWORD, "充能！发射水晶光束！长按右键蓄力，消耗一点耐久，蓄力满后松开右键发射出一道不受重力影响，速度略逊于弓箭的光柱.");
+        this.addTooltips(TAItems.MOONSTONE_SWORD, "女王的蔑视！在皎月夜晚有几率不会消耗耐久，但在极光夜有几率消耗 2 点耐久.");
+        this.addTooltips(TAItems.AURORIAN_STEEL_SHOVEL, "真正的极光赐福！铲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
+        this.addTooltips(TAItems.AURORIAN_STONE_SHOVEL, "仅仅只比木铲强力一点点.");
+        this.addTooltips(TAItems.SILENT_WOOD_SHOVEL, "即使是挖掘也并不推荐.");
+        this.addTooltips(TAItems.MOONSTONE_SHOVEL, "女王的蔑视！在皎月夜晚有几率不会消耗耐久，但在极光夜有几率消耗 2 点耐久.");
+        this.addTooltips(TAItems.AURORIAN_STEEL_AXE, "真正的极光赐福！斧上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
+        this.addTooltips(TAItems.AURORIANITE_AXE, "极光让我力大无穷！以消耗额外的耐久为代价，砍倒整棵谧木树！！");
+        this.addTooltips(TAItems.AURORIAN_STONE_AXE, "仅仅只比木斧强力一点点.");
+        this.addTooltips(TAItems.SILENT_WOOD_AXE, "神奇的谧木工具在砍伐谧木时，有机会恢复自己的耐久！");
+        this.addTooltips(TAItems.MOONSTONE_AXE, "女王的蔑视！在皎月夜晚有几率不会消耗耐久，但在极光夜有几率消耗 2 点耐久.");
+        this.addTooltips(TAItems.AURORIAN_STEEL_PICKAXE, "真正的极光赐福！镐上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
+        this.addTooltips(TAItems.AURORIANITE_PICKAXE, "极光让我拥有无穷精力！持续的挖掘会缓慢提高挖掘速度！");
+        this.addTooltips(TAItems.UMBRA_PICKAXE, "诅咒之镐！选择一种方块，对它进行挖掘的速度会有所提高，但是选择这一过程会减少大量耐久度！");
+        this.addTooltips(TAItems.CRYSTALLINE_PICKAXE, "赞美月光！挖掘矿石会有额外掉落！");
+        this.addTooltips(TAItems.AURORIAN_STONE_PICKAXE, "开采极光石时，有机会恢复自身耐久.");
+        this.addTooltips(TAItems.SILENT_WOOD_PICKAXE, "神奇的谧木工具在耐久度低时会提高挖掘等级！");
+        this.addTooltips(TAItems.MOONSTONE_PICKAXE, "女王的蔑视！在皎月夜晚有几率不会消耗耐久，但在极光夜有几率消耗 2 点耐久.");
+        this.addTooltips(TAItems.QUEENS_CHIPPER, "可怜的女王，灵魂被封印在这把镐子里，让其拥有极强的破坏力.右击可以破坏原本无法破坏的地牢组成方块!");
+        this.addTooltips(TAItems.AURORIAN_STEEL_HOE, "真正的极光赐福！锄上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
+        this.addTooltips(TAItems.AURORIAN_STONE_HOE, "仅仅只比木锄强力一点点.");
+        this.addTooltips(TAItems.SILENT_WOOD_HOE, "即使是锄地也并不推荐.");
+        this.addTooltips(TAItems.MOONSTONE_HOE, "女王的蔑视！在皎月夜晚有几率不会消耗耐久，但在极光夜有几率消耗 2 点耐久.");
+        this.addTooltips(TAItems.SILENT_WOOD_SICKLE, "可以像剪刀一样采集树叶、草、蜘蛛网等物品，同样也可以被用于获取植物纤维，破坏极光高草丛和发光极光高草丛即可.");
+        this.addTooltips(TAItems.AURORIAN_STONE_SICKLE, "比木镰更加耐用.");
+        this.addTooltips(TAItems.MOONSTONE_SICKLE, "女王的蔑视！在皎月夜晚有几率不会消耗耐久，但在极光夜有几率消耗 2 点耐久.");
+        this.addTooltips(TAItems.UMBRA_SHIELD, "诅咒之盾！在抵挡攻击状态下时会点燃正前方的实体。抵挡时间过长会过载！.");
+        this.addTooltips(TAItems.CERULEAN_SHIELD, "强度不错的蓝色盾牌，能暂时保护你探索这个世界..");
+        this.addTooltips(TAItems.CRYSTALLINE_SHIELD, "赞美月光！完成抵挡后，修复你的主手物品！");
+        this.addTooltips(TAItems.MOONSTONE_SHIELD, "女王的蔑视！在皎月夜晚有几率不会消耗耐久，但在极光夜有几率消耗 2 点耐久.");
+        this.addTooltips(TAItems.MOON_SHIELD, "赞颂女王！右击蓄能，然后将敌人狠狠地击飞到空中！");
+        this.addTooltips(TAItems.SILENT_WOOD_BOW, "普通的远程武器.");
+        this.addTooltips(TAItems.KEEPERS_BOW, "完全充能后自动一次性射出三支箭矢！");
+        this.addTooltips(TAItems.LAVENDER_TEA, "悠闲时光.饮用后获得持续15秒的抗性提升I效果.");
+        this.addTooltips(TAItems.SILK_BERRY_TEA, "悠闲时光.饮用后获得持续5秒的生命恢复I效果.");
+        this.addTooltips(TAItems.LAVENDER_SEEDY_TEA, "悠闲时光.饮用后获得持续10秒的速度I效果.");
+        this.addTooltips(TAItems.PETUNIA_TEA, "悠闲时光.饮用后获得持续15秒的力量I效果.");
+        this.addTooltips(TAItems.BEPSI, "哪来的山寨货？？");
+        this.addTooltips(TAItems.WEEPING_WILLOW_SAP, "不错的解毒剂.去除你的中毒效果，但却会使你获得缓慢效果，持续时间取决于中毒效果被移除之前的剩余持续时间.");
+        this.addTooltips(TAItems.SILK_BERRY_JAM, "不错！要是来点搭配就好！");
+        this.addTooltips(TAItems.SILK_BERRY_JAM_SANDWICH, "美味！味道好极了！");
+        this.addTooltips(TAItems.AURORIAN_PORK, "丰富的蛋白质！建议烤熟再吃！");
+        this.addTooltips(TAItems.COOKED_AURORIAN_PORK, "美味！很好的饱腹食物！");
+        this.addTooltips(TAItems.AURORIAN_BACON, "不错！虽泛紫意，但鲜嫩多汁！");
+        this.addTooltips(TAItems.AURORIAN_SLIMEBALL, "黏糊糊的！感觉不是很好.");
+        this.addTooltips(TAItems.SILK_SHROOM_STEW, "美味！如果再来一碗也不错.");
+        this.addTooltips(TAItems.LAVENDER_BREAD, "不错！为什么不试试搭配果酱呢？");
+        this.addTooltips(TAItems.SOULLESS_FLESH, "恶心！如果实在没有办法我一定不会去吃！");
+        this.addTooltips(TAItems.MOON_FISH, "好重的鱼腥味！不如试着烤熟再吃！");
+        this.addTooltips(TAItems.SILK_BERRY, "可以做成果酱，应该更加可口！");
+        this.addTooltips(TAItems.BLUEBERRY, "鲜嫩的水果也会心情愉悦呢！");
+        this.addTooltips(TAItems.AURORIAN_COAL, "比普通煤炭更持久一点.");
+        this.addTooltips(TAItems.AURORIANITE_INGOT, "极光加护！");
+        this.addTooltips(TAItems.AURORIAN_STEEL, "真正的极光赐福！随着时间的推移，此物品上的附魔会升级！");
+        this.addTooltips(TAItems.CERULEAN_INGOT, "不错的装备材料.");
+        this.addTooltips(TAItems.CRYSTALLINE_INGOT, "皎月的精华！赞美女王！");
+        this.addTooltips(TAItems.MOONSTONE_INGOT, "女王的蔑视！极光女王？放逐！");
+        this.addTooltips(TAItems.UMBRA_INGOT, "有一种不详的气息...");
+        this.addTooltips(TAItems.AURORIANITE_SCRAP, "通过探索符石地牢，烧制或者粉碎极光工具获取.");
+        this.addTooltips(TAItems.CRYSTALLINE_SCRAP, "通过探索月宫，烧制或者粉碎月凝晶工具获取.");
+        this.addTooltips(TAItems.UMBRA_SCRAP, "通过探索暗石地牢，烧制或者粉碎本影工具获取.");
+        this.addTooltips(TAItems.SPECTRAL_SILK, "魂灵掉落物，似乎能合成不错的套装.");
+        this.addTooltips(TAItems.DARK_AMULET, "恐惧之息细微弥漫，用于制作月宫钥匙.");
+        this.addTooltips(TAItems.DUNGEON_KEEPER_AMULET, "腐败之力在蠢蠢欲动，用于制作暗石钥匙.");
+        this.addTooltips(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT, "用于合成进入月宫内室的月宫内室钥匙.");
+        this.addTooltips(TAItems.RUNE_STONE_KEY, "用于开启符石地牢.");
+        this.addTooltips(TAItems.DARK_STONE_KEY, "用于开启暗石地牢入口大门.");
+        this.addTooltips(TAItems.RUNE_STONE_LOOT_KEY, "用于开启符文地牢宝藏室.");
+        this.addTooltips(TAItems.MOON_TEMPLE_KEY, "用于开启月宫入口大门.");
+        this.addTooltips(TAItems.MOON_TEMPLE_CELL_KEY, "用于开启暗石地牢入口大门.");
+        this.addTooltips(TAItems.ABSORPTION_ORB, "在副手时会修复你主手持握的物品！");
+        this.addTooltips(TAItems.SILENT_WOOD_STICK, "随处可见的普通材料.");
+        this.addTooltips(TAItems.STICKY_SPIKER, "使命中的实体中毒.");
+        this.addTooltips(TAItems.LAVENDER, "芳香的植物，制作食物一定美味！可通过镰刀收割获得.");
+        this.addTooltips(TAItems.PLANT_FIBER, "似乎有丝线般的强度，用镰破坏极光高草丛获得.");
+        this.addTooltips(TAItems.TROPHY_KEEPER, "被放逐500年的亡灵终于得到安息.");
+        this.addTooltips(TAItems.TROPHY_SPIDER_MOTHER, "被诅咒的邪祟引来了它的解脱.");
+        this.addTooltips(TAItems.TROPHY_MOON_QUEEN, "极光世界终于迎来了它的自由，但似乎只是另一个噩梦的开始.");
+        this.addTooltips(TAItems.CRYSTAL, "挖掘晶簇矿石获得，用于合成和粉碎器耗材.");
+        this.addTooltips(TAItems.SLEEPING_BLACK_TEA, "嘿，幼幼紫，你动不动就变男娘的日子结束了。昏睡红茶给我！");
+        this.addTooltips(TAItems.WHITE_CHOCOLATE, "摩多罗的遗物（不是）开发者物品，她在椅子上死掉了所以这个巧克力长腿跑了。现在它是你的巧克力了，真巧。因为常年被摩多罗视作珍宝，所以这块巧克力上有摩多罗的魔力。妄然吃掉的话可能会发生不得了的事情……！");
+        this.addTooltips(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT, "青春猪头尘不会梦到幼幼紫学姐.");
+        this.addTooltips(TAItems.RED_BOOK, "写满世间各种死因的书，却是个徒有其表的通讯装置？！");
+        this.addTooltips(TAItems.RED_BOOK_RING, "没想到那个人会制作一个徒有其表的东西啊！");
+        this.addTooltips(TAItems.STAR_OCEAN_CROSSBOW, "我去，你怎么知道弩是我爹——StarOcean1266.");
+        this.addTooltips(TAItems.CAT_BELL, "虽然不会把你变猫娘，但是可以让你像猫一样快！");
+        this.addTooltips(TAItems.TSLAT_SWORD, "没有人比tslat更懂该怎么做muti-dims mod XD");
+    }
+
+    private void addTooltips(Supplier<Item> key, String name) {
+        this.add("tooltips." + key.get().getDescriptionId(), name);
     }
 
 }

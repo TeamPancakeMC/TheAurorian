@@ -3,7 +3,10 @@ package cn.teampancake.theaurorian.common.data.datagen.provider.lang;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
+
+import java.util.function.Supplier;
 
 public class TALanguageProviderENUS extends LanguageProvider {
 
@@ -232,6 +235,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_STEEL.get(),"Aurorian Steel");
         this.add(TAItems.AURORIAN_STEEL_NUGGET.get(),"Aurorian Steel Nugget");
         this.add(TAItems.AURORIAN_STEEL_AXE.get(),"Aurorian Steel Axe");
+        this.add(TAItems.AURORIAN_STEEL_HOE.get(), "Aurorian Steel Hoe");
         this.add(TAItems.AURORIAN_STEEL_PICKAXE.get(),"Aurorian Steel Pickaxe");
         this.add(TAItems.AURORIAN_STEEL_SHOVEL.get(),"Aurorian Steel Shovel");
         this.add(TAItems.AURORIAN_STEEL_SWORD.get(),"Aurorian Steel Sword");
@@ -241,6 +245,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_STEEL_BOOTS.get(),"Aurorian Steel Boots");
         this.add(TAItems.AURORIAN_STONE_SICKLE.get(),"Aurorian Stone Sickle");
         this.add(TAItems.AURORIAN_STONE_AXE.get(),"Aurorian Stone Axe");
+        this.add(TAItems.AURORIAN_STONE_HOE.get(), "Aurorian Stone Hoe");
         this.add(TAItems.AURORIAN_STONE_PICKAXE.get(),"Aurorian Stone Pickaxe");
         this.add(TAItems.AURORIAN_STONE_SHOVEL.get(),"Aurorian Stone Shovel");
         this.add(TAItems.AURORIAN_STONE_SWORD.get(),"Aurorian Stone Sword");
@@ -292,6 +297,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.MOONSTONE_INGOT.get(),"Moonstone Ingot");
         this.add(TAItems.MOONSTONE_NUGGET.get(),"Moonstone Nugget");
         this.add(TAItems.MOON_SHIELD.get(),"Moon Shield");
+        this.add(TAItems.MOONSTONE_SHIELD.get(), "Moonstone Shield");
         this.add(TAItems.MOONSTONE_AXE.get(),"Moonstone Axe");
         this.add(TAItems.MOONSTONE_HOE.get(),"Moonstone Hoe");
         this.add(TAItems.MOONSTONE_PICKAXE.get(),"Moonstone Pickaxe");
@@ -322,6 +328,11 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.SOULLESS_FLESH.get(),"Soulless Flesh");
         this.add(TAItems.MOON_FISH.get(), "Moon Fish");
         this.add(TAItems.WHITE_CHOCOLATE.get(), "White Chocolate");
+        this.add(TAItems.CANDY.get(), "Candy");
+        this.add(TAItems.CANDY_CANE.get(), "Candy Cane");
+        this.add(TAItems.GINGERBREAD_MAN.get(), "Gingerbread Man");
+        this.add(TAItems.AURORIAN_SPECIALTY_DRINK.get(), "Aurorian Specialty Drink");
+        this.add(TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK.get(), "Moonlit Blueberry Specialty Drink");
         this.add(TAItems.SPECTRAL_SILK.get(),"Spectral Silk");
         this.add(TAItems.SPECTRAL_HELMET.get(),"Spectral Helmet");
         this.add(TAItems.SPECTRAL_CHESTPLATE.get(),"Spectral Chestplate");
@@ -398,6 +409,122 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.MOON.get()), "Moon");
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.PORTAL.get()), "Portal");
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.SLIME.get()), "Slime");
+
+        //MOD TOOLTIPS
+        this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");
+        this.addTooltips(TAItems.AURORIAN_STEEL_CHESTPLATE, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");
+        this.addTooltips(TAItems.AURORIAN_STEEL_LEGGINGS, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");
+        this.addTooltips(TAItems.AURORIAN_STEEL_BOOTS, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");
+        this.addTooltips(TAItems.CERULEAN_HELMET, "A blue armor but strength is not bad, which can temporarily protecting you for explore this world.");
+        this.addTooltips(TAItems.CERULEAN_CHESTPLATE, "A blue armor but strength is not bad, which can temporarily protecting you for explore this world.");
+        this.addTooltips(TAItems.CERULEAN_LEGGINGS, "A blue armor but strength is not bad, which can temporarily protecting you for explore this world.");
+        this.addTooltips(TAItems.CERULEAN_BOOTS, "A blue armor but strength is not bad, which can temporarily protecting you for explore this world.");
+        this.addTooltips(TAItems.KNIGHT_HELMET, "A cursed knight item. You will get Strength I effect if you wear full sets!");
+        this.addTooltips(TAItems.KNIGHT_CHESTPLATE, "A cursed knight item. You will get Strength I effect if you wear full sets!");
+        this.addTooltips(TAItems.KNIGHT_LEGGINGS, "A cursed knight item. You will get Strength I effect if you wear full sets!");
+        this.addTooltips(TAItems.KNIGHT_BOOTS, "A cursed knight item. You will get Strength I effect if you wear full sets!");
+        this.addTooltips(TAItems.SPECTRAL_HELMET, "Attach the residual thought of soul. There is a 6% chance to clear all harmful effects when attack!");
+        this.addTooltips(TAItems.SPECTRAL_CHESTPLATE, "Attach the residual thought of soul. There is a 6% chance to clear all harmful effects when attack!");
+        this.addTooltips(TAItems.SPECTRAL_LEGGINGS, "Attach the residual thought of soul. There is a 6% chance to clear all harmful effects when attack!");
+        this.addTooltips(TAItems.SPECTRAL_BOOTS, "Attach the residual thought of soul. There is a 6% chance to clear all harmful effects when attack!");
+        this.addTooltips(TAItems.SPIKED_CHESTPLATE, "Counter attack those enemies who attack you. Has Thorns III but only when crouched and give Slowness effect to the wearer when crouching.");
+        this.addTooltips(TAItems.AURORIAN_SLIME_BOOTS, "Jump while sneaking to do an extra high jump! Also blocks fall damage.");
+        this.addTooltips(TAItems.AURORIAN_STEEL_SWORD, "The truth blessing of the aurora! The enchantment in this sword will upgrade slowly as time goes on until the max level!");
+        this.addTooltips(TAItems.AURORIAN_STONE_SWORD, "Just a little stronger than the wood sword.");
+        this.addTooltips(TAItems.SILENT_WOOD_SWORD, "Even for self-defense, it is not recommended.");
+        this.addTooltips(TAItems.UMBRA_SWORD, "The cursed sword! Costs 20 durability amount to get Absorption, Weakness, Slowness II, Resistance III for 6s. The cool down time is 45s.");
+        this.addTooltips(TAItems.AURORIANITE_SWORD, "Has the ability to levitate everyone nearby! Costs 5 durability amount to enable oneself and all surrounding creatures to achieve a Levitation effect that lasts for 3s when right click. The cool down time is 30s.");
+        this.addTooltips(TAItems.CRYSTALLINE_SWORD, "Charge up to fire a Crystalline Beam! Charge up and costs 1 durability amount to fire a Crystalline Beam that unaffected by gravity!");
+        this.addTooltips(TAItems.MOONSTONE_SWORD, "The queen's scorn! There is a chance that it will not costs durability in bright moon night, but there is a chance to costs 2 durability amount in aurora night.");
+        this.addTooltips(TAItems.AURORIAN_STEEL_SHOVEL, "The truth blessing of the aurora! The enchantment in this shovel will upgrade slowly as time goes on until the max level!");
+        this.addTooltips(TAItems.AURORIAN_STONE_SHOVEL, "Just a little stronger than the wood shovel.");
+        this.addTooltips(TAItems.SILENT_WOOD_SHOVEL, "Even for digging, it is not recommended.");
+        this.addTooltips(TAItems.MOONSTONE_SHOVEL, "The queen's scorn! There is a chance that it will not costs durability in bright moon night, but there is a chance to costs 2 durability amount in aurora night.");
+        this.addTooltips(TAItems.AURORIAN_STEEL_AXE, "The truth blessing of the aurora! The enchantment in this axe will upgrade slowly as time goes on until the max level!");
+        this.addTooltips(TAItems.AURORIANITE_AXE, "The Aurorian let me have endless strength! Can chop down whole trees at the expense of extra 2 damage!");
+        this.addTooltips(TAItems.AURORIAN_STONE_AXE, "Just a little stronger than the wood axe.");
+        this.addTooltips(TAItems.SILENT_WOOD_AXE, "Magical Silentwood has a chance to heal itself when chopping Silentwood Logs!");
+        this.addTooltips(TAItems.MOONSTONE_AXE, "The queen's scorn! There is a chance that it will not costs durability in bright moon night, but there is a chance to costs 2 durability amount in aurora night.");
+        this.addTooltips(TAItems.AURORIAN_STEEL_PICKAXE, "The truth blessing of the aurora! The enchantment in this pickaxe will upgrade slowly as time goes on until the max level!");
+        this.addTooltips(TAItems.AURORIANITE_PICKAXE, "The Aurorian give me endless energy! Mines faster a short while after mining an ore!");
+        this.addTooltips(TAItems.UMBRA_PICKAXE, "The cursed pickaxe! Select a block to gain bonus mining speed towards that type! Selecting a block costs a lot of durability.");
+        this.addTooltips(TAItems.CRYSTALLINE_PICKAXE, "Praise the moonlight! Ores drop ingots plus a few nuggets!");
+        this.addTooltips(TAItems.AURORIAN_STONE_PICKAXE, "It has a chance to heal itself when mining Aurorian Stone!");
+        this.addTooltips(TAItems.SILENT_WOOD_PICKAXE, "Magical Silentwood can mine higher leveled blocks like diamond when at lower durability!");
+        this.addTooltips(TAItems.MOONSTONE_PICKAXE, "The queen's scorn! There is a chance that it will not costs durability in bright moon night, but there is a chance to costs 2 durability amount in aurora night.");
+        this.addTooltips(TAItems.QUEENS_CHIPPER, "The soul of the poor queen is sealed in this pickaxe. So it has extremely strong destructive power. Right click can destroy dungeons that could not have been destroyed to form blocks!");
+        this.addTooltips(TAItems.AURORIAN_STEEL_HOE, "The truth blessing of the aurora! The enchantment in this hoe will upgrade slowly as time goes on until the max level!");
+        this.addTooltips(TAItems.AURORIAN_STONE_HOE, "Just a little stronger than wood hoe.");
+        this.addTooltips(TAItems.SILENT_WOOD_HOE, "Even for hoeing, it is not recommended.");
+        this.addTooltips(TAItems.MOONSTONE_HOE, "The queen's scorn! There is a chance that it will not costs durability in bright moon night, but there is a chance to costs 2 durability amount in aurora night.");
+        this.addTooltips(TAItems.SILENT_WOOD_SICKLE, "Can collect items such as leaves, grass, cobwebs, etc. like shears，and can also be used to obtain plant fibers. Got from breaking the Aurorian tall grass or light Aurorian tall grass.");
+        this.addTooltips(TAItems.AURORIAN_STONE_SICKLE, "It's more durable than wood sickle.");
+        this.addTooltips(TAItems.MOONSTONE_SICKLE, "The queen's scorn! There is a chance that it will not costs durability in bright moon night, but there is a chance to costs 2 durability amount in aurora night.");
+        this.addTooltips(TAItems.UMBRA_SHIELD, "The cursed shield! Lights whoever is in front of you on fire when blocking! Blocking for too long will cause it to overheat.");
+        this.addTooltips(TAItems.CERULEAN_SHIELD, "A blue shield but strength is not bad, which can temporarily protecting you for explore this world.");
+        this.addTooltips(TAItems.CRYSTALLINE_SHIELD, "Praise the moonlight! Will repair items in your mainhand when blocking attacks!");
+        this.addTooltips(TAItems.MOONSTONE_SHIELD, "The queen's scorn! There is a chance that it will not costs durability in bright moon night, but there is a chance to costs 2 durability amount in aurora night.");
+        this.addTooltips(TAItems.MOON_SHIELD, "Eulogize the queen! Hold block to Charge at foes and knock them up in the air!");
+        this.addTooltips(TAItems.SILENT_WOOD_BOW, "Ordinary long-range weapons.");
+        this.addTooltips(TAItems.KEEPERS_BOW, "Fires 3 arrows when fully drawn!");
+        this.addTooltips(TAItems.LAVENDER_TEA, "Leisure time. Drink and got Resistance I in 15s.");
+        this.addTooltips(TAItems.SILK_BERRY_TEA, "Leisure time. Drink and got Regeneration I in 5s.");
+        this.addTooltips(TAItems.LAVENDER_SEEDY_TEA, "Leisure time. Drink and got Speed I in 5s.");
+        this.addTooltips(TAItems.PETUNIA_TEA, "Leisure time. Drink and got strength I in 15s.");
+        this.addTooltips(TAItems.BEPSI, "How'd this get here??");
+        this.addTooltips(TAItems.WEEPING_WILLOW_SAP, "A nice antidote, which will cleanse poison but gives you slowness. The duration depends on the remaining duration before the poison effect is removed.");
+        this.addTooltips(TAItems.SILK_BERRY_JAM, "Nice! It would be great if there were some side dish!");
+        this.addTooltips(TAItems.SILK_BERRY_JAM_SANDWICH, "Tasty!");
+        this.addTooltips(TAItems.AURORIAN_PORK, "Rich in protein, but it is recommended to roast before eating.");
+        this.addTooltips(TAItems.COOKED_AURORIAN_PORK, "Tasty! Good satiety food!");
+        this.addTooltips(TAItems.AURORIAN_BACON, "Purple, but still tasty!");
+        this.addTooltips(TAItems.AURORIAN_SLIMEBALL, "It's sticky! I don't feel very good!");
+        this.addTooltips(TAItems.SILK_SHROOM_STEW, "Delicious! If we had another bowl, it would be great!");
+        this.addTooltips(TAItems.LAVENDER_BREAD, "Nice! Why not try pairing it with jam?");
+        this.addTooltips(TAItems.SOULLESS_FLESH, "Disgusting! If there is really no other way, I will definitely not go eat it!");
+        this.addTooltips(TAItems.MOON_FISH, "What a strong fishy smell! Why don't you try grilling it before eating it?");
+        this.addTooltips(TAItems.SILK_BERRY, "It can be made into jam, which should be more delicious.");
+        this.addTooltips(TAItems.BLUEBERRY, "Fresh and tender fruits can also make people feel happy!");
+        this.addTooltips(TAItems.AURORIAN_COAL, "A fuel that better than coal.");
+        this.addTooltips(TAItems.AURORIANITE_INGOT, "Aurorian Blessing!");
+        this.addTooltips(TAItems.AURORIAN_STEEL, "The truth blessing of the aurora! The enchantment will upgrade slowly as time goes on until the max level!");
+        this.addTooltips(TAItems.CERULEAN_INGOT, "A nice armor material.");
+        this.addTooltips(TAItems.CRYSTALLINE_INGOT, "It's the cream of the bright moon! Praise the queen!");
+        this.addTooltips(TAItems.MOONSTONE_INGOT, "The queen's scorn! Moon Queen? Exile!");
+        this.addTooltips(TAItems.UMBRA_INGOT, "Has a faint dreadful aura...");
+        this.addTooltips(TAItems.AURORIANITE_SCRAP, "Got from explore the Runestone Dungeon and smelt or scrap the Aurorianite tools.");
+        this.addTooltips(TAItems.CRYSTALLINE_SCRAP, "Got from explore the Moon Temple and smelt or scrap the Crystalline tools.");
+        this.addTooltips(TAItems.UMBRA_SCRAP, "Got from explore the Darkstone Dungeon and smelt or scrap the Umbra tools.");
+        this.addTooltips(TAItems.SPECTRAL_SILK, "Obtained from Spirits. It seems that it can craft a good armors");
+        this.addTooltips(TAItems.DARK_AMULET, "Has a faint dreadful aura. Used for crafting the Moon Temple Key.");
+        this.addTooltips(TAItems.DUNGEON_KEEPER_AMULET, "Pulsates with corrupted power. Used for crafting the Darkstone Key.");
+        this.addTooltips(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT, "Used to craft the Moon Temple Cell Key.");
+        this.addTooltips(TAItems.RUNE_STONE_KEY, "Used to unlock Runestone Gates. Single use!");
+        this.addTooltips(TAItems.DARK_STONE_KEY, "Used to unlock Darkstone Gates. Single use!");
+        this.addTooltips(TAItems.RUNE_STONE_LOOT_KEY, "Used to unlock Runestone Dungeon's loot room.");
+        this.addTooltips(TAItems.MOON_TEMPLE_KEY, "Used to unlock Moon Temple Gates. Single use!");
+        this.addTooltips(TAItems.MOON_TEMPLE_CELL_KEY, "Used to unlock Moon Temple's inner room. Single use!");
+        this.addTooltips(TAItems.ABSORPTION_ORB, "Heals mainhand item when held in offhand!");
+        this.addTooltips(TAItems.SILENT_WOOD_STICK, "Common materials that can be seen everywhere.");
+        this.addTooltips(TAItems.STICKY_SPIKER, "Does poison damage when it hits an entity.");
+        this.addTooltips(TAItems.LAVENDER, "Got from breaking lavender plants with a sickle or farmed. Making food must be delicious if use this fragrant plants.");
+        this.addTooltips(TAItems.PLANT_FIBER, "Got from breaking aurorian tall grass with a sickle.");
+        this.addTooltips(TAItems.TROPHY_KEEPER, "A spirit exiled for 500 years are being laid to rest.");
+        this.addTooltips(TAItems.TROPHY_SPIDER_MOTHER, "The cursed evil has brought its free.");
+        this.addTooltips(TAItems.TROPHY_MOON_QUEEN, "The Aurorian world finally welcomed its freedom, but it seems like it's just the beginning of another nightmare.");
+        this.addTooltips(TAItems.CRYSTAL, "Got from breaking crystal cluster ore. Place on scrapper to speed it up! Has a chance to break every craft.");
+        this.addTooltips(TAItems.SLEEPING_BLACK_TEA, "Hey uuz! The days that you can easily become a pseudo-girl are over. Give me the sleeping black tea!");
+        this.addTooltips(TAItems.WHITE_CHOCOLATE, "This the Matara's relic? Oh, is it developer item. She died on the chair, so this chocolate grows legs and walks away. Now it's your chocolate, what a coincidence! This chocolate has the magic of Matara due to regarded by Matara as a treasure all year round. If you eat it recklessly, something terrible may happen!");
+        this.addTooltips(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT, "青春猪头尘不会梦到幼幼紫学姐.");
+        this.addTooltips(TAItems.RED_BOOK, "A book full of various causes of death in the world. But in reality, it is a specious chief signal officer");
+        this.addTooltips(TAItems.RED_BOOK_RING, "I didn't expect that person to make an specious item!");
+        this.addTooltips(TAItems.STAR_OCEAN_CROSSBOW, "What the hell? Why are you know the crossbow is my dad? ——StarOcean1266.");
+        this.addTooltips(TAItems.CAT_BELL, "It won't change you into a cat girl, but it can make you fast like a cat!");
+        this.addTooltips(TAItems.TSLAT_SWORD, "Nobody know how to make muti-dims mod better than Tslat XD.");
+    }
+
+    private void addTooltips(Supplier<Item> key, String name) {
+        this.add("tooltips." + key.get().getDescriptionId(), name);
     }
 
 }

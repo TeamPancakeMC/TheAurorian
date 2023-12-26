@@ -7,6 +7,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.CubicSampler;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -68,7 +69,8 @@ public class TAFogRenderer {
         } else {
             float f4 = 0.25F + 0.75F * (float)renderDistanceChunks / 32.0F;
             Vec3 vec3 = TASkyRenderer.getSkyColor(level, activeRenderInfo.getPosition());
-            Vec3 vec32 = TASkyRenderer.getSkyColor(level, activeRenderInfo.getPosition());
+            Vec3 vec31 = activeRenderInfo.getPosition().subtract(2.0D, 2.0D, 2.0D).scale(0.25D);
+            Vec3 vec32 = CubicSampler.gaussianSampleVec3(vec31, (x, y, z) -> vec3);
             f4 = 1.0F - (float)Math.pow(f4, 0.25D);
             fogRed = (float)vec32.x();
             fogGreen = (float)vec32.y();

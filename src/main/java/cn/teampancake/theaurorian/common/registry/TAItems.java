@@ -7,6 +7,10 @@ import cn.teampancake.theaurorian.common.items.armor.CeruleanArmor;
 import cn.teampancake.theaurorian.common.items.armor.KnightArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import cn.teampancake.theaurorian.common.items.developer.*;
+import cn.teampancake.theaurorian.common.items.shield.CeruleanShield;
+import cn.teampancake.theaurorian.common.items.shield.CrystallineShield;
+import cn.teampancake.theaurorian.common.items.shield.MoonShield;
+import cn.teampancake.theaurorian.common.items.shield.UmbraShield;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -134,7 +138,7 @@ public class TAItems {
     public static final RegistryObject<Item> CERULEAN_SHIELD = ITEMS.register("cerulean_shield", CeruleanShield::new);
     public static final RegistryObject<Item> CRYSTALLINE_SHIELD = ITEMS.register("crystalline_shield", CrystallineShield::new);
     public static final RegistryObject<Item> MOONSTONE_SHIELD = ITEMS.register("moonstone_shield", () -> new ShieldItem(new Item.Properties()));
-    public static final RegistryObject<Item> MOON_SHIELD = ITEMS.register("moon_shield", () -> new ShieldItem(new Item.Properties()));
+    public static final RegistryObject<Item> MOON_SHIELD = ITEMS.register("moon_shield", MoonShield::new);
 
     /**
      * BowItem

@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian;
 
 import cn.teampancake.theaurorian.client.gui.hud.ShieldHudRenderer;
 import cn.teampancake.theaurorian.common.data.pack.MaxShieldLoader;
+import cn.teampancake.theaurorian.common.event.subscriber.ItemSubscriber;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
 import cn.teampancake.theaurorian.common.network.TAMessages;
@@ -71,6 +72,7 @@ public class AurorianMod {
         modEventBus.addListener(this::onNewRegistry);;
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener(this::onDataPackLoad);
+        ItemSubscriber.register();
         if (ModList.get().isLoaded("thirst")) {
             ThirstWasTakenCompat.init();
         }

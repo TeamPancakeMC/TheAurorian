@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.items;
+package cn.teampancake.theaurorian.common.items.shield;
 
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.world.item.ItemStack;

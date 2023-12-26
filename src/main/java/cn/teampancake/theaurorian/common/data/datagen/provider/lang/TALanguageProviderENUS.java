@@ -105,6 +105,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.MOON_TEMPLE_GATE_KEYHOLE.get(), "Moon Temple Gate Keyhole");
         this.add(TABlocks.RUNE_STONE_LOOT_GATE_KEYHOLE.get(), "Runestone Loot Gate Keyhole");
         this.add(TABlocks.MOON_TEMPLE_CELL_GATE_KEYHOLE.get(), "Moon Temple Cell Gate Keyhole");
+        this.add(TABlocks.INDIGO_MUSHROOM.get(), "Indigo Mushroom");
         this.add(TABlocks.INDIGO_MUSHROOM_BLOCK.get(), "Indigo Mushroom Block");
         this.add(TABlocks.INDIGO_MUSHROOM_STEM.get(), "Indigo Mushroom Stem");
         this.add(TABlocks.INDIGO_MUSHROOM_CRYSTAL.get(), "Indigo Mushroom Crystal");

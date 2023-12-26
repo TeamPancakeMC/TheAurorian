@@ -105,6 +105,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.MOON_TEMPLE_GATE_KEYHOLE.get(), "月宫门锁孔");
         this.add(TABlocks.RUNE_STONE_LOOT_GATE_KEYHOLE.get(), "符石宝藏室门锁孔");
         this.add(TABlocks.MOON_TEMPLE_CELL_GATE_KEYHOLE.get(), "月宫内室门锁孔");
+        this.add(TABlocks.INDIGO_MUSHROOM.get(), "深蓝蘑菇");
         this.add(TABlocks.INDIGO_MUSHROOM_BLOCK.get(), "深蓝蘑菇块");
         this.add(TABlocks.INDIGO_MUSHROOM_STEM.get(), "深蓝蘑菇茎");
         this.add(TABlocks.INDIGO_MUSHROOM_CRYSTAL.get(), "深蓝蘑菇水晶");

@@ -9,7 +9,7 @@ public class AurorianConfig {
     public static final ForgeConfigSpec SPEC;
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
-    //是否默认出生在极光维度
+    //Whether born in Aurorian Dimension
     public static final ForgeConfigSpec.BooleanValue CONFIG_DEFAULT_SPAWN_IN_AURORIAN_DIMENSION;
 
 
@@ -102,7 +102,7 @@ public class AurorianConfig {
         BUILDER.push("Spawn");
         CONFIG_DEFAULT_SPAWN_IN_AURORIAN_DIMENSION = BUILDER
                 .comment("Set to true to make players spawn in the Aurorian Dimension by default")
-                .define("DefaultSpawnInAurorianDimension", true);
+                .define("DefaultSpawnInAurorianDimension", false);
     }
 
     //Compat

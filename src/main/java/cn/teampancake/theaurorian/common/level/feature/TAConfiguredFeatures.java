@@ -19,7 +19,9 @@ import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -31,10 +33,10 @@ import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguratio
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.SpruceFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
@@ -60,6 +62,15 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GEODE = createKey("ore_geode");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_URN = createKey("random_urn");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SILENT_TREE = createKey("silent_tree");
+
+    private static TreeConfiguration.TreeConfigurationBuilder Slient_Tree() {
+        return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()),
+                new CherryTrunkPlacer(7, 3, 0,
+                        new WeightedListInt(SimpleWeightedRandomList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()), UniformInt.of(2, 4), UniformInt.of(-4, -3), UniformInt.of(-1, 0)),
+                BlockStateProvider.simple(TABlocks.SILENT_TREE_LEAVES.get()),
+                new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
+                new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
+    }
 
     private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, AurorianMod.prefix(name));
@@ -98,13 +109,11 @@ public class TAConfiguredFeatures {
         FeatureUtils.register(context, HUGE_INDIGO_MUSHROOM, TAFeatures.HUGE_INDIGO_MUSHROOM.get(),
                 new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_BLOCK.get()),
                 BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_STEM.get()), 5));
-        FeatureUtils.register(context, RANDOM_FALLEN_SILENT_LOG, TAFeatures.RANDOM_FALLEN_LOGS.get(), new FallenLogConfig(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()), (0.3F)));
+        FeatureUtils.register(context, RANDOM_FALLEN_SILENT_LOG, TAFeatures.RANDOM_FALLEN_LOGS.get(), new FallenLogConfig(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()), (0.1F)));
         FeatureUtils.register(context, RANDOM_CRYSTAL_CLUSTER, Feature.FLOWER, VegetationFeatures.grassPatch(new WeightedStateProvider(clusterBuilder.build()), 10));
         FeatureUtils.register(context, RANDOM_WEAK_GRASS, Feature.FLOWER, VegetationFeatures.grassPatch(new WeightedStateProvider(wickGrassBuilder.build()), 6));
-        FeatureUtils.register(context, SILENT_TREE, Feature.TREE, (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()),
-                new StraightTrunkPlacer(13, 6, 0), BlockStateProvider.simple(TABlocks.SILENT_TREE_LEAVES.get()),
-                new SpruceFoliagePlacer(UniformInt.of(2, 3), ConstantInt.of(1), UniformInt.of(4, 6)),
-                new TwoLayersFeatureSize(3, 3, 3)).dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get())))
+        FeatureUtils.register(context, SILENT_TREE, Feature.TREE, Slient_Tree()
+                .dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get()))
                 .decorators(ImmutableList.of(new CrystalBudDecorator(0.05F))).ignoreVines().build());
         FeatureUtils.register(context, ORE_AURORIAN_PERIDOTITE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_PERIDOTITE.get().defaultBlockState(), 33));
         FeatureUtils.register(context, ORE_AURORIAN_DIRT, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_DIRT.get().defaultBlockState(), 33));

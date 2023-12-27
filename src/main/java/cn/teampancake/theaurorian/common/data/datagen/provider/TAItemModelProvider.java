@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.items.CrystallineSword;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
@@ -166,7 +167,7 @@ public class TAItemModelProvider extends ItemModelProvider {
             ResourceLocation key = ForgeRegistries.ITEMS.getKey(item);
             if (item instanceof ForgeSpawnEggItem) {
                 this.withExistingParent(key.getPath(), this.mcLoc("item/template_spawn_egg"));
-            } else if (item instanceof TieredItem) {
+            } else if (item instanceof TieredItem && !(item instanceof CrystallineSword)) {
                 this.withExistingParent(key.getPath(), this.mcLoc("item/handheld")).texture("layer0", this.modLoc("item/" + key.getPath()));
             } else if (item instanceof BowItem) {
                 this.bowItem(item);

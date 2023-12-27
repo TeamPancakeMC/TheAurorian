@@ -101,6 +101,8 @@ public class VanillaItemCompat {
                             && CrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
             ItemProperties.register(TAItems.STAR_OCEAN_CROSSBOW.get(), AurorianMod.prefix("firework_charged"), (stack, level, entity, seed) ->
                     CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
+            ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), AurorianMod.prefix("shoot"), ((stack, level, entity, seed) ->
+                    entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
             for (Item item : TACommonUtils.getKnownItems()) {
                 if (item instanceof ShieldItem) {
                     ItemProperties.register(item, AurorianMod.prefix("blocking"), ((stack, level, entity, seed) ->

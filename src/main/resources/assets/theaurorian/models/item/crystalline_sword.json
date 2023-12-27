@@ -1,0 +1,14 @@
+{
+    "parent": "minecraft:item/handheld",
+    "textures": {
+        "layer0": "theaurorian:item/crystalline_sword"
+    },
+    "overrides": [
+        {
+            "model": "theaurorian:item/crystalline_sword_shoot",
+            "predicate": {
+                "theaurorian:shoot": 1.0
+            }
+        }
+    ]
+}

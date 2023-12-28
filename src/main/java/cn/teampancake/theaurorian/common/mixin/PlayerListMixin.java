@@ -15,21 +15,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(PlayerList.class)
 public abstract class PlayerListMixin {
-
-
-    @ModifyVariable(method = "placeNewPlayer", at = @At(value = "STORE", ordinal = 0), index = 8)
-    private ServerLevel modifyServerLevel(ServerLevel value) {
-        if(AurorianConfig.CONFIG_DEFAULT_SPAWN_IN_AURORIAN_DIMENSION.get()){
-            return value.getServer().getLevel(TADimensions.AURORIAN_DIMENSION);
-        }
-        return value;
-    }
-
     @Redirect(method = "placeNewPlayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;getLevel(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/server/level/ServerLevel;"))
     private ServerLevel modifyServerLevel(MinecraftServer instance, ResourceKey<Level> pDimension) {
         if(AurorianConfig.CONFIG_DEFAULT_SPAWN_IN_AURORIAN_DIMENSION.get()){

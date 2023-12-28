@@ -81,6 +81,7 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_PortalLighter;
     public static final ForgeConfigSpec.BooleanValue Config_SticksMakeFire;
     public static final ForgeConfigSpec.IntValue Config_AurorianiteSwordCooldown;
+    public static final ForgeConfigSpec.IntValue Config_CrystallineSwordCooldown;
     public static final ForgeConfigSpec.IntValue Config_AurorianiteAxeMaxChopSize;
     public static final ForgeConfigSpec.DoubleValue Config_LightningEnchantmentMulitplier;
     public static final ForgeConfigSpec.IntValue Config_UmbraShieldTimeUntilOverheat;
@@ -301,6 +302,9 @@ public class AurorianConfig {
                 .define("SticksMakeFire", true);
         Config_AurorianiteSwordCooldown = BUILDER
                 .comment("Cooldown in ticks for the Aurorianite Sword’s levitate ability. 600 ticks = 30 seconds")
+                .defineInRange("AurorianiteSwordCooldown", 600, 0, 72000);
+        Config_CrystallineSwordCooldown = BUILDER
+                .comment("Cooldown in ticks for the Crystalline Sword’s levitate ability. 600 ticks = 30 seconds")
                 .defineInRange("AurorianiteSwordCooldown", 600, 0, 72000);
         Config_AurorianiteAxeMaxChopSize = BUILDER
                 .comment("How many total connected log blocks can the Aurorianite Axe chop at once")

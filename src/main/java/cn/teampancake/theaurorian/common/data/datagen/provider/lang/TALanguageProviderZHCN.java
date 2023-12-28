@@ -513,7 +513,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.addTooltips(TAItems.TROPHY_SPIDER_MOTHER, "被诅咒的邪祟引来了它的解脱.");
         this.addTooltips(TAItems.TROPHY_MOON_QUEEN, "极光世界终于迎来了它的自由，但似乎只是另一个噩梦的开始.");
         this.addTooltips(TAItems.CRYSTAL, "挖掘晶簇矿石获得，用于合成和粉碎器耗材.");
-        this.addTooltips(TAItems.SLEEPING_BLACK_TEA, "嘿，幼幼紫，你动不动就变男娘的日子结束了。昏睡红茶给我！");
+        this.addTooltips(TAItems.SLEEPING_BLACK_TEA, "嘿，幼幼紫，你动不动就变男娘的日子结束了。把昏睡红茶给我！");
         this.addTooltips(TAItems.WHITE_CHOCOLATE, "摩多罗的遗物（不是）开发者物品，她在椅子上死掉了所以这个巧克力长腿跑了。现在它是你的巧克力了，真巧。因为常年被摩多罗视作珍宝，所以这块巧克力上有摩多罗的魔力。妄然吃掉的话可能会发生不得了的事情……！");
         this.addTooltips(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT, "青春猪头尘不会梦到幼幼紫学姐.");
         this.addTooltips(TAItems.RED_BOOK, "写满世间各种死因的书，却是个徒有其表的通讯装置？！");

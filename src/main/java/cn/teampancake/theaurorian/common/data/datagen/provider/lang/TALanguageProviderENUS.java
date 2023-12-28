@@ -514,7 +514,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.addTooltips(TAItems.TROPHY_SPIDER_MOTHER, "The cursed evil has brought its free.");
         this.addTooltips(TAItems.TROPHY_MOON_QUEEN, "The Aurorian world finally welcomed its freedom, but it seems like it's just the beginning of another nightmare.");
         this.addTooltips(TAItems.CRYSTAL, "Got from breaking crystal cluster ore. Place on scrapper to speed it up! Has a chance to break every craft.");
-        this.addTooltips(TAItems.SLEEPING_BLACK_TEA, "Hey uuz! The days that you can easily become a pseudo-girl are over. Give me the sleeping black tea!");
+        this.addTooltips(TAItems.SLEEPING_BLACK_TEA, "Hey uuz! Your pseudo-girl day is over. Give me the sleeping black tea!");
         this.addTooltips(TAItems.WHITE_CHOCOLATE, "This the Matara's relic? Oh, is it developer item. She died on the chair, so this chocolate grows legs and walks away. Now it's your chocolate, what a coincidence! This chocolate has the magic of Matara due to regarded by Matara as a treasure all year round. If you eat it recklessly, something terrible may happen!");
         this.addTooltips(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT, "青春猪头尘不会梦到幼幼紫学姐.");
         this.addTooltips(TAItems.RED_BOOK, "A book full of various causes of death in the world. But in reality, it is a specious chief signal officer");

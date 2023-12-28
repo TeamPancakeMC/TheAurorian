@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.common.utils.AurorianUtil;
 import net.minecraft.network.chat.Component;
@@ -17,8 +18,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -112,5 +115,21 @@ public class ItemEventSubscriber {
             });
         }
     }
-
+    @SubscribeEvent
+    public static void OnUsingItem(LivingEntityUseItemEvent.Start event){
+        Level level= event.getEntity().level();
+        if(event.getEntity() instanceof Player player) {
+            if (event.getItem().is(TAItems.CRYSTALLINE_SWORD.get())) {
+            Vec3 lookAngle = player.getLookAngle().normalize();
+            for (int i = 0; i < 30; i++) {
+                for (int j = 0; j < 30; j++) {
+                    double d6 = level.random.nextGaussian() * 0.02D;
+                    double d7 = level.random.nextGaussian() * 0.02D;
+                    double d8 = level.random.nextGaussian() * 0.02D;
+                    level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(), player.getX()+lookAngle.x+Math.sin(i*Math.PI/15), player.getY()+1+lookAngle.y+Math.cos(j*Math.PI/15)*(Math.abs(Math.sin(i*Math.PI/15+Math.PI/2))), player.getZ()+lookAngle.z+Math.cos(j*Math.PI/15)*(Math.abs(Math.sin(i*Math.PI/15+Math.PI/2))), d6, d7, d8);
+                }
+            }
+            }
+        }
+    }
 }

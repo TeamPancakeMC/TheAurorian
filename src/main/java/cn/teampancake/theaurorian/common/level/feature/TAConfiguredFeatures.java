@@ -65,7 +65,7 @@ public class TAConfiguredFeatures {
 
     private static TreeConfiguration.TreeConfigurationBuilder Slient_Tree() {
         return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()),
-                new CherryTrunkPlacer(7, 3, 0,
+                new CherryTrunkPlacer(10, 6, 0,
                         new WeightedListInt(SimpleWeightedRandomList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()), UniformInt.of(2, 4), UniformInt.of(-4, -3), UniformInt.of(-1, 0)),
                 BlockStateProvider.simple(TABlocks.SILENT_TREE_LEAVES.get()),
                 new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
@@ -96,7 +96,7 @@ public class TAConfiguredFeatures {
                 BlockStateProvider.simple(TABlocks.AURORIAN_GRASS_LIGHT.get()), 32));
         FeatureUtils.register(context, PATCH_AURORIAN_FLOWER, Feature.FLOWER, VegetationFeatures.grassPatch(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(TABlocks.LAVENDER_PLANT.get().defaultBlockState(), 1)
+//                        .add(TABlocks.LAVENDER_PLANT.get().defaultBlockState(), 1)
                         .add(TABlocks.PETUNIA_PLANT.get().defaultBlockState(), 1)
                         .add(TABlocks.SILK_BERRY_CROP.get().defaultBlockState(), 1)
                         .add(TABlocks.AURORIAN_FLOWER_1.get().defaultBlockState(), 1)
@@ -109,7 +109,7 @@ public class TAConfiguredFeatures {
         FeatureUtils.register(context, HUGE_INDIGO_MUSHROOM, TAFeatures.HUGE_INDIGO_MUSHROOM.get(),
                 new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_BLOCK.get()),
                 BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_STEM.get()), 5));
-        FeatureUtils.register(context, RANDOM_FALLEN_SILENT_LOG, TAFeatures.RANDOM_FALLEN_LOGS.get(), new FallenLogConfig(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()), (0.1F)));
+        FeatureUtils.register(context, RANDOM_FALLEN_SILENT_LOG, TAFeatures.RANDOM_FALLEN_LOGS.get(), new FallenLogConfig(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()), (0.01F)));
         FeatureUtils.register(context, RANDOM_CRYSTAL_CLUSTER, Feature.FLOWER, VegetationFeatures.grassPatch(new WeightedStateProvider(clusterBuilder.build()), 10));
         FeatureUtils.register(context, RANDOM_WEAK_GRASS, Feature.FLOWER, VegetationFeatures.grassPatch(new WeightedStateProvider(wickGrassBuilder.build()), 6));
         FeatureUtils.register(context, SILENT_TREE, Feature.TREE, Slient_Tree()

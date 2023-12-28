@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -39,9 +40,12 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
         return InteractionResultHolder.consume(itemstack);
     }
 
+
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
         if (livingEntity instanceof Player player) {
+            int i = this.getUseDuration(stack) - timeLeft;
+            if (i < 10) return;
             Vec3 lookAngle = player.getLookAngle();
             float pitch = 1.0F / (level.random.nextFloat() * 0.4F + 1.2F) + 0.5F;
             level.playSound(null, player.getOnPos(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, pitch);
@@ -52,12 +56,11 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
                 arrow.shoot(lookAngle.x, lookAngle.y, lookAngle.z, 3.0F, 1.0F);
                 arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                 arrow.setNoGravity(true);
-                arrow.setKnockback(1);
+                arrow.setBaseDamage(8+ (double) 7 /60*i);
                 level.addFreshEntity(arrow);
             }
+            player.getCooldowns().addCooldown(this, AurorianConfig.Config_CrystallineSwordCooldown.get());
         }
-
-        return stack;
     }
 
     @Override
@@ -67,8 +70,10 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        return 40;
+        return 60;
     }
+
+
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {

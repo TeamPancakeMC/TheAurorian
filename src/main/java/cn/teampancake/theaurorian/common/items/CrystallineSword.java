@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.items;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
@@ -11,6 +12,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -54,8 +56,9 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
             if (arrow != null) {
                 arrow.setPos(player.getX(), player.getY() + 1.5, player.getZ());
                 arrow.shoot(lookAngle.x, lookAngle.y, lookAngle.z, 3.0F, 1.0F);
-                arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
                 arrow.setNoGravity(true);
+                arrow.addEffect(new MobEffectInstance(TAMobEffects.STUN.get(),20*2));
                 arrow.setBaseDamage(8+ (double) 7 /60*i);
                 level.addFreshEntity(arrow);
             }

@@ -45,7 +45,7 @@ public class ShieldHudRenderer {
         RenderSystem.disableBlend();
     }
 
-    public static void registerThirstOverlay(RegisterGuiOverlaysEvent event) {
+    public static void registerShieldOverlay(RegisterGuiOverlaysEvent event) {
         event.registerAbove(VanillaGuiOverlay.FOOD_LEVEL.id(), "shield", SHIELD_OVERLAY);
     }
 

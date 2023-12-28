@@ -279,7 +279,7 @@ public class TAItems {
     public static final RegistryObject<Item> MOONSTONE_NUGGET = normal("moonstone_nugget", true);
     public static final RegistryObject<Item> AURORIAN_CHAIN = normal("aurorian_chain", false);
     public static final RegistryObject<Item> AURORIAN_BERRY = normal("aurorian_berry", false);
-    public static final RegistryObject<Item> AURORIAN_CRYSTAL = normal("aurorian_crystal", false);
+    public static final RegistryObject<Item> AURORIAN_CRYSTAL = ITEMS.register("aurorian_crystal", AurorianCrystal::new);
     public static final RegistryObject<Item> EQUINOX_MUSHROOM = normal("equinox_mushroom", false);
     public static final RegistryObject<Item> DREAM_DYEING_CRYSTAL_FRAGMENT = normal("dream_dyeing_crystal_fragment", true);
     public static final RegistryObject<Item> WORLD_SCROLL_FRAGMENT = normal("world_scroll_fragment", false);

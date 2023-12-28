@@ -139,11 +139,10 @@ public class ItemEventSubscriber {
 
     @SubscribeEvent
     public static void OnUsingItem(LivingEntityUseItemEvent.Tick event){
-        Level level= event.getEntity().level();
         if(event.getEntity() instanceof Player player) {
             if (event.getItem().is(TAItems.CRYSTALLINE_SWORD.get())) {
-                if(event.getDuration()>=60)
-                    event.getItem().finishUsingItem(level, player);
+                if(player.getTicksUsingItem()>=60)
+                    player.releaseUsingItem();
             }
         }
     }

@@ -7,8 +7,6 @@ import com.mojang.serialization.Dynamic;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.level.Level;
@@ -19,14 +17,18 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(PlayerList.class)
 public abstract class PlayerListMixin {
-    @Redirect(method = "placeNewPlayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;getLevel(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/server/level/ServerLevel;"))
-    private ServerLevel modifyServerLevel(MinecraftServer instance, ResourceKey<Level> pDimension) {
+    @Redirect(method = "placeNewPlayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/PlayerList;load(Lnet/minecraft/server/level/ServerPlayer;)Lnet/minecraft/nbt/CompoundTag;"))
+    private CompoundTag modifyLoad(PlayerList instance, ServerPlayer player) {
         if(AurorianConfig.CONFIG_DEFAULT_SPAWN_IN_AURORIAN_DIMENSION.get()){
-            ServerPlayer player=instance.getPlayerList().getPlayers().get(instance.getPlayerCount()-1);
-            CompoundTag compoundtag = instance.getPlayerList().load(player);
+            CompoundTag compoundtag = instance.load(player);
             ResourceKey<Level> resourcekey = compoundtag != null ? DimensionType.parseLegacy(new Dynamic<>(NbtOps.INSTANCE, compoundtag.get("Dimension"))).resultOrPartial(AurorianMod.LOGGER::error).orElse(Level.OVERWORLD) : TADimensions.AURORIAN_DIMENSION;
-            return instance.getLevel(resourcekey);
+            if(resourcekey == TADimensions.AURORIAN_DIMENSION) {
+                if(compoundtag == null)
+                    compoundtag = new CompoundTag();
+                compoundtag.putString("Dimension", "theaurorian:the_aurorian");
+                return compoundtag;
+            }
         }
-        return instance.getLevel(pDimension);
+        return instance.load(player);
     }
 }

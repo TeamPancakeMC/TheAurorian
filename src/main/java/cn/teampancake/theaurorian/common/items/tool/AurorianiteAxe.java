@@ -1,6 +1,8 @@
-package cn.teampancake.theaurorian.common.items;
+package cn.teampancake.theaurorian.common.items.tool;
 
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -14,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AurorianiteAxe extends AxeItem implements ITooltipsItem{
+public class AurorianiteAxe extends AxeItem implements ITooltipsItem {
 
     public AurorianiteAxe() {
         super(TAToolTiers.AURORIANITE, 12.0F, -3.5F,new Properties().rarity(Rarity.EPIC));

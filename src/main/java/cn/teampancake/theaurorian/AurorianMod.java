@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian;
 
+import cn.teampancake.theaurorian.client.gui.hud.ProgressBarRenderer;
 import cn.teampancake.theaurorian.client.gui.hud.ShieldHudRenderer;
 import cn.teampancake.theaurorian.common.data.pack.MaxShieldLoader;
 import cn.teampancake.theaurorian.common.event.subscriber.ItemSubscriber;
@@ -78,7 +79,8 @@ public class AurorianMod {
         }
 
         if(FMLEnvironment.dist.isClient()) {
-            modEventBus.addListener(ShieldHudRenderer::registerThirstOverlay);
+            modEventBus.addListener(ShieldHudRenderer::registerShieldOverlay);
+            modEventBus.addListener(ProgressBarRenderer::registerProgressBarOverlay);
         }
     }
 

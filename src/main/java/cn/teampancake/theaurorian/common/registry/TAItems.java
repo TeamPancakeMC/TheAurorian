@@ -11,6 +11,8 @@ import cn.teampancake.theaurorian.common.items.shield.CeruleanShield;
 import cn.teampancake.theaurorian.common.items.shield.CrystallineShield;
 import cn.teampancake.theaurorian.common.items.shield.MoonShield;
 import cn.teampancake.theaurorian.common.items.shield.UmbraShield;
+import cn.teampancake.theaurorian.common.items.tool.AurorianiteAxe;
+import cn.teampancake.theaurorian.common.items.tool.AurorianiteSword;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;

@@ -15,7 +15,7 @@ import java.util.EnumMap;
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
-public enum TAArmorMaterials implements StringRepresentable, ArmorMaterial {
+public enum TAArmorMaterials implements StringRepresentable, ArmorMaterial{
 
     CERULEAN("cerulean", 20,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {

@@ -1,6 +1,8 @@
-package cn.teampancake.theaurorian.common.items;
+package cn.teampancake.theaurorian.common.items.tool;
 
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import cn.teampancake.theaurorian.common.utils.EntityHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -21,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class AurorianiteSword extends SwordItem implements ITooltipsItem{
+public class AurorianiteSword extends SwordItem implements ITooltipsItem {
 
     public AurorianiteSword() {
         super(TAToolTiers.AURORIANITE, 4, -2.4F,new Properties().rarity(Rarity.EPIC));

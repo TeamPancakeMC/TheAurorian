@@ -43,14 +43,19 @@ public enum TAToolTiers implements Tier, ISpecialty {
             boolean aurorianiteSpecialty = orCreateTag.getBoolean("aurorianite_specialty");
             if (aurorianiteSpecialty){
                 Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
-                Enchantment enchantment = enchantments.keySet().stream().skip((int) (enchantments.size() * Math.random())).findFirst().orElse(null);
+                Enchantment enchantment = enchantments.keySet().stream()
+                        .filter(enchantment1 -> {
+                            int maxLevel = enchantment1.getMaxLevel();
+                            return enchantments.get(enchantment1) < maxLevel;
+                        })
+                        .skip((int) (enchantments.size() * Math.random()))
+                        .findFirst()
+                        .orElse(null);
+
                 if (enchantment != null) {
-                    int maxLevel = enchantment.getMaxLevel();
                     int level = enchantments.get(enchantment);
-                    if (level < maxLevel) {
-                        enchantments.put(enchantment, level + 1);
-                        EnchantmentHelper.setEnchantments(enchantments, stack);
-                    }
+                    enchantments.put(enchantment, level + 1);
+                    EnchantmentHelper.setEnchantments(enchantments, stack);
                 }
             }
         }

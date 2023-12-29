@@ -1,18 +1,15 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.api.ISpecialty;
+import cn.teampancake.theaurorian.common.items.tool.ToolSubscriber;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
-import javax.annotation.Nonnull;;
-import java.util.Map;
+import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"deprecation", "SpellCheckingInspection"})
@@ -39,25 +36,7 @@ public enum TAToolTiers implements Tier, ISpecialty {
     AURORIANITE(3, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.AURORIANITE_INGOT.get())){
         @Override
         public void doSpecialty(ItemStack stack) {
-            CompoundTag orCreateTag = stack.getOrCreateTag();
-            boolean aurorianiteSpecialty = orCreateTag.getBoolean("aurorianite_specialty");
-            if (aurorianiteSpecialty){
-                Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
-                Enchantment enchantment = enchantments.keySet().stream()
-                        .filter(enchantment1 -> {
-                            int maxLevel = enchantment1.getMaxLevel();
-                            return enchantments.get(enchantment1) < maxLevel;
-                        })
-                        .skip((int) (enchantments.size() * Math.random()))
-                        .findFirst()
-                        .orElse(null);
-
-                if (enchantment != null) {
-                    int level = enchantments.get(enchantment);
-                    enchantments.put(enchantment, level + 1);
-                    EnchantmentHelper.setEnchantments(enchantments, stack);
-                }
-            }
+            ToolSubscriber.aurorianiteSpecialty(stack);
         }
     },
     UMBRA(3, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.UMBRA_INGOT.get())){

@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.api.ISpecialty;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
@@ -9,13 +10,14 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ArmorMaterials;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.EnumMap;
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
-public enum TAArmorMaterials implements StringRepresentable, ArmorMaterial{
+public enum TAArmorMaterials implements StringRepresentable, ArmorMaterial,ISpecialty {
 
     CERULEAN("cerulean", 20,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
@@ -24,7 +26,12 @@ public enum TAArmorMaterials implements StringRepresentable, ArmorMaterial{
                 map.put(ArmorItem.Type.CHESTPLATE, 6);
                 map.put(ArmorItem.Type.HELMET, 3);
             }), 15, SoundEvents.ARMOR_EQUIP_IRON, 1, 0,
-            () -> Ingredient.of(TAItems.CERULEAN_INGOT.get())),
+            () -> Ingredient.of(TAItems.CERULEAN_INGOT.get())){
+        @Override
+        public void doSpecialty(ItemStack stack) {
+
+        }
+    },
 
     AURORIAN_STEEL("aurorian_steel", 33,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
@@ -33,26 +40,46 @@ public enum TAArmorMaterials implements StringRepresentable, ArmorMaterial{
                 map.put(ArmorItem.Type.CHESTPLATE, 8);
                 map.put(ArmorItem.Type.HELMET, 4);
             }), 15, SoundEvents.ARMOR_EQUIP_DIAMOND, 2, 0,
-            () -> Ingredient.of(TAItems.AURORIAN_STEEL.get())),
+            () -> Ingredient.of(TAItems.AURORIAN_STEEL.get())){
+        @Override
+        public void doSpecialty(ItemStack stack) {
+
+        }
+    },
 
     UMBRA("umbra", 65,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                 map.put(ArmorItem.Type.BOOTS, 3); map.put(ArmorItem.Type.LEGGINGS, 5);
                 map.put(ArmorItem.Type.CHESTPLATE, 6); map.put(ArmorItem.Type.HELMET, 3);
             }), 15, SoundEvents.ARMOR_EQUIP_IRON, 1, 0,
-            () -> Ingredient.of(TAItems.UMBRA_INGOT.get())),
+            () -> Ingredient.of(TAItems.UMBRA_INGOT.get())){
+        @Override
+        public void doSpecialty(ItemStack stack) {
+
+        }
+    },
 
     KNIGHT("knight", 30, Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                 map.put(ArmorItem.Type.BOOTS, 2); map.put(ArmorItem.Type.LEGGINGS, 2);
                 map.put(ArmorItem.Type.CHESTPLATE, 3); map.put(ArmorItem.Type.HELMET, 1);
-            }), 5, SoundEvents.ARMOR_EQUIP_IRON, 1, 0, Ingredient::of),
+            }), 5, SoundEvents.ARMOR_EQUIP_IRON, 1, 0, Ingredient::of){
+        @Override
+        public void doSpecialty(ItemStack stack) {
+
+        }
+    },
 
     AURORIAN_SLIME("aurorian_slime", 120,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
                 map.put(ArmorItem.Type.BOOTS, 1); map.put(ArmorItem.Type.LEGGINGS, 2);
                 map.put(ArmorItem.Type.CHESTPLATE, 3); map.put(ArmorItem.Type.HELMET, 1);
             }), 20, SoundEvents.SLIME_SQUISH, 1, 0,
-            () -> Ingredient.of(TAItems.AURORIAN_SLIMEBALL.get())),
+            () -> Ingredient.of(TAItems.AURORIAN_SLIMEBALL.get())){
+        @Override
+        public void doSpecialty(ItemStack stack) {
+
+        }
+    },
 
     SPECTRAL("spectral", 20,
             Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
@@ -61,7 +88,12 @@ public enum TAArmorMaterials implements StringRepresentable, ArmorMaterial{
                 map.put(ArmorItem.Type.CHESTPLATE, 6);
                 map.put(ArmorItem.Type.HELMET, 4);
             }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 1, 0,
-            () -> Ingredient.of(TAItems.SPECTRAL_SILK.get()));
+            () -> Ingredient.of(TAItems.SPECTRAL_SILK.get())){
+        @Override
+        public void doSpecialty(ItemStack stack) {
+
+        }
+    };
 
     private final String name;
     private final int durabilityMultiplier;

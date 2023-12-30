@@ -118,7 +118,7 @@ public class TASkyRenderer {
         return new Vec3((float) vec31.x * f1, (float) vec31.y * f1, (float) vec31.z * f1);
     }
 
-    private static int smoothColorTransition(float t) {
+    public static int smoothColorTransition(float t) {
         Color currentColor = new Color(0x010e34);
         Color targetColor = new Color(getDaySkyColors().get(getPhaseState(t)));
         double d = Math.sin(2.0F * Math.PI * t + 0.25F * Math.PI);
@@ -130,7 +130,7 @@ public class TASkyRenderer {
     }
 
     private static ResourceLocation getPhaseState(float t) {
-        t = t + 12000;
+        t = t - 12000;
         if((int)t != dayCount) {
             List<ResourceLocation> colorNames = new ArrayList<>(getDaySkyColors().keySet());
             currentPhase = colorNames.get((int) (Math.random() * getDaySkyColors().size()));

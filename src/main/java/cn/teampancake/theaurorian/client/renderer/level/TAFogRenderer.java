@@ -24,7 +24,7 @@ public class TAFogRenderer {
     private static int previousBiomeFog = -1;
     private static long biomeChangedTime = -1L;
 
-    public static float[] setupColor(Camera activeRenderInfo, float partialTicks, ClientLevel level, int renderDistanceChunks, float bossColorModifier) {
+    public static float[] setupColor(Camera activeRenderInfo, float partialTicks, ClientLevel level, float bossColorModifier) {
         FogType fogType = activeRenderInfo.getFluidInCamera();
         Entity entity = activeRenderInfo.getEntity();
         float fogRed, fogGreen, fogBlue;
@@ -67,11 +67,12 @@ public class TAFogRenderer {
             biomeChangedTime = -1L;
             RenderSystem.clearColor(fogRed, fogGreen, fogBlue, 0.0F);
         } else {
-            float f4 = 0.25F + 0.75F * (float)renderDistanceChunks / 32.0F;
+            float timeOfDay = level.dimensionType().timeOfDay(1000L);
+            float f4 = Mth.cos(timeOfDay * ((float) Math.PI * 2F)) * 2.0F + 0.5F;
             Vec3 vec3 = TASkyRenderer.getSkyColor(level, activeRenderInfo.getPosition());
+            Vec3 vec30 = Vec3.fromRGB24(TASkyRenderer.smoothColorTransition((level.dayTime() - 6000L) / 24000.0F));
             Vec3 vec31 = activeRenderInfo.getPosition().subtract(2.0D, 2.0D, 2.0D).scale(0.25D);
-            Vec3 vec32 = CubicSampler.gaussianSampleVec3(vec31, (x, y, z) -> vec3);
-            f4 = 1.0F - (float)Math.pow(f4, 0.25D);
+            Vec3 vec32 = CubicSampler.gaussianSampleVec3(vec31, (x, y, z) -> vec30);
             fogRed = (float)vec32.x();
             fogGreen = (float)vec32.y();
             fogBlue = (float)vec32.z();

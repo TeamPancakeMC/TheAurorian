@@ -71,12 +71,6 @@
         "weight": 5
       },
       {
-        "type": "theaurorian:moon_fish",
-        "maxCount": 8,
-        "minCount": 8,
-        "weight": 25
-      },
-      {
         "type": "minecraft:allay",
         "maxCount": 2,
         "minCount": 1,
@@ -102,12 +96,6 @@
         "maxCount": 2,
         "minCount": 1,
         "weight": 35
-      },
-      {
-        "type": "theaurorian:spirit",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 2
       }
     ],
     "underground_water_creature": [],

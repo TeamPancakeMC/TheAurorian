@@ -54,6 +54,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.MOONLIGHT_FORGE.get());
         this.dropSelf(TABlocks.MOON_GEM.get());
         this.dropSelf(TABlocks.MOON_SAND.get());
+        this.dropSelf(TABlocks.MOON_SAND_RIVER.get());
         this.dropSelf(TABlocks.MOON_TORCH.get());
         this.dropSelf(TABlocks.UMBRA_STONE.get());
         this.dropSelf(TABlocks.UMBRA_STONE_CRACKED.get());

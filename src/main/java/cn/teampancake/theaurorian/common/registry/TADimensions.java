@@ -67,15 +67,23 @@ public class TADimensions {
         RuleSource redAurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
         RuleSource brightMoonSand = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SAND.get());
         RuleSource brightMoonSandstone = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SANDSTONE.get());
+        RuleSource MoonSand = SurfaceRuleData.makeStateRule(TABlocks.MOON_SAND.get());
+        RuleSource MoonSandRiver = SurfaceRuleData.makeStateRule(TABlocks.MOON_SAND_RIVER.get());
         ConditionSource notUnderWater = waterBlockCheck(-1, ConstantInt.ZERO.getValue());
         ConditionSource notUnderDeepWater = waterStartCheck(-6, (-1));
+        ConditionSource nearWater = waterBlockCheck(0, 0);
+        ConditionSource inDeepWater = waterBlockCheck(6, 1);
         RuleSource overworldLike = sequence(
                 ifTrue(ON_FLOOR, sequence(ifTrue(notUnderWater, sequence(
                         ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST), lightAurorianGrassBlock),
                         ifTrue(isBiome(TABiomes.EQUINOX_FLOWER_PLAINS), redAurorianGrassBlock),
                         ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSand), aurorianGrassBlock)))),
                 ifTrue(notUnderDeepWater, sequence(ifTrue(UNDER_FLOOR, sequence(
-                        ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSandstone), aurorianDirt)))));
+                        ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSandstone), aurorianDirt)))),
+                ifTrue(nearWater,sequence(ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), MoonSand), aurorianGrassBlock)),
+                ifTrue(inDeepWater, sequence(
+                        ifTrue(isBiome(TABiomes.AURORIAN_RIVER), MoonSandRiver),
+                        ifTrue(isBiome(TABiomes.AURORIAN_LAKE),MoonSandRiver))));
         RuleSource bedrockFloor = ifTrue(verticalGradient("bedrock_floor", VerticalAnchor.bottom(),
                 VerticalAnchor.aboveBottom(5)), SurfaceRuleData.BEDROCK);
         builder.add(bedrockFloor).add(overworldLike);

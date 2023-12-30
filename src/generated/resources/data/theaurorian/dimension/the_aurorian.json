@@ -30,8 +30,8 @@
           },
           {
             "biome_layers": {
-              "-2.65": "theaurorian:aurorian_lake",
-              "-4.65": "theaurorian:underground"
+              "-7.65": "theaurorian:aurorian_lake",
+              "-9.65": "theaurorian:underwater"
             },
             "depth": -1.65,
             "key_biome": "theaurorian:aurorian_lake",
@@ -48,8 +48,8 @@
           },
           {
             "biome_layers": {
-              "-2.65": "theaurorian:aurorian_river",
-              "-4.65": "theaurorian:underground"
+              "-7.65": "theaurorian:aurorian_river",
+              "-9.65": "theaurorian:underwater"
             },
             "depth": -1.65,
             "key_biome": "theaurorian:aurorian_river",

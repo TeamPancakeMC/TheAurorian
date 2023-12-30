@@ -9,63 +9,67 @@
               "parent": {
                 "parent": {
                   "parent": {
-                    "common_biomes": [
-                      "theaurorian:aurorian_plains",
-                      "theaurorian:aurorian_forest",
-                      "theaurorian:aurorian_forest_hill"
-                    ],
-                    "layer_type": "theaurorian:random_biomes",
-                    "rare_biome_chance": 15,
-                    "rare_biomes": [
-                      "theaurorian:aurorian_lake",
-                      "theaurorian:weeping_willow_forest",
-                      "theaurorian:bright_moon_desert",
-                      "theaurorian:equinox_flower_plains"
-                    ],
-                    "salt": 1
+                    "parent": {
+                      "common_biomes": [
+                        "theaurorian:aurorian_plains",
+                        "theaurorian:aurorian_forest",
+                        "theaurorian:aurorian_forest_hill"
+                      ],
+                      "layer_type": "theaurorian:random_biomes",
+                      "rare_biome_chance": 15,
+                      "rare_biomes": [
+                        "theaurorian:aurorian_lake",
+                        "theaurorian:weeping_willow_forest",
+                        "theaurorian:bright_moon_desert",
+                        "theaurorian:equinox_flower_plains"
+                      ],
+                      "salt": 1
+                    },
+                    "fuzzy": false,
+                    "layer_type": "theaurorian:zoom",
+                    "salt": 1000
                   },
                   "fuzzy": false,
                   "layer_type": "theaurorian:zoom",
-                  "salt": 1000
+                  "salt": 1001
                 },
                 "fuzzy": false,
                 "layer_type": "theaurorian:zoom",
-                "salt": 1001
+                "salt": 1002
               },
               "fuzzy": false,
               "layer_type": "theaurorian:zoom",
-              "salt": 1002
+              "salt": 1003
             },
             "fuzzy": false,
             "layer_type": "theaurorian:zoom",
-            "salt": 1003
+            "salt": 1004
           },
           "fuzzy": false,
           "layer_type": "theaurorian:zoom",
-          "salt": 1004
+          "salt": 1005
         },
-        "fuzzy": false,
-        "layer_type": "theaurorian:zoom",
-        "salt": 1005
-      },
-      "dividing_biome": "theaurorian:aurorian_river",
-      "excluded_biome_intersections": [
-        [
-          "theaurorian:aurorian_forest",
-          "theaurorian:aurorian_forest_hill"
+        "dividing_biome": "theaurorian:aurorian_river",
+        "excluded_biome_intersections": [
+          [
+            "theaurorian:aurorian_forest",
+            "theaurorian:aurorian_forest_hill"
+          ],
+          [
+            "theaurorian:aurorian_forest",
+            "theaurorian:aurorian_river"
+          ]
         ],
-        [
-          "theaurorian:aurorian_forest",
-          "theaurorian:aurorian_river"
-        ]
-      ],
-      "excluded_neighbor_biomes": [
-        "theaurorian:bright_moon_desert",
-        "theaurorian:aurorian_forest_hill",
-        "theaurorian:aurorian_lake"
-      ],
-      "layer_type": "theaurorian:river",
-      "salt": 1
+        "excluded_neighbor_biomes": [
+          "theaurorian:bright_moon_desert",
+          "theaurorian:aurorian_forest_hill",
+          "theaurorian:aurorian_lake"
+        ],
+        "layer_type": "theaurorian:river",
+        "salt": 1
+      },
+      "layer_type": "theaurorian:smooth",
+      "salt": 7000
     },
     "layer_type": "theaurorian:smooth",
     "salt": 7000

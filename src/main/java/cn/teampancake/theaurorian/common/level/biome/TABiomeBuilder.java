@@ -22,8 +22,8 @@ public class TABiomeBuilder {
                 biomeColumnWithUnderground(0.25F, 0.3F, biomeRegistry, TABiomes.EQUINOX_FLOWER_PLAINS),
                 biomeColumnWithUnderground(0.3F, 0.4F, biomeRegistry, TABiomes.WEEPING_WILLOW_FOREST),
                 biomeColumnWithUnderground(0.3F, 0.4F, biomeRegistry, TABiomes.BRIGHT_MOON_DESERT),
-                biomeColumnWithUnderground(-1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_RIVER),
-                biomeColumnWithUnderground(-1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_LAKE));
+                biomeColumnForLake(-1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_RIVER),
+                biomeColumnForLake(-1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_LAKE));
     }
 
     private static TATerrainColumn biomeColumnWithUnderground(float noiseDepth, float noiseScale, HolderGetter<Biome> biomeRegistry, ResourceKey<Biome> key) {
@@ -32,6 +32,15 @@ public class TABiomeBuilder {
         return makeColumn(noiseDepth, noiseScale, biomeHolder, treeMap -> {
             treeMap.put(Math.min(noiseDepth - 1, -1), biomeHolder);
             treeMap.put(Math.min(noiseDepth - 3, -3), biomeRegistry.getOrThrow(TABiomes.UNDERGROUND));
+        });
+    }
+
+    private static TATerrainColumn biomeColumnForLake(float noiseDepth, float noiseScale, HolderGetter<Biome> biomeRegistry, ResourceKey<Biome> key) {
+        Holder.Reference<Biome> biomeHolder = biomeRegistry.getOrThrow(key);
+        biomeHolder.bindKey(key);
+        return makeColumn(noiseDepth, noiseScale, biomeHolder, treeMap -> {
+            treeMap.put(Math.min(noiseDepth - 6, -6), biomeHolder);
+            treeMap.put(Math.min(noiseDepth - 8, -8), biomeRegistry.getOrThrow(TABiomes.UNDERWATER));
         });
     }
 

@@ -67,8 +67,10 @@ public class ClientEventSubscriber {
     public static void onSetupFogColor(ViewportEvent.ComputeFogColor event) {
         Minecraft mc = Minecraft.getInstance();
         float partialTick = (float) event.getPartialTick();
+        int renderDistanceChunks = mc.options.getEffectiveRenderDistance();
         float darkenWorldAmount = mc.gameRenderer.getDarkenWorldAmount(partialTick);
-        float[] colors = TAFogRenderer.setupColor(event.getCamera(), partialTick, mc.level, darkenWorldAmount);
+        float[] colors = TAFogRenderer.setupColor(event.getCamera(), partialTick,
+                mc.level, renderDistanceChunks, darkenWorldAmount);
         if (mc.level != null && mc.level.dimension() == TADimensions.AURORIAN_DIMENSION) {
             event.setRed(colors[0]);
             event.setGreen(colors[1]);

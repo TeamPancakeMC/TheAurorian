@@ -6,12 +6,15 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.CubicSampler;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.biome.BiomeManager;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 
@@ -24,7 +27,7 @@ public class TAFogRenderer {
     private static int previousBiomeFog = -1;
     private static long biomeChangedTime = -1L;
 
-    public static float[] setupColor(Camera activeRenderInfo, float partialTicks, ClientLevel level, float bossColorModifier) {
+    public static float[] setupColor(Camera activeRenderInfo, float partialTicks, ClientLevel level, int renderDistanceChunks, float bossColorModifier) {
         FogType fogType = activeRenderInfo.getFluidInCamera();
         Entity entity = activeRenderInfo.getEntity();
         float fogRed, fogGreen, fogBlue;
@@ -37,16 +40,10 @@ public class TAFogRenderer {
                 biomeChangedTime = i;
             }
 
-            int k = targetBiomeFog >> 16 & 255;
-            int l = targetBiomeFog >> 8 & 255;
-            int i1 = targetBiomeFog & 255;
-            int j1 = previousBiomeFog >> 16 & 255;
-            int k1 = previousBiomeFog >> 8 & 255;
-            int l1 = previousBiomeFog & 255;
             float f = Mth.clamp((float)(i - biomeChangedTime) / 5000.0F, 0.0F, 1.0F);
-            float f1 = Mth.lerp(f, (float)j1, (float)k);
-            float f2 = Mth.lerp(f, (float)k1, (float)l);
-            float f3 = Mth.lerp(f, (float)l1, (float)i1);
+            float f1 = Mth.lerp(f, (float)(previousBiomeFog >> 16 & 255), (float)(targetBiomeFog >> 16 & 255));
+            float f2 = Mth.lerp(f, (float)(previousBiomeFog >> 8 & 255), (float)(targetBiomeFog >> 8 & 255));
+            float f3 = Mth.lerp(f, (float)(previousBiomeFog & 255), (float)(targetBiomeFog & 255));
             fogRed = f1 / 255.0F;
             fogGreen = f2 / 255.0F;
             fogBlue = f3 / 255.0F;
@@ -67,12 +64,14 @@ public class TAFogRenderer {
             biomeChangedTime = -1L;
             RenderSystem.clearColor(fogRed, fogGreen, fogBlue, 0.0F);
         } else {
-            float timeOfDay = level.dimensionType().timeOfDay(1000L);
-            float f4 = Mth.cos(timeOfDay * ((float) Math.PI * 2F)) * 2.0F + 0.5F;
+            BiomeManager biomeManager = level.biomeManager;
+            float f4 = 0.25F + 0.75F * (float)renderDistanceChunks / 32.0F;
             Vec3 vec3 = TASkyRenderer.getSkyColor(level, activeRenderInfo.getPosition());
-            Vec3 vec30 = Vec3.fromRGB24(TASkyRenderer.smoothColorTransition((level.dayTime() - 6000L) / 24000.0F));
+            float f11 = Mth.clamp(Mth.cos(level.getTimeOfDay(partialTicks) * ((float)Math.PI * 2F)) * 2.0F + 0.5F, 0.0F, 1.0F);
             Vec3 vec31 = activeRenderInfo.getPosition().subtract(2.0D, 2.0D, 2.0D).scale(0.25D);
-            Vec3 vec32 = CubicSampler.gaussianSampleVec3(vec31, (x, y, z) -> vec30);
+            Vec3 vec32 = CubicSampler.gaussianSampleVec3(vec31, (x, y, z) -> level.effects().getBrightnessDependentFogColor(
+                    Vec3.fromRGB24(biomeManager.getNoiseBiomeAtQuart(x, y, z).value().getFogColor()), f11));
+            f4 = 1.0F - (float)Math.pow(f4, 0.25D);
             fogRed = (float)vec32.x();
             fogGreen = (float)vec32.y();
             fogBlue = (float)vec32.z();
@@ -83,10 +82,10 @@ public class TAFogRenderer {
         }
 
         float f5 = ((float)activeRenderInfo.getPosition().y - (float)level.getMinBuildHeight()) * level.getLevelData().getClearColorScale();
-        FogRenderer.MobEffectFogFunction function = FogRenderer.getPriorityFogFunction(entity, partialTicks);
-        if (function != null && entity instanceof LivingEntity livingEntity) {
-            MobEffectInstance effect = livingEntity.getEffect(function.getMobEffect());
-            f5 = function.getModifiedVoidDarkness(livingEntity, Objects.requireNonNull(effect), f5, partialTicks);
+        FogRenderer.MobEffectFogFunction fogFunction = FogRenderer.getPriorityFogFunction(entity, partialTicks);
+        if (fogFunction != null && entity instanceof LivingEntity livingEntity) {
+            MobEffectInstance effect = livingEntity.getEffect(fogFunction.getMobEffect());
+            f5 = fogFunction.getModifiedVoidDarkness(livingEntity, Objects.requireNonNull(effect), f5, partialTicks);
         }
 
         if (f5 < 1.0F && fogType != FogType.LAVA && fogType != FogType.POWDER_SNOW) {
@@ -114,7 +113,16 @@ public class TAFogRenderer {
                 f7 = 1.0F;
             }
         } else {
-            f7 = 0.0F;
+            label86: {
+                if (entity instanceof LivingEntity livingEntity) {
+                    if (livingEntity.hasEffect(MobEffects.NIGHT_VISION) && !livingEntity.hasEffect(MobEffects.DARKNESS)) {
+                        f7 = GameRenderer.getNightVisionScale(livingEntity, partialTicks);
+                        break label86;
+                    }
+                }
+
+                f7 = 0.0F;
+            }
         }
 
         if (fogRed != 0.0F && fogGreen != 0.0F && fogBlue != 0.0F) {

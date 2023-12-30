@@ -32,7 +32,13 @@ public class TASpecialEffects extends DimensionSpecialEffects {
 
     @Override
     public @NotNull Vec3 getBrightnessDependentFogColor(Vec3 fogColor, float brightness) {
-        return Vec3.ZERO;
+        Minecraft mc = Minecraft.getInstance();
+        ClientLevel level = mc.level;
+        if (level != null) {
+            return TASkyRenderer.getSkyColor(level, mc.gameRenderer.getMainCamera().getPosition());
+        }
+
+        return fogColor;
     }
 
     @Override

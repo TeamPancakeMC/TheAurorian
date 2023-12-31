@@ -42,7 +42,6 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
         return InteractionResultHolder.consume(itemstack);
     }
 
-
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
         if (livingEntity instanceof Player player) {
@@ -53,16 +52,19 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
             level.playSound(null, player.getOnPos(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, pitch);
             stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(player.getUsedItemHand()));
             Arrow arrow = TAEntityTypes.CRYSTALLINE_BEAM.get().create(level);
-            if (arrow != null) {
-                arrow.setPos(player.getX(), player.getY() + 1.5, player.getZ());
+            if (!level.isClientSide && arrow != null) {
+                arrow.setPos(player.getX(), player.getY() + 1.5F, player.getZ());
                 arrow.shoot(lookAngle.x, lookAngle.y, lookAngle.z, 3.0F, 1.0F);
                 arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
                 arrow.setNoGravity(true);
-                arrow.addEffect(new MobEffectInstance(TAMobEffects.STUN.get(),20*2));
-                arrow.setBaseDamage(8+ (double) 7 /60*i);
+                arrow.addEffect(new MobEffectInstance(TAMobEffects.STUN.get(),20 * 2));
+                arrow.setBaseDamage(8 + (double) 7 / 60 * i);
                 level.addFreshEntity(arrow);
             }
-            player.getCooldowns().addCooldown(this, AurorianConfig.Config_CrystallineSwordCooldown.get());
+
+            if (!player.getAbilities().instabuild) {
+                player.getCooldowns().addCooldown(this, AurorianConfig.Config_CrystallineSwordCooldown.get());
+            }
         }
     }
 
@@ -75,8 +77,6 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
     public int getUseDuration(ItemStack stack) {
         return 60;
     }
-
-
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {

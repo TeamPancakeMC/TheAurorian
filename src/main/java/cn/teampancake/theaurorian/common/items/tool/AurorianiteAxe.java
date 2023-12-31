@@ -3,6 +3,8 @@ package cn.teampancake.theaurorian.common.items.tool;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
+import cn.teampancake.theaurorian.common.registry.TABlocks;
+import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -12,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,7 @@ public class AurorianiteAxe extends AxeItem implements ITooltipsItem {
     }
 
     @Override
-    public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+    public boolean mineBlock(@NotNull ItemStack stack, Level level, @NotNull BlockState state, @NotNull BlockPos pos, @NotNull LivingEntity entityLiving) {
         if (!level.isClientSide && state.getDestroySpeed(level,pos) != 0.0F) {
             if (state.is(BlockTags.LOGS)) {
                 chopTree(level, pos, stack, (ServerPlayer) entityLiving);
@@ -54,10 +57,13 @@ public class AurorianiteAxe extends AxeItem implements ITooltipsItem {
                         BlockPos p = currentPos.offset(x, y, z);
                         //If any block we find is wood and is not already searched or in our list, we add it.
                         if (level.getBlockState(p).is(BlockTags.LOGS)){
-                            if (!notSearchedWood.contains(p) && !searchedWood.contains(p)) {
-                                notSearchedWood.add(p);
-                                logCount++;
+                            if(stack.is(TAItems.AURORIANITE_AXE.get()) && !level.getBlockState(p).is(TABlocks.SILENT_TREE_LOG.get())) {
+                                continue;
                             }
+                                if (!notSearchedWood.contains(p) && !searchedWood.contains(p)) {
+                                    notSearchedWood.add(p);
+                                    logCount++;
+                                }
                         }
                     }
                 }

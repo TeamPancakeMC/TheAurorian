@@ -44,41 +44,34 @@ public class ProgressBarRenderer {
         int maxUseDuration = useItem.getUseDuration();
         int useDuration = player.getUseItemRemainingTicks();
 
-        boolean isSpeciality = useItem.getItem() == Items.BOW || useItem.getItem() == Items.CROSSBOW || useItem.getItem() == Items.TRIDENT;
-        boolean isStaminaZeroOrCrossbowCharged = useDuration == 0 || CrossbowItem.isCharged(useItem);
-
-        if (useItem.getItem() != Items.CROSSBOW && !isSpeciality && (useDuration < 0 || maxUseDuration <= 0)) {
-            RenderSystem.disableBlend();
+        if (useDuration < 0 || maxUseDuration <= 0) {
             return;
         }
 
-        float stamina;
-        float staminaBarWidth;
+        float stamina = (float) useDuration / (float) maxUseDuration;
+        float staminaBarWidth = STAMINA_BAR_WIDTH * (1 - stamina);
         int off_x = width / 2 - STAMINA_WIDTH / 2;
         int off_y = height / 2 + height / 4;
 
-        if (isSpeciality) {
+        if (useItem.getItem() instanceof ProjectileWeaponItem || useItem.getItem() == Items.TRIDENT) {
             int maxTick = 20;
             int i = maxUseDuration - maxTick;
-            stamina = ((float) useDuration - i) / (float) maxTick;
+            stamina = ( (float) useDuration - i) / (float) maxTick;
             staminaBarWidth = STAMINA_BAR_WIDTH * (1 - stamina);
-            if (useDuration - i < 0) {
+            if (useDuration - i < 0){
                 staminaBarWidth = STAMINA_BAR_WIDTH;
                 useDuration = 0;
             }
-        } else {
-            stamina = (float) useDuration / (float) maxUseDuration;
-            staminaBarWidth = STAMINA_BAR_WIDTH * (1 - stamina);
         }
 
         guiGraphics.blit(STAMINA, off_x, off_y, 0, 0, STAMINA_WIDTH, STAMINA_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT);
         guiGraphics.blit(STAMINA, off_x + STAMINA_BAR_X, height / 2 + height / 4 + STAMINA_BAR_Y, 3, 12, (int) staminaBarWidth, STAMINA_BAR_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 
-        if (isStaminaZeroOrCrossbowCharged) {
-            guiGraphics.blit(STAMINA, off_x, off_y, 0, 6, STAMINA_WIDTH, STAMINA_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT);
+
+        if (useDuration == 0){
+            guiGraphics.blit(STAMINA, off_x, off_y, 0, 6, STAMINA_WIDTH, STAMINA_HEIGHT , TEXTURE_WIDTH, TEXTURE_HEIGHT);
             guiGraphics.blit(STAMINA, off_x + STAMINA_BAR_X, height / 2 + height / 4 + STAMINA_BAR_Y, 3, 14, STAMINA_BAR_WIDTH, STAMINA_BAR_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT);
         }
-
         RenderSystem.disableBlend();
     }
 

@@ -53,12 +53,18 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 TABlocks.AURORIAN_FURNACE_CHIMNEY.get(), TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(),
                 TABlocks.AURORIAN_PERIDOTITE.get(), TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), TABlocks.MOONSTONE_ORE.get(),
                 TABlocks.CERULEAN_ORE.get(), TABlocks.GEODE_ORE.get(), TABlocks.CERULEAN_BLOCK.get(), TABlocks.MOONSTONE_BLOCK.get(),
-                TABlocks.AURORIAN_COAL_BLOCK.get(), TABlocks.AURORIAN_STEEL_BLOCK.get(),
-                TABlocks.INDIGO_MUSHROOM_CRYSTAL.get(), TABlocks.MOONLIGHT_FORGE.get(), TABlocks.MOON_GEM.get(), TABlocks.UMBRA_STONE.get(),
+                TABlocks.AURORIAN_COAL_BLOCK.get(), TABlocks.AURORIAN_STEEL_BLOCK.get(), TABlocks.INDIGO_MUSHROOM_CRYSTAL.get(),
+                TABlocks.MOONLIGHT_FORGE.get(), TABlocks.MOON_GEM.get(), TABlocks.UMBRA_STONE.get(),
                 TABlocks.UMBRA_STONE_CRACKED.get(), TABlocks.UMBRA_STONE_ROOF_TILES.get(), TABlocks.MOON_SAND_STONE_1.get(),
                 TABlocks.MOON_SAND_STONE_2.get(), TABlocks.MOON_SAND_STONE_3.get(), TABlocks.BRIGHT_MOON_SANDSTONE.get());
+        this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(), TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get());
+        this.tag(BlockTags.WOODEN_TRAPDOORS).add(TABlocks.SILENT_WOOD_TRAPDOOR.get(), TABlocks.WEEPING_WILLOW_TRAPDOOR.get());
+        this.tag(BlockTags.WOODEN_BUTTONS).add(TABlocks.SILENT_WOOD_BUTTON.get(), TABlocks.WEEPING_WILLOW_BUTTON.get());
         this.tag(BlockTags.WOODEN_STAIRS).add(TABlocks.SILENT_WOOD_STAIRS.get(), TABlocks.WEEPING_WILLOW_STAIRS.get());
+        this.tag(BlockTags.WOODEN_FENCES).add(TABlocks.SILENT_WOOD_FENCE.get(), TABlocks.WEEPING_WILLOW_FENCE.get());
+        this.tag(BlockTags.WOODEN_DOORS).add(TABlocks.SILENT_WOOD_DOOR.get(), TABlocks.WEEPING_WILLOW_DOOR.get());
         this.tag(BlockTags.WOODEN_SLABS).add(TABlocks.SILENT_WOOD_SLAB.get(), TABlocks.WEEPING_WILLOW_SLAB.get());
+        this.tag(BlockTags.FENCE_GATES).add(TABlocks.SILENT_WOOD_FENCE_GATE.get(), TABlocks.WEEPING_WILLOW_FENCE_GATE.get());
         this.tag(BlockTags.SAND).add(TABlocks.MOON_SAND.get(), TABlocks.BRIGHT_MOON_SAND.get());
         for (Block block : TACommonUtils.getKnownBlocks()) {
             float f1 = Blocks.BEDROCK.defaultDestroyTime();

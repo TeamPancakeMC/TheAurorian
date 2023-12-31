@@ -136,6 +136,14 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.WEEPING_WILLOW_LOG.get(), "Weeping Willow Log");
         this.add(TABlocks.WEEPING_WILLOW_PLANKS.get(), "Weeping Willow Planks");
         this.add(TABlocks.WEEPING_WILLOW_WOOD.get(), "Weeping Willow Wood");
+        this.add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(), "Silent Wood Pressure Plate");
+        this.add(TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get(), "Weeping Willow Pressure Plate");
+        this.add(TABlocks.SILENT_WOOD_FENCE_GATE.get(), "Silent Wood Fence Gate");
+        this.add(TABlocks.WEEPING_WILLOW_FENCE_GATE.get(), "Weeping Willow Fence Gate");
+        this.add(TABlocks.SILENT_WOOD_TRAPDOOR.get(), "Silent Wood Trapdoor");
+        this.add(TABlocks.WEEPING_WILLOW_TRAPDOOR.get(), "Weeping Willow Trapdoor");
+        this.add(TABlocks.SILENT_WOOD_BUTTON.get(), "Silent Wood Button");
+        this.add(TABlocks.WEEPING_WILLOW_BUTTON.get(), "Weeping Willow Button");
         this.add(TABlocks.AURORIAN_STONE_STAIRS.get(), "Aurorian Stone Stairs");
         this.add(TABlocks.AURORIAN_STONE_BRICK_STAIRS.get(), "Aurorian Stone Brick Stairs");
         this.add(TABlocks.AURORIAN_COBBLESTONE_STAIRS.get(), "Aurorian Cobblestone Stairs");
@@ -162,6 +170,10 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.WEEPING_WILLOW_STAIRS.get(), "Weeping Willow Stairs");
         this.add(TABlocks.AURORIAN_PERIDOTITE_STAIRS.get(), "Aurorian Peridotite Stairs");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE_STAIRS.get(), "Smooth Aurorian Peridotite Stairs");
+        this.add(TABlocks.SILENT_WOOD_FENCE.get(), "Silent Wood Fence");
+        this.add(TABlocks.WEEPING_WILLOW_FENCE.get(), "Weeping Willow Fence");
+        this.add(TABlocks.SILENT_WOOD_DOOR.get(), "Silent Wood Door");
+        this.add(TABlocks.WEEPING_WILLOW_DOOR.get(), "Weeping Willow Door");
         this.add(TABlocks.AURORIAN_STONE_SLAB.get(), "Aurorian Stone Slab");
         this.add(TABlocks.AURORIAN_STONE_BRICK_SLAB.get(), "Aurorian Stone Brick Slab");
         this.add(TABlocks.AURORIAN_COBBLESTONE_SLAB.get(), "Aurorian Cobblestone Slab");

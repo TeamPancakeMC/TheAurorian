@@ -70,7 +70,7 @@ public class AurorianMod {
         modEventBus.addListener(this::registerExtraStuff);
         modEventBus.addListener(this::setRegistriesForDatapack);
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::onNewRegistry);;
+        modEventBus.addListener(this::onNewRegistry);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener(this::onDataPackLoad);
         ItemSubscriber.register();
@@ -78,7 +78,7 @@ public class AurorianMod {
             ThirstWasTakenCompat.init();
         }
 
-        if(FMLEnvironment.dist.isClient()) {
+        if (FMLEnvironment.dist.isClient()) {
             modEventBus.addListener(ShieldHudRenderer::registerShieldOverlay);
             modEventBus.addListener(ProgressBarRenderer::registerProgressBarOverlay);
         }
@@ -108,6 +108,7 @@ public class AurorianMod {
     public void onDataPackLoad(AddReloadListenerEvent event) {
         event.addListener(new MaxShieldLoader());
     }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         TAMessages.register();
     }
@@ -116,4 +117,5 @@ public class AurorianMod {
         event.create(new RegistryBuilder<>().setName(TAShields.SHIELD_KEY.location()));
         event.create(new RegistryBuilder<>().setName(TARunes.RUNE_KEY.location()));
     }
+
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "texture": "theaurorian:block/silent_tree_planks"
+  }
+}

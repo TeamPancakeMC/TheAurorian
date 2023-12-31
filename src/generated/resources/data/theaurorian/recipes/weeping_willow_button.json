@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "theaurorian:weeping_willow_planks"
+    }
+  ],
+  "result": {
+    "item": "theaurorian:weeping_willow_button"
+  }
+}

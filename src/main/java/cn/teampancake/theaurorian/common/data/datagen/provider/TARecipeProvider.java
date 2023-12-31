@@ -1,8 +1,7 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.blocks.SlabBlockWithBase;
-import cn.teampancake.theaurorian.common.blocks.WallBlockWithBase;
+import cn.teampancake.theaurorian.common.blocks.base.*;
 import cn.teampancake.theaurorian.common.data.datagen.recipes.MoonlightForgeRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.recipes.ScrapperRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
@@ -306,12 +305,29 @@ public class TARecipeProvider extends RecipeProvider {
         this.buildSickleRecipes(consumer, TAItems.AURORIAN_STONE_SICKLE.get(), TABlocks.AURORIAN_COBBLESTONE.get());
         this.buildSickleRecipes(consumer, TAItems.MOONSTONE_SICKLE.get(), TAItems.MOONSTONE_INGOT.get());
         for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block instanceof StairBlock stairBlock) {
+            if (block instanceof PressurePlateBlockWithBase pressurePlateBlock) {
+                pressurePlate(consumer, pressurePlateBlock, pressurePlateBlock.getBase());
+            } else if (block instanceof FenceGateBlockWithBase fenceGateBlock) {
+                Block base = fenceGateBlock.getBase();
+                fenceGateBuilder(fenceGateBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(consumer);
+            } else if (block instanceof TrapDoorBlockWithBase trapDoorBlock) {
+                Block base = trapDoorBlock.getBase();
+                trapdoorBuilder(trapDoorBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(consumer);
+            } else if (block instanceof ButtonBlockWithBase buttonBlock) {
+                Block base = buttonBlock.getBase();
+                buttonBuilder(buttonBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(consumer);
+            } else if (block instanceof StairBlock stairBlock) {
                 Block base = stairBlock.base;
                 stairBuilder(stairBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(consumer);
                 if (stairBlock.defaultMapColor() == Blocks.STONE.defaultMapColor()) {
                     stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, stairBlock, base);
                 }
+            } else if (block instanceof FenceBlockWithBase fenceBlock) {
+                Block base = fenceBlock.getBase();
+                fenceBuilder(fenceBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(consumer);
+            } else if (block instanceof DoorBlockWithBase doorBlock) {
+                Block base = doorBlock.getBase();
+                doorBuilder(doorBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(consumer);
             } else if (block instanceof SlabBlockWithBase slabBlock) {
                 slab(consumer, RecipeCategory.BUILDING_BLOCKS, slabBlock, slabBlock.getBase());
                 if (slabBlock.defaultMapColor() == Blocks.STONE.defaultMapColor()) {

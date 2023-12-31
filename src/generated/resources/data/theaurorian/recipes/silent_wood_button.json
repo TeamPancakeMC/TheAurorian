@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "theaurorian:silent_tree_planks"
+    }
+  ],
+  "result": {
+    "item": "theaurorian:silent_wood_button"
+  }
+}

@@ -7,9 +7,7 @@ import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -157,16 +155,14 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.withExistingParent(this.name(TABlocks.SMALL_MOONSTONE_BUD.get()), this.modLoc("item/ta_small_bud"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.SMALL_MOONSTONE_BUD.get())));
         for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block instanceof StairBlock || block instanceof SlabBlock) {
+            if (block instanceof StairBlock || block instanceof SlabBlock || block instanceof FenceGateBlock || block instanceof PressurePlateBlock) {
                 this.simpleBlockItem(block);
             }
         }
 
         for (Item item : TACommonUtils.getKnownItems()) {
             ResourceLocation key = ForgeRegistries.ITEMS.getKey(item);
-
-            if(item.equals(TAItems.CRYSTALLINE_SWORD.get())) continue;
-
+            if (item.equals(TAItems.CRYSTALLINE_SWORD.get())) continue;
             if (item instanceof ForgeSpawnEggItem) {
                 this.withExistingParent(key.getPath(), this.mcLoc("item/template_spawn_egg"));
             } else if (item instanceof TieredItem) {

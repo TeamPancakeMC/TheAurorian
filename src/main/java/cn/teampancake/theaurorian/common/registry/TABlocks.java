@@ -2,6 +2,8 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.*;
+import cn.teampancake.theaurorian.common.blocks.state.TABlockSetType;
+import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
 import cn.teampancake.theaurorian.common.level.feature.TAConfiguredFeatures;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.*;
@@ -161,6 +163,30 @@ public class TABlocks {
     public static final RegistryObject<Block> POTTED_SILENT_TREE_SAPLING = flowerPot(SILENT_TREE_SAPLING.getId().getPath(), SILENT_TREE_SAPLING);
 
     /**
+     * Pressure Plate Blocks
+     */
+    public static final RegistryObject<Block> SILENT_WOOD_PRESSURE_PLATE = pressurePlate("silent_wood_pressure_plate", SILENT_TREE_PLANKS, true, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_WOOD);
+    public static final RegistryObject<Block> WEEPING_WILLOW_PRESSURE_PLATE = pressurePlate("weeping_willow_pressure_plate", WEEPING_WILLOW_PLANKS, true, copy(Blocks.OAK_PLANKS), TABlockSetType.WEEPING_WILLOW);
+
+    /**
+     * Fence Gate Blocks
+     */
+    public static final RegistryObject<Block> SILENT_WOOD_FENCE_GATE = fenceGate("silent_wood_fence_gate", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TAWoodType.SILENT_WOOD);
+    public static final RegistryObject<Block> WEEPING_WILLOW_FENCE_GATE = fenceGate("weeping_willow_fence_gate", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS), TAWoodType.WEEPING_WILLOW);
+
+    /**
+     * Trapdoor Blocks
+     */
+    public static final RegistryObject<Block> SILENT_WOOD_TRAPDOOR = trapdoor("silent_wood_trapdoor", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_WOOD);
+    public static final RegistryObject<Block> WEEPING_WILLOW_TRAPDOOR = trapdoor("weeping_willow_trapdoor", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.WEEPING_WILLOW);
+
+    /**
+     * Button Blocks
+     */
+    public static final RegistryObject<Block> SILENT_WOOD_BUTTON = button("silent_wood_button", SILENT_TREE_PLANKS, true, TABlockSetType.SILENT_WOOD);
+    public static final RegistryObject<Block> WEEPING_WILLOW_BUTTON = button("weeping_willow_button", WEEPING_WILLOW_PLANKS, true, TABlockSetType.WEEPING_WILLOW);
+
+    /**
      * Stair Blocks
      */
     public static final RegistryObject<Block> AURORIAN_STONE_STAIRS = stair("aurorian_stone_stairs", AURORIAN_STONE, defaultStoneProperties(2.0F));
@@ -189,6 +215,18 @@ public class TABlocks {
     public static final RegistryObject<Block> WEEPING_WILLOW_STAIRS = stair("weeping_willow_stairs", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> AURORIAN_PERIDOTITE_STAIRS = stair("aurorian_peridotite_stairs", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE_STAIRS = stair("smooth_aurorian_peridotite_stairs", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+
+    /**
+     * Fence Blocks
+     */
+    public static final RegistryObject<Block> SILENT_WOOD_FENCE = fence("silent_wood_fence", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> WEEPING_WILLOW_FENCE = fence("weeping_willow_fence", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS));
+
+    /**
+     * Door Blocks
+     */
+    public static final RegistryObject<Block> SILENT_WOOD_DOOR = door("silent_wood_door", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_WOOD);
+    public static final RegistryObject<Block> WEEPING_WILLOW_DOOR = door("weeping_willow_door", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.WEEPING_WILLOW);
 
     /**
      * Slab Blocks

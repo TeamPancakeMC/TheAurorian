@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.data.datagen.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.*;
+import cn.teampancake.theaurorian.common.blocks.base.*;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.Direction;
@@ -174,8 +175,22 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_BLOCK.get());
         this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_STEM.get());
         for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block instanceof StairBlock stairBlock) {
+            if (block instanceof PressurePlateBlockWithBase pressurePlateBlock) {
+                this.pressurePlateBlock(pressurePlateBlock, this.blockTexture(pressurePlateBlock.getBase()));
+            } else if (block instanceof FenceGateBlockWithBase fenceGateBlock) {
+                this.fenceGateBlockWithRenderType(fenceGateBlock, this.blockTexture(fenceGateBlock.getBase()), CUTOUT);
+            } else if (block instanceof TrapDoorBlockWithBase trapDoorBlock) {
+//                this.trapdoorBlockWithRenderType(trapDoorBlock, this.blockTexture(trapDoorBlock.getBase()), true, CUTOUT);
+            } else if (block instanceof ButtonBlockWithBase buttonBlock) {
+                ResourceLocation texture = this.blockTexture(buttonBlock.getBase());
+                this.buttonBlock(buttonBlock, texture);
+                this.simpleBlockItem(buttonBlock, this.models().buttonInventory(this.name(buttonBlock), texture));
+            } else if (block instanceof StairBlock stairBlock) {
                 this.stairsBlock(stairBlock, this.blockTexture(stairBlock.base));
+            } else if (block instanceof FenceBlockWithBase fenceBlock) {
+                ResourceLocation texture = this.blockTexture(fenceBlock.getBase());
+                this.fenceBlockWithRenderType(fenceBlock, texture, CUTOUT);
+                this.simpleBlockItem(fenceBlock, this.models().fenceInventory(this.name(fenceBlock), texture));
             } else if (block instanceof SlabBlockWithBase slabBlock) {
                 ResourceLocation texture = this.blockTexture(slabBlock.getBase());
                 this.slabBlock(slabBlock, texture, texture);

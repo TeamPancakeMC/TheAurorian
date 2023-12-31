@@ -136,6 +136,14 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.WEEPING_WILLOW_LOG.get(), "垂柳原木");
         this.add(TABlocks.WEEPING_WILLOW_PLANKS.get(), "垂柳木板");
         this.add(TABlocks.WEEPING_WILLOW_WOOD.get(), "垂柳木头");
+        this.add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(), "谧木压力板");
+        this.add(TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get(), "垂柳木压力板");
+        this.add(TABlocks.SILENT_WOOD_FENCE_GATE.get(), "谧木栅栏门");
+        this.add(TABlocks.WEEPING_WILLOW_FENCE_GATE.get(), "垂柳木栅栏门");
+        this.add(TABlocks.SILENT_WOOD_TRAPDOOR.get(), "谧木活板门");
+        this.add(TABlocks.WEEPING_WILLOW_TRAPDOOR.get(), "垂柳木活板门");
+        this.add(TABlocks.SILENT_WOOD_BUTTON.get(), "谧木按钮");
+        this.add(TABlocks.WEEPING_WILLOW_BUTTON.get(), "垂柳木按钮");
         this.add(TABlocks.AURORIAN_STONE_STAIRS.get(), "极光石楼梯");
         this.add(TABlocks.AURORIAN_STONE_BRICK_STAIRS.get(), "极光石砖楼梯");
         this.add(TABlocks.AURORIAN_COBBLESTONE_STAIRS.get(), "极光圆石楼梯");
@@ -162,6 +170,10 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.WEEPING_WILLOW_STAIRS.get(), "垂柳木楼梯");
         this.add(TABlocks.AURORIAN_PERIDOTITE_STAIRS.get(), "橄榄岩楼梯");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE_STAIRS.get(), "平滑橄榄岩楼梯");
+        this.add(TABlocks.SILENT_WOOD_FENCE.get(), "谧木栅栏");
+        this.add(TABlocks.WEEPING_WILLOW_FENCE.get(), "垂柳木栅栏");
+        this.add(TABlocks.SILENT_WOOD_DOOR.get(), "谧木门");
+        this.add(TABlocks.WEEPING_WILLOW_DOOR.get(), "垂柳木门");
         this.add(TABlocks.AURORIAN_STONE_SLAB.get(), "极光石台阶");
         this.add(TABlocks.AURORIAN_STONE_BRICK_SLAB.get(), "极光石砖台阶");
         this.add(TABlocks.AURORIAN_COBBLESTONE_SLAB.get(), "极光圆石台阶");

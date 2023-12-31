@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.blocks;
+package cn.teampancake.theaurorian.common.blocks.base;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallBlock;

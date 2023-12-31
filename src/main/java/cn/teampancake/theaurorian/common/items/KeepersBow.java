@@ -23,12 +23,13 @@ public class KeepersBow extends BowItem implements ITooltipsItem {
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity entityLiving, int pTimeLeft) {
         if (entityLiving instanceof Player) {
+            if(pTimeLeft!=0){
+                super.releaseUsing(pStack, pLevel, entityLiving, pTimeLeft);
+                return;
+            }
             for (int i = 0; i < 3; i++) {
                 super.releaseUsing(pStack, pLevel, entityLiving, pTimeLeft);
             }
         }
     }
-
-
-
 }

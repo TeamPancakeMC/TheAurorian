@@ -30,18 +30,19 @@ public class ShieldHudRenderer {
         guiGraphics.blit(SHIELD, 3, height - TEXTURE_HEIGHT, 0, 0, 42, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT); //Render frame
 //        guiGraphics.blit(SHIELD, 13, height - TEXTURE_HEIGHT + 8, 42, 0, 22, 22, TEXTURE_WIDTH, TEXTURE_HEIGHT); //Render gray bar
 //        guiGraphics.blit(SHIELD, 10, height - TEXTURE_HEIGHT + 8, 86, 0, 22, 22, TEXTURE_WIDTH, TEXTURE_HEIGHT); //Render purple bar
-        ShieldCap.getCapability(player).ifPresent(shieldCap -> {});
-        ShieldCap shieldCap = ShieldCap.getCapability(player).orElse(null);
-        Map<ResourceLocation, IShield> shieldMap = shieldCap.getShieldMap();
-        float maxShieldValue = shieldCap.getMaxShieldValue();
-        for (IShield value : shieldMap.values()) {
-            float shield = value.getShield();
-            float v = shield / maxShieldValue;
-            int v1 = (int) Math.floor(22 * v);
-            int y = height - TEXTURE_HEIGHT + 11 + 22 - v1;
-            guiGraphics.blit(SHIELD, 13, y, 64, 22 - v1, 22, v1, TEXTURE_WIDTH, TEXTURE_HEIGHT); //Render dynamic blue bar
-        }
 
+       ShieldCap.getCapability(player).ifPresent(shieldCap -> {
+           Map<ResourceLocation, IShield> shieldMap = shieldCap.getShieldMap();
+           if (shieldMap.isEmpty()) return;
+           float maxShieldValue = shieldCap.getMaxShieldValue();
+           for (IShield value : shieldMap.values()) {
+               float shield = value.getShield();
+               float v = shield / maxShieldValue;
+               int v1 = (int) Math.floor(22 * v);
+               int y = height - TEXTURE_HEIGHT + 11 + 22 - v1;
+               guiGraphics.blit(SHIELD, 13, y, 64, 22 - v1, 22, v1, TEXTURE_WIDTH, TEXTURE_HEIGHT); //Render dynamic blue bar
+           }
+       });
         RenderSystem.disableBlend();
     }
 

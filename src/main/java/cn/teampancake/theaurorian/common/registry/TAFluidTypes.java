@@ -20,7 +20,7 @@ public class TAFluidTypes {
             () -> new BaseFluidType(defaultProperties(), AurorianMod.prefix("block/molten_moonstone"),
                     AurorianMod.prefix("block/molten_moonstone_flowing")));
     public static final RegistryObject<FluidType> MOON_WATER = FLUID_TYPES.register("moon_water",
-            () -> new BaseFluidType(FluidType.Properties.create(), AurorianMod.prefix("block/moon_water"),
+            () -> new BaseFluidType(FluidType.Properties.create().supportsBoating(true), AurorianMod.prefix("block/moon_water"),
                     AurorianMod.prefix("block/moon_water")));
 
     private static FluidType.Properties defaultProperties() {

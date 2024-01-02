@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "theaurorian:block/tall_aurorian_grass_lower"
+    },
+    "half=upper": {
+      "model": "theaurorian:block/tall_aurorian_grass_upper"
+    }
+  }
+}

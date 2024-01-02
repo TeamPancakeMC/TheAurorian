@@ -38,6 +38,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.DARK_STONE_GLASS_PANE.get(), "Dark Stone Glass Pane");
         this.add(TABlocks.AURORIAN_GRASS.get(), "Aurorian Grass");
         this.add(TABlocks.AURORIAN_GRASS_LIGHT.get(), "Light Aurorian Grass");
+        this.add(TABlocks.AURORIAN_WATER_GRASS.get(), "Aurorian Water Grass");
         this.add(TABlocks.AURORIAN_FURNACE.get(), "Aurorian Furnace");
         this.add(TABlocks.AURORIAN_FURNACE_CHIMNEY.get(), "Aurorian Furnace Chimney");
         this.add(TABlocks.AURORIAN_PORTAL.get(), "Aurorian Portal");
@@ -49,6 +50,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.EQUINOX_FLOWER.get(), "Equinox Flower");
         this.add(TABlocks.LAVENDER_PLANT.get(), "Lavender Plant");
         this.add(TABlocks.PETUNIA_PLANT.get(), "Petunia Plant");
+        this.add(TABlocks.TALL_LAVENDER_PLANT.get(), "Tall Lavender Plant");
+        this.add(TABlocks.TALL_AURORIAN_GRASS.get(), "Tall Petunia Plant");
+        this.add(TABlocks.TALL_AURORIAN_WATER_GRASS.get(), "Tall Aurorian Water Grass");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "Aurorian Peridotite");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "Smooth Aurorian Peridotite");
         this.add(TABlocks.MOONSTONE_ORE.get(), "Moonstone Ore");

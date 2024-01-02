@@ -110,6 +110,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_GRASS.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_GRASS_LIGHT.get());
+        this.simpleBlockItemWithParent(TABlocks.AURORIAN_WATER_GRASS.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_FLOWER_1.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_FLOWER_2.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_FLOWER_3.get());
@@ -154,6 +155,12 @@ public class TAItemModelProvider extends ItemModelProvider {
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.MEDIUM_MOONSTONE_BUD.get())));
         this.withExistingParent(this.name(TABlocks.SMALL_MOONSTONE_BUD.get()), this.modLoc("item/ta_small_bud"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.SMALL_MOONSTONE_BUD.get())));
+        this.withExistingParent(this.name(TABlocks.TALL_AURORIAN_GRASS.get()), this.mcLoc("item/generated"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.TALL_AURORIAN_GRASS.get()) + "_upper"));
+        this.withExistingParent(this.name(TABlocks.TALL_LAVENDER_PLANT.get()), this.mcLoc("item/generated"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.TALL_LAVENDER_PLANT.get()) + "_upper"));
+        this.withExistingParent(this.name(TABlocks.TALL_AURORIAN_WATER_GRASS.get()), this.mcLoc("item/generated"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.TALL_AURORIAN_WATER_GRASS.get()) + "_upper"));
         for (Block block : TACommonUtils.getKnownBlocks()) {
             if (block instanceof StairBlock || block instanceof SlabBlock || block instanceof FenceGateBlock || block instanceof PressurePlateBlock) {
                 this.simpleBlockItem(block);
@@ -166,7 +173,8 @@ public class TAItemModelProvider extends ItemModelProvider {
             if (item instanceof ForgeSpawnEggItem) {
                 this.withExistingParent(key.getPath(), this.mcLoc("item/template_spawn_egg"));
             } else if (item instanceof TieredItem) {
-                this.withExistingParent(key.getPath(), this.mcLoc("item/handheld")).texture("layer0", this.modLoc("item/" + key.getPath()));
+                ResourceLocation texture = this.modLoc("item/" + key.getPath());
+                this.withExistingParent(key.getPath(), this.mcLoc("item/handheld")).texture("layer0", texture);
             } else if (item instanceof BowItem) {
                 this.bowItem(item);
             } else if (item instanceof CrossbowItem) {

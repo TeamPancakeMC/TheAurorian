@@ -140,6 +140,12 @@ public class TABlockStateProvider extends BlockStateProvider {
                         this.modLoc("block/red_aurorian_grass_block"),
                         this.modLoc("block/aurorian_dirt"),
                         this.modLoc("block/red_aurorian_grass_block_top")));
+        this.simpleBlock(TABlocks.AURORIAN_WATER_GRASS.get(),
+                this.models().withExistingParent(this.name(TABlocks.AURORIAN_WATER_GRASS.get()), this.mcLoc("block/template_seagrass"))
+                        .texture("texture", this.blockTexture(TABlocks.AURORIAN_WATER_GRASS.get())).renderType(CUTOUT));
+        this.registerDoublePlantStates(TABlocks.TALL_AURORIAN_GRASS.get(), this.mcLoc("block/tinted_cross"));
+        this.registerDoublePlantStates(TABlocks.TALL_LAVENDER_PLANT.get(), this.mcLoc("block/tinted_cross"));
+        this.registerDoublePlantStates(TABlocks.TALL_AURORIAN_WATER_GRASS.get(), this.mcLoc("block/template_seagrass"));
         this.simpleBlockWithRenderType(TABlocks.MOON_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.AURORIAN_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.DARK_STONE_GLASS.get(), TRANSLUCENT);
@@ -353,6 +359,18 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(block, this.models().cross(this.name(block), this.blockTexture(block)).renderType(CUTOUT));
     }
 
+    private void registerDoublePlantStates(Block block, ResourceLocation parent) {
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        for (DoubleBlockHalf half : DoublePlantBlock.HALF.getPossibleValues()) {
+            String name = this.name(block) + "_" + half.toString();
+            ResourceLocation texture = this.modLoc("block/" + name);
+            ModelFile modelFile = this.models().withExistingParent(name, parent)
+                    .texture("cross", texture).renderType(CUTOUT);
+            builder.partialState().with(DoublePlantBlock.HALF, half)
+                    .modelForState().modelFile(modelFile).addModel();
+        }
+    }
+
     private void registerMushroomStates(Block block) {
         ResourceLocation parent = this.mcLoc("block/template_single_face");
         ResourceLocation outside = this.modLoc("block/" + this.name(block) + "_side");
@@ -413,7 +431,8 @@ public class TABlockStateProvider extends BlockStateProvider {
             for (int level : WickGrass.LEVEL.getPossibleValues()) {
                 String name = this.name(TABlocks.WICK_GRASS.get()) + "_" + half.toString();
                 ResourceLocation texture = this.modLoc("block/" + name);
-                ModelFile modelFile = this.models().cross(name, texture).renderType(CUTOUT);
+                ModelFile modelFile = this.models().withExistingParent(name, this.mcLoc("block/tinted_cross"))
+                        .texture("cross", texture).renderType(CUTOUT);
                 builder.partialState().with(DoublePlantBlock.HALF, half).with(WickGrass.LEVEL, level)
                         .modelForState().modelFile(modelFile).addModel();
             }

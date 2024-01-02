@@ -31,6 +31,7 @@ public class TABiomes {
     public static final ResourceKey<Biome> AURORIAN_LAKE = createKey("aurorian_lake");
     public static final ResourceKey<Biome> AURORIAN_FOREST_HILL = createKey("aurorian_forest_hill");
     public static final ResourceKey<Biome> EQUINOX_FLOWER_PLAINS = createKey("equinox_flower_plains");
+    public static final ResourceKey<Biome> LAVENDER_PLAINS = createKey("lavender_plains");
     public static final ResourceKey<Biome> WEEPING_WILLOW_FOREST = createKey("weeping_willow_forest");
     public static final ResourceKey<Biome> BRIGHT_MOON_DESERT = createKey("bright_moon_desert");
     public static final ResourceKey<Biome> UNDERGROUND = createKey("underground");
@@ -57,14 +58,20 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_PLAINS)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_PLAINS), ParticleTypes.FIREWORK, 0.00375F).build());
         context.register(AURORIAN_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
-        context.register(AURORIAN_RIVER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
-        context.register(AURORIAN_LAKE, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
+        context.register(AURORIAN_RIVER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+                .addFeature(vegetalDecoration, TAPlacements.WATER_GRASS_SLIGHTLY_LESS_SHORT)
+                .addFeature(vegetalDecoration, TAPlacements.WATER_GRASS_SHORT), defaultFishSpawning().build()).build());
+        context.register(AURORIAN_LAKE, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+                .addFeature(vegetalDecoration, TAPlacements.WATER_GRASS_MID)
+                .addFeature(vegetalDecoration, TAPlacements.WATER_GRASS_TALL), defaultFishSpawning().build()).build());
         context.register(EQUINOX_FLOWER_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_EQUINOX_FLOWER), ParticleTypes.SOUL,EquinoxFlowerPlainsMobSpawning().build(), 0.0025F).build());
+                .addFeature(vegetalDecoration, TAPlacements.PATCH_EQUINOX_FLOWER), ParticleTypes.SOUL, equinoxFlowerPlainsMobSpawning().build(), 0.0025F).build());
+        context.register(LAVENDER_PLAINS, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+                .addFeature(vegetalDecoration, TAPlacements.PATCH_LAVENDER)).build());
         context.register(WEEPING_WILLOW_FOREST, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
-        context.register(UNDERWATER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter),defaultFishSpawning().build()).build());
+        context.register(UNDERWATER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter), defaultFishSpawning().build()).build());
     }
 
     private static Biome.BiomeBuilder biomeOfForests(BiomeGenerationSettings.Builder biomeGenerationSettings) {
@@ -82,7 +89,7 @@ public class TABiomes {
         return biomeWithDefaults(biomeGenerationSettings, defaultMobSpawning().build());
     }
 
-    private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings,MobSpawnSettings mobSpawnSettings) {
+    private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings, MobSpawnSettings mobSpawnSettings) {
         return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature(0.2F).downfall(0.0F)
                 .specialEffects(defaultAmbientBuilder().build()).mobSpawnSettings(mobSpawnSettings)
                 .generationSettings(defaultOreBuilder(biomeGenerationSettings).build())
@@ -91,8 +98,7 @@ public class TABiomes {
 
     private static Biome.BiomeBuilder biomeWithParticle(BiomeGenerationSettings.Builder biomeGenerationSettings, ParticleOptions options,MobSpawnSettings mobSpawnSettings, float probability) {
         return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature(0.2F).downfall(0.0F)
-                .specialEffects(defaultAmbientWithParticleBuilder(options, probability).build())
-                .mobSpawnSettings(mobSpawnSettings)
+                .specialEffects(defaultAmbientWithParticleBuilder(options, probability).build()).mobSpawnSettings(mobSpawnSettings)
                 .generationSettings(defaultOreBuilder(biomeGenerationSettings).build())
                 .temperatureAdjustment(Biome.TemperatureModifier.NONE);
     }
@@ -114,8 +120,8 @@ public class TABiomes {
     }
 
     private static BiomeSpecialEffects.Builder defaultAmbientBuilder() {
-        return new BiomeSpecialEffects.Builder().fogColor(0xC0FFD8).waterColor(Color.WHITE.getRGB())
-                .waterFogColor(Color.WHITE.getRGB()).skyColor(OverworldBiomes.calculateSkyColor(0.2F))
+        return new BiomeSpecialEffects.Builder().fogColor((0xC0FFD8)).waterColor(Color.WHITE.getRGB())
+                .waterFogColor(Color.WHITE.getRGB()).skyColor(OverworldBiomes.calculateSkyColor((0.2F)))
                 .backgroundMusic(new Music(TASoundEvents.BACKGROUND_MUSIC.getHolder().get(),
                         Musics.THIRTY_SECONDS, Musics.TEN_MINUTES, Boolean.FALSE));
     }
@@ -136,13 +142,13 @@ public class TABiomes {
         return spawnInfo;
     }
 
-    private static MobSpawnSettings.Builder EquinoxFlowerPlainsMobSpawning(){
+    private static MobSpawnSettings.Builder equinoxFlowerPlainsMobSpawning() {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.SPIRIT.get(), 2, 1, 2));
         return spawnInfo;
     }
 
-    private static MobSpawnSettings.Builder defaultFishSpawning(){
+    private static MobSpawnSettings.Builder defaultFishSpawning() {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
         spawnInfo.creatureGenerationProbability(0.3F);
         spawnInfo.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_FISH.get(), 25, 8, 8));

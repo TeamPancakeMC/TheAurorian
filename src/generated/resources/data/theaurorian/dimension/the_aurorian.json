@@ -75,6 +75,15 @@
           },
           {
             "biome_layers": {
+              "-1.0": "theaurorian:lavender_plains",
+              "-3.0": "theaurorian:underground"
+            },
+            "depth": 0.35,
+            "key_biome": "theaurorian:lavender_plains",
+            "scale": 0.4
+          },
+          {
+            "biome_layers": {
               "-1.0": "theaurorian:weeping_willow_forest",
               "-3.0": "theaurorian:underground"
             },

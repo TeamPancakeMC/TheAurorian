@@ -38,6 +38,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.DARK_STONE_GLASS_PANE.get(), "暗石玻璃板");
         this.add(TABlocks.AURORIAN_GRASS.get(), "极光草");
         this.add(TABlocks.AURORIAN_GRASS_LIGHT.get(), "发光极光草");
+        this.add(TABlocks.AURORIAN_WATER_GRASS.get(), "极光水草");
         this.add(TABlocks.AURORIAN_FURNACE.get(), "极光熔炉");
         this.add(TABlocks.AURORIAN_FURNACE_CHIMNEY.get(), "极光熔炉孔道");
         this.add(TABlocks.AURORIAN_PORTAL.get(), "极光传送门");
@@ -49,6 +50,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.EQUINOX_FLOWER.get(), "彼岸花");
         this.add(TABlocks.LAVENDER_PLANT.get(), "薰衣草");
         this.add(TABlocks.PETUNIA_PLANT.get(), "牵牛花");
+        this.add(TABlocks.TALL_AURORIAN_GRASS.get(), "高薰衣草");
+        this.add(TABlocks.TALL_LAVENDER_PLANT.get(), "高极光草");
+        this.add(TABlocks.TALL_AURORIAN_WATER_GRASS.get(), "高极光水草");
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "极光橄榄岩");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "平滑极光橄榄岩");
         this.add(TABlocks.MOONSTONE_ORE.get(), "皎月石矿石");

@@ -64,4 +64,12 @@ public abstract class PlayerListMixin {
         return serverlevel;
     }
 
+    @Redirect(method = "getPlayerForLogin", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/server/MinecraftServer;overworld()Lnet/minecraft/server/level/ServerLevel;"), require = 0)
+    private ServerLevel changePlayerForLoginOverworld(MinecraftServer minecraftServer) {
+        if(AurorianConfig.CONFIG_DEFAULT_SPAWN_IN_AURORIAN_DIMENSION.get()){
+            return minecraftServer.getLevel(TADimensions.AURORIAN_DIMENSION);
+        }
+        return minecraftServer.overworld();
+    }
 }

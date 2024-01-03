@@ -4,11 +4,10 @@ import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class MoonFish extends AbstractFish {
+public class MoonFish extends AbstractAurorianFish {
 
     public MoonFish(EntityType<? extends MoonFish> type, Level level) {
         super(type, level);
@@ -23,5 +22,4 @@ public class MoonFish extends AbstractFish {
     public ItemStack getBucketItemStack() {
         return TAItems.MOON_FISH_BUCKET.get().getDefaultInstance();
     }
-
 }

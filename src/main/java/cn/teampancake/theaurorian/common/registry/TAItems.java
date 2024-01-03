@@ -20,7 +20,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -294,7 +293,7 @@ public class TAItems {
     public static final RegistryObject<Item> LIVING_DIVINING_ROD = ITEMS.register("living_divining_rod", LivingDiviningRod::new);
     public static final RegistryObject<Item> MOON_WATER_BUCKET = ITEMS.register("moon_water_bucket", () -> new BucketItem(TAFluids.MOON_WATER_STILL, new Item.Properties()));
     public static final RegistryObject<Item> MOON_FISH_BUCKET = ITEMS.register("moon_fish_bucket", () -> new MobBucketItem(TAEntityTypes.MOON_FISH,
-            () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
+            TAFluids.MOON_WATER_STILL, () -> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
     public static final RegistryObject<Item> DEVELOPER_GIFT = ITEMS.register("developer_gift", DeveloperGift::new);
 
     /**

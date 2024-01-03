@@ -59,11 +59,8 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_PLAINS), ParticleTypes.FIREWORK, 0.00375F).build());
         context.register(AURORIAN_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(AURORIAN_RIVER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacements.WATER_GRASS_SLIGHTLY_LESS_SHORT)
-                .addFeature(vegetalDecoration, TAPlacements.WATER_GRASS_SHORT), defaultFishSpawning().build()).build());
-        context.register(AURORIAN_LAKE, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacements.WATER_GRASS_MID)
-                .addFeature(vegetalDecoration, TAPlacements.WATER_GRASS_TALL), defaultFishSpawning().build()).build());
+                .addFeature(vegetalDecoration, TAPlacements.RANDOM_WATER_SURFACE_PLANT), defaultFishSpawning().build()).build());
+        context.register(AURORIAN_LAKE, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter), defaultFishSpawning().build()).build());
         context.register(EQUINOX_FLOWER_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_EQUINOX_FLOWER), ParticleTypes.SOUL, equinoxFlowerPlainsMobSpawning().build(), 0.0025F).build());
         context.register(LAVENDER_PLAINS, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
@@ -86,25 +83,25 @@ public class TABiomes {
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings) {
-        return biomeWithDefaults(biomeGenerationSettings, defaultMobSpawning().build());
+        return biomeWithDefaults(biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacements.RANDOM_RIVERSIDE_PLANT), defaultMobSpawning().build());
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings, MobSpawnSettings mobSpawnSettings) {
-        return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature(0.2F).downfall(0.0F)
+        return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature((0.2F)).downfall((0.0F))
                 .specialEffects(defaultAmbientBuilder().build()).mobSpawnSettings(mobSpawnSettings)
                 .generationSettings(defaultOreBuilder(biomeGenerationSettings).build())
                 .temperatureAdjustment(Biome.TemperatureModifier.NONE);
     }
 
     private static Biome.BiomeBuilder biomeWithParticle(BiomeGenerationSettings.Builder biomeGenerationSettings, ParticleOptions options,MobSpawnSettings mobSpawnSettings, float probability) {
-        return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature(0.2F).downfall(0.0F)
+        return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature((0.2F)).downfall((0.0F))
                 .specialEffects(defaultAmbientWithParticleBuilder(options, probability).build()).mobSpawnSettings(mobSpawnSettings)
                 .generationSettings(defaultOreBuilder(biomeGenerationSettings).build())
                 .temperatureAdjustment(Biome.TemperatureModifier.NONE);
     }
 
     private static Biome.BiomeBuilder biomeWithParticle(BiomeGenerationSettings.Builder biomeGenerationSettings, ParticleOptions options, float probability) {
-        return biomeWithParticle(biomeGenerationSettings, options, defaultMobSpawning().build(), probability);
+        return biomeWithParticle(biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacements.RANDOM_RIVERSIDE_PLANT), options, defaultMobSpawning().build(), probability);
     }
 
     private static BiomeGenerationSettings.Builder defaultOreBuilder(BiomeGenerationSettings.Builder biomeGenerationSettings) {

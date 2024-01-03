@@ -33,12 +33,6 @@
       "theaurorian:ore_moonstone",
       "theaurorian:ore_cerulean",
       "theaurorian:ore_geode"
-    ],
-    [],
-    [],
-    [
-      "theaurorian:water_grass_mid",
-      "theaurorian:water_grass_tall"
     ]
   ],
   "has_precipitation": false,

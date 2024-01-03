@@ -3,20 +3,15 @@ package cn.teampancake.theaurorian.common.level.placement;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.level.feature.TAConfiguredFeatures;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 
@@ -32,13 +27,10 @@ public class TAPlacements {
     public static final ResourceKey<PlacedFeature> PATCH_LAVENDER = createKey("patch_lavender");
     public static final ResourceKey<PlacedFeature> TREES_AURORIAN_FOREST = createKey("trees_aurorian_forest");
     public static final ResourceKey<PlacedFeature> RANDOM_FALLEN_SILENT_LOG = createKey("random_fallen_silent_log");
+    public static final ResourceKey<PlacedFeature> RANDOM_WATER_SURFACE_PLANT = createKey("random_water_surface_plant");
     public static final ResourceKey<PlacedFeature> RANDOM_CRYSTAL_CLUSTER = createKey("random_crystal_cluster");
     public static final ResourceKey<PlacedFeature> RANDOM_WEAK_GRASS = createKey("random_weak_grass");
-    public static final ResourceKey<PlacedFeature> WATER_GRASS_SIMPLE = createKey("water_grass_simple");
-    public static final ResourceKey<PlacedFeature> WATER_GRASS_SLIGHTLY_LESS_SHORT = createKey("water_grass_slightly_less_short");
-    public static final ResourceKey<PlacedFeature> WATER_GRASS_SHORT = createKey("water_grass_short");
-    public static final ResourceKey<PlacedFeature> WATER_GRASS_MID = createKey("water_grass_mid");
-    public static final ResourceKey<PlacedFeature> WATER_GRASS_TALL = createKey("water_grass_tall");
+    public static final ResourceKey<PlacedFeature> RANDOM_RIVERSIDE_PLANT = createKey("random_riverside_plant");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_PERIDOTITE = createKey("ore_aurorian_peridotite");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_DIRT = createKey("ore_aurorian_dirt");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_COAL = createKey("ore_aurorian_coal");
@@ -61,13 +53,10 @@ public class TAPlacements {
         Holder<ConfiguredFeature<?, ?>> patchLavenderHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_LAVENDER);
         Holder<ConfiguredFeature<?, ?>> treesAurorianForestHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_AURORIAN_FOREST);
         Holder<ConfiguredFeature<?, ?>> randomFallenSilentLogHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_FALLEN_SILENT_LOG);
+        Holder<ConfiguredFeature<?, ?>> randomWaterSurfacePlantHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_WATER_SURFACE_PLANT);
         Holder<ConfiguredFeature<?, ?>> randomCrystalClusterHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_CRYSTAL_CLUSTER);
         Holder<ConfiguredFeature<?, ?>> randomWickGrassHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_WEAK_GRASS);
-        Holder.Reference<ConfiguredFeature<?, ?>> waterGrassReference1 = configuredFeature.getOrThrow(TAConfiguredFeatures.WATER_GRASS_SIMPLE);
-        Holder.Reference<ConfiguredFeature<?, ?>> waterGrassReference2 = configuredFeature.getOrThrow(TAConfiguredFeatures.WATER_GRASS_SLIGHTLY_LESS_SHORT);
-        Holder.Reference<ConfiguredFeature<?, ?>> waterGrassReference3 = configuredFeature.getOrThrow(TAConfiguredFeatures.WATER_GRASS_SHORT);
-        Holder.Reference<ConfiguredFeature<?, ?>> waterGrassReference4 = configuredFeature.getOrThrow(TAConfiguredFeatures.WATER_GRASS_MID);
-        Holder.Reference<ConfiguredFeature<?, ?>> waterGrassReference5 = configuredFeature.getOrThrow(TAConfiguredFeatures.WATER_GRASS_TALL);
+        Holder<ConfiguredFeature<?, ?>> randomRiversidePlantHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_RIVERSIDE_PLANT);
         Holder<ConfiguredFeature<?, ?>> silentTreeHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.SILENT_TREE);
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_PLAINS, patchAurorianGrassHolder, NoiseThresholdCountPlacement.of((-0.8D), (5), (10)),
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
@@ -81,15 +70,10 @@ public class TAPlacements {
         PlacementUtils.register(context, PATCH_LAVENDER, patchLavenderHolder, VegetationPlacements.worldSurfaceSquaredWithCount(6));
         PlacementUtils.register(context, TREES_AURORIAN_FOREST, treesAurorianForestHolder, VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
         PlacementUtils.register(context, RANDOM_FALLEN_SILENT_LOG, randomFallenSilentLogHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
+        PlacementUtils.register(context, RANDOM_WATER_SURFACE_PLANT, randomWaterSurfacePlantHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, RANDOM_CRYSTAL_CLUSTER, randomCrystalClusterHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, RANDOM_WEAK_GRASS, randomWickGrassHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
-        PlacementUtils.register(context, WATER_GRASS_SIMPLE, waterGrassReference1, CarvingMaskPlacement.forStep(GenerationStep.Carving.LIQUID), 
-                RarityFilter.onAverageOnceEvery(10), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), TABlocks.AURORIAN_STONE.get()), 
-                        BlockPredicate.matchesBlocks(BlockPos.ZERO, TABlocks.MOON_WATER.get()), BlockPredicate.matchesBlocks(Direction.UP.getNormal(), TABlocks.MOON_WATER.get()))), BiomeFilter.biome());
-        PlacementUtils.register(context, WATER_GRASS_SLIGHTLY_LESS_SHORT, waterGrassReference2, AquaticPlacements.seagrassPlacement(48));
-        PlacementUtils.register(context, WATER_GRASS_SHORT, waterGrassReference3, AquaticPlacements.seagrassPlacement(48));
-        PlacementUtils.register(context, WATER_GRASS_MID, waterGrassReference4, AquaticPlacements.seagrassPlacement(64));
-        PlacementUtils.register(context, WATER_GRASS_TALL, waterGrassReference5, AquaticPlacements.seagrassPlacement(48));
+        PlacementUtils.register(context, RANDOM_RIVERSIDE_PLANT, randomRiversidePlantHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, SILENT_TREE, silentTreeHolder, PlacementUtils.filteredByBlockSurvival(TABlocks.SILENT_TREE_SAPLING.get()));
         PlacementUtils.register(context, ORE_AURORIAN_PERIDOTITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_PERIDOTITE),
                 OrePlacements.commonOrePlacement(10, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(100))));

@@ -8,11 +8,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Supplier;
 
-public class TATallGrassBlock extends DoublePlantBlock {
+public class TADoublePlantBlock extends DoublePlantBlock {
 
     private final Supplier<Block> block;
 
-    public TATallGrassBlock(Properties properties, Supplier<Block> block) {
+    public TADoublePlantBlock(Properties properties, Supplier<Block> block) {
         super(properties);
         this.block = block;
     }

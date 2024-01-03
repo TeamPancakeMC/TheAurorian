@@ -1,0 +1,2126 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": {
+      "feature": {
+        "type": "minecraft:random_patch",
+        "config": {
+          "feature": {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "config": {
+                "to_place": {
+                  "type": "minecraft:weighted_state_provider",
+                  "entries": [
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "0"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "1"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "2"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "3"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "4"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "5"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "6"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "7"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "8"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "9"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "10"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "11"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "12"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "13"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "14"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:aurorian_water_grass",
+                        "Properties": {
+                          "level": "15"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "0"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "1"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "2"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "3"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "4"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "5"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "6"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "7"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "8"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "9"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "10"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "11"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "12"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "13"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "14"
+                        }
+                      },
+                      "weight": 1
+                    },
+                    {
+                      "data": {
+                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Properties": {
+                          "half": "lower",
+                          "level": "15"
+                        }
+                      },
+                      "weight": 1
+                    }
+                  ]
+                }
+              }
+            },
+            "placement": [
+              {
+                "type": "minecraft:block_predicate_filter",
+                "predicate": {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:air"
+                }
+              }
+            ]
+          },
+          "tries": 6,
+          "xz_spread": 7,
+          "y_spread": 3
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": "minecraft:air"
+              },
+              {
+                "type": "minecraft:any_of",
+                "predicates": [
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -1,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -1,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -1,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -1,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -1,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -1,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -1,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -2,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -2,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -2,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -2,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -2,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -2,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -2,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -3,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -3,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -3,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -3,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -3,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -3,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -3,
+                      -3,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -1,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -1,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -1,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -1,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -1,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -1,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -1,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -2,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -2,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -2,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -2,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -2,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -2,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -2,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -3,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -3,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -3,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -3,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -3,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -3,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -2,
+                      -3,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -1,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -1,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -1,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -1,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -1,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -1,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -1,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -2,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -2,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -2,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -2,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -2,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -2,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -2,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -3,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -3,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -3,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -3,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -3,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -3,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      -1,
+                      -3,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -1,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -1,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -1,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -1,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -1,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -1,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -1,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -2,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -2,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -2,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -2,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -2,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -2,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -2,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -3,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -3,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -3,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -3,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -3,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -3,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      0,
+                      -3,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -1,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -1,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -1,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -1,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -1,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -1,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -1,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -2,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -2,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -2,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -2,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -2,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -2,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -2,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -3,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -3,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -3,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -3,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -3,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -3,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      1,
+                      -3,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -1,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -1,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -1,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -1,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -1,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -1,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -1,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -2,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -2,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -2,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -2,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -2,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -2,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -2,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -3,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -3,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -3,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -3,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -3,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -3,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      2,
+                      -3,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -1,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -1,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -1,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -1,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -1,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -1,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -1,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -2,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -2,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -2,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -2,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -2,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -2,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -2,
+                      3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -3,
+                      -3
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -3,
+                      -2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -3,
+                      -1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -3,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -3,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -3,
+                      2
+                    ]
+                  },
+                  {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": [
+                      "theaurorian:moon_water_still",
+                      "theaurorian:moon_water_flowing"
+                    ],
+                    "offset": [
+                      3,
+                      -3,
+                      3
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tries": 20,
+    "xz_spread": 4,
+    "y_spread": 0
+  }
+}

@@ -1,6 +1,51 @@
 {
   "variants": {
-    "": {
+    "level=0": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=1": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=10": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=11": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=12": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=13": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=14": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=15": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=2": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=3": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=4": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=5": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=6": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=7": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=8": {
+      "model": "theaurorian:block/aurorian_water_grass"
+    },
+    "level=9": {
       "model": "theaurorian:block/aurorian_water_grass"
     }
   }

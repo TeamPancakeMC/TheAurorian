@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "level=0": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=1": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=10": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=11": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=12": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=13": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=14": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=15": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=2": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=3": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=4": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=5": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=6": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=7": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=8": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    },
+    "level=9": {
+      "model": "theaurorian:block/aurorian_water_mushroom"
+    }
+  }
+}

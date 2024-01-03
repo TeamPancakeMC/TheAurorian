@@ -33,6 +33,11 @@
       "theaurorian:ore_moonstone",
       "theaurorian:ore_cerulean",
       "theaurorian:ore_geode"
+    ],
+    [],
+    [],
+    [
+      "theaurorian:random_riverside_plant"
     ]
   ],
   "has_precipitation": false,

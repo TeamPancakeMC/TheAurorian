@@ -1,7 +1,7 @@
 {
-  "parent": "minecraft:block/template_seagrass",
+  "parent": "minecraft:block/tinted_cross",
   "render_type": "minecraft:cutout",
   "textures": {
-    "texture": "theaurorian:block/tall_aurorian_water_grass_lower"
+    "cross": "theaurorian:block/tall_aurorian_water_grass_lower"
   }
 }

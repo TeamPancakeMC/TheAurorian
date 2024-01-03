@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -38,7 +39,6 @@ public class TABlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         this.registerLiquidStates();
         this.registerScrapperState();
-        this.registerWickGrassStates();
         this.registerCraftingTableState();
         this.registerMysticalBarrierState();
         this.registerAurorianPortalState();
@@ -140,12 +140,13 @@ public class TABlockStateProvider extends BlockStateProvider {
                         this.modLoc("block/red_aurorian_grass_block"),
                         this.modLoc("block/aurorian_dirt"),
                         this.modLoc("block/red_aurorian_grass_block_top")));
-        this.simpleBlock(TABlocks.AURORIAN_WATER_GRASS.get(),
-                this.models().withExistingParent(this.name(TABlocks.AURORIAN_WATER_GRASS.get()), this.mcLoc("block/template_seagrass"))
-                        .texture("texture", this.blockTexture(TABlocks.AURORIAN_WATER_GRASS.get())).renderType(CUTOUT));
-        this.registerDoublePlantStates(TABlocks.TALL_AURORIAN_GRASS.get(), this.mcLoc("block/tinted_cross"), "cross");
-        this.registerDoublePlantStates(TABlocks.TALL_LAVENDER_PLANT.get(), this.mcLoc("block/tinted_cross"), "cross");
-        this.registerDoublePlantStates(TABlocks.TALL_AURORIAN_WATER_GRASS.get(), this.mcLoc("block/template_seagrass"), "texture");
+        this.registerLightPlantStates(TABlocks.AURORIAN_WATER_GRASS.get());
+        this.registerDoublePlantStates(TABlocks.TALL_AURORIAN_GRASS.get());
+        this.registerDoublePlantStates(TABlocks.TALL_LAVENDER_PLANT.get());
+        this.registerDoubleLightPlantStates(TABlocks.WICK_GRASS.get());
+        this.registerDoubleLightPlantStates(TABlocks.TALL_AURORIAN_WATER_GRASS.get());
+        this.registerWaterSurfacePlantStates(TABlocks.AURORIAN_LILY_PAD.get());
+        this.registerWaterSurfacePlantStates(TABlocks.AURORIAN_WATER_MUSHROOM.get());
         this.simpleBlockWithRenderType(TABlocks.MOON_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.AURORIAN_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.DARK_STONE_GLASS.get(), TRANSLUCENT);
@@ -359,15 +360,51 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(block, this.models().cross(this.name(block), this.blockTexture(block)).renderType(CUTOUT));
     }
 
-    private void registerDoublePlantStates(Block block, ResourceLocation parent, String key) {
+    private void registerLightPlantStates(Block block) {
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        for (int level : BlockStateProperties.LEVEL.getPossibleValues()) {
+            ResourceLocation parent = this.mcLoc("block/cross");
+            ResourceLocation texture = this.modLoc("block/" + this.name(block));
+            ModelFile modelFile = this.models().withExistingParent(this.name(block), parent).texture("cross", texture).renderType(CUTOUT);
+            builder.partialState().with(BlockStateProperties.LEVEL, level).modelForState().modelFile(modelFile).addModel();
+        }
+    }
+
+    private void registerDoublePlantStates(Block block) {
         VariantBlockStateBuilder builder = this.getVariantBuilder(block);
         for (DoubleBlockHalf half : DoublePlantBlock.HALF.getPossibleValues()) {
             String name = this.name(block) + "_" + half.toString();
+            ResourceLocation parent = this.mcLoc("block/tinted_cross");
             ResourceLocation texture = this.modLoc("block/" + name);
             ModelFile modelFile = this.models().withExistingParent(name, parent)
-                    .texture(key, texture).renderType(CUTOUT);
+                    .texture("cross", texture).renderType(CUTOUT);
             builder.partialState().with(DoublePlantBlock.HALF, half)
                     .modelForState().modelFile(modelFile).addModel();
+        }
+    }
+
+    private void registerDoubleLightPlantStates(Block block) {
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        for (DoubleBlockHalf half : DoublePlantBlock.HALF.getPossibleValues()) {
+            for (int level : BlockStateProperties.LEVEL.getPossibleValues()) {
+                String name = this.name(block) + "_" + half.toString();
+                ResourceLocation texture = this.modLoc("block/" + name);
+                ModelFile modelFile = this.models().withExistingParent(name,
+                                this.mcLoc("block/tinted_cross"))
+                        .texture("cross", texture).renderType(CUTOUT);
+                builder.partialState().with(DoublePlantBlock.HALF, half)
+                        .with(BlockStateProperties.LEVEL, level)
+                        .modelForState().modelFile(modelFile).addModel();
+            }
+        }
+    }
+
+    private void registerWaterSurfacePlantStates(Block block) {
+        IntegerProperty property = AurorianWaterSurfacePlant.LEVEL;
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        for (int level : property.getPossibleValues()) {
+            ModelFile modelFile = new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block)));
+            builder.partialState().with(property, level).modelForState().modelFile(modelFile).addModel();
         }
     }
 
@@ -422,20 +459,6 @@ public class TABlockStateProvider extends BlockStateProvider {
         for (Direction direction : Scrapper.FACING.getPossibleValues()) {
             builder.partialState().with(Scrapper.FACING, direction).modelForState().modelFile(modelFile)
                     .rotationY(direction.get2DDataValue() * 90).addModel();
-        }
-    }
-
-    private void registerWickGrassStates() {
-        VariantBlockStateBuilder builder = this.getVariantBuilder(TABlocks.WICK_GRASS.get());
-        for (DoubleBlockHalf half : DoublePlantBlock.HALF.getPossibleValues()) {
-            for (int level : WickGrass.LEVEL.getPossibleValues()) {
-                String name = this.name(TABlocks.WICK_GRASS.get()) + "_" + half.toString();
-                ResourceLocation texture = this.modLoc("block/" + name);
-                ModelFile modelFile = this.models().withExistingParent(name, this.mcLoc("block/tinted_cross"))
-                        .texture("cross", texture).renderType(CUTOUT);
-                builder.partialState().with(DoublePlantBlock.HALF, half).with(WickGrass.LEVEL, level)
-                        .modelForState().modelFile(modelFile).addModel();
-            }
         }
     }
 

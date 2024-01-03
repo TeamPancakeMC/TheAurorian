@@ -39,6 +39,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.AURORIAN_GRASS.get(), "极光草");
         this.add(TABlocks.AURORIAN_GRASS_LIGHT.get(), "发光极光草");
         this.add(TABlocks.AURORIAN_WATER_GRASS.get(), "极光水草");
+        this.add(TABlocks.AURORIAN_LILY_PAD.get(), "极光睡莲");
+        this.add(TABlocks.AURORIAN_WATER_MUSHROOM.get(), "极光水菇");
         this.add(TABlocks.AURORIAN_FURNACE.get(), "极光熔炉");
         this.add(TABlocks.AURORIAN_FURNACE_CHIMNEY.get(), "极光熔炉孔道");
         this.add(TABlocks.AURORIAN_PORTAL.get(), "极光传送门");

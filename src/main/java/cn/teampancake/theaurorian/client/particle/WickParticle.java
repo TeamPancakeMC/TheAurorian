@@ -4,11 +4,14 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("deprecation")
 public class WickParticle extends SimpleAnimatedParticle {
 
     private final int halfLife;
@@ -37,6 +40,12 @@ public class WickParticle extends SimpleAnimatedParticle {
         if (this.age > this.halfLife) {
             this.setAlpha(1.0F - ((float)this.age - (float)this.halfLife) / (float)this.lifetime);
         }
+    }
+
+    @Override
+    public int getLightColor(float partialTick) {
+        BlockPos blockPos = BlockPos.containing(this.x, this.y, this.z);
+        return this.level.hasChunkAt(blockPos) ? LevelRenderer.getLightColor(this.level, blockPos) : 0;
     }
 
     private float getGlowBrightness() {

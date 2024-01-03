@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
-import cn.teampancake.theaurorian.AurorianMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -14,13 +13,12 @@ import java.util.*;
 
 @Mod.EventBusSubscriber
 public class SafeTeleportHandler {
+
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         Player entity = event.getEntity();
         Level level = entity.level();
-        new Thread(() -> {
-            teleportToSafeLocation(level, entity, 100);
-        }).start();
+        new Thread(() -> teleportToSafeLocation(level, entity, 100)).start();
     }
 
     private static void teleportToSafeLocation(Level level, Player player, int radius) {
@@ -62,13 +60,10 @@ public class SafeTeleportHandler {
         entity.teleportTo(x, y, z);
     }
 
-
     private static List<Direction> isLocationSafe(Player player) {
         BlockPos pos = player.blockPosition();
         Level level = player.level();
-
         List<Direction> directions = new ArrayList<>();
-
         if (!level.noCollision(player)) {
             directions.add(Direction.NORTH);
             directions.add(Direction.SOUTH);
@@ -89,7 +84,6 @@ public class SafeTeleportHandler {
 
     private static BlockPos findSafeLocation(Level level, Player player, int radius) {
         List<Direction> directions = isLocationSafe(player);
-
         for (Direction direction : directions) {
             for (int i = 1; i <= 10; ++i) {
                 BlockPos pos = player.blockPosition().relative(direction, i);
@@ -105,7 +99,6 @@ public class SafeTeleportHandler {
 
         while (!queue.isEmpty()) {
             BlockPos current = queue.poll();
-
             if (isAreaSafe(level, current)) {
                 return current.relative(Direction.UP);
             }
@@ -124,7 +117,6 @@ public class SafeTeleportHandler {
         return null;
     }
 
-
     private static boolean isAreaSafe(Level level, BlockPos pos) {
         if (!level.getBlockState(pos).isAir() && level.getFluidState(pos).isEmpty()) {
             for (int i = 1; i <= 2; ++i) {
@@ -136,4 +128,5 @@ public class SafeTeleportHandler {
         }
         return false;
     }
+
 }

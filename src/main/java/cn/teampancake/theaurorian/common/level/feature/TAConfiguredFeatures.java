@@ -88,8 +88,8 @@ public class TAConfiguredFeatures {
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest ruleTest = new BlockMatchTest(TABlocks.AURORIAN_STONE.get());
+        BlockState wickGrass = TABlocks.WICK_GRASS.get().defaultBlockState();
         BlockState blueberryBush = TABlocks.BLUEBERRY_BUSH.get().defaultBlockState();
-        BlockState wickGrass = TABlocks.WICK_GRASS.get().defaultBlockState().setValue(WickGrass.HALF, DoubleBlockHalf.LOWER);
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
         WickGrass.LEVEL.getPossibleValues().forEach(level -> wickGrassBuilder.add(wickGrass.setValue(WickGrass.LEVEL, level), 1));
         Holder<PlacedFeature> silentTreeLikeSpruce = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.SILENT_TREE);

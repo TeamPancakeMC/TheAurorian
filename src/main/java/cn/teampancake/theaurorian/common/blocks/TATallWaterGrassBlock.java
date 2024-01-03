@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.TallSeagrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 
@@ -19,7 +20,7 @@ public class TATallWaterGrassBlock extends TallSeagrassBlock {
 
     public TATallWaterGrassBlock(Properties properties) {
         super(properties.lightLevel(state -> state.getValue(LEVEL)));
-        this.registerDefaultState(this.stateDefinition.any().setValue(LEVEL, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(LEVEL, 0));
     }
 
     @Override

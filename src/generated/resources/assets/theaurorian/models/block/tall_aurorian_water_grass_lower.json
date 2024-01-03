@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_seagrass",
   "render_type": "minecraft:cutout",
   "textures": {
-    "cross": "theaurorian:block/tall_aurorian_water_grass_lower"
+    "texture": "theaurorian:block/tall_aurorian_water_grass_lower"
   }
 }

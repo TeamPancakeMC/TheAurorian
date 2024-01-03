@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.network.message;
 
-
 import cn.teampancake.theaurorian.common.capability.ShieldCap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -14,42 +13,40 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class ShieldSyncS2CMessage {
+
     public CompoundTag tag;
 
     public ShieldSyncS2CMessage(CompoundTag tag) {
         this.tag = tag;
     }
 
-    public static void encode(ShieldSyncS2CMessage message, FriendlyByteBuf buffer){
+    public static void encode(ShieldSyncS2CMessage message, FriendlyByteBuf buffer) {
         buffer.writeNbt(message.tag);
     }
 
-    public static ShieldSyncS2CMessage decode(FriendlyByteBuf buffer){
+    public static ShieldSyncS2CMessage decode(FriendlyByteBuf buffer) {
         return new ShieldSyncS2CMessage(buffer.readNbt());
     }
 
-    public static void handle(ShieldSyncS2CMessage message, Supplier<NetworkEvent.Context> contextSupplier)
-    {
+    public static void handle(ShieldSyncS2CMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
-
-        if (context.getDirection().getReceptionSide().isClient())
-        {
+        if (context.getDirection().getReceptionSide().isClient()) {
             context.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientShieldSyncS2CMessage.handlePacket(message, contextSupplier)));
         }
 
         context.setPacketHandled(true);
     }
+
 }
 
 @OnlyIn(Dist.CLIENT)
 class ClientShieldSyncS2CMessage {
+
     public static void handlePacket(ShieldSyncS2CMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         Player player = Minecraft.getInstance().player;
-
         if (player != null) {
-            ShieldCap.getCapability(player).ifPresent(cap -> {
-                cap.deserializeNBT(message.tag);
-            });
+            ShieldCap.getCapability(player).ifPresent(cap -> cap.deserializeNBT(message.tag));
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
+import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
 import net.minecraft.core.BlockPos;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class WickGrass extends TallFlowerBlock {
@@ -20,7 +22,7 @@ public class WickGrass extends TallFlowerBlock {
 
     public WickGrass() {
         super(Properties.copy(Blocks.SUNFLOWER).lightLevel((state) -> state.getValue(LEVEL)));
-        this.registerDefaultState(this.stateDefinition.any().setValue(LEVEL, 15));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(LEVEL, 15));
     }
 
     @Override
@@ -30,7 +32,7 @@ public class WickGrass extends TallFlowerBlock {
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.getBlock() == TABlocks.AURORIAN_GRASS_BLOCK.get();
+        return state.is(TABlockTags.AURORIAN_GRASS_BLOCK);
     }
 
     @Override

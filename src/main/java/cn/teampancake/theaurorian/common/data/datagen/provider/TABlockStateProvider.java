@@ -143,9 +143,9 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.AURORIAN_WATER_GRASS.get(),
                 this.models().withExistingParent(this.name(TABlocks.AURORIAN_WATER_GRASS.get()), this.mcLoc("block/template_seagrass"))
                         .texture("texture", this.blockTexture(TABlocks.AURORIAN_WATER_GRASS.get())).renderType(CUTOUT));
-        this.registerDoublePlantStates(TABlocks.TALL_AURORIAN_GRASS.get(), this.mcLoc("block/tinted_cross"));
-        this.registerDoublePlantStates(TABlocks.TALL_LAVENDER_PLANT.get(), this.mcLoc("block/tinted_cross"));
-        this.registerDoublePlantStates(TABlocks.TALL_AURORIAN_WATER_GRASS.get(), this.mcLoc("block/template_seagrass"));
+        this.registerDoublePlantStates(TABlocks.TALL_AURORIAN_GRASS.get(), this.mcLoc("block/tinted_cross"), "cross");
+        this.registerDoublePlantStates(TABlocks.TALL_LAVENDER_PLANT.get(), this.mcLoc("block/tinted_cross"), "cross");
+        this.registerDoublePlantStates(TABlocks.TALL_AURORIAN_WATER_GRASS.get(), this.mcLoc("block/template_seagrass"), "texture");
         this.simpleBlockWithRenderType(TABlocks.MOON_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.AURORIAN_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.DARK_STONE_GLASS.get(), TRANSLUCENT);
@@ -359,13 +359,13 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(block, this.models().cross(this.name(block), this.blockTexture(block)).renderType(CUTOUT));
     }
 
-    private void registerDoublePlantStates(Block block, ResourceLocation parent) {
+    private void registerDoublePlantStates(Block block, ResourceLocation parent, String key) {
         VariantBlockStateBuilder builder = this.getVariantBuilder(block);
         for (DoubleBlockHalf half : DoublePlantBlock.HALF.getPossibleValues()) {
             String name = this.name(block) + "_" + half.toString();
             ResourceLocation texture = this.modLoc("block/" + name);
             ModelFile modelFile = this.models().withExistingParent(name, parent)
-                    .texture("cross", texture).renderType(CUTOUT);
+                    .texture(key, texture).renderType(CUTOUT);
             builder.partialState().with(DoublePlantBlock.HALF, half)
                     .modelForState().modelFile(modelFile).addModel();
         }

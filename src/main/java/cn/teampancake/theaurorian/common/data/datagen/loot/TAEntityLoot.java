@@ -34,6 +34,7 @@ public class TAEntityLoot extends VanillaEntityLoot {
     public void generate() {
         //Animal
         this.add(TAEntityTypes.MOON_FISH.get(), LootTable.lootTable());
+        this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), LootTable.lootTable());
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.RABBIT_HIDE)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))

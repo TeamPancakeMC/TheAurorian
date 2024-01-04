@@ -168,6 +168,11 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.CERULEAN_CASTLE_RUNE_STONE_STAIRS.get(), "晶蓝符文符石楼梯");
         this.add(TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS.get(), "月凝晶符文符石楼梯");
         this.add(TABlocks.MOON_CASTLE_RUNE_STONE_STAIRS.get(), "皎月符文符石楼梯");
+        this.add(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_STAIRS.get(), "发光极光符文符石楼梯");
+        this.add(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS.get(), "发光极光钢符文符石楼梯");
+        this.add(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_STAIRS.get(), "发光晶蓝符文符石楼梯");
+        this.add(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS.get(), "发光月凝晶符文符石楼梯");
+        this.add(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE_STAIRS.get(), "发光皎月符文符石楼梯");
         this.add(TABlocks.TRANSPARENT_RUNE_STONE_STAIRS.get(), "透明符石楼梯");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE_STAIRS.get(), "本影符文符石楼梯");
         this.add(TABlocks.DARK_STONE_BRICK_STAIRS.get(), "暗石楼梯");
@@ -198,6 +203,11 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.CERULEAN_CASTLE_RUNE_STONE_SLAB.get(), "晶蓝符文符石台阶");
         this.add(TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE_SLAB.get(), "月凝晶符文符石台阶");
         this.add(TABlocks.MOON_CASTLE_RUNE_STONE_SLAB.get(), "皎月符文符石台阶");
+        this.add(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_SLAB.get(), "发光极光符文符石台阶");
+        this.add(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB.get(), "发光极光钢符文符石台阶");
+        this.add(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_SLAB.get(), "发光晶蓝符文符石台阶");
+        this.add(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_SLAB.get(), "发光月凝晶符文符石台阶");
+        this.add(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE_SLAB.get(), "发光皎月符文符石台阶");
         this.add(TABlocks.TRANSPARENT_RUNE_STONE_SLAB.get(), "透明符石台阶");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE_SLAB.get(), "本影符文符石台阶");
         this.add(TABlocks.DARK_STONE_BRICK_SLAB.get(), "暗石砖块台阶");
@@ -223,6 +233,11 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.CERULEAN_CASTLE_RUNE_STONE_WALL.get(), "晶蓝符文符石墙");
         this.add(TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE_WALL.get(), "月凝晶符文符石墙");
         this.add(TABlocks.MOON_CASTLE_RUNE_STONE_WALL.get(), "皎月符文符石墙");
+        this.add(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_WALL.get(), "发光极光符文符石墙");
+        this.add(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_WALL.get(), "发光极光钢符文符石墙");
+        this.add(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_WALL.get(), "发光晶蓝符文符石墙");
+        this.add(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_WALL.get(), "发光月凝晶符文符石墙");
+        this.add(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE_WALL.get(), "发光皎月符文符石墙");
         this.add(TABlocks.TRANSPARENT_RUNE_STONE_WALL.get(), "透明符石墙");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE_WALL.get(), "本影符文符石墙");
         this.add(TABlocks.DARK_STONE_BRICK_WALL.get(), "暗石砖块墙");
@@ -250,6 +265,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_COAL_NUGGET.get(), "极光煤块");
         this.add(TAItems.AURORIAN_PORK.get(), "生极光猪排");
         this.add(TAItems.MOON_FISH_SPAWN_EGG.get(), "皎月鱼刷怪蛋");
+        this.add(TAItems.AURORIAN_WINGED_FISH_SPAWN_EGG.get(), "极光翅鱼刷怪蛋");
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(), "极光猪刷怪蛋");
         this.add(TAItems.AURORIAN_RABBIT_SPAWN_EGG.get(), "极光兔刷怪蛋");
         this.add(TAItems.AURORIAN_SHEEP_SPAWN_EGG.get(), "极光羊刷怪蛋");
@@ -399,6 +415,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.WEBBING.get(), "蛛母之网");
         this.add(TAEntityTypes.EYE_OF_DISTURBED.get(), "空谷之眼");
         this.add(TAEntityTypes.MOON_FISH.get(), "皎月鱼");
+        this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), "极光翅鱼");
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "极光兔");
         this.add(TAEntityTypes.AURORIAN_SHEEP.get(), "极光羊");
         this.add(TAEntityTypes.AURORIAN_PIG.get(), "极光猪");

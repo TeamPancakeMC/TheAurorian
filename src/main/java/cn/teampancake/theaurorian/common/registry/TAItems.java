@@ -255,6 +255,7 @@ public class TAItems {
      * Spawn Egg
      */
     public static final RegistryObject<Item> MOON_FISH_SPAWN_EGG = spawnEgg("moon_fish", TAEntityTypes.MOON_FISH, 0xd1ccc5, 0x594a48);
+    public static final RegistryObject<Item> AURORIAN_WINGED_FISH_SPAWN_EGG = spawnEgg("aurorian_winged_fish", TAEntityTypes.AURORIAN_WINGED_FISH, 0x4581d5, 0x1b4a8a);
     public static final RegistryObject<Item> AURORIAN_RABBIT_SPAWN_EGG = spawnEgg("aurorian_rabbit", TAEntityTypes.AURORIAN_RABBIT, 0xc2e5e5, 0x43a2ec);
     public static final RegistryObject<Item> AURORIAN_SHEEP_SPAWN_EGG = spawnEgg("aurorian_sheep", TAEntityTypes.AURORIAN_SHEEP, 0x97b4f2, 0x7197ea);
     public static final RegistryObject<Item> AURORIAN_PIG_SPAWN_EGG = spawnEgg("aurorian_pig", TAEntityTypes.AURORIAN_PIG, 0xc6dfff, 0x5d6f93);

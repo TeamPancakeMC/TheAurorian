@@ -115,35 +115,38 @@ public class ItemEventSubscriber {
             });
         }
     }
+
     @SubscribeEvent
     public static void OnStartItem(LivingEntityUseItemEvent.Start event){
-        Level level= event.getEntity().level();
-        if(event.getEntity() instanceof Player player) {
+        Level level = event.getEntity().level();
+        if (event.getEntity() instanceof Player player) {
             if (event.getItem().is(TAItems.CRYSTALLINE_SWORD.get())) {
-            Vec3 lookAngle = player.getLookAngle().normalize();
-            for (int i = 0; i < 30; i++) {
-                for (int j = 0; j < 30; j++) {
-                    double d6 = level.random.nextGaussian() * 0.02D;
-                    double d7 = level.random.nextGaussian() * 0.02D;
-                    double d8 = level.random.nextGaussian() * 0.02D;
-                    level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(),
-                            player.getX()+lookAngle.x+Math.sin(i*Math.PI/15),
-                            player.getY()+1+lookAngle.y+Math.cos(j*Math.PI/15)*(Math.abs(Math.sin(i*Math.PI/15+Math.PI/2))),
-                            player.getZ()+lookAngle.z+Math.cos(j*Math.PI/15)*(Math.abs(Math.sin(i*Math.PI/15+Math.PI/2))),
-                            d6, d7, d8);
+                Vec3 lookAngle = player.getLookAngle().normalize();
+                for (int i = 0; i < 30; i++) {
+                    for (int j = 0; j < 30; j++) {
+                        double d6 = level.random.nextGaussian() * 0.02D;
+                        double d7 = level.random.nextGaussian() * 0.02D;
+                        double d8 = level.random.nextGaussian() * 0.02D;
+                        double v = Math.cos(j * Math.PI / 15) * (Math.abs(Math.sin(i * Math.PI / 15 + Math.PI / 2)));
+                        level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(),
+                                player.getX() + lookAngle.x + Math.sin(i * Math.PI / 15),
+                                player.getY() + lookAngle.y + v + 1.0D,
+                                player.getZ() + lookAngle.z + v, d6, d7, d8);
+                    }
                 }
-            }
             }
         }
     }
 
     @SubscribeEvent
     public static void OnUsingItem(LivingEntityUseItemEvent.Tick event){
-        if(event.getEntity() instanceof Player player) {
+        if (event.getEntity() instanceof Player player) {
             if (event.getItem().is(TAItems.CRYSTALLINE_SWORD.get())) {
-                if(player.getTicksUsingItem()>=60)
+                if (player.getTicksUsingItem() >= 60) {
                     player.releaseUsingItem();
+                }
             }
         }
     }
+
 }

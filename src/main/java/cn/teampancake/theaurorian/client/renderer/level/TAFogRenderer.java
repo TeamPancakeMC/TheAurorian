@@ -28,12 +28,12 @@ public class TAFogRenderer {
     private static long biomeChangedTime = -1L;
 
     public static float[] setupColor(Camera activeRenderInfo, float partialTicks, ClientLevel level, int renderDistanceChunks, float bossColorModifier) {
+        int j = level.getBiome(BlockPos.containing(activeRenderInfo.getPosition())).value().getWaterFogColor();
         FogType fogType = activeRenderInfo.getFluidInCamera();
         Entity entity = activeRenderInfo.getEntity();
         float fogRed, fogGreen, fogBlue;
         if (fogType == FogType.WATER) {
             long i = Util.getMillis();
-            int j = level.getBiome(BlockPos.containing(activeRenderInfo.getPosition())).value().getWaterFogColor();
             if (biomeChangedTime < 0L) {
                 targetBiomeFog = j;
                 previousBiomeFog = j;

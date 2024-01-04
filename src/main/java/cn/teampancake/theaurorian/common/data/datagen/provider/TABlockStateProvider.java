@@ -70,7 +70,6 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.CERULEAN_CASTLE_RUNE_STONE.get());
         this.simpleBlock(TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE.get());
         this.simpleBlock(TABlocks.MOON_CASTLE_RUNE_STONE.get());
-        this.simpleBlock(TABlocks.TRANSPARENT_RUNE_STONE.get());
         this.simpleBlock(TABlocks.UMBRA_CASTLE_RUNE_STONE.get());
         this.simpleBlock(TABlocks.MOON_TEMPLE_BRICKS.get());
         this.simpleBlock(TABlocks.DARK_STONE_BRICKS.get());
@@ -154,6 +153,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlockWithRenderType(TABlocks.SILENT_BUSH_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.SILENT_TREE_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.WEEPING_WILLOW_LEAVES.get(), CUTOUT_MIPPED);
+        this.simpleBlockWithRenderType(TABlocks.TRANSPARENT_RUNE_STONE.get(), TRANSLUCENT);
         this.paneBlockWithRenderType((IronBarsBlock) TABlocks.MOON_GLASS_PANE.get(),
                 this.blockTexture(TABlocks.MOON_GLASS.get()),
                 this.blockTexture(TABlocks.MOON_GLASS_PANE.get()), TRANSLUCENT);

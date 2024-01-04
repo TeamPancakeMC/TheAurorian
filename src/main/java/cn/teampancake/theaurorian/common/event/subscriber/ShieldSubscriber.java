@@ -45,14 +45,10 @@ public class ShieldSubscriber {
             ShieldCap.getCapability(entity).ifPresent(cap -> {
                 cap.getShieldMap().values().stream()
                         .filter(Shield -> Shield.isNaturalRecovery(entity))
-                        .forEach(Shield -> {
-                            Shield.increaseShield(Shield.naturalRecovery(entity));
-                        });
-
+                        .forEach(Shield -> Shield.increaseShield(Shield.naturalRecovery(entity)));
                 TAMessages.sendToPlayer(new ShieldSyncS2CMessage(cap.serializeNBT()),player);
             });
         }
-
     }
 
     //进入维度添加护盾上限
@@ -63,12 +59,14 @@ public class ShieldSubscriber {
             addMaxShield(MaxShieldLoader.Dimension,livingEntity,location,"dimension");
         }
     }
+
     //当成成就时添加护盾上限
     @SubscribeEvent
     public static void onAdvancementEarn(AdvancementEvent.AdvancementEarnEvent event) {
         Advancement advancement = event.getAdvancement();
         addMaxShield(MaxShieldLoader.Achievements,event.getEntity(),advancement.getId(),"achievements");
     }
+
     //当杀死特定生物时添加护盾上限
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
@@ -102,7 +100,6 @@ public class ShieldSubscriber {
     public static void onLivingEquipmentChange(LivingEquipmentChangeEvent event) {
         ResourceLocation keyFrom = ForgeRegistries.ITEMS.getKey(event.getFrom().getItem());
         ResourceLocation keyTO = ForgeRegistries.ITEMS.getKey(event.getTo().getItem());
-
         reduceMaxShield(MaxShieldLoader.Armor,event.getEntity(),keyFrom,"armor");
         addMaxShield(MaxShieldLoader.Armor,event.getEntity(),keyTO,"armor");
     }
@@ -116,7 +113,7 @@ public class ShieldSubscriber {
 
     @SubscribeEvent
     public static void onMobEffectExpired(MobEffectEvent.Expired event) {
-        if (event.getEffectInstance() != null){
+        if (event.getEffectInstance() != null) {
             ResourceLocation key = ForgeRegistries.MOB_EFFECTS.getKey(event.getEffectInstance().getEffect());
             reduceMaxShield(MaxShieldLoader.Buff,event.getEntity(),key,"buff");
         }
@@ -125,38 +122,34 @@ public class ShieldSubscriber {
     //增加护盾上限
     private static boolean addMaxShield(Map<ResourceLocation, Map<ResourceLocation,Integer>> map, LivingEntity livingEntity, ResourceLocation location, String type) {
         final boolean[] flag = {false};
-        map.forEach((shieldLocation, maxShieldMap) -> {
-            ShieldCap.getCapability(livingEntity).ifPresent(cap -> {
-                IShield iShield = cap.getShieldMap().get(shieldLocation);
-                if (iShield != null) {
-                    MaxShieldData maxShieldData = iShield.getMaxShieldData();
-                    if (maxShieldData.Vaild(type,location,true) && maxShieldMap.containsKey(location)) {
-                        iShield.increaseMaxShield(maxShieldMap.get(location));
-                        maxShieldData.MAP.get(type).add(location);
-                        flag[0] = true;
-                    }
+        map.forEach((shieldLocation, maxShieldMap) -> ShieldCap.getCapability(livingEntity).ifPresent(cap -> {
+            IShield iShield = cap.getShieldMap().get(shieldLocation);
+            if (iShield != null) {
+                MaxShieldData maxShieldData = iShield.getMaxShieldData();
+                if (maxShieldData.Vaild(type,location,true) && maxShieldMap.containsKey(location)) {
+                    iShield.increaseMaxShield(maxShieldMap.get(location));
+                    maxShieldData.MAP.get(type).add(location);
+                    flag[0] = true;
                 }
-            });
-        });
+            }
+        }));
         return flag[0];
     }
 
     //减少护盾上限
     private static boolean reduceMaxShield(Map<ResourceLocation, Map<ResourceLocation,Integer>> map, LivingEntity livingEntity, ResourceLocation location, String type) {
         final boolean[] flag = {false};
-        map.forEach((shieldLocation, maxShieldMap) -> {
-            ShieldCap.getCapability(livingEntity).ifPresent(cap -> {
-                IShield iShield = cap.getShieldMap().get(shieldLocation);
-                if (iShield != null) {
-                    MaxShieldData maxShieldData = iShield.getMaxShieldData();
-                    if (maxShieldData.Vaild(type,location,false) && maxShieldMap.containsKey(location)) {
-                        iShield.consumeMaxShield(maxShieldMap.get(location));
-                        maxShieldData.MAP.get(type).remove(location);
-                        flag[0] = true;
-                    }
+        map.forEach((shieldLocation, maxShieldMap) -> ShieldCap.getCapability(livingEntity).ifPresent(cap -> {
+            IShield iShield = cap.getShieldMap().get(shieldLocation);
+            if (iShield != null) {
+                MaxShieldData maxShieldData = iShield.getMaxShieldData();
+                if (maxShieldData.Vaild(type,location,false) && maxShieldMap.containsKey(location)) {
+                    iShield.consumeMaxShield(maxShieldMap.get(location));
+                    maxShieldData.MAP.get(type).remove(location);
+                    flag[0] = true;
                 }
-            });
-        });
+            }
+        }));
         return flag[0];
     }
 
@@ -190,6 +183,7 @@ public class ShieldSubscriber {
             });
         }
     }
+
     //极光护盾免疫眩晕
     @SubscribeEvent
     public static void onMobEffect(MobEffectEvent.Applicable event) {
@@ -203,4 +197,5 @@ public class ShieldSubscriber {
             }
         });
     }
+
 }

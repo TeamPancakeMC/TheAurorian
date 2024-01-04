@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "theaurorian:block/luminous_aurorian_castle_rune_stone_slab"
+    },
+    "type=double": {
+      "model": "theaurorian:block/aurorian_castle_rune_stone"
+    },
+    "type=top": {
+      "model": "theaurorian:block/luminous_aurorian_castle_rune_stone_slab_top"
+    }
+  }
+}

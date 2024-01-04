@@ -213,6 +213,11 @@ public class TABlocks {
     public static final RegistryObject<Block> CERULEAN_CASTLE_RUNE_STONE_STAIRS = stair("cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = stair("crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> MOON_CASTLE_RUNE_STONE_STAIRS = stair("moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_STAIRS = stair("luminous_aurorian_castle_rune_stone_stairs", AURORIAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS = stair("luminous_aurorian_steel_castle_rune_stone_stairs", AURORIAN_STEEL_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_STAIRS = stair("luminous_cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = stair("luminous_crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_MOON_CASTLE_RUNE_STONE_STAIRS = stair("luminous_moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> TRANSPARENT_RUNE_STONE_STAIRS = stair("transparent_rune_stone_stairs", TRANSPARENT_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> UMBRA_CASTLE_RUNE_STONE_STAIRS = stair("umbra_castle_rune_stone_stairs", UMBRA_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> DARK_STONE_BRICK_STAIRS = stair("dark_stone_brick_stairs", DARK_STONE_BRICKS, breakWithQueenPickaxe());
@@ -255,6 +260,11 @@ public class TABlocks {
     public static final RegistryObject<Block> CERULEAN_CASTLE_RUNE_STONE_SLAB = slab("cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = slab("crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> MOON_CASTLE_RUNE_STONE_SLAB = slab("moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_SLAB = slab("luminous_aurorian_castle_rune_stone_slab", AURORIAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB = slab("luminous_aurorian_steel_castle_rune_stone_slab", AURORIAN_STEEL_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_SLAB = slab("luminous_cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = slab("luminous_crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_MOON_CASTLE_RUNE_STONE_SLAB = slab("luminous_moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> TRANSPARENT_RUNE_STONE_SLAB = slab("transparent_rune_stone_slab", TRANSPARENT_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> UMBRA_CASTLE_RUNE_STONE_SLAB = slab("umbra_castle_rune_stone_slab", UMBRA_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> DARK_STONE_BRICK_SLAB = slab("dark_stone_brick_slab", DARK_STONE_BRICKS, breakWithQueenPickaxe());
@@ -284,6 +294,11 @@ public class TABlocks {
     public static final RegistryObject<Block> CERULEAN_CASTLE_RUNE_STONE_WALL = wall("cerulean_castle_rune_stone_wall", CERULEAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> CRYSTALLINE_CASTLE_RUNE_STONE_WALL = wall("crystalline_castle_rune_stone_wall", CRYSTALLINE_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> MOON_CASTLE_RUNE_STONE_WALL = wall("moon_castle_rune_stone_wall", MOON_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_WALL = wall("luminous_aurorian_castle_rune_stone_wall", AURORIAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_WALL = wall("luminous_aurorian_steel_castle_rune_stone_wall", AURORIAN_STEEL_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_WALL = wall("luminous_cerulean_castle_rune_stone_wall", CERULEAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_WALL = wall("luminous_crystalline_castle_rune_stone_wall", CRYSTALLINE_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_MOON_CASTLE_RUNE_STONE_WALL = wall("luminous_moon_castle_rune_stone_wall", MOON_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> TRANSPARENT_RUNE_STONE_WALL = wall("transparent_rune_stone_wall", TRANSPARENT_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> UMBRA_CASTLE_RUNE_STONE_WALL = wall("umbra_castle_rune_stone_wall", UMBRA_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> DARK_STONE_BRICK_WALL = wall("dark_stone_brick_wall", DARK_STONE_BRICKS, breakWithQueenPickaxe());

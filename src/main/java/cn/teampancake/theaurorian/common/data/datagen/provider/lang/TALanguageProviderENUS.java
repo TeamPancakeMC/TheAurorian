@@ -168,6 +168,11 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.CERULEAN_CASTLE_RUNE_STONE_STAIRS.get(), "Cerulean Castle Runestone Stairs");
         this.add(TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS.get(), "Crystalline Castle Runestone Stairs");
         this.add(TABlocks.MOON_CASTLE_RUNE_STONE_STAIRS.get(), "Moon Castle Runestone Stairs");
+        this.add(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_STAIRS.get(), "Luminous Aurorian Castle Runestone Stairs");
+        this.add(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS.get(), "Luminous Aurorian Steel Castle Runestone Stairs");
+        this.add(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_STAIRS.get(), "Luminous Cerulean Castle Runestone Stairs");
+        this.add(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS.get(), "Luminous Crystalline Castle Runestone Stairs");
+        this.add(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE_STAIRS.get(), "Luminous Moon Castle Runestone Stairs");
         this.add(TABlocks.TRANSPARENT_RUNE_STONE_STAIRS.get(), "Transparent Runestone Stairs");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE_STAIRS.get(), "Umbra Castle Runestone Stairs");
         this.add(TABlocks.DARK_STONE_BRICK_STAIRS.get(), "Dark Stone Brick Stairs");
@@ -198,6 +203,11 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.CERULEAN_CASTLE_RUNE_STONE_SLAB.get(), "Cerulean Castle Runestone Slab");
         this.add(TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE_SLAB.get(), "Crystalline Castle Runestone Slab");
         this.add(TABlocks.MOON_CASTLE_RUNE_STONE_SLAB.get(), "Moon Castle Runestone Slab");
+        this.add(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_SLAB.get(), "Luminous Aurorian Castle Runestone Slab");
+        this.add(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB.get(), "Luminous Aurorian Steel Castle Runestone Slab");
+        this.add(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_SLAB.get(), "Luminous Cerulean Castle Runestone Slab");
+        this.add(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_SLAB.get(), "Luminous Crystalline Castle Runestone Slab");
+        this.add(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE_SLAB.get(), "Luminous Moon Castle Runestone Slab");
         this.add(TABlocks.TRANSPARENT_RUNE_STONE_SLAB.get(), "Transparent Runestone Slab");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE_SLAB.get(), "Umbra Castle Runestone Slab");
         this.add(TABlocks.DARK_STONE_BRICK_SLAB.get(), "Dark Stone Brick Slab");
@@ -223,6 +233,11 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.CERULEAN_CASTLE_RUNE_STONE_WALL.get(), "Cerulean Castle Runestone Wall");
         this.add(TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE_WALL.get(), "Crystalline Castle Runestone Wall");
         this.add(TABlocks.MOON_CASTLE_RUNE_STONE_WALL.get(), "Moon Castle Runestone Wall");
+        this.add(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_WALL.get(), "Luminous Aurorian Castle Runestone Wall");
+        this.add(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_WALL.get(), "Luminous Aurorian Steel Castle Runestone Wall");
+        this.add(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_WALL.get(), "Luminous Cerulean Castle Runestone Wall");
+        this.add(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_WALL.get(), "Luminous Crystalline Castle Runestone Wall");
+        this.add(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE_WALL.get(), "Luminous Moon Castle Runestone Wall");
         this.add(TABlocks.TRANSPARENT_RUNE_STONE_WALL.get(), "Transparent Runestone Wall");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE_WALL.get(), "Umbra Castle Runestone Wall");
         this.add(TABlocks.DARK_STONE_BRICK_WALL.get(), "Dark Stone Brick Wall");
@@ -250,6 +265,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_COAL_NUGGET.get(),"Aurorian Coal Nugget");
         this.add(TAItems.AURORIAN_PORK.get(),"Aurorian Pork");
         this.add(TAItems.MOON_FISH_SPAWN_EGG.get(), "Moon Fish Spawn Egg");
+        this.add(TAItems.AURORIAN_WINGED_FISH_SPAWN_EGG.get(), "Aurorian Winged Fish Spawn Egg");
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(),"Aurorian Pig Spawn Egg");
         this.add(TAItems.AURORIAN_RABBIT_SPAWN_EGG.get(),"Aurorian Rabbit Spawn Egg");
         this.add(TAItems.AURORIAN_SHEEP_SPAWN_EGG.get(),"Aurorian Sheep Spawn Egg");
@@ -400,6 +416,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.WEBBING.get(), "Webbing");
         this.add(TAEntityTypes.EYE_OF_DISTURBED.get(), "Eye Of Disturbed");
         this.add(TAEntityTypes.MOON_FISH.get(), "Moon Fish");
+        this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), "Aurorian Winged Fish");
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "Aurorian Rabbit");
         this.add(TAEntityTypes.AURORIAN_SHEEP.get(), "Aurorian Sheep");
         this.add(TAEntityTypes.AURORIAN_PIG.get(), "Aurorian Pig");

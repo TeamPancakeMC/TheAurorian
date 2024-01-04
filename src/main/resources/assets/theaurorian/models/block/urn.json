@@ -1,9 +1,9 @@
 {
     "ambientocclusion": true,
     "textures": {
-        "particle": "theaurorian:blocks/urn",
-        "urn": "theaurorian:blocks/urn",
-        "top": "theaurorian:blocks/urntop"
+        "particle": "theaurorian:block/urn",
+        "urn": "theaurorian:block/urn",
+        "top": "theaurorian:block/urn_top"
     },
     "display": {
         "gui": {

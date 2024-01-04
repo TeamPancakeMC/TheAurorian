@@ -1,0 +1,72 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "cullface": "down",
+          "forge_data": {
+            "block_light": 15,
+            "sky_light": 15
+          },
+          "texture": "#rune"
+        },
+        "east": {
+          "cullface": "east",
+          "forge_data": {
+            "block_light": 15,
+            "sky_light": 15
+          },
+          "texture": "#rune"
+        },
+        "north": {
+          "cullface": "north",
+          "forge_data": {
+            "block_light": 15,
+            "sky_light": 15
+          },
+          "texture": "#rune"
+        },
+        "south": {
+          "cullface": "south",
+          "forge_data": {
+            "block_light": 15,
+            "sky_light": 15
+          },
+          "texture": "#rune"
+        },
+        "up": {
+          "cullface": "up",
+          "forge_data": {
+            "block_light": 15,
+            "sky_light": 15
+          },
+          "texture": "#rune"
+        },
+        "west": {
+          "cullface": "west",
+          "forge_data": {
+            "block_light": 15,
+            "sky_light": 15
+          },
+          "texture": "#rune"
+        }
+      },
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ]
+    }
+  ],
+  "textures": {
+    "particle": "theaurorian:block/aurorian_castle_rune_stone",
+    "rune": "theaurorian:block/aurorian_castle_rune_stone"
+  }
+}

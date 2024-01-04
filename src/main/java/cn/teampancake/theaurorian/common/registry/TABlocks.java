@@ -79,6 +79,11 @@ public class TABlocks {
     public static final RegistryObject<Block> MOON_CASTLE_RUNE_STONE = normal("moon_castle_rune_stone", breakWithQueenPickaxe());
     public static final RegistryObject<Block> TRANSPARENT_RUNE_STONE = normal("transparent_rune_stone", breakWithQueenPickaxe());
     public static final RegistryObject<Block> UMBRA_CASTLE_RUNE_STONE = normal("umbra_castle_rune_stone", breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE = normal("luminous_aurorian_castle_rune_stone", breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE = normal("luminous_aurorian_steel_castle_rune_stone", breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE = normal("luminous_cerulean_castle_rune_stone", breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE = normal("luminous_crystalline_castle_rune_stone", breakWithQueenPickaxe());
+    public static final RegistryObject<Block> LUMINOUS_MOON_CASTLE_RUNE_STONE = normal("luminous_moon_castle_rune_stone", breakWithQueenPickaxe());
     public static final RegistryObject<Block> RUNE_STONE_PILLAR = register("rune_stone_pillar", () -> new RotatedPillarBlock(breakWithQueenPickaxe()));
     public static final RegistryObject<Block> DARK_STONE_PILLAR = register("dark_stone_pillar", () -> new RotatedPillarBlock(breakWithQueenPickaxe()));
     public static final RegistryObject<Block> MOON_TEMPLE_PILLAR = register("moon_temple_pillar", () -> new RotatedPillarBlock(breakWithQueenPickaxe()));
@@ -94,6 +99,7 @@ public class TABlocks {
     public static final RegistryObject<Block> DARK_STONE_LAMP = normal("dark_stone_lamp", breakWithQueenPickaxe().lightLevel(s -> 15));
     public static final RegistryObject<Block> MOON_TEMPLE_LAMP = normal("moon_temple_lamp", breakWithQueenPickaxe().lightLevel(s -> 15));
     public static final RegistryObject<Block> VOID_STONE = normal("void_stone", breakWithQueenPickaxe().lightLevel(s -> 7));
+    public static final RegistryObject<Block> RUNE_CRYSTAL = normal("rune_crystal", breakWithQueenPickaxe().lightLevel(s -> 3));
     public static final RegistryObject<Block> MYSTICAL_BARRIER = register("mystical_barrier", () -> new MysticalBarrier(copy(Blocks.BEDROCK)));
     public static final RegistryObject<Block> RUNE_STONE_BARS = register("rune_stone_bars", () -> new IronBarsBlock(breakWithQueenPickaxe().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> DARK_STOME_BARS = register("dark_stone_bars", () -> new IronBarsBlock(breakWithQueenPickaxe().mapColor(MapColor.METAL)));

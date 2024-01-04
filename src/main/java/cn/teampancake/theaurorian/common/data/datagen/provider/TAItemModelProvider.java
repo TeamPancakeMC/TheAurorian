@@ -60,6 +60,11 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.MOON_CASTLE_RUNE_STONE.get());
         this.simpleBlockItem(TABlocks.TRANSPARENT_RUNE_STONE.get());
         this.simpleBlockItem(TABlocks.UMBRA_CASTLE_RUNE_STONE.get());
+        this.simpleBlockItem(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE.get());
+        this.simpleBlockItem(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE.get());
+        this.simpleBlockItem(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE.get());
+        this.simpleBlockItem(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE.get());
+        this.simpleBlockItem(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE.get());
         this.simpleBlockItem(TABlocks.RUNE_STONE_PILLAR.get());
         this.simpleBlockItem(TABlocks.DARK_STONE_PILLAR.get());
         this.simpleBlockItem(TABlocks.MOON_TEMPLE_PILLAR.get());
@@ -76,6 +81,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.DARK_STONE_LAMP.get());
         this.simpleBlockItem(TABlocks.MOON_TEMPLE_LAMP.get());
         this.simpleBlockItem(TABlocks.VOID_STONE.get());
+        this.simpleBlockItem(TABlocks.RUNE_CRYSTAL.get());
         this.simpleBlockItem(TABlocks.CERULEAN_BLOCK.get());
         this.simpleBlockItem(TABlocks.MOONSTONE_BLOCK.get());
         this.simpleBlockItem(TABlocks.AURORIAN_COAL_BLOCK.get());

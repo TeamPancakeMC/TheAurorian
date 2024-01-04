@@ -70,6 +70,11 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.MOON_CASTLE_RUNE_STONE.get(), "Moon Castle Runestone");
         this.add(TABlocks.TRANSPARENT_RUNE_STONE.get(), "Transparent Runestone");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE.get(), "Umbra Castle Runestone");
+        this.add(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE.get(), "Luminous Aurorian Castle Runestone");
+        this.add(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE.get(), "Luminous Aurorian Steel Castle Runestone");
+        this.add(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE.get(), "Luminous Cerulean Castle Runestone");
+        this.add(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE.get(), "Luminous Moon Castle Runestone");
+        this.add(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE.get(), "Luminous Moon Castle Runestone");
         this.add(TABlocks.RUNE_STONE_PILLAR.get(), "Runestone Pillar");
         this.add(TABlocks.DARK_STONE_PILLAR.get(), "Dark Stone Pillar");
         this.add(TABlocks.MOON_TEMPLE_PILLAR.get(), "Moon Temple Pillar");
@@ -85,6 +90,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.DARK_STONE_LAMP.get(), "Dark Stone Lamp");
         this.add(TABlocks.MOON_TEMPLE_LAMP.get(), "Moon Temple Lamp");
         this.add(TABlocks.VOID_STONE.get(), "Void Stone");
+        this.add(TABlocks.RUNE_CRYSTAL.get(), "Rune Crystal");
         this.add(TABlocks.CERULEAN_BLOCK.get(), "Cerulean Block");
         this.add(TABlocks.MOONSTONE_BLOCK.get(), "Moonstone Block");
         this.add(TABlocks.AURORIAN_COAL_BLOCK.get(), "Aurorian Coal Block");

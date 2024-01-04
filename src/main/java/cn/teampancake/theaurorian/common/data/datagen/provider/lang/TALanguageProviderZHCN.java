@@ -70,6 +70,11 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.MOON_CASTLE_RUNE_STONE.get(), "皎月符文符石");
         this.add(TABlocks.TRANSPARENT_RUNE_STONE.get(), "透明符石");
         this.add(TABlocks.UMBRA_CASTLE_RUNE_STONE.get(), "本影符文符石");
+        this.add(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE.get(), "发光极光符文符石");
+        this.add(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE.get(), "发光极光钢符文符石");
+        this.add(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE.get(), "发光晶蓝符文符石");
+        this.add(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE.get(), "发光月凝晶符文符石");
+        this.add(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE.get(), "发光皎月符文符石");
         this.add(TABlocks.RUNE_STONE_PILLAR.get(), "符石柱");
         this.add(TABlocks.DARK_STONE_PILLAR.get(), "暗石柱");
         this.add(TABlocks.MOON_TEMPLE_PILLAR.get(), "月宫柱");
@@ -85,6 +90,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.DARK_STONE_LAMP.get(), "暗石灯");
         this.add(TABlocks.MOON_TEMPLE_LAMP.get(), "月宫灯");
         this.add(TABlocks.VOID_STONE.get(), "虚空石");
+        this.add(TABlocks.RUNE_CRYSTAL.get(), "符石水晶");
         this.add(TABlocks.CERULEAN_BLOCK.get(), "晶蓝块");
         this.add(TABlocks.MOONSTONE_BLOCK.get(), "皎月石块");
         this.add(TABlocks.AURORIAN_COAL_BLOCK.get(), "极光煤块");

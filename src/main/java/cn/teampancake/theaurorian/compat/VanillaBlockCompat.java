@@ -6,9 +6,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -16,7 +16,7 @@ public class VanillaBlockCompat {
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void registerColors(FMLClientSetupEvent event) {
+    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
 
     }
 

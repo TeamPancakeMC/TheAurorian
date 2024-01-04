@@ -85,6 +85,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.DARK_STONE_LAMP.get());
         this.simpleBlock(TABlocks.MOON_TEMPLE_LAMP.get());
         this.simpleBlock(TABlocks.VOID_STONE.get());
+        this.simpleBlock(TABlocks.RUNE_CRYSTAL.get());
         this.simpleBlock(TABlocks.CERULEAN_BLOCK.get());
         this.simpleBlock(TABlocks.MOONSTONE_BLOCK.get());
         this.simpleBlock(TABlocks.AURORIAN_COAL_BLOCK.get());
@@ -181,6 +182,11 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerPlantStates(TABlocks.AURORIAN_GRASS_LIGHT.get());
         this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_BLOCK.get());
         this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_STEM.get());
+        this.registerLuminousStates(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE.get(), TABlocks.AURORIAN_CASTLE_RUNE_STONE.get());
+        this.registerLuminousStates(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE.get(), TABlocks.AURORIAN_STEEL_CASTLE_RUNE_STONE.get());
+        this.registerLuminousStates(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE.get(), TABlocks.CERULEAN_CASTLE_RUNE_STONE.get());
+        this.registerLuminousStates(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE.get(), TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE.get());
+        this.registerLuminousStates(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE.get(), TABlocks.MOON_CASTLE_RUNE_STONE.get());
         for (Block block : TACommonUtils.getKnownBlocks()) {
             if (block instanceof PressurePlateBlockWithBase pressurePlateBlock) {
                 this.pressurePlateBlock(pressurePlateBlock, this.blockTexture(pressurePlateBlock.getBase()));
@@ -428,6 +434,17 @@ public class TABlockStateProvider extends BlockStateProvider {
                 .part().modelFile(insideModel).rotationY(270).uvLock(false).addModel().condition(BlockStateProperties.UP, false).end()
                 .part().modelFile(insideModel).rotationX(270).uvLock(false).addModel().condition(BlockStateProperties.DOWN, false).end()
                 .part().modelFile(insideModel).rotationX(90).uvLock(false).addModel().end();
+    }
+
+    private void registerLuminousStates(Block newBlock, Block originalBlock) {
+        VariantBlockStateBuilder builder = this.getVariantBuilder(newBlock);
+        ModelFile modelFile = this.models().getBuilder(this.name(newBlock))
+                .parent(new ModelFile.UncheckedModelFile(this.mcLoc("block/block")))
+                .texture("rune", this.blockTexture(originalBlock))
+                .texture("particle", this.blockTexture(originalBlock))
+                .ao(false).element().allFaces((direction, faceBuilder) -> faceBuilder.texture("#rune")
+                        .emissivity((15), (15)).cullface(direction)).end();
+        builder.partialState().modelForState().modelFile(modelFile).addModel();
     }
 
     private void registerLiquidStates() {

@@ -79,10 +79,10 @@ public class TAConfiguredFeatures {
                                 .add(ConstantInt.of(1), 1)
                                 .add(ConstantInt.of(2), 1)
                                 .add(ConstantInt.of(3), 1).build()),
-                        UniformInt.of(2, 4), UniformInt.of(-4, -3), UniformInt.of(-1, 0)),
+                        UniformInt.of((2), (4)), UniformInt.of((-4), (-3)), UniformInt.of((-1), (0))),
                 BlockStateProvider.simple(TABlocks.SILENT_TREE_LEAVES.get()),
                 new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0),
-                        ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
+                        ConstantInt.of(5), (0.25F), (0.5F), (0.16666667F), (0.33333334F)),
                 new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
     }
 
@@ -92,6 +92,8 @@ public class TAConfiguredFeatures {
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest ruleTest = new BlockMatchTest(TABlocks.AURORIAN_STONE.get());
+        FlowingFluid still = TAFluids.MOON_WATER_STILL.get();
+        FlowingFluid flowing = TAFluids.MOON_WATER_FLOWING.get();
         BlockState wickGrass = TABlocks.WICK_GRASS.get().defaultBlockState();
         BlockState blueberryBush = TABlocks.BLUEBERRY_BUSH.get().defaultBlockState();
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
@@ -119,8 +121,6 @@ public class TAConfiguredFeatures {
             for (int y = 1; y <= 3; y++) {
                 for (int z = -3; z <= 3; z++) {
                     BlockPos blockPos = new BlockPos(x, -y, z);
-                    FlowingFluid still = TAFluids.MOON_WATER_STILL.get();
-                    FlowingFluid flowing = TAFluids.MOON_WATER_FLOWING.get();
                     riversidePredicates.add(BlockPredicate.matchesFluids(blockPos, still, flowing));
                 }
             }
@@ -128,7 +128,7 @@ public class TAConfiguredFeatures {
 
         FeatureUtils.register(context, PATCH_AURORIAN_GRASS, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(TABlocks.AURORIAN_GRASS.get().defaultBlockState(), 1)
+                        .add(TABlocks.AURORIAN_GRASS.get().defaultBlockState(), 3)
                         .add(TABlocks.TALL_AURORIAN_GRASS.get().defaultBlockState()
                                 .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)), 32));
         FeatureUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(
@@ -148,7 +148,7 @@ public class TAConfiguredFeatures {
                 BlockStateProvider.simple(TABlocks.EQUINOX_FLOWER.get()), 16));
         FeatureUtils.register(context, PATCH_LAVENDER, Feature.FLOWER, VegetationFeatures.grassPatch(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(TABlocks.LAVENDER_PLANT.get().defaultBlockState(), 1)
+                        .add(TABlocks.LAVENDER_PLANT.get().defaultBlockState(), 3)
                         .add(TABlocks.TALL_LAVENDER_PLANT.get().defaultBlockState()
                                 .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)), 32));
         FeatureUtils.register(context, TREES_AURORIAN_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(

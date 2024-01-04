@@ -54,7 +54,7 @@
       {
         "type": "theaurorian:moon_fish",
         "maxCount": 8,
-        "minCount": 8,
+        "minCount": 4,
         "weight": 25
       }
     ]

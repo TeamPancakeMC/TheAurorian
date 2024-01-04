@@ -64,6 +64,7 @@ public class TABiomes {
         context.register(EQUINOX_FLOWER_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_EQUINOX_FLOWER), ParticleTypes.SOUL, equinoxFlowerPlainsMobSpawning().build(), 0.0025F).build());
         context.register(LAVENDER_PLAINS, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_PLAINS)
                 .addFeature(vegetalDecoration, TAPlacements.PATCH_LAVENDER)).build());
         context.register(WEEPING_WILLOW_FOREST, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());

@@ -10,7 +10,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class SpiderMotherRenderer extends MobRenderer<SpiderMother, SpiderMotherModel<SpiderMother>> {
 
     public SpiderMotherRenderer(EntityRendererProvider.Context context) {

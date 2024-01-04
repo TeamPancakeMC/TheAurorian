@@ -22,4 +22,5 @@ public class MoonFish extends AbstractAurorianFish {
     public ItemStack getBucketItemStack() {
         return TAItems.MOON_FISH_BUCKET.get().getDefaultInstance();
     }
+
 }

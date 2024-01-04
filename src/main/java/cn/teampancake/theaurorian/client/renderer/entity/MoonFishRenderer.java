@@ -7,11 +7,14 @@ import cn.teampancake.theaurorian.common.entities.animal.MoonFish;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class MoonFishRenderer extends MobRenderer<MoonFish, MoonFishModel<MoonFish>> {
 
     public MoonFishRenderer(EntityRendererProvider.Context context) {
-        super(context, new MoonFishModel<>(context.bakeLayer(TAModelLayers.QUARTZ_FISH)), 0.2F);
+        super(context, new MoonFishModel<>(context.bakeLayer(TAModelLayers.MOON_FISH)), 0.2F);
     }
 
     @Override

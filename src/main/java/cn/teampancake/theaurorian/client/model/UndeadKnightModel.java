@@ -12,12 +12,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class UndeadKnightModel<T extends UndeadKnight> extends HierarchicalModel<T> {
 
-    private final ModelPart all;
+    private final ModelPart root;
     private final ModelPart head;
 
     public UndeadKnightModel(ModelPart root) {
-        this.all = root.getChild("all");
-        this.head = this.all.getChild("body").getChild("head");
+        this.root = root;
+        this.head = root.getChild("all")
+                .getChild("body")
+                .getChild("head");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -78,37 +80,14 @@ public class UndeadKnightModel<T extends UndeadKnight> extends HierarchicalModel
         this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
         this.animate(entity.idleAnimationState, UndeadKnightAnimation.IDLE, ageInTicks);
         this.animate(entity.attackAnimationState, UndeadKnightAnimation.ATTACK, ageInTicks);
-        this.setupAttackAnimation(entity);
         if (!entity.isInWaterOrBubble()) {
             this.animateWalk(UndeadKnightAnimation.WALK, limbSwing, limbSwingAmount, (2.0F), (2.5F));
         }
     }
 
-    protected void setupAttackAnimation(T entity) {
-        if (entity.attackAnim > 0.0F) {
-            float f = entity.attackAnim;
-            if (f <= 8.344F) { //0.4167s
-                this.all.y += (-0.9F / 3.94F);
-                this.all.z += (3.0F / 3.94F);
-            } else if (f <= 11.666F) { //0.5833s
-                this.all.y += (-1.4F / 3.322F);
-                this.all.z += (-10.0F / 3.322F);
-                this.all.xRot += (36.33914F / 3.322F);
-                this.all.yRot += (-24.94169F / 3.322F);
-                this.all.zRot += (-17.23442 / 3.322F);
-            } else {
-                this.all.y -= (-2.3F / 13.334F);
-                this.all.z -= (-7.0F / 13.334F);
-                this.all.xRot -= (36.33914F / 13.334F);
-                this.all.yRot -= (-24.94169F / 13.334F);
-                this.all.zRot -= (-17.23442 / 13.334F);
-            }
-        }
-    }
-
     @Override
     public ModelPart root() {
-        return this.all;
+        return this.root;
     }
 
 }

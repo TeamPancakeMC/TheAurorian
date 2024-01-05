@@ -7,7 +7,6 @@ import cn.teampancake.theaurorian.common.level.feature.tree.decorators.CrystalBu
 import cn.teampancake.theaurorian.common.level.placement.TAPlacements;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAFeatures;
-import cn.teampancake.theaurorian.common.registry.TAFluids;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
@@ -43,7 +42,7 @@ import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
-import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluids;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -92,8 +91,6 @@ public class TAConfiguredFeatures {
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest ruleTest = new BlockMatchTest(TABlocks.AURORIAN_STONE.get());
-        FlowingFluid still = TAFluids.MOON_WATER_STILL.get();
-        FlowingFluid flowing = TAFluids.MOON_WATER_FLOWING.get();
         BlockState wickGrass = TABlocks.WICK_GRASS.get().defaultBlockState();
         BlockState blueberryBush = TABlocks.BLUEBERRY_BUSH.get().defaultBlockState();
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
@@ -121,7 +118,7 @@ public class TAConfiguredFeatures {
             for (int y = 1; y <= 3; y++) {
                 for (int z = -3; z <= 3; z++) {
                     BlockPos blockPos = new BlockPos(x, -y, z);
-                    riversidePredicates.add(BlockPredicate.matchesFluids(blockPos, still, flowing));
+                    riversidePredicates.add(BlockPredicate.matchesFluids(blockPos, Fluids.WATER, Fluids.FLOWING_WATER));
                 }
             }
         }

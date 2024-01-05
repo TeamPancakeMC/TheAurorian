@@ -169,8 +169,8 @@ public class TAEntityTypes {
 
     @SubscribeEvent
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
-        normalEntitySpawn(event, MOON_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkAbstractAurorianFishSpawnRules);
-        normalEntitySpawn(event, AURORIAN_WINGED_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkAbstractAurorianFishSpawnRules);
+        normalEntitySpawn(event, MOON_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkSurfaceWaterAnimalSpawnRules);
+        normalEntitySpawn(event, AURORIAN_WINGED_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkSurfaceWaterAnimalSpawnRules);
         normalEntitySpawn(event, AURORIAN_RABBIT.get(), SpawnPlacements.Type.ON_GROUND, AurorianRabbit::checkAurorianRabbitSpawnRules);
         normalEntitySpawn(event, AURORIAN_SHEEP.get(), SpawnPlacements.Type.ON_GROUND, AurorianSheep::checkAurorianSheepSpawnRules);
         normalEntitySpawn(event, AURORIAN_PIG.get(), SpawnPlacements.Type.ON_GROUND, AurorianPig::checkAurorianPigSpawnRules);

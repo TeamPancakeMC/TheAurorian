@@ -9,10 +9,20 @@ import net.minecraft.world.level.Level;
 
 public class AurorianWingedFish extends AbstractAurorianFish {
 
+    public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState crashAnimationState = new AnimationState();
+    public final AnimationState crash2AnimationState = new AnimationState();
 
     public AurorianWingedFish(EntityType<? extends AurorianWingedFish> type, Level level) {
         super(type, level);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide) {
+            this.swimAnimationState.animateWhen(this.walkAnimation.isMoving(), this.tickCount);
+        }
     }
 
     @Override

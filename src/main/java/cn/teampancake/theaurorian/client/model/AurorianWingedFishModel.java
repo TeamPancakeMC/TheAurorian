@@ -6,7 +6,6 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -14,11 +13,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class AurorianWingedFishModel<T extends AurorianWingedFish> extends HierarchicalModel<T> {
 
     private final ModelPart bodyFront;
-    private final ModelPart tailFin;
 
     public AurorianWingedFishModel(ModelPart root) {
         this.bodyFront = root.getChild("body_front");
-        this.tailFin = this.bodyFront.getChild("body_back").getChild("tail_fin");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -46,9 +43,9 @@ public class AurorianWingedFishModel<T extends AurorianWingedFish> extends Hiera
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        float f = entity.isInWater() ? 1.0F : 1.5F;
-        this.tailFin.yRot = -f * 0.45F * Mth.sin(0.6F * ageInTicks);
+        this.animate(entity.swimAnimationState, AurorianWingedFishAnimation.SWIM, ageInTicks);
         this.animate(entity.crashAnimationState, AurorianWingedFishAnimation.CRASH, ageInTicks);
+        this.animate(entity.crash2AnimationState, AurorianWingedFishAnimation.CRASH2, ageInTicks);
     }
 
     @Override

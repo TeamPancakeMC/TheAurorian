@@ -115,7 +115,7 @@ public class TAConfiguredFeatures {
 
         List<BlockPredicate> riversidePredicates = new ArrayList<>();
         for (int x = -3; x <= 3; x++) {
-            for (int y = 1; y <= 3; y++) {
+            for (int y = 1; y <= 5; y++) {
                 for (int z = -3; z <= 3; z++) {
                     BlockPos blockPos = new BlockPos(x, -y, z);
                     riversidePredicates.add(BlockPredicate.matchesFluids(blockPos, Fluids.WATER, Fluids.FLOWING_WATER));

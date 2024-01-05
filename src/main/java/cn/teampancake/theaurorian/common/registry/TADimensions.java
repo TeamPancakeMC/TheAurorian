@@ -15,6 +15,7 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.*;
@@ -34,7 +35,7 @@ public class TADimensions {
 
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
         NoiseGeneratorSettings settings = new NoiseGeneratorSettings(NoiseSettings.OVERWORLD_NOISE_SETTINGS,
-                TABlocks.AURORIAN_STONE.get().defaultBlockState(), TABlocks.MOON_WATER.get().defaultBlockState(), NoiseRouterData.none(),
+                TABlocks.AURORIAN_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), NoiseRouterData.none(),
                 createSurfaceRule(), List.of(), 4, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE);
         context.register(AURORIAN_NOISE_SETTINGS, settings);
     }

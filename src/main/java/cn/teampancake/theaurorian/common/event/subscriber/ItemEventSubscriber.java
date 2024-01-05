@@ -19,7 +19,6 @@ import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -27,7 +26,6 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
@@ -41,13 +39,6 @@ public class ItemEventSubscriber {
         List<Component> tooltip = event.getToolTip();
         if (stack.getItem() instanceof ITooltipsItem tooltipsItem && tooltipsItem.isHasTooltips()) {
             showTooltips(tooltip, stack.getItem());
-        }
-
-        if (stack.getItem() instanceof ForgeSpawnEggItem spawnEggItem) {
-            String namespace = ForgeRegistries.ITEMS.getKey(spawnEggItem).getNamespace();
-            if (namespace.equals(AurorianMod.MOD_ID)) {
-                showTooltips(tooltip, spawnEggItem);
-            }
         }
 
         Ingredient repairItem = null;

@@ -148,8 +148,8 @@ public class TABiomes {
 
     private static MobSpawnSettings.Builder defaultFishSpawning() {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
-        spawnInfo.creatureGenerationProbability(0.3F);
-        spawnInfo.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_FISH.get(), 25, 4, 8));
+        spawnInfo.creatureGenerationProbability(0.1F);
+        spawnInfo.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_FISH.get(), 15, 2, 4));
         return spawnInfo;
     }
 

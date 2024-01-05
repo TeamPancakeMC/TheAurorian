@@ -55,21 +55,11 @@
           [
             "theaurorian:aurorian_forest",
             "theaurorian:aurorian_forest_hill"
-          ],
-          [
-            "theaurorian:aurorian_forest",
-            "theaurorian:aurorian_river"
-          ],
-          [
-            "theaurorian:aurorian_plains",
-            "theaurorian:lavender_plains"
           ]
         ],
         "excluded_neighbor_biomes": [
           "theaurorian:bright_moon_desert",
-          "theaurorian:aurorian_forest_hill",
-          "theaurorian:lavender_plains",
-          "theaurorian:aurorian_lake"
+          "theaurorian:aurorian_forest_hill"
         ],
         "layer_type": "theaurorian:river",
         "salt": 1

@@ -4,7 +4,7 @@
     "Name": "theaurorian:aurorian_stone"
   },
   "default_fluid": {
-    "Name": "theaurorian:moon_water",
+    "Name": "minecraft:water",
     "Properties": {
       "level": "0"
     }

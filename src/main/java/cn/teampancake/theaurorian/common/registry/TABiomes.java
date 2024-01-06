@@ -90,15 +90,13 @@ public class TABiomes {
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings, MobSpawnSettings mobSpawnSettings) {
         return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature((0.2F)).downfall((0.0F))
                 .specialEffects(defaultAmbientBuilder().build()).mobSpawnSettings(mobSpawnSettings)
-                .generationSettings(defaultOreBuilder(biomeGenerationSettings).build())
-                .temperatureAdjustment(Biome.TemperatureModifier.NONE);
+                .generationSettings(defaultOreBuilder(biomeGenerationSettings).build());
     }
 
     private static Biome.BiomeBuilder biomeWithParticle(BiomeGenerationSettings.Builder biomeGenerationSettings, ParticleOptions options,MobSpawnSettings mobSpawnSettings, float probability) {
         return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature((0.2F)).downfall((0.0F))
                 .specialEffects(defaultAmbientWithParticleBuilder(options, probability).build()).mobSpawnSettings(mobSpawnSettings)
-                .generationSettings(defaultOreBuilder(biomeGenerationSettings).build())
-                .temperatureAdjustment(Biome.TemperatureModifier.NONE);
+                .generationSettings(defaultOreBuilder(biomeGenerationSettings).build());
     }
 
     private static Biome.BiomeBuilder biomeWithParticle(BiomeGenerationSettings.Builder biomeGenerationSettings, ParticleOptions options, float probability) {
@@ -148,8 +146,8 @@ public class TABiomes {
 
     private static MobSpawnSettings.Builder defaultFishSpawning() {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
-        spawnInfo.creatureGenerationProbability(0.1F);
-        spawnInfo.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_FISH.get(), 15, 2, 4));
+        spawnInfo.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_FISH.get(), 5, 2, 4));
+        spawnInfo.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_WINGED_FISH.get(), 5, 2, 4));
         return spawnInfo;
     }
 

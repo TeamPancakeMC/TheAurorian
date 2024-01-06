@@ -40,76 +40,76 @@ public class TAEntityTypes {
     //Projectile
     public static final RegistryObject<EntityType<Arrow>> CRYSTALLINE_BEAM = ENTITY_TYPES.register("crystalline_beam",
             () -> EntityType.Builder.<Arrow>of(Arrow::new, MobCategory.MISC).sized(0.5F, 0.5F)
-                    .clientTrackingRange(4).updateInterval(20).build("crystalline_beam"));
+                    .clientTrackingRange((4)).updateInterval((20)).build("crystalline_beam"));
     public static final RegistryObject<EntityType<CeruleanArrowEntity>> CERULEAN_ARROW = ENTITY_TYPES.register("cerulean_arrow",
             () -> EntityType.Builder.<CeruleanArrowEntity>of(CeruleanArrowEntity::new, MobCategory.MISC).sized(0.5F, 0.5F)
-                    .clientTrackingRange(4).updateInterval(20).build("cerulean_arrow"));
+                    .clientTrackingRange((4)).updateInterval((20)).build("cerulean_arrow"));
     public static final RegistryObject<EntityType<CrystalArrowEntity>> CRYSTAL_ARROW = ENTITY_TYPES.register("crystal_arrow",
             () -> EntityType.Builder.<CrystalArrowEntity>of(CrystalArrowEntity::new, MobCategory.MISC).sized(0.5F, 0.5F)
-                    .clientTrackingRange(4).updateInterval(20).build("crystal_arrow"));
+                    .clientTrackingRange((4)).updateInterval((20)).build("crystal_arrow"));
     public static final RegistryObject<EntityType<StickySpikerEntity>> STICKY_SPIKER = ENTITY_TYPES.register("sticky_spiker",
             () -> EntityType.Builder.<StickySpikerEntity>of(StickySpikerEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
-                    .clientTrackingRange(4).updateInterval(10).build("sticky_spiker"));
+                    .clientTrackingRange((4)).updateInterval((10)).build("sticky_spiker"));
     public static final RegistryObject<EntityType<WebbingEntity>> WEBBING = ENTITY_TYPES.register("webbing",
             () -> EntityType.Builder.<WebbingEntity>of(WebbingEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
-                    .clientTrackingRange(4).updateInterval(10).build("webbing"));
+                    .clientTrackingRange((4)).updateInterval((10)).build("webbing"));
     public static final RegistryObject<EntityType<EyeOfDisturbedEntity>> EYE_OF_DISTURBED = ENTITY_TYPES.register("eye_of_disturbed",
             () -> EntityType.Builder.<EyeOfDisturbedEntity>of(EyeOfDisturbedEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
-                    .clientTrackingRange(4).updateInterval(10).fireImmune().build("eye_of_disturbed"));
+                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("eye_of_disturbed"));
     public static final RegistryObject<EntityType<LunaCircleEntity>> LUNA_CIRCLE = ENTITY_TYPES.register("luna_circle",
             () -> EntityType.Builder.of(LunaCircleEntity::new, MobCategory.MISC).sized(5.0F, 0.1F)
-                    .clientTrackingRange(4).updateInterval(10).build("luna_circle"));
+                    .clientTrackingRange((4)).updateInterval((10)).build("luna_circle"));
     //Animal
     public static final RegistryObject<EntityType<MoonFish>> MOON_FISH = ENTITY_TYPES.register("moon_fish",
             () -> EntityType.Builder.of(MoonFish::new, MobCategory.WATER_AMBIENT).sized(0.3F, 0.3F)
-                    .clientTrackingRange(4).build("quartz_fish"));
+                    .clientTrackingRange((4)).build("moon_fish"));
     public static final RegistryObject<EntityType<AurorianWingedFish>> AURORIAN_WINGED_FISH = ENTITY_TYPES.register("aurorian_winged_fish",
             () -> EntityType.Builder.of(AurorianWingedFish::new, MobCategory.WATER_AMBIENT).sized(0.3F, 0.3F)
-                    .clientTrackingRange(4).build("aurorian_winged_fish"));
+                    .clientTrackingRange((4)).build("aurorian_winged_fish"));
     public static final RegistryObject<EntityType<AurorianRabbit>> AURORIAN_RABBIT = ENTITY_TYPES.register("aurorian_rabbit",
             () -> EntityType.Builder.of(AurorianRabbit::new, MobCategory.CREATURE).sized(0.4F, 0.5F)
-                    .clientTrackingRange(8).build("aurorian_rabbit"));
+                    .clientTrackingRange((8)).build("aurorian_rabbit"));
     public static final RegistryObject<EntityType<AurorianSheep>> AURORIAN_SHEEP = ENTITY_TYPES.register("aurorian_sheep",
             () -> EntityType.Builder.of(AurorianSheep::new, MobCategory.CREATURE).sized(0.9F, 1.3F)
-                    .clientTrackingRange(10).build("aurorian_sheep"));
+                    .clientTrackingRange((10)).build("aurorian_sheep"));
     public static final RegistryObject<EntityType<AurorianPig>> AURORIAN_PIG = ENTITY_TYPES.register("aurorian_pig",
             () -> EntityType.Builder.of(AurorianPig::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
-                    .clientTrackingRange(10).build("aurorian_pig"));
+                    .clientTrackingRange((10)).build("aurorian_pig"));
     public static final RegistryObject<EntityType<AurorianPixie>> AURORIAN_PIXIE = ENTITY_TYPES.register("aurorian_pixie",
             () -> EntityType.Builder.of(AurorianPixie::new, MobCategory.CREATURE).sized(0.6F, 0.375F)
-                    .clientTrackingRange(8).build("aurorian_pixie"));
+                    .clientTrackingRange((8)).build("aurorian_pixie"));
     //Monster
     public static final RegistryObject<EntityType<AurorianSlime>> AURORIAN_SLIME = ENTITY_TYPES.register("aurorian_slime",
             () -> EntityType.Builder.of(AurorianSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F)
-                    .clientTrackingRange(10).build("aurorian_slime"));
+                    .clientTrackingRange((10)).build("aurorian_slime"));
     public static final RegistryObject<EntityType<DisturbedHollow>> DISTURBED_HOLLOW = ENTITY_TYPES.register("disturbed_hollow",
             () -> EntityType.Builder.of(DisturbedHollow::new, MobCategory.MONSTER).sized(0.6F, 1.95F)
-                    .clientTrackingRange(8).build("disturbed_hollow"));
+                    .clientTrackingRange((8)).build("disturbed_hollow"));
     public static final RegistryObject<EntityType<UndeadKnight>> UNDEAD_KNIGHT = ENTITY_TYPES.register("undead_knight",
             () -> EntityType.Builder.of(UndeadKnight::new, MobCategory.MONSTER).sized(0.78F, 2.535F)
-                    .clientTrackingRange(8).fireImmune().build("undead_knight"));
+                    .clientTrackingRange((8)).fireImmune().build("undead_knight"));
     public static final RegistryObject<EntityType<Spirit>> SPIRIT = ENTITY_TYPES.register("spirit",
             () -> EntityType.Builder.of(Spirit::new, MobCategory.MONSTER).sized(0.6F, 1.95F)
-                    .clientTrackingRange(8).build("spirit"));
+                    .clientTrackingRange((8)).build("spirit"));
     public static final RegistryObject<EntityType<MoonAcolyte>> MOON_ACOLYTE = ENTITY_TYPES.register("moon_acolyte",
             () -> EntityType.Builder.of(MoonAcolyte::new, MobCategory.MONSTER).sized(0.6F, 1.95F)
-                    .clientTrackingRange(8).build("moon_acolyte"));
+                    .clientTrackingRange((8)).build("moon_acolyte"));
     public static final RegistryObject<EntityType<Spiderling>> SPIDERLING = ENTITY_TYPES.register("spiderling",
             () -> EntityType.Builder.of(Spiderling::new, MobCategory.MONSTER).sized(0.7F, 0.45F)
-                    .clientTrackingRange(8).build("spiderling"));
+                    .clientTrackingRange((8)).build("spiderling"));
     public static final RegistryObject<EntityType<CrystallineSprite>> CRYSTALLINE_SPRITE = ENTITY_TYPES.register("crystalline_sprite",
             () -> EntityType.Builder.of(CrystallineSprite::new, MobCategory.MONSTER).sized(1.0F, 1.5F)
-                    .clientTrackingRange(8).build("crystalline_sprite"));
+                    .clientTrackingRange((8)).build("crystalline_sprite"));
     //Boss
     public static final RegistryObject<EntityType<RunestoneKeeper>> RUNESTONE_KEEPER = ENTITY_TYPES.register("runestone_keeper",
             () -> EntityType.Builder.of(RunestoneKeeper::new, MobCategory.MONSTER).sized(1.4F, 4.2F)
-                    .clientTrackingRange(8).fireImmune().build("runestone_dungeon_keeper"));
+                    .clientTrackingRange((8)).fireImmune().build("runestone_keeper"));
     public static final RegistryObject<EntityType<SpiderMother>> SPIDER_MOTHER = ENTITY_TYPES.register("spider_mother",
             () -> EntityType.Builder.of(SpiderMother::new, MobCategory.MONSTER).sized(2.8F, 1.8F)
-                    .clientTrackingRange(8).fireImmune().build("spider_mother"));
+                    .clientTrackingRange((8)).fireImmune().build("spider_mother"));
     public static final RegistryObject<EntityType<MoonQueen>> MOON_QUEEN = ENTITY_TYPES.register("moon_queen",
             () -> EntityType.Builder.of(MoonQueen::new, MobCategory.MONSTER).sized(0.54F, 1.755F)
-                    .clientTrackingRange(8).fireImmune().build("moon_queen"));
+                    .clientTrackingRange((8)).fireImmune().build("moon_queen"));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -169,8 +169,8 @@ public class TAEntityTypes {
 
     @SubscribeEvent
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
-        normalEntitySpawn(event, MOON_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkSurfaceWaterAnimalSpawnRules);
-        normalEntitySpawn(event, AURORIAN_WINGED_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkSurfaceWaterAnimalSpawnRules);
+        normalEntitySpawn(event, MOON_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkAbstractAurorianFishSpawnRules);
+        normalEntitySpawn(event, AURORIAN_WINGED_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkAbstractAurorianFishSpawnRules);
         normalEntitySpawn(event, AURORIAN_RABBIT.get(), SpawnPlacements.Type.ON_GROUND, AurorianRabbit::checkAurorianRabbitSpawnRules);
         normalEntitySpawn(event, AURORIAN_SHEEP.get(), SpawnPlacements.Type.ON_GROUND, AurorianSheep::checkAurorianSheepSpawnRules);
         normalEntitySpawn(event, AURORIAN_PIG.get(), SpawnPlacements.Type.ON_GROUND, AurorianPig::checkAurorianPigSpawnRules);

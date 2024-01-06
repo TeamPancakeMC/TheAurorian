@@ -2,14 +2,14 @@ package cn.teampancake.theaurorian;
 
 import cn.teampancake.theaurorian.client.gui.hud.ProgressBarRenderer;
 import cn.teampancake.theaurorian.client.gui.hud.ShieldHudRenderer;
+import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.data.pack.MaxShieldLoader;
 import cn.teampancake.theaurorian.common.event.subscriber.ItemSubscriber;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
 import cn.teampancake.theaurorian.common.network.TAMessages;
-import cn.teampancake.theaurorian.compat.ThirstWasTakenCompat;
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.registry.*;
+import cn.teampancake.theaurorian.compat.ThirstWasTakenCompat;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;

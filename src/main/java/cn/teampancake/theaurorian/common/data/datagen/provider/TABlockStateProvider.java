@@ -419,8 +419,8 @@ public class TABlockStateProvider extends BlockStateProvider {
         ResourceLocation outside = this.modLoc("block/" + this.name(block) + "_side");
         ResourceLocation inside = this.modLoc("block/" + this.name(block) + "_inside");
         ModelFile outsideModel = this.models().singleTexture(this.name(block), parent, outside).renderType(TRANSLUCENT);
-        ModelFile insideModel = this.models().singleTexture(this.name(block), parent, inside).renderType(TRANSLUCENT);
-        this.models().withExistingParent(this.name(block) + "_inventory", this.mcLoc("block/cube_all")).texture("texture", outside);
+        ModelFile insideModel = this.models().singleTexture(this.name(block) + "_inside", parent, inside).renderType(TRANSLUCENT);
+        this.models().withExistingParent(this.name(block) + "_inventory", this.mcLoc("block/cube_all")).texture("all", outside);
         this.getMultipartBuilder(block).part().modelFile(outsideModel).addModel().condition(BlockStateProperties.NORTH, true).end()
                 .part().modelFile(outsideModel).addModel().condition(BlockStateProperties.EAST, true).end()
                 .part().modelFile(outsideModel).rotationY(90).uvLock(true).addModel().condition(BlockStateProperties.SOUTH, true).end()

@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_single_face",
   "render_type": "minecraft:translucent",
   "textures": {
-    "texture": "theaurorian:block/indigo_mushroom_stem_side"
+    "texture": "theaurorian:block/indigo_mushroom_block_inside"
   }
 }

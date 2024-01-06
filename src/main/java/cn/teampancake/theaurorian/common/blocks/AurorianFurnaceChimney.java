@@ -20,7 +20,7 @@ public class AurorianFurnaceChimney extends Block implements ITooltipsItem {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return box(0.25D, 0.0D, 0.25D, 0.75D, 1.0D, 0.75D);
+        return box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
     }
 
     @Override

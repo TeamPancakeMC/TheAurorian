@@ -68,7 +68,7 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_block"
+        "model": "theaurorian:block/indigo_mushroom_block_inside"
       },
       "when": {
         "east": "false"
@@ -76,7 +76,7 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_block",
+        "model": "theaurorian:block/indigo_mushroom_block_inside",
         "y": 90
       },
       "when": {
@@ -85,7 +85,7 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_block",
+        "model": "theaurorian:block/indigo_mushroom_block_inside",
         "y": 180
       },
       "when": {
@@ -94,7 +94,7 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_block",
+        "model": "theaurorian:block/indigo_mushroom_block_inside",
         "y": 270
       },
       "when": {
@@ -103,7 +103,7 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_block",
+        "model": "theaurorian:block/indigo_mushroom_block_inside",
         "x": 270
       },
       "when": {
@@ -112,7 +112,7 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_block",
+        "model": "theaurorian:block/indigo_mushroom_block_inside",
         "x": 90
       }
     }

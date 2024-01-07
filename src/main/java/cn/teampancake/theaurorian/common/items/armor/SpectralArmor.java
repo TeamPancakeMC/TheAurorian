@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.armor;
 
-import cn.teampancake.theaurorian.client.model.SpectralArmorModel;
+import cn.teampancake.theaurorian.client.model.entity.armor.SpectralArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import net.minecraft.client.Minecraft;

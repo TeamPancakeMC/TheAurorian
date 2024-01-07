@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.model;
+package cn.teampancake.theaurorian.client.model.entity;
 
 import cn.teampancake.theaurorian.client.animation.MoonQueenAnimation;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;

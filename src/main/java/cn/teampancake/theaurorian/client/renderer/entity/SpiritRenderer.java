@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.SpiritModel;
+import cn.teampancake.theaurorian.client.model.entity.SpiritModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.monster.Spirit;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

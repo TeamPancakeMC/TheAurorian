@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.AurorianSheepModel;
+import cn.teampancake.theaurorian.client.model.entity.AurorianSheepModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.AurorianSheep;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

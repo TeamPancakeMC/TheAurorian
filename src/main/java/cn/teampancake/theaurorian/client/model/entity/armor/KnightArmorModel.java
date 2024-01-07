@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.model;
+package cn.teampancake.theaurorian.client.model.entity.armor;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;

@@ -1,8 +1,12 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.*;
-import cn.teampancake.theaurorian.client.model.circle.LunaCircleModel;
+import cn.teampancake.theaurorian.client.model.entity.armor.AurorianSteelArmorModel;
+import cn.teampancake.theaurorian.client.model.entity.armor.CeruleanArmorModel;
+import cn.teampancake.theaurorian.client.model.entity.armor.KnightArmorModel;
+import cn.teampancake.theaurorian.client.model.entity.armor.SpectralArmorModel;
+import cn.teampancake.theaurorian.client.model.entity.circle.LunaCircleModel;
+import cn.teampancake.theaurorian.client.model.entity.*;
 import cn.teampancake.theaurorian.client.renderer.entity.*;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.*;

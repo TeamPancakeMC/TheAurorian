@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.AurorianPigModel;
+import cn.teampancake.theaurorian.client.model.entity.AurorianPigModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.AurorianPig;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

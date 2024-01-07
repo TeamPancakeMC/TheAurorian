@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.RunestoneBookModel;
-import cn.teampancake.theaurorian.client.model.RunestoneKeeperModel;
+import cn.teampancake.theaurorian.client.model.entity.RunestoneBookModel;
+import cn.teampancake.theaurorian.client.model.entity.RunestoneKeeperModel;
 import cn.teampancake.theaurorian.client.renderer.layers.RunestoneKeeperBookLayer;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;

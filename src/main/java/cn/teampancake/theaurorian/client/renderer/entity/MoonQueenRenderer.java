@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.MoonQueenModel;
+import cn.teampancake.theaurorian.client.model.entity.MoonQueenModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import com.mojang.blaze3d.vertex.PoseStack;

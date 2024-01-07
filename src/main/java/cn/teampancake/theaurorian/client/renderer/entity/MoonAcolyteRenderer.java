@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.MoonAcolyteModel;
+import cn.teampancake.theaurorian.client.model.entity.MoonAcolyteModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.monster.MoonAcolyte;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

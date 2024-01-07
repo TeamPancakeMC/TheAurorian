@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer.layers;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.RunestoneBookModel;
+import cn.teampancake.theaurorian.client.model.entity.RunestoneBookModel;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

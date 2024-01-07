@@ -40,7 +40,7 @@ public class CrystalBudDecorator extends TreeDecorator {
                     if (random.nextFloat() <= 0.1F) {
                         Direction opposite = direction.getOpposite();
                         BlockPos blockPos = pos.offset(opposite.getStepX(), 0, opposite.getStepZ());
-                        BlockState budState = this.clusterBudList().get(random.nextInt(this.clusterBudList().size()));
+                        BlockState budState = clusterBudList().get(random.nextInt(clusterBudList().size()));
                         if (context.isAir(blockPos) && context.level().isStateAtPosition(blockPos.relative(direction), state -> state.is(BlockTags.LOGS))) {
                             context.setBlock(blockPos, budState.setValue(TAClusterBlock.WATERLOGGED, Boolean.FALSE).setValue(TAClusterBlock.FACING, opposite));
                         }
@@ -50,7 +50,7 @@ public class CrystalBudDecorator extends TreeDecorator {
         }
     }
 
-    private List<BlockState> clusterBudList() {
+    public static List<BlockState> clusterBudList() {
         List<BlockState> list = new ArrayList<>();
         for (Block block : TACommonUtils.getKnownBlocks()) {
             if (block instanceof TAClusterBlock clusterBlock) {

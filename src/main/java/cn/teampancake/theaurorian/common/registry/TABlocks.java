@@ -149,20 +149,24 @@ public class TABlocks {
     public static final RegistryObject<Block> UMBRA_STONE = normal("umbra_stone", defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> UMBRA_STONE_CRACKED = normal("umbra_stone_cracked", defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> UMBRA_STONE_ROOF_TILES = normal("umbra_stone_roof_tiles", defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> STRIPPED_SILENT_TREE_LOG = wood("stripped_silent_tree_log", MapColor.COLOR_BLUE, 2.0F);
+    public static final RegistryObject<Block> STRIPPED_SILENT_TREE_WOOD = wood("stripped_silent_tree_wood", MapColor.COLOR_BLUE, 2.0F);
     public static final RegistryObject<Block> SILENT_BUSH_LEAVES = register("silent_bush_leaves", () -> Blocks.leaves(SoundType.GRASS));
     public static final RegistryObject<Block> SILENT_TREE_LEAVES = register("silent_tree_leaves", () -> Blocks.leaves(SoundType.GRASS));
-    public static final RegistryObject<Block> SILENT_TREE_LOG = register("silent_tree_log", () -> Blocks.log(MapColor.COLOR_BLUE, MapColor.COLOR_BLACK));
     public static final RegistryObject<Block> SILENT_TREE_PLANKS = normal("silent_tree_planks", copy(Blocks.OAK_PLANKS));
-    public static final RegistryObject<Block> SILENT_TREE_WOOD = wood("silent_tree_wood", MapColor.COLOR_BLUE, 2.0F);
+    public static final RegistryObject<Block> SILENT_TREE_LOG = wood("silent_tree_log", STRIPPED_SILENT_TREE_LOG, MapColor.COLOR_BLUE, 2.0F);
+    public static final RegistryObject<Block> SILENT_TREE_WOOD = wood("silent_tree_wood", STRIPPED_SILENT_TREE_WOOD, MapColor.COLOR_BLUE, 2.0F);
     public static final RegistryObject<Block> SILENT_TREE_SAPLING = register("silent_tree_sapling", () -> new SilentTreeSapling(copy(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> SILENT_WOOD_TORCH = register("silent_wood_torch", () -> new TorchBlock(copy(Blocks.TORCH), ParticleTypes.FLAME));
     public static final RegistryObject<Block> SILENT_WOOD_WALL_TORCH = BLOCKS.register("silent_wood_wall_torch", () -> new WallTorchBlock(copy(Blocks.WALL_TORCH), ParticleTypes.FLAME));
     public static final RegistryObject<Block> SILENT_WOOD_CRAFTING_TABLE = register("silent_wood_crafting_table", () -> new CraftingTableBlock(copy(Blocks.CRAFTING_TABLE)));
     public static final RegistryObject<Block> SILENT_WOOD_LADDER = register("silent_wood_ladder", () -> new LadderBlock(copy(Blocks.LADDER)));
+    public static final RegistryObject<Block> STRIPPED_WEEPING_WILLOW_LOG = wood("stripped_weeping_willow_log", MapColor.COLOR_LIGHT_GRAY, 2.0F);
+    public static final RegistryObject<Block> STRIPPED_WEEPING_WILLOW_WOOD = wood("stripped_weeping_willow_wood", MapColor.COLOR_LIGHT_GRAY, 2.0F);
     public static final RegistryObject<Block> WEEPING_WILLOW_LEAVES = register("weeping_willow_leaves", () -> Blocks.leaves(SoundType.GRASS));
-    public static final RegistryObject<Block> WEEPING_WILLOW_LOG = register("weeping_willow_log", () -> Blocks.log(MapColor.COLOR_LIGHT_GRAY, MapColor.COLOR_BLACK));
     public static final RegistryObject<Block> WEEPING_WILLOW_PLANKS = normal("weeping_willow_planks", copy(Blocks.OAK_PLANKS));
-    public static final RegistryObject<Block> WEEPING_WILLOW_WOOD = wood("weeping_willow_wood", MapColor.COLOR_LIGHT_GRAY, 2.0F);
+    public static final RegistryObject<Block> WEEPING_WILLOW_LOG = wood("weeping_willow_log", STRIPPED_WEEPING_WILLOW_LOG, MapColor.COLOR_LIGHT_GRAY, 2.0F);
+    public static final RegistryObject<Block> WEEPING_WILLOW_WOOD = wood("weeping_willow_wood", STRIPPED_WEEPING_WILLOW_WOOD, MapColor.COLOR_LIGHT_GRAY, 2.0F);
 
     /**
      * Potted Flower Blocks

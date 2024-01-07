@@ -32,8 +32,10 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 .add(TABlocks.RUNE_STONE_LAMP.get()).add(TABlocks.CHISELED_DARK_STONE_BRICKS.get())
                 .add(TABlocks.MOON_TEMPLE_LAMP.get()).add(TABlocks.DARK_STONE_LAMP.get())
                 .add(TABlocks.SMOOTH_RUNE_STONE.get()).add(TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get());
-        this.tag(TABlockTags.SILENT_TREE_LOGS).add(TABlocks.SILENT_TREE_LOG.get(), TABlocks.SILENT_TREE_WOOD.get());
-        this.tag(TABlockTags.WEEPING_WILLOW_LOGS).add(TABlocks.WEEPING_WILLOW_LOG.get(), TABlocks.WEEPING_WILLOW_WOOD.get());
+        this.tag(TABlockTags.SILENT_TREE_LOGS).add(TABlocks.STRIPPED_SILENT_TREE_LOG.get(),
+                TABlocks.STRIPPED_SILENT_TREE_WOOD.get(), TABlocks.SILENT_TREE_LOG.get(), TABlocks.SILENT_TREE_WOOD.get());
+        this.tag(TABlockTags.WEEPING_WILLOW_LOGS).add(TABlocks.STRIPPED_WEEPING_WILLOW_LOG.get(),
+                TABlocks.STRIPPED_WEEPING_WILLOW_WOOD.get(), TABlocks.WEEPING_WILLOW_LOG.get(), TABlocks.WEEPING_WILLOW_WOOD.get());
         this.tag(TABlockTags.AURORIAN_GRASS_BLOCK).add(TABlocks.AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
         this.tag(BlockTags.PLANKS).add(TABlocks.SILENT_TREE_PLANKS.get(), TABlocks.WEEPING_WILLOW_PLANKS.get());

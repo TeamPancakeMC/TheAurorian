@@ -116,11 +116,19 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.logBlock((RotatedPillarBlock) TABlocks.RUNE_STONE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.DARK_STONE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.MOON_TEMPLE_PILLAR.get());
+        this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_SILENT_TREE_LOG.get());
+        this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_WEEPING_WILLOW_LOG.get());
         this.logBlock((RotatedPillarBlock) TABlocks.SILENT_TREE_LOG.get());
         this.logBlock((RotatedPillarBlock) TABlocks.WEEPING_WILLOW_LOG.get());
         this.simpleBlock(TABlocks.SILENT_TREE_SAPLING.get(),
                 this.models().cross(this.name(TABlocks.SILENT_TREE_SAPLING.get()),
                         this.blockTexture(TABlocks.SILENT_TREE_SAPLING.get())).renderType(CUTOUT));
+        this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_SILENT_TREE_WOOD.get(),
+                this.modLoc("block/stripped_silent_tree_log"),
+                this.modLoc("block/stripped_silent_tree_log"));
+        this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_WEEPING_WILLOW_WOOD.get(),
+                this.modLoc("block/stripped_weeping_willow_log"),
+                this.modLoc("block/stripped_weeping_willow_log"));
         this.axisBlock((RotatedPillarBlock) TABlocks.SILENT_TREE_WOOD.get(),
                 this.modLoc("block/silent_tree_log"),
                 this.modLoc("block/silent_tree_log"));
@@ -206,6 +214,9 @@ public class TABlockStateProvider extends BlockStateProvider {
                 ResourceLocation texture = this.blockTexture(fenceBlock.getBase());
                 this.fenceBlockWithRenderType(fenceBlock, texture, CUTOUT);
                 this.simpleBlockItem(fenceBlock, this.models().fenceInventory(this.name(fenceBlock), texture));
+            } else if (block instanceof DoorBlockWithBase doorBlock) {
+                String name = "block/" + this.name(doorBlock) + "_";
+//                this.doorBlock(doorBlock, this.modLoc(name + "bottom"), this.modLoc(name + "top"));
             } else if (block instanceof SlabBlockWithBase slabBlock) {
                 ResourceLocation texture = this.blockTexture(slabBlock.getBase());
                 this.slabBlock(slabBlock, texture, texture);

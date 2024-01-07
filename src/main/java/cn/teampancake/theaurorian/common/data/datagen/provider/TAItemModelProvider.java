@@ -107,9 +107,11 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.UMBRA_STONE_CRACKED.get());
         this.simpleBlockItem(TABlocks.UMBRA_STONE_ROOF_TILES.get());
         this.simpleBlockItem(TABlocks.INDIGO_MUSHROOM_CRYSTAL.get());
+        this.simpleBlockItem(TABlocks.STRIPPED_SILENT_TREE_WOOD.get());
         this.simpleBlockItem(TABlocks.SILENT_TREE_LOG.get());
         this.simpleBlockItem(TABlocks.SILENT_TREE_WOOD.get());
         this.simpleBlockItem(TABlocks.SILENT_TREE_PLANKS.get());
+        this.simpleBlockItem(TABlocks.STRIPPED_SILENT_TREE_WOOD.get());
         this.simpleBlockItem(TABlocks.WEEPING_WILLOW_LOG.get());
         this.simpleBlockItem(TABlocks.WEEPING_WILLOW_WOOD.get());
         this.simpleBlockItem(TABlocks.WEEPING_WILLOW_PLANKS.get());

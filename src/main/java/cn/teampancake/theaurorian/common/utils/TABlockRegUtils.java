@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.utils;
 
+import cn.teampancake.theaurorian.common.blocks.AxeStrippableBlock;
 import cn.teampancake.theaurorian.common.blocks.base.*;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -31,6 +32,12 @@ public class TABlockRegUtils {
 
     public static RegistryObject<Block> ore(String name, BlockBehaviour.Properties properties) {
         return register(name, () -> new DropExperienceBlock(properties.requiresCorrectToolForDrops()));
+    }
+
+    public static RegistryObject<Block> wood(String name, Supplier<Block> block, MapColor mapColor, float strength) {
+        return register(name, () -> new AxeStrippableBlock(block, BlockBehaviour.Properties
+                .of().mapColor(mapColor).instrument(NoteBlockInstrument.BASS)
+                .strength(strength).sound(SoundType.WOOD).ignitedByLava()));
     }
 
     public static RegistryObject<Block> wood(String name, MapColor mapColor, float strength) {

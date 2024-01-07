@@ -3,7 +3,7 @@ package cn.teampancake.theaurorian.common.data.datagen.provider;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.blocks.base.*;
-import cn.teampancake.theaurorian.common.blocks.state.TAVerticalSlabType;
+import cn.teampancake.theaurorian.common.blocks.state.VerticalSlabShape;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.Direction;
@@ -375,12 +375,12 @@ public class TABlockStateProvider extends BlockStateProvider {
         BlockModelBuilder post = this.models().withExistingParent(this.name(block) + "_post",
                 this.modLoc("block/vertical_slab_post")).texture("all", this.blockTexture(block.getBase()));
         this.getVariantBuilder(block).forAllStatesExcept(state -> {
-            TAVerticalSlabType slabType = state.getValue(VerticalSlabBlockWithBase.SHAPE);
-            VerticalSlabBlockWithBase.TAConnection connection = state.getValue(VerticalSlabBlockWithBase.CONNECTION);
-            ConfiguredModel model = slabType == TAVerticalSlabType.FULL ? new ConfiguredModel(full)
-                    : connection == VerticalSlabBlockWithBase.TAConnection.NONE ? new ConfiguredModel(normal, 0,
+            VerticalSlabShape slabType = state.getValue(VerticalSlabBlockWithBase.SHAPE);
+            VerticalSlabBlockWithBase.Connection connection = state.getValue(VerticalSlabBlockWithBase.CONNECTION);
+            ConfiguredModel model = slabType == VerticalSlabShape.FULL ? new ConfiguredModel(full)
+                    : connection == VerticalSlabBlockWithBase.Connection.NONE ? new ConfiguredModel(normal, 0,
                     slabType.getModelRotation(), true) : new ConfiguredModel(post, 0,
-                    (int)(connection == VerticalSlabBlockWithBase.TAConnection.LEFT ? slabType.getDirection() :
+                    (int)(connection == VerticalSlabBlockWithBase.Connection.LEFT ? slabType.getDirection() :
                             slabType.getDirection().getClockWise()).toYRot() - 180, true);
             return new ConfiguredModel[] {model};
         }, VerticalSlabBlockWithBase.WATERLOGGED);

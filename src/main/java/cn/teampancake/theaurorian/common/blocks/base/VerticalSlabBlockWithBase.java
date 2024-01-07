@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.base;
 
-import cn.teampancake.theaurorian.common.blocks.state.TAVerticalSlabType;
+import cn.teampancake.theaurorian.common.blocks.state.VerticalSlabShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -29,8 +29,8 @@ import java.util.Locale;
 @SuppressWarnings("deprecation")
 public class VerticalSlabBlockWithBase extends Block implements SimpleWaterloggedBlock, IHasBaseBlock, ISimpleBlockItem {
 
-    public static final EnumProperty<TAVerticalSlabType> SHAPE = EnumProperty.create("shape", TAVerticalSlabType.class);
-    public static final EnumProperty<TAConnection> CONNECTION = EnumProperty.create("connection", TAConnection.class);
+    public static final EnumProperty<VerticalSlabShape> SHAPE = EnumProperty.create("shape", VerticalSlabShape.class);
+    public static final EnumProperty<Connection> CONNECTION = EnumProperty.create("connection", Connection.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final VoxelShape[] AABB = {
             Shapes.create(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.5D),
@@ -48,8 +48,8 @@ public class VerticalSlabBlockWithBase extends Block implements SimpleWaterlogge
         super(properties);
         this.base = base;
         this.registerDefaultState(this.defaultBlockState()
-                .setValue(SHAPE, TAVerticalSlabType.NORTH)
-                .setValue(CONNECTION, TAConnection.NONE)
+                .setValue(SHAPE, VerticalSlabShape.NORTH)
+                .setValue(CONNECTION, Connection.NONE)
                 .setValue(WATERLOGGED, Boolean.FALSE));
     }
 
@@ -60,67 +60,68 @@ public class VerticalSlabBlockWithBase extends Block implements SimpleWaterlogge
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        TAVerticalSlabType shape = state.getValue(SHAPE);
-        TAConnection connection = state.getValue(CONNECTION);
-        return shape == TAVerticalSlabType.FULL || connection == TAConnection.NONE ? AABB[state.getValue(SHAPE).ordinal()]
-                : CONNECTED_AABB[(connection == TAConnection.LEFT ? shape.getDirection() : shape.getDirection().getClockWise()).get2DDataValue()];
+        VerticalSlabShape shape = state.getValue(SHAPE);
+        Connection connection = state.getValue(CONNECTION);
+        return shape == VerticalSlabShape.FULL || connection == Connection.NONE ? AABB[state.getValue(SHAPE).ordinal()] :
+                CONNECTED_AABB[(connection == Connection.LEFT ? shape.getDirection() : shape.getDirection().getClockWise()).get2DDataValue()];
     }
 
-    @Nullable @Override
+    @Nullable
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState clickedState = context.getLevel().getBlockState(context.getClickedPos());
-        if (clickedState.is(this) && clickedState.getValue(SHAPE) != TAVerticalSlabType.FULL) {
-            return this.defaultBlockState().setValue(SHAPE, TAVerticalSlabType.FULL).setValue(WATERLOGGED, Boolean.FALSE);
+        if (clickedState.is(this) && clickedState.getValue(SHAPE) != VerticalSlabShape.FULL) {
+            return this.defaultBlockState().setValue(SHAPE, VerticalSlabShape.FULL).setValue(BlockStateProperties.WATERLOGGED, Boolean.FALSE);
         } else {
             Direction facing = context.getHorizontalDirection();
             FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-            TAConnection connection = getProperConnectionType(context.getLevel(), context.getClickedPos(), facing);
-            return this.defaultBlockState().setValue(SHAPE, TAVerticalSlabType.fromDirection(facing)).setValue(CONNECTION, connection)
-                    .setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+            return this.defaultBlockState().setValue(SHAPE, VerticalSlabShape.fromDirection(facing))
+                    .setValue(CONNECTION, getProperConnectionType(context.getLevel(), context.getClickedPos(), facing))
+                    .setValue(BlockStateProperties.WATERLOGGED, fluidState.getType() == Fluids.WATER);
         }
     }
 
-    private static TAConnection getProperConnectionType(BlockGetter level, BlockPos pos, Direction facing){
+    private static Connection getProperConnectionType(BlockGetter level, BlockPos pos, Direction facing) {
         BlockState backState = level.getBlockState(pos.relative(facing));
-        if (backState.getBlock() instanceof VerticalSlabBlockWithBase && backState.getValue(SHAPE) != TAVerticalSlabType.FULL) {
+        if (backState.getBlock() instanceof VerticalSlabBlockWithBase && backState.getValue(SHAPE) != VerticalSlabShape.FULL){
             Direction direction = backState.getValue(SHAPE).getDirection();
-            TAConnection connection = backState.getValue(CONNECTION);
+            Connection connection = backState.getValue(CONNECTION);
             BlockState leftState = level.getBlockState(pos.relative(facing.getCounterClockWise()));
-            BlockState rightState = level.getBlockState(pos.relative(facing.getClockWise()));
-            if ((!(leftState.getBlock() instanceof VerticalSlabBlockWithBase) || !facing.equals(leftState.getValue(SHAPE).getDirection()))
-                    && direction.equals(facing.getClockWise()) && (connection == TAConnection.NONE || connection == TAConnection.RIGHT)) {
-                return TAConnection.RIGHT;
+            if ((!(leftState.getBlock() instanceof VerticalSlabBlockWithBase) || !facing.equals(leftState.getValue(SHAPE).getDirection())) &&
+                    direction.equals(facing.getClockWise()) && (connection == Connection.NONE || connection == Connection.RIGHT)) {
+                return Connection.RIGHT;
             }
 
-            if ((!(rightState.getBlock() instanceof VerticalSlabBlockWithBase) || !facing.equals(rightState.getValue(SHAPE).getDirection()))
-                    && direction.equals(facing.getCounterClockWise()) && (connection == TAConnection.NONE || connection == TAConnection.LEFT)) {
-                return TAConnection.LEFT;
+            BlockState rightState = level.getBlockState(pos.relative(facing.getClockWise()));
+            if ((!(rightState.getBlock() instanceof VerticalSlabBlockWithBase) || !facing.equals(rightState.getValue(SHAPE).getDirection())) &&
+                    direction.equals(facing.getCounterClockWise()) && (connection == Connection.NONE || connection == Connection.LEFT)) {
+                return Connection.LEFT;
             }
         }
 
-        return TAConnection.NONE;
+        return Connection.NONE;
     }
 
     @Override
-    public FluidState getFluidState(BlockState state){
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
+    public FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(Boolean.FALSE) : Fluids.EMPTY.defaultFluidState();
     }
 
     @Override
     public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
-        return state.getValue(SHAPE) != TAVerticalSlabType.FULL && SimpleWaterloggedBlock.super.placeLiquid(level, pos, state, fluidState);
+        return state.getValue(SHAPE) != VerticalSlabShape.FULL && SimpleWaterloggedBlock.super.placeLiquid(level, pos, state, fluidState);
     }
 
     @Override
-    public boolean canPlaceLiquid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluid){
-        return state.getValue(SHAPE) != TAVerticalSlabType.FULL && fluid == Fluids.WATER;
+    public boolean canPlaceLiquid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
+        return state.getValue(SHAPE) != VerticalSlabShape.FULL && fluid == Fluids.WATER;
     }
 
     @Override
     public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
-        TAVerticalSlabType type = state.getValue(SHAPE);
-        boolean flag = type.getDirection().getOpposite() == useContext.getClickedFace();
-        return type != TAVerticalSlabType.FULL && useContext.getItemInHand().is(this.asItem()) && flag;
+        VerticalSlabShape shape = state.getValue(SHAPE);
+        return shape != VerticalSlabShape.FULL && useContext.getItemInHand().is(this.asItem()) &&
+                shape.getDirection().getOpposite() == useContext.getClickedFace();
     }
 
     @Override
@@ -129,9 +130,8 @@ public class VerticalSlabBlockWithBase extends Block implements SimpleWaterlogge
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        TAVerticalSlabType shape = state.getValue(SHAPE);
-        TAConnection connection = getProperConnectionType(level, currentPos, shape.getDirection());
-        return shape == TAVerticalSlabType.FULL ? state : state.setValue(CONNECTION, connection);
+        VerticalSlabShape shape = state.getValue(SHAPE);
+        return shape == VerticalSlabShape.FULL ? state : state.setValue(CONNECTION, getProperConnectionType(level, currentPos, shape.getDirection()));
     }
 
     @Override
@@ -143,7 +143,7 @@ public class VerticalSlabBlockWithBase extends Block implements SimpleWaterlogge
         return this.base;
     }
 
-    public enum TAConnection implements StringRepresentable {
+    public enum Connection implements StringRepresentable {
 
         LEFT, RIGHT, NONE;
 

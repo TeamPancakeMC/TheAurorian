@@ -6,17 +6,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
-public enum TAVerticalSlabType implements StringRepresentable {
+public enum VerticalSlabShape implements StringRepresentable {
 
     NORTH(Direction.NORTH),
-    SOUTH(Direction.SOUTH),
     EAST(Direction.EAST),
+    SOUTH(Direction.SOUTH),
     WEST(Direction.WEST),
     FULL(null);
 
     private final Direction direction;
 
-    TAVerticalSlabType(Direction direction) {
+    VerticalSlabShape(Direction direction) {
         this.direction = direction;
     }
 
@@ -33,8 +33,8 @@ public enum TAVerticalSlabType implements StringRepresentable {
         return this.name().toLowerCase(Locale.ROOT);
     }
 
-    public static TAVerticalSlabType fromDirection(Direction direction) {
-        for (TAVerticalSlabType value : values()) {
+    public static VerticalSlabShape fromDirection(Direction direction) {
+        for (VerticalSlabShape value : values()) {
             if (value.direction == direction) {
                 return value;
             }

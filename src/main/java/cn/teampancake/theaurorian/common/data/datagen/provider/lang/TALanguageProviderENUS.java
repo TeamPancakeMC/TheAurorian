@@ -156,6 +156,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.WEEPING_WILLOW_PLANKS.get(), "Weeping Willow Planks");
         this.add(TABlocks.WEEPING_WILLOW_LOG.get(), "Weeping Willow Log");
         this.add(TABlocks.WEEPING_WILLOW_WOOD.get(), "Weeping Willow Wood");
+        this.add(TABlocks.CURTAIN_TREE_LEAVES.get(), "Curtain Tree Leaves");
+        this.add(TABlocks.CURTAIN_TREE_SAPLING.get(), "Curtain Tree Sapling");
         this.add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(), "Silent Wood Pressure Plate");
         this.add(TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get(), "Weeping Willow Pressure Plate");
         this.add(TABlocks.SILENT_WOOD_FENCE_GATE.get(), "Silent Wood Fence Gate");

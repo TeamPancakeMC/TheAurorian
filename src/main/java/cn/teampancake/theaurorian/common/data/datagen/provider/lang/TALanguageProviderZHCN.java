@@ -156,6 +156,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.WEEPING_WILLOW_PLANKS.get(), "垂柳木板");
         this.add(TABlocks.WEEPING_WILLOW_LOG.get(), "垂柳原木");
         this.add(TABlocks.WEEPING_WILLOW_WOOD.get(), "垂柳木头");
+        this.add(TABlocks.CURTAIN_TREE_LEAVES.get(), "幽帘树叶");
+        this.add(TABlocks.CURTAIN_TREE_SAPLING.get(), "幽帘树苗");
         this.add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(), "谧木压力板");
         this.add(TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get(), "垂柳木压力板");
         this.add(TABlocks.SILENT_WOOD_FENCE_GATE.get(), "谧木栅栏门");

@@ -69,6 +69,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.WEEPING_WILLOW_LOG.get());
         this.dropSelf(TABlocks.WEEPING_WILLOW_PLANKS.get());
         this.dropSelf(TABlocks.WEEPING_WILLOW_WOOD.get());
+        this.dropSelf(TABlocks.CURTAIN_TREE_SAPLING.get());
         this.dropWhenSilkTouch(TABlocks.MOON_GLASS.get());
         this.dropWhenSilkTouch(TABlocks.AURORIAN_GLASS.get());
         this.dropWhenSilkTouch(TABlocks.DARK_STONE_GLASS.get());
@@ -88,6 +89,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropPottedContents(TABlocks.POTTED_PETUNIA_PLANT.get());
         this.dropPottedContents(TABlocks.POTTED_SILENT_TREE_SAPLING.get());
         this.dropPottedContents(TABlocks.POTTED_AURORIAN_GRASS_LIGHT.get());
+        this.dropPottedContents(TABlocks.POTTED_CURTAIN_TREE_SAPLING.get());
         this.dropOther(TABlocks.MOON_WALL_TORCH.get(), TABlocks.MOON_TORCH.get());
         this.dropOther(TABlocks.SILENT_WOOD_WALL_TORCH.get(), TABlocks.SILENT_WOOD_TORCH.get());
         this.dropNuggets(TABlocks.CERULEAN_CLUSTER.get(), TAItems.CERULEAN_NUGGET.get(), 7.0F, 9.0F);

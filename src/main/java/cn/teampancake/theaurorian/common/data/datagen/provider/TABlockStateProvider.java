@@ -123,6 +123,9 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.SILENT_TREE_SAPLING.get(),
                 this.models().cross(this.name(TABlocks.SILENT_TREE_SAPLING.get()),
                         this.blockTexture(TABlocks.SILENT_TREE_SAPLING.get())).renderType(CUTOUT));
+        this.simpleBlock(TABlocks.CURTAIN_TREE_SAPLING.get(),
+                this.models().cross(this.name(TABlocks.CURTAIN_TREE_SAPLING.get()),
+                        this.blockTexture(TABlocks.CURTAIN_TREE_SAPLING.get())).renderType(CUTOUT));
         this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_SILENT_TREE_WOOD.get(),
                 this.modLoc("block/stripped_silent_tree_log"),
                 this.modLoc("block/stripped_silent_tree_log"));
@@ -163,6 +166,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlockWithRenderType(TABlocks.SILENT_BUSH_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.SILENT_TREE_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.WEEPING_WILLOW_LEAVES.get(), CUTOUT_MIPPED);
+        this.simpleBlockWithRenderType(TABlocks.CURTAIN_TREE_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.TRANSPARENT_RUNE_STONE.get(), TRANSLUCENT);
         this.paneBlockWithRenderType((IronBarsBlock) TABlocks.MOON_GLASS_PANE.get(),
                 this.blockTexture(TABlocks.MOON_GLASS.get()),

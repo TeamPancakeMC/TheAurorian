@@ -27,6 +27,8 @@ public class TAItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        this.copy(TABlockTags.VERTICAL_STAIRS, TAItemTags.VERTICAL_STAIRS);
+        this.copy(TABlockTags.VERTICAL_SLABS, TAItemTags.VERTICAL_SLABS);
         this.copy(TABlockTags.SILENT_TREE_LOGS, TAItemTags.SILENT_TREE_LOGS);
         this.copy(TABlockTags.WEEPING_WILLOW_LOGS, TAItemTags.WEEPING_WILLOW_LOGS);
         this.copy(TABlockTags.AURORIAN_GRASS_BLOCK, TAItemTags.AURORIAN_GRASS_BLOCK);

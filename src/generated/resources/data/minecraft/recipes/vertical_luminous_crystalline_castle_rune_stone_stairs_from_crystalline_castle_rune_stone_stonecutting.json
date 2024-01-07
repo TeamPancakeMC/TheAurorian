@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "theaurorian:crystalline_castle_rune_stone"
+  },
+  "result": "theaurorian:vertical_luminous_crystalline_castle_rune_stone_stairs"
+}

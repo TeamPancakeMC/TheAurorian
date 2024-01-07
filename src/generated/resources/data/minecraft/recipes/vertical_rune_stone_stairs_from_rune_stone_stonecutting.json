@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "theaurorian:rune_stone"
+  },
+  "result": "theaurorian:vertical_rune_stone_stairs"
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "theaurorian:block/vertical_stair",
+  "textures": {
+    "all": "theaurorian:block/umbra_stone_cracked"
+  }
+}

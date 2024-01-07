@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "theaurorian:chiseled_moon_temple_bricks"
+  },
+  "result": "theaurorian:vertical_chiseled_moon_temple_brick_stairs"
+}

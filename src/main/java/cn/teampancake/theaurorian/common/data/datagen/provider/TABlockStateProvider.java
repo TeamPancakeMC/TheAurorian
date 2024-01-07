@@ -3,16 +3,14 @@ package cn.teampancake.theaurorian.common.data.datagen.provider;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.blocks.base.*;
+import cn.teampancake.theaurorian.common.blocks.state.TAVerticalSlabType;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -53,6 +51,10 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.AURORIAN_COAL_ORE.get());
         this.simpleBlock(TABlocks.AURORIAN_STONE_BRICKS.get());
         this.simpleBlock(TABlocks.AURORIAN_COBBLESTONE.get());
+        this.simpleBlock(TABlocks.AURORIAN_GRANITE.get());
+        this.simpleBlock(TABlocks.AURORIAN_DIORITE.get());
+        this.simpleBlock(TABlocks.AURORIAN_ANDESITE.get());
+        this.simpleBlock(TABlocks.AURORIAN_BARRIER_STONE.get());
         this.simpleBlock(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
         this.simpleBlock(TABlocks.AURORIAN_PERIDOTITE.get());
         this.simpleBlock(TABlocks.MOON_SAND.get());
@@ -211,6 +213,10 @@ public class TABlockStateProvider extends BlockStateProvider {
                 ResourceLocation texture = this.blockTexture(wallBlock.getBase());
                 this.wallBlock(wallBlock, texture);
                 this.simpleBlockItem(wallBlock, this.models().wallInventory(this.name(wallBlock), texture));
+            } else if (block instanceof VerticalStairBlockWithBase verticalStairBlock) {
+                this.registerVerticalStairStates(verticalStairBlock);
+            } else if (block instanceof VerticalSlabBlockWithBase verticalSlabBlock) {
+                this.registerVerticalSlabStates(verticalSlabBlock);
             } else if (block instanceof FlowerPotBlock flowerPotBlock) {
                 this.registerPottedPlantStates(flowerPotBlock, flowerPotBlock.getContent());
             } else if (block instanceof TAClusterBlock clusterBlock) {
@@ -321,8 +327,7 @@ public class TABlockStateProvider extends BlockStateProvider {
             String name = this.name(block) + "_stage" + stage;
             ResourceLocation texture = this.modLoc("block/" + name);
             ModelFile modelFile = this.models().crop(name, texture);
-            builder.partialState().with(TACropBlock.AGE, stage)
-                    .modelForState().modelFile(modelFile).addModel();
+            builder.partialState().with(TACropBlock.AGE, stage).modelForState().modelFile(modelFile).addModel();
         }
     }
 
@@ -332,9 +337,38 @@ public class TABlockStateProvider extends BlockStateProvider {
             String name = this.name(block) + "_stage" + stage;
             ResourceLocation texture = this.modLoc("block/" + name);
             ModelFile modelFile = this.models().cross(name, texture);
-            builder.partialState().with(TACropBlock.AGE, stage)
-                    .modelForState().modelFile(modelFile).addModel();
+            builder.partialState().with(TACropBlock.AGE, stage).modelForState().modelFile(modelFile).addModel();
         }
+    }
+
+    private void registerVerticalStairStates(VerticalStairBlockWithBase block) {
+        DirectionProperty facing = VerticalStairBlockWithBase.FACING;
+        ModelFile modelFile = this.models().withExistingParent(this.name(block),
+                this.modLoc("block/vertical_stair")).texture("all", this.blockTexture(block.getBase()));
+        facing.getPossibleValues().forEach(direction -> {
+            int y = (int) (direction.toYRot() - 180.0F);
+            this.getVariantBuilder(block).partialState().with(facing, direction).modelForState()
+                    .rotationY(y).uvLock(true).modelFile(modelFile).addModel();
+        });
+    }
+
+    private void registerVerticalSlabStates(VerticalSlabBlockWithBase block) {
+        BlockModelBuilder normal = this.models().withExistingParent(this.name(block),
+                this.modLoc("block/vertical_slab")).texture("all", this.blockTexture(block.getBase()));
+        BlockModelBuilder full = this.models().withExistingParent(this.name(block) + "_full",
+                this.mcLoc("block/cube_all")).texture("all", this.blockTexture(block.getBase()));
+        BlockModelBuilder post = this.models().withExistingParent(this.name(block) + "_post",
+                this.modLoc("block/vertical_slab_post")).texture("all", this.blockTexture(block.getBase()));
+        this.getVariantBuilder(block).forAllStatesExcept(state -> {
+            TAVerticalSlabType slabType = state.getValue(VerticalSlabBlockWithBase.SHAPE);
+            VerticalSlabBlockWithBase.TAConnection connection = state.getValue(VerticalSlabBlockWithBase.CONNECTION);
+            ConfiguredModel model = slabType == TAVerticalSlabType.FULL ? new ConfiguredModel(full)
+                    : connection == VerticalSlabBlockWithBase.TAConnection.NONE ? new ConfiguredModel(normal, 0,
+                    slabType.getModelRotation(), true) : new ConfiguredModel(post, 0,
+                    (int)(connection == VerticalSlabBlockWithBase.TAConnection.LEFT ? slabType.getDirection() :
+                            slabType.getDirection().getClockWise()).toYRot() - 180, true);
+            return new ConfiguredModel[] {model};
+        }, VerticalSlabBlockWithBase.WATERLOGGED);
     }
 
     private void registerClusterStates(Block block) {

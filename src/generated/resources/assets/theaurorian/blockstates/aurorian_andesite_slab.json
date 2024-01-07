@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "theaurorian:block/aurorian_andesite_slab"
+    },
+    "type=double": {
+      "model": "theaurorian:block/aurorian_andesite"
+    },
+    "type=top": {
+      "model": "theaurorian:block/aurorian_andesite_slab_top"
+    }
+  }
+}

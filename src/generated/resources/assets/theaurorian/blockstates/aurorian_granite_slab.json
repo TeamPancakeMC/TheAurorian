@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "theaurorian:block/aurorian_granite_slab"
+    },
+    "type=double": {
+      "model": "theaurorian:block/aurorian_granite"
+    },
+    "type=top": {
+      "model": "theaurorian:block/aurorian_granite_slab_top"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "theaurorian:smooth_moon_temple_bricks"
+  },
+  "result": "theaurorian:vertical_smooth_moon_temple_brick_slab"
+}

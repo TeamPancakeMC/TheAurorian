@@ -1,13 +1,15 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.blocks.base.ISimpleBlockItem;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -37,6 +39,10 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.AURORIAN_FARM_TILE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_STONE_BRICKS.get());
         this.simpleBlockItem(TABlocks.AURORIAN_COBBLESTONE.get());
+        this.simpleBlockItem(TABlocks.AURORIAN_GRANITE.get());
+        this.simpleBlockItem(TABlocks.AURORIAN_DIORITE.get());
+        this.simpleBlockItem(TABlocks.AURORIAN_ANDESITE.get());
+        this.simpleBlockItem(TABlocks.AURORIAN_BARRIER_STONE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_GRASS_BLOCK.get());
         this.simpleBlockItem(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get());
         this.simpleBlockItem(TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
@@ -168,7 +174,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.withExistingParent(this.name(TABlocks.TALL_AURORIAN_WATER_GRASS.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.TALL_AURORIAN_WATER_GRASS.get()) + "_upper"));
         for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block instanceof StairBlock || block instanceof SlabBlock || block instanceof FenceGateBlock || block instanceof PressurePlateBlock) {
+            if (block instanceof StairBlock || block instanceof ISimpleBlockItem) {
                 this.simpleBlockItem(block);
             }
         }

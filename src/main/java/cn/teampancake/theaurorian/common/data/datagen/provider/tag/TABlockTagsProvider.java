@@ -1,6 +1,8 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.tag;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.blocks.base.VerticalSlabBlockWithBase;
+import cn.teampancake.theaurorian.common.blocks.base.VerticalStairBlockWithBase;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
@@ -44,13 +46,15 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.NEEDS_STONE_TOOL).add(TABlocks.MOONSTONE_ORE.get(), TABlocks.CERULEAN_ORE.get());
         this.tag(BlockTags.NEEDS_IRON_TOOL).add(TABlocks.GEODE_ORE.get(), TABlocks.MOON_GEM.get(), TABlocks.MOONLIGHT_FORGE.get(),
                 TABlocks.CERULEAN_BLOCK.get(), TABlocks.MOONSTONE_BLOCK.get(), TABlocks.AURORIAN_STEEL_BLOCK.get());
-        this.tag(BlockTags.MINEABLE_WITH_AXE).add(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get(), TABlocks.BLUEBERRY_BUSH.get());
+        this.tag(BlockTags.MINEABLE_WITH_AXE).add(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get(), TABlocks.BLUEBERRY_BUSH.get(),
+                TABlocks.VERTICAL_SILENT_WOOD_STAIRS.get(), TABlocks.VERTICAL_SILENT_WOOD_SLAB.get());
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(TABlocks.MOON_SAND.get(), TABlocks.AURORIAN_FARM_TILE.get(),
                 TABlocks.AURORIAN_DIRT.get(), TABlocks.AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TABlocks.AURORIAN_STONE.get(), TABlocks.AURORIAN_STONE_BRICKS.get(),
-                TABlocks.AURORIAN_COBBLESTONE.get(), TABlocks.AURORIAN_COAL_ORE.get(), TABlocks.AURORIAN_FURNACE.get(),
-                TABlocks.AURORIAN_FURNACE_CHIMNEY.get(), TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(),
+                TABlocks.AURORIAN_COBBLESTONE.get(), TABlocks.AURORIAN_GRANITE.get(), TABlocks.AURORIAN_DIORITE.get(),
+                TABlocks.AURORIAN_ANDESITE.get(), TABlocks.AURORIAN_BARRIER_STONE.get(), TABlocks.AURORIAN_COAL_ORE.get(),
+                TABlocks.AURORIAN_FURNACE.get(), TABlocks.AURORIAN_FURNACE_CHIMNEY.get(), TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(),
                 TABlocks.AURORIAN_PERIDOTITE.get(), TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), TABlocks.MOONSTONE_ORE.get(),
                 TABlocks.CERULEAN_ORE.get(), TABlocks.GEODE_ORE.get(), TABlocks.CERULEAN_BLOCK.get(), TABlocks.MOONSTONE_BLOCK.get(),
                 TABlocks.AURORIAN_COAL_BLOCK.get(), TABlocks.AURORIAN_STEEL_BLOCK.get(), TABlocks.INDIGO_MUSHROOM_CRYSTAL.get(),
@@ -78,6 +82,12 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                     this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
                 } else if (block instanceof WallBlock) {
                     this.tag(BlockTags.WALLS).add(block);
+                    this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
+                } else if (block instanceof VerticalStairBlockWithBase) {
+                    this.tag(TABlockTags.VERTICAL_STAIRS).add(block);
+                    this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
+                } else if (block instanceof VerticalSlabBlockWithBase) {
+                    this.tag(TABlockTags.VERTICAL_SLABS).add(block);
                     this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
                 }
             } else if (block.defaultDestroyTime() != f1 && block.getExplosionResistance() == f2) {

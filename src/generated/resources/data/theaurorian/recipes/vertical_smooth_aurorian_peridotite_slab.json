@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "theaurorian:smooth_aurorian_peridotite"
+    }
+  },
+  "pattern": [
+    "###",
+    " ##",
+    "  #"
+  ],
+  "result": {
+    "count": 6,
+    "item": "theaurorian:vertical_smooth_aurorian_peridotite_slab"
+  },
+  "show_notification": true
+}

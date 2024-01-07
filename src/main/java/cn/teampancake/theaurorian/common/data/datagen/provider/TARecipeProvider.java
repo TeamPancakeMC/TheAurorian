@@ -336,6 +336,16 @@ public class TARecipeProvider extends RecipeProvider {
             } else if (block instanceof WallBlockWithBase wallBlock) {
                 wall(consumer, RecipeCategory.BUILDING_BLOCKS, wallBlock, wallBlock.getBase());
                 stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, wallBlock, wallBlock.getBase());
+            } else if (block instanceof VerticalStairBlockWithBase verticalStairBlock) {
+                verticalStairs(consumer, verticalStairBlock);
+                if (verticalStairBlock.defaultMapColor() == Blocks.STONE.defaultMapColor()) {
+                    stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, verticalStairBlock, verticalStairBlock.getBase());
+                }
+            } else if (block instanceof VerticalSlabBlockWithBase verticalSlabBlock) {
+                verticalSlab(consumer, verticalSlabBlock);
+                if (verticalSlabBlock.defaultMapColor() == Blocks.STONE.defaultMapColor()) {
+                    stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, verticalSlabBlock, verticalSlabBlock.getBase(), 2);
+                }
             }
         }
     }
@@ -348,6 +358,18 @@ public class TARecipeProvider extends RecipeProvider {
     private static void scrapping(Consumer<FinishedRecipe> consumer, ItemLike ingredient, ItemLike result, int amount) {
         ScrapperRecipeBuilder.addRecipe(ingredient, result, amount).unlockedBy(getHasName(ingredient), has(ingredient))
                 .save(consumer, AurorianMod.prefix("scrap_" + getItemName(ingredient) + "_to_" + getItemName(result)));
+    }
+
+    private static void verticalStairs(Consumer<FinishedRecipe> consumer, VerticalStairBlockWithBase slab) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, slab, 4).define('#', Ingredient.of(slab.getBase()))
+                .pattern("#").pattern("#").pattern("#")
+                .unlockedBy(getHasName(slab.getBase()), has(slab.getBase())).save(consumer);
+    }
+
+    private static void verticalSlab(Consumer<FinishedRecipe> consumer, VerticalSlabBlockWithBase stair) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, stair, 6).define('#', Ingredient.of(stair.getBase()))
+                .pattern("###").pattern(" ##").pattern("  #")
+                .unlockedBy(getHasName(stair.getBase()), has(stair.getBase())).save(consumer);
     }
 
     private void buildArmorRecipes(Consumer<FinishedRecipe> consumer, ItemLike helmet,

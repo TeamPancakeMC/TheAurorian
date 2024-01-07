@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "theaurorian:smooth_dark_stone_bricks"
+    }
+  },
+  "pattern": [
+    "###",
+    " ##",
+    "  #"
+  ],
+  "result": {
+    "count": 6,
+    "item": "theaurorian:vertical_smooth_dark_stone_brick_slab"
+  },
+  "show_notification": true
+}

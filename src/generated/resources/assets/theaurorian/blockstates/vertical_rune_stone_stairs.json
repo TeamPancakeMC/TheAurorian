@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "theaurorian:block/vertical_rune_stone_stairs",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "theaurorian:block/vertical_rune_stone_stairs",
+      "uvlock": true
+    },
+    "facing=south": {
+      "model": "theaurorian:block/vertical_rune_stone_stairs",
+      "uvlock": true,
+      "y": -180
+    },
+    "facing=west": {
+      "model": "theaurorian:block/vertical_rune_stone_stairs",
+      "uvlock": true,
+      "y": -90
+    }
+  }
+}

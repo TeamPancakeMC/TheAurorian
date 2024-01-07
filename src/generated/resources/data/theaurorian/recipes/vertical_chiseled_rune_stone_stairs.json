@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "theaurorian:chiseled_rune_stone"
+    }
+  },
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "result": {
+    "count": 4,
+    "item": "theaurorian:vertical_chiseled_rune_stone_stairs"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "theaurorian:transparent_rune_stone"
+    }
+  },
+  "pattern": [
+    "###",
+    " ##",
+    "  #"
+  ],
+  "result": {
+    "count": 6,
+    "item": "theaurorian:vertical_transparent_rune_stone_slab"
+  },
+  "show_notification": true
+}

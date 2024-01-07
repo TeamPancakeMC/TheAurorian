@@ -1,0 +1,6 @@
+{
+  "parent": "theaurorian:block/vertical_slab",
+  "textures": {
+    "all": "theaurorian:block/smooth_dark_stone_bricks"
+  }
+}

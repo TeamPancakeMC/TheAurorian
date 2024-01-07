@@ -30,6 +30,10 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_STONE = normal("aurorian_stone", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_STONE_BRICKS = normal("aurorian_stone_bricks", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_COBBLESTONE = normal("aurorian_cobblestone", defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_GRANITE = normal("aurorian_granite", defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_DIORITE = normal("aurorian_diorite", defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_ANDESITE = normal("aurorian_andesite", defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_BARRIER_STONE = normal("aurorian_barrier_stone", copy(Blocks.BEDROCK));
     public static final RegistryObject<Block> AURORIAN_COAL_ORE = ore("aurorian_coal_ore", defaultStoneProperties(3.0F));
     public static final RegistryObject<Block> AURORIAN_GRASS_BLOCK = register("aurorian_grass_block", () -> new AurorianGrassBlock(copy(Blocks.GRASS_BLOCK)));
     public static final RegistryObject<Block> LIGHT_AURORIAN_GRASS_BLOCK = register("light_aurorian_grass_block", () -> new AurorianGrassBlock(copy(Blocks.GRASS_BLOCK).lightLevel(s -> 2)));
@@ -175,6 +179,82 @@ public class TABlocks {
     public static final RegistryObject<Block> POTTED_SILENT_TREE_SAPLING = flowerPot(SILENT_TREE_SAPLING.getId().getPath(), SILENT_TREE_SAPLING);
 
     /**
+     * Vertical Stair Blocks
+     */
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_STONE_STAIRS = verticalStair("vertical_aurorian_stone_stairs", AURORIAN_STONE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_STONE_BRICK_STAIRS = verticalStair("vertical_aurorian_stone_brick_stairs", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_COBBLESTONE_STAIRS = verticalStair("vertical_aurorian_cobblestone_stairs", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_GRANITE_STAIRS = verticalStair("vertical_aurorian_granite_stairs", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_DIORITE_STAIRS = verticalStair("vertical_aurorian_diorite_stairs", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_ANDESITE_STAIRS = verticalStair("vertical_aurorian_andesite_stairs", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_SILENT_WOOD_STAIRS = verticalStair("vertical_silent_wood_stairs", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> VERTICAL_RUNE_STONE_STAIRS = verticalStair("vertical_rune_stone_stairs", RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_SMOOTH_RUNE_STONE_STAIRS = verticalStair("vertical_smooth_rune_stone_stairs", SMOOTH_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_CHISELED_RUNE_STONE_STAIRS = verticalStair("vertical_chiseled_rune_stone_stairs", CHISELED_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_aurorian_castle_rune_stone_stairs", AURORIAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_aurorian_steel_castle_rune_stone_stairs", AURORIAN_STEEL_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_CERULEAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_MOON_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_aurorian_castle_rune_stone_stairs", AURORIAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_aurorian_steel_castle_rune_stone_stairs", AURORIAN_STEEL_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_LUMINOUS_MOON_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_TRANSPARENT_RUNE_STONE_STAIRS = verticalStair("vertical_transparent_rune_stone_stairs", TRANSPARENT_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_UMBRA_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_umbra_castle_rune_stone_stairs", UMBRA_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_dark_stone_brick_stairs", DARK_STONE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_SMOOTH_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_smooth_dark_stone_brick_stairs", SMOOTH_DARK_STONE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_CHISELED_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_chiseled_dark_stone_brick_stairs", CHISELED_DARK_STONE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_moon_temple_brick_stairs", MOON_TEMPLE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_SMOOTH_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_smooth_moon_temple_brick_stairs", SMOOTH_MOON_TEMPLE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_CHISELED_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_chiseled_moon_temple_brick_stairs", CHISELED_MOON_TEMPLE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_STAIRS = verticalStair("vertical_umbra_stone_stairs", UMBRA_STONE, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_CRACKED_STAIRS = verticalStair("vertical_umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_ROOF_STAIRS = verticalStair("vertical_umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> VERTICAL_WEEPING_WILLOW_STAIRS = verticalStair("vertical_weeping_willow_stairs", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_PERIDOTITE_STAIRS = verticalStair("vertical_aurorian_peridotite_stairs", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> VERTICAL_SMOOTH_AURORIAN_PERIDOTITE_STAIRS = verticalStair("vertical_smooth_aurorian_peridotite_stairs", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+
+    /**
+     * Vertical Slab Blocks
+     */
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_STONE_SLAB = verticalSlab("vertical_aurorian_stone_slab", AURORIAN_STONE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_STONE_BRICK_SLAB = verticalSlab("vertical_aurorian_stone_brick_slab", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_COBBLESTONE_SLAB = verticalSlab("vertical_aurorian_cobblestone_slab", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_GRANITE_SLAB = verticalSlab("vertical_aurorian_granite_slab", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_DIORITE_SLAB = verticalSlab("vertical_aurorian_diorite_slab", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_ANDESITE_SLAB = verticalSlab("vertical_aurorian_andesite_slab", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> VERTICAL_SILENT_WOOD_SLAB = verticalSlab("vertical_silent_wood_slab", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> VERTICAL_RUNE_STONE_SLAB = verticalSlab("vertical_rune_stone_slab", RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_SMOOTH_RUNE_STONE_SLAB = verticalSlab("vertical_smooth_rune_stone_slab", SMOOTH_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_CHISELED_RUNE_STONE_SLAB = verticalSlab("vertical_chiseled_rune_stone_slab", CHISELED_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_aurorian_castle_rune_stone_slab", AURORIAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_aurorian_steel_castle_rune_stone_slab", AURORIAN_STEEL_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_CERULEAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_MOON_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_aurorian_castle_rune_stone_slab", AURORIAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_aurorian_steel_castle_rune_stone_slab", AURORIAN_STEEL_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_LUMINOUS_MOON_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_TRANSPARENT_RUNE_STONE_SLAB = verticalSlab("vertical_transparent_rune_stone_slab", TRANSPARENT_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_UMBRA_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_umbra_castle_rune_stone_slab", UMBRA_CASTLE_RUNE_STONE, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_dark_stone_brick_slab", DARK_STONE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_SMOOTH_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_smooth_dark_stone_brick_slab", SMOOTH_DARK_STONE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_CHISELED_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_chiseled_dark_stone_brick_slab", CHISELED_DARK_STONE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_moon_temple_brick_slab", MOON_TEMPLE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_SMOOTH_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_smooth_moon_temple_brick_slab", SMOOTH_MOON_TEMPLE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_CHISELED_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_chiseled_moon_temple_brick_slab", CHISELED_MOON_TEMPLE_BRICKS, breakWithQueenPickaxe());
+    public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_SLAB = verticalSlab("vertical_umbra_stone_slab", UMBRA_STONE, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_CRACKED_SLAB = verticalSlab("vertical_umbra_stone_cracked_slab", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_ROOF_SLAB = verticalSlab("vertical_umbra_stone_roof_slab", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> VERTICAL_WEEPING_WILLOW_SLAB = verticalSlab("vertical_weeping_willow_slab", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> VERTICAL_AURORIAN_PERIDOTITE_SLAB = verticalSlab("vertical_aurorian_peridotite_slab", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> VERTICAL_SMOOTH_AURORIAN_PERIDOTITE_SLAB = verticalSlab("vertical_smooth_aurorian_peridotite_slab", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+
+    /**
      * Pressure Plate Blocks
      */
     public static final RegistryObject<Block> SILENT_WOOD_PRESSURE_PLATE = pressurePlate("silent_wood_pressure_plate", SILENT_TREE_PLANKS, true, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_WOOD);
@@ -204,6 +284,9 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_STONE_STAIRS = stair("aurorian_stone_stairs", AURORIAN_STONE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_STONE_BRICK_STAIRS = stair("aurorian_stone_brick_stairs", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_COBBLESTONE_STAIRS = stair("aurorian_cobblestone_stairs", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_GRANITE_STAIRS = stair("aurorian_granite_stairs", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_DIORITE_STAIRS = stair("aurorian_diorite_stairs", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_ANDESITE_STAIRS = stair("aurorian_andesite_stairs", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> SILENT_WOOD_STAIRS = stair("silent_wood_stairs", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> RUNE_STONE_STAIRS = stair("rune_stone_stairs", RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> SMOOTH_RUNE_STONE_STAIRS = stair("smooth_rune_stone_stairs", SMOOTH_RUNE_STONE, breakWithQueenPickaxe());
@@ -251,6 +334,9 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_STONE_SLAB = slab("aurorian_stone_slab", AURORIAN_STONE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_STONE_BRICK_SLAB = slab("aurorian_stone_brick_slab", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_COBBLESTONE_SLAB = slab("aurorian_cobblestone_slab", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_GRANITE_SLAB = slab("aurorian_granite_slab", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_DIORITE_SLAB = slab("aurorian_diorite_slab", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_ANDESITE_SLAB = slab("aurorian_andesite_slab", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> SILENT_WOOD_SLAB = slab("silent_wood_slab", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> RUNE_STONE_SLAB = slab("rune_stone_slab", RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> SMOOTH_RUNE_STONE_SLAB = slab("smooth_rune_stone_slab", SMOOTH_RUNE_STONE, breakWithQueenPickaxe());
@@ -286,6 +372,9 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_STONE_WALL = wall("aurorian_stone_wall", AURORIAN_STONE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_STONE_BRICK_WALL = wall("aurorian_stone_brick_wall", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_COBBLESTONE_WALL = wall("aurorian_cobblestone_wall", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_GRANITE_WALL = wall("aurorian_granite_wall", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_DIORITE_WALL = wall("aurorian_diorite_wall", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_ANDESITE_WALL = wall("aurorian_andesite_wall", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> RUNE_STONE_WALL = wall("rune_stone_wall", RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> SMOOTH_RUNE_STONE_WALL = wall("smooth_rune_stone_wall", SMOOTH_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> CHISELED_RUNE_STONE_WALL = wall("chiseled_rune_stone_wall", CHISELED_RUNE_STONE, breakWithQueenPickaxe());

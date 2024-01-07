@@ -43,6 +43,14 @@ public class TABlockRegUtils {
         return TABlocks.BLOCKS.register("potted_" + name, () -> Blocks.flowerPot(block.get()));
     }
 
+    public static <T extends Block> RegistryObject<Block> verticalStair(String name, Supplier<T> base, BlockBehaviour.Properties properties) {
+        return register(name, () -> new VerticalStairBlockWithBase(base.get(), properties));
+    }
+
+    public static <T extends Block> RegistryObject<Block> verticalSlab(String name, Supplier<T> base, BlockBehaviour.Properties properties) {
+        return register(name, () -> new VerticalSlabBlockWithBase(base.get(), properties));
+    }
+
     public static <T extends Block> RegistryObject<Block> pressurePlate(String name, Supplier<T> base, boolean sensitive, BlockBehaviour.Properties properties, BlockSetType blockSetType) {
         return register(name, () -> new PressurePlateBlockWithBase(base.get(), sensitive, properties, blockSetType));
     }

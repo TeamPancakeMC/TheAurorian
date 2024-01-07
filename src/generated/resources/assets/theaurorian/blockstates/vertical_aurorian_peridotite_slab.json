@@ -1,0 +1,70 @@
+{
+  "variants": {
+    "connection=left,shape=east": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab_post",
+      "uvlock": true,
+      "y": 90
+    },
+    "connection=left,shape=full": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab_full"
+    },
+    "connection=left,shape=north": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab_post",
+      "uvlock": true
+    },
+    "connection=left,shape=south": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab_post",
+      "uvlock": true,
+      "y": -180
+    },
+    "connection=left,shape=west": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab_post",
+      "uvlock": true,
+      "y": -90
+    },
+    "connection=none,shape=east": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab",
+      "uvlock": true,
+      "y": 90
+    },
+    "connection=none,shape=full": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab_full"
+    },
+    "connection=none,shape=north": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab",
+      "uvlock": true
+    },
+    "connection=none,shape=south": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab",
+      "uvlock": true,
+      "y": -180
+    },
+    "connection=none,shape=west": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab",
+      "uvlock": true,
+      "y": -90
+    },
+    "connection=right,shape=east": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab_post",
+      "uvlock": true,
+      "y": -180
+    },
+    "connection=right,shape=full": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab_full"
+    },
+    "connection=right,shape=north": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab_post",
+      "uvlock": true,
+      "y": 90
+    },
+    "connection=right,shape=south": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab_post",
+      "uvlock": true,
+      "y": -90
+    },
+    "connection=right,shape=west": {
+      "model": "theaurorian:block/vertical_aurorian_peridotite_slab_post",
+      "uvlock": true
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "theaurorian:weeping_willow_planks"
+    }
+  },
+  "pattern": [
+    "###",
+    " ##",
+    "  #"
+  ],
+  "result": {
+    "count": 6,
+    "item": "theaurorian:vertical_weeping_willow_slab"
+  },
+  "show_notification": true
+}

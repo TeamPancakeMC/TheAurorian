@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "theaurorian:chiseled_rune_stone"
+  },
+  "result": "theaurorian:vertical_chiseled_rune_stone_slab"
+}

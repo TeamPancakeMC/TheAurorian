@@ -56,6 +56,7 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_EQUINOX_FLOWER = createKey("patch_equinox_flower");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LAVENDER = createKey("patch_lavender");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_AURORIAN_FOREST = createKey("trees_aurorian_forest");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
     public static final ResourceKey<ConfiguredFeature<?, ?>> HUGE_INDIGO_MUSHROOM = createKey("huge_indigo_mushroom");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_FALLEN_SILENT_LOG = createKey("random_fallen_silent_log");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_WATER_SURFACE_PLANT = createKey("random_water_surface_plant");
@@ -70,6 +71,13 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GEODE = createKey("ore_geode");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_URN = createKey("random_urn");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SILENT_TREE = createKey("silent_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SPRING = createKey("aurorian_forest_spring");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_REMAINS = createKey("aurorian_forest_remains");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_MEMORY_LOOP = createKey("aurorian_forest_memory_loop");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_RUINED_PORTAL = createKey("aurorian_forest_ruined_portal");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SHATTERED_WREATH = createKey("aurorian_forest_shattered_wreath");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SHATTERED_PILLAR = createKey("aurorian_forest_shattered_pillar");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SHATTERED_FOREST_PILLAR = createKey("aurorian_forest_shattered_forest_pillar");
 
     private static TreeConfiguration.TreeConfigurationBuilder silentTree() {
         return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()),
@@ -96,6 +104,13 @@ public class TAConfiguredFeatures {
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
         WickGrass.LEVEL.getPossibleValues().forEach(level -> wickGrassBuilder.add(wickGrass.setValue(WickGrass.LEVEL, level), 1));
         Holder<PlacedFeature> silentTreeLikeSpruce = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.SILENT_TREE);
+        Holder<PlacedFeature> mediumRuinHolder1 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_SPRING);
+        Holder<PlacedFeature> mediumRuinHolder2 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_REMAINS);
+        Holder<PlacedFeature> mediumRuinHolder3 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_MEMORY_LOOP);
+        Holder<PlacedFeature> mediumRuinHolder4 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_RUINED_PORTAL);
+        Holder<PlacedFeature> mediumRuinHolder5 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_SHATTERED_WREATH);
+        Holder<PlacedFeature> mediumRuinHolder6 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_SHATTERED_PILLAR);
+        Holder<PlacedFeature> mediumRuinHolder7 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_SHATTERED_FOREST_PILLAR);
         SimpleWeightedRandomList.Builder<BlockState> waterSurfacePlantBuilder = SimpleWeightedRandomList.builder();
         SimpleWeightedRandomList.Builder<BlockState> riversidePlantBuilder = SimpleWeightedRandomList.builder();
         SimpleWeightedRandomList.Builder<BlockState> clusterBuilder = SimpleWeightedRandomList.builder();
@@ -150,6 +165,11 @@ public class TAConfiguredFeatures {
                                 .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)), 32));
         FeatureUtils.register(context, TREES_AURORIAN_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
                 List.of(new WeightedPlacedFeature(silentTreeLikeSpruce, 0.3F)), silentTreeLikeSpruce));
+        FeatureUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
+                List.of(new WeightedPlacedFeature(mediumRuinHolder1, 0.125F), new WeightedPlacedFeature(mediumRuinHolder2, 0.125F),
+                        new WeightedPlacedFeature(mediumRuinHolder3, 0.125F), new WeightedPlacedFeature(mediumRuinHolder4, 0.125F),
+                        new WeightedPlacedFeature(mediumRuinHolder5, 0.125F), new WeightedPlacedFeature(mediumRuinHolder6, 0.125F),
+                        new WeightedPlacedFeature(mediumRuinHolder7, 0.125F)), mediumRuinHolder1));
         FeatureUtils.register(context, HUGE_INDIGO_MUSHROOM, TAFeatures.HUGE_INDIGO_MUSHROOM.get(),
                 new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_BLOCK.get()),
                 BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_STEM.get()), 5));
@@ -168,6 +188,13 @@ public class TAConfiguredFeatures {
         FeatureUtils.register(context, ORE_MOONSTONE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.MOONSTONE_ORE.get().defaultBlockState(), 9));
         FeatureUtils.register(context, ORE_CERULEAN, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.CERULEAN_ORE.get().defaultBlockState(), 7));
         FeatureUtils.register(context, ORE_GEODE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.GEODE_ORE.get().defaultBlockState(), 5));
+        FeatureUtils.register(context, AURORIAN_FOREST_SPRING, TAFeatures.AURORIAN_FOREST_SPRING.get(), NoneFeatureConfiguration.NONE);
+        FeatureUtils.register(context, AURORIAN_FOREST_REMAINS, TAFeatures.AURORIAN_FOREST_REMAINS.get(), NoneFeatureConfiguration.NONE);
+        FeatureUtils.register(context, AURORIAN_FOREST_MEMORY_LOOP, TAFeatures.AURORIAN_FOREST_MEMORY_LOOP.get(), NoneFeatureConfiguration.NONE);
+        FeatureUtils.register(context, AURORIAN_FOREST_RUINED_PORTAL, TAFeatures.AURORIAN_FOREST_RUINED_PORTAL.get(), NoneFeatureConfiguration.NONE);
+        FeatureUtils.register(context, AURORIAN_FOREST_SHATTERED_WREATH, TAFeatures.AURORIAN_FOREST_SHATTERED_WREATH.get(), NoneFeatureConfiguration.NONE);
+        FeatureUtils.register(context, AURORIAN_FOREST_SHATTERED_PILLAR, TAFeatures.AURORIAN_FOREST_SHATTERED_PILLAR.get(), NoneFeatureConfiguration.NONE);
+        FeatureUtils.register(context, AURORIAN_FOREST_SHATTERED_FOREST_PILLAR, TAFeatures.AURORIAN_FOREST_SHATTERED_FOREST_PILLAR.get(), NoneFeatureConfiguration.NONE);
         FeatureUtils.register(context, RANDOM_URN, TAFeatures.RANDOM_URN.get());
     }
 

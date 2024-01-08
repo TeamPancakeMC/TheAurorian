@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.level.feature.ruin.small;
+package cn.teampancake.theaurorian.common.level.feature.ruin;
 
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
@@ -9,7 +9,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
-public class TASmallRuin extends Feature<NoneFeatureConfiguration> {
+public class SmallRuinFeature extends Feature<NoneFeatureConfiguration> {
 
     protected final BlockState silentTreeLeaves = TABlocks.SILENT_TREE_LEAVES.get().defaultBlockState();
     protected final BlockState aurorianCobblestone = TABlocks.AURORIAN_COBBLESTONE.get().defaultBlockState();
@@ -17,7 +17,7 @@ public class TASmallRuin extends Feature<NoneFeatureConfiguration> {
     protected final BlockState aurorianCobblestoneSlab = TABlocks.AURORIAN_COBBLESTONE_SLAB.get().defaultBlockState();
     protected final BlockState aurorianCobblestoneWall = TABlocks.AURORIAN_COBBLESTONE_WALL.get().defaultBlockState();
 
-    public TASmallRuin() {
+    public SmallRuinFeature() {
         super(NoneFeatureConfiguration.CODEC);
     }
 

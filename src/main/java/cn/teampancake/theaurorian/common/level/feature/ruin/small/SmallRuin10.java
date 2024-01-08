@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.level.feature.ruin.small;
 
+import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
 import cn.teampancake.theaurorian.common.level.feature.tree.decorators.CrystalBudDecorator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public class SmallRuin10 extends TASmallRuin {
+public class SmallRuin10 extends SmallRuinFeature {
 
     @Override
     protected void placeSpecifically(WorldGenLevel level, RandomSource random, BlockPos originPos) {

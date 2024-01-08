@@ -58,10 +58,12 @@ public class AurorianMod {
         TAEntityTypes.ENTITY_TYPES.register(modEventBus);
         TAEnchantments.ENCHANTMENTS.register(modEventBus);
         TAParticleTypes.PARTICLE_TYPES.register(modEventBus);
+        TAStructureTypes.STRUCTURE_TYPES.register(modEventBus);
         TABlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus);
         TATrunkPlacerTypes.TRUNK_PLACER_TYPES.register(modEventBus);
         TAFoliagePlacerTypes.FOLIAGE_PLACER_TYPES.register(modEventBus);
         TATreeDecoratorTypes.TREE_DECORATOR_TYPES.register(modEventBus);
+        TAStructureProcessors.STRUCTURE_PROCESSORS.register(modEventBus);
         TAPaintingVariants.PAINTING_VARIANTS.register(modEventBus);
         TABiomeLayerStack.BIOME_LAYER_STACKS.register(modEventBus);
         TABiomeLayers.BIOME_LAYER_TYPES.register(modEventBus);

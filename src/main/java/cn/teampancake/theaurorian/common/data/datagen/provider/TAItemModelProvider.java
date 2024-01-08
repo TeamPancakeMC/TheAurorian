@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.blocks.base.DoorBlockWithBase;
 import cn.teampancake.theaurorian.common.blocks.base.ISimpleBlockItem;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -183,6 +184,8 @@ public class TAItemModelProvider extends ItemModelProvider {
         for (Block block : TACommonUtils.getKnownBlocks()) {
             if (block instanceof StairBlock || block instanceof ISimpleBlockItem) {
                 this.simpleBlockItem(block);
+            } else if (block instanceof DoorBlockWithBase doorBlock) {
+                this.basicItem(doorBlock.asItem());
             }
         }
 
@@ -266,7 +269,7 @@ public class TAItemModelProvider extends ItemModelProvider {
 
     private void simpleItem(Item item) {
         String path = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
-        withExistingParent(path, new ResourceLocation("item/generated"))
+        this.withExistingParent(path, new ResourceLocation("item/generated"))
                 .texture("layer0", new ResourceLocation(AurorianMod.MOD_ID, "item/" + path));
     }
 

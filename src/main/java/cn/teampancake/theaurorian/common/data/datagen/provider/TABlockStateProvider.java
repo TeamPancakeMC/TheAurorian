@@ -207,7 +207,9 @@ public class TABlockStateProvider extends BlockStateProvider {
             } else if (block instanceof FenceGateBlockWithBase fenceGateBlock) {
                 this.fenceGateBlockWithRenderType(fenceGateBlock, this.blockTexture(fenceGateBlock.getBase()), CUTOUT);
             } else if (block instanceof TrapDoorBlockWithBase trapDoorBlock) {
-//                this.trapdoorBlockWithRenderType(trapDoorBlock, this.blockTexture(trapDoorBlock.getBase()), true, CUTOUT);
+                ResourceLocation texture = this.blockTexture(trapDoorBlock.getBase());
+                this.trapdoorBlockWithRenderType(trapDoorBlock, texture, Boolean.TRUE, CUTOUT);
+                this.simpleBlockItem(trapDoorBlock, this.models().trapdoorBottom(this.name(trapDoorBlock), texture));
             } else if (block instanceof ButtonBlockWithBase buttonBlock) {
                 ResourceLocation texture = this.blockTexture(buttonBlock.getBase());
                 this.buttonBlock(buttonBlock, texture);
@@ -220,7 +222,7 @@ public class TABlockStateProvider extends BlockStateProvider {
                 this.simpleBlockItem(fenceBlock, this.models().fenceInventory(this.name(fenceBlock), texture));
             } else if (block instanceof DoorBlockWithBase doorBlock) {
                 String name = "block/" + this.name(doorBlock) + "_";
-//                this.doorBlock(doorBlock, this.modLoc(name + "bottom"), this.modLoc(name + "top"));
+                this.doorBlock(doorBlock, this.modLoc(name + "bottom"), this.modLoc(name + "top"));
             } else if (block instanceof SlabBlockWithBase slabBlock) {
                 ResourceLocation texture = this.blockTexture(slabBlock.getBase());
                 this.slabBlock(slabBlock, texture, texture);

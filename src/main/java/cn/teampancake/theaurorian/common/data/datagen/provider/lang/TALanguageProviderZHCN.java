@@ -16,7 +16,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        this.add("itemGroup." + AurorianMod.MOD_ID, "极光幽境");
+        this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "极光幽境");
+        this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "极光幽境（建材）");
         this.add("theaurorian.container.scrapper", "粉碎器");
         this.add("theaurorian.container.moonlight_forge", "月光融锻台");
 

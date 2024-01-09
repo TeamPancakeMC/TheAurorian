@@ -1,53 +1,32 @@
 package cn.teampancake.theaurorian.common.level.feature.ruin;
 
-import cn.teampancake.theaurorian.common.registry.TABlocks;
-import net.minecraft.core.BlockPos;
+import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.level.feature.TemplateFeature;
+import cn.teampancake.theaurorian.common.level.processors.DecorationProcessor;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import org.jetbrains.annotations.Nullable;
 
-public class SmallRuinFeature extends Feature<NoneFeatureConfiguration> {
+public class SmallRuinFeature extends TemplateFeature<NoneFeatureConfiguration> {
 
-    protected final BlockState silentTreeLeaves = TABlocks.SILENT_TREE_LEAVES.get().defaultBlockState();
-    protected final BlockState aurorianCobblestone = TABlocks.AURORIAN_COBBLESTONE.get().defaultBlockState();
-    protected final BlockState aurorianCobblestoneStair = TABlocks.AURORIAN_COBBLESTONE_STAIRS.get().defaultBlockState();
-    protected final BlockState aurorianCobblestoneSlab = TABlocks.AURORIAN_COBBLESTONE_SLAB.get().defaultBlockState();
-    protected final BlockState aurorianCobblestoneWall = TABlocks.AURORIAN_COBBLESTONE_WALL.get().defaultBlockState();
+    private final String nbtFilename;
 
-    public SmallRuinFeature() {
+    public SmallRuinFeature(String nbtFilename) {
         super(NoneFeatureConfiguration.CODEC);
-    }
-
-    protected void placeSpecifically(WorldGenLevel level, RandomSource random, BlockPos originPos) {}
-
-    protected int verticalHeight() {
-        return 1;
+        this.nbtFilename = nbtFilename;
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        boolean hasEnoughReplaceableBlock = false;
-        boolean hasEnoughSolidBlockUnder = false;
-        WorldGenLevel level = context.level();
-        BlockPos originPos = context.origin();
-        BlockPos firstPos = originPos.west(3).north(3);
-        BlockPos secondPos = originPos.east(3).south(3);
-        for (BlockPos pos : BlockPos.betweenClosed(firstPos.above(this.verticalHeight()), secondPos)) {
-            hasEnoughReplaceableBlock = level.getBlockState(pos).canBeReplaced();
-            if (pos.getY() == originPos.getY()) {
-                hasEnoughSolidBlockUnder = level.getBlockState(pos.below()).is(TABlocks.AURORIAN_GRASS_BLOCK.get());
-            }
-        }
+    protected @Nullable StructureTemplate getTemplate(StructureTemplateManager templateManager, RandomSource random) {
+        return templateManager.getOrCreate(AurorianMod.prefix("ruins/small_ruins/" + this.nbtFilename));
+    }
 
-        if (hasEnoughReplaceableBlock && hasEnoughSolidBlockUnder) {
-            this.placeSpecifically(level, context.random(), originPos);
-            return true;
-        }
-
-        return false;
+    @Override
+    protected void modifySettings(StructurePlaceSettings settings, RandomSource random, NoneFeatureConfiguration config) {
+        settings.addProcessor(DecorationProcessor.INSTANCE);
     }
 
 }

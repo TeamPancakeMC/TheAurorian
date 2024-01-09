@@ -6,12 +6,16 @@ import cn.teampancake.theaurorian.common.level.feature.HugeIndigoMushroomFeature
 import cn.teampancake.theaurorian.common.level.feature.UrnFeature;
 import cn.teampancake.theaurorian.common.level.feature.config.FallenLogConfig;
 import cn.teampancake.theaurorian.common.level.feature.ruin.MediumRuinFeature;
+import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TAFeatures {
 
@@ -27,9 +31,20 @@ public class TAFeatures {
     public static final RegistryObject<MediumRuinFeature> AURORIAN_FOREST_SHATTERED_WREATH = registerMediumRuins("aurorian_forest_shattered_wreath");
     public static final RegistryObject<MediumRuinFeature> AURORIAN_FOREST_SHATTERED_PILLAR = registerMediumRuins("aurorian_forest_shattered_pillar");
     public static final RegistryObject<MediumRuinFeature> AURORIAN_FOREST_SHATTERED_FOREST_PILLAR = registerMediumRuins("aurorian_forest_shattered_forest_pillar");
+    public static final List<RegistryObject<SmallRuinFeature>> AURORIAN_FOREST_SMALL_RUINS = new ArrayList<>();
     
     private static RegistryObject<MediumRuinFeature> registerMediumRuins(String name) {
         return FEATURES.register(name, () -> new MediumRuinFeature(name));
+    }
+
+    private static RegistryObject<SmallRuinFeature> registerSmallRuins(String name) {
+        return FEATURES.register(name, () -> new SmallRuinFeature(name));
+    }
+
+    static {
+        for (int i = 1; i < 23; i++) {
+            AURORIAN_FOREST_SMALL_RUINS.add(registerSmallRuins("small_ruins_" + i));
+        }
     }
 
 }

@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.level.feature;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.level.feature.config.FallenLogConfig;
+import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
 import cn.teampancake.theaurorian.common.level.feature.tree.decorators.CrystalBudDecorator;
 import cn.teampancake.theaurorian.common.level.placement.TAPlacements;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
@@ -43,6 +44,7 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,6 +58,7 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_EQUINOX_FLOWER = createKey("patch_equinox_flower");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LAVENDER = createKey("patch_lavender");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_AURORIAN_FOREST = createKey("trees_aurorian_forest");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_AURORIAN_FOREST_RUINS = createKey("small_aurorian_forest_ruins");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
     public static final ResourceKey<ConfiguredFeature<?, ?>> HUGE_INDIGO_MUSHROOM = createKey("huge_indigo_mushroom");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_FALLEN_SILENT_LOG = createKey("random_fallen_silent_log");
@@ -78,6 +81,7 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SHATTERED_WREATH = createKey("aurorian_forest_shattered_wreath");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SHATTERED_PILLAR = createKey("aurorian_forest_shattered_pillar");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SHATTERED_FOREST_PILLAR = createKey("aurorian_forest_shattered_forest_pillar");
+    public static final List<ResourceKey<ConfiguredFeature<?, ?>>> AURORIAN_FOREST_SMALL_RUINS = new ArrayList<>();
 
     private static TreeConfiguration.TreeConfigurationBuilder silentTree() {
         return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()),
@@ -98,6 +102,9 @@ public class TAConfiguredFeatures {
     }
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+        List<RegistryObject<SmallRuinFeature>> smallRuinRegList = TAFeatures.AURORIAN_FOREST_SMALL_RUINS;
+        List<ResourceKey<ConfiguredFeature<?, ?>>> smallRuinConfigList = AURORIAN_FOREST_SMALL_RUINS;
+        List<ResourceKey<PlacedFeature>> smallRuinPlaceList = TAPlacements.AURORIAN_FOREST_SMALL_RUINS;
         RuleTest ruleTest = new BlockMatchTest(TABlocks.AURORIAN_STONE.get());
         BlockState wickGrass = TABlocks.WICK_GRASS.get().defaultBlockState();
         BlockState blueberryBush = TABlocks.BLUEBERRY_BUSH.get().defaultBlockState();
@@ -196,6 +203,33 @@ public class TAConfiguredFeatures {
         FeatureUtils.register(context, AURORIAN_FOREST_SHATTERED_PILLAR, TAFeatures.AURORIAN_FOREST_SHATTERED_PILLAR.get(), NoneFeatureConfiguration.NONE);
         FeatureUtils.register(context, AURORIAN_FOREST_SHATTERED_FOREST_PILLAR, TAFeatures.AURORIAN_FOREST_SHATTERED_FOREST_PILLAR.get(), NoneFeatureConfiguration.NONE);
         FeatureUtils.register(context, RANDOM_URN, TAFeatures.RANDOM_URN.get());
+        if (!smallRuinRegList.isEmpty() && !smallRuinConfigList.isEmpty()) {
+            for (int i = 0; i < smallRuinConfigList.size(); i++) {
+                FeatureUtils.register(context, smallRuinConfigList.get(i), smallRuinRegList.get(i).get(), NoneFeatureConfiguration.NONE);
+            }
+        }
+
+        if (!smallRuinPlaceList.isEmpty()) {
+            List<WeightedPlacedFeature> list = new ArrayList<>();
+            List<Holder<PlacedFeature>> holderList = new ArrayList<>();
+            for (int i = 0; i < smallRuinPlaceList.size(); i++) {
+                Holder<PlacedFeature> smallRuinHolder = context.lookup(Registries.PLACED_FEATURE).getOrThrow(smallRuinPlaceList.get(i));
+                list.add(new WeightedPlacedFeature(smallRuinHolder, (3.0F / (smallRuinPlaceList.size() + 2))));
+                holderList.add(smallRuinHolder);
+            }
+
+            if (!list.isEmpty() && !holderList.isEmpty()) {
+                RandomFeatureConfiguration config = new RandomFeatureConfiguration(list, holderList.get(0));
+                FeatureUtils.register(context, SMALL_AURORIAN_FOREST_RUINS, Feature.RANDOM_SELECTOR, config);
+            }
+        }
+    }
+
+    static {
+        List<RegistryObject<SmallRuinFeature>> list = TAFeatures.AURORIAN_FOREST_SMALL_RUINS;
+        if (!list.isEmpty()) {
+            list.forEach(object -> AURORIAN_FOREST_SMALL_RUINS.add(createKey(object.getId().getPath())));
+        }
     }
 
 }

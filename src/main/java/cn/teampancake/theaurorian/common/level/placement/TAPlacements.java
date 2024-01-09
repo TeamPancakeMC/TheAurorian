@@ -2,7 +2,9 @@ package cn.teampancake.theaurorian.common.level.placement;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.level.feature.TAConfiguredFeatures;
+import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
+import cn.teampancake.theaurorian.common.registry.TAFeatures;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -15,6 +17,10 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TAPlacements {
 
@@ -27,6 +33,7 @@ public class TAPlacements {
     public static final ResourceKey<PlacedFeature> PATCH_EQUINOX_FLOWER = createKey("patch_equinox_flower");
     public static final ResourceKey<PlacedFeature> PATCH_LAVENDER = createKey("patch_lavender");
     public static final ResourceKey<PlacedFeature> TREES_AURORIAN_FOREST = createKey("trees_aurorian_forest");
+    public static final ResourceKey<PlacedFeature> SMALL_AURORIAN_FOREST_RUINS = createKey("small_aurorian_forest_ruins");
     public static final ResourceKey<PlacedFeature> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
     public static final ResourceKey<PlacedFeature> RANDOM_FALLEN_SILENT_LOG = createKey("random_fallen_silent_log");
     public static final ResourceKey<PlacedFeature> RANDOM_WATER_SURFACE_PLANT = createKey("random_water_surface_plant");
@@ -48,12 +55,15 @@ public class TAPlacements {
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_SHATTERED_WREATH = createKey("aurorian_forest_shattered_wreath");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_SHATTERED_PILLAR = createKey("aurorian_forest_shattered_pillar");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_SHATTERED_FOREST_PILLAR = createKey("aurorian_forest_shattered_forest_pillar");
+    public static final List<ResourceKey<PlacedFeature>> AURORIAN_FOREST_SMALL_RUINS = new ArrayList<>();
 
     private static ResourceKey<PlacedFeature> createKey(String key) {
         return ResourceKey.create(Registries.PLACED_FEATURE, AurorianMod.prefix(key));
     }
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
+        List<ResourceKey<ConfiguredFeature<?, ?>>> smallRuinConfigList = TAConfiguredFeatures.AURORIAN_FOREST_SMALL_RUINS;
+        List<ResourceKey<PlacedFeature>> smallRuinPlaceList = AURORIAN_FOREST_SMALL_RUINS;
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeature = context.lookup(Registries.CONFIGURED_FEATURE);
         Holder<ConfiguredFeature<?, ?>> patchAurorianGrassHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_GRASS);
         Holder<ConfiguredFeature<?, ?>> patchAurorianGrassLightHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_GRASS_LIGHT);
@@ -61,6 +71,7 @@ public class TAPlacements {
         Holder<ConfiguredFeature<?, ?>> patchEquinoxFlowerHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_EQUINOX_FLOWER);
         Holder<ConfiguredFeature<?, ?>> patchLavenderHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_LAVENDER);
         Holder<ConfiguredFeature<?, ?>> treesAurorianForestHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_AURORIAN_FOREST);
+        Holder<ConfiguredFeature<?, ?>> smallAurorianForestRuinsHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.SMALL_AURORIAN_FOREST_RUINS);
         Holder<ConfiguredFeature<?, ?>> mediumAurorianForestRuinsHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.MEDIUM_AURORIAN_FOREST_RUINS);
         Holder<ConfiguredFeature<?, ?>> randomFallenSilentLogHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_FALLEN_SILENT_LOG);
         Holder<ConfiguredFeature<?, ?>> randomWaterSurfacePlantHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_WATER_SURFACE_PLANT);
@@ -86,8 +97,10 @@ public class TAPlacements {
         PlacementUtils.register(context, PATCH_EQUINOX_FLOWER, patchEquinoxFlowerHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_LAVENDER, patchLavenderHolder, VegetationPlacements.worldSurfaceSquaredWithCount(6));
         PlacementUtils.register(context, TREES_AURORIAN_FOREST, treesAurorianForestHolder, VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
+        PlacementUtils.register(context, SMALL_AURORIAN_FOREST_RUINS, smallAurorianForestRuinsHolder, ImmutableList.<PlacementModifier>builder()
+                .add(RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
         PlacementUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, mediumAurorianForestRuinsHolder, ImmutableList.<PlacementModifier>builder()
-                .add(RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
+                .add(RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
         PlacementUtils.register(context, RANDOM_FALLEN_SILENT_LOG, randomFallenSilentLogHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, RANDOM_WATER_SURFACE_PLANT, randomWaterSurfacePlantHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, RANDOM_CRYSTAL_CLUSTER, randomCrystalClusterHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
@@ -114,6 +127,19 @@ public class TAPlacements {
         PlacementUtils.register(context, ORE_GEODE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_COAL),
                 OrePlacements.commonOrePlacement(8, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(50), VerticalAnchor.belowTop(160))));
         PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URN));
+        if (!smallRuinConfigList.isEmpty() && !smallRuinPlaceList.isEmpty()) {
+            for (int i = 0; i < smallRuinPlaceList.size(); i++) {
+                Holder<ConfiguredFeature<?, ?>> smallRuinHolder = configuredFeature.getOrThrow(smallRuinConfigList.get(i));
+                PlacementUtils.register(context, smallRuinPlaceList.get(i), smallRuinHolder, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+            }
+        }
+    }
+
+    static {
+        List<RegistryObject<SmallRuinFeature>> list = TAFeatures.AURORIAN_FOREST_SMALL_RUINS;
+        if (!list.isEmpty()) {
+            list.forEach(object -> AURORIAN_FOREST_SMALL_RUINS.add(createKey(object.getId().getPath())));
+        }
     }
 
 }

@@ -2,15 +2,14 @@ package cn.teampancake.theaurorian.common.level.processors;
 
 import cn.teampancake.theaurorian.common.blocks.TAClusterBlock;
 import cn.teampancake.theaurorian.common.level.feature.tree.decorators.CrystalBudDecorator;
+import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAStructureProcessors;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -33,8 +32,10 @@ public class DecorationProcessor extends StructureProcessor {
 
     @Nullable @Override
     public StructureTemplate.StructureBlockInfo process(
-            LevelReader level, BlockPos pos, BlockPos piecePos, StructureTemplate.StructureBlockInfo blockInfo,
-            StructureTemplate.StructureBlockInfo relativeBlockInfo, StructurePlaceSettings settings, @Nullable StructureTemplate template) {
+            LevelReader level, BlockPos pos, BlockPos piecePos,
+            StructureTemplate.StructureBlockInfo blockInfo,
+            StructureTemplate.StructureBlockInfo relativeBlockInfo,
+            StructurePlaceSettings settings, @Nullable StructureTemplate template) {
         RandomSource random = settings.getRandom(relativeBlockInfo.pos());
         BlockState state = relativeBlockInfo.state();
         random.setSeed(random.nextLong());
@@ -47,6 +48,11 @@ public class DecorationProcessor extends StructureProcessor {
         if (state.getBlock() instanceof BushBlock && random.nextBoolean()) {
             BlockState bushState = transferAllStateKeys(state, bushList().get(random.nextInt(bushList().size())));
             return new StructureTemplate.StructureBlockInfo(relativeBlockInfo.pos(), bushState, null);
+        }
+
+        if ((state.getBlock() instanceof DropExperienceBlock || state.is(TABlocks.AURORIAN_STONE.get()) && random.nextBoolean())) {
+            BlockState oreState = transferAllStateKeys(state, oreList().get(random.nextInt(oreList().size())));
+            return new StructureTemplate.StructureBlockInfo(relativeBlockInfo.pos(), oreState, null);
         }
 
         return relativeBlockInfo;
@@ -69,6 +75,18 @@ public class DecorationProcessor extends StructureProcessor {
                 } else {
                     list.add(state);
                 }
+            }
+        }
+
+        return list;
+    }
+
+    private static List<BlockState> oreList() {
+        List<BlockState> list = new ArrayList<>();
+        list.add(TABlocks.AURORIAN_STONE.get().defaultBlockState());
+        for (Block block : TACommonUtils.getKnownBlocks()) {
+            if (block instanceof DropExperienceBlock) {
+                list.add(block.defaultBlockState());
             }
         }
 

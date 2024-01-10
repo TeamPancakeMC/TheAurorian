@@ -1,0 +1,6 @@
+{
+  "type": "theaurorian:ruins_altar",
+  "biomes": "#theaurorian:has_ruins_altar",
+  "spawn_overrides": {},
+  "step": "surface_structures"
+}

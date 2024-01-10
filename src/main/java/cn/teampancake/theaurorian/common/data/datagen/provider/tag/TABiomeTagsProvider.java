@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.common.data.datagen.provider.tag;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
-import cn.teampancake.theaurorian.common.registry.TABiomes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
@@ -19,7 +18,7 @@ public class TABiomeTagsProvider extends BiomeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.tag(TABiomeTags.HAS_RUINS_ALTAR).add(TABiomes.AURORIAN_FOREST).add(TABiomes.AURORIAN_FOREST_HILL);
+        this.tag(TABiomeTags.HAS_RUINS_ALTAR);
     }
 
 }

@@ -31,6 +31,7 @@ public class TADataGenerator {
         generator.addProvider(event.includeServer(), new TAPaintingVariantTagsProvider(output, provider, existingFileHelper));
         generator.addProvider(event.includeServer(), new TAEntityTagsProvider(output, provider, existingFileHelper));
         generator.addProvider(event.includeServer(), new TAFluidTagsProvider(output, provider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new TABiomeTagsProvider(output, provider, existingFileHelper));
         generator.addProvider(event.includeClient(), new TABlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new TAItemModelProvider(output, existingFileHelper));
         generator.addProvider(event.includeServer(), new TASoundProvider(output, existingFileHelper));

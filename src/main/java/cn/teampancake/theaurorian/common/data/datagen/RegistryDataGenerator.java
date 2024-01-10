@@ -3,10 +3,7 @@ package cn.teampancake.theaurorian.common.data.datagen;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.level.feature.TAConfiguredFeatures;
 import cn.teampancake.theaurorian.common.level.placement.TAPlacements;
-import cn.teampancake.theaurorian.common.registry.TABiomeLayerStack;
-import cn.teampancake.theaurorian.common.registry.TABiomes;
-import cn.teampancake.theaurorian.common.registry.TADimensions;
-import cn.teampancake.theaurorian.common.registry.TATrimMaterials;
+import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -26,6 +23,8 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.CONFIGURED_FEATURE, TAConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, TAPlacements::bootstrap)
             .add(Registries.TRIM_MATERIAL, TATrimMaterials::bootstrap)
+            .add(Registries.STRUCTURE, TAStructures::bootstrap)
+            .add(Registries.STRUCTURE_SET, TAStructureSets::bootstrap)
             .add(TABiomeLayerStack.BIOME_STACK_KEY, TABiomeLayerStack::bootstrap);
 
     public RegistryDataGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

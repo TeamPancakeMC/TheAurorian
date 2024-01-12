@@ -31,14 +31,18 @@ public class AurorianCarver extends CaveWorldCarver {
             reachedSurface.setTrue();
         }
 
-        if (!this.canReplaceBlock(config, surfaceState) && !config.debugSettings.isDebugMode() || pos.getY() < chunk.getMinBuildHeight() + 6) {
+        for (Direction direction : Direction.BY_2D_DATA) {
+            if (!chunk.getBlockState(checkPos.relative(direction)).getFluidState().isEmpty()) {
+                return false;
+            }
+        }
+
+        boolean isBedrockFloor = pos.getY() < chunk.getMinBuildHeight() + 6;
+        boolean hasEmptyFluidAbove = chunk.getBlockState(pos.above()).getFluidState().isEmpty();
+        if (!this.canReplaceBlock(config, surfaceState) && !config.debugSettings.isDebugMode() || isBedrockFloor || !hasEmptyFluidAbove) {
             return false;
         } else {
             chunk.setBlockState(pos, CAVE_AIR, Boolean.FALSE);
-            if (aquifer.shouldScheduleFluidUpdate() && !CAVE_AIR.getFluidState().isEmpty()) {
-                chunk.markPosForPostprocessing(pos);
-            }
-
             if (reachedSurface.isTrue()) {
                 checkPos.setWithOffset(pos, Direction.DOWN);
                 if (chunk.getBlockState(checkPos).is(TABlocks.AURORIAN_DIRT.get())) {

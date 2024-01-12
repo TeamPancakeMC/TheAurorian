@@ -36,6 +36,7 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> RANDOM_CRYSTAL_CLUSTER = createKey("random_crystal_cluster");
     public static final ResourceKey<PlacedFeature> RANDOM_WEAK_GRASS = createKey("random_weak_grass");
     public static final ResourceKey<PlacedFeature> RANDOM_RIVERSIDE_PLANT = createKey("random_riverside_plant");
+    public static final ResourceKey<PlacedFeature> ORE_MOON_SAND_RIVER = createKey("ore_moon_sand_river");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_GRANITE = createKey("ore_aurorian_granite");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_DIORITE = createKey("ore_aurorian_diorite");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_ANDESITE = createKey("ore_aurorian_andesite");
@@ -113,6 +114,8 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_WREATH, mediumRuinHolder5, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
         PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_PILLAR, mediumRuinHolder6, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
         PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_FOREST_PILLAR, mediumRuinHolder7, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        PlacementUtils.register(context, ORE_MOON_SAND_RIVER, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_MOON_SAND_RIVER),
+                InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome());
         PlacementUtils.register(context, ORE_AURORIAN_GRANITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_GRANITE),
                 OrePlacements.commonOrePlacement(6, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_AURORIAN_DIORITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_DIORITE),

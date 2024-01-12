@@ -63,6 +63,7 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_CRYSTAL_CLUSTER = createKey("random_crystal_cluster");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_WEAK_GRASS = createKey("random_weak_grass");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_RIVERSIDE_PLANT = createKey("random_riverside_plant");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MOON_SAND_RIVER = createKey("ore_moon_sand_river");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_AURORIAN_GRANITE = createKey("ore_aurorian_granite");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_AURORIAN_DIORITE = createKey("ore_aurorian_diorite");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_AURORIAN_ANDESITE = createKey("ore_aurorian_andesite");
@@ -105,7 +106,8 @@ public class TAConfiguredFeatures {
         List<RegistryObject<SmallRuinFeature>> smallRuinRegList = TAFeatures.AURORIAN_FOREST_SMALL_RUINS;
         List<ResourceKey<ConfiguredFeature<?, ?>>> smallRuinConfigList = AURORIAN_FOREST_SMALL_RUINS;
         List<ResourceKey<PlacedFeature>> smallRuinPlaceList = TAPlacedFeatures.AURORIAN_FOREST_SMALL_RUINS;
-        RuleTest ruleTest = new BlockMatchTest(TABlocks.AURORIAN_STONE.get());
+        RuleTest defaultStoneRuleTest = new BlockMatchTest(TABlocks.AURORIAN_STONE.get());
+        RuleTest defaultDirtRuleTest = new BlockMatchTest(TABlocks.AURORIAN_DIRT.get());
         BlockState wickGrass = TABlocks.WICK_GRASS.get().defaultBlockState();
         BlockState blueberryBush = TABlocks.BLUEBERRY_BUSH.get().defaultBlockState();
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
@@ -189,15 +191,18 @@ public class TAConfiguredFeatures {
                         BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.anyOf(riversidePredicates))))));
         FeatureUtils.register(context, SILENT_TREE, Feature.TREE, silentTree().dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get()))
                 .decorators(ImmutableList.of(new CrystalBudDecorator(0.05F))).ignoreVines().build());
-        FeatureUtils.register(context, ORE_AURORIAN_PERIDOTITE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_PERIDOTITE.get().defaultBlockState(), 33));
-        FeatureUtils.register(context, ORE_AURORIAN_DIRT, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_DIRT.get().defaultBlockState(), 33));
-        FeatureUtils.register(context, ORE_AURORIAN_GRANITE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_GRANITE.get().defaultBlockState(), 64));
-        FeatureUtils.register(context, ORE_AURORIAN_DIORITE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_DIORITE.get().defaultBlockState(), 64));
-        FeatureUtils.register(context, ORE_AURORIAN_ANDESITE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_ANDESITE.get().defaultBlockState(), 64));
-        FeatureUtils.register(context, ORE_AURORIAN_COAL, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_COAL_ORE.get().defaultBlockState(), 12));
-        FeatureUtils.register(context, ORE_MOONSTONE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.MOONSTONE_ORE.get().defaultBlockState(), 9));
-        FeatureUtils.register(context, ORE_CERULEAN, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.CERULEAN_ORE.get().defaultBlockState(), 7));
-        FeatureUtils.register(context, ORE_GEODE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.GEODE_ORE.get().defaultBlockState(), 5));
+        FeatureUtils.register(context, ORE_MOON_SAND_RIVER, Feature.ORE, new OreConfiguration(List.of(
+                OreConfiguration.target(defaultStoneRuleTest, TABlocks.MOON_SAND_RIVER.get().defaultBlockState()),
+                OreConfiguration.target(defaultDirtRuleTest, TABlocks.MOON_SAND_RIVER.get().defaultBlockState())), 48));
+        FeatureUtils.register(context, ORE_AURORIAN_PERIDOTITE, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.AURORIAN_PERIDOTITE.get().defaultBlockState(), 33));
+        FeatureUtils.register(context, ORE_AURORIAN_DIRT, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.AURORIAN_DIRT.get().defaultBlockState(), 33));
+        FeatureUtils.register(context, ORE_AURORIAN_GRANITE, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.AURORIAN_GRANITE.get().defaultBlockState(), 64));
+        FeatureUtils.register(context, ORE_AURORIAN_DIORITE, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.AURORIAN_DIORITE.get().defaultBlockState(), 64));
+        FeatureUtils.register(context, ORE_AURORIAN_ANDESITE, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.AURORIAN_ANDESITE.get().defaultBlockState(), 64));
+        FeatureUtils.register(context, ORE_AURORIAN_COAL, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.AURORIAN_COAL_ORE.get().defaultBlockState(), 12));
+        FeatureUtils.register(context, ORE_MOONSTONE, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.MOONSTONE_ORE.get().defaultBlockState(), 9));
+        FeatureUtils.register(context, ORE_CERULEAN, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.CERULEAN_ORE.get().defaultBlockState(), 7));
+        FeatureUtils.register(context, ORE_GEODE, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.GEODE_ORE.get().defaultBlockState(), 5));
         FeatureUtils.register(context, AURORIAN_FOREST_SPRING, TAFeatures.AURORIAN_FOREST_SPRING.get(), NoneFeatureConfiguration.NONE);
         FeatureUtils.register(context, AURORIAN_FOREST_REMAINS, TAFeatures.AURORIAN_FOREST_REMAINS.get(), NoneFeatureConfiguration.NONE);
         FeatureUtils.register(context, AURORIAN_FOREST_MEMORY_LOOP, TAFeatures.AURORIAN_FOREST_MEMORY_LOOP.get(), NoneFeatureConfiguration.NONE);

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.grower;
 
-import cn.teampancake.theaurorian.common.level.feature.TAConfiguredFeatures;
+import cn.teampancake.theaurorian.common.registry.TAConfiguredFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;

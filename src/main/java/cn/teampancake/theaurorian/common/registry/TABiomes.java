@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.level.placement.TAPlacements;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -46,30 +45,30 @@ public class TABiomes {
         HolderGetter<ConfiguredWorldCarver<?>> carverGetter = context.lookup(Registries.CONFIGURED_CARVER);
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
         context.register(AURORIAN_FOREST, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacements.SMALL_AURORIAN_FOREST_RUINS)
-                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacements.MEDIUM_AURORIAN_FOREST_RUINS)
-                .addFeature(vegetalDecoration, TAPlacements.RANDOM_FALLEN_SILENT_LOG)
-                .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)
-                .addFeature(vegetalDecoration, TAPlacements.RANDOM_CRYSTAL_CLUSTER)).build());
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.SMALL_AURORIAN_FOREST_RUINS)
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.MEDIUM_AURORIAN_FOREST_RUINS)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_FALLEN_SILENT_LOG)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_AURORIAN_FOREST)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_CRYSTAL_CLUSTER)).build());
         context.register(AURORIAN_FOREST_HILL, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacements.SMALL_AURORIAN_FOREST_RUINS)
-                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacements.MEDIUM_AURORIAN_FOREST_RUINS)
-                .addFeature(vegetalDecoration, TAPlacements.RANDOM_FALLEN_SILENT_LOG)
-                .addFeature(vegetalDecoration, TAPlacements.TREES_AURORIAN_FOREST)
-                .addFeature(vegetalDecoration, TAPlacements.RANDOM_CRYSTAL_CLUSTER)).build());
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.SMALL_AURORIAN_FOREST_RUINS)
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.MEDIUM_AURORIAN_FOREST_RUINS)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_FALLEN_SILENT_LOG)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_AURORIAN_FOREST)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_CRYSTAL_CLUSTER)).build());
         context.register(AURORIAN_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_PLAINS)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_PLAINS)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_PLAINS), ParticleTypes.FIREWORK, 0.00375F).build());
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_FLOWER_PLAINS)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_LIGHT_PLAINS)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_PLAINS), ParticleTypes.FIREWORK, 0.00375F).build());
         context.register(AURORIAN_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(AURORIAN_RIVER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacements.RANDOM_WATER_SURFACE_PLANT), defaultFishSpawning().build()).build());
+                .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_WATER_SURFACE_PLANT), defaultFishSpawning().build()).build());
         context.register(AURORIAN_LAKE, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter), defaultFishSpawning().build()).build());
         context.register(EQUINOX_FLOWER_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_EQUINOX_FLOWER), ParticleTypes.SOUL, equinoxFlowerPlainsMobSpawning().build(), 0.0025F).build());
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_EQUINOX_FLOWER), ParticleTypes.SOUL, equinoxFlowerPlainsMobSpawning().build(), 0.0025F).build());
         context.register(LAVENDER_PLAINS, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_PLAINS)
-                .addFeature(vegetalDecoration, TAPlacements.PATCH_LAVENDER)).build());
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_PLAINS)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_LAVENDER)).build());
         context.register(WEEPING_WILLOW_FOREST, biomeOfForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
@@ -79,16 +78,16 @@ public class TABiomes {
     private static Biome.BiomeBuilder biomeOfForests(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
         return biomeWithDefaults(biomeGenerationSettings
-                        .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_FLOWER_FOREST)
-                        .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
-                        .addFeature(vegetalDecoration, TAPlacements.PATCH_AURORIAN_GRASS_FOREST)
-                        .addFeature(vegetalDecoration, TAPlacements.RANDOM_WEAK_GRASS))
+                        .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_FLOWER_FOREST)
+                        .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
+                        .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_FOREST)
+                        .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_WEAK_GRASS))
                 .mobSpawnSettings(defaultMobSpawning().addSpawn(MobCategory.CREATURE,
                         new MobSpawnSettings.SpawnerData(EntityType.ALLAY, (1), (1), (2))).build());
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings) {
-        return biomeWithDefaults(biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacements.RANDOM_RIVERSIDE_PLANT), defaultMobSpawning().build());
+        return biomeWithDefaults(biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacedFeatures.RANDOM_RIVERSIDE_PLANT), defaultMobSpawning().build());
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings, MobSpawnSettings mobSpawnSettings) {
@@ -104,19 +103,19 @@ public class TABiomes {
     }
 
     private static Biome.BiomeBuilder biomeWithParticle(BiomeGenerationSettings.Builder biomeGenerationSettings, ParticleOptions options, float probability) {
-        return biomeWithParticle(biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacements.RANDOM_RIVERSIDE_PLANT), options, defaultMobSpawning().build(), probability);
+        return biomeWithParticle(biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacedFeatures.RANDOM_RIVERSIDE_PLANT), options, defaultMobSpawning().build(), probability);
     }
 
     private static BiomeGenerationSettings.Builder defaultOreBuilder(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         GenerationStep.Decoration undergroundOre = GenerationStep.Decoration.UNDERGROUND_ORES;
         return biomeGenerationSettings.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
                 .addCarver(GenerationStep.Carving.AIR, Carvers.CAVE_EXTRA_UNDERGROUND)
-                .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_PERIDOTITE)
-                .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_DIRT)
-                .addFeature(undergroundOre, TAPlacements.ORE_AURORIAN_COAL)
-                .addFeature(undergroundOre, TAPlacements.ORE_MOONSTONE)
-                .addFeature(undergroundOre, TAPlacements.ORE_CERULEAN)
-                .addFeature(undergroundOre, TAPlacements.ORE_GEODE);
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_AURORIAN_PERIDOTITE)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_AURORIAN_DIRT)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_AURORIAN_COAL)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_MOONSTONE)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_CERULEAN)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_GEODE);
     }
 
     private static BiomeSpecialEffects.Builder defaultAmbientBuilder() {

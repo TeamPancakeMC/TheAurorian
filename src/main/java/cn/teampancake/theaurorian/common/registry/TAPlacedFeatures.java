@@ -1,10 +1,7 @@
-package cn.teampancake.theaurorian.common.level.placement;
+package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.level.feature.TAConfiguredFeatures;
 import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
-import cn.teampancake.theaurorian.common.registry.TABlocks;
-import cn.teampancake.theaurorian.common.registry.TAFeatures;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -22,7 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TAPlacements {
+public class TAPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_GRASS_PLAINS = createKey("patch_aurorian_grass_plains");
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_GRASS_LIGHT_PLAINS = createKey("patch_aurorian_grass_light_plains");

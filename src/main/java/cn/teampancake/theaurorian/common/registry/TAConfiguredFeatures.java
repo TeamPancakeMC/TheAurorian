@@ -1,13 +1,10 @@
-package cn.teampancake.theaurorian.common.level.feature;
+package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.level.feature.config.FallenLogConfig;
 import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
 import cn.teampancake.theaurorian.common.level.feature.tree.decorators.CrystalBudDecorator;
-import cn.teampancake.theaurorian.common.level.placement.TAPlacements;
-import cn.teampancake.theaurorian.common.registry.TABlocks;
-import cn.teampancake.theaurorian.common.registry.TAFeatures;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
@@ -104,20 +101,20 @@ public class TAConfiguredFeatures {
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         List<RegistryObject<SmallRuinFeature>> smallRuinRegList = TAFeatures.AURORIAN_FOREST_SMALL_RUINS;
         List<ResourceKey<ConfiguredFeature<?, ?>>> smallRuinConfigList = AURORIAN_FOREST_SMALL_RUINS;
-        List<ResourceKey<PlacedFeature>> smallRuinPlaceList = TAPlacements.AURORIAN_FOREST_SMALL_RUINS;
+        List<ResourceKey<PlacedFeature>> smallRuinPlaceList = TAPlacedFeatures.AURORIAN_FOREST_SMALL_RUINS;
         RuleTest ruleTest = new BlockMatchTest(TABlocks.AURORIAN_STONE.get());
         BlockState wickGrass = TABlocks.WICK_GRASS.get().defaultBlockState();
         BlockState blueberryBush = TABlocks.BLUEBERRY_BUSH.get().defaultBlockState();
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
         WickGrass.LEVEL.getPossibleValues().forEach(level -> wickGrassBuilder.add(wickGrass.setValue(WickGrass.LEVEL, level), 1));
-        Holder<PlacedFeature> silentTreeLikeSpruce = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.SILENT_TREE);
-        Holder<PlacedFeature> mediumRuinHolder1 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_SPRING);
-        Holder<PlacedFeature> mediumRuinHolder2 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_REMAINS);
-        Holder<PlacedFeature> mediumRuinHolder3 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_MEMORY_LOOP);
-        Holder<PlacedFeature> mediumRuinHolder4 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_RUINED_PORTAL);
-        Holder<PlacedFeature> mediumRuinHolder5 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_SHATTERED_WREATH);
-        Holder<PlacedFeature> mediumRuinHolder6 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_SHATTERED_PILLAR);
-        Holder<PlacedFeature> mediumRuinHolder7 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacements.AURORIAN_FOREST_SHATTERED_FOREST_PILLAR);
+        Holder<PlacedFeature> silentTreeLikeSpruce = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacedFeatures.SILENT_TREE);
+        Holder<PlacedFeature> mediumRuinHolder1 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_SPRING);
+        Holder<PlacedFeature> mediumRuinHolder2 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_REMAINS);
+        Holder<PlacedFeature> mediumRuinHolder3 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_MEMORY_LOOP);
+        Holder<PlacedFeature> mediumRuinHolder4 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_RUINED_PORTAL);
+        Holder<PlacedFeature> mediumRuinHolder5 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_SHATTERED_WREATH);
+        Holder<PlacedFeature> mediumRuinHolder6 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_SHATTERED_PILLAR);
+        Holder<PlacedFeature> mediumRuinHolder7 = context.lookup(Registries.PLACED_FEATURE).getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_SHATTERED_FOREST_PILLAR);
         SimpleWeightedRandomList.Builder<BlockState> waterSurfacePlantBuilder = SimpleWeightedRandomList.builder();
         SimpleWeightedRandomList.Builder<BlockState> riversidePlantBuilder = SimpleWeightedRandomList.builder();
         SimpleWeightedRandomList.Builder<BlockState> clusterBuilder = SimpleWeightedRandomList.builder();

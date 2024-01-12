@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.data.datagen;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.level.feature.TAConfiguredFeatures;
-import cn.teampancake.theaurorian.common.level.placement.TAPlacements;
+import cn.teampancake.theaurorian.common.registry.TAConfiguredFeatures;
+import cn.teampancake.theaurorian.common.registry.TAPlacedFeatures;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -21,7 +21,7 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.DIMENSION_TYPE, TADimensions::bootstrapType)
             .add(Registries.LEVEL_STEM, TADimensions::bootstrapStem)
             .add(Registries.CONFIGURED_FEATURE, TAConfiguredFeatures::bootstrap)
-            .add(Registries.PLACED_FEATURE, TAPlacements::bootstrap)
+            .add(Registries.PLACED_FEATURE, TAPlacedFeatures::bootstrap)
             .add(Registries.TRIM_MATERIAL, TATrimMaterials::bootstrap)
             .add(Registries.STRUCTURE, TAStructures::bootstrap)
             .add(Registries.STRUCTURE_SET, TAStructureSets::bootstrap)

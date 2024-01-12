@@ -4,7 +4,6 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockSetType;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
-import cn.teampancake.theaurorian.common.level.feature.TAConfiguredFeatures;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;

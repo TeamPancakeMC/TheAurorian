@@ -42,7 +42,7 @@ public class AurorianMod {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON,
                 AurorianConfig.SPEC, "theaurorian/TheAurorian.toml");
-        TATabs.TABS.register(modEventBus);
+        TACreativeModeTabs.TABS.register(modEventBus);
         TAItems.ITEMS.register(modEventBus);
         TABlocks.BLOCKS.register(modEventBus);
         TAFluids.FLUIDS.register(modEventBus);

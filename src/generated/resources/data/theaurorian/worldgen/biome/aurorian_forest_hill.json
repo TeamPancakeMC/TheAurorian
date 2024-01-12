@@ -1,8 +1,8 @@
 {
   "carvers": {
     "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground"
+      "theaurorian:ta_cave",
+      "theaurorian:ta_cave_extra_underground"
     ]
   },
   "creature_spawn_probability": 0.3,
@@ -30,6 +30,9 @@
     ],
     [],
     [
+      "theaurorian:ore_aurorian_granite",
+      "theaurorian:ore_aurorian_diorite",
+      "theaurorian:ore_aurorian_andesite",
       "theaurorian:ore_aurorian_peridotite",
       "theaurorian:ore_aurorian_dirt",
       "theaurorian:ore_aurorian_coal",

@@ -25,10 +25,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.registries.DataPackRegistryEvent;
-import net.minecraftforge.registries.NewRegistryEvent;
-import net.minecraftforge.registries.RegisterEvent;
-import net.minecraftforge.registries.RegistryBuilder;
+import net.minecraftforge.registries.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -93,6 +90,8 @@ public class AurorianMod {
             Registry.register(BuiltInRegistries.BIOME_SOURCE, prefix("aurorian_biomes"), TABiomeSource.TA_CODEC);
         } else if (Objects.equals(event.getRegistryKey(), Registries.CHUNK_GENERATOR)) {
             Registry.register(BuiltInRegistries.CHUNK_GENERATOR, prefix("structure_locating_wrapper"), TAChunkGenerator.CODEC);
+        } else if (Objects.equals(event.getForgeRegistry(), ForgeRegistries.WORLD_CARVERS)) {
+            event.register(ForgeRegistries.Keys.WORLD_CARVERS, helper -> helper.register(prefix("ta_cave"), TAConfiguredCarvers.TA_CAVE));
         }
     }
 

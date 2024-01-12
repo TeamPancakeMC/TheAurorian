@@ -20,6 +20,7 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.NOISE_SETTINGS, TADimensions::bootstrapNoise)
             .add(Registries.DIMENSION_TYPE, TADimensions::bootstrapType)
             .add(Registries.LEVEL_STEM, TADimensions::bootstrapStem)
+            .add(Registries.CONFIGURED_CARVER, TAConfiguredCarvers::bootstrap)
             .add(Registries.CONFIGURED_FEATURE, TAConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, TAPlacedFeatures::bootstrap)
             .add(Registries.TRIM_MATERIAL, TATrimMaterials::bootstrap)

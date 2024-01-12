@@ -63,6 +63,9 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_CRYSTAL_CLUSTER = createKey("random_crystal_cluster");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_WEAK_GRASS = createKey("random_weak_grass");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_RIVERSIDE_PLANT = createKey("random_riverside_plant");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_AURORIAN_GRANITE = createKey("ore_aurorian_granite");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_AURORIAN_DIORITE = createKey("ore_aurorian_diorite");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_AURORIAN_ANDESITE = createKey("ore_aurorian_andesite");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_AURORIAN_PERIDOTITE = createKey("ore_aurorian_peridotite");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_AURORIAN_DIRT = createKey("ore_aurorian_dirt");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_AURORIAN_COAL = createKey("ore_aurorian_coal");
@@ -80,6 +83,10 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SHATTERED_FOREST_PILLAR = createKey("aurorian_forest_shattered_forest_pillar");
     public static final List<ResourceKey<ConfiguredFeature<?, ?>>> AURORIAN_FOREST_SMALL_RUINS = new ArrayList<>();
 
+    private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, AurorianMod.prefix(name));
+    }
+
     private static TreeConfiguration.TreeConfigurationBuilder silentTree() {
         return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()),
                 new CherryTrunkPlacer(10, 6, 0,
@@ -92,10 +99,6 @@ public class TAConfiguredFeatures {
                 new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0),
                         ConstantInt.of(5), (0.25F), (0.5F), (0.16666667F), (0.33333334F)),
                 new TwoLayersFeatureSize(1, 0, 2))).ignoreVines();
-    }
-
-    private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, AurorianMod.prefix(name));
     }
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
@@ -188,6 +191,9 @@ public class TAConfiguredFeatures {
                 .decorators(ImmutableList.of(new CrystalBudDecorator(0.05F))).ignoreVines().build());
         FeatureUtils.register(context, ORE_AURORIAN_PERIDOTITE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_PERIDOTITE.get().defaultBlockState(), 33));
         FeatureUtils.register(context, ORE_AURORIAN_DIRT, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_DIRT.get().defaultBlockState(), 33));
+        FeatureUtils.register(context, ORE_AURORIAN_GRANITE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_GRANITE.get().defaultBlockState(), 64));
+        FeatureUtils.register(context, ORE_AURORIAN_DIORITE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_DIORITE.get().defaultBlockState(), 64));
+        FeatureUtils.register(context, ORE_AURORIAN_ANDESITE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_ANDESITE.get().defaultBlockState(), 64));
         FeatureUtils.register(context, ORE_AURORIAN_COAL, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.AURORIAN_COAL_ORE.get().defaultBlockState(), 12));
         FeatureUtils.register(context, ORE_MOONSTONE, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.MOONSTONE_ORE.get().defaultBlockState(), 9));
         FeatureUtils.register(context, ORE_CERULEAN, Feature.ORE, new OreConfiguration(ruleTest, TABlocks.CERULEAN_ORE.get().defaultBlockState(), 7));

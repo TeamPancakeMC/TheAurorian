@@ -6,7 +6,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
@@ -108,8 +107,11 @@ public class TABiomes {
 
     private static BiomeGenerationSettings.Builder defaultOreBuilder(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         GenerationStep.Decoration undergroundOre = GenerationStep.Decoration.UNDERGROUND_ORES;
-        return biomeGenerationSettings.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE)
-                .addCarver(GenerationStep.Carving.AIR, Carvers.CAVE_EXTRA_UNDERGROUND)
+        return biomeGenerationSettings.addCarver(GenerationStep.Carving.AIR, TAConfiguredCarvers.TA_CAVE_CONFIGURED)
+                .addCarver(GenerationStep.Carving.AIR, TAConfiguredCarvers.TA_CAVE_EXTRA_UNDERGROUND_CONFIGURED)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_AURORIAN_GRANITE)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_AURORIAN_DIORITE)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_AURORIAN_ANDESITE)
                 .addFeature(undergroundOre, TAPlacedFeatures.ORE_AURORIAN_PERIDOTITE)
                 .addFeature(undergroundOre, TAPlacedFeatures.ORE_AURORIAN_DIRT)
                 .addFeature(undergroundOre, TAPlacedFeatures.ORE_AURORIAN_COAL)

@@ -25,8 +25,8 @@ public class TABlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.tag(TABlockTags.AURORIAN_CARVER_REPLACEABLES).add(TABlocks.AURORIAN_STONE.get(),
-                TABlocks.AURORIAN_DIRT.get(), TABlocks.AURORIAN_GRANITE.get(),
+        this.tag(TABlockTags.AURORIAN_CARVER_REPLACEABLES).addTag(TABlockTags.AURORIAN_GRASS_BLOCK)
+                .add(TABlocks.AURORIAN_STONE.get(), TABlocks.AURORIAN_DIRT.get(), TABlocks.AURORIAN_GRANITE.get(),
                 TABlocks.AURORIAN_DIORITE.get(), TABlocks.AURORIAN_ANDESITE.get(),
                 TABlocks.MOON_SAND.get(), TABlocks.BRIGHT_MOON_SAND.get(),
                 TABlocks.MOON_SAND_STONE_1.get(), TABlocks.MOON_SAND_STONE_2.get(),

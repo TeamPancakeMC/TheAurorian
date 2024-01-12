@@ -11,7 +11,6 @@ import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraftforge.registries.RegistryObject;
@@ -37,6 +36,9 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> RANDOM_CRYSTAL_CLUSTER = createKey("random_crystal_cluster");
     public static final ResourceKey<PlacedFeature> RANDOM_WEAK_GRASS = createKey("random_weak_grass");
     public static final ResourceKey<PlacedFeature> RANDOM_RIVERSIDE_PLANT = createKey("random_riverside_plant");
+    public static final ResourceKey<PlacedFeature> ORE_AURORIAN_GRANITE = createKey("ore_aurorian_granite");
+    public static final ResourceKey<PlacedFeature> ORE_AURORIAN_DIORITE = createKey("ore_aurorian_diorite");
+    public static final ResourceKey<PlacedFeature> ORE_AURORIAN_ANDESITE = createKey("ore_aurorian_andesite");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_PERIDOTITE = createKey("ore_aurorian_peridotite");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_DIRT = createKey("ore_aurorian_dirt");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_COAL = createKey("ore_aurorian_coal");
@@ -111,18 +113,24 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_WREATH, mediumRuinHolder5, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
         PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_PILLAR, mediumRuinHolder6, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
         PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_FOREST_PILLAR, mediumRuinHolder7, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        PlacementUtils.register(context, ORE_AURORIAN_GRANITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_GRANITE),
+                OrePlacements.commonOrePlacement(6, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
+        PlacementUtils.register(context, ORE_AURORIAN_DIORITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_DIORITE),
+                OrePlacements.commonOrePlacement(6, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
+        PlacementUtils.register(context, ORE_AURORIAN_ANDESITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_ANDESITE),
+                OrePlacements.commonOrePlacement(6, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_AURORIAN_PERIDOTITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_PERIDOTITE),
-                OrePlacements.commonOrePlacement(10, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(100))));
+                OrePlacements.commonOrePlacement(10, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_AURORIAN_DIRT, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_DIRT),
-                OrePlacements.commonOrePlacement(10, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.top())));
+                OrePlacements.commonOrePlacement(10, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_AURORIAN_COAL, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_COAL),
-                OrePlacements.commonOrePlacement(13, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(50), VerticalAnchor.belowTop(160))));
+                OrePlacements.commonOrePlacement(13, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_MOONSTONE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_COAL),
-                OrePlacements.commonOrePlacement(2, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(38))));
+                OrePlacements.commonOrePlacement(2, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_CERULEAN, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_COAL),
-                OrePlacements.commonOrePlacement(13, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.belowTop(75))));
+                OrePlacements.commonOrePlacement(13, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_GEODE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_COAL),
-                OrePlacements.commonOrePlacement(8, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(50), VerticalAnchor.belowTop(160))));
+                OrePlacements.commonOrePlacement(8, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URN));
         if (!smallRuinConfigList.isEmpty() && !smallRuinPlaceList.isEmpty()) {
             for (int i = 0; i < smallRuinPlaceList.size(); i++) {

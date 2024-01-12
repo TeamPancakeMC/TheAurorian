@@ -1,14 +1,13 @@
 modLoader="javafml"
 loaderVersion="[47,)"
-license="MIT"
+license="GNU LESSER GENERAL PUBLIC LICENSE Version 2.1"
 #issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
 [[mods]]
 modId="theaurorian"
 version="${mod_version}"
 displayName="The Aurorian"
-
+logoFile="the_aurorian_logo.png"
 authors="Team Pancake"
-
 description='''${mod_description}'''
 
 [[dependencies.theaurorian]]

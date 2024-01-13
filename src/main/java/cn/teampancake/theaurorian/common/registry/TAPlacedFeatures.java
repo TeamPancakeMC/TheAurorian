@@ -98,9 +98,9 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, PATCH_LAVENDER, patchLavenderHolder, VegetationPlacements.worldSurfaceSquaredWithCount(6));
         PlacementUtils.register(context, TREES_AURORIAN_FOREST, treesAurorianForestHolder, VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
         PlacementUtils.register(context, SMALL_AURORIAN_FOREST_RUINS, smallAurorianForestRuinsHolder, ImmutableList.<PlacementModifier>builder()
-                .add(RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
+                .add(RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
         PlacementUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, mediumAurorianForestRuinsHolder, ImmutableList.<PlacementModifier>builder()
-                .add(RarityFilter.onAverageOnceEvery(10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
+                .add(RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
         PlacementUtils.register(context, RANDOM_FALLEN_SILENT_LOG, randomFallenSilentLogHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, RANDOM_WATER_SURFACE_PLANT, randomWaterSurfacePlantHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, RANDOM_CRYSTAL_CLUSTER, randomCrystalClusterHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));

@@ -222,7 +222,7 @@ public class TABlockStateProvider extends BlockStateProvider {
                 this.simpleBlockItem(fenceBlock, this.models().fenceInventory(this.name(fenceBlock), texture));
             } else if (block instanceof DoorBlockWithBase doorBlock) {
                 String name = "block/" + this.name(doorBlock) + "_";
-                this.doorBlock(doorBlock, this.modLoc(name + "bottom"), this.modLoc(name + "top"));
+                this.doorBlockWithRenderType(doorBlock, this.modLoc(name + "bottom"), this.modLoc(name + "top"), CUTOUT);
             } else if (block instanceof SlabBlockWithBase slabBlock) {
                 ResourceLocation texture = this.blockTexture(slabBlock.getBase());
                 this.slabBlock(slabBlock, texture, texture);

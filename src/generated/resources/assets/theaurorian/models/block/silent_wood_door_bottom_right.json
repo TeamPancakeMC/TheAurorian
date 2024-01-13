@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/door_bottom_right",
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "theaurorian:block/silent_wood_door_bottom",
     "top": "theaurorian:block/silent_wood_door_top"

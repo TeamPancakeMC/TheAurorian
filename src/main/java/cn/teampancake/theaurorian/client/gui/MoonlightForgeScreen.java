@@ -40,7 +40,7 @@ public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForge
         this.renderTooltip(guiGraphics, mouseX, mouseY);
         int i = (this.width - this.imageWidth) / 2 + 49;
         int j = (this.height - this.imageHeight) / 2 + 31;
-        String s = "string.theaurorian.gui.moonlight_forge.";
+        String s = "tooltips.block.theaurorian.moonlight_forge.gui.";
         MoonlightForgeBlockEntity blockEntity = this.menu.getBlockEntity();
         if (mouseX >= i && mouseX <= i + 24 && mouseY >= j && mouseY <= j + 24) {
             if (blockEntity.isPowered || !blockEntity.hasMoonLight) {

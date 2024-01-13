@@ -539,6 +539,10 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.PORTAL.get()), "传送门");
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.SLIME.get()), "史莱姆");
 
+        //MOD GUI TOOLTIPS
+        this.add("tooltips.block.theaurorian.moonlight_forge.gui.redstone", "目前已被红石信号禁用！");
+        this.add("tooltips.block.theaurorian.moonlight_forge.gui.no_moonlight", "没有检测到月光！");
+
         //MOD TOOLTIPS
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
         this.addTooltips(TAItems.AURORIAN_STEEL_CHESTPLATE, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");

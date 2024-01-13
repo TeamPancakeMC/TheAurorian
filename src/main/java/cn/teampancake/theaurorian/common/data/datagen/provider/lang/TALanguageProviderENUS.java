@@ -540,6 +540,10 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.PORTAL.get()), "Portal");
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.SLIME.get()), "Slime");
 
+        //MOD GUI TOOLTIPS
+        this.add("tooltips.block.theaurorian.moonlight_forge.gui.redstone", "Currently disabled by redstone power.");
+        this.add("tooltips.block.theaurorian.moonlight_forge.gui.no_moonlight", "No Moonlight Detected!");
+
         //MOD TOOLTIPS
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");
         this.addTooltips(TAItems.AURORIAN_STEEL_CHESTPLATE, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");

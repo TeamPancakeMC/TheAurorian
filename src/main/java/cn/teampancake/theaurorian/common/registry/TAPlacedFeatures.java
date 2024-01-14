@@ -130,9 +130,9 @@ public class TAPlacedFeatures {
                 OrePlacements.commonOrePlacement(13, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_MOONSTONE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_MOONSTONE),
                 OrePlacements.commonOrePlacement(2, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
-        PlacementUtils.register(context, ORE_CERULEAN, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_MOONSTONE),
+        PlacementUtils.register(context, ORE_CERULEAN, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_CERULEAN),
                 OrePlacements.commonOrePlacement(13, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
-        PlacementUtils.register(context, ORE_GEODE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_MOONSTONE),
+        PlacementUtils.register(context, ORE_GEODE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_GEODE),
                 OrePlacements.commonOrePlacement(8, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URN));
         if (!smallRuinConfigList.isEmpty() && !smallRuinPlaceList.isEmpty()) {

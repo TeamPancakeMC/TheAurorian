@@ -1,13 +1,11 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.level.structure.piece.RuinsAltarPiece;
+import cn.teampancake.theaurorian.common.level.structure.pieces.RuinsAltarPiece;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.Locale;
 
 public class TAStructurePieceTypes {
 

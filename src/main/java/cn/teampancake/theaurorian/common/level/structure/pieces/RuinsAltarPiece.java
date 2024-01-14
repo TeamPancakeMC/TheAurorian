@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.level.structure.piece;
+package cn.teampancake.theaurorian.common.level.structure.pieces;
 
 import cn.teampancake.theaurorian.common.registry.TAStructurePieceTypes;
 import net.minecraft.core.BlockPos;

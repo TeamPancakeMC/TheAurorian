@@ -2,7 +2,7 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
-import cn.teampancake.theaurorian.common.level.structure.RuinsAltarStructure;
+import cn.teampancake.theaurorian.common.level.structure.structures.RuinsAltarStructure;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;

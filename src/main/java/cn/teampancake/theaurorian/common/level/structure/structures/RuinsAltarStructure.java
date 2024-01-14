@@ -1,7 +1,7 @@
-package cn.teampancake.theaurorian.common.level.structure;
+package cn.teampancake.theaurorian.common.level.structure.structures;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.level.structure.piece.RuinsAltarPiece;
+import cn.teampancake.theaurorian.common.level.structure.pieces.RuinsAltarPiece;
 import cn.teampancake.theaurorian.common.registry.TAStructureTypes;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;

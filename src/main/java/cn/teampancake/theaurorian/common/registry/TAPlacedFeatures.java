@@ -11,6 +11,7 @@ import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraftforge.registries.RegistryObject;
@@ -131,9 +132,9 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, ORE_MOONSTONE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_MOONSTONE),
                 OrePlacements.commonOrePlacement(2, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_CERULEAN, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_CERULEAN),
-                OrePlacements.commonOrePlacement(13, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
+                OrePlacements.commonOrePlacement(13, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(-32))));
         PlacementUtils.register(context, ORE_GEODE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_GEODE),
-                OrePlacements.commonOrePlacement(8, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
+                OrePlacements.commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(-16))));
         PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URN));
         if (!smallRuinConfigList.isEmpty() && !smallRuinPlaceList.isEmpty()) {
             for (int i = 0; i < smallRuinPlaceList.size(); i++) {

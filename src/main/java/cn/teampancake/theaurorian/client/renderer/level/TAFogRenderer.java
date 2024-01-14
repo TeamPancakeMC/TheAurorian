@@ -6,12 +6,10 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.CubicSampler;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.biome.BiomeManager;
@@ -113,16 +111,7 @@ public class TAFogRenderer {
                 f7 = 1.0F;
             }
         } else {
-            label86: {
-                if (entity instanceof LivingEntity livingEntity) {
-                    if (livingEntity.hasEffect(MobEffects.NIGHT_VISION) && !livingEntity.hasEffect(MobEffects.DARKNESS)) {
-                        f7 = GameRenderer.getNightVisionScale(livingEntity, partialTicks);
-                        break label86;
-                    }
-                }
-
-                f7 = 0.0F;
-            }
+            f7 = 0.0F;
         }
 
         if (fogRed != 0.0F && fogGreen != 0.0F && fogBlue != 0.0F) {

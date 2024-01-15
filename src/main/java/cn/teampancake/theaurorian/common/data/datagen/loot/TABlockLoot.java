@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.loot;
 
-import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.blocks.BlueBerryBush;
+import cn.teampancake.theaurorian.common.blocks.BlueberryBush;
 import cn.teampancake.theaurorian.common.blocks.TACropBlock;
 import cn.teampancake.theaurorian.common.blocks.base.IHasBaseBlock;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
@@ -10,14 +9,13 @@ import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -28,12 +26,14 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Objects;
-import java.util.stream.Collectors;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
 @SuppressWarnings("deprecation")
+@ParametersAreNonnullByDefault
 public class TABlockLoot extends VanillaBlockLoot {
 
     @Override
@@ -132,14 +132,14 @@ public class TABlockLoot extends VanillaBlockLoot {
                 .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition
                                 .hasBlockStateProperties(TABlocks.BLUEBERRY_BUSH.get())
                         .setProperties(StatePropertiesPredicate.Builder.properties()
-                                .hasProperty(BlueBerryBush.AGE, 3)))
+                                .hasProperty(BlueberryBush.AGE, 3)))
                         .add(LootItem.lootTableItem(TAItems.BLUEBERRY.get()))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))
                 .withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition
                                 .hasBlockStateProperties(TABlocks.BLUEBERRY_BUSH.get())
                         .setProperties(StatePropertiesPredicate.Builder.properties()
-                                .hasProperty(BlueBerryBush.AGE, 2)))
+                                .hasProperty(BlueberryBush.AGE, 2)))
                         .add(LootItem.lootTableItem(TAItems.BLUEBERRY.get()))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))));
@@ -171,8 +171,20 @@ public class TABlockLoot extends VanillaBlockLoot {
     }
 
     @Override
-    protected Iterable<Block> getKnownBlocks() {
-        return ForgeRegistries.BLOCKS.getValues().stream().filter(block -> Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getNamespace().equals(AurorianMod.MOD_ID)).collect(Collectors.toList());
+    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> biConsumer) {
+        this.generate();
+        Set<ResourceLocation> set = new HashSet<>();
+        for (Block block : TACommonUtils.getKnownBlocks()) {
+            if (block.isEnabled(this.enabledFeatures)) {
+                ResourceLocation lootTable = block.getLootTable();
+                if (lootTable != BuiltInLootTables.EMPTY && set.add(lootTable)) {
+                    LootTable.Builder lootTable$builder = this.map.remove(lootTable);
+                    if (lootTable$builder != null) {
+                        biConsumer.accept(lootTable, lootTable$builder);
+                    }
+                }
+            }
+        }
     }
 
 }

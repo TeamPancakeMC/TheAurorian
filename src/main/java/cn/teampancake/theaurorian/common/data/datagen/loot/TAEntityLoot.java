@@ -23,11 +23,9 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-@ParametersAreNonnullByDefault
 public class TAEntityLoot extends VanillaEntityLoot {
 
     @Override

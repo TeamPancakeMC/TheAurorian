@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.loot;
 
+import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.BlueBerryBush;
 import cn.teampancake.theaurorian.common.blocks.TACropBlock;
 import cn.teampancake.theaurorian.common.blocks.base.IHasBaseBlock;
@@ -9,13 +10,14 @@ import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -26,14 +28,12 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.registries.ForgeRegistries;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.BiConsumer;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("deprecation")
-@ParametersAreNonnullByDefault
 public class TABlockLoot extends VanillaBlockLoot {
 
     @Override
@@ -171,20 +171,8 @@ public class TABlockLoot extends VanillaBlockLoot {
     }
 
     @Override
-    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> biConsumer) {
-        this.generate();
-        Set<ResourceLocation> set = new HashSet<>();
-        for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block.isEnabled(this.enabledFeatures)) {
-                ResourceLocation lootTable = block.getLootTable();
-                if (lootTable != BuiltInLootTables.EMPTY && set.add(lootTable)) {
-                    LootTable.Builder lootTable$builder = this.map.remove(lootTable);
-                    if (lootTable$builder != null) {
-                        biConsumer.accept(lootTable, lootTable$builder);
-                    }
-                }
-            }
-        }
+    protected Iterable<Block> getKnownBlocks() {
+        return ForgeRegistries.BLOCKS.getValues().stream().filter(block -> Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block)).getNamespace().equals(AurorianMod.MOD_ID)).collect(Collectors.toList());
     }
 
 }

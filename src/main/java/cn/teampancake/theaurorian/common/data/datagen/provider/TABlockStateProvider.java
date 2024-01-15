@@ -343,7 +343,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         for (int stage : TACropBlock.AGE.getPossibleValues()) {
             String name = this.name(block) + "_stage" + stage;
             ResourceLocation texture = this.modLoc("block/" + name);
-            ModelFile modelFile = this.models().crop(name, texture);
+            ModelFile modelFile = this.models().crop(name, texture).renderType(CUTOUT);
             builder.partialState().with(TACropBlock.AGE, stage).modelForState().modelFile(modelFile).addModel();
         }
     }
@@ -353,7 +353,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         for (int stage : TACropBlock.AGE.getPossibleValues()) {
             String name = this.name(block) + "_stage" + stage;
             ResourceLocation texture = this.modLoc("block/" + name);
-            ModelFile modelFile = this.models().cross(name, texture);
+            ModelFile modelFile = this.models().cross(name, texture).renderType(CUTOUT);
             builder.partialState().with(TACropBlock.AGE, stage).modelForState().modelFile(modelFile).addModel();
         }
     }

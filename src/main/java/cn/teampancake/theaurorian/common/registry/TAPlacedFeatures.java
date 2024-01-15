@@ -37,6 +37,7 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> RANDOM_CRYSTAL_CLUSTER = createKey("random_crystal_cluster");
     public static final ResourceKey<PlacedFeature> RANDOM_WEAK_GRASS = createKey("random_weak_grass");
     public static final ResourceKey<PlacedFeature> RANDOM_RIVERSIDE_PLANT = createKey("random_riverside_plant");
+    public static final ResourceKey<PlacedFeature> RIVERSIDE_MOON_SAND = createKey("riverside_moon_sand");
     public static final ResourceKey<PlacedFeature> ORE_MOON_SAND_RIVER = createKey("ore_moon_sand_river");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_GRANITE = createKey("ore_aurorian_granite");
     public static final ResourceKey<PlacedFeature> ORE_AURORIAN_DIORITE = createKey("ore_aurorian_diorite");
@@ -49,6 +50,7 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_GEODE = createKey("ore_geode");
     public static final ResourceKey<PlacedFeature> RANDOM_URNS = createKey("random_urns");
     public static final ResourceKey<PlacedFeature> SILENT_TREE = createKey("silent_tree");
+    public static final ResourceKey<PlacedFeature> SILENT_TREE_TAPER = createKey("silent_tree_taper");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_SPRING = createKey("aurorian_forest_spring");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_REMAINS = createKey("aurorian_forest_remains");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_MEMORY_LOOP = createKey("aurorian_forest_memory_loop");
@@ -64,59 +66,40 @@ public class TAPlacedFeatures {
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
         List<ResourceKey<ConfiguredFeature<?, ?>>> smallRuinConfigList = TAConfiguredFeatures.AURORIAN_FOREST_SMALL_RUINS;
-        List<ResourceKey<PlacedFeature>> smallRuinPlaceList = AURORIAN_FOREST_SMALL_RUINS;
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeature = context.lookup(Registries.CONFIGURED_FEATURE);
         Holder<ConfiguredFeature<?, ?>> patchAurorianGrassHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_GRASS);
         Holder<ConfiguredFeature<?, ?>> patchAurorianGrassLightHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_GRASS_LIGHT);
-        Holder<ConfiguredFeature<?, ?>> patchAurorianFlowerHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_FLOWER);
-        Holder<ConfiguredFeature<?, ?>> patchEquinoxFlowerHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_EQUINOX_FLOWER);
-        Holder<ConfiguredFeature<?, ?>> patchLavenderHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_LAVENDER);
-        Holder<ConfiguredFeature<?, ?>> treesAurorianForestHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_AURORIAN_FOREST);
-        Holder<ConfiguredFeature<?, ?>> smallAurorianForestRuinsHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.SMALL_AURORIAN_FOREST_RUINS);
-        Holder<ConfiguredFeature<?, ?>> mediumAurorianForestRuinsHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.MEDIUM_AURORIAN_FOREST_RUINS);
-        Holder<ConfiguredFeature<?, ?>> randomFallenSilentLogHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_FALLEN_SILENT_LOG);
-        Holder<ConfiguredFeature<?, ?>> randomWaterSurfacePlantHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_WATER_SURFACE_PLANT);
-        Holder<ConfiguredFeature<?, ?>> randomCrystalClusterHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_CRYSTAL_CLUSTER);
-        Holder<ConfiguredFeature<?, ?>> randomWickGrassHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_WEAK_GRASS);
-        Holder<ConfiguredFeature<?, ?>> randomRiversidePlantHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_RIVERSIDE_PLANT);
-        Holder<ConfiguredFeature<?, ?>> silentTreeHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.SILENT_TREE);
-        Holder<ConfiguredFeature<?, ?>> mediumRuinHolder1 = configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_SPRING);
-        Holder<ConfiguredFeature<?, ?>> mediumRuinHolder2 = configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_REMAINS);
-        Holder<ConfiguredFeature<?, ?>> mediumRuinHolder3 = configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_MEMORY_LOOP);
-        Holder<ConfiguredFeature<?, ?>> mediumRuinHolder4 = configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_RUINED_PORTAL);
-        Holder<ConfiguredFeature<?, ?>> mediumRuinHolder5 = configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_SHATTERED_WREATH);
-        Holder<ConfiguredFeature<?, ?>> mediumRuinHolder6 = configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_SHATTERED_PILLAR);
-        Holder<ConfiguredFeature<?, ?>> mediumRuinHolder7 = configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_SHATTERED_FOREST_PILLAR);
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_PLAINS, patchAurorianGrassHolder, NoiseThresholdCountPlacement.of((-0.8D), (5), (10)),
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT_PLAINS, patchAurorianGrassLightHolder, NoiseThresholdCountPlacement.of((-0.8D), (5), (10)),
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_FOREST, patchAurorianGrassHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT_FOREST, patchAurorianGrassLightHolder, VegetationPlacements.worldSurfaceSquaredWithCount(2));
-        PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_FOREST, patchAurorianFlowerHolder, VegetationPlacements.worldSurfaceSquaredWithCount(5));
-        PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_PLAINS, patchAurorianFlowerHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
-        PlacementUtils.register(context, PATCH_EQUINOX_FLOWER, patchEquinoxFlowerHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
-        PlacementUtils.register(context, PATCH_LAVENDER, patchLavenderHolder, VegetationPlacements.worldSurfaceSquaredWithCount(4));
-        PlacementUtils.register(context, TREES_AURORIAN_FOREST, treesAurorianForestHolder, VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
-        PlacementUtils.register(context, SMALL_AURORIAN_FOREST_RUINS, smallAurorianForestRuinsHolder, ImmutableList.<PlacementModifier>builder()
+        PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_FLOWER_FOREST), VegetationPlacements.worldSurfaceSquaredWithCount(5));
+        PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_PLAINS, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_FLOWER_PLAINS), VegetationPlacements.worldSurfaceSquaredWithCount(3));
+        PlacementUtils.register(context, PATCH_EQUINOX_FLOWER, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_EQUINOX_FLOWER), VegetationPlacements.worldSurfaceSquaredWithCount(3));
+        PlacementUtils.register(context, PATCH_LAVENDER, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_LAVENDER), VegetationPlacements.worldSurfaceSquaredWithCount(4));
+        PlacementUtils.register(context, TREES_AURORIAN_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_AURORIAN_FOREST), VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
+        PlacementUtils.register(context, SMALL_AURORIAN_FOREST_RUINS, configuredFeature.getOrThrow(TAConfiguredFeatures.SMALL_AURORIAN_FOREST_RUINS), ImmutableList.<PlacementModifier>builder()
                 .add(RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
-        PlacementUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, mediumAurorianForestRuinsHolder, ImmutableList.<PlacementModifier>builder()
+        PlacementUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, configuredFeature.getOrThrow(TAConfiguredFeatures.MEDIUM_AURORIAN_FOREST_RUINS), ImmutableList.<PlacementModifier>builder()
                 .add(RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
-        PlacementUtils.register(context, RANDOM_FALLEN_SILENT_LOG, randomFallenSilentLogHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
-        PlacementUtils.register(context, RANDOM_WATER_SURFACE_PLANT, randomWaterSurfacePlantHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
-        PlacementUtils.register(context, RANDOM_CRYSTAL_CLUSTER, randomCrystalClusterHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
-        PlacementUtils.register(context, RANDOM_WEAK_GRASS, randomWickGrassHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
-        PlacementUtils.register(context, RANDOM_RIVERSIDE_PLANT, randomRiversidePlantHolder, VegetationPlacements.worldSurfaceSquaredWithCount(1));
-        PlacementUtils.register(context, SILENT_TREE, silentTreeHolder, PlacementUtils.filteredByBlockSurvival(TABlocks.SILENT_TREE_SAPLING.get()));
-        PlacementUtils.register(context, AURORIAN_FOREST_SPRING, mediumRuinHolder1, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
-        PlacementUtils.register(context, AURORIAN_FOREST_REMAINS, mediumRuinHolder2, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
-        PlacementUtils.register(context, AURORIAN_FOREST_MEMORY_LOOP, mediumRuinHolder3, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
-        PlacementUtils.register(context, AURORIAN_FOREST_RUINED_PORTAL, mediumRuinHolder4, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
-        PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_WREATH, mediumRuinHolder5, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
-        PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_PILLAR, mediumRuinHolder6, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
-        PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_FOREST_PILLAR, mediumRuinHolder7, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
-        PlacementUtils.register(context, ORE_MOON_SAND_RIVER, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_MOON_SAND_RIVER),
-                InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome());
+        PlacementUtils.register(context, RANDOM_FALLEN_SILENT_LOG, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_FALLEN_SILENT_LOG), VegetationPlacements.worldSurfaceSquaredWithCount(1));
+        PlacementUtils.register(context, RANDOM_WATER_SURFACE_PLANT, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_WATER_SURFACE_PLANT), VegetationPlacements.worldSurfaceSquaredWithCount(1));
+        PlacementUtils.register(context, RANDOM_CRYSTAL_CLUSTER, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_CRYSTAL_CLUSTER), VegetationPlacements.worldSurfaceSquaredWithCount(1));
+        PlacementUtils.register(context, RANDOM_WEAK_GRASS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_WEAK_GRASS), VegetationPlacements.worldSurfaceSquaredWithCount(1));
+        PlacementUtils.register(context, RANDOM_RIVERSIDE_PLANT, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_RIVERSIDE_PLANT), VegetationPlacements.worldSurfaceSquaredWithCount(1));
+        PlacementUtils.register(context, RIVERSIDE_MOON_SAND, configuredFeature.getOrThrow(TAConfiguredFeatures.RIVERSIDE_MOON_SAND), VegetationPlacements.worldSurfaceSquaredWithCount(10));
+        PlacementUtils.register(context, SILENT_TREE, configuredFeature.getOrThrow(TAConfiguredFeatures.SILENT_TREE), PlacementUtils.filteredByBlockSurvival(TABlocks.SILENT_TREE_SAPLING.get()));
+        PlacementUtils.register(context, SILENT_TREE_TAPER, configuredFeature.getOrThrow(TAConfiguredFeatures.SILENT_TREE_TAPER), PlacementUtils.filteredByBlockSurvival(TABlocks.SILENT_TREE_SAPLING.get()));
+        PlacementUtils.register(context, AURORIAN_FOREST_SPRING, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_SPRING), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        PlacementUtils.register(context, AURORIAN_FOREST_REMAINS, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_REMAINS), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        PlacementUtils.register(context, AURORIAN_FOREST_MEMORY_LOOP, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_MEMORY_LOOP), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        PlacementUtils.register(context, AURORIAN_FOREST_RUINED_PORTAL, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_RUINED_PORTAL), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_WREATH, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_SHATTERED_WREATH), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_PILLAR, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_SHATTERED_PILLAR), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        PlacementUtils.register(context, AURORIAN_FOREST_SHATTERED_FOREST_PILLAR, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_SHATTERED_FOREST_PILLAR), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+        PlacementUtils.register(context, ORE_MOON_SAND_RIVER, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_MOON_SAND_RIVER), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome());
         PlacementUtils.register(context, ORE_AURORIAN_GRANITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_GRANITE),
                 OrePlacements.commonOrePlacement(6, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_AURORIAN_DIORITE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_DIORITE),
@@ -128,7 +111,7 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, ORE_AURORIAN_DIRT, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_DIRT),
                 OrePlacements.commonOrePlacement(10, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_AURORIAN_COAL, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_AURORIAN_COAL),
-                OrePlacements.commonOrePlacement(13, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
+                OrePlacements.commonOrePlacement(20, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_MOONSTONE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_MOONSTONE),
                 OrePlacements.commonOrePlacement(2, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT));
         PlacementUtils.register(context, ORE_CERULEAN, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_CERULEAN),
@@ -136,10 +119,10 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, ORE_GEODE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_GEODE),
                 OrePlacements.commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(-16))));
         PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URN));
-        if (!smallRuinConfigList.isEmpty() && !smallRuinPlaceList.isEmpty()) {
-            for (int i = 0; i < smallRuinPlaceList.size(); i++) {
+        if (!smallRuinConfigList.isEmpty() && !AURORIAN_FOREST_SMALL_RUINS.isEmpty()) {
+            for (int i = 0; i < AURORIAN_FOREST_SMALL_RUINS.size(); i++) {
                 Holder<ConfiguredFeature<?, ?>> smallRuinHolder = configuredFeature.getOrThrow(smallRuinConfigList.get(i));
-                PlacementUtils.register(context, smallRuinPlaceList.get(i), smallRuinHolder, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
+                PlacementUtils.register(context, AURORIAN_FOREST_SMALL_RUINS.get(i), smallRuinHolder, PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
             }
         }
     }

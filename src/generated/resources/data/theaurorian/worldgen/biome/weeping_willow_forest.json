@@ -44,7 +44,8 @@
       "theaurorian:patch_aurorian_grass_light_forest",
       "theaurorian:patch_aurorian_grass_forest",
       "theaurorian:random_weak_grass",
-      "theaurorian:random_riverside_plant"
+      "theaurorian:random_riverside_plant",
+      "theaurorian:riverside_moon_sand"
     ]
   ],
   "has_precipitation": false,

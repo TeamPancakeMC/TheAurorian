@@ -88,7 +88,8 @@ public class TABiomes {
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings) {
-        return biomeWithDefaults(biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacedFeatures.RANDOM_RIVERSIDE_PLANT), defaultMobSpawning().build());
+        return biomeWithDefaults(biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacedFeatures.RANDOM_RIVERSIDE_PLANT)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacedFeatures.RIVERSIDE_MOON_SAND), defaultMobSpawning().build());
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings, MobSpawnSettings mobSpawnSettings) {
@@ -104,7 +105,9 @@ public class TABiomes {
     }
 
     private static Biome.BiomeBuilder biomeWithParticle(BiomeGenerationSettings.Builder biomeGenerationSettings, ParticleOptions options, float probability) {
-        return biomeWithParticle(biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacedFeatures.RANDOM_RIVERSIDE_PLANT), options, defaultMobSpawning().build(), probability);
+        return biomeWithParticle(biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacedFeatures.RANDOM_RIVERSIDE_PLANT)
+                        .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacedFeatures.RIVERSIDE_MOON_SAND),
+                options, defaultMobSpawning().build(), probability);
     }
 
     private static BiomeGenerationSettings.Builder defaultOreBuilder(BiomeGenerationSettings.Builder biomeGenerationSettings) {

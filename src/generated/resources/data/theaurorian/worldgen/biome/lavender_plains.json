@@ -42,7 +42,8 @@
     [
       "theaurorian:patch_aurorian_grass_plains",
       "theaurorian:patch_lavender",
-      "theaurorian:random_riverside_plant"
+      "theaurorian:random_riverside_plant",
+      "theaurorian:riverside_moon_sand"
     ]
   ],
   "has_precipitation": false,

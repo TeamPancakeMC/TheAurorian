@@ -1,9 +1,9 @@
 {
-  "feature": "theaurorian:patch_aurorian_flower_forest",
+  "feature": "theaurorian:riverside_moon_sand",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 5
+      "count": 10
     },
     {
       "type": "minecraft:in_square"

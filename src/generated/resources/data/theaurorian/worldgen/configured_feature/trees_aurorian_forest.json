@@ -6,6 +6,10 @@
       {
         "chance": 0.3,
         "feature": "theaurorian:silent_tree"
+      },
+      {
+        "chance": 0.1,
+        "feature": "theaurorian:silent_tree_taper"
       }
     ]
   }

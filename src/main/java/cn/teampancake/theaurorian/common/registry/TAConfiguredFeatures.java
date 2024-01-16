@@ -170,11 +170,11 @@ public class TAConfiguredFeatures {
                 BlockStateProvider.simple(TABlocks.AURORIAN_GRASS_LIGHT.get()), 32));
         FeatureUtils.register(context, PATCH_AURORIAN_FLOWER_FOREST, Feature.FLOWER, VegetationFeatures.grassPatch(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(TABlocks.PETUNIA_PLANT.get().defaultBlockState(), 1)
-                        .add(TABlocks.SILK_BERRY_CROP.get().defaultBlockState(), 1)
-                        .add(TABlocks.AURORIAN_FLOWER_1.get().defaultBlockState(), 1)
-                        .add(TABlocks.AURORIAN_FLOWER_2.get().defaultBlockState(), 1)
-                        .add(TABlocks.AURORIAN_FLOWER_3.get().defaultBlockState(), 1)
+                        .add(TABlocks.PETUNIA_PLANT.get().defaultBlockState(), 2)
+                        .add(TABlocks.SILK_BERRY_CROP.get().defaultBlockState(), 2)
+                        .add(TABlocks.AURORIAN_FLOWER_1.get().defaultBlockState(), 2)
+                        .add(TABlocks.AURORIAN_FLOWER_2.get().defaultBlockState(), 2)
+                        .add(TABlocks.AURORIAN_FLOWER_3.get().defaultBlockState(), 2)
                         .add(blueberryBush.setValue(BlueberryBush.AGE, 0), 1)
                         .add(blueberryBush.setValue(BlueberryBush.AGE, 1), 1)
                         .add(blueberryBush.setValue(BlueberryBush.AGE, 2), 1)

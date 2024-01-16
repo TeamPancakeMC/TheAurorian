@@ -203,7 +203,7 @@ public class TAConfiguredFeatures {
                         new WeightedPlacedFeature(mediumRuinHolder7, 0.125F)), mediumRuinHolder1));
         FeatureUtils.register(context, HUGE_INDIGO_MUSHROOM, TAFeatures.HUGE_INDIGO_MUSHROOM.get(),
                 new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_BLOCK.get()),
-                BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_STEM.get()), 5));
+                        BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_STEM.get()), 5));
         FeatureUtils.register(context, RANDOM_FALLEN_SILENT_LOG, TAFeatures.RANDOM_FALLEN_LOGS.get(), new FallenLogConfig(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()), (0.00125F)));
         FeatureUtils.register(context, RANDOM_WATER_SURFACE_PLANT, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(new WeightedStateProvider(waterSurfacePlantBuilder.build()), 10));
         FeatureUtils.register(context, RANDOM_CRYSTAL_CLUSTER, Feature.FLOWER, VegetationFeatures.grassPatch(new WeightedStateProvider(clusterBuilder.build()), 10));
@@ -211,10 +211,13 @@ public class TAConfiguredFeatures {
         FeatureUtils.register(context, RANDOM_RIVERSIDE_PLANT, Feature.RANDOM_PATCH, new RandomPatchConfiguration(20, 4, 0,
                 PlacementUtils.inlinePlaced(Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(new WeightedStateProvider(riversidePlantBuilder.build()), 6),
                         BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.anyOf(riversidePredicates))))));
-        FeatureUtils.register(context, RIVERSIDE_MOON_SAND, Feature.RANDOM_PATCH, new RandomPatchConfiguration(20, 4, 0,
-                PlacementUtils.inlinePlaced(Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(new WeightedStateProvider(
-                        SimpleWeightedRandomList.<BlockState>builder().add(TABlocks.MOON_SAND.get().defaultBlockState(), 1).build()), 12),
-                        BlockPredicateFilter.forPredicate(BlockPredicate.anyOf(riversidePredicates)))));
+        FeatureUtils.register(context, RIVERSIDE_MOON_SAND, Feature.ORE, new OreConfiguration(ImmutableList.of(
+                OreConfiguration.target(new BlockMatchTest(TABlocks.AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
+                OreConfiguration.target(new BlockMatchTest(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
+                OreConfiguration.target(new BlockMatchTest(TABlocks.RED_AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
+                OreConfiguration.target(new BlockMatchTest(TABlocks.AURORIAN_DIRT.get()), TABlocks.MOON_SAND_STONE_1.get().defaultBlockState()),
+                OreConfiguration.target(new BlockMatchTest(TABlocks.MOON_SAND_STONE_1.get()), TABlocks.MOON_SAND_STONE_2.get().defaultBlockState()),
+                OreConfiguration.target(new BlockMatchTest(TABlocks.MOON_SAND_STONE_2.get()), TABlocks.MOON_SAND_STONE_3.get().defaultBlockState())), 64));
         FeatureUtils.register(context, SILENT_TREE, Feature.TREE, silentTree()
                 .dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get())).ignoreVines()
                 .decorators(ImmutableList.of(new CrystalBudDecorator(0.05F))).build());

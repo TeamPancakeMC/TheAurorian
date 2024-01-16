@@ -135,12 +135,12 @@ public class TABlocks {
     public static final RegistryObject<Block> INDIGO_MUSHROOM_CRYSTAL = normal("indigo_mushroom_crystal", of().mapColor(MapColor.COLOR_PURPLE).sound(SoundType.GLASS).lightLevel(s -> 1));
     public static final RegistryObject<Block> MOONLIGHT_FORGE = register("moonlight_forge", () -> new MoonlightForge(defaultStoneProperties((2.0F)).mapColor(MapColor.METAL).sound(SoundType.METAL).noOcclusion()));
     public static final RegistryObject<Block> MOON_GEM = normal("moon_gem", defaultStoneProperties(2.0F).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.METAL).noOcclusion());
-    public static final RegistryObject<Block> MOON_SAND = register("moon_sand",()-> new SandBlock(14406560,copy(Blocks.SAND)));
-    public static final RegistryObject<Block> MOON_SAND_RIVER =  register("moon_sand_river",()-> new SandBlock(14406560,copy(Blocks.SAND)));
+    public static final RegistryObject<Block> MOON_SAND = register("moon_sand", () -> new SandBlock(14406560, copy(Blocks.SAND)));
+    public static final RegistryObject<Block> MOON_SAND_RIVER =  register("moon_sand_river", () -> new SandBlock(14406560, copy(Blocks.SAND)));
     public static final RegistryObject<Block> MOON_SAND_STONE_1 = normal("moon_sand_stone_1", copy(Blocks.SANDSTONE));
     public static final RegistryObject<Block> MOON_SAND_STONE_2 = normal("moon_sand_stone_2", copy(Blocks.SANDSTONE));
     public static final RegistryObject<Block> MOON_SAND_STONE_3 = normal("moon_sand_stone_3", copy(Blocks.SANDSTONE));
-    public static final RegistryObject<Block> BRIGHT_MOON_SAND =  register("bright_moon_sand",()-> new SandBlock(14406560,copy(Blocks.SAND)));
+    public static final RegistryObject<Block> BRIGHT_MOON_SAND =  register("bright_moon_sand", () -> new SandBlock(14406560, copy(Blocks.SAND)));
     public static final RegistryObject<Block> BRIGHT_MOON_SANDSTONE = normal("bright_moon_sandstone", copy(Blocks.SANDSTONE));
     public static final RegistryObject<Block> MOON_TORCH = register("moon_torch", () -> new TorchBlock(copy(Blocks.TORCH), ParticleTypes.CLOUD));
     public static final RegistryObject<Block> MOON_WALL_TORCH = BLOCKS.register("moon_wall_torch", () -> new WallTorchBlock(copy(Blocks.WALL_TORCH), ParticleTypes.CLOUD));

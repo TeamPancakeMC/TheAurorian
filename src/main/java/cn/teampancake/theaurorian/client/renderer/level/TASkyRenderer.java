@@ -133,11 +133,15 @@ public class TASkyRenderer {
     /**
      * Handle PhaseState Data from server
      * see {@link NightSyncMessage#handle(NightSyncMessage, Supplier)}
-     * @param StateCode Received from NightSyncMessage
+     * @param stateCode Received from NightSyncMessage
      */
-    public static void SetPhaseState(int StateCode) {
+    public static void setCurrentPhase(int stateCode) {
         List<ResourceLocation> colorNames = new ArrayList<>(getDaySkyColors().keySet());
-        currentPhase = colorNames.get(StateCode);
+        currentPhase = colorNames.get(stateCode);
+    }
+
+    public static ResourceLocation getCurrentPhase() {
+        return currentPhase;
     }
 
     private void createStars() {

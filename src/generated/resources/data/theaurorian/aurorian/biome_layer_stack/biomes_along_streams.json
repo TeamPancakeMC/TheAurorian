@@ -51,16 +51,8 @@
           "salt": 1005
         },
         "dividing_biome": "theaurorian:aurorian_river",
-        "excluded_biome_intersections": [
-          [
-            "theaurorian:aurorian_forest",
-            "theaurorian:aurorian_forest_hill"
-          ]
-        ],
-        "excluded_neighbor_biomes": [
-          "theaurorian:bright_moon_desert",
-          "theaurorian:aurorian_forest_hill"
-        ],
+        "excluded_biome_intersections": [],
+        "excluded_neighbor_biomes": [],
         "layer_type": "theaurorian:river",
         "salt": 1
       },

@@ -85,7 +85,7 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onLivingHeal(LivingHealEvent event) {
-        event.setCanceled(event.getEntity() instanceof Player player && player.hasEffect(TAMobEffects.MOON_CURSE.get()));
+        event.setCanceled(event.getEntity() instanceof Player player && player.hasEffect(TAMobEffects.PRESSURE.get()));
     }
 
     @SubscribeEvent

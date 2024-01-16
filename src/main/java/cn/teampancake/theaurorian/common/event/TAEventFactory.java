@@ -11,4 +11,8 @@ public class TAEventFactory {
         MinecraftForge.EVENT_BUS.post(new RegisterAurorianSkyColorEvent(daySkyColors));
     }
 
+    public static void onRegisterAurorianSkyBless(String colorName) {
+        MinecraftForge.EVENT_BUS.post(new RegisterAurorianSkyBlessEvent(colorName));
+    }
+
 }

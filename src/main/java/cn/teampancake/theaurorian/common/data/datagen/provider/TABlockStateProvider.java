@@ -108,12 +108,10 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.INDIGO_MUSHROOM_CRYSTAL.get());
         this.simpleBlock(TABlocks.SILENT_TREE_PLANKS.get());
         this.simpleBlock(TABlocks.WEEPING_WILLOW_PLANKS.get());
-        this.simpleBlock(TABlocks.SILENT_WOOD_TORCH.get(),
-                this.models().torch(this.name(TABlocks.SILENT_WOOD_TORCH.get()),
-                        this.blockTexture(TABlocks.SILENT_WOOD_TORCH.get())));
-        this.simpleBlock(TABlocks.MOON_TORCH.get(),
-                this.models().torch(this.name(TABlocks.MOON_TORCH.get()),
-                        this.blockTexture(TABlocks.MOON_TORCH.get())));
+        this.simpleBlock(TABlocks.SILENT_WOOD_TORCH.get(), this.models().torch(this.name(TABlocks.SILENT_WOOD_TORCH.get()),
+                this.blockTexture(TABlocks.SILENT_WOOD_TORCH.get())).renderType(CUTOUT));
+        this.simpleBlock(TABlocks.MOON_TORCH.get(), this.models().torch(this.name(TABlocks.MOON_TORCH.get()),
+                this.blockTexture(TABlocks.MOON_TORCH.get())).renderType(CUTOUT));
         this.logBlock((RotatedPillarBlock) TABlocks.RUNE_STONE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.DARK_STONE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.MOON_TEMPLE_PILLAR.get());

@@ -137,7 +137,7 @@ public class ShieldSubscriber {
     }
 
     //减少护盾上限
-    private static boolean reduceMaxShield(Map<ResourceLocation, Map<ResourceLocation,Integer>> map, LivingEntity livingEntity, ResourceLocation location, String type) {
+    private static void reduceMaxShield(Map<ResourceLocation, Map<ResourceLocation,Integer>> map, LivingEntity livingEntity, ResourceLocation location, String type) {
         final boolean[] flag = {false};
         map.forEach((shieldLocation, maxShieldMap) -> ShieldCap.getCapability(livingEntity).ifPresent(cap -> {
             IShield iShield = cap.getShieldMap().get(shieldLocation);
@@ -150,7 +150,6 @@ public class ShieldSubscriber {
                 }
             }
         }));
-        return flag[0];
     }
 
     //护盾抵消伤害
@@ -173,7 +172,7 @@ public class ShieldSubscriber {
     public static void onTempShieldEffectExpired(MobEffectEvent.Expired event) {
         MobEffect effect = event.getEffectInstance().getEffect();
         LivingEntity livingEntity = event.getEntity();
-        if (effect instanceof TempShieldEffect tempShieldEffect) {
+        if (effect instanceof TempShieldEffect) {
             ShieldCap.getCapability(livingEntity).ifPresent(cap -> {
                 if (cap.getShieldMap().get(TAShields.TEMP.getId()) instanceof TempShield tempShield) {
                     if (livingEntity instanceof ServerPlayer player){

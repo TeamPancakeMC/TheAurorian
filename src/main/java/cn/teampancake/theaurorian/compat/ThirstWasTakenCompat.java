@@ -18,6 +18,9 @@ public class ThirstWasTakenCompat {
         MinecraftForge.EVENT_BUS.register(ThirstWasTakenCompat.class);
     }
 
+    /**
+     * Add Drinks here.
+     */
     public static void DrinkList() {
         ThirstHelper.addDrink(TAItems.LAVENDER_TEA.get(), 10, 14);
         ThirstHelper.addDrink(TAItems.SILK_BERRY_TEA.get(), 10, 14);

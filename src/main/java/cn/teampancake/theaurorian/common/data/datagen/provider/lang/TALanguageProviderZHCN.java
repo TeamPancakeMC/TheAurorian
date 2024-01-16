@@ -350,7 +350,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.ABSORPTION_ORB.get(), "修复宝珠");
         this.add(TAItems.AURORIAN_BACON.get(), "极光培根");
         this.add(TAItems.AURORIAN_COAL.get(), "极光煤炭");
-        this.add(TAItems.AURORIAN_COAL_NUGGET.get(), "极光煤块");
+        this.add(TAItems.AURORIAN_COAL_NUGGET.get(), "极光煤粒");
         this.add(TAItems.AURORIAN_PORK.get(), "生极光猪排");
         this.add(TAItems.MOON_FISH_SPAWN_EGG.get(), "皎月鱼刷怪蛋");
         this.add(TAItems.AURORIAN_WINGED_FISH_SPAWN_EGG.get(), "极光翅鱼刷怪蛋");
@@ -362,7 +362,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_SLIME_BOOTS.get(), "极光粘液靴子");
         this.add(TAItems.AURORIAN_SLIMEBALL.get(), "极光粘液球");
         this.add(TAItems.AURORIAN_STEEL.get(), "极光钢锭");
-        this.add(TAItems.AURORIAN_STEEL_NUGGET.get(), "极光钢块");
+        this.add(TAItems.AURORIAN_STEEL_NUGGET.get(), "极光钢粒");
         this.add(TAItems.AURORIAN_STEEL_AXE.get(), "极光钢斧");
         this.add(TAItems.AURORIAN_STEEL_HOE.get(), "极光钢锄");
         this.add(TAItems.AURORIAN_STEEL_PICKAXE.get(), "极光钢镐");
@@ -386,7 +386,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.BEPSI.get(), "旦事可乐");
         this.add(TAItems.CERULEAN_ARROW.get(), "晶蓝箭");
         this.add(TAItems.CERULEAN_INGOT.get(), "晶蓝锭");
-        this.add(TAItems.CERULEAN_NUGGET.get(), "晶蓝块");
+        this.add(TAItems.CERULEAN_NUGGET.get(), "晶蓝粒");
         this.add(TAItems.CERULEAN_HELMET.get(), "晶蓝头盔");
         this.add(TAItems.CERULEAN_CHESTPLATE.get(), "晶蓝胸甲");
         this.add(TAItems.CERULEAN_LEGGINGS.get(), "晶蓝护腿");
@@ -423,7 +423,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.MOON_ACOLYTE_SPAWN_EGG.get(), "皎月侍从刷怪蛋");
         this.add(TAItems.MOON_QUEEN_SPAWN_EGG.get(), "皎月女王刷怪蛋");
         this.add(TAItems.MOONSTONE_INGOT.get(), "皎月石锭");
-        this.add(TAItems.MOONSTONE_NUGGET.get(), "皎月石块");
+        this.add(TAItems.MOONSTONE_NUGGET.get(), "皎月石粒");
         this.add(TAItems.MOON_SHIELD.get(), "皎月之盾");
         this.add(TAItems.MOONSTONE_SHIELD.get(), "皎月石盾");
         this.add(TAItems.MOONSTONE_AXE.get(), "皎月石斧");

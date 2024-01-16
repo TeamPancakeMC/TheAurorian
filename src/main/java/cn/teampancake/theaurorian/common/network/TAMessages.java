@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.network;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.network.message.NightSyncMessage;
 import cn.teampancake.theaurorian.common.network.message.ShieldSyncS2CMessage;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkRegistry;
@@ -22,6 +23,7 @@ public class TAMessages {
 
     public static void register(){
         INSTANCE.registerMessage(id(), ShieldSyncS2CMessage.class, ShieldSyncS2CMessage::encode, ShieldSyncS2CMessage::decode, ShieldSyncS2CMessage::handle);
+        INSTANCE.registerMessage(id(), NightSyncMessage.class, NightSyncMessage::encode, NightSyncMessage::decode, NightSyncMessage::handle);
     }
 
     public static <MSG> void sendToServer(MSG message){

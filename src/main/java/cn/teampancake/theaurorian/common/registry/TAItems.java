@@ -275,10 +275,10 @@ public class TAItems {
      * Misc
      */
     public static final RegistryObject<Item> CRYSTAL = normal("crystal", true);
-    public static final RegistryObject<Item> AURORIAN_STEEL_NUGGET = normal("aurorian_steel_nugget", true);
-    public static final RegistryObject<Item> CERULEAN_NUGGET = normal("cerulean_nugget", true);
-    public static final RegistryObject<Item> AURORIAN_COAL_NUGGET = normal("aurorian_coal_nugget", true);
-    public static final RegistryObject<Item> MOONSTONE_NUGGET = normal("moonstone_nugget", true);
+    public static final RegistryObject<Item> AURORIAN_STEEL_NUGGET = normal("aurorian_steel_nugget", false);
+    public static final RegistryObject<Item> CERULEAN_NUGGET = normal("cerulean_nugget", false);
+    public static final RegistryObject<Item> AURORIAN_COAL_NUGGET = normal("aurorian_coal_nugget", false);
+    public static final RegistryObject<Item> MOONSTONE_NUGGET = normal("moonstone_nugget", false);
     public static final RegistryObject<Item> AURORIAN_CHAIN = normal("aurorian_chain", false);
     public static final RegistryObject<Item> AURORIAN_BERRY = normal("aurorian_berry", false);
     public static final RegistryObject<Item> AURORIAN_CRYSTAL = ITEMS.register("aurorian_crystal", AurorianCrystal::new);

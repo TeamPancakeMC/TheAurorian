@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.client.renderer.level;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.event.TAEventFactory;
+import cn.teampancake.theaurorian.common.network.message.NightSyncMessage;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -26,13 +27,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 @SuppressWarnings({"ConstantConditions", "SameParameterValue"})
 public class TASkyRenderer {
 
     private static ResourceLocation currentPhase = AurorianMod.prefix("ta_cyan");
     private static VertexBuffer starBuffer;
-    private static int dayCount;
 
     public TASkyRenderer() {
         this.createStars();
@@ -111,16 +112,16 @@ public class TASkyRenderer {
 
     public static Vec3 getSkyColor(ClientLevel level, Vec3 pos) {
         float timeOfDay = level.dimensionType().timeOfDay(1000L);
-        int rgbColor = smoothColorTransition((level.dayTime() - 6000L) / 24000.0F);
+        int rgbColor = smoothColorTransition((level.dayTime() - 6000L) / 24000);
         Vec3 vec3 = pos.subtract(2.0D, 2.0D, 2.0D).scale(0.25D);
         Vec3 vec31 = CubicSampler.gaussianSampleVec3(vec3, (x, y, z) -> Vec3.fromRGB24(rgbColor));
         float f1 = Mth.cos(timeOfDay * ((float) Math.PI * 2F)) * 2.0F + 0.5F;
         return new Vec3((float) vec31.x * f1, (float) vec31.y * f1, (float) vec31.z * f1);
     }
 
-    public static int smoothColorTransition(float t) {
+    public static int smoothColorTransition(long t) {
         Color currentColor = new Color(0x010e34);
-        Color targetColor = new Color(getDaySkyColors().get(getPhaseState(t)));
+        Color targetColor = new Color(getDaySkyColors().get(currentPhase));
         double d = Math.sin(2.0F * Math.PI * t + 0.25F * Math.PI);
         d = (d + 1.0D) / 2.0D;
         int r = currentColor.getRed() + (int) ((targetColor.getRed() - currentColor.getRed()) * d);
@@ -129,14 +130,14 @@ public class TASkyRenderer {
         return new Color(r, g, b).getRGB();
     }
 
-    private static ResourceLocation getPhaseState(float t) {
-        t = t - 12000;
-        if((int)t != dayCount) {
-            List<ResourceLocation> colorNames = new ArrayList<>(getDaySkyColors().keySet());
-            currentPhase = colorNames.get((int) (Math.random() * getDaySkyColors().size()));
-            dayCount = (int)t;
-        }
-        return currentPhase;
+    /**
+     * Handle PhaseState Data from server
+     * see {@link NightSyncMessage#handle(NightSyncMessage, Supplier)}
+     * @param StateCode Received from NightSyncMessage
+     */
+    public static void SetPhaseState(int StateCode) {
+        List<ResourceLocation> colorNames = new ArrayList<>(getDaySkyColors().keySet());
+        currentPhase = colorNames.get(StateCode);
     }
 
     private void createStars() {

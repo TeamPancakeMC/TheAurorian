@@ -38,7 +38,7 @@ public class RuinsAltarStructure extends Structure {
             Rotation rotation = Rotation.getRandom(random);
             BlockPos pos = new BlockPos(x, y, z);
             ResourceLocation location = AurorianMod.prefix("ruins/ruins_altar/ruins_altar");
-            builder.addPiece(new RuinsAltarPiece(manager, location, pos, rotation));
+            builder.addPiece(new RuinsAltarPiece(manager, location, pos.above(), rotation));
         });
     }
 

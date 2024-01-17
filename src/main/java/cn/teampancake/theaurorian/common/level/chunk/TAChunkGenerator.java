@@ -35,7 +35,7 @@ import java.util.function.Predicate;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-@SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "ConstantConditions", "OptionalGetWithoutIsPresent"})
+@SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "ConstantConditions"})
 public class TAChunkGenerator extends NoiseBasedChunkGenerator {
 
     public static final Codec<TAChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
@@ -174,14 +174,17 @@ public class TAChunkGenerator extends NoiseBasedChunkGenerator {
             double d21 = columns[2][cell + 1];
             double d31 = columns[3][cell + 1];
             for (int height = cellHeight - 1; height >= 0; height--) {
-                double dcell = height / (double)cellHeight;
-                double lcell = Mth.lerp3(dcell, xMin, zMin, d00, d01, d20, d21, d10, d11, d30, d31);
+                double dCell = height / (double)cellHeight;
+                double lCell = Mth.lerp3(dCell, xMin, zMin, d00, d01, d20, d21, d10, d11, d30, d31);
                 int layer = cell * cellHeight + height;
-                int maxlayer = layer + min * cellHeight;
-                BlockState state = this.generateBaseState(lcell, layer);
-                states[layer] = state;
+                int maxLayer = layer + min * cellHeight;
+                BlockState state = this.generateBaseState(lCell, layer);
+                if (states != null) {
+                    states[layer] = state;
+                }
+
                 if (predicate != null && predicate.test(state)) {
-                    return OptionalInt.of(maxlayer + 1);
+                    return OptionalInt.of(maxLayer + 1);
                 }
             }
         }
@@ -267,7 +270,7 @@ public class TAChunkGenerator extends NoiseBasedChunkGenerator {
     }
 
     private void fillNoiseColumn(double[] columns, int x, int z, int min, int max) {
-        this.warper.get().fillNoiseColumn(columns, x, z, min, max);
+        this.warper.ifPresent(taNoiseSampler -> taNoiseSampler.fillNoiseColumn(columns, x, z, min, max));
     }
 
     private BlockState generateBaseState(double noiseVal, double level) {

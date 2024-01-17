@@ -140,10 +140,6 @@ public class TASkyRenderer {
         currentPhase = colorNames.get(stateCode);
     }
 
-    public static ResourceLocation getCurrentPhase() {
-        return currentPhase;
-    }
-
     private void createStars() {
         RenderSystem.setShader(GameRenderer::getPositionShader);
         if (starBuffer != null) {

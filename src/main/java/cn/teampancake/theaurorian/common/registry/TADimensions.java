@@ -36,7 +36,7 @@ public class TADimensions {
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
         NoiseGeneratorSettings settings = new NoiseGeneratorSettings(NoiseSettings.OVERWORLD_NOISE_SETTINGS,
                 TABlocks.AURORIAN_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), NoiseRouterData.none(),
-                createSurfaceRule(), List.of(), 4, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE);
+                createSurfaceRule(), List.of(), 62, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE);
         context.register(AURORIAN_NOISE_SETTINGS, settings);
     }
 

@@ -60,8 +60,8 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.MOON_SAND.get());
         this.simpleBlock(TABlocks.MOON_SAND_RIVER.get());
         this.simpleBlock(TABlocks.MOON_SANDSTONE.get());
-        this.simpleBlock(TABlocks.SMOOTH_MOON_SANDSTONE.get());
         this.simpleBlock(TABlocks.CUT_MOON_SANDSTONE.get());
+        this.simpleBlock(TABlocks.SMOOTH_MOON_SANDSTONE.get());
         this.simpleBlock(TABlocks.BRIGHT_MOON_SAND.get());
         this.simpleBlock(TABlocks.BRIGHT_MOON_SANDSTONE.get());
         this.simpleBlock(TABlocks.RUNE_STONE.get());

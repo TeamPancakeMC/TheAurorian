@@ -6,11 +6,17 @@ import cn.teampancake.theaurorian.common.level.structure.structures.RuinsAltarSt
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.Structures;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class TAStructures {
 
@@ -22,8 +28,10 @@ public class TAStructures {
 
     public static void bootstrap(BootstapContext<Structure> context) {
         HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
-        Structure.StructureSettings ruinsAltarSettings = Structures.structure(
-                biomes.getOrThrow(TABiomeTags.HAS_RUINS_ALTAR), TerrainAdjustment.NONE);
+        Structure.StructureSettings ruinsAltarSettings = new Structure.StructureSettings(biomes.getOrThrow(TABiomeTags.HAS_RUINS_ALTAR),
+                Arrays.stream(MobCategory.values()).collect(Collectors.toMap(category -> category, category -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
+                GenerationStep.Decoration.SURFACE_STRUCTURES,
+                TerrainAdjustment.NONE);
         context.register(RUINS_ALTAR, new RuinsAltarStructure(ruinsAltarSettings));
     }
 

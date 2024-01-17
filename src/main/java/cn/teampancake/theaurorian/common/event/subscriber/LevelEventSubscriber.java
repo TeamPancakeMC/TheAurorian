@@ -9,7 +9,6 @@ import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.event.TickEvent;
@@ -41,36 +40,36 @@ public class LevelEventSubscriber {
             }
 
             long dayTime = serverLevel.dayTime();
-            if (dayTime % 200 == 0) {
-                for (ServerPlayer serverPlayer : playerList){
-                    if (serverLevel.dimension != TADimensions.AURORIAN_DIMENSION) {
+
+            if(dayTime % 200 == 0){
+
+                for(ServerPlayer serverPlayer : playerList){
+                    if( serverLevel.dimension != TADimensions.AURORIAN_DIMENSION)
                         return;
-                    }
 
                     if (dayTime > 12000 && dayTime <= 24000) {
-                        serverPlayer.addEffect(createEffect(TAMobEffects.PRESSURE.get()));
+                        serverPlayer.addEffect(new MobEffectInstance(TAMobEffects.PRESSURE.get(),320,0,false,false));
                     } else {
                         if (phaseCode == 0) {
-                            serverPlayer.addEffect(createEffect(MobEffects.DIG_SPEED));
+                            serverPlayer.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED,320,0,false,false));
                         } else if (phaseCode == 1) {
-                            serverPlayer.addEffect(createEffect(MobEffects.MOVEMENT_SPEED));
+                            serverPlayer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,320,0,false,false));
                         } else if (phaseCode == 2) {
-                            serverPlayer.addEffect(createEffect(MobEffects.DAMAGE_BOOST));
+                            serverPlayer.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,320,0,false,false));
                         } else if (phaseCode == 3) {
-                            serverPlayer.addEffect(createEffect(MobEffects.DAMAGE_RESISTANCE));
+                            serverPlayer.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,320,0,false,false));
                         } else if (phaseCode == 4) {
 
-                        } else {
+                        }
+                        else {
                             TAEventFactory.onRegisterAurorianSkyBless(serverPlayer, serverLevel, phaseCode);
                         }
                     }
                 }
             }
         }
-    }
 
-    private static MobEffectInstance createEffect(MobEffect effect) {
-        return new MobEffectInstance(effect, 320, 0, Boolean.FALSE, Boolean.FALSE);
+
     }
 
 }

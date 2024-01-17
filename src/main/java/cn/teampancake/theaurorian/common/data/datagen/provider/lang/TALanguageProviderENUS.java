@@ -131,8 +131,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.MOON_SAND.get(), "Moon Sand");
         this.add(TABlocks.MOON_SAND_RIVER.get(), "River Moon Sand");
         this.add(TABlocks.MOON_SANDSTONE.get(), "Moon Sandstone");
-        this.add(TABlocks.SMOOTH_MOON_SANDSTONE.get(), "Moon Sandstone");
-        this.add(TABlocks.CUT_MOON_SANDSTONE.get(), "Moon Sandstone");
+        this.add(TABlocks.CUT_MOON_SANDSTONE.get(), "Cut Moon Sandstone");
+        this.add(TABlocks.SMOOTH_MOON_SANDSTONE.get(), "Smooth Moon Sandstone");
         this.add(TABlocks.BRIGHT_MOON_SAND.get(), "Bright Moon Sand");
         this.add(TABlocks.BRIGHT_MOON_SANDSTONE.get(), "Bright Moon Sandstone");
         this.add(TABlocks.MOON_TORCH.get(), "Moon Torch");

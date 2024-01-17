@@ -53,8 +53,8 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.MOON_SAND.get());
         this.simpleBlockItem(TABlocks.MOON_SAND_RIVER.get());
         this.simpleBlockItem(TABlocks.MOON_SANDSTONE.get());
-        this.simpleBlockItem(TABlocks.SMOOTH_MOON_SANDSTONE.get());
         this.simpleBlockItem(TABlocks.CUT_MOON_SANDSTONE.get());
+        this.simpleBlockItem(TABlocks.SMOOTH_MOON_SANDSTONE.get());
         this.simpleBlockItem(TABlocks.BRIGHT_MOON_SAND.get());
         this.simpleBlockItem(TABlocks.BRIGHT_MOON_SANDSTONE.get());
         this.simpleBlockItem(TABlocks.RUNE_STONE.get());

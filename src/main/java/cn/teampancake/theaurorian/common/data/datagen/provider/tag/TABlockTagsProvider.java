@@ -29,8 +29,8 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 .add(TABlocks.AURORIAN_STONE.get(), TABlocks.AURORIAN_DIRT.get(), TABlocks.AURORIAN_GRANITE.get(),
                 TABlocks.AURORIAN_DIORITE.get(), TABlocks.AURORIAN_ANDESITE.get(),
                 TABlocks.MOON_SAND.get(), TABlocks.BRIGHT_MOON_SAND.get(),
-                TABlocks.MOON_SANDSTONE.get(), TABlocks.SMOOTH_MOON_SANDSTONE.get(),
-                TABlocks.CUT_MOON_SANDSTONE.get(), TABlocks.BRIGHT_MOON_SANDSTONE.get());
+                TABlocks.MOON_SANDSTONE.get(), TABlocks.CUT_MOON_SANDSTONE.get(),
+                TABlocks.SMOOTH_MOON_SANDSTONE.get(), TABlocks.BRIGHT_MOON_SANDSTONE.get());
         this.tag(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON)
                 .add(TABlocks.RUNE_STONE.get()).add(TABlocks.MOON_TEMPLE_BRICKS.get())
                 .add(TABlocks.DARK_STONE_BRICKS.get()).add(TABlocks.DARK_STONE_FANCY.get())

@@ -131,8 +131,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.MOON_SAND.get(), "皎月沙");
         this.add(TABlocks.MOON_SAND_RIVER.get(), "皎月河沙");
         this.add(TABlocks.MOON_SANDSTONE.get(), "皎月砂岩");
-        this.add(TABlocks.SMOOTH_MOON_SANDSTONE.get(), "皎月砂岩");
-        this.add(TABlocks.CUT_MOON_SANDSTONE.get(), "皎月砂岩");
+        this.add(TABlocks.CUT_MOON_SANDSTONE.get(), "切制皎月砂岩");
+        this.add(TABlocks.SMOOTH_MOON_SANDSTONE.get(), "平滑皎月砂岩");
         this.add(TABlocks.BRIGHT_MOON_SAND.get(), "皓月沙");
         this.add(TABlocks.BRIGHT_MOON_SANDSTONE.get(), "皓月沙岩");
         this.add(TABlocks.MOON_TORCH.get(), "皎月火把");

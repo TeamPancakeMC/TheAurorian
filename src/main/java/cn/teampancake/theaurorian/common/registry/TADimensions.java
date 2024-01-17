@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.*;
+import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 import java.util.List;
 import java.util.OptionalLong;
@@ -35,7 +36,8 @@ public class TADimensions {
 
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
         NoiseGeneratorSettings settings = new NoiseGeneratorSettings(NoiseSettings.OVERWORLD_NOISE_SETTINGS,
-                TABlocks.AURORIAN_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), NoiseRouterData.none(),
+                TABlocks.AURORIAN_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(),
+                noiseCaveRouter(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE)),
                 createSurfaceRule(), List.of(), 62, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE);
         context.register(AURORIAN_NOISE_SETTINGS, settings);
     }
@@ -81,6 +83,27 @@ public class TADimensions {
                 VerticalAnchor.aboveBottom(5)), SurfaceRuleData.BEDROCK);
         builder.add(bedrockFloor).add(overworldLike);
         return sequence(builder.build().toArray(RuleSource[]::new));
+    }
+
+    private static NoiseRouter noiseCaveRouter(HolderGetter<DensityFunction> densityFunctions, HolderGetter<NormalNoise.NoiseParameters> noiseParameters) {
+        DensityFunction densityfunction10 = NoiseRouterData.noiseGradientDensity(
+                DensityFunctions.cache2d(NoiseRouterData.getFunction(densityFunctions, NoiseRouterData.FACTOR)),
+                NoiseRouterData.getFunction(densityFunctions, NoiseRouterData.DEPTH));
+        DensityFunction slopedCheeseFunction = NoiseRouterData.getFunction(densityFunctions, NoiseRouterData.SLOPED_CHEESE);
+        DensityFunction densityfunction12 = DensityFunctions.min(slopedCheeseFunction,
+                DensityFunctions.mul(DensityFunctions.constant((5.0D)),
+                NoiseRouterData.getFunction(densityFunctions, NoiseRouterData.ENTRANCES)));
+        DensityFunction densityfunction13 = DensityFunctions.rangeChoice(slopedCheeseFunction, (-1000000.0D), (1.5625D),
+                densityfunction12, NoiseRouterData.underground(densityFunctions, noiseParameters, slopedCheeseFunction));
+        DensityFunction densityfunction14 = DensityFunctions.min(NoiseRouterData.postProcess(
+                NoiseRouterData.slideOverworld(Boolean.FALSE, densityfunction13)),
+                NoiseRouterData.getFunction(densityFunctions, NoiseRouterData.NOODLE));
+        return new NoiseRouter(DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
+                DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
+                DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
+                NoiseRouterData.slideOverworld(Boolean.FALSE, DensityFunctions.add(densityfunction10,
+                        DensityFunctions.constant((-0.703125D))).clamp((-64.0D), (64.0D))),
+                densityfunction14, DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero());
     }
 
 }

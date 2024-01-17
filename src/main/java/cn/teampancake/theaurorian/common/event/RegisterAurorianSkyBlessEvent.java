@@ -8,12 +8,12 @@ public class RegisterAurorianSkyBlessEvent extends Event {
 
     private final ServerPlayer serverPlayer;
     private final ServerLevel serverLevel;
-    private final String colorName;
+    private final int phaseCode;
 
-    public RegisterAurorianSkyBlessEvent(ServerPlayer serverPlayer, ServerLevel serverLevel, String colorName) {
+    public RegisterAurorianSkyBlessEvent(ServerPlayer serverPlayer, ServerLevel serverLevel, int phaseCode) {
         this.serverPlayer = serverPlayer;
         this.serverLevel = serverLevel;
-        this.colorName = colorName;
+        this.phaseCode = phaseCode;
     }
 
     public ServerPlayer getServerPlayer() {
@@ -24,8 +24,8 @@ public class RegisterAurorianSkyBlessEvent extends Event {
         return this.serverLevel;
     }
 
-    public String getColorName() {
-        return this.colorName;
+    public int getPhaseCode() {
+        return this.phaseCode;
     }
 
     @Override

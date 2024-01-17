@@ -13,8 +13,8 @@ public class TAEventFactory {
         MinecraftForge.EVENT_BUS.post(new RegisterAurorianSkyColorEvent(daySkyColors));
     }
 
-    public static void onRegisterAurorianSkyBless(ServerPlayer serverPlayer, ServerLevel serverLevel, String colorName) {
-        MinecraftForge.EVENT_BUS.post(new RegisterAurorianSkyBlessEvent(serverPlayer, serverLevel, colorName));
+    public static void onRegisterAurorianSkyBless(ServerPlayer serverPlayer, ServerLevel serverLevel, int phaseCode) {
+        MinecraftForge.EVENT_BUS.post(new RegisterAurorianSkyBlessEvent(serverPlayer, serverLevel, phaseCode));
     }
 
 }

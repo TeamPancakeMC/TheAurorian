@@ -137,9 +137,9 @@ public class TABlocks {
     public static final RegistryObject<Block> MOON_GEM = normal("moon_gem", defaultStoneProperties(2.0F).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.METAL).noOcclusion());
     public static final RegistryObject<Block> MOON_SAND = register("moon_sand", () -> new SandBlock(14406560, copy(Blocks.SAND)));
     public static final RegistryObject<Block> MOON_SAND_RIVER =  register("moon_sand_river", () -> new SandBlock(14406560, copy(Blocks.SAND)));
-    public static final RegistryObject<Block> MOON_SAND_STONE_1 = normal("moon_sand_stone_1", copy(Blocks.SANDSTONE));
-    public static final RegistryObject<Block> MOON_SAND_STONE_2 = normal("moon_sand_stone_2", copy(Blocks.SANDSTONE));
-    public static final RegistryObject<Block> MOON_SAND_STONE_3 = normal("moon_sand_stone_3", copy(Blocks.SANDSTONE));
+    public static final RegistryObject<Block> MOON_SANDSTONE = normal("moon_sandstone", copy(Blocks.SANDSTONE));
+    public static final RegistryObject<Block> CUT_MOON_SANDSTONE = normal("cut_moon_sandstone", copy(Blocks.SANDSTONE));
+    public static final RegistryObject<Block> SMOOTH_MOON_SANDSTONE = normal("smooth_moon_sandstone", copy(Blocks.SANDSTONE));
     public static final RegistryObject<Block> BRIGHT_MOON_SAND =  register("bright_moon_sand", () -> new SandBlock(14406560, copy(Blocks.SAND)));
     public static final RegistryObject<Block> BRIGHT_MOON_SANDSTONE = normal("bright_moon_sandstone", copy(Blocks.SANDSTONE));
     public static final RegistryObject<Block> MOON_TORCH = register("moon_torch", () -> new TorchBlock(copy(Blocks.TORCH), ParticleTypes.CLOUD));

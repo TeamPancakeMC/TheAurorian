@@ -253,6 +253,8 @@ public class TARecipeProvider extends RecipeProvider {
         scrapping(consumer, Items.DIAMOND_LEGGINGS, Items.DIAMOND, 4);
         scrapping(consumer, Items.DIAMOND_BOOTS, Items.DIAMOND, 2);
 
+        cut(consumer, RecipeCategory.BUILDING_BLOCKS, TABlocks.CUT_MOON_SANDSTONE.get(), TABlocks.MOON_SANDSTONE.get());
+        stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, TABlocks.CUT_MOON_SANDSTONE.get(), TABlocks.MOON_SANDSTONE.get());
         stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_STONE_BRICKS.get(), TABlocks.AURORIAN_STONE.get());
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, TAItems.CERULEAN_INGOT.get(), RecipeCategory.BUILDING_BLOCKS, TABlocks.CERULEAN_BLOCK.get());
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, TAItems.MOONSTONE_INGOT.get(), RecipeCategory.BUILDING_BLOCKS, TABlocks.MOONSTONE_BLOCK.get());

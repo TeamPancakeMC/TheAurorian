@@ -29,8 +29,8 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 .add(TABlocks.AURORIAN_STONE.get(), TABlocks.AURORIAN_DIRT.get(), TABlocks.AURORIAN_GRANITE.get(),
                 TABlocks.AURORIAN_DIORITE.get(), TABlocks.AURORIAN_ANDESITE.get(),
                 TABlocks.MOON_SAND.get(), TABlocks.BRIGHT_MOON_SAND.get(),
-                TABlocks.MOON_SAND_STONE_1.get(), TABlocks.MOON_SAND_STONE_2.get(),
-                TABlocks.MOON_SAND_STONE_3.get(), TABlocks.BRIGHT_MOON_SANDSTONE.get());
+                TABlocks.MOON_SANDSTONE.get(), TABlocks.SMOOTH_MOON_SANDSTONE.get(),
+                TABlocks.CUT_MOON_SANDSTONE.get(), TABlocks.BRIGHT_MOON_SANDSTONE.get());
         this.tag(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON)
                 .add(TABlocks.RUNE_STONE.get()).add(TABlocks.MOON_TEMPLE_BRICKS.get())
                 .add(TABlocks.DARK_STONE_BRICKS.get()).add(TABlocks.DARK_STONE_FANCY.get())
@@ -68,8 +68,8 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 TABlocks.CERULEAN_ORE.get(), TABlocks.GEODE_ORE.get(), TABlocks.CERULEAN_BLOCK.get(), TABlocks.MOONSTONE_BLOCK.get(),
                 TABlocks.AURORIAN_COAL_BLOCK.get(), TABlocks.AURORIAN_STEEL_BLOCK.get(), TABlocks.INDIGO_MUSHROOM_CRYSTAL.get(),
                 TABlocks.MOONLIGHT_FORGE.get(), TABlocks.MOON_GEM.get(), TABlocks.UMBRA_STONE.get(),
-                TABlocks.UMBRA_STONE_CRACKED.get(), TABlocks.UMBRA_STONE_ROOF_TILES.get(), TABlocks.MOON_SAND_STONE_1.get(),
-                TABlocks.MOON_SAND_STONE_2.get(), TABlocks.MOON_SAND_STONE_3.get(), TABlocks.BRIGHT_MOON_SANDSTONE.get());
+                TABlocks.UMBRA_STONE_CRACKED.get(), TABlocks.UMBRA_STONE_ROOF_TILES.get(), TABlocks.MOON_SANDSTONE.get(),
+                TABlocks.SMOOTH_MOON_SANDSTONE.get(), TABlocks.CUT_MOON_SANDSTONE.get(), TABlocks.BRIGHT_MOON_SANDSTONE.get());
         this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(), TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get());
         this.tag(BlockTags.WOODEN_TRAPDOORS).add(TABlocks.SILENT_WOOD_TRAPDOOR.get(), TABlocks.WEEPING_WILLOW_TRAPDOOR.get());
         this.tag(BlockTags.WOODEN_BUTTONS).add(TABlocks.SILENT_WOOD_BUTTON.get(), TABlocks.WEEPING_WILLOW_BUTTON.get());

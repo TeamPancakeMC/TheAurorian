@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "theaurorian:block/moon_sand_stone_2"
+    "all": "theaurorian:block/moon_sandstone"
   }
 }

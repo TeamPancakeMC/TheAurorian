@@ -215,9 +215,7 @@ public class TAConfiguredFeatures {
                 OreConfiguration.target(new BlockMatchTest(TABlocks.AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
                 OreConfiguration.target(new BlockMatchTest(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
                 OreConfiguration.target(new BlockMatchTest(TABlocks.RED_AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
-                OreConfiguration.target(new BlockMatchTest(TABlocks.AURORIAN_DIRT.get()), TABlocks.MOON_SAND_STONE_1.get().defaultBlockState()),
-                OreConfiguration.target(new BlockMatchTest(TABlocks.MOON_SAND_STONE_1.get()), TABlocks.MOON_SAND_STONE_2.get().defaultBlockState()),
-                OreConfiguration.target(new BlockMatchTest(TABlocks.MOON_SAND_STONE_2.get()), TABlocks.MOON_SAND_STONE_3.get().defaultBlockState())), 64));
+                OreConfiguration.target(new BlockMatchTest(TABlocks.AURORIAN_DIRT.get()), TABlocks.MOON_SANDSTONE.get().defaultBlockState())), 64));
         FeatureUtils.register(context, SILENT_TREE, Feature.TREE, silentTree()
                 .dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get())).ignoreVines()
                 .decorators(ImmutableList.of(new CrystalBudDecorator(0.05F))).build());

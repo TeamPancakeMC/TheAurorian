@@ -59,9 +59,9 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.AURORIAN_PERIDOTITE.get());
         this.simpleBlock(TABlocks.MOON_SAND.get());
         this.simpleBlock(TABlocks.MOON_SAND_RIVER.get());
-        this.simpleBlock(TABlocks.MOON_SAND_STONE_1.get());
-        this.simpleBlock(TABlocks.MOON_SAND_STONE_2.get());
-        this.simpleBlock(TABlocks.MOON_SAND_STONE_3.get());
+        this.simpleBlock(TABlocks.MOON_SANDSTONE.get());
+        this.simpleBlock(TABlocks.SMOOTH_MOON_SANDSTONE.get());
+        this.simpleBlock(TABlocks.CUT_MOON_SANDSTONE.get());
         this.simpleBlock(TABlocks.BRIGHT_MOON_SAND.get());
         this.simpleBlock(TABlocks.BRIGHT_MOON_SANDSTONE.get());
         this.simpleBlock(TABlocks.RUNE_STONE.get());

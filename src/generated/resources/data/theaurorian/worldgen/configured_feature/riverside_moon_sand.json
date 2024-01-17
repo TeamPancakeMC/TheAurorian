@@ -33,28 +33,10 @@
       },
       {
         "state": {
-          "Name": "theaurorian:moon_sand_stone_1"
+          "Name": "theaurorian:moon_sandstone"
         },
         "target": {
           "block": "theaurorian:aurorian_dirt",
-          "predicate_type": "minecraft:block_match"
-        }
-      },
-      {
-        "state": {
-          "Name": "theaurorian:moon_sand_stone_2"
-        },
-        "target": {
-          "block": "theaurorian:moon_sand_stone_1",
-          "predicate_type": "minecraft:block_match"
-        }
-      },
-      {
-        "state": {
-          "Name": "theaurorian:moon_sand_stone_3"
-        },
-        "target": {
-          "block": "theaurorian:moon_sand_stone_2",
           "predicate_type": "minecraft:block_match"
         }
       }

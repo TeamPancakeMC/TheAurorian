@@ -29,10 +29,18 @@ import java.util.Random;
 import static cn.teampancake.theaurorian.common.utils.TAItemRegUtils.*;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
-@SuppressWarnings("SpellCheckingInspection")
+@SuppressWarnings({"SpellCheckingInspection", "unused"})
 public class TAItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AurorianMod.MOD_ID);
+
+    /**
+     * Block Item
+     * */
+    public static final RegistryObject<Item> AURORIAN_LILY_PAD = ITEMS.register("aurorian_lily_pad",
+            () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_LILY_PAD.get(), new Item.Properties()));
+    public static final RegistryObject<Item> AURORIAN_WATER_MUSHROOM = ITEMS.register("aurorian_water_mushroom",
+            () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_WATER_MUSHROOM.get(), new Item.Properties()));
 
     /**
      * Armor Item

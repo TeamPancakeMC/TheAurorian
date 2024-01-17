@@ -47,8 +47,8 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_GRASS = register("aurorian_grass", () -> new TAPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> AURORIAN_GRASS_LIGHT = register("aurorian_grass_light", () -> new TAPlantBlock(copy(Blocks.GRASS).lightLevel(s -> 2), LIGHT_AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> AURORIAN_WATER_GRASS = register("aurorian_water_grass", () -> new TALightPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
-    public static final RegistryObject<Block> AURORIAN_LILY_PAD = register("aurorian_lily_pad", () -> new AurorianWaterSurfacePlant(Block.box(0.5D, 0.0D, 0.5D, 15.5D, 0.5D, 15.5D)));
-    public static final RegistryObject<Block> AURORIAN_WATER_MUSHROOM = register("aurorian_water_mushroom", () -> new AurorianWaterSurfacePlant(Block.box(4.0D, 0.0D, 4.0D, 12.0D, 10.5D, 12.0D)));
+    public static final RegistryObject<Block> AURORIAN_LILY_PAD = BLOCKS.register("aurorian_lily_pad", () -> new AurorianWaterSurfacePlant(Block.box(0.5D, 0.0D, 0.5D, 15.5D, 0.5D, 15.5D)));
+    public static final RegistryObject<Block> AURORIAN_WATER_MUSHROOM = BLOCKS.register("aurorian_water_mushroom", () -> new AurorianWaterSurfacePlant(Block.box(4.0D, 0.0D, 4.0D, 12.0D, 10.5D, 12.0D)));
     public static final RegistryObject<Block> AURORIAN_FURNACE = register("aurorian_furnace", () -> new AurorianFurnace(defaultStoneProperties(3.5F)));
     public static final RegistryObject<Block> AURORIAN_FURNACE_CHIMNEY = register("aurorian_furnace_chimney", () -> new AurorianFurnaceChimney(defaultStoneProperties(2.0F)));
     public static final RegistryObject<Block> AURORIAN_PORTAL = BLOCKS.register("aurorian_portal", () -> new AurorianPortal(copy(Blocks.NETHER_PORTAL)));

@@ -62,7 +62,7 @@ public class TAFogRenderer {
             biomeChangedTime = -1L;
             RenderSystem.clearColor(fogRed, fogGreen, fogBlue, 0.0F);
         } else {
-            BiomeManager biomeManager = level.biomeManager;
+            BiomeManager biomeManager = level.getBiomeManager();
             float f4 = 0.25F + 0.75F * (float)renderDistanceChunks / 32.0F;
             Vec3 vec3 = TASkyRenderer.getSkyColor(level, activeRenderInfo.getPosition());
             float f11 = Mth.clamp(Mth.cos(level.getTimeOfDay(partialTicks) * ((float)Math.PI * 2F)) * 2.0F + 0.5F, 0.0F, 1.0F);

@@ -238,7 +238,7 @@ public class SpiderMother extends Spider {
         @Override
         public void tick() {
             if (this.mob.getY() <= this.hangingY) {
-                this.mob.setPos(hangingX, this.mob.position().y += 0.5D, hangingZ);
+                this.mob.setPos(hangingX, this.mob.position().y + 0.5D, hangingZ);
             }
             if (this.hangTime % 50 == 0) {
                 for (int i = 0; i < this.mob.getRandom().nextInt(5); i++) {

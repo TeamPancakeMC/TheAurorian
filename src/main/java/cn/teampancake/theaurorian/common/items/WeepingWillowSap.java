@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.items;
 
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -16,9 +15,8 @@ public class WeepingWillowSap extends Item implements ITooltipsItem {
     }
     protected void onFoodEaten(Level level, Player player) {
         if (level.isClientSide) return;
-        MobEffectInstance effect = player.getEffect(MobEffects.POISON);
-        if (effect != null) {
-            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, effect.getDuration(), effect.getAmplifier()));
+
+        if (player.hasEffect(MobEffects.POISON)) {
             player.removeEffect(MobEffects.POISON);
         }
     }

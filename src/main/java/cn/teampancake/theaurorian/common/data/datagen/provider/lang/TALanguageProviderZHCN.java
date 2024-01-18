@@ -522,6 +522,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         //MOB EFFECT
         this.add(TAMobEffects.STUN.get(), "眩晕");
         this.add(TAMobEffects.PRESSURE.get(), "威压");
+        this.add(TAMobEffects.BROKEN.get(),"破盾");
 
         //MOD ENCHANTMENT
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "雷电抵御");

@@ -5,7 +5,7 @@
       "theaurorian:ta_cave_extra_underground"
     ]
   },
-  "creature_spawn_probability": 0.3,
+  "creature_spawn_probability": 0.25,
   "downfall": 0.0,
   "effects": {
     "fog_color": 12648408,
@@ -49,26 +49,7 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [
-      {
-        "type": "theaurorian:aurorian_rabbit",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 4
-      },
-      {
-        "type": "theaurorian:aurorian_sheep",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 5
-      },
-      {
-        "type": "theaurorian:aurorian_pig",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 5
-      }
-    ],
+    "creature": [],
     "misc": [],
     "monster": [
       {

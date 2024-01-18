@@ -523,6 +523,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         //MOB EFFECT
         this.add(TAMobEffects.STUN.get(), "Stun");
         this.add(TAMobEffects.PRESSURE.get(), "Pressure");
+        this.add(TAMobEffects.BROKEN.get(),"Broken");
 
         //MOD ENCHANTMENT
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "Lightning Resistance");

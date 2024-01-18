@@ -51,7 +51,24 @@
           "salt": 1005
         },
         "dividing_biome": "theaurorian:aurorian_river",
-        "excluded_biome_intersections": [],
+        "excluded_biome_intersections": [
+          [
+            "theaurorian:aurorian_plains",
+            "theaurorian:aurorian_plains"
+          ],
+          [
+            "theaurorian:aurorian_forest_hill",
+            "theaurorian:aurorian_forest_hill"
+          ],
+          [
+            "theaurorian:equinox_flower_plains",
+            "theaurorian:equinox_flower_plains"
+          ],
+          [
+            "theaurorian:lavender_plains",
+            "theaurorian:lavender_plains"
+          ]
+        ],
         "excluded_neighbor_biomes": [],
         "layer_type": "theaurorian:river",
         "salt": 1

@@ -15,7 +15,7 @@
               "-1.0": "theaurorian:aurorian_forest",
               "-3.0": "theaurorian:underground"
             },
-            "depth": 9.400001,
+            "depth": 9.3,
             "key_biome": "theaurorian:aurorian_forest",
             "scale": 0.3
           },
@@ -24,7 +24,7 @@
               "-1.0": "theaurorian:aurorian_forest_hill",
               "-3.0": "theaurorian:underground"
             },
-            "depth": 9.5,
+            "depth": 9.4,
             "key_biome": "theaurorian:aurorian_forest_hill",
             "scale": 0.4
           },
@@ -33,7 +33,7 @@
               "-6.0": "theaurorian:aurorian_lake",
               "-8.0": "theaurorian:underwater"
             },
-            "depth": 7.55,
+            "depth": 7.35,
             "key_biome": "theaurorian:aurorian_lake",
             "scale": 0.0
           },
@@ -42,7 +42,7 @@
               "-1.0": "theaurorian:aurorian_plains",
               "-3.0": "theaurorian:underground"
             },
-            "depth": 9.400001,
+            "depth": 9.3,
             "key_biome": "theaurorian:aurorian_plains",
             "scale": 0.3
           },
@@ -51,7 +51,7 @@
               "-6.0": "theaurorian:aurorian_river",
               "-8.0": "theaurorian:underwater"
             },
-            "depth": 7.55,
+            "depth": 7.35,
             "key_biome": "theaurorian:aurorian_river",
             "scale": 0.0
           },
@@ -60,7 +60,7 @@
               "-1.0": "theaurorian:bright_moon_desert",
               "-3.0": "theaurorian:underground"
             },
-            "depth": 9.400001,
+            "depth": 9.3,
             "key_biome": "theaurorian:bright_moon_desert",
             "scale": 0.4
           },
@@ -69,7 +69,7 @@
               "-1.0": "theaurorian:equinox_flower_plains",
               "-3.0": "theaurorian:underground"
             },
-            "depth": 9.35,
+            "depth": 9.25,
             "key_biome": "theaurorian:equinox_flower_plains",
             "scale": 0.3
           },
@@ -78,7 +78,7 @@
               "-1.0": "theaurorian:lavender_plains",
               "-3.0": "theaurorian:underground"
             },
-            "depth": 9.450001,
+            "depth": 9.35,
             "key_biome": "theaurorian:lavender_plains",
             "scale": 0.4
           },
@@ -87,7 +87,7 @@
               "-1.0": "theaurorian:weeping_willow_forest",
               "-3.0": "theaurorian:underground"
             },
-            "depth": 9.400001,
+            "depth": 9.3,
             "key_biome": "theaurorian:weeping_willow_forest",
             "scale": 0.4
           }

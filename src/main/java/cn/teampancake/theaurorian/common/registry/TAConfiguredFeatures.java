@@ -5,7 +5,6 @@ import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.level.feature.config.FallenLogConfig;
 import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
 import cn.teampancake.theaurorian.common.level.feature.tree.decorators.CrystalBudDecorator;
-import cn.teampancake.theaurorian.common.level.feature.tree.foliage.TaperFoliagePlacer;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
@@ -38,7 +37,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePl
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
@@ -80,7 +78,6 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GEODE = createKey("ore_geode");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_URN = createKey("random_urn");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SILENT_TREE = createKey("silent_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SILENT_TREE_TAPER = createKey("silent_tree_taper");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SPRING = createKey("aurorian_forest_spring");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_REMAINS = createKey("aurorian_forest_remains");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_MEMORY_LOOP = createKey("aurorian_forest_memory_loop");
@@ -108,12 +105,6 @@ public class TAConfiguredFeatures {
                 new TwoLayersFeatureSize(1, 0, 2)));
     }
 
-    private static TreeConfiguration.TreeConfigurationBuilder silentTreeTaper() {
-        return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()),
-                new StraightTrunkPlacer((8), (5), (0)), BlockStateProvider.simple(TABlocks.SILENT_TREE_LEAVES.get()),
-                new TaperFoliagePlacer(ConstantInt.ZERO, ConstantInt.ZERO), new TwoLayersFeatureSize((1), (0), (2))));
-    }
-
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         List<RegistryObject<SmallRuinFeature>> smallRuinRegList = TAFeatures.AURORIAN_FOREST_SMALL_RUINS;
         List<ResourceKey<ConfiguredFeature<?, ?>>> smallRuinConfigList = AURORIAN_FOREST_SMALL_RUINS;
@@ -126,7 +117,6 @@ public class TAConfiguredFeatures {
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
         WickGrass.LEVEL.getPossibleValues().forEach(level -> wickGrassBuilder.add(wickGrass.setValue(WickGrass.LEVEL, level), 1));
         Holder<PlacedFeature> silentTreeLikeSpruce = placedFeature.getOrThrow(TAPlacedFeatures.SILENT_TREE);
-        Holder<PlacedFeature> silentTreeTaper = placedFeature.getOrThrow(TAPlacedFeatures.SILENT_TREE_TAPER);
         Holder<PlacedFeature> mediumRuinHolder1 = placedFeature.getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_SPRING);
         Holder<PlacedFeature> mediumRuinHolder2 = placedFeature.getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_REMAINS);
         Holder<PlacedFeature> mediumRuinHolder3 = placedFeature.getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_MEMORY_LOOP);
@@ -194,8 +184,7 @@ public class TAConfiguredFeatures {
                         .add(TABlocks.TALL_LAVENDER_PLANT.get().defaultBlockState()
                                 .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)), 32));
         FeatureUtils.register(context, TREES_AURORIAN_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
-                List.of(new WeightedPlacedFeature(silentTreeLikeSpruce, 0.3F),
-                        new WeightedPlacedFeature(silentTreeTaper, 0.1F)), silentTreeLikeSpruce));
+                List.of(new WeightedPlacedFeature(silentTreeLikeSpruce, 0.3F)), silentTreeLikeSpruce));
         FeatureUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
                 List.of(new WeightedPlacedFeature(mediumRuinHolder1, 0.125F), new WeightedPlacedFeature(mediumRuinHolder2, 0.125F),
                         new WeightedPlacedFeature(mediumRuinHolder3, 0.125F), new WeightedPlacedFeature(mediumRuinHolder4, 0.125F),
@@ -217,9 +206,6 @@ public class TAConfiguredFeatures {
                 OreConfiguration.target(new BlockMatchTest(TABlocks.RED_AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
                 OreConfiguration.target(new BlockMatchTest(TABlocks.AURORIAN_DIRT.get()), TABlocks.MOON_SANDSTONE.get().defaultBlockState())), 64));
         FeatureUtils.register(context, SILENT_TREE, Feature.TREE, silentTree()
-                .dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get())).ignoreVines()
-                .decorators(ImmutableList.of(new CrystalBudDecorator(0.05F))).build());
-        FeatureUtils.register(context, SILENT_TREE_TAPER, Feature.TREE, silentTreeTaper()
                 .dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get())).ignoreVines()
                 .decorators(ImmutableList.of(new CrystalBudDecorator(0.05F))).build());
         FeatureUtils.register(context, ORE_MOON_SAND_RIVER, Feature.ORE, new OreConfiguration(List.of(

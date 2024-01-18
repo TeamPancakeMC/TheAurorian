@@ -53,7 +53,6 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_GEODE = createKey("ore_geode");
     public static final ResourceKey<PlacedFeature> RANDOM_URNS = createKey("random_urns");
     public static final ResourceKey<PlacedFeature> SILENT_TREE = createKey("silent_tree");
-    public static final ResourceKey<PlacedFeature> SILENT_TREE_TAPER = createKey("silent_tree_taper");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_SPRING = createKey("aurorian_forest_spring");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_REMAINS = createKey("aurorian_forest_remains");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_MEMORY_LOOP = createKey("aurorian_forest_memory_loop");
@@ -105,7 +104,6 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, RIVERSIDE_MOON_SAND, configuredFeature.getOrThrow(TAConfiguredFeatures.RIVERSIDE_MOON_SAND), CountPlacement.of(10),
                 InSquarePlacement.spread(), BiomeFilter.biome(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BlockPredicateFilter.forPredicate(BlockPredicate.anyOf(riversidePredicates)));
         PlacementUtils.register(context, SILENT_TREE, configuredFeature.getOrThrow(TAConfiguredFeatures.SILENT_TREE), PlacementUtils.filteredByBlockSurvival(TABlocks.SILENT_TREE_SAPLING.get()));
-        PlacementUtils.register(context, SILENT_TREE_TAPER, configuredFeature.getOrThrow(TAConfiguredFeatures.SILENT_TREE_TAPER), PlacementUtils.filteredByBlockSurvival(TABlocks.SILENT_TREE_SAPLING.get()));
         PlacementUtils.register(context, AURORIAN_FOREST_SPRING, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_SPRING), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
         PlacementUtils.register(context, AURORIAN_FOREST_REMAINS, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_REMAINS), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
         PlacementUtils.register(context, AURORIAN_FOREST_MEMORY_LOOP, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_MEMORY_LOOP), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);

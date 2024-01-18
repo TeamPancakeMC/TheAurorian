@@ -42,12 +42,8 @@ public class TABiomes {
         HolderGetter<PlacedFeature> featureGetter = context.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredWorldCarver<?>> carverGetter = context.lookup(Registries.CONFIGURED_CARVER);
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
-        context.register(AURORIAN_FOREST, biomeOfNormalForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.SMALL_AURORIAN_FOREST_RUINS)
-                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.MEDIUM_AURORIAN_FOREST_RUINS)).build());
-        context.register(AURORIAN_FOREST_HILL, biomeOfNormalForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.SMALL_AURORIAN_FOREST_RUINS)
-                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.MEDIUM_AURORIAN_FOREST_RUINS)).build());
+        context.register(AURORIAN_FOREST, biomeOfNormalForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
+        context.register(AURORIAN_FOREST_HILL, biomeOfNormalForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(AURORIAN_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_FLOWER_PLAINS)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_PLAINS), ParticleTypes.FIREWORK, 0.00375F).build());
@@ -65,7 +61,8 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_LAVENDER)).build());
         context.register(WEEPING_WILLOW_FOREST, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_LIGHT_PLAINS)
-                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_LIGHT_FOREST))
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_WEEPING_WILLOW_FOREST))
                 .mobSpawnSettings(defaultMobSpawning().build()).build());
         context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
                 .mobSpawnSettings(desertMobSpawning().build()).build());
@@ -76,6 +73,8 @@ public class TABiomes {
     private static Biome.BiomeBuilder biomeOfNormalForests(BiomeGenerationSettings.Builder biomeGenerationSettings) {
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
         return biomeWithDefaults(biomeGenerationSettings
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.SMALL_AURORIAN_FOREST_RUINS)
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.MEDIUM_AURORIAN_FOREST_RUINS)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_FLOWER_FOREST)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_FOREST)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_FALLEN_SILENT_LOG)

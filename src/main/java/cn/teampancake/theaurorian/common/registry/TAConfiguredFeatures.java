@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.level.feature.config.FallenLogConfig;
 import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
 import cn.teampancake.theaurorian.common.level.feature.tree.decorators.CrystalBudDecorator;
+import cn.teampancake.theaurorian.common.level.feature.tree.foliage.HemisphereFoliagePlacer;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
@@ -37,6 +38,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePl
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
@@ -57,6 +59,7 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_EQUINOX_FLOWER = createKey("patch_equinox_flower");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LAVENDER = createKey("patch_lavender");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_AURORIAN_FOREST = createKey("trees_aurorian_forest");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_WEEPING_WILLOW_FOREST = createKey("trees_weeping_willow_forest");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_AURORIAN_FOREST_RUINS = createKey("small_aurorian_forest_ruins");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
     public static final ResourceKey<ConfiguredFeature<?, ?>> HUGE_INDIGO_MUSHROOM = createKey("huge_indigo_mushroom");
@@ -78,6 +81,7 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GEODE = createKey("ore_geode");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_URN = createKey("random_urn");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SILENT_TREE = createKey("silent_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WEEPING_WILLOW_TREE = createKey("weeping_willow_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SPRING = createKey("aurorian_forest_spring");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_REMAINS = createKey("aurorian_forest_remains");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_MEMORY_LOOP = createKey("aurorian_forest_memory_loop");
@@ -105,6 +109,12 @@ public class TAConfiguredFeatures {
                 new TwoLayersFeatureSize(1, 0, 2)));
     }
 
+    private static TreeConfiguration.TreeConfigurationBuilder weepingWillowTree() {
+        return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.WEEPING_WILLOW_LOG.get()),
+                new StraightTrunkPlacer((8), (5), (0)), BlockStateProvider.simple(TABlocks.WEEPING_WILLOW_LEAVES.get()),
+                new HemisphereFoliagePlacer(ConstantInt.ZERO, ConstantInt.ZERO), new TwoLayersFeatureSize((1), (0), (2))));
+    }
+
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         List<RegistryObject<SmallRuinFeature>> smallRuinRegList = TAFeatures.AURORIAN_FOREST_SMALL_RUINS;
         List<ResourceKey<ConfiguredFeature<?, ?>>> smallRuinConfigList = AURORIAN_FOREST_SMALL_RUINS;
@@ -117,6 +127,7 @@ public class TAConfiguredFeatures {
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
         WickGrass.LEVEL.getPossibleValues().forEach(level -> wickGrassBuilder.add(wickGrass.setValue(WickGrass.LEVEL, level), 1));
         Holder<PlacedFeature> silentTreeLikeSpruce = placedFeature.getOrThrow(TAPlacedFeatures.SILENT_TREE);
+        Holder<PlacedFeature> weepingWillowTree = placedFeature.getOrThrow(TAPlacedFeatures.WEEPING_WILLOW_TREE);
         Holder<PlacedFeature> mediumRuinHolder1 = placedFeature.getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_SPRING);
         Holder<PlacedFeature> mediumRuinHolder2 = placedFeature.getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_REMAINS);
         Holder<PlacedFeature> mediumRuinHolder3 = placedFeature.getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_MEMORY_LOOP);
@@ -168,14 +179,14 @@ public class TAConfiguredFeatures {
                         .add(blueberryBush.setValue(BlueberryBush.AGE, 0), 1)
                         .add(blueberryBush.setValue(BlueberryBush.AGE, 1), 1)
                         .add(blueberryBush.setValue(BlueberryBush.AGE, 2), 1)
-                        .add(blueberryBush.setValue(BlueberryBush.AGE, 3), 1).build()), 10));
+                        .add(blueberryBush.setValue(BlueberryBush.AGE, 3), 1).build()), 8));
         FeatureUtils.register(context, PATCH_AURORIAN_FLOWER_PLAINS, Feature.FLOWER, VegetationFeatures.grassPatch(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(TABlocks.PETUNIA_PLANT.get().defaultBlockState(), 1)
                         .add(TABlocks.SILK_BERRY_CROP.get().defaultBlockState(), 1)
                         .add(TABlocks.AURORIAN_FLOWER_1.get().defaultBlockState(), 1)
                         .add(TABlocks.AURORIAN_FLOWER_2.get().defaultBlockState(), 1)
-                        .add(TABlocks.AURORIAN_FLOWER_3.get().defaultBlockState(), 1).build()), 10));
+                        .add(TABlocks.AURORIAN_FLOWER_3.get().defaultBlockState(), 1).build()), 8));
         FeatureUtils.register(context, PATCH_EQUINOX_FLOWER, Feature.FLOWER, VegetationFeatures.grassPatch(
                 BlockStateProvider.simple(TABlocks.EQUINOX_FLOWER.get()), 16));
         FeatureUtils.register(context, PATCH_LAVENDER, Feature.FLOWER, VegetationFeatures.grassPatch(
@@ -185,6 +196,8 @@ public class TAConfiguredFeatures {
                                 .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)), 32));
         FeatureUtils.register(context, TREES_AURORIAN_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
                 List.of(new WeightedPlacedFeature(silentTreeLikeSpruce, 0.3F)), silentTreeLikeSpruce));
+        FeatureUtils.register(context, TREES_WEEPING_WILLOW_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
+                List.of(new WeightedPlacedFeature(weepingWillowTree, 0.4F)), weepingWillowTree));
         FeatureUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
                 List.of(new WeightedPlacedFeature(mediumRuinHolder1, 0.125F), new WeightedPlacedFeature(mediumRuinHolder2, 0.125F),
                         new WeightedPlacedFeature(mediumRuinHolder3, 0.125F), new WeightedPlacedFeature(mediumRuinHolder4, 0.125F),
@@ -193,7 +206,7 @@ public class TAConfiguredFeatures {
         FeatureUtils.register(context, HUGE_INDIGO_MUSHROOM, TAFeatures.HUGE_INDIGO_MUSHROOM.get(),
                 new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_BLOCK.get()),
                         BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_STEM.get()), 5));
-        FeatureUtils.register(context, RANDOM_FALLEN_SILENT_LOG, TAFeatures.RANDOM_FALLEN_LOGS.get(), new FallenLogConfig(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()), (0.00125F)));
+        FeatureUtils.register(context, RANDOM_FALLEN_SILENT_LOG, TAFeatures.RANDOM_FALLEN_LOGS.get(), new FallenLogConfig(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()), (0.1F)));
         FeatureUtils.register(context, RANDOM_WATER_SURFACE_PLANT, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(new WeightedStateProvider(waterSurfacePlantBuilder.build()), 10));
         FeatureUtils.register(context, RANDOM_CRYSTAL_CLUSTER, Feature.FLOWER, VegetationFeatures.grassPatch(new WeightedStateProvider(clusterBuilder.build()), 10));
         FeatureUtils.register(context, RANDOM_WEAK_GRASS, Feature.FLOWER, VegetationFeatures.grassPatch(new WeightedStateProvider(wickGrassBuilder.build()), 6));
@@ -206,6 +219,9 @@ public class TAConfiguredFeatures {
                 OreConfiguration.target(new BlockMatchTest(TABlocks.RED_AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
                 OreConfiguration.target(new BlockMatchTest(TABlocks.AURORIAN_DIRT.get()), TABlocks.MOON_SANDSTONE.get().defaultBlockState())), 64));
         FeatureUtils.register(context, SILENT_TREE, Feature.TREE, silentTree()
+                .dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get())).ignoreVines()
+                .decorators(ImmutableList.of(new CrystalBudDecorator(0.05F))).build());
+        FeatureUtils.register(context, WEEPING_WILLOW_TREE, Feature.TREE, weepingWillowTree()
                 .dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get())).ignoreVines()
                 .decorators(ImmutableList.of(new CrystalBudDecorator(0.05F))).build());
         FeatureUtils.register(context, ORE_MOON_SAND_RIVER, Feature.ORE, new OreConfiguration(List.of(

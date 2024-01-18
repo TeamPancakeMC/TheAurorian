@@ -33,6 +33,7 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> PATCH_EQUINOX_FLOWER = createKey("patch_equinox_flower");
     public static final ResourceKey<PlacedFeature> PATCH_LAVENDER = createKey("patch_lavender");
     public static final ResourceKey<PlacedFeature> TREES_AURORIAN_FOREST = createKey("trees_aurorian_forest");
+    public static final ResourceKey<PlacedFeature> TREES_WEEPING_WILLOW_FOREST = createKey("trees_weeping_willow_forest");
     public static final ResourceKey<PlacedFeature> SMALL_AURORIAN_FOREST_RUINS = createKey("small_aurorian_forest_ruins");
     public static final ResourceKey<PlacedFeature> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
     public static final ResourceKey<PlacedFeature> RANDOM_FALLEN_SILENT_LOG = createKey("random_fallen_silent_log");
@@ -53,6 +54,7 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_GEODE = createKey("ore_geode");
     public static final ResourceKey<PlacedFeature> RANDOM_URNS = createKey("random_urns");
     public static final ResourceKey<PlacedFeature> SILENT_TREE = createKey("silent_tree");
+    public static final ResourceKey<PlacedFeature> WEEPING_WILLOW_TREE = createKey("weeping_willow_tree");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_SPRING = createKey("aurorian_forest_spring");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_REMAINS = createKey("aurorian_forest_remains");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_MEMORY_LOOP = createKey("aurorian_forest_memory_loop");
@@ -92,6 +94,7 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, PATCH_EQUINOX_FLOWER, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_EQUINOX_FLOWER), VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_LAVENDER, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_LAVENDER), VegetationPlacements.worldSurfaceSquaredWithCount(4));
         PlacementUtils.register(context, TREES_AURORIAN_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_AURORIAN_FOREST), VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
+        PlacementUtils.register(context, TREES_WEEPING_WILLOW_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_WEEPING_WILLOW_FOREST), VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
         PlacementUtils.register(context, SMALL_AURORIAN_FOREST_RUINS, configuredFeature.getOrThrow(TAConfiguredFeatures.SMALL_AURORIAN_FOREST_RUINS), ImmutableList.<PlacementModifier>builder()
                 .add(RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
         PlacementUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, configuredFeature.getOrThrow(TAConfiguredFeatures.MEDIUM_AURORIAN_FOREST_RUINS), ImmutableList.<PlacementModifier>builder()
@@ -104,6 +107,8 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, RIVERSIDE_MOON_SAND, configuredFeature.getOrThrow(TAConfiguredFeatures.RIVERSIDE_MOON_SAND), CountPlacement.of(10),
                 InSquarePlacement.spread(), BiomeFilter.biome(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BlockPredicateFilter.forPredicate(BlockPredicate.anyOf(riversidePredicates)));
         PlacementUtils.register(context, SILENT_TREE, configuredFeature.getOrThrow(TAConfiguredFeatures.SILENT_TREE), PlacementUtils.filteredByBlockSurvival(TABlocks.SILENT_TREE_SAPLING.get()));
+        PlacementUtils.register(context, WEEPING_WILLOW_TREE, configuredFeature.getOrThrow(TAConfiguredFeatures.WEEPING_WILLOW_TREE),
+                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.matchesBlocks(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get()))));
         PlacementUtils.register(context, AURORIAN_FOREST_SPRING, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_SPRING), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
         PlacementUtils.register(context, AURORIAN_FOREST_REMAINS, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_REMAINS), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
         PlacementUtils.register(context, AURORIAN_FOREST_MEMORY_LOOP, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_MEMORY_LOOP), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);

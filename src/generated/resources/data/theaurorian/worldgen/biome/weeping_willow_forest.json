@@ -40,10 +40,8 @@
     [],
     [],
     [
-      "theaurorian:patch_aurorian_flower_forest",
+      "theaurorian:patch_aurorian_grass_light_plains",
       "theaurorian:patch_aurorian_grass_light_forest",
-      "theaurorian:patch_aurorian_grass_forest",
-      "theaurorian:random_weak_grass",
       "theaurorian:random_riverside_plant",
       "theaurorian:riverside_moon_sand"
     ]
@@ -71,12 +69,6 @@
         "maxCount": 3,
         "minCount": 1,
         "weight": 5
-      },
-      {
-        "type": "minecraft:allay",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 1
       }
     ],
     "misc": [],

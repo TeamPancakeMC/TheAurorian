@@ -4,11 +4,13 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TATooltipRenderUtils;
+import cn.teampancake.theaurorian.compat.ModernUICompat;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderTooltipEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -28,12 +30,14 @@ public class TooltipEventSubscriber {
     private static final ResourceLocation CAT_BELL = AurorianMod.prefix("textures/gui/tooltips/cat_bell.png");
     private static final ResourceLocation TSLAT_SWORD = AurorianMod.prefix("textures/gui/tooltips/tslat_sword.png");
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     @OnlyIn(Dist.CLIENT)
     public static void onRenderTooltips(RenderTooltipEvent.Pre event) {
+        ModernUICompat.ResetModernUIRender();
         ItemStack itemStack = event.getItemStack();
         if (itemStack.is(TAItemTags.HAS_CUSTOM_TOOLTIPS)) {
             event.setCanceled(true);
+            ModernUICompat.CancelModernUIRender();
             if (itemStack.is(TAItemTags.IS_UNCOMMON)) {
                 int[] xOffset = new int[] {-5, -5, -3, -3};
                 int[] yOffset = new int[] {-17, -15, -17, -15, -18};

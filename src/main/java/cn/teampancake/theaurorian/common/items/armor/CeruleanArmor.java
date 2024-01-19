@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.items.armor;
 
 import cn.teampancake.theaurorian.client.model.entity.armor.CeruleanArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
+import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -15,7 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
-public class CeruleanArmor extends BaseArmor<CeruleanArmorModel> {
+public class CeruleanArmor extends BaseArmor<CeruleanArmorModel> implements ITooltipsItem {
 
     public CeruleanArmor(Type pType) {
         super(TAArmorMaterials.CERULEAN, pType, new Item.Properties().rarity(Rarity.RARE));

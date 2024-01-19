@@ -7,7 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 
-public class AurorianSteelSword extends SwordItem {
+public class AurorianSteelSword extends SwordItem implements ITooltipsItem {
 
     public AurorianSteelSword() {
         super(TAToolTiers.AURORIAN_STEEL, (3), (-2.4F), new Item.Properties());

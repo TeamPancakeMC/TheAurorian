@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class MoonstoneSickle extends ShearsItem {
+public class MoonstoneSickle extends ShearsItem implements ITooltipsItem{
     
     public MoonstoneSickle() {
         super(new Properties().durability(250));

@@ -9,6 +9,7 @@ import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
 import cn.teampancake.theaurorian.common.network.TAMessages;
 import cn.teampancake.theaurorian.common.registry.*;
+import cn.teampancake.theaurorian.compat.ModernUICompat;
 import cn.teampancake.theaurorian.compat.ThirstWasTakenCompat;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -77,6 +78,9 @@ public class AurorianMod {
         ItemSubscriber.register();
         if (ModList.get().isLoaded("thirst")) {
             ThirstWasTakenCompat.init();
+        }
+        if(ModList.get().isLoaded("modernui")){
+            ModernUICompat.LOADED = true;
         }
 
         if (FMLEnvironment.dist.isClient()) {

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items.shield;
 
+import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import cn.teampancake.theaurorian.common.registry.TAItems;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -10,7 +10,7 @@ import net.minecraft.world.item.ShieldItem;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class MoonShield extends ShieldItem {
+public class MoonShield extends ShieldItem implements ITooltipsItem {
     public MoonShield() {
         super(new Properties()
                 .rarity(Rarity.EPIC)

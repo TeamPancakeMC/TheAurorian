@@ -10,6 +10,7 @@ import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.CrystallineSprite;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
+import cn.teampancake.theaurorian.common.registry.TAGameRules;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
@@ -30,6 +31,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -52,12 +54,13 @@ public class EntityEventSubscriber {
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof Monster monster) {
+            GameRules gameRules = event.getLevel().getGameRules();
             double baseHealth = monster.getAttributeBaseValue(Attributes.MAX_HEALTH);
             double baseAttackDamage = monster.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
             double baseMovementSpeed = monster.getAttributeBaseValue(Attributes.MOVEMENT_SPEED);
             if (monster.getType().is(TAEntityTags.AFFECTED_BY_NIGHTMARE_MODE)) {
-                boolean nightmareMode = AurorianConfig.CONFIG_NIGHTMARE_MODE.get();
-                double multiplier = AurorianConfig.CONFIG_NIGHTMARE_MODE_MULTIPLIER.get();
+                boolean nightmareMode = gameRules.getBoolean(TAGameRules.RULE_ENABLE_NIGHTMARE_MODE);
+                double multiplier = Math.max(1.0D, gameRules.getInt(TAGameRules.RULE_NIGHTMARE_MODE_MULTIPLIER));
                 double newHealth = nightmareMode ? baseHealth * multiplier * 2.0D : baseHealth;
                 double newAttackDamage = nightmareMode ? baseAttackDamage * multiplier * 2.0D : baseAttackDamage;
                 double newMovementSpeed = nightmareMode ? baseMovementSpeed * multiplier * 2.0D : baseMovementSpeed;
@@ -156,24 +159,27 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onKilledMob(LivingDeathEvent event){
-        if(event.getSource().getEntity() instanceof ServerPlayer serverPlayer){
+        if (event.getSource().getEntity() instanceof ServerPlayer serverPlayer) {
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-            if(stack.is(TAItems.TSLAT_SWORD.get())){
+            if (stack.is(TAItems.TSLAT_SWORD.get())) {
                 int count = stack.getOrCreateTag().getInt("KillCount");
-                stack.getOrCreateTag().putInt("KillCount",count+1);
+                stack.getOrCreateTag().putInt("KillCount", count + 1);
             }
         }
     }
 
     @SubscribeEvent
-    public static void AdditionDamage(LivingAttackEvent event){
-        if(event.getSource().getEntity() instanceof ServerPlayer serverPlayer){
+    public static void additionDamage(LivingAttackEvent event){
+        if (event.getSource().getEntity() instanceof ServerPlayer serverPlayer){
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-            if(stack.is(TAItems.TSLAT_SWORD.get()) && !event.getEntity().isDamageSourceBlocked(event.getSource())){
+            if (stack.is(TAItems.TSLAT_SWORD.get()) && !event.getEntity().isDamageSourceBlocked(event.getSource())) {
                 int count = stack.getOrCreateTag().getInt("KillCount");
-                if(count>20) count=20;
-                if(event.getEntity().isAlive())
-                    event.getEntity().setHealth(event.getEntity().getHealth()-count*0.05F);
+                if (count > 20) {
+                    count = 20;
+                }
+                if (event.getEntity().isAlive()) {
+                    event.getEntity().setHealth(event.getEntity().getHealth() - count * 0.05F);
+                }
             }
         }
     }

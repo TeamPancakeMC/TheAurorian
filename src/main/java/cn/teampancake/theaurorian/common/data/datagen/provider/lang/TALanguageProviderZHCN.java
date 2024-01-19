@@ -20,6 +20,12 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "极光幽境（建材）");
         this.add("theaurorian.container.scrapper", "粉碎器");
         this.add("theaurorian.container.moonlight_forge", "月光融锻台");
+        this.add("gamerule.enableAurorianBless", "启用极光赐福");
+        this.add("gamerule.enableAurorianBless.description", "控制玩家是否能在极光夜获得增益效果。");
+        this.add("gamerule.enableNightmareMode", "开启噩梦模式");
+        this.add("gamerule.enableNightmareMode.description", "开启后，极光维度中的所有非Boss怪物的部分基础属性将会得到增强，可通过调整相关的乘数来控制。");
+        this.add("gamerule.nightmareModeMultiplier", "噩梦模式乘数");
+        this.add("gamerule.nightmareModeMultiplier.description", "用于控制噩梦模式开启后，怪物属性翻的倍数。");
 
         //MOD BLOCK
         this.add(TABlocks.AURORIAN_DIRT.get(), "极光泥土");

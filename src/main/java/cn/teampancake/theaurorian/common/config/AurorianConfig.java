@@ -12,7 +12,6 @@ public class AurorianConfig {
     //Whether born in Aurorian Dimension
     public static final ForgeConfigSpec.BooleanValue CONFIG_DEFAULT_SPAWN_IN_AURORIAN_DIMENSION;
 
-
     //Compat
     public static final ForgeConfigSpec.BooleanValue CONFIG_ENABLE_TINKERS_CONSTRUCT_COMPATIBILITY;
     public static final ForgeConfigSpec.BooleanValue CONFIG_ENABLE_CONSTRUCTS_ARMORY_COMPATIBILITY;
@@ -38,8 +37,6 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_DARKSTONE_DUNGEON;
 
     //Entities
-    public static final ForgeConfigSpec.BooleanValue CONFIG_NIGHTMARE_MODE;
-    public static final ForgeConfigSpec.DoubleValue CONFIG_NIGHTMARE_MODE_MULTIPLIER;
     public static final ForgeConfigSpec.IntValue CONFIG_RUNESTONE_DUNGEON_MOB_DENSITY;
     public static final ForgeConfigSpec.IntValue CONFIG_MOON_TEMPLE_MOB_DENSITY;
     public static final ForgeConfigSpec.IntValue CONFIG_DARKSTONE_DUNGEON_MOB_DENSITY;
@@ -178,16 +175,9 @@ public class AurorianConfig {
         BUILDER.pop();
     }
 
-
     //Entities
     static {
         BUILDER.push("Entity");
-        CONFIG_NIGHTMARE_MODE = BUILDER
-                .comment("Enable to make Aurorian mobs(not bosses) fast and strong, change multiplier to adjust the strength of these effects")
-                .define("Nightmaremode", false);
-        CONFIG_NIGHTMARE_MODE_MULTIPLIER = BUILDER
-                .comment("Use at your own risk!")
-                .defineInRange("NightmaremodeMultiplier", 1.0f, 0.0f, 50.0f);
         CONFIG_RUNESTONE_DUNGEON_MOB_DENSITY = BUILDER
                 .comment("Density of mobs spawning in the Runestone Dungeon, 2 for twice as many mobs, etc")
                 .defineInRange("RunestoneDungeonMobDensity", 1, 0, 10);
@@ -211,6 +201,7 @@ public class AurorianConfig {
                 .defineInRange("SpiderMotherDamageMuliplier", 1.0f, 0.0f, 100.0f);
         BUILDER.pop();
     }
+
     //Generation
     static {
         BUILDER.push("Generation");
@@ -357,8 +348,8 @@ public class AurorianConfig {
         BUILDER.pop();
     }
 
-
     static {
         SPEC = BUILDER.build();
     }
+
 }

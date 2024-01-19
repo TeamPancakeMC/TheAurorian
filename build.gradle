@@ -149,7 +149,7 @@ dependencies {
 
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.2.2')
     implementation fg.deobf("curse.maven:thirst-was-taken-679270:4871261")
-    implementation fg.deobf("curse.maven:modern-ui-352491:5039780")
+    compileOnly fg.deobf("curse.maven:modern-ui-352491:5039780")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 

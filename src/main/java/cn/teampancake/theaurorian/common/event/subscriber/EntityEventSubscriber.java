@@ -1,19 +1,21 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.entities.ai.CatFollowCatBellGoal;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.CrystallineSprite;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.common.utils.AurorianUtil;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -34,7 +36,9 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -147,6 +151,30 @@ public class EntityEventSubscriber {
         } else if (state.is(TABlockTags.DUNGEON_BRICKS)) {
             boolean flag = handStack.is(TAItems.QUEENS_CHIPPER.get());
             event.setNewSpeed(flag ? event.getOriginalSpeed() * 16.0F : 0.0F);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onKilledMob(LivingDeathEvent event){
+        if(event.getSource().getEntity() instanceof ServerPlayer serverPlayer){
+            ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+            if(stack.is(TAItems.TSLAT_SWORD.get())){
+                int count = stack.getOrCreateTag().getInt("KillCount");
+                stack.getOrCreateTag().putInt("KillCount",count+1);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void AdditionDamage(LivingAttackEvent event){
+        if(event.getSource().getEntity() instanceof ServerPlayer serverPlayer){
+            ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+            if(stack.is(TAItems.TSLAT_SWORD.get()) && !event.getEntity().isDamageSourceBlocked(event.getSource())){
+                int count = stack.getOrCreateTag().getInt("KillCount");
+                if(count>20) count=20;
+                if(event.getEntity().isAlive())
+                    event.getEntity().setHealth(event.getEntity().getHealth()-count*0.05F);
+            }
         }
     }
 

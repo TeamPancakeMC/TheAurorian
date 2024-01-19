@@ -32,7 +32,7 @@ import java.util.Map;
 @Mod.EventBusSubscriber
 public class ShieldSubscriber {
 
-    //自然恢复护盾
+    //restore the shield naturally
     @SubscribeEvent
     public static void LivingNaturalRecoveryShield(LivingEvent.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();
@@ -60,14 +60,14 @@ public class ShieldSubscriber {
         }
     }
 
-    //当成成就时添加护盾上限
+    //Raise the upper limit when achieve goals.
     @SubscribeEvent
     public static void onAdvancementEarn(AdvancementEvent.AdvancementEarnEvent event) {
         Advancement advancement = event.getAdvancement();
         addMaxShield(MaxShieldLoader.Achievements,event.getEntity(),advancement.getId(),"achievements");
     }
 
-    //当杀死特定生物时添加护盾上限
+    //Raise the upper limit when killed certain entities.
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
         LivingEntity entity = event.getEntity();

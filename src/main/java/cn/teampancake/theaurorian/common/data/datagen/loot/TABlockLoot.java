@@ -12,6 +12,7 @@ import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -143,6 +145,12 @@ public class TABlockLoot extends VanillaBlockLoot {
                         .add(LootItem.lootTableItem(TAItems.BLUEBERRY.get()))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE)))));
+        this.add(TABlocks.URN.get(), block -> LootTable.lootTable().withPool(LootPool.lootPool().setRolls(UniformGenerator.between(2.0F, 3.0F))
+                .add(LootItem.lootTableItem(TAItems.RUNE_STONE_KEY.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F))).setWeight(5))
+                .add(LootItem.lootTableItem(TAItems.CERULEAN_INGOT.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).setWeight(10))
+                .add(LootItem.lootTableItem(TAItems.MOONSTONE_INGOT.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).setWeight(10))
+                .add(LootItem.lootTableItem(TAItems.SILK_BERRY_JAM.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).setWeight(25))
+                .add(LootItem.lootTableItem(Items.BOOK).apply(EnchantRandomlyFunction.randomApplicableEnchantment()).setWeight(15))));
         for (Block block : TACommonUtils.getKnownBlocks()) {
             float f = Blocks.BEDROCK.getExplosionResistance();
             boolean isStair = block instanceof StairBlock;

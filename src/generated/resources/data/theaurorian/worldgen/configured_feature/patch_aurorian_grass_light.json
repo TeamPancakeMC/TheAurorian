@@ -6,10 +6,25 @@
         "type": "minecraft:simple_block",
         "config": {
           "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "theaurorian:aurorian_grass_light"
-            }
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "theaurorian:aurorian_grass_light"
+                },
+                "weight": 3
+              },
+              {
+                "data": {
+                  "Name": "theaurorian:tall_aurorian_grass_light",
+                  "Properties": {
+                    "half": "lower",
+                    "level": "0"
+                  }
+                },
+                "weight": 1
+              }
+            ]
           }
         }
       },

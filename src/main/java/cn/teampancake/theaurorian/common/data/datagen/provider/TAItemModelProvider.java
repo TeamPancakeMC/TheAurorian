@@ -181,6 +181,8 @@ public class TAItemModelProvider extends ItemModelProvider {
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.TALL_LAVENDER_PLANT.get()) + "_upper"));
         this.withExistingParent(this.name(TABlocks.TALL_AURORIAN_WATER_GRASS.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.TALL_AURORIAN_WATER_GRASS.get()) + "_upper"));
+        this.withExistingParent(this.name(TABlocks.TALL_AURORIAN_GRASS_LIGHT.get()), this.mcLoc("item/generated"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.TALL_AURORIAN_GRASS_LIGHT.get()) + "_upper"));
         for (Block block : TACommonUtils.getKnownBlocks()) {
             if (block instanceof StairBlock || block instanceof ISimpleBlockItem) {
                 this.simpleBlockItem(block);

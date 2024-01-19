@@ -157,6 +157,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerDoublePlantStates(TABlocks.TALL_LAVENDER_PLANT.get());
         this.registerDoubleLightPlantStates(TABlocks.WICK_GRASS.get());
         this.registerDoubleLightPlantStates(TABlocks.TALL_AURORIAN_WATER_GRASS.get());
+        this.registerDoubleLightPlantStates(TABlocks.TALL_AURORIAN_GRASS_LIGHT.get());
         this.registerWaterSurfacePlantStates(TABlocks.AURORIAN_LILY_PAD.get());
         this.registerWaterSurfacePlantStates(TABlocks.AURORIAN_WATER_MUSHROOM.get());
         this.simpleBlockWithRenderType(TABlocks.MOON_GLASS.get(), TRANSLUCENT);

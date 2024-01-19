@@ -67,6 +67,7 @@ public class TABlocks {
     public static final RegistryObject<Block> TALL_AURORIAN_GRASS = register("tall_aurorian_grass", () -> new TADoublePlantBlock(copy(Blocks.TALL_GRASS), AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> TALL_LAVENDER_PLANT = register("tall_lavender_plant", () -> new TADoublePlantBlock(copy(Blocks.TALL_GRASS), AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> TALL_AURORIAN_WATER_GRASS = register("tall_aurorian_water_grass", () -> new TALightDoublePlantBlock(copy(Blocks.TALL_GRASS), AURORIAN_GRASS_BLOCK));
+    public static final RegistryObject<Block> TALL_AURORIAN_GRASS_LIGHT = register("tall_aurorian_grass_light", () -> new TALightDoublePlantBlock(copy(Blocks.TALL_GRASS), LIGHT_AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE = normal("smooth_aurorian_peridotite", defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> AURORIAN_PERIDOTITE = normal("aurorian_peridotite", defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> MOONSTONE_ORE = ore("moonstone_ore", defaultStoneProperties(2.0F));

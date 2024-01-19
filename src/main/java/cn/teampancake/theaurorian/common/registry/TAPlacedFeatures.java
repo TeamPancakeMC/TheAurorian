@@ -25,7 +25,6 @@ import java.util.List;
 public class TAPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_GRASS_PLAINS = createKey("patch_aurorian_grass_plains");
-    public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_GRASS_LIGHT_PLAINS = createKey("patch_aurorian_grass_light_plains");
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_GRASS_FOREST = createKey("patch_aurorian_grass_forest");
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_GRASS_LIGHT_FOREST = createKey("patch_aurorian_grass_light_forest");
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_FLOWER_PLAINS = createKey("patch_aurorian_flower_plains");
@@ -85,10 +84,8 @@ public class TAPlacedFeatures {
         Holder<ConfiguredFeature<?, ?>> patchAurorianGrassLightHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_GRASS_LIGHT);
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_PLAINS, patchAurorianGrassHolder, NoiseThresholdCountPlacement.of((-0.8D), (5), (10)),
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-        PlacementUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT_PLAINS, patchAurorianGrassLightHolder, NoiseThresholdCountPlacement.of((-0.8D), (5), (10)),
-                InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-        PlacementUtils.register(context, PATCH_AURORIAN_GRASS_FOREST, patchAurorianGrassHolder, VegetationPlacements.worldSurfaceSquaredWithCount(2));
-        PlacementUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT_FOREST, patchAurorianGrassLightHolder, VegetationPlacements.worldSurfaceSquaredWithCount(2));
+        PlacementUtils.register(context, PATCH_AURORIAN_GRASS_FOREST, patchAurorianGrassHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
+        PlacementUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT_FOREST, patchAurorianGrassLightHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_FLOWER_FOREST), VegetationPlacements.worldSurfaceSquaredWithCount(5));
         PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_PLAINS, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_FLOWER_PLAINS), VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_EQUINOX_FLOWER, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_EQUINOX_FLOWER), VegetationPlacements.worldSurfaceSquaredWithCount(3));

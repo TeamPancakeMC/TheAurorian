@@ -168,7 +168,10 @@ public class TAConfiguredFeatures {
                         .add(TABlocks.TALL_AURORIAN_GRASS.get().defaultBlockState()
                                 .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)), 24));
         FeatureUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(
-                BlockStateProvider.simple(TABlocks.AURORIAN_GRASS_LIGHT.get()), 24));
+                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                        .add(TABlocks.AURORIAN_GRASS_LIGHT.get().defaultBlockState(), 3)
+                        .add(TABlocks.TALL_AURORIAN_GRASS_LIGHT.get().defaultBlockState()
+                                .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)), 24));
         FeatureUtils.register(context, PATCH_AURORIAN_FLOWER_FOREST, Feature.FLOWER, VegetationFeatures.grassPatch(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(TABlocks.PETUNIA_PLANT.get().defaultBlockState(), 2)

@@ -60,7 +60,6 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_PLAINS)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_LAVENDER)).build());
         context.register(WEEPING_WILLOW_FOREST, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_LIGHT_PLAINS)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_WEEPING_WILLOW_FOREST))
                 .mobSpawnSettings(defaultMobSpawning().build()).build());

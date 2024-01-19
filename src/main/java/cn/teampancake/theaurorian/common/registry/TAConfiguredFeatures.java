@@ -166,9 +166,9 @@ public class TAConfiguredFeatures {
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(TABlocks.AURORIAN_GRASS.get().defaultBlockState(), 3)
                         .add(TABlocks.TALL_AURORIAN_GRASS.get().defaultBlockState()
-                                .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)), 32));
+                                .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)), 24));
         FeatureUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(
-                BlockStateProvider.simple(TABlocks.AURORIAN_GRASS_LIGHT.get()), 32));
+                BlockStateProvider.simple(TABlocks.AURORIAN_GRASS_LIGHT.get()), 24));
         FeatureUtils.register(context, PATCH_AURORIAN_FLOWER_FOREST, Feature.FLOWER, VegetationFeatures.grassPatch(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(TABlocks.PETUNIA_PLANT.get().defaultBlockState(), 2)
@@ -179,14 +179,14 @@ public class TAConfiguredFeatures {
                         .add(blueberryBush.setValue(BlueberryBush.AGE, 0), 1)
                         .add(blueberryBush.setValue(BlueberryBush.AGE, 1), 1)
                         .add(blueberryBush.setValue(BlueberryBush.AGE, 2), 1)
-                        .add(blueberryBush.setValue(BlueberryBush.AGE, 3), 1).build()), 8));
+                        .add(blueberryBush.setValue(BlueberryBush.AGE, 3), 1).build()), 6));
         FeatureUtils.register(context, PATCH_AURORIAN_FLOWER_PLAINS, Feature.FLOWER, VegetationFeatures.grassPatch(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(TABlocks.PETUNIA_PLANT.get().defaultBlockState(), 1)
                         .add(TABlocks.SILK_BERRY_CROP.get().defaultBlockState(), 1)
                         .add(TABlocks.AURORIAN_FLOWER_1.get().defaultBlockState(), 1)
                         .add(TABlocks.AURORIAN_FLOWER_2.get().defaultBlockState(), 1)
-                        .add(TABlocks.AURORIAN_FLOWER_3.get().defaultBlockState(), 1).build()), 8));
+                        .add(TABlocks.AURORIAN_FLOWER_3.get().defaultBlockState(), 1).build()), 6));
         FeatureUtils.register(context, PATCH_EQUINOX_FLOWER, Feature.FLOWER, VegetationFeatures.grassPatch(
                 BlockStateProvider.simple(TABlocks.EQUINOX_FLOWER.get()), 16));
         FeatureUtils.register(context, PATCH_LAVENDER, Feature.FLOWER, VegetationFeatures.grassPatch(

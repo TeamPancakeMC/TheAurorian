@@ -9,5 +9,4 @@ public class TslatSword extends SwordItem implements IDeveloperItem, ITooltipsIt
     public TslatSword() {
         super(TAToolTiers.TSLAT, (3), (1.9F), new Properties());
     }
-
 }

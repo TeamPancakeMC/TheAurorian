@@ -44,7 +44,7 @@ public class StickySpikerEntity extends ThrowableItemProjectile {
     @Override
     protected void onHitEntity(EntityHitResult result) {
         if (!this.level().isClientSide) {
-            if (result.getEntity() instanceof LivingEntity livingEntity && livingEntity != this.getOwner()) {
+            if (result.getEntity() instanceof LivingEntity livingEntity && livingEntity != this.getOwner() && livingEntity.isAlive())  {
                 livingEntity.hurt(this.damageSources().thrown(this, this.getOwner()), 0.5F);
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 200));
             }

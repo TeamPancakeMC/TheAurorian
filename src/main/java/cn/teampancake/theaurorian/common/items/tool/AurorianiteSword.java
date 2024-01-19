@@ -33,23 +33,19 @@ public class AurorianiteSword extends SwordItem implements ITooltipsItem {
 
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand pUsedHand) {
-        if (player.getItemInHand(pUsedHand).isEmpty() || player.isCrouching()) {
-            List<LivingEntity> entities = EntityHelper.getEntitiesAround(level,player,player.getX(), player.getY() + 2.5D, player.getZ(), 5, 2.5D, false);
-            for (LivingEntity e : entities) {
-                if (!e.getType().is(Tags.EntityTypes.BOSSES)) {
-                    e.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 60));
-                    e.moveTo(new Vec3(e.getX(),e.getY()+0.5D,e.getZ()));
-                }
+        List<LivingEntity> entities = EntityHelper.getEntitiesAround(level,player,player.getX(), player.getY() + 2.5D, player.getZ(), 5, 2.5D, false);
+        for (LivingEntity e : entities) {
+            if (!e.getType().is(Tags.EntityTypes.BOSSES)) {
+                e.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 60));
+                e.moveTo(new Vec3(e.getX(),e.getY()+0.5D,e.getZ()));
             }
-            if (level.isClientSide) {
-                player.playSound(SoundEvents.ENCHANTMENT_TABLE_USE, 1f, 2f);
-            }else {
-                player.getItemInHand(pUsedHand).hurt(5,level.random,(ServerPlayer) player);
-            }
-            player.getCooldowns().addCooldown(this, AurorianConfig.Config_AurorianiteSwordCooldown.get());
-            return new InteractionResultHolder<>(InteractionResult.SUCCESS, player.getItemInHand(pUsedHand));
         }
-
-        return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(pUsedHand));
+        if (level.isClientSide) {
+            player.playSound(SoundEvents.ENCHANTMENT_TABLE_USE, 1f, 2f);
+        }else {
+            player.getItemInHand(pUsedHand).hurt(5,level.random,(ServerPlayer) player);
+        }
+        player.getCooldowns().addCooldown(this, AurorianConfig.Config_AurorianiteSwordCooldown.get());
+        return new InteractionResultHolder<>(InteractionResult.SUCCESS, player.getItemInHand(pUsedHand));
     }
 }

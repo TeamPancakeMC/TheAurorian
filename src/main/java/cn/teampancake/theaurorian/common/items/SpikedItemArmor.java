@@ -25,6 +25,7 @@ public class SpikedItemArmor extends ArmorItem implements ITooltipsItem{
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
         if (pEntity instanceof Player player){
+
             if (player.isShiftKeyDown()) {
                 player.getArmorSlots().forEach(stack -> {
                     if (stack.getItem() instanceof SpikedItemArmor) {

@@ -15,7 +15,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
 
-public class AurorianCrystal extends Item {
+public class AurorianCrystal extends Item implements ITooltipsItem{
     public AurorianCrystal() {
         super(new Item.Properties().durability(1));
     }
@@ -30,7 +30,7 @@ public class AurorianCrystal extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         System.out.println("finishUsingItem");
-        if (pLivingEntity instanceof Player player && player instanceof ServerPlayer serverPlayer) {
+        if (pLivingEntity instanceof ServerPlayer serverPlayer) {
 
             MinecraftServer server = serverPlayer.getServer();
             ResourceKey<Level> dimension = serverPlayer.level().dimension();

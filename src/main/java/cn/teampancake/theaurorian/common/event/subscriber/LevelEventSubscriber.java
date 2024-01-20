@@ -6,11 +6,13 @@ import cn.teampancake.theaurorian.common.event.TAEventFactory;
 import cn.teampancake.theaurorian.common.network.TAMessages;
 import cn.teampancake.theaurorian.common.network.message.NightSyncMessage;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
+import cn.teampancake.theaurorian.common.registry.TAGameRules;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.level.GameRules;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -23,6 +25,7 @@ public class LevelEventSubscriber {
     private static int dayCount;
     public static int phaseCode = 0;
 
+    @SuppressWarnings("ConstantConditions")
     @SubscribeEvent
     public static void onLevelTick(TickEvent.LevelTickEvent event) {
         if (event.level instanceof ServerLevel serverLevel) {
@@ -39,7 +42,8 @@ public class LevelEventSubscriber {
             }
 
             long dayTime = serverLevel.dayTime();
-            if (dayTime % 200 == 0) {
+            GameRules.BooleanValue rule = serverLevel.getGameRules().getRule(TAGameRules.RULE_ENABLE_AURORIAN_BLESS);
+            if (dayTime % 200 == 0 && rule != null && rule.get()) {
                 for (ServerPlayer serverPlayer : playerList) {
                     if (serverLevel.dimension() != TADimensions.AURORIAN_DIMENSION) {
                         return;

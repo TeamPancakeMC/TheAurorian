@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.level.legacy.context;
 
 import cn.teampancake.theaurorian.common.level.legacy.area.Area;
 import cn.teampancake.theaurorian.common.level.legacy.area.LazyArea;
+import cn.teampancake.theaurorian.common.registry.TADimensions;
 import it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.LinearCongruentialGenerator;
@@ -16,7 +17,7 @@ public class LazyAreaContext implements BigContext<LazyArea> {
 	private long rval;
 
 	public LazyAreaContext(int maxCache, long salt) {
-		this.seed = mixSeed(0L, salt);
+		this.seed = mixSeed(TADimensions.seed, salt);
 		this.cache = new Long2ObjectLinkedOpenHashMap<>(16, 0.25F);
 		this.cache.defaultReturnValue(Biomes.THE_VOID);
 		this.maxCache = maxCache;

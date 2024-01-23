@@ -20,6 +20,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "极光幽境（建材）");
         this.add("theaurorian.container.scrapper", "粉碎器");
         this.add("theaurorian.container.moonlight_forge", "月光融锻台");
+        this.add("theaurorian.container.aurorian_furnace", "极光熔炉");
         this.add("gamerule.enableAurorianBless", "启用极光赐福");
         this.add("gamerule.enableAurorianBless.description", "控制玩家是否能在极光夜获得增益效果。");
         this.add("gamerule.enableNightmareMode", "开启噩梦模式");

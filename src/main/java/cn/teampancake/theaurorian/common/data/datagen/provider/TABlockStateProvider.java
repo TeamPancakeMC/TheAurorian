@@ -536,7 +536,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         ResourceLocation front = this.modLoc("block/" + name + "_front");
         ResourceLocation side = this.modLoc("block/" + name + "_side");
         ResourceLocation top = this.modLoc("block/" + name + "_top");
-        ModelFile modelFile = this.models().cube(name, down, top, front, side, side, front);
+        ModelFile modelFile = this.models().cube(name, down, top, front, side, side, front).texture("particle", front);
         this.simpleBlock(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get(), modelFile);
     }
 

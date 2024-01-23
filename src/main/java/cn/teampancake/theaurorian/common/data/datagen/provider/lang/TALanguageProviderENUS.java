@@ -20,6 +20,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "The Aurorian (Building Materials)");
         this.add("theaurorian.container.scrapper", "Scrapper");
         this.add("theaurorian.container.moonlight_forge", "Moonlight Forge");
+        this.add("theaurorian.container.aurorian_furnace", "Aurorian Furnace");
         this.add("gamerule.enableAurorianBless", "Enable Aurorian Bless");
         this.add("gamerule.enableAurorianBless.description", "Controls whether players can obtain beneficial effects from the Aurorian Night.");
         this.add("gamerule.enableNightmareMode", "Enable Nightmare Mode");

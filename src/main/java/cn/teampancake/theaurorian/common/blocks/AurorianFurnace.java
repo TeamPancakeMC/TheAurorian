@@ -4,6 +4,9 @@ import cn.teampancake.theaurorian.common.blocks.entity.AurorianFurnaceBlockEntit
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -37,6 +40,15 @@ public class AurorianFurnace extends FurnaceBlock {
     @Nullable @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new AurorianFurnaceBlockEntity(pos, state);
+    }
+
+    @Override
+    protected void openContainer(Level level, BlockPos pos, Player player) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof AurorianFurnaceBlockEntity) {
+            player.openMenu((MenuProvider)blockEntity);
+            player.awardStat(Stats.INTERACT_WITH_FURNACE);
+        }
     }
 
     @Nullable @Override

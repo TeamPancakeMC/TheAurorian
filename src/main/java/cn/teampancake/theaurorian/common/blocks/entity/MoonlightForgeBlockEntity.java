@@ -41,8 +41,7 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
             ItemStack upgradeMaterial = blockEntity.handler.getStackInSlot(1);
             NonNullList<ItemStack> inventory = blockEntity.handler.getStacks();
             blockEntity.isPowered = level.hasNeighborSignal(pos);
-            boolean sky = level.canSeeSky(pos.above());
-            blockEntity.hasMoonLight = sky && level.isNight();
+            blockEntity.hasMoonLight = level.canSeeSky(pos.above()) && level.isNight();
             blockEntity.isCrafting = blockEntity.canWork(level.registryAccess(), recipe, inventory);
             if (blockEntity.isCrafting && upgradeMaterial.getCount() > 0) {
                 float heightPercent = (float) pos.getY() / (float) level.getHeight();
@@ -54,6 +53,7 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
                 } else if (heightPercent > 0.5 && heightPercent <= 0.75) {
                     tickInterval += 4;
                 }
+
                 if (level.getGameTime() % tickInterval == 0) {
 	                int newVal = blockEntity.craftProgress + 1;
                     if (newVal >= 100) {

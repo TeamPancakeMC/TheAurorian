@@ -21,7 +21,7 @@ import java.util.List;
 public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForgeMenu> {
 
     private static final ResourceLocation CONTAINER_LOCATION = AurorianMod.prefix("textures/gui/moonlight_forge.png");
-    private float craftRotation = 0.0f;
+    private float craftRotation = 0.0F;
 
     public MoonlightForgeScreen(MoonlightForgeMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -43,11 +43,14 @@ public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForge
         String s = "tooltips.block.theaurorian.moonlight_forge.gui.";
         MoonlightForgeBlockEntity blockEntity = this.menu.getBlockEntity();
         if (mouseX >= i && mouseX <= i + 24 && mouseY >= j && mouseY <= j + 24) {
-            if (blockEntity.isPowered || !blockEntity.hasMoonLight) {
-                s += blockEntity.isPowered ? "redstone" : "no_moonlight";
-                List<Component> tooltipLines = List.of(Component.translatable(s));
-                guiGraphics.renderComponentTooltip(this.font, tooltipLines, mouseX, mouseY);
+            if (blockEntity.isPowered) {
+                s += "redstone";
+            } else if (!blockEntity.hasMoonLight) {
+                s += "no_moonlight";
             }
+
+            List<Component> tooltipLines = List.of(Component.translatable(s));
+            guiGraphics.renderComponentTooltip(this.font, tooltipLines, mouseX, mouseY);
         }
     }
 
@@ -61,7 +64,7 @@ public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForge
         if (blockEntity.isPowered) {
             guiGraphics.blit(CONTAINER_LOCATION, i + 49, j + 31, 176, 41, 24, 24);
         } else if (!blockEntity.hasMoonLight) {
-            guiGraphics.blit(CONTAINER_LOCATION, i + 49, j + 31, 176, 41, 24, 24);
+            guiGraphics.blit(CONTAINER_LOCATION, i + 49, j + 31, 176, 0, 24, 24);
         }
 
         if (blockEntity.craftProgress > 0) {
@@ -70,8 +73,8 @@ public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForge
                 float x = (float) (i + 49 + 12);
                 float y = (float) (j + 31 + 12);
                 poseStack.translate(x, y, 0.0F);
-                poseStack.mulPose(Axis.ZP.rotationDegrees(this.craftRotation));
-                this.craftRotation += 0.25F;
+                poseStack.mulPose(Axis.ZP.rotation(this.craftRotation));
+                this.craftRotation += 0.5F;
                 poseStack.translate(-x, -y, 0.0F);
                 guiGraphics.blit(CONTAINER_LOCATION, i + 49, j + 31, 176, 65, 24, 24);
                 poseStack.popPose();

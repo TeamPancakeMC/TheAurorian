@@ -18,6 +18,7 @@ import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -78,7 +79,10 @@ public class TAEntityLoot extends VanillaEntityLoot {
                                 .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))))
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(TAItems.TROPHY_KEEPER.get())
-                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))));
+                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(TAItems.RUNE_KNOWLEDGE_FRAGMENT.get())
+                                .when(LootItemRandomChanceCondition.randomChance(0.1F)))));
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(TAItems.DARK_AMULET.get())

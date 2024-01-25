@@ -51,6 +51,22 @@
         }
       ],
       "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "chance": 0.1,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "name": "theaurorian:rune_knowledge_fragment"
+        }
+      ],
+      "rolls": 1.0
     }
   ],
   "random_sequence": "theaurorian:entities/runestone_keeper"

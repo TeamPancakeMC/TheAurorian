@@ -413,7 +413,6 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.CRYSTALLINE_SPRITE_SPAWN_EGG.get(), "月凝晶魂刷怪蛋");
         this.add(TAItems.DARK_AMULET.get(), "暗黑护符");
         this.add(TAItems.DUNGEON_KEEPER_AMULET.get(), "地牢守卫护身符");
-        this.add(TAItems.TROPHY_KEEPER.get(), "符石地牢守卫奖励");
         this.add(TAItems.DISTURBED_HOLLOW_SPAWN_EGG.get(), "空谷之扰刷怪蛋");
         this.add(TAItems.DUNGEON_LOCATOR.get(), "地牢定位器");
         this.add(TAItems.KEEPERS_BOW.get(), "守卫之弓");
@@ -481,8 +480,10 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.SPIKED_CHESTPLATE.get(), "尖钉胸甲");
         this.add(TAItems.STICKY_SPIKER.get(), "粘性尖钉");
         this.add(TAItems.TEA_CUP.get(), "茶杯");
+        this.add(TAItems.TROPHY_KEEPER.get(), "符石守卫奖励");
         this.add(TAItems.TROPHY_MOON_QUEEN.get(), "皎月女王奖励");
         this.add(TAItems.TROPHY_SPIDER_MOTHER.get(), "蛛母奖励");
+        this.add(TAItems.RUNE_KNOWLEDGE_FRAGMENT.get(), "符文知识残卷");
         this.add(TAItems.UMBRA_INGOT.get(), "本影锭");
         this.add(TAItems.UMBRA_SCRAP.get(), "本影碎片");
         this.add(TAItems.UMBRA_SHIELD.get(), "本影盾牌");

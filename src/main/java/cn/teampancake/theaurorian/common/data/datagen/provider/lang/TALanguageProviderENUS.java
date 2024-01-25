@@ -413,7 +413,6 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.CRYSTALLINE_SPRITE_SPAWN_EGG.get(),"Crystalline Sprite Spawn Egg");
         this.add(TAItems.DARK_AMULET.get(),"Dark Amulet");
         this.add(TAItems.DUNGEON_KEEPER_AMULET.get(),"Dungeon Keeper Amulet");
-        this.add(TAItems.TROPHY_KEEPER.get(),"Keeper Trophy");
         this.add(TAItems.DISTURBED_HOLLOW_SPAWN_EGG.get(),"Disturbed Hollow Spawn Egg");
         this.add(TAItems.DUNGEON_LOCATOR.get(),"Dungeon Locator");
         this.add(TAItems.KEEPERS_BOW.get(),"Keeper's Bow");
@@ -482,8 +481,10 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.SPIKED_CHESTPLATE.get(),"Spiked Chestplate");
         this.add(TAItems.STICKY_SPIKER.get(),"Sticky Spiker");
         this.add(TAItems.TEA_CUP.get(),"Tea Cup");
+        this.add(TAItems.TROPHY_KEEPER.get(),"Keeper Trophy");
         this.add(TAItems.TROPHY_MOON_QUEEN.get(),"Moon Queen Trophy");
         this.add(TAItems.TROPHY_SPIDER_MOTHER.get(),"Spider Mother Trophy");
+        this.add(TAItems.RUNE_KNOWLEDGE_FRAGMENT.get(), "Rune Knowledge Fragments");
         this.add(TAItems.UMBRA_INGOT.get(),"Umbra Ingot");
         this.add(TAItems.UMBRA_SCRAP.get(),"Umbra Scrap");
         this.add(TAItems.UMBRA_SHIELD.get(),"Umbra Shield");

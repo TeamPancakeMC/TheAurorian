@@ -147,6 +147,8 @@ public class TAItemModelProvider extends ItemModelProvider {
                 this.modLoc("block/indigo_mushroom_block_inventory"));
         this.withExistingParent(TABlocks.INDIGO_MUSHROOM_STEM.getId().getPath(),
                 this.modLoc("block/indigo_mushroom_stem_inventory"));
+        this.withExistingParent(this.name(TABlocks.SILENT_WOOD_CHEST.get()), this.mcLoc("item/chest"))
+                .texture("particle", this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_PLANKS.get())));
         this.withExistingParent(this.name(TABlocks.MOON_GLASS_PANE.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.MOON_GLASS.get())));
         this.withExistingParent(this.name(TABlocks.AURORIAN_GLASS_PANE.get()), this.mcLoc("item/generated"))

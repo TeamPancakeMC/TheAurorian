@@ -39,6 +39,11 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 .add(TABlocks.RUNE_STONE_LAMP.get()).add(TABlocks.CHISELED_DARK_STONE_BRICKS.get())
                 .add(TABlocks.MOON_TEMPLE_LAMP.get()).add(TABlocks.DARK_STONE_LAMP.get())
                 .add(TABlocks.SMOOTH_RUNE_STONE.get()).add(TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get());
+        this.tag(TABlockTags.RUNE_STONE_BLOCK).add(TABlocks.RUNE_STONE.get(),
+                TABlocks.AURORIAN_CASTLE_RUNE_STONE.get(), TABlocks.AURORIAN_STEEL_CASTLE_RUNE_STONE.get(),
+                TABlocks.CERULEAN_CASTLE_RUNE_STONE.get(), TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE.get(),
+                TABlocks.MOON_CASTLE_RUNE_STONE.get(), TABlocks.TRANSPARENT_RUNE_STONE.get(),
+                TABlocks.UMBRA_CASTLE_RUNE_STONE.get());
         this.tag(TABlockTags.SILENT_TREE_LOGS).add(TABlocks.STRIPPED_SILENT_TREE_LOG.get(),
                 TABlocks.STRIPPED_SILENT_TREE_WOOD.get(), TABlocks.SILENT_TREE_LOG.get(), TABlocks.SILENT_TREE_WOOD.get());
         this.tag(TABlockTags.WEEPING_WILLOW_LOGS).add(TABlocks.STRIPPED_WEEPING_WILLOW_LOG.get(),

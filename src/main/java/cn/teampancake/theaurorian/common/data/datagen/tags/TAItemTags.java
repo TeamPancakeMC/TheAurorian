@@ -18,6 +18,7 @@ public class TAItemTags {
     public static final TagKey<Item> VERTICAL_STAIRS = create("vertical_stairs");
     public static final TagKey<Item> VERTICAL_SLABS = create("vertical_slabs");
     public static final TagKey<Item> DUNGEON_BRICKS = create("dungeon_bricks");
+    public static final TagKey<Item> RUNE_STONE_BLOCK = create("rune_stone_block");
     public static final TagKey<Item> SILENT_TREE_LOGS = create("silent_tree_logs");
     public static final TagKey<Item> WEEPING_WILLOW_LOGS = create("weeping_willow_logs");
     public static final TagKey<Item> AURORIAN_GRASS_BLOCK = create("aurorian_grass_block");

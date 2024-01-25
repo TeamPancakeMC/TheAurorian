@@ -3,10 +3,7 @@ package cn.teampancake.theaurorian.common.registry;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.renderer.block.MoonlightForgeRenderer;
 import cn.teampancake.theaurorian.client.renderer.block.SilentWoodChestRenderer;
-import cn.teampancake.theaurorian.common.blocks.entity.AurorianFurnaceBlockEntity;
-import cn.teampancake.theaurorian.common.blocks.entity.MoonlightForgeBlockEntity;
-import cn.teampancake.theaurorian.common.blocks.entity.ScrapperBlockEntity;
-import cn.teampancake.theaurorian.common.blocks.entity.SilentWoodChestBlockEntity;
+import cn.teampancake.theaurorian.common.blocks.entity.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -29,6 +26,8 @@ public class TABlockEntityTypes {
             () -> BlockEntityType.Builder.of(ScrapperBlockEntity::new, TABlocks.SCRAPPER.get()).build(null));
     public static final RegistryObject<BlockEntityType<SilentWoodChestBlockEntity>> SILENT_WOOD_CHEST = BLOCK_ENTITY_TYPES.register("silent_wood_chest",
             () -> BlockEntityType.Builder.of(SilentWoodChestBlockEntity::new, TABlocks.SILENT_WOOD_CHEST.get()).build(null));
+    public static final RegistryObject<BlockEntityType<SilentWoodCraftingBlockEntity>> SILENT_WOOD_CRAFTING_TABLE = BLOCK_ENTITY_TYPES.register("silent_wood_crafting_table",
+            () -> BlockEntityType.Builder.of(SilentWoodCraftingBlockEntity::new, TABlocks.SILENT_WOOD_CRAFTING_TABLE.get()).build(null));
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {

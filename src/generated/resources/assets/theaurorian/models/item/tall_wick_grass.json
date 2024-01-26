@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "theaurorian:block/tall_wick_grass_upper"
+  }
+}

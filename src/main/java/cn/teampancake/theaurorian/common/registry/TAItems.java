@@ -161,25 +161,21 @@ public class TAItems {
      */
     public static final RegistryObject<Item> TEA_CUP = normal("tea_cup", false);
     public static final RegistryObject<Item> LAVENDER_TEA = ITEMS.register("lavender_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
-                    .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300), 1.0F).build())));
+            .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300), 1.0F).build())));
     public static final RegistryObject<Item> SILK_BERRY_TEA = ITEMS.register("silk_berry_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
-                    .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 100), 1.0F).build())));
+            .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 100), 1.0F).build())));
     public static final RegistryObject<Item> LAVENDER_SEEDY_TEA = ITEMS.register("lavender_seedy_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
-                    .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200), 1.0F).build())));
+            .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200), 1.0F).build())));
     public static final RegistryObject<Item> PETUNIA_TEA = ITEMS.register("petunia_tea", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
-                    .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 300), 1.0F).build())));
+            .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 300), 1.0F).build())));
     public static final RegistryObject<Item> BEPSI = ITEMS.register("bepsi", () -> new TeaFood(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(0).saturationMod(0)
-                    .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F).build())));
+            .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 3600), 1.0F).build())));
 
     /**
      * Food
      */
-    public static final RegistryObject<Item> WICK_GRASS = ITEMS.register("wick_grass", () -> new DoubleHighBlockItem(TABlocks.WICK_GRASS.get(), new Item.Properties()));
+    public static final RegistryObject<Item> TALL_WICK_GRASS = ITEMS.register("tall_wick_grass",
+            () -> new DoubleHighBlockItem(TABlocks.TALL_WICK_GRASS.get(), new Item.Properties()));
     public static final RegistryObject<Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap", WeepingWillowSap::new);
     public static final RegistryObject<Item> SILK_BERRY_JAM = food("silk_berry_jam", 2, 0.5F, false);
     public static final RegistryObject<Item> SILK_BERRY_JAM_SANDWICH = food("silk_berry_jam_sandwich", 6, 0.9F, true);
@@ -297,7 +293,7 @@ public class TAItems {
     public static final RegistryObject<Item> WORLD_SCROLL_FRAGMENT = normal("world_scroll_fragment", false);
     public static final RegistryObject<Item> WORLD_SCROLL = ITEMS.register("world_scroll", WorldScroll::new);
     public static final RegistryObject<Item> LOCK_PICKS = ITEMS.register("lock_picks",
-            () -> new Item(new Item.Properties().stacksTo(1).durability(10)));
+            () -> new Item(new Item.Properties().durability(10)));
     public static final RegistryObject<Item> DUNGEON_LOCATOR = ITEMS.register("dungeon_locator", DungeonLocatorItem::new);
     public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(),
             SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.WEBBING::get, 0.5F, (0.4F / (new Random().nextFloat() * 0.4F + 0.8F))));

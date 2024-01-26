@@ -62,6 +62,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_FLOWER_2.get(), "Aurorian Flower");
         this.add(TABlocks.AURORIAN_FLOWER_3.get(), "Aurorian Flower");
         this.add(TABlocks.EQUINOX_FLOWER.get(), "Equinox Flower");
+        this.add(TABlocks.WICK_GRASS.get(), "Wick Grass");
+        this.add(TABlocks.TALL_WICK_GRASS.get(), "Tall Wick Grass");
         this.add(TABlocks.LAVENDER_PLANT.get(), "Lavender Plant");
         this.add(TABlocks.PETUNIA_PLANT.get(), "Petunia Plant");
         this.add(TABlocks.TALL_LAVENDER_PLANT.get(), "Tall Lavender Plant");
@@ -454,7 +456,6 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.SILENT_WOOD_SWORD.get(),"Silent Wood Sword");
         this.add(TAItems.SILENT_WOOD_BOW.get(),"Silent Wood Bow");
         this.add(TAItems.SILENT_WOOD_STICK.get(), "Silent Wood Stick");
-        this.add(TAItems.WICK_GRASS.get(), "Wick Grass");
         this.add(TAItems.BLUEBERRY.get(),"Blueberry");
         this.add(TAItems.SILK_BERRY.get(),"Silk Berry");
         this.add(TAItems.SILK_BERRY_JAM.get(),"Silk Berry Jam");

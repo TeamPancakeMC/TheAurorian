@@ -154,10 +154,11 @@ public class TABlockStateProvider extends BlockStateProvider {
                         this.modLoc("block/red_aurorian_grass_block"),
                         this.modLoc("block/aurorian_dirt"),
                         this.modLoc("block/red_aurorian_grass_block_top")));
+        this.registerLightPlantStates(TABlocks.WICK_GRASS.get());
         this.registerLightPlantStates(TABlocks.AURORIAN_WATER_GRASS.get());
         this.registerDoublePlantStates(TABlocks.TALL_AURORIAN_GRASS.get());
         this.registerDoublePlantStates(TABlocks.TALL_LAVENDER_PLANT.get());
-        this.registerDoubleLightPlantStates(TABlocks.WICK_GRASS.get());
+        this.registerDoubleLightPlantStates(TABlocks.TALL_WICK_GRASS.get());
         this.registerDoubleLightPlantStates(TABlocks.TALL_AURORIAN_WATER_GRASS.get());
         this.registerDoubleLightPlantStates(TABlocks.TALL_AURORIAN_GRASS_LIGHT.get());
         this.registerWaterSurfacePlantStates(TABlocks.AURORIAN_LILY_PAD.get());

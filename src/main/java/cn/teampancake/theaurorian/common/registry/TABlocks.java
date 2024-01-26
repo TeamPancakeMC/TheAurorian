@@ -59,6 +59,7 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_FLOWER_3 = register("aurorian_flower_3", TAFlowerBlock::new);
     public static final RegistryObject<Block> EQUINOX_FLOWER = register("equinox_flower", TAFlowerBlock::new);
     public static final RegistryObject<Block> WICK_GRASS = BLOCKS.register("wick_grass", WickGrass::new);
+    public static final RegistryObject<Block> TALL_WICK_GRASS = BLOCKS.register("tall_wick_grass", TallWickGrass::new);
     public static final RegistryObject<Block> BLUEBERRY_BUSH = BLOCKS.register("blueberry_bush", BlueberryBush::new);
     public static final RegistryObject<Block> LAVENDER_CROP = BLOCKS.register("lavender_crop", () -> new TACropBlock(copy(Blocks.GRASS), TAItems.LAVENDER_SEEDS));
     public static final RegistryObject<Block> SILK_BERRY_CROP = BLOCKS.register("silk_berry_crop", () -> new TACropBlock(copy(Blocks.GRASS), TAItems.SILK_BERRY));

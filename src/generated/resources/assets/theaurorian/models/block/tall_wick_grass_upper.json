@@ -2,6 +2,6 @@
   "parent": "minecraft:block/tinted_cross",
   "render_type": "minecraft:cutout",
   "textures": {
-    "cross": "theaurorian:block/wick_grass_lower"
+    "cross": "theaurorian:block/tall_wick_grass_upper"
   }
 }

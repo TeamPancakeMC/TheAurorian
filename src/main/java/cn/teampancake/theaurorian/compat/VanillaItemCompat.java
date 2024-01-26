@@ -68,6 +68,7 @@ public class VanillaItemCompat {
             ComposterBlock.add(0.65F, TABlocks.AURORIAN_FLOWER_2.get());
             ComposterBlock.add(0.65F, TABlocks.AURORIAN_FLOWER_3.get());
             ComposterBlock.add(0.65F, TABlocks.EQUINOX_FLOWER.get());
+            ComposterBlock.add(0.65F, TABlocks.WICK_GRASS.get());
             ComposterBlock.add(0.65F, TABlocks.LAVENDER_PLANT.get());
             ComposterBlock.add(0.65F, TABlocks.PETUNIA_PLANT.get());
             ComposterBlock.add(0.3F, TAItems.WEEPING_WILLOW_SAP.get());
@@ -75,7 +76,7 @@ public class VanillaItemCompat {
             ComposterBlock.add(0.3F, TAItems.SILK_BERRY.get());
             ComposterBlock.add(0.3F, TAItems.BLUEBERRY.get());
             ComposterBlock.add(0.85F, TAItems.LAVENDER_BREAD.get());
-            ComposterBlock.add(0.65F, TAItems.WICK_GRASS.get());
+            ComposterBlock.add(0.65F, TAItems.TALL_WICK_GRASS.get());
         }
 
         @SubscribeEvent

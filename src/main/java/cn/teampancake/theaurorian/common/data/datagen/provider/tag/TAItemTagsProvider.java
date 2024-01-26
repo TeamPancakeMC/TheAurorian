@@ -50,7 +50,7 @@ public class TAItemTagsProvider extends ItemTagsProvider {
                         TAItems.STAR_OCEAN_CROSSBOW.get(), TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(),
                         TAItems.CAT_BELL.get(), TAItems.TSLAT_SWORD.get());
         this.tag(TAItemTags.IS_RARE).addTag(TAItemTags.DUNGEON_KEY).add(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get(),
-                TAItems.TEA_CUP.get(), TAItems.WICK_GRASS.get(), TAItems.AURORIAN_COAL.get(), TAItems.AURORIANITE_INGOT.get(),
+                TAItems.TEA_CUP.get(), TAItems.AURORIAN_COAL.get(), TAItems.AURORIANITE_INGOT.get(),
                 TAItems.CERULEAN_INGOT.get(), TAItems.CRYSTALLINE_INGOT.get(), TAItems.MOONSTONE_INGOT.get(),
                 TAItems.UMBRA_INGOT.get(), TAItems.LAVENDER.get(), TAItems.PLANT_FIBER.get(),
                 TAItems.AURORIANITE_SCRAP.get(), TAItems.CRYSTALLINE_SCRAP.get(), TAItems.UMBRA_SCRAP.get(),

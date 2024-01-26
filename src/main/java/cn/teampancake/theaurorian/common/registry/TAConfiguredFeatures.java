@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -116,6 +117,7 @@ public class TAConfiguredFeatures {
     }
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+        IntegerProperty levelProperty = BlockStateProperties.LEVEL;
         List<RegistryObject<SmallRuinFeature>> smallRuinRegList = TAFeatures.AURORIAN_FOREST_SMALL_RUINS;
         List<ResourceKey<ConfiguredFeature<?, ?>>> smallRuinConfigList = AURORIAN_FOREST_SMALL_RUINS;
         List<ResourceKey<PlacedFeature>> smallRuinPlaceList = TAPlacedFeatures.AURORIAN_FOREST_SMALL_RUINS;
@@ -123,9 +125,11 @@ public class TAConfiguredFeatures {
         RuleTest defaultStoneRuleTest = new BlockMatchTest(TABlocks.AURORIAN_STONE.get());
         RuleTest defaultDirtRuleTest = new BlockMatchTest(TABlocks.AURORIAN_DIRT.get());
         BlockState wickGrass = TABlocks.WICK_GRASS.get().defaultBlockState();
+        BlockState tallWickGrass = TABlocks.TALL_WICK_GRASS.get().defaultBlockState();
         BlockState blueberryBush = TABlocks.BLUEBERRY_BUSH.get().defaultBlockState();
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
-        WickGrass.LEVEL.getPossibleValues().forEach(level -> wickGrassBuilder.add(wickGrass.setValue(WickGrass.LEVEL, level), 1));
+        levelProperty.getPossibleValues().forEach(level -> wickGrassBuilder.add(wickGrass.setValue(levelProperty, level), 1));
+        levelProperty.getPossibleValues().forEach(level -> wickGrassBuilder.add(tallWickGrass.setValue(levelProperty, level), 1));
         Holder<PlacedFeature> silentTreeLikeSpruce = placedFeature.getOrThrow(TAPlacedFeatures.SILENT_TREE);
         Holder<PlacedFeature> weepingWillowTree = placedFeature.getOrThrow(TAPlacedFeatures.WEEPING_WILLOW_TREE);
         Holder<PlacedFeature> mediumRuinHolder1 = placedFeature.getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_SPRING);

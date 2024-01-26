@@ -44,6 +44,7 @@ public class VanillaBlockCompat {
         fireBlock.setFlammable(TABlocks.AURORIAN_FLOWER_3.get(), 60, 100);
         fireBlock.setFlammable(TABlocks.EQUINOX_FLOWER.get(), 60, 100);
         fireBlock.setFlammable(TABlocks.WICK_GRASS.get(), 60, 100);
+        fireBlock.setFlammable(TABlocks.TALL_WICK_GRASS.get(), 60, 100);
     }
 
 }

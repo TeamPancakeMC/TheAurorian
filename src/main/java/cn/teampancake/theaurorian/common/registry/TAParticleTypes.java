@@ -17,9 +17,10 @@ import net.minecraftforge.registries.RegistryObject;
 public class TAParticleTypes {
 
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, AurorianMod.MOD_ID);
-    public static final RegistryObject<SimpleParticleType> STICK_SPIKER = PARTICLE_TYPES.register("stick_spiker", () -> new SimpleParticleType(Boolean.FALSE));
     public static final RegistryObject<SimpleParticleType> WICK = PARTICLE_TYPES.register("wick", () -> new SimpleParticleType(Boolean.FALSE));
+    public static final RegistryObject<SimpleParticleType> STICK_SPIKER = PARTICLE_TYPES.register("stick_spiker", () -> new SimpleParticleType(Boolean.FALSE));
     public static final RegistryObject<SimpleParticleType> MAGIC_PURPLE = PARTICLE_TYPES.register("magic_purple", () -> new SimpleParticleType(Boolean.FALSE));
+
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerProviders(RegisterParticleProvidersEvent event) {

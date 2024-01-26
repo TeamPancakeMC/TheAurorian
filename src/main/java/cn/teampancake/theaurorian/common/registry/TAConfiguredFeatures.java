@@ -105,7 +105,7 @@ public class TAConfiguredFeatures {
                                 .add(ConstantInt.of(3), 1).build()),
                         UniformInt.of((2), (4)), UniformInt.of((-4), (-3)), UniformInt.of((-1), (0))),
                 BlockStateProvider.simple(TABlocks.SILENT_TREE_LEAVES.get()),
-                new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0),
+                new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.ZERO,
                         ConstantInt.of(5), (0.25F), (0.5F), (0.16666667F), (0.33333334F)),
                 new TwoLayersFeatureSize(1, 0, 2)));
     }
@@ -118,6 +118,7 @@ public class TAConfiguredFeatures {
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         IntegerProperty levelProperty = BlockStateProperties.LEVEL;
+        Collection<Integer> levelValues = levelProperty.getPossibleValues();
         List<RegistryObject<SmallRuinFeature>> smallRuinRegList = TAFeatures.AURORIAN_FOREST_SMALL_RUINS;
         List<ResourceKey<ConfiguredFeature<?, ?>>> smallRuinConfigList = AURORIAN_FOREST_SMALL_RUINS;
         List<ResourceKey<PlacedFeature>> smallRuinPlaceList = TAPlacedFeatures.AURORIAN_FOREST_SMALL_RUINS;
@@ -128,8 +129,8 @@ public class TAConfiguredFeatures {
         BlockState tallWickGrass = TABlocks.TALL_WICK_GRASS.get().defaultBlockState();
         BlockState blueberryBush = TABlocks.BLUEBERRY_BUSH.get().defaultBlockState();
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
-        levelProperty.getPossibleValues().forEach(level -> wickGrassBuilder.add(wickGrass.setValue(levelProperty, level), 1));
-        levelProperty.getPossibleValues().forEach(level -> wickGrassBuilder.add(tallWickGrass.setValue(levelProperty, level), 1));
+        levelValues.forEach(level -> wickGrassBuilder.add(wickGrass.setValue(levelProperty, level), 1));
+        levelValues.forEach(level -> wickGrassBuilder.add(tallWickGrass.setValue(levelProperty, level), 1));
         Holder<PlacedFeature> silentTreeLikeSpruce = placedFeature.getOrThrow(TAPlacedFeatures.SILENT_TREE);
         Holder<PlacedFeature> weepingWillowTree = placedFeature.getOrThrow(TAPlacedFeatures.WEEPING_WILLOW_TREE);
         Holder<PlacedFeature> mediumRuinHolder1 = placedFeature.getOrThrow(TAPlacedFeatures.AURORIAN_FOREST_SPRING);
@@ -142,17 +143,16 @@ public class TAConfiguredFeatures {
         SimpleWeightedRandomList.Builder<BlockState> waterSurfacePlantBuilder = SimpleWeightedRandomList.builder();
         SimpleWeightedRandomList.Builder<BlockState> riversidePlantBuilder = SimpleWeightedRandomList.builder();
         SimpleWeightedRandomList.Builder<BlockState> clusterBuilder = SimpleWeightedRandomList.builder();
-        Collection<Integer> levelValues = BlockStateProperties.LEVEL.getPossibleValues();
         for (Block block : TACommonUtils.getKnownBlocks()) {
             if (block instanceof AurorianWaterSurfacePlant waterSurfacePlant) {
                 BlockState state = waterSurfacePlant.defaultBlockState();
-                levelValues.forEach(level -> waterSurfacePlantBuilder.add(state.setValue(BlockStateProperties.LEVEL, level), 1));
+                levelValues.forEach(level -> waterSurfacePlantBuilder.add(state.setValue(levelProperty, level), 1));
             } else if (block instanceof IRiversidePlant) {
                 BlockState state = block.defaultBlockState();
-                levelValues.forEach(level -> riversidePlantBuilder.add(state.setValue(BlockStateProperties.LEVEL, level), 1));
+                levelValues.forEach(level -> riversidePlantBuilder.add(state.setValue(levelProperty, level), 1));
             } else if (block instanceof TAClusterBlock clusterBlock) {
                 BlockState state = clusterBlock.defaultBlockState().setValue(TAClusterBlock.WATERLOGGED, Boolean.FALSE).setValue(TAClusterBlock.FACING, Direction.UP);
-                levelValues.forEach(level -> clusterBuilder.add(state.setValue(BlockStateProperties.LEVEL, level), 1));
+                levelValues.forEach(level -> clusterBuilder.add(state.setValue(levelProperty, level), 1));
             }
         }
 

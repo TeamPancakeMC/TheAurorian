@@ -13,14 +13,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
 public class MysticalBarrier extends HalfTransparentBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    private static final VoxelShape AABB_NS = box(0.0D, 0.0D, 0.375D, 1.0D, 1.0D, 0.625D);
-    private static final VoxelShape AABB_EW = box(0.375D, 0.0D, 0.0D, 0.625D, 1.0D, 1.0D);
+    private static final VoxelShape AABB_NS = Shapes.box(0.0D, 0.0D, 0.375D, 1.0D, 1.0D, 0.625D);
+    private static final VoxelShape AABB_EW = Shapes.box(0.375D, 0.0D, 0.0D, 0.625D, 1.0D, 1.0D);
 
     public MysticalBarrier(Properties properties) {
         super(properties);

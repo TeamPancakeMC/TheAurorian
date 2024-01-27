@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class ShieldCap implements INBTSerializable<CompoundTag> {
+
     private final Map<ResourceLocation, IShield> SHIELD_MAP = Maps.newHashMap();
 
     @Override
@@ -33,7 +34,6 @@ public class ShieldCap implements INBTSerializable<CompoundTag> {
     public void deserializeNBT(CompoundTag compoundTag) {
         compoundTag.getAllKeys().forEach(key -> SHIELD_MAP.get(ResourceLocation.tryParse(key)).deserializeNBT(compoundTag.getCompound(key)));
     }
-
 
     public static LazyOptional<ShieldCap> getCapability(LivingEntity entity) {
         return entity.getCapability(TACapability.SHIELD_CAP);
@@ -63,7 +63,6 @@ public class ShieldCap implements INBTSerializable<CompoundTag> {
         }
 
         IShield currentShield = shields.get(index);
-
         if (currentShield.getShield() <= 0.0f) {
             if (currentShield.isBroken()){
                 currentShield.onBroken(entity);
@@ -79,7 +78,7 @@ public class ShieldCap implements INBTSerializable<CompoundTag> {
         float remainingDamage = currentShield.applyDamageModifiers(entity, source, damage);
         currentShield.consumeShield(damage - remainingDamage);
 
-        if(remainingDamage > 0.0f) {
+        if (remainingDamage > 0.0f) {
             return applyShields(entity, source, remainingDamage, shields, index + 1);
         }
         return 0.0f;
@@ -92,6 +91,7 @@ public class ShieldCap implements INBTSerializable<CompoundTag> {
     }
 
     public static class Provider implements ICapabilitySerializable<CompoundTag> {
+
         private final LazyOptional<ShieldCap> instance;
 
         public Provider(Collection<RegistryObject<IShield>> entries) {
@@ -107,6 +107,7 @@ public class ShieldCap implements INBTSerializable<CompoundTag> {
                 return capability;
             });
         }
+
         @Override
         public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
             return TACapability.SHIELD_CAP.orEmpty(cap, instance);
@@ -121,5 +122,7 @@ public class ShieldCap implements INBTSerializable<CompoundTag> {
         public void deserializeNBT(CompoundTag nbt) {
             instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional cannot be empty!")).deserializeNBT(nbt);
         }
+
     }
+
 }

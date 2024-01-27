@@ -8,13 +8,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerBossEvent;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.BossEvent;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -32,9 +28,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 public class MoonQueen extends AbstractAurorianBoss {
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -42,9 +35,8 @@ public class MoonQueen extends AbstractAurorianBoss {
     public final AnimationState defendAnimationState = new AnimationState();
     public final AnimationState skillLunaBefallAnimationState = new AnimationState();
     public final AnimationState skillLunaBefallEndAnimationState = new AnimationState();
+
     private static final EntityDataAccessor<Boolean> GLINTING = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.BOOLEAN);
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(),
-            BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
 
     public MoonQueen(EntityType<? extends MoonQueen> type, Level level) {
         super(type, level);
@@ -56,12 +48,12 @@ public class MoonQueen extends AbstractAurorianBoss {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new MoonQueenAttackGoal(this));
         this.goalSelector.addGoal(6, new SkillLunaBefall());
-        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(this, (1.0D)));
+        this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, (1.0D)));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, (8.0F)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -115,24 +107,6 @@ public class MoonQueen extends AbstractAurorianBoss {
         if (this.level().isClientSide) {
             this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.walkAnimation.isMoving(), this.tickCount);
         }
-    }
-
-    @Override
-    protected void customServerAiStep() {
-        super.customServerAiStep();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
-    }
-
-    @Override
-    public void startSeenByPlayer(ServerPlayer player) {
-        super.startSeenByPlayer(player);
-        this.bossEvent.addPlayer(player);
-    }
-
-    @Override
-    public void stopSeenByPlayer(ServerPlayer player) {
-        super.stopSeenByPlayer(player);
-        this.bossEvent.removePlayer(player);
     }
 
     @Override
@@ -191,30 +165,6 @@ public class MoonQueen extends AbstractAurorianBoss {
         this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(TAItems.KNIGHT_CHESTPLATE.get()));
         this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(TAItems.KNIGHT_LEGGINGS.get()));
         this.setItemSlot(EquipmentSlot.FEET, new ItemStack(TAItems.KNIGHT_BOOTS.get()));
-    }
-
-    @Override
-    public void checkDespawn() {
-        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
-        }
-    }
-
-    @Override
-    public boolean canBeLeashed(Player player) {
-        return false;
-    }
-
-    @Override
-    protected boolean canRide(Entity entity) {
-        return false;
-    }
-
-    @Override
-    public boolean startRiding(Entity entity, boolean force) {
-        return false;
     }
 
     @Override

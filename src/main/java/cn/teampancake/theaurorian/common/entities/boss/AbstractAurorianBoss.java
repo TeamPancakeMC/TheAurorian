@@ -5,13 +5,18 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HoneyBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -20,6 +25,9 @@ import org.jetbrains.annotations.NotNull;
 abstract class AbstractAurorianBoss extends Monster {
 
     private static final EntityDataAccessor<Float> BOSS_HEALTH = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.FLOAT);
+
+    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(),
+            BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
 
     protected AbstractAurorianBoss(EntityType<? extends Monster> type, Level level) {
         super(type, level);
@@ -30,6 +38,22 @@ abstract class AbstractAurorianBoss extends Monster {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(BOSS_HEALTH, 1.0F);
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        super.customServerAiStep();
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+    }
+
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        this.bossEvent.addPlayer(player);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        this.bossEvent.removePlayer(player);
     }
 
     @Override
@@ -133,6 +157,30 @@ abstract class AbstractAurorianBoss extends Monster {
         }
 
         return super.hurt(source, amount);
+    }
+
+    @Override
+    public void checkDespawn() {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+            this.discard();
+        } else {
+            this.noActionTime = 0;
+        }
+    }
+
+    @Override
+    public boolean canBeLeashed(Player player) {
+        return false;
+    }
+
+    @Override
+    protected boolean canRide(Entity entity) {
+        return false;
+    }
+
+    @Override
+    public boolean startRiding(Entity entity, boolean force) {
+        return false;
     }
 
 }

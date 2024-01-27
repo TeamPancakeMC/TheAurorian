@@ -4,15 +4,16 @@ import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerBossEvent;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.BossEvent;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -32,10 +33,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
-public class RunestoneKeeper extends Monster implements RangedAttackMob {
+public class RunestoneKeeper extends AbstractAurorianBoss implements RangedAttackMob {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState1 = new AnimationState();
@@ -43,8 +41,7 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
     public final AnimationState attackAnimationState3 = new AnimationState();
     public final AnimationState deathAnimationState = new AnimationState();
 
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(),
-            BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+    private static final EntityDataAccessor<Integer> HURT_BY_MELEE_ATTACK_COUNT = SynchedEntityData.defineId(RunestoneKeeper.class, EntityDataSerializers.INT);
 
     public RunestoneKeeper(EntityType<? extends RunestoneKeeper> type, Level level) {
         super(type, level);
@@ -54,24 +51,38 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 0.85F, 20, 40.0F));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.6D, Boolean.FALSE));
-        this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(2, new RangedAttackGoal((this), (0.85F), (20), (40.0F)));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, (1.6D), Boolean.FALSE));
+        this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, (1.0D)));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(this, (1.0D)));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, (8.0F)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, Boolean.FALSE));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, 175.0D);
+        builder.add(Attributes.MAX_HEALTH, 200.0D);
         builder.add(Attributes.ATTACK_DAMAGE, 2.0D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.3D);
         builder.add(Attributes.FOLLOW_RANGE, 50.0F);
         builder.add(Attributes.ARMOR, 4.0F);
         return builder;
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(HURT_BY_MELEE_ATTACK_COUNT, 0);
+    }
+
+    public int getHurtByMeleeAttackCount() {
+        return this.entityData.get(HURT_BY_MELEE_ATTACK_COUNT);
+    }
+
+    public void setHurtByMeleeAttackCount(int count) {
+        this.entityData.set(HURT_BY_MELEE_ATTACK_COUNT, count);
     }
 
     @Nullable @Override
@@ -108,24 +119,6 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
                 this.level().addParticle(ParticleTypes.SPLASH, x, this.getRandomY(), z, xSpeed, ySpeed, zSpeed);
             }
         }
-    }
-
-    @Override
-    protected void customServerAiStep() {
-        super.customServerAiStep();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
-    }
-
-    @Override
-    public void startSeenByPlayer(ServerPlayer player) {
-        super.startSeenByPlayer(player);
-        this.bossEvent.addPlayer(player);
-    }
-
-    @Override
-    public void stopSeenByPlayer(ServerPlayer player) {
-        super.stopSeenByPlayer(player);
-        this.bossEvent.removePlayer(player);
     }
 
     @Override
@@ -186,22 +179,27 @@ public class RunestoneKeeper extends Monster implements RangedAttackMob {
     }
 
     @Override
-    public void checkDespawn() {
-        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
+    public boolean hurt(DamageSource source, float amount) {
+        if (source.is(DamageTypeTags.IS_FALL) || source.is(DamageTypeTags.IS_FIRE) || source.is(DamageTypeTags.IS_EXPLOSION)) {
+            return false;
         } else {
-            this.noActionTime = 0;
+            if (!this.level().isClientSide && (source.is(DamageTypes.MOB_ATTACK) || source.is(DamageTypes.PLAYER_ATTACK))) {
+                int count = this.getHurtByMeleeAttackCount();
+                this.setHurtByMeleeAttackCount(count == 10 ? 0 : count + 1);
+            }
+
+            return super.hurt(source, amount);
         }
+    }
+
+    @Override
+    public boolean canBeAffected(MobEffectInstance effectInstance) {
+        return false;
     }
 
     @NotNull @Override
     public MobType getMobType() {
         return MobType.UNDEAD;
-    }
-
-    @Override
-    protected boolean canRide(Entity entity) {
-        return false;
     }
 
 }

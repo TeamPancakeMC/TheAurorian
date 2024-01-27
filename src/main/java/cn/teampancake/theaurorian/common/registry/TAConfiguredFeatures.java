@@ -129,7 +129,7 @@ public class TAConfiguredFeatures {
         BlockState tallWickGrass = TABlocks.TALL_WICK_GRASS.get().defaultBlockState();
         BlockState blueberryBush = TABlocks.BLUEBERRY_BUSH.get().defaultBlockState();
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
-        levelValues.forEach(level -> wickGrassBuilder.add(wickGrass.setValue(levelProperty, level), 1));
+        levelValues.forEach(level -> wickGrassBuilder.add(wickGrass.setValue(levelProperty, level), 2));
         levelValues.forEach(level -> wickGrassBuilder.add(tallWickGrass.setValue(levelProperty, level), 1));
         Holder<PlacedFeature> silentTreeLikeSpruce = placedFeature.getOrThrow(TAPlacedFeatures.SILENT_TREE);
         Holder<PlacedFeature> weepingWillowTree = placedFeature.getOrThrow(TAPlacedFeatures.WEEPING_WILLOW_TREE);
@@ -168,7 +168,7 @@ public class TAConfiguredFeatures {
 
         FeatureUtils.register(context, PATCH_AURORIAN_GRASS, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(TABlocks.AURORIAN_GRASS.get().defaultBlockState(), 3)
+                        .add(TABlocks.AURORIAN_GRASS.get().defaultBlockState(), 7)
                         .add(TABlocks.TALL_AURORIAN_GRASS.get().defaultBlockState()
                                 .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), 1)), 24));
         FeatureUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(

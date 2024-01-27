@@ -32,6 +32,7 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.copy(TABlockTags.RUNE_STONE_BLOCK, TAItemTags.RUNE_STONE_BLOCK);
         this.copy(TABlockTags.SILENT_TREE_LOGS, TAItemTags.SILENT_TREE_LOGS);
         this.copy(TABlockTags.WEEPING_WILLOW_LOGS, TAItemTags.WEEPING_WILLOW_LOGS);
+        this.copy(TABlockTags.CURTAIN_TREE_LOGS, TAItemTags.CURTAIN_TREE_LOGS);
         this.copy(TABlockTags.AURORIAN_GRASS_BLOCK, TAItemTags.AURORIAN_GRASS_BLOCK);
         this.copy(TABlockTags.AURORIAN_CARVER_REPLACEABLES, TAItemTags.AURORIAN_CARVER_REPLACEABLES);
         this.copy(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, TAItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
@@ -40,6 +41,9 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.tag(Tags.Items.TOOLS_SHIELDS).add(TAItems.CERULEAN_SHIELD.get(), TAItems.CRYSTALLINE_SHIELD.get(),
                 TAItems.MOON_SHIELD.get(), TAItems.UMBRA_SHIELD.get(), TAItems.MOONSTONE_SHIELD.get());
         this.tag(ItemTags.ARROWS).add(TAItems.CERULEAN_ARROW.get(), TAItems.CRYSTAL_ARROW.get());
+        this.tag(TAItemTags.RUNESTONE).add(TAItems.RUNESTONE_ICE.get(), TAItems.RUNESTONE_LIFE.get(),
+                TAItems.RUNESTONE_LIGHT.get(), TAItems.RUNESTONE_WATER.get(), TAItems.RUNESTONE_BLAZE.get(),
+                TAItems.RUNESTONE_THUNDER.get(), TAItems.RUNESTONE_DARKNESS.get());
         this.tag(TAItemTags.DUNGEON_KEY).add(TAItems.RUNE_STONE_KEY.get()).add(TAItems.RUNE_STONE_LOOT_KEY.get())
                 .add(TAItems.MOON_TEMPLE_KEY.get()).add(TAItems.MOON_TEMPLE_CELL_KEY.get()).add(TAItems.DARK_STONE_KEY.get());
         this.tag(TAItemTags.SPECTRAL_ARMOR).add(TAItems.SPECTRAL_HELMET.get(), TAItems.SPECTRAL_CHESTPLATE.get(),

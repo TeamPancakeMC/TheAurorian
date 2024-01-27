@@ -8,14 +8,13 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.NewRegistryEvent;
-import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 import java.util.function.Supplier;
 
 public class TARunes {
+
     public static final Map<IRune, ResourceLocation> RUNE_GAME_TEXTURES = Maps.newHashMap();
     public static final ResourceKey<Registry<IRune>> RUNE_KEY = ResourceKey.createRegistryKey(AurorianMod.prefix("rune"));
     public static final DeferredRegister<IRune> RUNE = DeferredRegister.create(RUNE_KEY, AurorianMod.MOD_ID);
@@ -31,10 +30,11 @@ public class TARunes {
     public static final RegistryObject<IRune> NETHER = register("nether", BaseRune::new);
     public static final RegistryObject<IRune> POISON = register("poison", BaseRune::new);
     public static final RegistryObject<IRune> UMBRA = register("umbra", BaseRune::new);
-    public static final RegistryObject<IRune> WELTH = register("welth", BaseRune::new);
+    public static final RegistryObject<IRune> WEALTH = register("wealth", BaseRune::new);
 
     private static RegistryObject<IRune> register(String name, Supplier<? extends IRune> rune) {
         RUNE_GAME_TEXTURES.put(rune.get(), AurorianMod.prefix("textures/gui/rune/sprite_rune_" + name + ".png"));
         return RUNE.register(name, rune);
     }
+
 }

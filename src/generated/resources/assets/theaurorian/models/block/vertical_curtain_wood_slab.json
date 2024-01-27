@@ -1,0 +1,6 @@
+{
+  "parent": "theaurorian:block/vertical_slab",
+  "textures": {
+    "all": "theaurorian:block/curtain_tree_planks"
+  }
+}

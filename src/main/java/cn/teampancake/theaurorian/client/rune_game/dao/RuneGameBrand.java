@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.client.rune_game.dao;
 
-import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.api.IRune;
 import cn.teampancake.theaurorian.client.widget.RuneGameButton;
 import cn.teampancake.theaurorian.common.registry.TARunes;
@@ -13,8 +12,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-
 public class RuneGameBrand {
+
     public static final int BRAND_SIZE = 20;
     private final int DIFF = 20;
     //    private final String elementName;
@@ -26,14 +25,15 @@ public class RuneGameBrand {
 
     private int x;
     private int y;
+
     public RuneGameBrand(IRune texture) {
         this.texture = TARunes.RUNE_GAME_TEXTURES.get(texture);
     }
+
     public static IRune randomElement() {
         return TARunes.RUNE_GAME_TEXTURES.keySet().stream()
                 .skip((int) (Math.random() * TARunes.RUNE_GAME_TEXTURES.size()))
-                .findFirst()
-                .orElse(TARunes.AURORIAN.get());
+                .findFirst().orElse(TARunes.AURORIAN.get());
     }
 
     public ResourceLocation getTexture() {
@@ -52,6 +52,7 @@ public class RuneGameBrand {
         this.button = button;
         return this;
     }
+
     public RuneGameButton getButton() {
         return button;
     }
@@ -77,10 +78,9 @@ public class RuneGameBrand {
     }
 
     public void renderBrand(@NotNull GuiGraphics graphics) {
-        if (this.isGray){
+        if (this.isGray) {
             graphics.blit(texture, x, y, BRAND_SIZE, DIFF, BRAND_SIZE, BRAND_SIZE,BRAND_SIZE,BRAND_SIZE * 2);
-
-        }else {
+        } else {
             graphics.blit(texture, x, y, 0, 0, BRAND_SIZE, BRAND_SIZE,BRAND_SIZE, BRAND_SIZE * 2);
         }
     }
@@ -103,13 +103,8 @@ public class RuneGameBrand {
     }
 
     public static int getValidCount(int[][][] level) {
-        return Arrays.stream(level)
-                .flatMap(Arrays::stream)
-                .flatMapToInt(Arrays::stream)
+        return Arrays.stream(level).flatMap(Arrays::stream).flatMapToInt(Arrays::stream)
                 .reduce(0, (count, value) -> value != 0 ? count + 1 : count);
     }
-
-
-
 
 }

@@ -48,12 +48,14 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 TABlocks.STRIPPED_SILENT_TREE_WOOD.get(), TABlocks.SILENT_TREE_LOG.get(), TABlocks.SILENT_TREE_WOOD.get());
         this.tag(TABlockTags.WEEPING_WILLOW_LOGS).add(TABlocks.STRIPPED_WEEPING_WILLOW_LOG.get(),
                 TABlocks.STRIPPED_WEEPING_WILLOW_WOOD.get(), TABlocks.WEEPING_WILLOW_LOG.get(), TABlocks.WEEPING_WILLOW_WOOD.get());
+        this.tag(TABlockTags.CURTAIN_TREE_LOGS).add(TABlocks.STRIPPED_CURTAIN_TREE_LOG.get(),
+                TABlocks.STRIPPED_CURTAIN_TREE_WOOD.get(), TABlocks.CURTAIN_TREE_LOG.get(), TABlocks.CURTAIN_TREE_WOOD.get());
         this.tag(TABlockTags.AURORIAN_GRASS_BLOCK).add(TABlocks.AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
-        this.tag(BlockTags.PLANKS).add(TABlocks.SILENT_TREE_PLANKS.get(), TABlocks.WEEPING_WILLOW_PLANKS.get());
+        this.tag(BlockTags.PLANKS).add(TABlocks.SILENT_TREE_PLANKS.get(), TABlocks.WEEPING_WILLOW_PLANKS.get(), TABlocks.CURTAIN_TREE_PLANKS.get());
         this.tag(BlockTags.LEAVES).add(TABlocks.SILENT_BUSH_LEAVES.get(), TABlocks.SILENT_TREE_LEAVES.get(),
                 TABlocks.WEEPING_WILLOW_LEAVES.get(), TABlocks.CURTAIN_TREE_LEAVES.get());
-        this.tag(BlockTags.LOGS).addTag(TABlockTags.SILENT_TREE_LOGS).addTag(TABlockTags.WEEPING_WILLOW_LOGS);
+        this.tag(BlockTags.LOGS).addTag(TABlockTags.SILENT_TREE_LOGS).addTag(TABlockTags.WEEPING_WILLOW_LOGS).addTag(TABlockTags.CURTAIN_TREE_LOGS);
         this.tag(BlockTags.SAPLINGS).add(TABlocks.SILENT_TREE_SAPLING.get(), TABlocks.CURTAIN_TREE_SAPLING.get());
         this.tag(BlockTags.CROPS).add(TABlocks.LAVENDER_CROP.get(), TABlocks.SILK_BERRY_CROP.get());
         this.tag(BlockTags.FALL_DAMAGE_RESETTING).add(TABlocks.BLUEBERRY_BUSH.get());
@@ -76,15 +78,16 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 TABlocks.MOONLIGHT_FORGE.get(), TABlocks.MOON_GEM.get(), TABlocks.UMBRA_STONE.get(),
                 TABlocks.UMBRA_STONE_CRACKED.get(), TABlocks.UMBRA_STONE_ROOF_TILES.get(), TABlocks.MOON_SANDSTONE.get(),
                 TABlocks.SMOOTH_MOON_SANDSTONE.get(), TABlocks.CUT_MOON_SANDSTONE.get(), TABlocks.BRIGHT_MOON_SANDSTONE.get());
-        this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(), TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get());
-        this.tag(BlockTags.WOODEN_TRAPDOORS).add(TABlocks.SILENT_WOOD_TRAPDOOR.get(), TABlocks.WEEPING_WILLOW_TRAPDOOR.get());
-        this.tag(BlockTags.WOODEN_BUTTONS).add(TABlocks.SILENT_WOOD_BUTTON.get(), TABlocks.WEEPING_WILLOW_BUTTON.get());
-        this.tag(BlockTags.WOODEN_STAIRS).add(TABlocks.SILENT_WOOD_STAIRS.get(), TABlocks.WEEPING_WILLOW_STAIRS.get());
-        this.tag(BlockTags.WOODEN_FENCES).add(TABlocks.SILENT_WOOD_FENCE.get(), TABlocks.WEEPING_WILLOW_FENCE.get());
-        this.tag(BlockTags.WOODEN_DOORS).add(TABlocks.SILENT_WOOD_DOOR.get(), TABlocks.WEEPING_WILLOW_DOOR.get());
-        this.tag(BlockTags.WOODEN_SLABS).add(TABlocks.SILENT_WOOD_SLAB.get(), TABlocks.WEEPING_WILLOW_SLAB.get());
-        this.tag(BlockTags.FENCE_GATES).add(TABlocks.SILENT_WOOD_FENCE_GATE.get(), TABlocks.WEEPING_WILLOW_FENCE_GATE.get());
-        this.tag(BlockTags.SAND).add(TABlocks.MOON_SAND.get(),TABlocks.MOON_SAND_RIVER.get(),TABlocks.BRIGHT_MOON_SAND.get());
+        this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(),
+                TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get(), TABlocks.CURTAIN_WOOD_PRESSURE_PLATE.get());
+        this.tag(BlockTags.WOODEN_TRAPDOORS).add(TABlocks.SILENT_WOOD_TRAPDOOR.get(), TABlocks.WEEPING_WILLOW_TRAPDOOR.get(), TABlocks.CURTAIN_WOOD_TRAPDOOR.get());
+        this.tag(BlockTags.WOODEN_BUTTONS).add(TABlocks.SILENT_WOOD_BUTTON.get(), TABlocks.WEEPING_WILLOW_BUTTON.get(), TABlocks.CURTAIN_WOOD_BUTTON.get());
+        this.tag(BlockTags.WOODEN_STAIRS).add(TABlocks.SILENT_WOOD_STAIRS.get(), TABlocks.WEEPING_WILLOW_STAIRS.get(), TABlocks.CURTAIN_WOOD_STAIRS.get());
+        this.tag(BlockTags.WOODEN_FENCES).add(TABlocks.SILENT_WOOD_FENCE.get(), TABlocks.WEEPING_WILLOW_FENCE.get(), TABlocks.CURTAIN_WOOD_FENCE.get());
+        this.tag(BlockTags.WOODEN_DOORS).add(TABlocks.SILENT_WOOD_DOOR.get(), TABlocks.WEEPING_WILLOW_DOOR.get(), TABlocks.CURTAIN_WOOD_DOOR.get());
+        this.tag(BlockTags.WOODEN_SLABS).add(TABlocks.SILENT_WOOD_SLAB.get(), TABlocks.WEEPING_WILLOW_SLAB.get(), TABlocks.CURTAIN_WOOD_SLAB.get());
+        this.tag(BlockTags.FENCE_GATES).add(TABlocks.SILENT_WOOD_FENCE_GATE.get(), TABlocks.WEEPING_WILLOW_FENCE_GATE.get(), TABlocks.CURTAIN_WOOD_FENCE_GATE.get());
+        this.tag(BlockTags.SAND).add(TABlocks.MOON_SAND.get(), TABlocks.MOON_SAND_RIVER.get(), TABlocks.BRIGHT_MOON_SAND.get());
         this.tag(Tags.Blocks.CHESTS_WOODEN).add(TABlocks.SILENT_WOOD_CHEST.get());
         for (Block block : TACommonUtils.getKnownBlocks()) {
             float f1 = Blocks.BEDROCK.defaultDestroyTime();

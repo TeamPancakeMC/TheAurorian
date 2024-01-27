@@ -270,8 +270,10 @@ public class TARecipeProvider extends RecipeProvider {
         oreBlasting(consumer, List.of(TABlocks.GEODE_ORE.get()), RecipeCategory.MISC, TAItems.CRYSTAL.get(), (0.1F), (200), "geode");
         planksFromLogs(consumer, TABlocks.SILENT_TREE_PLANKS.get(), TAItemTags.SILENT_TREE_LOGS, 4);
         planksFromLogs(consumer, TABlocks.WEEPING_WILLOW_PLANKS.get(), TAItemTags.WEEPING_WILLOW_LOGS, 4);
+        planksFromLogs(consumer, TABlocks.CURTAIN_TREE_PLANKS.get(), TAItemTags.CURTAIN_TREE_LOGS, 4);
         woodFromLogs(consumer, TABlocks.SILENT_TREE_WOOD.get(), TABlocks.SILENT_TREE_LOG.get());
         woodFromLogs(consumer, TABlocks.WEEPING_WILLOW_WOOD.get(), TABlocks.WEEPING_WILLOW_LOG.get());
+        woodFromLogs(consumer, TABlocks.CURTAIN_TREE_WOOD.get(), TABlocks.CURTAIN_TREE_LOG.get());
         this.buildArmorRecipes(consumer, TAItems.AURORIAN_STEEL_HELMET.get(), TAItems.AURORIAN_STEEL_CHESTPLATE.get(),
                 TAItems.AURORIAN_STEEL_LEGGINGS.get(), TAItems.AURORIAN_STEEL_BOOTS.get(), TAItems.AURORIAN_STEEL.get());
         this.buildArmorRecipes(consumer, TAItems.CERULEAN_HELMET.get(), TAItems.CERULEAN_CHESTPLATE.get(),

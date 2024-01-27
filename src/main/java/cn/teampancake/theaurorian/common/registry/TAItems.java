@@ -258,24 +258,15 @@ public class TAItems {
     public static final RegistryObject<Item> RUNE_KNOWLEDGE_FRAGMENT = normal("rune_knowledge_fragment", false);
 
     /**
-     * Spawn Egg
+     * Runestone
      */
-    public static final RegistryObject<Item> MOON_FISH_SPAWN_EGG = spawnEgg("moon_fish", TAEntityTypes.MOON_FISH, 0xd1ccc5, 0x594a48);
-    public static final RegistryObject<Item> AURORIAN_WINGED_FISH_SPAWN_EGG = spawnEgg("aurorian_winged_fish", TAEntityTypes.AURORIAN_WINGED_FISH, 0x4581d5, 0x1b4a8a);
-    public static final RegistryObject<Item> AURORIAN_RABBIT_SPAWN_EGG = spawnEgg("aurorian_rabbit", TAEntityTypes.AURORIAN_RABBIT, 0xc2e5e5, 0x43a2ec);
-    public static final RegistryObject<Item> AURORIAN_SHEEP_SPAWN_EGG = spawnEgg("aurorian_sheep", TAEntityTypes.AURORIAN_SHEEP, 0x97b4f2, 0x7197ea);
-    public static final RegistryObject<Item> AURORIAN_PIG_SPAWN_EGG = spawnEgg("aurorian_pig", TAEntityTypes.AURORIAN_PIG, 0xc6dfff, 0x5d6f93);
-    public static final RegistryObject<Item> AURORIAN_PIXIE_SPAWN_EGG = spawnEgg("aurorian_pixie", TAEntityTypes.AURORIAN_PIXIE, 0x9cc6f1, 0x88b7e3);
-    public static final RegistryObject<Item> AURORIAN_SLIME_SPAWN_EGG = spawnEgg("aurorian_slime", TAEntityTypes.AURORIAN_SLIME, 0x151028, 0x43a2ec);
-    public static final RegistryObject<Item> DISTURBED_HOLLOW_SPAWN_EGG = spawnEgg("disturbed_hollow", TAEntityTypes.DISTURBED_HOLLOW, 0xade0f5, 0x272727);
-    public static final RegistryObject<Item> UNDEAD_KNIGHT_SPAWN_EGG = spawnEgg("undead_knight", TAEntityTypes.UNDEAD_KNIGHT, 0x5c7394, 0x181b1e);
-    public static final RegistryObject<Item> SPIRIT_SPAWN_EGG = spawnEgg("spirit", TAEntityTypes.SPIRIT, 0xb0b6bc, 0x303131);
-    public static final RegistryObject<Item> MOON_ACOLYTE_SPAWN_EGG = spawnEgg("moon_acolyte", TAEntityTypes.MOON_ACOLYTE, 0x0270af, 0x191919);
-    public static final RegistryObject<Item> SPIDERLING_SPAWN_EGG = spawnEgg("spiderling", TAEntityTypes.SPIDERLING, 0x1efefe, 0x0f1018);
-    public static final RegistryObject<Item> CRYSTALLINE_SPRITE_SPAWN_EGG = spawnEgg("crystalline_sprite", TAEntityTypes.CRYSTALLINE_SPRITE, 0xf5e2fc, 0xf0c9fd);
-    public static final RegistryObject<Item> RUNESTONE_KEEPER_SPAWN_EGG = spawnEgg("runestone_keeper", TAEntityTypes.RUNESTONE_KEEPER, 0xccc0e7, 0x550098);
-    public static final RegistryObject<Item> SPIDER_MOTHER_SPAWN_EGG = spawnEgg("spider_mother", TAEntityTypes.SPIDER_MOTHER, 0x595d70, 0x0f1018);
-    public static final RegistryObject<Item> MOON_QUEEN_SPAWN_EGG = spawnEgg("moon_queen", TAEntityTypes.MOON_QUEEN, 0xff82d4, 0x313d4b);
+    public static final RegistryObject<Item> RUNESTONE_ICE = normal("runestone_ice", false);
+    public static final RegistryObject<Item> RUNESTONE_LIFE = normal("runestone_life", false);
+    public static final RegistryObject<Item> RUNESTONE_LIGHT = normal("runestone_light", false);
+    public static final RegistryObject<Item> RUNESTONE_WATER = normal("runestone_water", false);
+    public static final RegistryObject<Item> RUNESTONE_BLAZE = normal("runestone_blaze", false);
+    public static final RegistryObject<Item> RUNESTONE_THUNDER = normal("runestone_thunder", false);
+    public static final RegistryObject<Item> RUNESTONE_DARKNESS = normal("runestone_darkness", false);
 
     /**
      * Misc
@@ -313,5 +304,25 @@ public class TAItems {
     public static final RegistryObject<Item> STAR_OCEAN_CROSSBOW = ITEMS.register("star_ocean_crossbow", StarOceanCrossbow::new);
     public static final RegistryObject<Item> CAT_BELL = ITEMS.register("cat_bell", CatBell::new);
     public static final RegistryObject<Item> TSLAT_SWORD = ITEMS.register("tslat_sword", TslatSword::new);
+
+    /**
+     * Spawn Egg
+     */
+    public static final RegistryObject<Item> MOON_FISH_SPAWN_EGG = spawnEgg("moon_fish", TAEntityTypes.MOON_FISH, 0xd1ccc5, 0x594a48);
+    public static final RegistryObject<Item> AURORIAN_WINGED_FISH_SPAWN_EGG = spawnEgg("aurorian_winged_fish", TAEntityTypes.AURORIAN_WINGED_FISH, 0x4581d5, 0x1b4a8a);
+    public static final RegistryObject<Item> AURORIAN_RABBIT_SPAWN_EGG = spawnEgg("aurorian_rabbit", TAEntityTypes.AURORIAN_RABBIT, 0xc2e5e5, 0x43a2ec);
+    public static final RegistryObject<Item> AURORIAN_SHEEP_SPAWN_EGG = spawnEgg("aurorian_sheep", TAEntityTypes.AURORIAN_SHEEP, 0x97b4f2, 0x7197ea);
+    public static final RegistryObject<Item> AURORIAN_PIG_SPAWN_EGG = spawnEgg("aurorian_pig", TAEntityTypes.AURORIAN_PIG, 0xc6dfff, 0x5d6f93);
+    public static final RegistryObject<Item> AURORIAN_PIXIE_SPAWN_EGG = spawnEgg("aurorian_pixie", TAEntityTypes.AURORIAN_PIXIE, 0x9cc6f1, 0x88b7e3);
+    public static final RegistryObject<Item> AURORIAN_SLIME_SPAWN_EGG = spawnEgg("aurorian_slime", TAEntityTypes.AURORIAN_SLIME, 0x151028, 0x43a2ec);
+    public static final RegistryObject<Item> DISTURBED_HOLLOW_SPAWN_EGG = spawnEgg("disturbed_hollow", TAEntityTypes.DISTURBED_HOLLOW, 0xade0f5, 0x272727);
+    public static final RegistryObject<Item> UNDEAD_KNIGHT_SPAWN_EGG = spawnEgg("undead_knight", TAEntityTypes.UNDEAD_KNIGHT, 0x5c7394, 0x181b1e);
+    public static final RegistryObject<Item> SPIRIT_SPAWN_EGG = spawnEgg("spirit", TAEntityTypes.SPIRIT, 0xb0b6bc, 0x303131);
+    public static final RegistryObject<Item> MOON_ACOLYTE_SPAWN_EGG = spawnEgg("moon_acolyte", TAEntityTypes.MOON_ACOLYTE, 0x0270af, 0x191919);
+    public static final RegistryObject<Item> SPIDERLING_SPAWN_EGG = spawnEgg("spiderling", TAEntityTypes.SPIDERLING, 0x1efefe, 0x0f1018);
+    public static final RegistryObject<Item> CRYSTALLINE_SPRITE_SPAWN_EGG = spawnEgg("crystalline_sprite", TAEntityTypes.CRYSTALLINE_SPRITE, 0xf5e2fc, 0xf0c9fd);
+    public static final RegistryObject<Item> RUNESTONE_KEEPER_SPAWN_EGG = spawnEgg("runestone_keeper", TAEntityTypes.RUNESTONE_KEEPER, 0xccc0e7, 0x550098);
+    public static final RegistryObject<Item> SPIDER_MOTHER_SPAWN_EGG = spawnEgg("spider_mother", TAEntityTypes.SPIDER_MOTHER, 0x595d70, 0x0f1018);
+    public static final RegistryObject<Item> MOON_QUEEN_SPAWN_EGG = spawnEgg("moon_queen", TAEntityTypes.MOON_QUEEN, 0xff82d4, 0x313d4b);
 
 }

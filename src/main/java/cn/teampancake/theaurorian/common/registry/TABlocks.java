@@ -169,7 +169,12 @@ public class TABlocks {
     public static final RegistryObject<Block> WEEPING_WILLOW_PLANKS = normal("weeping_willow_planks", copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> WEEPING_WILLOW_LOG = wood("weeping_willow_log", STRIPPED_WEEPING_WILLOW_LOG, MapColor.COLOR_LIGHT_GRAY, 2.0F);
     public static final RegistryObject<Block> WEEPING_WILLOW_WOOD = wood("weeping_willow_wood", STRIPPED_WEEPING_WILLOW_WOOD, MapColor.COLOR_LIGHT_GRAY, 2.0F);
+    public static final RegistryObject<Block> STRIPPED_CURTAIN_TREE_LOG = wood("stripped_curtain_tree_log", MapColor.COLOR_LIGHT_GRAY, 2.0F);
+    public static final RegistryObject<Block> STRIPPED_CURTAIN_TREE_WOOD = wood("stripped_curtain_tree_wood", MapColor.COLOR_LIGHT_GRAY, 2.0F);
     public static final RegistryObject<Block> CURTAIN_TREE_LEAVES = register("curtain_tree_leaves", () -> Blocks.leaves(SoundType.GRASS));
+    public static final RegistryObject<Block> CURTAIN_TREE_PLANKS = normal("curtain_tree_planks", copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> CURTAIN_TREE_LOG = wood("curtain_tree_log", STRIPPED_CURTAIN_TREE_LOG, MapColor.COLOR_LIGHT_GRAY, 2.0F);
+    public static final RegistryObject<Block> CURTAIN_TREE_WOOD = wood("curtain_tree_wood", STRIPPED_CURTAIN_TREE_WOOD, MapColor.COLOR_LIGHT_GRAY, 2.0F);
     public static final RegistryObject<Block> CURTAIN_TREE_SAPLING = register("curtain_tree_sapling", () -> new CurtainTreeSapling(copy(Blocks.OAK_SAPLING)));
 
     /**
@@ -196,7 +201,6 @@ public class TABlocks {
     public static final RegistryObject<Block> VERTICAL_AURORIAN_GRANITE_STAIRS = verticalStair("vertical_aurorian_granite_stairs", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> VERTICAL_AURORIAN_DIORITE_STAIRS = verticalStair("vertical_aurorian_diorite_stairs", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> VERTICAL_AURORIAN_ANDESITE_STAIRS = verticalStair("vertical_aurorian_andesite_stairs", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
-    public static final RegistryObject<Block> VERTICAL_SILENT_WOOD_STAIRS = verticalStair("vertical_silent_wood_stairs", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> VERTICAL_RUNE_STONE_STAIRS = verticalStair("vertical_rune_stone_stairs", RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> VERTICAL_SMOOTH_RUNE_STONE_STAIRS = verticalStair("vertical_smooth_rune_stone_stairs", SMOOTH_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> VERTICAL_CHISELED_RUNE_STONE_STAIRS = verticalStair("vertical_chiseled_rune_stone_stairs", CHISELED_RUNE_STONE, breakWithQueenPickaxe());
@@ -221,7 +225,9 @@ public class TABlocks {
     public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_STAIRS = verticalStair("vertical_umbra_stone_stairs", UMBRA_STONE, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_CRACKED_STAIRS = verticalStair("vertical_umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_ROOF_STAIRS = verticalStair("vertical_umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> VERTICAL_SILENT_WOOD_STAIRS = verticalStair("vertical_silent_wood_stairs", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> VERTICAL_WEEPING_WILLOW_STAIRS = verticalStair("vertical_weeping_willow_stairs", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> VERTICAL_CURTAIN_WOOD_STAIRS = verticalStair("vertical_curtain_wood_stairs", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> VERTICAL_AURORIAN_PERIDOTITE_STAIRS = verticalStair("vertical_aurorian_peridotite_stairs", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> VERTICAL_SMOOTH_AURORIAN_PERIDOTITE_STAIRS = verticalStair("vertical_smooth_aurorian_peridotite_stairs", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
 
@@ -234,7 +240,6 @@ public class TABlocks {
     public static final RegistryObject<Block> VERTICAL_AURORIAN_GRANITE_SLAB = verticalSlab("vertical_aurorian_granite_slab", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> VERTICAL_AURORIAN_DIORITE_SLAB = verticalSlab("vertical_aurorian_diorite_slab", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> VERTICAL_AURORIAN_ANDESITE_SLAB = verticalSlab("vertical_aurorian_andesite_slab", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
-    public static final RegistryObject<Block> VERTICAL_SILENT_WOOD_SLAB = verticalSlab("vertical_silent_wood_slab", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> VERTICAL_RUNE_STONE_SLAB = verticalSlab("vertical_rune_stone_slab", RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> VERTICAL_SMOOTH_RUNE_STONE_SLAB = verticalSlab("vertical_smooth_rune_stone_slab", SMOOTH_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> VERTICAL_CHISELED_RUNE_STONE_SLAB = verticalSlab("vertical_chiseled_rune_stone_slab", CHISELED_RUNE_STONE, breakWithQueenPickaxe());
@@ -259,33 +264,39 @@ public class TABlocks {
     public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_SLAB = verticalSlab("vertical_umbra_stone_slab", UMBRA_STONE, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_CRACKED_SLAB = verticalSlab("vertical_umbra_stone_cracked_slab", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> VERTICAL_UMBRA_STONE_ROOF_SLAB = verticalSlab("vertical_umbra_stone_roof_slab", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> VERTICAL_SILENT_WOOD_SLAB = verticalSlab("vertical_silent_wood_slab", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> VERTICAL_WEEPING_WILLOW_SLAB = verticalSlab("vertical_weeping_willow_slab", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> VERTICAL_CURTAIN_WOOD_SLAB = verticalSlab("vertical_curtain_wood_slab", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> VERTICAL_AURORIAN_PERIDOTITE_SLAB = verticalSlab("vertical_aurorian_peridotite_slab", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> VERTICAL_SMOOTH_AURORIAN_PERIDOTITE_SLAB = verticalSlab("vertical_smooth_aurorian_peridotite_slab", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
 
     /**
      * Pressure Plate Blocks
      */
-    public static final RegistryObject<Block> SILENT_WOOD_PRESSURE_PLATE = pressurePlate("silent_wood_pressure_plate", SILENT_TREE_PLANKS, true, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_WOOD);
+    public static final RegistryObject<Block> SILENT_WOOD_PRESSURE_PLATE = pressurePlate("silent_wood_pressure_plate", SILENT_TREE_PLANKS, true, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_TREE);
     public static final RegistryObject<Block> WEEPING_WILLOW_PRESSURE_PLATE = pressurePlate("weeping_willow_pressure_plate", WEEPING_WILLOW_PLANKS, true, copy(Blocks.OAK_PLANKS), TABlockSetType.WEEPING_WILLOW);
+    public static final RegistryObject<Block> CURTAIN_WOOD_PRESSURE_PLATE = pressurePlate("curtain_wood_pressure_plate", CURTAIN_TREE_PLANKS, true, copy(Blocks.OAK_PLANKS), TABlockSetType.CURTAIN_TREE);
 
     /**
      * Fence Gate Blocks
      */
     public static final RegistryObject<Block> SILENT_WOOD_FENCE_GATE = fenceGate("silent_wood_fence_gate", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TAWoodType.SILENT_WOOD);
     public static final RegistryObject<Block> WEEPING_WILLOW_FENCE_GATE = fenceGate("weeping_willow_fence_gate", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS), TAWoodType.WEEPING_WILLOW);
+    public static final RegistryObject<Block> CURTAIN_WOOD_FENCE_GATE = fenceGate("curtain_wood_fence_gate", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TAWoodType.CURTAIN_TREE);
 
     /**
      * Trapdoor Blocks
      */
-    public static final RegistryObject<Block> SILENT_WOOD_TRAPDOOR = trapdoor("silent_wood_trapdoor", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_WOOD);
+    public static final RegistryObject<Block> SILENT_WOOD_TRAPDOOR = trapdoor("silent_wood_trapdoor", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_TREE);
     public static final RegistryObject<Block> WEEPING_WILLOW_TRAPDOOR = trapdoor("weeping_willow_trapdoor", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.WEEPING_WILLOW);
+    public static final RegistryObject<Block> CURTAIN_WOOD_TRAPDOOR = trapdoor("curtain_wood_trapdoor", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.CURTAIN_TREE);
 
     /**
      * Button Blocks
      */
-    public static final RegistryObject<Block> SILENT_WOOD_BUTTON = button("silent_wood_button", SILENT_TREE_PLANKS, true, TABlockSetType.SILENT_WOOD);
+    public static final RegistryObject<Block> SILENT_WOOD_BUTTON = button("silent_wood_button", SILENT_TREE_PLANKS, true, TABlockSetType.SILENT_TREE);
     public static final RegistryObject<Block> WEEPING_WILLOW_BUTTON = button("weeping_willow_button", WEEPING_WILLOW_PLANKS, true, TABlockSetType.WEEPING_WILLOW);
+    public static final RegistryObject<Block> CURTAIN_WOOD_BUTTON = button("curtain_wood_button", CURTAIN_TREE_PLANKS, true, TABlockSetType.CURTAIN_TREE);
 
     /**
      * Stair Blocks
@@ -296,7 +307,6 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_GRANITE_STAIRS = stair("aurorian_granite_stairs", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_DIORITE_STAIRS = stair("aurorian_diorite_stairs", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_ANDESITE_STAIRS = stair("aurorian_andesite_stairs", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
-    public static final RegistryObject<Block> SILENT_WOOD_STAIRS = stair("silent_wood_stairs", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> RUNE_STONE_STAIRS = stair("rune_stone_stairs", RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> SMOOTH_RUNE_STONE_STAIRS = stair("smooth_rune_stone_stairs", SMOOTH_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> CHISELED_RUNE_STONE_STAIRS = stair("chiseled_rune_stone_stairs", CHISELED_RUNE_STONE, breakWithQueenPickaxe());
@@ -321,7 +331,9 @@ public class TABlocks {
     public static final RegistryObject<Block> UMBRA_STONE_STAIRS = stair("umbra_stone_stairs", UMBRA_STONE, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> UMBRA_STONE_CRACKED_STAIRS = stair("umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> UMBRA_STONE_ROOF_STAIRS = stair("umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> SILENT_WOOD_STAIRS = stair("silent_wood_stairs", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> WEEPING_WILLOW_STAIRS = stair("weeping_willow_stairs", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> CURTAIN_WOOD_STAIRS = stair("curtain_wood_stairs", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> AURORIAN_PERIDOTITE_STAIRS = stair("aurorian_peridotite_stairs", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE_STAIRS = stair("smooth_aurorian_peridotite_stairs", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
 
@@ -330,12 +342,14 @@ public class TABlocks {
      */
     public static final RegistryObject<Block> SILENT_WOOD_FENCE = fence("silent_wood_fence", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> WEEPING_WILLOW_FENCE = fence("weeping_willow_fence", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> CURTAIN_WOOD_FENCE = fence("curtain_wood_fence", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
 
     /**
      * Door Blocks
      */
-    public static final RegistryObject<Block> SILENT_WOOD_DOOR = door("silent_wood_door", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_WOOD);
+    public static final RegistryObject<Block> SILENT_WOOD_DOOR = door("silent_wood_door", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_TREE);
     public static final RegistryObject<Block> WEEPING_WILLOW_DOOR = door("weeping_willow_door", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.WEEPING_WILLOW);
+    public static final RegistryObject<Block> CURTAIN_WOOD_DOOR = door("curtain_wood_door", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.CURTAIN_TREE);
 
     /**
      * Slab Blocks
@@ -346,7 +360,6 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_GRANITE_SLAB = slab("aurorian_granite_slab", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_DIORITE_SLAB = slab("aurorian_diorite_slab", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_ANDESITE_SLAB = slab("aurorian_andesite_slab", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
-    public static final RegistryObject<Block> SILENT_WOOD_SLAB = slab("silent_wood_slab", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> RUNE_STONE_SLAB = slab("rune_stone_slab", RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> SMOOTH_RUNE_STONE_SLAB = slab("smooth_rune_stone_slab", SMOOTH_RUNE_STONE, breakWithQueenPickaxe());
     public static final RegistryObject<Block> CHISELED_RUNE_STONE_SLAB = slab("chiseled_rune_stone_slab", CHISELED_RUNE_STONE, breakWithQueenPickaxe());
@@ -371,7 +384,9 @@ public class TABlocks {
     public static final RegistryObject<Block> UMBRA_STONE_SLAB = slab("umbra_stone_slab", UMBRA_STONE, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> UMBRA_STONE_CRACKED_SLAB = slab("umbra_stone_cracked_slab", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> UMBRA_STONE_ROOF_SLAB = slab("umbra_stone_roof_slab", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
+    public static final RegistryObject<Block> SILENT_WOOD_SLAB = slab("silent_wood_slab", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> WEEPING_WILLOW_SLAB = slab("weeping_willow_slab", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> CURTAIN_WOOD_SLAB = slab("curtain_wood_slab", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> AURORIAN_PERIDOTITE_SLAB = slab("aurorian_peridotite_slab", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE_SLAB = slab("smooth_aurorian_peridotite_slab", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
 

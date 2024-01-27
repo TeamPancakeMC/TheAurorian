@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "theaurorian:curtain_tree_planks"
+    }
+  ],
+  "result": {
+    "item": "theaurorian:curtain_wood_button"
+  }
+}

@@ -108,6 +108,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.INDIGO_MUSHROOM_CRYSTAL.get());
         this.simpleBlock(TABlocks.SILENT_TREE_PLANKS.get());
         this.simpleBlock(TABlocks.WEEPING_WILLOW_PLANKS.get());
+        this.simpleBlock(TABlocks.CURTAIN_TREE_PLANKS.get());
         this.simpleBlock(TABlocks.SILENT_WOOD_CHEST.get(), this.models().getBuilder(this.name(TABlocks.SILENT_WOOD_CHEST.get()))
                 .texture("particle", this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_PLANKS.get()))));
         this.simpleBlock(TABlocks.SILENT_WOOD_TORCH.get(), this.models().torch(this.name(TABlocks.SILENT_WOOD_TORCH.get()),
@@ -119,8 +120,10 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.logBlock((RotatedPillarBlock) TABlocks.MOON_TEMPLE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_SILENT_TREE_LOG.get());
         this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_WEEPING_WILLOW_LOG.get());
+        this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_CURTAIN_TREE_LOG.get());
         this.logBlock((RotatedPillarBlock) TABlocks.SILENT_TREE_LOG.get());
         this.logBlock((RotatedPillarBlock) TABlocks.WEEPING_WILLOW_LOG.get());
+        this.logBlock((RotatedPillarBlock) TABlocks.CURTAIN_TREE_LOG.get());
         this.simpleBlock(TABlocks.SILENT_TREE_SAPLING.get(),
                 this.models().cross(this.name(TABlocks.SILENT_TREE_SAPLING.get()),
                         this.blockTexture(TABlocks.SILENT_TREE_SAPLING.get())).renderType(CUTOUT));
@@ -133,12 +136,18 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_WEEPING_WILLOW_WOOD.get(),
                 this.modLoc("block/stripped_weeping_willow_log"),
                 this.modLoc("block/stripped_weeping_willow_log"));
+        this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_CURTAIN_TREE_WOOD.get(),
+                this.modLoc("block/stripped_curtain_tree_log"),
+                this.modLoc("block/stripped_curtain_tree_log"));
         this.axisBlock((RotatedPillarBlock) TABlocks.SILENT_TREE_WOOD.get(),
                 this.modLoc("block/silent_tree_log"),
                 this.modLoc("block/silent_tree_log"));
         this.axisBlock((RotatedPillarBlock) TABlocks.WEEPING_WILLOW_WOOD.get(),
                 this.modLoc("block/weeping_willow_log"),
                 this.modLoc("block/weeping_willow_log"));
+        this.axisBlock((RotatedPillarBlock) TABlocks.CURTAIN_TREE_WOOD.get(),
+                this.modLoc("block/curtain_tree_log"),
+                this.modLoc("block/curtain_tree_log"));
         this.simpleBlock(TABlocks.AURORIAN_GRASS_BLOCK.get(),
                 this.models().cubeBottomTop("aurorian_grass_block",
                         this.modLoc("block/aurorian_grass_block"),

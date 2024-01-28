@@ -152,7 +152,6 @@ public class TABlocks {
     public static final RegistryObject<Block> UMBRA_STONE_ROOF_TILES = normal("umbra_stone_roof_tiles", defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> STRIPPED_SILENT_TREE_LOG = wood("stripped_silent_tree_log", MapColor.COLOR_BLUE, 2.0F);
     public static final RegistryObject<Block> STRIPPED_SILENT_TREE_WOOD = wood("stripped_silent_tree_wood", MapColor.COLOR_BLUE, 2.0F);
-    public static final RegistryObject<Block> SILENT_BUSH_LEAVES = register("silent_bush_leaves", () -> Blocks.leaves(SoundType.GRASS));
     public static final RegistryObject<Block> SILENT_TREE_LEAVES = register("silent_tree_leaves", () -> Blocks.leaves(SoundType.GRASS));
     public static final RegistryObject<Block> SILENT_TREE_PLANKS = normal("silent_tree_planks", copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> SILENT_TREE_LOG = wood("silent_tree_log", STRIPPED_SILENT_TREE_LOG, MapColor.COLOR_BLUE, 2.0F);

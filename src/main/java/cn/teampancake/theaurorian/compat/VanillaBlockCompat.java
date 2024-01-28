@@ -28,7 +28,6 @@ public class VanillaBlockCompat {
         fireBlock.setFlammable(TABlocks.SILENT_TREE_LOG.get(), 5, 5);
         fireBlock.setFlammable(TABlocks.SILENT_TREE_WOOD.get(), 5, 5);
         fireBlock.setFlammable(TABlocks.SILENT_TREE_LEAVES.get(), 30, 60);
-        fireBlock.setFlammable(TABlocks.SILENT_BUSH_LEAVES.get(), 30, 60);
         fireBlock.setFlammable(TABlocks.WEEPING_WILLOW_PLANKS.get(), 5, 20);
         fireBlock.setFlammable(TABlocks.WEEPING_WILLOW_STAIRS.get(), 5, 20);
         fireBlock.setFlammable(TABlocks.WEEPING_WILLOW_LOG.get(), 5, 5);

@@ -152,7 +152,6 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.UMBRA_STONE_ROOF_TILES.get(), "本影石瓦");
         this.add(TABlocks.STRIPPED_SILENT_TREE_LOG.get(), "去皮谧树原木");
         this.add(TABlocks.STRIPPED_SILENT_TREE_WOOD.get(), "去皮谧树木头");
-        this.add(TABlocks.SILENT_BUSH_LEAVES.get(), "静谧灌木树叶");
         this.add(TABlocks.SILENT_TREE_LEAVES.get(), "谧树树叶");
         this.add(TABlocks.SILENT_TREE_PLANKS.get(), "谧树木板");
         this.add(TABlocks.SILENT_TREE_LOG.get(), "谧树原木");

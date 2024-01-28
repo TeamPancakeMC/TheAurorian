@@ -152,7 +152,6 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.UMBRA_STONE_ROOF_TILES.get(), "Umbra Stone Roof Tiles");
         this.add(TABlocks.STRIPPED_SILENT_TREE_LOG.get(), "Stripped Silent Tree Log");
         this.add(TABlocks.STRIPPED_SILENT_TREE_WOOD.get(), "Stripped Silent Tree Wood");
-        this.add(TABlocks.SILENT_BUSH_LEAVES.get(), "Silent Bush Leaves");
         this.add(TABlocks.SILENT_TREE_LEAVES.get(), "Silent Tree Leaves");
         this.add(TABlocks.SILENT_TREE_PLANKS.get(), "Silent Tree Planks");
         this.add(TABlocks.SILENT_TREE_LOG.get(), "Silent Tree Log");

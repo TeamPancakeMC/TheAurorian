@@ -175,7 +175,6 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlockWithRenderType(TABlocks.MOON_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.AURORIAN_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.DARK_STONE_GLASS.get(), TRANSLUCENT);
-        this.simpleBlockWithRenderType(TABlocks.SILENT_BUSH_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.SILENT_TREE_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.WEEPING_WILLOW_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.CURTAIN_TREE_LEAVES.get(), CUTOUT_MIPPED);

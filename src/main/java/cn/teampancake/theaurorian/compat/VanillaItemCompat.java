@@ -60,7 +60,6 @@ public class VanillaItemCompat {
             ComposterBlock.add(0.3F, TABlocks.AURORIAN_GRASS.get());
             ComposterBlock.add(0.3F, TABlocks.AURORIAN_GRASS_LIGHT.get());
             ComposterBlock.add(0.3F, TABlocks.SILENT_TREE_SAPLING.get());
-            ComposterBlock.add(0.3F, TABlocks.SILENT_BUSH_LEAVES.get());
             ComposterBlock.add(0.3F, TABlocks.SILENT_TREE_LEAVES.get());
             ComposterBlock.add(0.3F, TABlocks.WEEPING_WILLOW_LEAVES.get());
             ComposterBlock.add(0.3F, TABlocks.CURTAIN_TREE_LEAVES.get());

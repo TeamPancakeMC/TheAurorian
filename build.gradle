@@ -145,11 +145,11 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
-//    implementation fg.deobf("curse.maven:l_ender-s-cataclysm-551586:4778613")
+    compileOnly fg.deobf("curse.maven:modern-ui-352491:5039780")
 
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.2.2')
     implementation fg.deobf("curse.maven:thirst-was-taken-679270:4871261")
-    compileOnly fg.deobf("curse.maven:modern-ui-352491:5039780")
+    implementation fg.deobf("curse.maven:jade-324717:4986594")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 

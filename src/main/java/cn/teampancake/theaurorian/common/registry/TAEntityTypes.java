@@ -65,10 +65,10 @@ public class TAEntityTypes {
                     .clientTrackingRange((4)).updateInterval((10)).build("luna_circle"));
     //Animal
     public static final RegistryObject<EntityType<MoonFish>> MOON_FISH = ENTITY_TYPES.register("moon_fish",
-            () -> EntityType.Builder.of(MoonFish::new, MobCategory.WATER_AMBIENT).sized(0.3F, 0.3F)
+            () -> EntityType.Builder.of(MoonFish::new, MobCategory.WATER_AMBIENT).sized(0.8F, 0.5F)
                     .clientTrackingRange((4)).build("moon_fish"));
     public static final RegistryObject<EntityType<AurorianWingedFish>> AURORIAN_WINGED_FISH = ENTITY_TYPES.register("aurorian_winged_fish",
-            () -> EntityType.Builder.of(AurorianWingedFish::new, MobCategory.WATER_AMBIENT).sized(0.3F, 0.3F)
+            () -> EntityType.Builder.of(AurorianWingedFish::new, MobCategory.WATER_AMBIENT).sized(0.8F, 0.5F)
                     .clientTrackingRange((4)).build("aurorian_winged_fish"));
     public static final RegistryObject<EntityType<AurorianRabbit>> AURORIAN_RABBIT = ENTITY_TYPES.register("aurorian_rabbit",
             () -> EntityType.Builder.of(AurorianRabbit::new, MobCategory.CREATURE).sized(0.4F, 0.5F)

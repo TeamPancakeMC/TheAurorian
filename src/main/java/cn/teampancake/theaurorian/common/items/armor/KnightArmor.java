@@ -18,8 +18,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class KnightArmor extends BaseArmor<KnightArmorModel> implements ITooltipsItem {
 
-    public KnightArmor(Type pType) {
-        super(TAArmorMaterials.KNIGHT, pType, new Item.Properties().rarity(Rarity.RARE));
+    public KnightArmor(Type type) {
+        super(TAArmorMaterials.KNIGHT, type, new Item.Properties().rarity(Rarity.RARE));
     }
 
     @Override

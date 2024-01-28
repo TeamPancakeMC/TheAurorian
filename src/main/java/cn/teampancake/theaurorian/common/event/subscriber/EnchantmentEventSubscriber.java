@@ -24,10 +24,10 @@ public class EnchantmentEventSubscriber {
         DamageSource source = event.getSource();
         Entity entity = source.getEntity();
         LivingEntity target = event.getEntity();
-
         if (target == null || !(entity instanceof LivingEntity attacker)) {
             return;
         }
+
         ItemStack mainHandItem = attacker.getMainHandItem();
         if (mainHandItem.isEmpty()) {
             return;
@@ -35,7 +35,6 @@ public class EnchantmentEventSubscriber {
 
         int damageLevel = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.LIGHTNING_DAMAGE.get(), attacker);
         float extradamage = 0;
-
         for (ItemStack stack : target.getArmorSlots()) {
             boolean hasresist = false;
             int resistanceLevel = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.LIGHTNING_RESISTANCE.get(), attacker);
@@ -51,15 +50,14 @@ public class EnchantmentEventSubscriber {
                 }
             }
         }
+
         event.setAmount((float) (event.getAmount() + extradamage * AurorianConfig.Config_LightningEnchantmentMulitplier.get()));
     }
 
     @SubscribeEvent
     public static void LightningResistance(LivingDamageEvent event) {
-
         if (event.getSource().is(DamageTypes.LIGHTNING_BOLT)) {
             LivingEntity target = event.getEntity();
-
             if (target == null) {
                 return;
             }

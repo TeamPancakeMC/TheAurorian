@@ -105,7 +105,7 @@ public class TABlocks {
     public static final RegistryObject<Block> MOON_TEMPLE_LAMP = normal("moon_temple_lamp", breakWithQueenPickaxe().lightLevel(s -> 15));
     public static final RegistryObject<Block> VOID_STONE = normal("void_stone", breakWithQueenPickaxe().lightLevel(s -> 7));
     public static final RegistryObject<Block> RUNE_CRYSTAL = normal("rune_crystal", breakWithQueenPickaxe().lightLevel(s -> 3));
-    public static final RegistryObject<Block> MYSTICAL_BARRIER = register("mystical_barrier", () -> new MysticalBarrier(copy(Blocks.BEDROCK)));
+    public static final RegistryObject<Block> MYSTICAL_BARRIER = BLOCKS.register("mystical_barrier", () -> new MysticalBarrier(copy(Blocks.BEDROCK)));
     public static final RegistryObject<Block> RUNE_STONE_BARS = register("rune_stone_bars", () -> new IronBarsBlock(breakWithQueenPickaxe().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> DARK_STOME_BARS = register("dark_stone_bars", () -> new IronBarsBlock(breakWithQueenPickaxe().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> MOON_TEMPLE_BARS = register("moon_temple_bars", () -> new IronBarsBlock(breakWithQueenPickaxe().mapColor(MapColor.METAL)));

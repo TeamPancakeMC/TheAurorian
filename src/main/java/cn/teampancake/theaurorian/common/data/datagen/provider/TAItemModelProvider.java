@@ -143,7 +143,6 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItemWithParent(TABlocks.SILENT_WOOD_LADDER.get());
         this.simpleBlockItemWithParent(TABlocks.SILENT_WOOD_TORCH.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_TORCH.get());
-        this.simpleBlockItemWithParent(TABlocks.MYSTICAL_BARRIER.get());
         this.simpleBlockItemWithParent(TABlocks.RUNE_STONE_BARS.get());
         this.simpleBlockItemWithParent(TABlocks.DARK_STOME_BARS.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_TEMPLE_BARS.get());

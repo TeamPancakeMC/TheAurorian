@@ -22,6 +22,7 @@ public class CeruleanArrow extends ArrowItem {
         CeruleanArrowEntity ceruleanArrow = new CeruleanArrowEntity(shooter, level);
         Vec3 vec31 = ceruleanArrow.getDeltaMovement();
         Vec3 vec32 = new Vec3(vec31.x, vec31.y * 1.5F, vec31.z);
+        ceruleanArrow.setBaseDamage(ceruleanArrow.getBaseDamage() + 1.0D);
         ceruleanArrow.setDeltaMovement(vec32);
         return ceruleanArrow;
     }
@@ -33,6 +34,7 @@ public class CeruleanArrow extends ArrowItem {
             CeruleanArrowEntity ceruleanArrow = new CeruleanArrowEntity(position.x(), position.y(), position.z(), level);
             Vec3 vec31 = ceruleanArrow.getDeltaMovement();
             Vec3 vec32 = new Vec3(vec31.x, vec31.y * 1.5F, vec31.z);
+            ceruleanArrow.setBaseDamage(ceruleanArrow.getBaseDamage() + 1.0D);
             ceruleanArrow.setDeltaMovement(vec32);
             return ceruleanArrow;
         }

@@ -22,6 +22,7 @@ public class CrystalArrow extends ArrowItem {
         CrystalArrowEntity crystalArrow = new CrystalArrowEntity(shooter, level);
         Vec3 vec31 = crystalArrow.getDeltaMovement();
         Vec3 vec32 = new Vec3(vec31.x, vec31.y * 0.45F, vec31.z);
+        crystalArrow.setBaseDamage(crystalArrow.getBaseDamage() + 2.0D);
         crystalArrow.setDeltaMovement(vec32);
         crystalArrow.setKnockback(2);
         return crystalArrow;
@@ -34,6 +35,7 @@ public class CrystalArrow extends ArrowItem {
             CrystalArrowEntity crystalArrow = new CrystalArrowEntity(position.x(), position.y(), position.z(), level);
             Vec3 vec31 = crystalArrow.getDeltaMovement();
             Vec3 vec32 = new Vec3(vec31.x, vec31.y * 0.45F, vec31.z);
+            crystalArrow.setBaseDamage(crystalArrow.getBaseDamage() + 2.0D);
             crystalArrow.setDeltaMovement(vec32);
             crystalArrow.setKnockback(2);
             return crystalArrow;

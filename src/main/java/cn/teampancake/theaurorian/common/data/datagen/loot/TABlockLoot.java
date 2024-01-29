@@ -48,6 +48,11 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
         this.dropSelf(TABlocks.AURORIAN_PERIDOTITE.get());
         this.dropSelf(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get());
+        this.dropSelf(TABlocks.AURORIAN_FLOWER_1.get());
+        this.dropSelf(TABlocks.AURORIAN_FLOWER_2.get());
+        this.dropSelf(TABlocks.AURORIAN_FLOWER_3.get());
+        this.dropSelf(TABlocks.EQUINOX_FLOWER.get());
+        this.dropSelf(TABlocks.WICK_GRASS.get());
         this.dropSelf(TABlocks.CERULEAN_ORE.get());
         this.dropSelf(TABlocks.MOONSTONE_ORE.get());
         this.dropSelf(TABlocks.CERULEAN_BLOCK.get());
@@ -83,8 +88,6 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropWhenSilkTouch(TABlocks.MOON_GLASS_PANE.get());
         this.dropWhenSilkTouch(TABlocks.AURORIAN_GLASS_PANE.get());
         this.dropWhenSilkTouch(TABlocks.DARK_STONE_GLASS_PANE.get());
-        this.dropWhenSilkTouch(TABlocks.LAVENDER_PLANT.get());
-        this.dropWhenSilkTouch(TABlocks.PETUNIA_PLANT.get());
         this.dropWhenSilkTouch(TABlocks.INDIGO_MUSHROOM_STEM.get());
         this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_1.get());
         this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_2.get());
@@ -115,8 +118,11 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.add(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_DIRT.get()));
         this.add(TABlocks.RED_AURORIAN_GRASS_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_DIRT.get()));
         this.add(TABlocks.AURORIAN_FARM_TILE.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_DIRT.get()));
-        this.add(TABlocks.AURORIAN_GRASS.get(), block -> this.createSilkTouchOrSicklesDispatchTable(block, TABlocks.AURORIAN_GRASS.get()));
-        this.add(TABlocks.AURORIAN_GRASS_LIGHT.get(), block -> this.createSilkTouchOrSicklesDispatchTable(block, TABlocks.AURORIAN_GRASS_LIGHT.get()));
+        this.add(TABlocks.AURORIAN_GRASS.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.AURORIAN_GRASS.get()));
+        this.add(TABlocks.AURORIAN_GRASS_LIGHT.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.AURORIAN_GRASS_LIGHT.get()));
+        this.add(TABlocks.TALL_WICK_GRASS.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.TALL_WICK_GRASS.get()));
+        this.add(TABlocks.LAVENDER_PLANT.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.LAVENDER_PLANT.get()));
+        this.add(TABlocks.PETUNIA_PLANT.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.PETUNIA_PLANT.get()));
         this.add(TABlocks.LAVENDER_CROP.get(), this.createCropDrops(TABlocks.LAVENDER_CROP.get(), TAItems.LAVENDER.get(), TAItems.LAVENDER_SEEDS.get(),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(TABlocks.LAVENDER_CROP.get())
                         .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TACropBlock.AGE, 3))));
@@ -177,10 +183,12 @@ public class TABlockLoot extends VanillaBlockLoot {
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))))));
     }
 
-    private LootTable.Builder createSilkTouchOrSicklesDispatchTable(Block block, ItemLike itemLike) {
+    private LootTable.Builder createSilkTouchOrSicklesDispatchTable(ItemLike itemLike) {
         final LootItemCondition.Builder hasSickles = MatchTool.toolMatches(ItemPredicate.Builder.item()
                 .of(TAItems.AURORIAN_STONE_SICKLE.get(), TAItems.SILENT_WOOD_SICKLE.get(), TAItems.MOONSTONE_SICKLE.get()));
-        return createSelfDropDispatchTable(block, hasSickles, this.applyExplosionDecay(block, LootItem.lootTableItem(itemLike)));
+        return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(itemLike).when(HAS_SHEARS.or(HAS_SILK_TOUCH)))
+                .add(LootItem.lootTableItem(TAItems.PLANT_FIBER.get()).when(hasSickles)));
     }
 
     @Override

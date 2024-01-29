@@ -5,34 +5,52 @@
       "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
+          "type": "minecraft:item",
+          "conditions": [
             {
-              "type": "minecraft:item",
-              "conditions": [
+              "condition": "minecraft:any_of",
+              "terms": [
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
                     "items": [
-                      "theaurorian:aurorian_stone_sickle",
-                      "theaurorian:silent_wood_sickle",
-                      "theaurorian:moonstone_sickle"
+                      "minecraft:shears"
+                    ]
+                  }
+                },
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
+                      }
                     ]
                   }
                 }
-              ],
-              "name": "theaurorian:aurorian_grass"
-            },
-            {
-              "type": "minecraft:item",
-              "functions": [
-                {
-                  "function": "minecraft:explosion_decay"
-                }
-              ],
-              "name": "theaurorian:aurorian_grass"
+              ]
             }
-          ]
+          ],
+          "name": "theaurorian:aurorian_grass"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "items": [
+                  "theaurorian:aurorian_stone_sickle",
+                  "theaurorian:silent_wood_sickle",
+                  "theaurorian:moonstone_sickle"
+                ]
+              }
+            }
+          ],
+          "name": "theaurorian:plant_fiber"
         }
       ],
       "rolls": 1.0

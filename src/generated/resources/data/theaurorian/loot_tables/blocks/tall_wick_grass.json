@@ -34,7 +34,7 @@
               ]
             }
           ],
-          "name": "theaurorian:petunia_plant"
+          "name": "theaurorian:tall_wick_grass"
         },
         {
           "type": "minecraft:item",
@@ -56,5 +56,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "theaurorian:blocks/petunia_plant"
+  "random_sequence": "theaurorian:blocks/tall_wick_grass"
 }

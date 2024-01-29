@@ -18,7 +18,7 @@ public class AurorianPigRenderer extends MobRenderer<AurorianPig, AurorianPigMod
     }
 
     @Override
-    public ResourceLocation getTextureLocation(AurorianPig pEntity) {
+    public ResourceLocation getTextureLocation(AurorianPig entity) {
         return AurorianMod.prefix("textures/entity/aurorian_pig.png");
     }
 

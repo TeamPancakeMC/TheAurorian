@@ -79,6 +79,9 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<AurorianPig>> AURORIAN_PIG = ENTITY_TYPES.register("aurorian_pig",
             () -> EntityType.Builder.of(AurorianPig::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
                     .clientTrackingRange((10)).build("aurorian_pig"));
+    public static final RegistryObject<EntityType<AurorianCow>> AURORIAN_COW = ENTITY_TYPES.register("aurorian_cow",
+            () -> EntityType.Builder.of(AurorianCow::new, MobCategory.CREATURE).sized(1.18F, 1.46F)
+                    .clientTrackingRange((10)).build("aurorian_cow"));
     public static final RegistryObject<EntityType<AurorianPixie>> AURORIAN_PIXIE = ENTITY_TYPES.register("aurorian_pixie",
             () -> EntityType.Builder.of(AurorianPixie::new, MobCategory.CREATURE).sized(0.6F, 0.375F)
                     .clientTrackingRange((8)).build("aurorian_pixie"));
@@ -130,6 +133,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(AURORIAN_RABBIT.get(), AurorianRabbitRenderer::new);
         event.registerEntityRenderer(AURORIAN_SHEEP.get(), AurorianSheepRenderer::new);
         event.registerEntityRenderer(AURORIAN_PIG.get(), AurorianPigRenderer::new);
+        event.registerEntityRenderer(AURORIAN_COW.get(), AurorianCowRenderer::new);
         event.registerEntityRenderer(AURORIAN_PIXIE.get(), AurorianPixieRenderer::new);
         event.registerEntityRenderer(AURORIAN_SLIME.get(), AurorianSlimeRenderer::new);
         event.registerEntityRenderer(DISTURBED_HOLLOW.get(), DisturbedHollowRenderer::new);
@@ -152,6 +156,7 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.AURORIAN_RABBIT, AurorianRabbitModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SHEEP, AurorianSheepModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_PIG, AurorianPigModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.AURORIAN_COW, AurorianCowModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_PIXIE, AurorianPixieModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME, SlimeModel::createInnerBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME_OUTER, SlimeModel::createOuterBodyLayer);
@@ -178,6 +183,7 @@ public class TAEntityTypes {
         normalEntitySpawn(event, AURORIAN_RABBIT.get(), SpawnPlacements.Type.ON_GROUND, AurorianRabbit::checkAurorianRabbitSpawnRules);
         normalEntitySpawn(event, AURORIAN_SHEEP.get(), SpawnPlacements.Type.ON_GROUND, AurorianSheep::checkAurorianSheepSpawnRules);
         normalEntitySpawn(event, AURORIAN_PIG.get(), SpawnPlacements.Type.ON_GROUND, AurorianPig::checkAurorianPigSpawnRules);
+        normalEntitySpawn(event, AURORIAN_COW.get(), SpawnPlacements.Type.ON_GROUND, AurorianCow::checkAurorianCowSpawnRules);
         normalEntitySpawn(event, AURORIAN_SLIME.get(), SpawnPlacements.Type.ON_GROUND, AurorianSlime::checkAurorianSlimeSpawnRules);
         normalEntitySpawn(event, DISTURBED_HOLLOW.get(), SpawnPlacements.Type.ON_GROUND, Monster::checkMonsterSpawnRules);
         normalEntitySpawn(event, UNDEAD_KNIGHT.get(), SpawnPlacements.Type.ON_GROUND, UndeadKnight::checkUndeadKnightSpawnRules);
@@ -194,6 +200,7 @@ public class TAEntityTypes {
         event.put(AURORIAN_RABBIT.get(), AurorianRabbit.createAttributes().build());
         event.put(AURORIAN_SHEEP.get(), AurorianSheep.createAttributes().build());
         event.put(AURORIAN_PIG.get(), AurorianPig.createAttributes().build());
+        event.put(AURORIAN_COW.get(), AurorianCow.createAttributes().build());
         event.put(AURORIAN_PIXIE.get(), AurorianPixie.createAttributes().build());
         event.put(AURORIAN_SLIME.get(), AurorianSlime.createMobAttributes().build());
         event.put(DISTURBED_HOLLOW.get(), DisturbedHollow.createAttributes().build());

@@ -378,6 +378,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.MOON_FISH_SPAWN_EGG.get(), "Moon Fish Spawn Egg");
         this.add(TAItems.AURORIAN_WINGED_FISH_SPAWN_EGG.get(), "Aurorian Winged Fish Spawn Egg");
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(),"Aurorian Pig Spawn Egg");
+        this.add(TAItems.AURORIAN_COW_SPAWN_EGG.get(), "Aurorian Cow Spawn Egg");
         this.add(TAItems.AURORIAN_RABBIT_SPAWN_EGG.get(),"Aurorian Rabbit Spawn Egg");
         this.add(TAItems.AURORIAN_SHEEP_SPAWN_EGG.get(),"Aurorian Sheep Spawn Egg");
         this.add(TAItems.AURORIAN_PIXIE_SPAWN_EGG.get(), "Aurorian Pixie Spawn Egg");
@@ -538,6 +539,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "Aurorian Rabbit");
         this.add(TAEntityTypes.AURORIAN_SHEEP.get(), "Aurorian Sheep");
         this.add(TAEntityTypes.AURORIAN_PIG.get(), "Aurorian Pig");
+        this.add(TAEntityTypes.AURORIAN_COW.get(), "Aurorian Cow");
         this.add(TAEntityTypes.AURORIAN_PIXIE.get(), "Aurorian Pixie");
         this.add(TAEntityTypes.AURORIAN_SLIME.get(), "Aurorian Slime");
         this.add(TAEntityTypes.DISTURBED_HOLLOW.get(), "Disturbed Hollow");

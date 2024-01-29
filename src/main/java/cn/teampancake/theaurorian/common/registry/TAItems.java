@@ -313,6 +313,7 @@ public class TAItems {
     public static final RegistryObject<Item> AURORIAN_RABBIT_SPAWN_EGG = spawnEgg("aurorian_rabbit", TAEntityTypes.AURORIAN_RABBIT, 0xc2e5e5, 0x43a2ec);
     public static final RegistryObject<Item> AURORIAN_SHEEP_SPAWN_EGG = spawnEgg("aurorian_sheep", TAEntityTypes.AURORIAN_SHEEP, 0x97b4f2, 0x7197ea);
     public static final RegistryObject<Item> AURORIAN_PIG_SPAWN_EGG = spawnEgg("aurorian_pig", TAEntityTypes.AURORIAN_PIG, 0xc6dfff, 0x5d6f93);
+    public static final RegistryObject<Item> AURORIAN_COW_SPAWN_EGG = spawnEgg("aurorian_cow", TAEntityTypes.AURORIAN_COW, 0x578a91, 0x454c5b);
     public static final RegistryObject<Item> AURORIAN_PIXIE_SPAWN_EGG = spawnEgg("aurorian_pixie", TAEntityTypes.AURORIAN_PIXIE, 0x9cc6f1, 0x88b7e3);
     public static final RegistryObject<Item> AURORIAN_SLIME_SPAWN_EGG = spawnEgg("aurorian_slime", TAEntityTypes.AURORIAN_SLIME, 0x151028, 0x43a2ec);
     public static final RegistryObject<Item> DISTURBED_HOLLOW_SPAWN_EGG = spawnEgg("disturbed_hollow", TAEntityTypes.DISTURBED_HOLLOW, 0xade0f5, 0x272727);

@@ -52,6 +52,7 @@ public class TAEntityLoot extends VanillaEntityLoot {
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
                         .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))))));
+        this.add(TAEntityTypes.AURORIAN_COW.get(), LootTable.lootTable());
         this.add(TAEntityTypes.AURORIAN_PIXIE.get(), LootTable.lootTable());
         //Monster
         this.add(TAEntityTypes.AURORIAN_SLIME.get(), LootTable.lootTable()

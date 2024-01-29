@@ -216,7 +216,7 @@ public class TAConfiguredFeatures {
         FeatureUtils.register(context, RANDOM_FALLEN_SILENT_LOG, TAFeatures.RANDOM_FALLEN_LOGS.get(), new FallenLogConfig(BlockStateProvider.simple(TABlocks.SILENT_TREE_LOG.get()), (0.1F)));
         FeatureUtils.register(context, RANDOM_WATER_SURFACE_PLANT, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(new WeightedStateProvider(waterSurfacePlantBuilder.build()), 10));
         FeatureUtils.register(context, RANDOM_CRYSTAL_CLUSTER, Feature.FLOWER, VegetationFeatures.grassPatch(new WeightedStateProvider(clusterBuilder.build()), 10));
-        FeatureUtils.register(context, RANDOM_WEAK_GRASS, Feature.FLOWER, VegetationFeatures.grassPatch(new WeightedStateProvider(wickGrassBuilder.build()), 6));
+        FeatureUtils.register(context, RANDOM_WEAK_GRASS, Feature.FLOWER, VegetationFeatures.grassPatch(new WeightedStateProvider(wickGrassBuilder.build()), 4));
         FeatureUtils.register(context, RANDOM_RIVERSIDE_PLANT, Feature.RANDOM_PATCH, new RandomPatchConfiguration(20, 4, 0,
                 PlacementUtils.inlinePlaced(Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(new WeightedStateProvider(riversidePlantBuilder.build()), 6),
                         BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.anyOf(riversidePredicates))))));

@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
-public class KnightArmor extends BaseArmor<KnightArmorModel> implements ITooltipsItem {
+public class KnightArmor extends BaseArmor<KnightArmorModel> {
 
     public KnightArmor(Type type) {
         super(TAArmorMaterials.KNIGHT, type, new Item.Properties().rarity(Rarity.RARE));

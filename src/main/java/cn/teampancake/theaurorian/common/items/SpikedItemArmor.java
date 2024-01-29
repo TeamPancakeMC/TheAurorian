@@ -23,25 +23,25 @@ public class SpikedItemArmor extends ArmorItem implements ITooltipsItem{
     }
 
     @Override
-    public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
-        if (pEntity instanceof Player player){
-
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+        if (entity instanceof Player player) {
             if (player.isShiftKeyDown()) {
-                player.getArmorSlots().forEach(stack -> {
-                    if (stack.getItem() instanceof SpikedItemArmor) {
+                player.getArmorSlots().forEach(itemStack -> {
+                    if (itemStack.getItem() instanceof SpikedItemArmor) {
                         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 10));
-                        stack.enchant(Enchantments.THORNS, 3);
+                        itemStack.enchant(Enchantments.THORNS, 3);
                     }
                 });
-            }else {
-                player.getArmorSlots().forEach(stack -> {
-                    if (stack.getItem() instanceof SpikedItemArmor) {
-                        Map<Enchantment, Integer> ench = EnchantmentHelper.getEnchantments(stack);
+            } else {
+                player.getArmorSlots().forEach(itemStack -> {
+                    if (itemStack.getItem() instanceof SpikedItemArmor) {
+                        Map<Enchantment, Integer> ench = EnchantmentHelper.getEnchantments(itemStack);
                         ench.remove(Enchantments.THORNS);
-                        EnchantmentHelper.setEnchantments(ench, stack);
+                        EnchantmentHelper.setEnchantments(ench, itemStack);
                     }
                 });
             }
         }
     }
+
 }

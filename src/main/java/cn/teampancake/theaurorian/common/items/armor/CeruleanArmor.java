@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
-public class CeruleanArmor extends BaseArmor<CeruleanArmorModel> implements ITooltipsItem {
+public class CeruleanArmor extends BaseArmor<CeruleanArmorModel> {
 
     public CeruleanArmor(Type pType) {
         super(TAArmorMaterials.CERULEAN, pType, new Item.Properties().rarity(Rarity.RARE));

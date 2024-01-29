@@ -13,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -30,7 +29,6 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
-@SuppressWarnings("ConstantConditions")
 public class ItemEventSubscriber {
 
     @SubscribeEvent
@@ -38,13 +36,12 @@ public class ItemEventSubscriber {
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
         if (stack.getItem() instanceof ITooltipsItem tooltipsItem && tooltipsItem.isHasTooltips()) {
-            showTooltips(tooltip, stack.getItem());
+            tooltip.add(Component.translatable("tooltips." + stack.getItem().getDescriptionId()));
         }
 
         Ingredient repairItem = null;
         if (stack.getItem() instanceof ArmorItem armorItem) {
             if (armorItem.getMaterial() == TAArmorMaterials.SPECTRAL) {
-                showTooltips(tooltip, armorItem);
                 repairItem = armorItem.getMaterial().getRepairIngredient();
             }
         } else if (stack.getItem() instanceof TieredItem tieredItem) {
@@ -55,13 +52,9 @@ public class ItemEventSubscriber {
             AurorianSteelHelper.getAurorianSteelInfo(stack, tooltip);
         }
 
-        if (repairItem == Ingredient.of(TAItems.CRYSTALLINE_INGOT.get())){
+        if (repairItem == Ingredient.of(TAItems.CRYSTALLINE_INGOT.get())) {
             //TODO CRYSTALLINE_INGOT TOOLTIP
         }
-    }
-
-    private static void showTooltips(List<Component> tooltip, Item item) {
-        tooltip.add(Component.translatable("tooltips." + item.getDescriptionId()));
     }
 
     @SubscribeEvent

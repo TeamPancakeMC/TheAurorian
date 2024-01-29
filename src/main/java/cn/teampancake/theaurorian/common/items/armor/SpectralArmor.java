@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
-public class SpectralArmor extends BaseArmor<SpectralArmorModel> implements ITooltipsItem {
+public class SpectralArmor extends BaseArmor<SpectralArmorModel> {
 
     public SpectralArmor(Type pType) {
         super(TAArmorMaterials.SPECTRAL, pType, new Item.Properties().rarity(Rarity.RARE));

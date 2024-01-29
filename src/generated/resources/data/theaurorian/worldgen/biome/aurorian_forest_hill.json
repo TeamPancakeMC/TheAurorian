@@ -61,9 +61,9 @@
     "creature": [
       {
         "type": "theaurorian:aurorian_rabbit",
-        "maxCount": 2,
+        "maxCount": 3,
         "minCount": 1,
-        "weight": 4
+        "weight": 5
       },
       {
         "type": "theaurorian:aurorian_sheep",
@@ -73,6 +73,12 @@
       },
       {
         "type": "theaurorian:aurorian_pig",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
+        "type": "theaurorian:aurorian_cow",
         "maxCount": 3,
         "minCount": 1,
         "weight": 5

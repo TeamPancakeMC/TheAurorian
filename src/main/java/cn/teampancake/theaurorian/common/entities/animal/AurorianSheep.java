@@ -25,7 +25,7 @@ public class AurorianSheep extends Sheep {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(TAItems.SILK_BERRY.get());
+        return stack.is(TAItems.LAVENDER.get());
     }
 
     @Nullable @Override

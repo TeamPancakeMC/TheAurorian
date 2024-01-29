@@ -26,7 +26,7 @@ public class AurorianCow extends Cow {
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return stack.is(TAItems.SILK_BERRY.get());
+        return stack.is(TAItems.LAVENDER.get());
     }
 
     @SuppressWarnings("unused")

@@ -10,7 +10,10 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 public class KeepersBow extends BowItem implements ITooltipsItem {
 
@@ -42,13 +45,13 @@ public class KeepersBow extends BowItem implements ITooltipsItem {
                     if (!level.isClientSide()) {
                         ArrowItem arrowItem = itemStack.getItem() instanceof ArrowItem arrow ? arrow : (ArrowItem) Items.ARROW;
                         for (int j = -1; j < 2; j++) {
+                            double angle = j * 10.0D * ((float)Math.PI / 180.0D);
+                            Vec3 upVector = player.getUpVector(1.0F);
+                            Quaternionf quaternionf = (new Quaternionf()).setAngleAxis(angle, upVector.x, upVector.y, upVector.z);
+                            Vector3f vector3f = player.getViewVector(1.0F).toVector3f().rotate(quaternionf);
                             AbstractArrow abstractArrow = arrowItem.createArrow(level, itemStack, player);
-                            abstractArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, f * (3.0F - Math.abs(j)), 1.0F);
-                            abstractArrow.setDeltaMovement(abstractArrow.getDeltaMovement().add(0.0D, 0.0075 * 20F * j, 0.0D));
-                            if (j != 0) {
-                                abstractArrow.setPos(abstractArrow.getX(), abstractArrow.getY() + 0.025F, abstractArrow.getZ());
-                                abstractArrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-                            } else if (flag1 || player.getAbilities().instabuild && (itemStack.getItem() == Items.SPECTRAL_ARROW || itemStack.getItem() == Items.TIPPED_ARROW)) {
+                            abstractArrow.shoot(vector3f.x(), vector3f.y(), vector3f.z(), f * 3.0F, 1.0F);
+                            if (j != 0 || flag1 || player.getAbilities().instabuild && (itemStack.getItem() == Items.SPECTRAL_ARROW || itemStack.getItem() == Items.TIPPED_ARROW)) {
                                 abstractArrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                             }
 

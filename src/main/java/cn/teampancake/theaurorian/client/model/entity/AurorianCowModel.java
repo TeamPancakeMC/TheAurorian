@@ -1,14 +1,18 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
 import cn.teampancake.theaurorian.common.entities.animal.AurorianCow;
-import net.minecraft.client.model.CowModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class AurorianCowModel<T extends AurorianCow> extends CowModel<T> {
+@OnlyIn(Dist.CLIENT)
+public class AurorianCowModel<T extends AurorianCow> extends HierarchicalModel<T> {
 
+    private final ModelPart body;
     private final ModelPart head;
     protected final ModelPart rightHindLeg;
     protected final ModelPart leftHindLeg;
@@ -16,7 +20,7 @@ public class AurorianCowModel<T extends AurorianCow> extends CowModel<T> {
     protected final ModelPart leftFrontLeg;
 
     public AurorianCowModel(ModelPart root) {
-        super(root);
+        this.body = root.getChild("body");
         this.head = this.body.getChild("head");
         this.rightHindLeg = this.body.getChild("right_leg_2");
         this.leftHindLeg = this.body.getChild("left_leg_2");
@@ -46,12 +50,18 @@ public class AurorianCowModel<T extends AurorianCow> extends CowModel<T> {
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
         this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
         this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
         this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.rightFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+    }
+
+    @Override
+    public ModelPart root() {
+        return this.body;
     }
 
 }

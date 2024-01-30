@@ -22,11 +22,6 @@ public class KeepersBow extends BowItem implements ITooltipsItem {
     }
 
     @Override
-    public int getUseDuration(ItemStack pStack) {
-        return 40;
-    }
-
-    @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof Player player) {
             boolean flag = player.getAbilities().instabuild || EnchantmentHelper.getTagEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;

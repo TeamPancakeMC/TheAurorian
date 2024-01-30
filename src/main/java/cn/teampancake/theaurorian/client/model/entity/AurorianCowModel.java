@@ -51,7 +51,6 @@ public class AurorianCowModel<T extends AurorianCow> extends HierarchicalModel<T
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
         this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
         this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;

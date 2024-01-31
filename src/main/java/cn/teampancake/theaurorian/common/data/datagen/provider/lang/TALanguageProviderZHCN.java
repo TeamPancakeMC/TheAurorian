@@ -430,6 +430,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.DARK_AMULET.get(), "暗黑护符");
         this.add(TAItems.DUNGEON_KEEPER_AMULET.get(), "地牢守卫护身符");
         this.add(TAItems.DISTURBED_HOLLOW_SPAWN_EGG.get(), "空谷之扰刷怪蛋");
+        this.add(TAItems.CAVE_DWELLER_SPAWN_EGG.get(), "晶洞居者刷怪蛋");
         this.add(TAItems.DUNGEON_LOCATOR.get(), "地牢定位器");
         this.add(TAItems.KEEPERS_BOW.get(), "守卫之弓");
         this.add(TAItems.KNIGHT_HELMET.get(), "骑士头盔");
@@ -548,6 +549,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.MOON_ACOLYTE.get(), "皎月侍从");
         this.add(TAEntityTypes.SPIDERLING.get(), "幼蛛");
         this.add(TAEntityTypes.CRYSTALLINE_SPRITE.get(), "月凝晶魂");
+        this.add(TAEntityTypes.CAVE_DWELLER.get(), "晶洞居者");
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), "符石守卫");
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), "蛛母");
         this.add(TAEntityTypes.MOON_QUEEN.get(), "皎月女王");

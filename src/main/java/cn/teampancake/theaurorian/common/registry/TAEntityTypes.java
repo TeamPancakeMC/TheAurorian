@@ -74,13 +74,13 @@ public class TAEntityTypes {
             () -> EntityType.Builder.of(AurorianRabbit::new, MobCategory.CREATURE).sized(0.4F, 0.5F)
                     .clientTrackingRange((8)).build("aurorian_rabbit"));
     public static final RegistryObject<EntityType<AurorianSheep>> AURORIAN_SHEEP = ENTITY_TYPES.register("aurorian_sheep",
-            () -> EntityType.Builder.of(AurorianSheep::new, MobCategory.CREATURE).sized(0.9F, 1.3F)
+            () -> EntityType.Builder.of(AurorianSheep::new, MobCategory.CREATURE).sized(1.0F, 1.3F)
                     .clientTrackingRange((10)).build("aurorian_sheep"));
     public static final RegistryObject<EntityType<AurorianPig>> AURORIAN_PIG = ENTITY_TYPES.register("aurorian_pig",
             () -> EntityType.Builder.of(AurorianPig::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
                     .clientTrackingRange((10)).build("aurorian_pig"));
     public static final RegistryObject<EntityType<AurorianCow>> AURORIAN_COW = ENTITY_TYPES.register("aurorian_cow",
-            () -> EntityType.Builder.of(AurorianCow::new, MobCategory.CREATURE).sized(1.18F, 1.46F)
+            () -> EntityType.Builder.of(AurorianCow::new, MobCategory.CREATURE).sized(1.5F, 1.46F)
                     .clientTrackingRange((10)).build("aurorian_cow"));
     public static final RegistryObject<EntityType<AurorianPixie>> AURORIAN_PIXIE = ENTITY_TYPES.register("aurorian_pixie",
             () -> EntityType.Builder.of(AurorianPixie::new, MobCategory.CREATURE).sized(0.6F, 0.375F)
@@ -107,6 +107,9 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<CrystallineSprite>> CRYSTALLINE_SPRITE = ENTITY_TYPES.register("crystalline_sprite",
             () -> EntityType.Builder.of(CrystallineSprite::new, MobCategory.MONSTER).sized(1.0F, 1.5F)
                     .clientTrackingRange((8)).build("crystalline_sprite"));
+    public static final RegistryObject<EntityType<CaveDweller>> CAVE_DWELLER = ENTITY_TYPES.register("cave_dweller",
+            () -> EntityType.Builder.of(CaveDweller::new, MobCategory.MONSTER).sized(2.0F, 3.0F)
+                    .clientTrackingRange((8)).build("cave_dweller"));
     //Boss
     public static final RegistryObject<EntityType<RunestoneKeeper>> RUNESTONE_KEEPER = ENTITY_TYPES.register("runestone_keeper",
             () -> EntityType.Builder.of(RunestoneKeeper::new, MobCategory.MONSTER).sized(1.4F, 4.2F)
@@ -142,6 +145,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(MOON_ACOLYTE.get(), MoonAcolyteRenderer::new);
         event.registerEntityRenderer(SPIDERLING.get(), SpiderlingRenderer::new);
         event.registerEntityRenderer(CRYSTALLINE_SPRITE.get(), CrystallineSpriteRenderer::new);
+        event.registerEntityRenderer(CAVE_DWELLER.get(), CaveDwellerRenderer::new);
         event.registerEntityRenderer(RUNESTONE_KEEPER.get(), RunestoneKeeperRenderer::new);
         event.registerEntityRenderer(SPIDER_MOTHER.get(), SpiderMotherRenderer::new);
         event.registerEntityRenderer(MOON_QUEEN.get(), MoonQueenRenderer::new);
@@ -157,6 +161,9 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SHEEP, AurorianSheepModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_PIG, AurorianPigModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_COW, AurorianCowModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.AURORIAN_SHEEP_BABY, AurorianSheepBabyModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.AURORIAN_PIG_BABY, AurorianPigBabyModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.AURORIAN_COW_BABY, AurorianCowBabyModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_PIXIE, AurorianPixieModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME, SlimeModel::createInnerBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME_OUTER, SlimeModel::createOuterBodyLayer);
@@ -166,6 +173,7 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.MOON_ACOLYTE, MoonAcolyteModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDERLING, SpiderlingModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CRYSTALLINE_SPRITE, CrystallineSpriteModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.CAVE_DWELLER, CaveDwellerModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_KEEPER, RunestoneKeeperModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDER_MOTHER, SpiderMotherModel::createBodyLayer);
@@ -191,6 +199,7 @@ public class TAEntityTypes {
         normalEntitySpawn(event, MOON_ACOLYTE.get(), SpawnPlacements.Type.ON_GROUND, MoonAcolyte::checkMoonAcolyteRules);
         normalEntitySpawn(event, SPIDERLING.get(), SpawnPlacements.Type.ON_GROUND, Spiderling::checkSpiderlingSpawnRules);
         normalEntitySpawn(event, CRYSTALLINE_SPRITE.get(), SpawnPlacements.Type.ON_GROUND, CrystallineSprite::checkCrystallineSpriteRules);
+        normalEntitySpawn(event, CAVE_DWELLER.get(), SpawnPlacements.Type.ON_GROUND, CaveDweller::checkMonsterSpawnRules);
     }
 
     @SubscribeEvent
@@ -209,6 +218,7 @@ public class TAEntityTypes {
         event.put(MOON_ACOLYTE.get(), MoonAcolyte.createAttributes().build());
         event.put(SPIDERLING.get(), Spiderling.createAttributes().build());
         event.put(CRYSTALLINE_SPRITE.get(), CrystallineSprite.createAttributes().build());
+        event.put(CAVE_DWELLER.get(), CaveDweller.createAttributes().build());
         event.put(RUNESTONE_KEEPER.get(), RunestoneKeeper.createAttributes().build());
         event.put(SPIDER_MOTHER.get(), SpiderMother.createAttributes().build());
         event.put(MOON_QUEEN.get(), MoonQueen.createAttributes().build());

@@ -429,6 +429,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.DARK_AMULET.get(),"Dark Amulet");
         this.add(TAItems.DUNGEON_KEEPER_AMULET.get(),"Dungeon Keeper Amulet");
         this.add(TAItems.DISTURBED_HOLLOW_SPAWN_EGG.get(),"Disturbed Hollow Spawn Egg");
+        this.add(TAItems.CAVE_DWELLER_SPAWN_EGG.get(), "Cave Dweller Spawn Egg");
         this.add(TAItems.DUNGEON_LOCATOR.get(),"Dungeon Locator");
         this.add(TAItems.KEEPERS_BOW.get(),"Keeper's Bow");
         this.add(TAItems.KNIGHT_HELMET.get(),"Knight Helmet");
@@ -548,6 +549,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.MOON_ACOLYTE.get(), "Moon Acolyte");
         this.add(TAEntityTypes.SPIDERLING.get(), "Spiderling");
         this.add(TAEntityTypes.CRYSTALLINE_SPRITE.get(), "Crystalline Sprite");
+        this.add(TAEntityTypes.CAVE_DWELLER.get(), "Cave Dweller");
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), "Runestone Keeper");
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), "Spider Mother");
         this.add(TAEntityTypes.MOON_QUEEN.get(), "Moon Queen");

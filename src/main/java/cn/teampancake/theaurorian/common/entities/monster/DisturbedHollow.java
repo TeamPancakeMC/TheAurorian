@@ -31,7 +31,6 @@ public class DisturbedHollow extends Monster {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-//        this.goalSelector.addGoal(2, new ZombieLikeAttackGoal(this));
         this.goalSelector.addGoal(3, new ShootingDisturbedEyeGoal(this));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));

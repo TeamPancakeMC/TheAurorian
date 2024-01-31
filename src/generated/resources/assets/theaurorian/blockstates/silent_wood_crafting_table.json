@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "theaurorian:block/silent_wood_crafting_table",
+      "y": 90
+    },
+    "facing=north": {
       "model": "theaurorian:block/silent_wood_crafting_table"
+    },
+    "facing=south": {
+      "model": "theaurorian:block/silent_wood_crafting_table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "theaurorian:block/silent_wood_crafting_table",
+      "y": 270
     }
   }
 }

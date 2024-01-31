@@ -534,21 +534,24 @@ public class TABlockStateProvider extends BlockStateProvider {
                 .texture("east", this.modLoc("block/scrapper_side"))
                 .texture("south", this.modLoc("block/scrapper_side"))
                 .texture("west", this.modLoc("block/scrapper_side"));
-        for (Direction direction : Scrapper.FACING.getPossibleValues()) {
-            builder.partialState().with(Scrapper.FACING, direction).modelForState().modelFile(modelFile)
-                    .rotationY(direction.get2DDataValue() * 90).addModel();
+        for (Direction direction : HorizontalDirectionalBlock.FACING.getPossibleValues()) {
+            builder.partialState().with(HorizontalDirectionalBlock.FACING, direction).modelForState()
+                    .modelFile(modelFile).rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
         }
     }
 
     private void registerCraftingTableState() {
-        String name = this.name(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get());
-        ResourceLocation down = this.modLoc("block/" +
-                this.name(TABlocks.SILENT_TREE_PLANKS.get()));
-        ResourceLocation front = this.modLoc("block/" + name + "_front");
-        ResourceLocation side = this.modLoc("block/" + name + "_side");
-        ResourceLocation top = this.modLoc("block/" + name + "_top");
-        ModelFile modelFile = this.models().cube(name, down, top, front, side, side, front).texture("particle", front);
-        this.simpleBlock(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get(), modelFile);
+        Block block = TABlocks.SILENT_WOOD_CRAFTING_TABLE.get();
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        ResourceLocation front = this.modLoc("block/" + this.name(block) + "_front");
+        ResourceLocation side = this.modLoc("block/" + this.name(block) + "_side");
+        ResourceLocation top = this.modLoc("block/" + this.name(block) + "_top");
+        ResourceLocation down = this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_PLANKS.get()));
+        ModelFile modelFile = this.models().cube(this.name(block), down, top, front, side, side, front).texture("particle", front);
+        for (Direction direction : HorizontalDirectionalBlock.FACING.getPossibleValues()) {
+            builder.partialState().with(HorizontalDirectionalBlock.FACING, direction).modelForState()
+                    .modelFile(modelFile).rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
+        }
     }
 
     private void registerMysticalBarrierState() {

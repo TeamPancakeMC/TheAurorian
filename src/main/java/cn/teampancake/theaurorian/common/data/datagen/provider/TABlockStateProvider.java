@@ -547,7 +547,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         ResourceLocation side = this.modLoc("block/" + this.name(block) + "_side");
         ResourceLocation top = this.modLoc("block/" + this.name(block) + "_top");
         ResourceLocation down = this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_PLANKS.get()));
-        ModelFile modelFile = this.models().cube(this.name(block), down, top, front, side, side, front).texture("particle", front);
+        ModelFile modelFile = this.models().cube(this.name(block), down, top, front, front, side, side).texture("particle", front);
         for (Direction direction : HorizontalDirectionalBlock.FACING.getPossibleValues()) {
             builder.partialState().with(HorizontalDirectionalBlock.FACING, direction).modelForState()
                     .modelFile(modelFile).rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
@@ -624,14 +624,16 @@ public class TABlockStateProvider extends BlockStateProvider {
     private void registerSilentWoodLadderState() {
         String name = this.name(TABlocks.SILENT_WOOD_LADDER.get());
         VariantBlockStateBuilder builder = this.getVariantBuilder(TABlocks.SILENT_WOOD_LADDER.get());
-        ConfiguredModel configuredModel = new ConfiguredModel(this.models()
-                .withExistingParent(name, this.modLoc("block/" + name))
+        ConfiguredModel configuredModel = new ConfiguredModel(this.models().getBuilder(name).ao(false)
                 .texture("particle", this.modLoc("block/" + name))
-                .texture("texture", this.modLoc("block/" + name)));
+                .texture("texture", this.modLoc("block/" + name))
+                .element().from(0.0F, 0.0F, 15.2F).to(16.0F, 16.0F, 15.2F).shade(false)
+                .face(Direction.NORTH).uvs(0.0F, 0.0F, 16.0F, 16.0F).texture("#texture").end()
+                .face(Direction.SOUTH).uvs(16.0F, 0.0F, 0.0F, 16.0F).texture("#texture").end().end().renderType(CUTOUT));
         for (Direction direction : LadderBlock.FACING.getPossibleValues()) {
             builder.partialState().with(LadderBlock.FACING, direction)
                     .modelForState().modelFile(configuredModel.model)
-                    .rotationY(direction.get2DDataValue() * 90).addModel();
+                    .rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
         }
     }
 

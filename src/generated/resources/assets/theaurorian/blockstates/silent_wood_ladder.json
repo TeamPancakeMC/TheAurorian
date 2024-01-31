@@ -2,18 +2,18 @@
   "variants": {
     "facing=east": {
       "model": "theaurorian:block/silent_wood_ladder",
-      "y": 270
+      "y": 90
     },
     "facing=north": {
+      "model": "theaurorian:block/silent_wood_ladder"
+    },
+    "facing=south": {
       "model": "theaurorian:block/silent_wood_ladder",
       "y": 180
     },
-    "facing=south": {
-      "model": "theaurorian:block/silent_wood_ladder"
-    },
     "facing=west": {
       "model": "theaurorian:block/silent_wood_ladder",
-      "y": 90
+      "y": 270
     }
   }
 }

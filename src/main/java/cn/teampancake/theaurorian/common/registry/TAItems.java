@@ -181,7 +181,6 @@ public class TAItems {
     public static final RegistryObject<Item> SILK_BERRY_JAM_SANDWICH = food("silk_berry_jam_sandwich", 6, 0.9F, true);
     public static final RegistryObject<Item> AURORIAN_PORK = food("aurorian_pork", 3, 0.3F, false);
     public static final RegistryObject<Item> COOKED_AURORIAN_PORK = food("cooked_aurorian_pork", 8, 0.8F, true);
-    public static final RegistryObject<Item> AURORIAN_BACON = food("aurorian_bacon", 2, 0.8F, true);
     public static final RegistryObject<Item> AURORIAN_SLIMEBALL = food("aurorian_slimeball", 1, 0.2F, false);
     public static final RegistryObject<Item> SILK_SHROOM_STEW = food("silk_shroom_stew", 6, 1F, false);
     public static final RegistryObject<Item> LAVENDER_BREAD = food("lavender_bread", 4, 0.4F, false);
@@ -202,6 +201,9 @@ public class TAItems {
             .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600), 1.0F).build())));
     public static final RegistryObject<Item> MOONLIT_BLUEBERRY_SPECIALTY_DRINK = ITEMS.register("moonlit_blueberry_specialty_drink", () -> new Item(new Item.Properties()
             .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 1), 1.0F).build())));
+    public static final RegistryObject<Item> AURORIAN_BACON = ITEMS.register("aurorian_bacon", () -> new TASpecialItem(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(2).saturationMod((0.8F))
+                    .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 60), 1.0F).build()), true));
     //TODO Translation and Recipe
 //    public static final RegistryObject<Item> STRANGE_MEAT_FOOD = ITEMS.register("strange_meat_food", StrangeMeatFood::new);
 

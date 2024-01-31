@@ -43,7 +43,6 @@
     "theaurorian:silk_berry_jam_sandwich",
     "theaurorian:aurorian_pork",
     "theaurorian:cooked_aurorian_pork",
-    "theaurorian:aurorian_bacon",
     "theaurorian:aurorian_slimeball",
     "theaurorian:silk_shroom_stew",
     "theaurorian:lavender_bread",
@@ -55,6 +54,7 @@
     "theaurorian:candy_cane",
     "theaurorian:gingerbread_man",
     "theaurorian:aurorian_specialty_drink",
-    "theaurorian:moonlit_blueberry_specialty_drink"
+    "theaurorian:moonlit_blueberry_specialty_drink",
+    "theaurorian:aurorian_bacon"
   ]
 }

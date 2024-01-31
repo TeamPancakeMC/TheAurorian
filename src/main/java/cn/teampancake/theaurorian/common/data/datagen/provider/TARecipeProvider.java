@@ -134,7 +134,7 @@ public class TARecipeProvider extends RecipeProvider {
                 .requires(TAItems.SILK_BERRY_JAM.get()).requires(TAItems.LAVENDER_BREAD.get())
                 .unlockedBy(getHasName(TAItems.SILK_BERRY_JAM.get()), has(TAItems.SILK_BERRY_JAM.get()))
                 .unlockedBy(getHasName(TAItems.LAVENDER_BREAD.get()), has(TAItems.LAVENDER_BREAD.get())).save(consumer);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.AURORIAN_BACON.get()).requires(TAItems.COOKED_AURORIAN_PORK.get(), (4))
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.AURORIAN_BACON.get(), 10).requires(TAItems.COOKED_AURORIAN_PORK.get(), (4))
                 .unlockedBy(getHasName(TAItems.AURORIAN_BACON.get()), has(TAItems.AURORIAN_BACON.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.SILK_SHROOM_STEW.get())
                 .requires(TAItems.SILK_BERRY.get(), (2)).requires(TABlocks.INDIGO_MUSHROOM.get(), (2))

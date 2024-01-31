@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 
-public class DoorBlockWithBase extends DoorBlock implements IHasBaseBlock {
+public class DoorBlockWithBase extends DoorBlock {
 
     private final Block base;
 

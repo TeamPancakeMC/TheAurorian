@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.data.datagen.loot;
 
 import cn.teampancake.theaurorian.common.blocks.BlueberryBush;
 import cn.teampancake.theaurorian.common.blocks.TACropBlock;
+import cn.teampancake.theaurorian.common.blocks.base.DoorBlockWithBase;
 import cn.teampancake.theaurorian.common.blocks.base.IHasBaseBlock;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -170,6 +171,8 @@ public class TABlockLoot extends VanillaBlockLoot {
             boolean notHardLikeBedrock = block.getExplosionResistance() != f;
             if ((hardLikeBedrock || ((isStair || isWall || block instanceof IHasBaseBlock) && notHardLikeBedrock))) {
                 this.dropSelf(block);
+            } else if (block instanceof DoorBlockWithBase doorBlock) {
+                this.add(doorBlock, block1 -> this.createDoorTable(doorBlock));
             }
         }
     }

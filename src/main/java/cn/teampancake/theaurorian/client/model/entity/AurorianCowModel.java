@@ -1,16 +1,16 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
-import cn.teampancake.theaurorian.common.entities.animal.AurorianCow;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class AurorianCowModel<T extends AurorianCow> extends HierarchicalModel<T> {
+public class AurorianCowModel<T extends Entity> extends HierarchicalModel<T> {
 
     private final ModelPart body;
     private final ModelPart head;

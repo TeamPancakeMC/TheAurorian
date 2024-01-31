@@ -1,11 +1,14 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
+import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -21,6 +24,11 @@ public class AurorianSheep extends Sheep {
 
     public AurorianSheep(EntityType<? extends AurorianSheep> type, Level level) {
         super(type, level);
+    }
+
+    @Nullable @Override
+    public Sheep getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+        return TAEntityTypes.AURORIAN_SHEEP.get().create(level);
     }
 
     @Override

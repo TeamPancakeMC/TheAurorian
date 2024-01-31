@@ -3,21 +3,34 @@ package cn.teampancake.theaurorian.client.model.entity;
 import cn.teampancake.theaurorian.common.entities.animal.AurorianSheep;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.SheepModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class AurorianSheepModel<T extends AurorianSheep> extends SheepModel<T> {
+public class AurorianSheepModel<T extends AurorianSheep> extends HierarchicalModel<T> {
 
+    public float headXRot;
+    private final ModelPart head;
+    private final ModelPart body;
     private final ModelPart tail;
+    private final ModelPart rightHindLeg;
+    private final ModelPart leftHindLeg;
+    private final ModelPart rightFrontLeg;
+    private final ModelPart leftFrontLeg;
 
     public AurorianSheepModel(ModelPart root) {
-        super(root);
+        this.head = root.getChild("head");
+        this.body = root.getChild("body");
         this.tail = root.getChild("tail");
+        this.rightHindLeg = root.getChild("right_hind_leg");
+        this.leftHindLeg = root.getChild("left_hind_leg");
+        this.rightFrontLeg = root.getChild("right_front_leg");
+        this.leftFrontLeg = root.getChild("left_front_leg");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -43,8 +56,20 @@ public class AurorianSheepModel<T extends AurorianSheep> extends SheepModel<T> {
     }
 
     @Override
+    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.head.xRot = headPitch * ((float)Math.PI / 180F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+        this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.rightFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+    }
+
+    @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        this.head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
         this.tail.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
@@ -52,6 +77,11 @@ public class AurorianSheepModel<T extends AurorianSheep> extends SheepModel<T> {
     public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
         this.head.y = 12.0F + entity.getHeadEatPositionScale(partialTick) * 9.0F;
         this.headXRot = entity.getHeadEatAngleScale(partialTick);
+    }
+
+    @Override
+    public ModelPart root() {
+        return this.body;
     }
 
 }

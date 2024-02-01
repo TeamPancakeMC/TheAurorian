@@ -22,11 +22,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
-public class SilentWoodCraftingTable extends BaseEntityBlockWithState {
+public class AurorianCraftingTable extends BaseEntityBlockWithState {
 
     private static final Component GUI_TITLE = Component.translatable("container.crafting");
 
-    public SilentWoodCraftingTable() {
+    public AurorianCraftingTable() {
         super(Properties.copy(Blocks.CRAFTING_TABLE));
     }
 

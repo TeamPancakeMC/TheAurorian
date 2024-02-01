@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_orientable_trapdoor_bottom",
   "render_type": "minecraft:cutout",
   "textures": {
-    "texture": "theaurorian:block/weeping_willow_planks"
+    "texture": "theaurorian:block/weeping_willow_trapdoor"
   }
 }

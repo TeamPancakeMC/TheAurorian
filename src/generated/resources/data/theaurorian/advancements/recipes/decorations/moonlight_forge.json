@@ -13,6 +13,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "has_aurorian_crafting_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theaurorian:aurorian_crafting_table"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_aurorian_furnace": {
       "conditions": {
         "items": [
@@ -37,18 +49,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_silent_wood_crafting_table": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "theaurorian:silent_wood_crafting_table"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_the_recipe": {
       "conditions": {
         "recipe": "theaurorian:moonlight_forge"
@@ -60,7 +60,7 @@
     [
       "has_aurorian_cobblestone",
       "has_moon_gem",
-      "has_silent_wood_crafting_table",
+      "has_aurorian_crafting_table",
       "has_aurorian_furnace",
       "has_the_recipe"
     ]

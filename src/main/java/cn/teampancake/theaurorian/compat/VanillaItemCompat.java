@@ -34,7 +34,7 @@ public class VanillaItemCompat {
     @SubscribeEvent
     public static void registerFurnaceFuels(FurnaceFuelBurnTimeEvent event) {
         Map<Item, Integer> map = Maps.newLinkedHashMap();
-        map.put(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get().asItem(), 300);
+        map.put(TABlocks.AURORIAN_CRAFTING_TABLE.get().asItem(), 300);
         map.put(TABlocks.SILENT_WOOD_LADDER.get().asItem(), 300);
         map.put(TAItems.SILENT_WOOD_STICK.get(), 100);
         map.put(TAItems.SILENT_WOOD_BOW.get(), 300);

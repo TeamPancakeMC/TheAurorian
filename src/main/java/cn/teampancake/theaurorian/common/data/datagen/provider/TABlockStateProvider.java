@@ -9,6 +9,7 @@ import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraftforge.client.model.generators.*;
@@ -217,7 +218,7 @@ public class TABlockStateProvider extends BlockStateProvider {
             } else if (block instanceof FenceGateBlockWithBase fenceGateBlock) {
                 this.fenceGateBlockWithRenderType(fenceGateBlock, this.blockTexture(fenceGateBlock.getBase()), CUTOUT);
             } else if (block instanceof TrapDoorBlockWithBase trapDoorBlock) {
-                ResourceLocation texture = this.blockTexture(trapDoorBlock.getBase());
+                ResourceLocation texture = this.blockTexture(trapDoorBlock);
                 this.trapdoorBlockWithRenderType(trapDoorBlock, texture, Boolean.TRUE, CUTOUT);
                 this.simpleBlockItem(trapDoorBlock, this.models().trapdoorBottom(this.name(trapDoorBlock), texture));
             } else if (block instanceof ButtonBlockWithBase buttonBlock) {
@@ -337,14 +338,13 @@ public class TABlockStateProvider extends BlockStateProvider {
     }
 
     private void registerWallTorchStates(Block block) {
-        Map<Direction, Integer> map = Map.of(Direction.NORTH, 270, Direction.EAST, 0,
-                Direction.SOUTH, 90, Direction.WEST, 180);
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
-        for (Direction direction : WallTorchBlock.FACING.getPossibleValues()) {
-            builder.partialState().with(WallTorchBlock.FACING, direction).modelForState()
-                    .modelFile(this.models().torchWall(this.name(block),
-                            this.blockTexture(TABlocks.SILENT_WOOD_TORCH.get())))
-                    .rotationY(map.get(direction)).addModel();
+        if (block.asItem() instanceof StandingAndWallBlockItem wallBlockItem) {
+            VariantBlockStateBuilder stateBuilder = this.getVariantBuilder(block);
+            BlockModelBuilder modelBuilder = this.models().torchWall(this.name(block), this.blockTexture(wallBlockItem.getBlock())).renderType(CUTOUT);
+            Map<Direction, Integer> map = Map.of(Direction.NORTH, 270, Direction.EAST, 0, Direction.SOUTH, 90, Direction.WEST, 180);
+            for (Direction direction : WallTorchBlock.FACING.getPossibleValues()) {
+                stateBuilder.partialState().with(WallTorchBlock.FACING, direction).modelForState().modelFile(modelBuilder).rotationY(map.get(direction)).addModel();
+            }
         }
     }
 
@@ -541,7 +541,7 @@ public class TABlockStateProvider extends BlockStateProvider {
     }
 
     private void registerCraftingTableState() {
-        Block block = TABlocks.SILENT_WOOD_CRAFTING_TABLE.get();
+        Block block = TABlocks.AURORIAN_CRAFTING_TABLE.get();
         VariantBlockStateBuilder builder = this.getVariantBuilder(block);
         ResourceLocation front = this.modLoc("block/" + this.name(block) + "_front");
         ResourceLocation side = this.modLoc("block/" + this.name(block) + "_side");

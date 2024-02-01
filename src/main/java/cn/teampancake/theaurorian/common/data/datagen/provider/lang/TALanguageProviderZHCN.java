@@ -55,6 +55,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.AURORIAN_WATER_MUSHROOM.get(), "极光水菇");
         this.add(TABlocks.AURORIAN_FURNACE.get(), "极光熔炉");
         this.add(TABlocks.AURORIAN_FURNACE_CHIMNEY.get(), "极光熔炉孔道");
+        this.add(TABlocks.AURORIAN_CRAFTING_TABLE.get(), "极光工作台");
         this.add(TABlocks.AURORIAN_PORTAL.get(), "极光传送门");
         this.add(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(), "极光传送门框架");
         this.add(TABlocks.URN.get(), "瓮");
@@ -160,7 +161,6 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.SILENT_WOOD_TORCH.get(), "谧木火把");
         this.add(TABlocks.SILENT_WOOD_LADDER.get(), "谧木梯子");
         this.add(TABlocks.SILENT_WOOD_CHEST.get(), "谧木箱子");
-        this.add(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get(), "谧木工作台");
         this.add(TABlocks.STRIPPED_WEEPING_WILLOW_LOG.get(), "去皮垂柳原木");
         this.add(TABlocks.STRIPPED_WEEPING_WILLOW_WOOD.get(), "去皮垂柳木头");
         this.add(TABlocks.WEEPING_WILLOW_LEAVES.get(), "垂柳树叶");

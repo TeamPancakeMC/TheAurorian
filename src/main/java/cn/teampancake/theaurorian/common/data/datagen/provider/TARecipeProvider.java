@@ -54,11 +54,11 @@ public class TARecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(TAItems.CERULEAN_INGOT.get()), has(TAItems.CERULEAN_INGOT.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.MOONLIGHT_FORGE.get())
                 .define('#', TABlocks.AURORIAN_COBBLESTONE.get()).define('I', TABlocks.MOON_GEM.get())
-                .define('O', TABlocks.SILENT_WOOD_CRAFTING_TABLE.get()).define('U', TABlocks.AURORIAN_FURNACE.get())
+                .define('O', TABlocks.AURORIAN_CRAFTING_TABLE.get()).define('U', TABlocks.AURORIAN_FURNACE.get())
                 .pattern(" I ").pattern("#O#").pattern("#U#")
                 .unlockedBy(getHasName(TABlocks.AURORIAN_COBBLESTONE.get()), has(TABlocks.AURORIAN_COBBLESTONE.get()))
                 .unlockedBy(getHasName(TABlocks.MOON_GEM.get()), has(TABlocks.MOON_GEM.get()))
-                .unlockedBy(getHasName(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get()), has(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get()))
+                .unlockedBy(getHasName(TABlocks.AURORIAN_CRAFTING_TABLE.get()), has(TABlocks.AURORIAN_CRAFTING_TABLE.get()))
                 .unlockedBy(getHasName(TABlocks.AURORIAN_FURNACE.get()), has(TABlocks.AURORIAN_FURNACE.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.MOON_TORCH.get(), 4)
                 .define('#', TAItems.SILENT_WOOD_STICK.get()).define('X', Ingredient.of(TABlocks.MOON_GEM.get()))
@@ -72,7 +72,7 @@ public class TARecipeProvider extends RecipeProvider {
                 .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.AURORIAN_GLASS.get()), has(TABlocks.MOON_SAND.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.DARK_STONE_GLASS_PANE.get(), 16).define('#', TABlocks.DARK_STONE_GLASS.get())
                 .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.DARK_STONE_GLASS.get()), has(TABlocks.MOON_SAND.get())).save(consumer);
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.SILENT_WOOD_CRAFTING_TABLE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.AURORIAN_CRAFTING_TABLE.get())
                 .define('#', TABlocks.SILENT_TREE_PLANKS.get()).define('X', Blocks.CRAFTING_TABLE)
                 .pattern(" # ").pattern("#X#").pattern(" # ")
                 .unlockedBy(getHasName(TABlocks.SILENT_TREE_PLANKS.get()), has(TABlocks.SILENT_TREE_PLANKS.get())).save(consumer);

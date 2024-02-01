@@ -129,7 +129,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.SILENT_TREE_LEAVES.get());
         this.simpleBlockItem(TABlocks.WEEPING_WILLOW_LEAVES.get());
         this.simpleBlockItem(TABlocks.CURTAIN_TREE_LEAVES.get());
-        this.simpleBlockItem(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get());
+        this.simpleBlockItem(TABlocks.AURORIAN_CRAFTING_TABLE.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_GRASS.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_GRASS_LIGHT.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_WATER_GRASS.get());

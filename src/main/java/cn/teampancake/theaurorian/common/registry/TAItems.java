@@ -13,6 +13,7 @@ import cn.teampancake.theaurorian.common.items.shield.MoonShield;
 import cn.teampancake.theaurorian.common.items.shield.UmbraShield;
 import cn.teampancake.theaurorian.common.items.tool.AurorianiteAxe;
 import cn.teampancake.theaurorian.common.items.tool.AurorianiteSword;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -42,6 +43,10 @@ public class TAItems {
     public static final RegistryObject<Item> AURORIAN_WATER_MUSHROOM = ITEMS.register("aurorian_water_mushroom",
             () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_WATER_MUSHROOM.get(), new Item.Properties()));
     public static final RegistryObject<Item> SILENT_WOOD_CHEST = ITEMS.register("silent_wood_chest", SilentWoodChestItem::new);
+    public static final RegistryObject<Item> MOON_TORCH = ITEMS.register("moon_torch",
+            () -> new StandingAndWallBlockItem(TABlocks.MOON_TORCH.get(), TABlocks.MOON_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> SILENT_WOOD_TORCH = ITEMS.register("silent_wood_torch",
+            () -> new StandingAndWallBlockItem(TABlocks.SILENT_WOOD_TORCH.get(), TABlocks.SILENT_WOOD_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
 
     /**
      * Armor Item

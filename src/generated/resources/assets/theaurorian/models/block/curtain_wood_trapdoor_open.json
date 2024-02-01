@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_orientable_trapdoor_open",
   "render_type": "minecraft:cutout",
   "textures": {
-    "texture": "theaurorian:block/curtain_tree_planks"
+    "texture": "theaurorian:block/curtain_wood_trapdoor"
   }
 }

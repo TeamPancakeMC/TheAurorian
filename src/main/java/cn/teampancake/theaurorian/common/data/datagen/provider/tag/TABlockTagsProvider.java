@@ -62,7 +62,7 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.NEEDS_STONE_TOOL).add(TABlocks.MOONSTONE_ORE.get(), TABlocks.CERULEAN_ORE.get());
         this.tag(BlockTags.NEEDS_IRON_TOOL).add(TABlocks.GEODE_ORE.get(), TABlocks.MOON_GEM.get(), TABlocks.MOONLIGHT_FORGE.get(),
                 TABlocks.CERULEAN_BLOCK.get(), TABlocks.MOONSTONE_BLOCK.get(), TABlocks.AURORIAN_STEEL_BLOCK.get());
-        this.tag(BlockTags.MINEABLE_WITH_AXE).add(TABlocks.SILENT_WOOD_CRAFTING_TABLE.get(), TABlocks.BLUEBERRY_BUSH.get(),
+        this.tag(BlockTags.MINEABLE_WITH_AXE).add(TABlocks.AURORIAN_CRAFTING_TABLE.get(), TABlocks.BLUEBERRY_BUSH.get(),
                 TABlocks.VERTICAL_SILENT_WOOD_STAIRS.get(), TABlocks.VERTICAL_SILENT_WOOD_SLAB.get(), TABlocks.SILENT_WOOD_CHEST.get());
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(TABlocks.MOON_SAND.get(), TABlocks.AURORIAN_FARM_TILE.get(),
                 TABlocks.AURORIAN_DIRT.get(), TABlocks.AURORIAN_GRASS_BLOCK.get(),

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_trapdoor_bottom",
   "textures": {
-    "texture": "theaurorian:block/weeping_willow_planks"
+    "texture": "theaurorian:block/weeping_willow_trapdoor"
   }
 }

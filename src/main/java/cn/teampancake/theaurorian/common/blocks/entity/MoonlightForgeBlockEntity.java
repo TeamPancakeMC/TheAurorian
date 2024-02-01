@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.common.items.crafting.MoonlightForgeRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TARecipes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
@@ -12,6 +13,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Container;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -22,11 +24,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
+public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implements WorldlyContainer {
 
     public int craftProgress;
     public boolean hasMoonLight, isCrafting, isPowered;
     private final RecipeManager.CachedCheck<Container, ? extends MoonlightForgeRecipe> quickCheck;
+    private static final int[] SLOTS_FOR_UP = new int[]{0};
+    private static final int[] SLOTS_FOR_DOWN = new int[]{2, 1};
+    private static final int[] SLOTS_FOR_SIDES = new int[]{1};
 
     public MoonlightForgeBlockEntity(BlockPos pos, BlockState blockState) {
         super(TABlockEntityTypes.MOONLIGHT_FORGE.get(), pos, blockState);
@@ -93,7 +98,6 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
         }
     }
 
-
     public boolean isCrafting() {
         return !this.isPowered && this.hasMoonLight && this.craftProgress > 0;
     }
@@ -132,17 +136,41 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity {
 	@Override
 	public void load(CompoundTag tag) {
 		super.load(tag);
-		hasMoonLight = tag.getBoolean("has_moonlight");
-		isPowered = tag.getBoolean("is_powered");
-		craftProgress = tag.getInt("craft_progress");
+        this.hasMoonLight = tag.getBoolean("has_moonlight");
+        this.isPowered = tag.getBoolean("is_powered");
+        this.craftProgress = tag.getInt("craft_progress");
 	}
 
 	@Override
 	public void saveAdditional(CompoundTag tag) {
 		super.saveAdditional(tag);
-		tag.putInt("craft_progress", craftProgress);
-		tag.putBoolean("is_powered", isPowered);
-		tag.putBoolean("has_moonlight", hasMoonLight);
+		tag.putInt("craft_progress", this.craftProgress);
+		tag.putBoolean("is_powered", this.isPowered);
+		tag.putBoolean("has_moonlight", this.hasMoonLight);
 	}
+
+    @Override
+    public boolean canPlaceItem(int index, ItemStack stack) {
+        return index != 2;
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        if (side == Direction.DOWN) {
+            return SLOTS_FOR_DOWN;
+        } else {
+            return side == Direction.UP ? SLOTS_FOR_UP : SLOTS_FOR_SIDES;
+        }
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int index, ItemStack itemStack, @Nullable Direction direction) {
+        return this.canPlaceItem(index, itemStack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
+        return index == 2;
+    }
 
 }

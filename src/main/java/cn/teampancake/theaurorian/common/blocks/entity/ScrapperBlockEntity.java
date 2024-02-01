@@ -1,14 +1,18 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
+import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.inventory.ScrapperMenu;
 import cn.teampancake.theaurorian.common.items.crafting.ScrapperRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
+import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TARecipes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
@@ -20,11 +24,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public class ScrapperBlockEntity extends SimpleContainerBlockEntity {
+public class ScrapperBlockEntity extends SimpleContainerBlockEntity implements WorldlyContainer {
 
     public int scrapTime;
     private final ContainerData containerData = new Data();
     private final RecipeManager.CachedCheck<Container, ? extends ScrapperRecipe> quickCheck;
+    private static final int[] SLOTS_FOR_UP = new int[]{0};
+    private static final int[] SLOTS_FOR_DOWN = new int[]{2, 1};
+    private static final int[] SLOTS_FOR_SIDES = new int[]{1};
 
     public ScrapperBlockEntity(BlockPos pos, BlockState blockState) {
         super(TABlockEntityTypes.SCRAPPER.get(), pos, blockState);
@@ -99,6 +106,38 @@ public class ScrapperBlockEntity extends SimpleContainerBlockEntity {
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.putInt("ScrapTime", this.scrapTime);
+    }
+
+    @Override
+    public boolean canPlaceItem(int index, ItemStack stack) {
+        if (index == 2) {
+            return false;
+        } else if (index == 1) {
+            return stack.is(TAItems.CRYSTAL.get());
+        } else if (index == 0) {
+            return stack.isDamageableItem();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        if (side == Direction.DOWN) {
+            return SLOTS_FOR_DOWN;
+        } else {
+            return side == Direction.UP ? SLOTS_FOR_UP : SLOTS_FOR_SIDES;
+        }
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int index, ItemStack itemStack, @Nullable Direction direction) {
+        return this.canPlaceItem(index, itemStack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
+        return index == 2;
     }
 
     @Override

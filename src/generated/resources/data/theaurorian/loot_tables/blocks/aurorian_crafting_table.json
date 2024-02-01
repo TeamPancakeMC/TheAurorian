@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "theaurorian:silent_wood_crafting_table"
+          "name": "theaurorian:aurorian_crafting_table"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "theaurorian:blocks/silent_wood_crafting_table"
+  "random_sequence": "theaurorian:blocks/aurorian_crafting_table"
 }

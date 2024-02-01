@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "theaurorian:block/silent_tree_planks",
+    "east": "theaurorian:block/aurorian_crafting_table_side",
+    "north": "theaurorian:block/aurorian_crafting_table_front",
+    "particle": "theaurorian:block/aurorian_crafting_table_front",
+    "south": "theaurorian:block/aurorian_crafting_table_front",
+    "up": "theaurorian:block/aurorian_crafting_table_top",
+    "west": "theaurorian:block/aurorian_crafting_table_side"
+  }
+}

@@ -51,6 +51,7 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_WATER_MUSHROOM = BLOCKS.register("aurorian_water_mushroom", () -> new AurorianWaterSurfacePlant(Block.box(4.0D, 0.0D, 4.0D, 12.0D, 10.5D, 12.0D)));
     public static final RegistryObject<Block> AURORIAN_FURNACE = register("aurorian_furnace", () -> new AurorianFurnace(defaultStoneProperties(3.5F)));
     public static final RegistryObject<Block> AURORIAN_FURNACE_CHIMNEY = register("aurorian_furnace_chimney", () -> new AurorianFurnaceChimney(defaultStoneProperties(2.0F)));
+    public static final RegistryObject<Block> AURORIAN_CRAFTING_TABLE = register("aurorian_crafting_table", AurorianCraftingTable::new);
     public static final RegistryObject<Block> AURORIAN_PORTAL = BLOCKS.register("aurorian_portal", () -> new AurorianPortal(copy(Blocks.NETHER_PORTAL)));
     public static final RegistryObject<Block> AURORIAN_PORTAL_FRAME_BRICKS = register("aurorian_portal_frame_bricks", () -> new AurorianPortalFrame(defaultStoneProperties(2.0F)));
     public static final RegistryObject<Block> URN = register("urn", () -> new UrnBlock(of().mapColor(MapColor.STONE).instabreak().sound(SoundType.GLASS)));
@@ -144,7 +145,7 @@ public class TABlocks {
     public static final RegistryObject<Block> SMOOTH_MOON_SANDSTONE = normal("smooth_moon_sandstone", copy(Blocks.SMOOTH_SANDSTONE));
     public static final RegistryObject<Block> BRIGHT_MOON_SAND =  register("bright_moon_sand", () -> new SandBlock(14406560, copy(Blocks.SAND)));
     public static final RegistryObject<Block> BRIGHT_MOON_SANDSTONE = normal("bright_moon_sandstone", copy(Blocks.SANDSTONE));
-    public static final RegistryObject<Block> MOON_TORCH = register("moon_torch", () -> new TorchBlock(copy(Blocks.TORCH), ParticleTypes.CLOUD));
+    public static final RegistryObject<Block> MOON_TORCH = BLOCKS.register("moon_torch", () -> new TorchBlock(copy(Blocks.TORCH), ParticleTypes.CLOUD));
     public static final RegistryObject<Block> MOON_WALL_TORCH = BLOCKS.register("moon_wall_torch", () -> new WallTorchBlock(copy(Blocks.WALL_TORCH), ParticleTypes.CLOUD));
     public static final RegistryObject<Block> SCRAPPER = register("scrapper", () -> new Scrapper(defaultStoneProperties(2.0F)));
     public static final RegistryObject<Block> UMBRA_STONE = normal("umbra_stone", defaultStoneProperties(5.0F));
@@ -157,10 +158,9 @@ public class TABlocks {
     public static final RegistryObject<Block> SILENT_TREE_LOG = wood("silent_tree_log", STRIPPED_SILENT_TREE_LOG, MapColor.COLOR_BLUE, 2.0F);
     public static final RegistryObject<Block> SILENT_TREE_WOOD = wood("silent_tree_wood", STRIPPED_SILENT_TREE_WOOD, MapColor.COLOR_BLUE, 2.0F);
     public static final RegistryObject<Block> SILENT_TREE_SAPLING = register("silent_tree_sapling", () -> new SilentTreeSapling(copy(Blocks.OAK_SAPLING)));
-    public static final RegistryObject<Block> SILENT_WOOD_TORCH = register("silent_wood_torch", () -> new TorchBlock(copy(Blocks.TORCH), ParticleTypes.FLAME));
+    public static final RegistryObject<Block> SILENT_WOOD_TORCH = BLOCKS.register("silent_wood_torch", () -> new TorchBlock(copy(Blocks.TORCH), ParticleTypes.FLAME));
     public static final RegistryObject<Block> SILENT_WOOD_WALL_TORCH = BLOCKS.register("silent_wood_wall_torch", () -> new WallTorchBlock(copy(Blocks.WALL_TORCH), ParticleTypes.FLAME));
     public static final RegistryObject<Block> SILENT_WOOD_CHEST = BLOCKS.register("silent_wood_chest", SilentWoodChest::new);
-    public static final RegistryObject<Block> SILENT_WOOD_CRAFTING_TABLE = register("silent_wood_crafting_table", SilentWoodCraftingTable::new);
     public static final RegistryObject<Block> SILENT_WOOD_LADDER = register("silent_wood_ladder", () -> new LadderBlock(copy(Blocks.LADDER)));
     public static final RegistryObject<Block> STRIPPED_WEEPING_WILLOW_LOG = wood("stripped_weeping_willow_log", MapColor.COLOR_LIGHT_GRAY, 2.0F);
     public static final RegistryObject<Block> STRIPPED_WEEPING_WILLOW_WOOD = wood("stripped_weeping_willow_wood", MapColor.COLOR_LIGHT_GRAY, 2.0F);
@@ -279,16 +279,16 @@ public class TABlocks {
     /**
      * Fence Gate Blocks
      */
-    public static final RegistryObject<Block> SILENT_WOOD_FENCE_GATE = fenceGate("silent_wood_fence_gate", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TAWoodType.SILENT_WOOD);
-    public static final RegistryObject<Block> WEEPING_WILLOW_FENCE_GATE = fenceGate("weeping_willow_fence_gate", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS), TAWoodType.WEEPING_WILLOW);
-    public static final RegistryObject<Block> CURTAIN_WOOD_FENCE_GATE = fenceGate("curtain_wood_fence_gate", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TAWoodType.CURTAIN_TREE);
+    public static final RegistryObject<Block> SILENT_WOOD_FENCE_GATE = fenceGate("silent_wood_fence_gate", SILENT_TREE_PLANKS, copy(Blocks.OAK_FENCE_GATE), TAWoodType.SILENT_WOOD);
+    public static final RegistryObject<Block> WEEPING_WILLOW_FENCE_GATE = fenceGate("weeping_willow_fence_gate", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_FENCE_GATE), TAWoodType.WEEPING_WILLOW);
+    public static final RegistryObject<Block> CURTAIN_WOOD_FENCE_GATE = fenceGate("curtain_wood_fence_gate", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_FENCE_GATE), TAWoodType.CURTAIN_TREE);
 
     /**
      * Trapdoor Blocks
      */
-    public static final RegistryObject<Block> SILENT_WOOD_TRAPDOOR = trapdoor("silent_wood_trapdoor", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_TREE);
-    public static final RegistryObject<Block> WEEPING_WILLOW_TRAPDOOR = trapdoor("weeping_willow_trapdoor", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.WEEPING_WILLOW);
-    public static final RegistryObject<Block> CURTAIN_WOOD_TRAPDOOR = trapdoor("curtain_wood_trapdoor", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.CURTAIN_TREE);
+    public static final RegistryObject<Block> SILENT_WOOD_TRAPDOOR = trapdoor("silent_wood_trapdoor", SILENT_TREE_PLANKS, copy(Blocks.OAK_TRAPDOOR), TABlockSetType.SILENT_TREE);
+    public static final RegistryObject<Block> WEEPING_WILLOW_TRAPDOOR = trapdoor("weeping_willow_trapdoor", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_TRAPDOOR), TABlockSetType.WEEPING_WILLOW);
+    public static final RegistryObject<Block> CURTAIN_WOOD_TRAPDOOR = trapdoor("curtain_wood_trapdoor", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_TRAPDOOR), TABlockSetType.CURTAIN_TREE);
 
     /**
      * Button Blocks
@@ -346,9 +346,9 @@ public class TABlocks {
     /**
      * Door Blocks
      */
-    public static final RegistryObject<Block> SILENT_WOOD_DOOR = door("silent_wood_door", SILENT_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.SILENT_TREE);
-    public static final RegistryObject<Block> WEEPING_WILLOW_DOOR = door("weeping_willow_door", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.WEEPING_WILLOW);
-    public static final RegistryObject<Block> CURTAIN_WOOD_DOOR = door("curtain_wood_door", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_PLANKS), TABlockSetType.CURTAIN_TREE);
+    public static final RegistryObject<Block> SILENT_WOOD_DOOR = door("silent_wood_door", SILENT_TREE_PLANKS, copy(Blocks.OAK_DOOR), TABlockSetType.SILENT_TREE);
+    public static final RegistryObject<Block> WEEPING_WILLOW_DOOR = door("weeping_willow_door", WEEPING_WILLOW_PLANKS, copy(Blocks.OAK_DOOR), TABlockSetType.WEEPING_WILLOW);
+    public static final RegistryObject<Block> CURTAIN_WOOD_DOOR = door("curtain_wood_door", CURTAIN_TREE_PLANKS, copy(Blocks.OAK_DOOR), TABlockSetType.CURTAIN_TREE);
 
     /**
      * Slab Blocks

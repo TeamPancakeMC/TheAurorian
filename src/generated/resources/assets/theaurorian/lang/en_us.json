@@ -544,7 +544,6 @@
   "painting.theaurorian.slime": "Slime",
   "theaurorian.container.aurorian_furnace": "Aurorian Furnace",
   "theaurorian.container.moonlight_forge": "Moonlight Forge",
-  "theaurorian.container.scrapper": "Scrapper",
   "tooltips.block.theaurorian.moonlight_forge.gui.no_moonlight": "No Moonlight Detected!",
   "tooltips.block.theaurorian.moonlight_forge.gui.redstone": "Currently disabled by redstone power.",
   "tooltips.item.theaurorian.absorption_orb": "Heals mainhand item when held in offhand!",

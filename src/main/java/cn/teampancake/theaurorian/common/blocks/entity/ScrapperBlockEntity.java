@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.inventory.ScrapperMenu;
 import cn.teampancake.theaurorian.common.items.crafting.ScrapperRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
@@ -11,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -94,6 +94,11 @@ public class ScrapperBlockEntity extends SimpleContainerBlockEntity implements W
         } else {
             return false;
         }
+    }
+
+    @Override
+    protected Component getDefaultName() {
+        return Component.empty();
     }
 
     @Override

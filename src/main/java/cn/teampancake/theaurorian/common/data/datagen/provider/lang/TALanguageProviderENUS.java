@@ -18,7 +18,6 @@ public class TALanguageProviderENUS extends LanguageProvider {
     protected void addTranslations() {
         this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "The Aurorian");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "The Aurorian (Building Materials)");
-        this.add("theaurorian.container.scrapper", "Scrapper");
         this.add("theaurorian.container.moonlight_forge", "Moonlight Forge");
         this.add("theaurorian.container.aurorian_furnace", "Aurorian Furnace");
         this.add("gamerule.enableAurorianBless", "Enable Aurorian Bless");

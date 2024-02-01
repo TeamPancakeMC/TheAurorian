@@ -544,7 +544,6 @@
   "painting.theaurorian.slime": "史莱姆",
   "theaurorian.container.aurorian_furnace": "极光熔炉",
   "theaurorian.container.moonlight_forge": "月光融锻台",
-  "theaurorian.container.scrapper": "粉碎器",
   "tooltips.block.theaurorian.moonlight_forge.gui.no_moonlight": "没有检测到月光！",
   "tooltips.block.theaurorian.moonlight_forge.gui.redstone": "目前已被红石信号禁用！",
   "tooltips.item.theaurorian.absorption_orb": "在副手时会修复你主手持握的物品！",

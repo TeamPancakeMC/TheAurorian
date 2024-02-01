@@ -222,9 +222,11 @@ public class TABlockStateProvider extends BlockStateProvider {
                 this.trapdoorBlockWithRenderType(trapDoorBlock, texture, Boolean.TRUE, CUTOUT);
                 this.simpleBlockItem(trapDoorBlock, this.models().trapdoorBottom(this.name(trapDoorBlock), texture));
             } else if (block instanceof ButtonBlockWithBase buttonBlock) {
+                String name = this.name(buttonBlock) + "_inventory";
                 ResourceLocation texture = this.blockTexture(buttonBlock.getBase());
+                ModelFile buttonInventory = this.models().buttonInventory(name, texture);
                 this.buttonBlock(buttonBlock, texture);
-                this.simpleBlockItem(buttonBlock, this.models().buttonInventory(this.name(buttonBlock), texture));
+                this.simpleBlockItem(buttonBlock, buttonInventory);
             } else if (block instanceof StairBlock stairBlock) {
                 this.stairsBlock(stairBlock, this.blockTexture(stairBlock.base));
             } else if (block instanceof FenceBlockWithBase fenceBlock) {
@@ -233,7 +235,9 @@ public class TABlockStateProvider extends BlockStateProvider {
                 this.simpleBlockItem(fenceBlock, this.models().fenceInventory(this.name(fenceBlock), texture));
             } else if (block instanceof DoorBlockWithBase doorBlock) {
                 String name = "block/" + this.name(doorBlock) + "_";
-                this.doorBlockWithRenderType(doorBlock, this.modLoc(name + "bottom"), this.modLoc(name + "top"), CUTOUT);
+                this.doorBlockWithRenderType(doorBlock,
+                        this.modLoc(name + "bottom"),
+                        this.modLoc(name + "top"), CUTOUT);
             } else if (block instanceof SlabBlockWithBase slabBlock) {
                 ResourceLocation texture = this.blockTexture(slabBlock.getBase());
                 this.slabBlock(slabBlock, texture, texture);

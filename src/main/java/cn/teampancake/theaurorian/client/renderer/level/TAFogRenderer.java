@@ -12,7 +12,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.biome.BiomeManager;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 
@@ -62,13 +61,10 @@ public class TAFogRenderer {
             biomeChangedTime = -1L;
             RenderSystem.clearColor(fogRed, fogGreen, fogBlue, 0.0F);
         } else {
-            BiomeManager biomeManager = level.getBiomeManager();
             float f4 = 0.25F + 0.75F * (float)renderDistanceChunks / 32.0F;
             Vec3 vec3 = TASkyRenderer.getSkyColor(level, activeRenderInfo.getPosition());
-            float f11 = Mth.clamp(Mth.cos(level.getTimeOfDay(partialTicks) * ((float)Math.PI * 2F)) * 2.0F + 0.5F, 0.0F, 1.0F);
             Vec3 vec31 = activeRenderInfo.getPosition().subtract(2.0D, 2.0D, 2.0D).scale(0.25D);
-            Vec3 vec32 = CubicSampler.gaussianSampleVec3(vec31, (x, y, z) -> level.effects().getBrightnessDependentFogColor(
-                    Vec3.fromRGB24(biomeManager.getNoiseBiomeAtQuart(x, y, z).value().getFogColor()), f11));
+            Vec3 vec32 = CubicSampler.gaussianSampleVec3(vec31, (x, y, z) -> vec3);
             f4 = 1.0F - (float)Math.pow(f4, 0.25D);
             fogRed = (float)vec32.x();
             fogGreen = (float)vec32.y();

@@ -260,13 +260,13 @@ public class TARecipeProvider extends RecipeProvider {
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, TAItems.MOONSTONE_INGOT.get(), RecipeCategory.BUILDING_BLOCKS, TABlocks.MOONSTONE_BLOCK.get());
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, TAItems.AURORIAN_COAL.get(), RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_COAL_BLOCK.get());
         nineBlockStorageRecipes(consumer, RecipeCategory.MISC, TAItems.AURORIAN_STEEL.get(), RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_STEEL_BLOCK.get());
+        oreSmelting(consumer, List.of(TABlocks.MOONSTONE_ORE.get(), TAItems.RAW_MOONSTONE.get()), RecipeCategory.MISC, TAItems.MOONSTONE_INGOT.get(), (0.1F), (200), "moonstone");
+        oreSmelting(consumer, List.of(TABlocks.CERULEAN_ORE.get(), TAItems.RAW_CERULEAN.get()), RecipeCategory.MISC, TAItems.CERULEAN_INGOT.get(), (0.1F), (200), "cerulean");
         oreSmelting(consumer, List.of(TABlocks.AURORIAN_COAL_ORE.get()), RecipeCategory.MISC, TAItems.AURORIAN_COAL.get(), (0.1F), (200), "aurorian_coal");
-        oreSmelting(consumer, List.of(TABlocks.MOONSTONE_ORE.get()), RecipeCategory.MISC, TAItems.MOONSTONE_INGOT.get(), (0.1F), (200), "MOONSTONE_");
-        oreSmelting(consumer, List.of(TABlocks.CERULEAN_ORE.get()), RecipeCategory.MISC, TAItems.CERULEAN_INGOT.get(), (0.1F), (200), "cerulean");
         oreSmelting(consumer, List.of(TABlocks.GEODE_ORE.get()), RecipeCategory.MISC, TAItems.CRYSTAL.get(), (0.1F), (200), "geode");
+        oreBlasting(consumer, List.of(TABlocks.MOONSTONE_ORE.get(), TAItems.RAW_MOONSTONE.get()), RecipeCategory.MISC, TAItems.MOONSTONE_INGOT.get(), (0.1F), (200), "moonstone");
+        oreBlasting(consumer, List.of(TABlocks.CERULEAN_ORE.get(), TAItems.RAW_CERULEAN.get()), RecipeCategory.MISC, TAItems.CERULEAN_INGOT.get(), (0.1F), (200), "cerulean");
         oreBlasting(consumer, List.of(TABlocks.AURORIAN_COAL_ORE.get()), RecipeCategory.MISC, TAItems.AURORIAN_COAL.get(), (0.1F), (200), "aurorian_coal");
-        oreBlasting(consumer, List.of(TABlocks.MOONSTONE_ORE.get()), RecipeCategory.MISC, TAItems.MOONSTONE_INGOT.get(), (0.1F), (200), "MOONSTONE_");
-        oreBlasting(consumer, List.of(TABlocks.CERULEAN_ORE.get()), RecipeCategory.MISC, TAItems.CERULEAN_INGOT.get(), (0.1F), (200), "cerulean");
         oreBlasting(consumer, List.of(TABlocks.GEODE_ORE.get()), RecipeCategory.MISC, TAItems.CRYSTAL.get(), (0.1F), (200), "geode");
         planksFromLogs(consumer, TABlocks.SILENT_TREE_PLANKS.get(), TAItemTags.SILENT_TREE_LOGS, 4);
         planksFromLogs(consumer, TABlocks.WEEPING_WILLOW_PLANKS.get(), TAItemTags.WEEPING_WILLOW_LOGS, 4);

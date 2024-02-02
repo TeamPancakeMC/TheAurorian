@@ -1,11 +1,11 @@
 {
-  "type": "minecraft:smelting",
+  "type": "minecraft:blasting",
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.1,
   "group": "moonstone",
   "ingredient": {
-    "item": "theaurorian:moonstone_ore"
+    "item": "theaurorian:raw_moonstone"
   },
   "result": "theaurorian:moonstone_ingot"
 }

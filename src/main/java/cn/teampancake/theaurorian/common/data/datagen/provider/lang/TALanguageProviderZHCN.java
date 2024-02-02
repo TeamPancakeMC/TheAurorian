@@ -408,6 +408,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIANITE_AXE.get(), "极光斧");
         this.add(TAItems.AURORIANITE_PICKAXE.get(), "极光镐");
         this.add(TAItems.BEPSI.get(), "旦事可乐");
+        this.add(TAItems.RAW_CERULEAN.get(), "粗晶蓝矿");
         this.add(TAItems.CERULEAN_ARROW.get(), "晶蓝箭");
         this.add(TAItems.CERULEAN_INGOT.get(), "晶蓝锭");
         this.add(TAItems.CERULEAN_NUGGET.get(), "晶蓝粒");
@@ -444,6 +445,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.MOON_FISH_BUCKET.get(), "皎月鱼桶");
         this.add(TAItems.LOCK_PICKS.get(), "开锁器");
         this.add(TAItems.DEVELOPER_GIFT.get(), "开发者礼物");
+        this.add(TAItems.RAW_MOONSTONE.get(), "粗皎月石");
         this.add(TAItems.MOON_ACOLYTE_SPAWN_EGG.get(), "皎月侍从刷怪蛋");
         this.add(TAItems.MOON_QUEEN_SPAWN_EGG.get(), "皎月女王刷怪蛋");
         this.add(TAItems.MOONSTONE_INGOT.get(), "皎月石锭");

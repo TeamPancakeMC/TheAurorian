@@ -215,6 +215,8 @@ public class TAItems {
     /**
      * Materials
      */
+    public static final RegistryObject<Item> RAW_CERULEAN = normal("raw_cerulean", false);
+    public static final RegistryObject<Item> RAW_MOONSTONE = normal("raw_moonstone", false);
     public static final RegistryObject<Item> AURORIAN_COAL = normal("aurorian_coal", true);
     public static final RegistryObject<Item> AURORIANITE_INGOT = normal("aurorianite_ingot", true);
     public static final RegistryObject<Item> AURORIAN_STEEL = normal("aurorian_steel", true);

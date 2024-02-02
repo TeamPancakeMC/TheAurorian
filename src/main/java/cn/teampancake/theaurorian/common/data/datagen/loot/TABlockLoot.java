@@ -54,8 +54,6 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.AURORIAN_FLOWER_3.get());
         this.dropSelf(TABlocks.EQUINOX_FLOWER.get());
         this.dropSelf(TABlocks.WICK_GRASS.get());
-        this.dropSelf(TABlocks.CERULEAN_ORE.get());
-        this.dropSelf(TABlocks.MOONSTONE_ORE.get());
         this.dropSelf(TABlocks.CERULEAN_BLOCK.get());
         this.dropSelf(TABlocks.MOONSTONE_BLOCK.get());
         this.dropSelf(TABlocks.INDIGO_MUSHROOM.get());
@@ -111,6 +109,8 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropNuggets(TABlocks.LARGE_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 5.0F, 6.0F);
         this.dropNuggets(TABlocks.MEDIUM_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 3.0F, 4.0F);
         this.dropNuggets(TABlocks.SMALL_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 0.0F, 2.0F);
+        this.add(TABlocks.MOONSTONE_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_MOONSTONE.get()));
+        this.add(TABlocks.CERULEAN_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_CERULEAN.get()));
         this.add(TABlocks.GEODE_ORE.get(), block -> this.createOreDrop(block, TAItems.CRYSTAL.get()));
         this.add(TABlocks.AURORIAN_COAL_ORE.get(), block -> this.createOreDrop(block, TAItems.AURORIAN_COAL.get()));
         this.add(TABlocks.INDIGO_MUSHROOM_BLOCK.get(), block -> createMushroomBlockDrop(block, TABlocks.INDIGO_MUSHROOM.get()));

@@ -3,9 +3,9 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.1,
-  "group": "moonstone",
+  "group": "cerulean",
   "ingredient": {
-    "item": "theaurorian:moonstone_ore"
+    "item": "theaurorian:raw_cerulean"
   },
-  "result": "theaurorian:moonstone_ingot"
+  "result": "theaurorian:cerulean_ingot"
 }

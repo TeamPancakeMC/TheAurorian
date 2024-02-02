@@ -407,6 +407,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIANITE_AXE.get(),"Aurorianite Axe");
         this.add(TAItems.AURORIANITE_PICKAXE.get(),"Aurorianite Pickaxe");
         this.add(TAItems.BEPSI.get(),"Bepsi");
+        this.add(TAItems.RAW_CERULEAN.get(), "Raw Cerulean");
         this.add(TAItems.CERULEAN_ARROW.get(),"Cerulean Arrow");
         this.add(TAItems.CERULEAN_INGOT.get(),"Cerulean Ingot");
         this.add(TAItems.CERULEAN_NUGGET.get(),"Cerulean Nugget");
@@ -444,6 +445,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.MOON_FISH_BUCKET.get(), "Moon Fish Bucket");
         this.add(TAItems.LOCK_PICKS.get(),"Lock Picks");
         this.add(TAItems.DEVELOPER_GIFT.get(), "Developer Gift");
+        this.add(TAItems.RAW_MOONSTONE.get(), "Raw Moonstone");
         this.add(TAItems.MOON_ACOLYTE_SPAWN_EGG.get(),"Moon Acolyte Spawn Egg");
         this.add(TAItems.MOON_QUEEN_SPAWN_EGG.get(),"Moon Queen Spawn Egg");
         this.add(TAItems.MOONSTONE_INGOT.get(),"Moonstone Ingot");

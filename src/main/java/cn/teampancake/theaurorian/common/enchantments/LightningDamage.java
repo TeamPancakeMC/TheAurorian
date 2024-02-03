@@ -9,29 +9,23 @@ import org.jetbrains.annotations.NotNull;
 
 public class LightningDamage extends Enchantment {
 
-	public static final String NAME = "lightning";
-	private static final int LEVEL_COST_MIN = 5;
-	private static final int LEVEL_COST = 15;
-	private static final int LEVEL_MAX = 20;
-	private static final int TIERS_MAX = 4;
-
 	public LightningDamage() {
-		super(Enchantment.Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] { EquipmentSlot.MAINHAND });
+		super(Enchantment.Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
 	}
 
 	@Override
 	public int getMaxLevel() {
-		return TIERS_MAX;
+		return 4;
 	}
 
 	@Override
 	public int getMinCost(int enchantmentLevel) {
-		return LEVEL_COST_MIN + (enchantmentLevel - 1) * LEVEL_COST;
+		return 5 + (enchantmentLevel - 1) * 15;
 	}
 
 	@Override
 	public int getMaxCost(int enchantmentLevel) {
-		return this.getMinCost(enchantmentLevel) + LEVEL_MAX;
+		return this.getMinCost(enchantmentLevel) + 20;
 	}
 
 	@Override
@@ -42,4 +36,5 @@ public class LightningDamage extends Enchantment {
 	public boolean canEnchant(ItemStack stack) {
 		return stack.getItem() instanceof AxeItem || super.canApplyAtEnchantingTable(stack);
 	}
+
 }

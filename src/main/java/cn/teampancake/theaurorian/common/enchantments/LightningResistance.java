@@ -1,37 +1,31 @@
 package cn.teampancake.theaurorian.common.enchantments;
 
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.item.enchantment.Enchantments;
 import org.jetbrains.annotations.NotNull;
 
 public class LightningResistance extends Enchantment {
 
-	public static final String NAME = "lightning_resistance";
-	private static final int LEVEL_COST_MIN = 10;
-	private static final int LEVEL_COST = 15;
-	private static final int LEVEL_MAX = 30;
-	private static final int TIERS_MAX = 1;
-
 	public LightningResistance() {
-		super(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR, new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET});
+		super(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR, Enchantments.ARMOR_SLOTS);
 	}
 
 	@Override
 	public int getMaxLevel() {
-		return TIERS_MAX;
+		return 1;
 	}
 
 	@Override
 	public int getMinCost(int enchantmentLevel) {
-		return LEVEL_COST_MIN + (enchantmentLevel - 1) * LEVEL_COST;
+		return 10 + (enchantmentLevel - 1) * 15;
 	}
 
 	@Override
 	public int getMaxCost(int enchantmentLevel) {
-		return this.getMinCost(enchantmentLevel) + LEVEL_MAX;
+		return this.getMinCost(enchantmentLevel) + 30;
 	}
 
 	@Override
@@ -42,4 +36,5 @@ public class LightningResistance extends Enchantment {
 	public boolean canEnchant(ItemStack stack) {
 		return stack.getItem() instanceof ArmorItem || super.canApplyAtEnchantingTable(stack);
 	}
+
 }

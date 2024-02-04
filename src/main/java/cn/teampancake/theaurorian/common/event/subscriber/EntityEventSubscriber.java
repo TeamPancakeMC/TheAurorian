@@ -28,18 +28,13 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -124,6 +119,7 @@ public class EntityEventSubscriber {
                 }
             }
         }
+
         DamageSource source = event.getSource();
         if (source.getEntity() instanceof LivingEntity livingEntity) {
             float chance = 0.00F;
@@ -145,22 +141,6 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onProjectileImpact(ProjectileImpactEvent event) {
-        HitResult hitResult = event.getRayTraceResult();
-        if (hitResult instanceof EntityHitResult entityHitResult) {
-            Entity resultEntity = entityHitResult.getEntity();
-            Projectile projectile = event.getProjectile();
-            if (resultEntity instanceof LivingEntity livingEntity && projectile instanceof AbstractArrow arrow && arrow.getOwner() instanceof Player player) {
-                if (player.getItemInHand(player.getUsedItemHand()).is(TAItems.STAR_OCEAN_CROSSBOW.get())) {
-                    MobEffectInstance mobEffect = new MobEffectInstance(MobEffects.GLOWING, 200, 0);
-                    livingEntity.addEffect(mobEffect, arrow.getEffectSource());
-                }
-            }
-        }
-    }
-
-
-    @SubscribeEvent
     public static void playerBreakSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
         BlockState state = event.getState();
@@ -175,7 +155,7 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onKilledMob(LivingDeathEvent event){
+    public static void onKilledMob(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer serverPlayer) {
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(TAItems.TSLAT_SWORD.get())) {
@@ -186,7 +166,7 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void additionDamage(LivingAttackEvent event){
+    public static void additionDamage(LivingAttackEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer serverPlayer){
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(TAItems.TSLAT_SWORD.get()) && !event.getEntity().isDamageSourceBlocked(event.getSource())) {

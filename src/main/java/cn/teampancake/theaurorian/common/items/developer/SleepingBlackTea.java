@@ -12,4 +12,5 @@ public class SleepingBlackTea extends TeaFood implements IDeveloperItem {
         super(new Item.Properties().food(new FoodProperties.Builder().effect(
                 () -> new MobEffectInstance(TAMobEffects.STUN.get(), 100), 1.0F).build()));
     }
+
 }

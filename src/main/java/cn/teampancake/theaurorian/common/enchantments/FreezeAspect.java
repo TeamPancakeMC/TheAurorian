@@ -33,7 +33,7 @@ public class FreezeAspect extends Enchantment {
     public void doPostAttack(LivingEntity attacker, Entity target, int level) {
         if (target instanceof LivingEntity livingEntity) {
             int duration = 100 + level * 20;
-            livingEntity.addEffect(new MobEffectInstance(TAMobEffects.FREEZE.get(), duration, level));
+            livingEntity.addEffect(new MobEffectInstance(TAMobEffects.FROSTBITE.get(), duration, level));
         }
     }
 

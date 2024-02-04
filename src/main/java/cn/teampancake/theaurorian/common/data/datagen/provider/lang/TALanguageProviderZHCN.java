@@ -557,14 +557,16 @@ public class TALanguageProviderZHCN extends LanguageProvider {
 
         //MOB EFFECT
         this.add(TAMobEffects.STUN.get(), "眩晕");
-        this.add(TAMobEffects.PRESSURE.get(), "威压");
         this.add(TAMobEffects.BROKEN.get(),"破盾");
+        this.add(TAMobEffects.PRESSURE.get(), "威压");
+        this.add(TAMobEffects.FROSTBITE.get(), "冻伤");
 
         //MOD ENCHANTMENT
-        this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "雷电抵御");
+        this.add(TAEnchantments.FREEZE_ASPECT.get(), "冰霜附加");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get(), "雷电");
-        this.add(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId() + ".desc", "降低“雷电”魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");
+        this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "雷电抵御");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId() + ".desc", "根据对方穿戴的护甲数量造成额外伤害");
+        this.add(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId() + ".desc", "降低“雷电”魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");
 
         //MOD PAINTING
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.AURORIAN_STEEL.get()), "极光钢");

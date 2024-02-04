@@ -557,14 +557,16 @@ public class TALanguageProviderENUS extends LanguageProvider {
 
         //MOB EFFECT
         this.add(TAMobEffects.STUN.get(), "Stun");
-        this.add(TAMobEffects.PRESSURE.get(), "Pressure");
         this.add(TAMobEffects.BROKEN.get(),"Broken");
+        this.add(TAMobEffects.PRESSURE.get(), "Pressure");
+        this.add(TAMobEffects.FROSTBITE.get(), "Frostbite");
 
         //MOD ENCHANTMENT
-        this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "Lightning Resistance");
+        this.add(TAEnchantments.FREEZE_ASPECT.get(), "Freeze Aspect");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get(), "Lightning");
-        this.add(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId() + ".desc", "Negates damage that would have been done by lightning enchantment");
+        this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "Lightning Resistance");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId()+ ".desc", "Does extra damage depending on how much armor the target is wearing");
+        this.add(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId() + ".desc", "Negates damage that would have been done by lightning enchantment");
 
         //MOD PAINTING
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.AURORIAN_STEEL.get()), "Aurorian Steel");

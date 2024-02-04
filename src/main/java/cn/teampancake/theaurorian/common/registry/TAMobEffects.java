@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.effect.FreezeEffect;
+import cn.teampancake.theaurorian.common.effect.FrostbiteEffect;
 import cn.teampancake.theaurorian.common.effect.PressureEffect;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
 import cn.teampancake.theaurorian.common.effect.TempShieldEffect;
@@ -9,12 +9,10 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-@Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TAMobEffects {
 
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, AurorianMod.MOD_ID);
@@ -24,6 +22,6 @@ public class TAMobEffects {
     public static final RegistryObject<MobEffect> BROKEN = MOB_EFFECTS.register("broken", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0xFF808080));
     public static final RegistryObject<MobEffect> TEMP_SHIELD = MOB_EFFECTS.register("temp_shield", TempShieldEffect::new);
     public static final RegistryObject<MobEffect> PRESSURE = MOB_EFFECTS.register("pressure", PressureEffect::new);
-    public static final RegistryObject<MobEffect> FREEZE = MOB_EFFECTS.register("freeze", FreezeEffect::new);
+    public static final RegistryObject<MobEffect> FROSTBITE = MOB_EFFECTS.register("frostbite", FrostbiteEffect::new);
 
 }

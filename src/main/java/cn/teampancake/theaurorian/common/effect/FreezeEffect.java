@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.effect;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -23,6 +22,7 @@ public class FreezeEffect extends TAMobEffect {
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         Level level = livingEntity.level();
         if (!level.isClientSide) {
+            livingEntity.setTicksFrozen(140);
             livingEntity.setSharedFlagOnFire(false);
             livingEntity.hurt(livingEntity.damageSources().freeze(), amplifier);
         } else {

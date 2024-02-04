@@ -8,7 +8,7 @@
 		"legs": "theaurorian:block/moon_gem",
 		"particle": "theaurorian:block/aurorian_furnace_top",
 		"sides": "theaurorian:block/aurorian_furnace_side",
-		"top": "theaurorian:block/silent_wood_crafting_table_top"
+		"top": "theaurorian:block/aurorian_crafting_table_top"
 	},
 	"elements": [
 		{

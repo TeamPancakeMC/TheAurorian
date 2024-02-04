@@ -16,6 +16,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -26,8 +27,9 @@ import javax.annotation.Nullable;
 
 public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implements WorldlyContainer {
 
-    public int craftProgress;
+    private int craftProgress;
     public boolean hasMoonLight, isCrafting, isPowered;
+    private final ContainerData containerData = new Data();
     private final RecipeManager.CachedCheck<Container, ? extends MoonlightForgeRecipe> quickCheck;
     private static final int[] SLOTS_FOR_UP = new int[]{0};
     private static final int[] SLOTS_FOR_DOWN = new int[]{2, 1};
@@ -40,11 +42,12 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
 
     @SuppressWarnings("unused")
     public static void serverTick(Level level, BlockPos pos, BlockState state, MoonlightForgeBlockEntity blockEntity) {
-        if (!level.isClientSide() && !blockEntity.handler.getStackInSlot(0).isEmpty()) {
-            MoonlightForgeRecipe recipe = blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null);
+        if (!level.isClientSide()) {
             ItemStack equipment = blockEntity.handler.getStackInSlot(0);
             ItemStack upgradeMaterial = blockEntity.handler.getStackInSlot(1);
             NonNullList<ItemStack> inventory = blockEntity.handler.getStacks();
+            MoonlightForgeRecipe recipe = !equipment.isEmpty() ? blockEntity.quickCheck
+                    .getRecipeFor(blockEntity, level).orElse(null) : null;
             blockEntity.isPowered = level.hasNeighborSignal(pos);
             blockEntity.hasMoonLight = level.canSeeSky(pos.above()) && level.isNight();
             blockEntity.isCrafting = blockEntity.canWork(level.registryAccess(), recipe, inventory);
@@ -116,11 +119,6 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
         }
     }
 
-    @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new MoonlightForgeMenu(containerId, inventory, this);
-    }
-
 	@Override
 	public CompoundTag getUpdateTag() {
 		CompoundTag nbt = super.getUpdateTag();
@@ -171,6 +169,36 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
     @Override
     public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
         return index == 2;
+    }
+
+    @Override
+    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
+        return new MoonlightForgeMenu(containerId, inventory, this, this.containerData);
+    }
+
+    private class Data implements ContainerData {
+
+        @Override
+        public int get(int index) {
+            if (index == 0) {
+                return craftProgress;
+            } else {
+                return 0;
+            }
+        }
+
+        @Override
+        public void set(int index, int value) {
+            if (index == 0) {
+                craftProgress = value;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 1;
+        }
+
     }
 
 }

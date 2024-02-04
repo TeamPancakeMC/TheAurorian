@@ -67,7 +67,7 @@ public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForge
             guiGraphics.blit(CONTAINER_LOCATION, i + 49, j + 31, 176, 0, 24, 24);
         }
 
-        if (blockEntity.craftProgress > 0) {
+        if (this.menu.getCraftProgress() > 0) {
             if (!blockEntity.isPowered && blockEntity.hasMoonLight) {
                 poseStack.pushPose();
                 float x = (float) (i + 49 + 12);
@@ -82,7 +82,7 @@ public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForge
                 this.craftRotation = 0.0f;
             }
 
-            int scaled = (int) (((float) blockEntity.craftProgress / 100) * 24);
+            int scaled = (int) (((float) this.menu.getCraftProgress() / 100) * 24);
             guiGraphics.blit(CONTAINER_LOCATION, i + 107, j + 35, 176, 24, scaled, 17);
         }
     }

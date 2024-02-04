@@ -5,6 +5,8 @@ import cn.teampancake.theaurorian.common.registry.TAMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -15,20 +17,27 @@ import org.jetbrains.annotations.NotNull;
 public class MoonlightForgeMenu extends AbstractSimpleMenu {
 
     private final MoonlightForgeBlockEntity moonlightForge;
+    private final ContainerData containerData;
 
     public MoonlightForgeMenu(int containerId, Inventory inventory, FriendlyByteBuf extraData) {
-        this(containerId, inventory, inventory.player.level().getBlockEntity(extraData.readBlockPos()));
+        this(containerId, inventory, inventory.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(1));
     }
 
-    public MoonlightForgeMenu(int containerId, Inventory inventory, BlockEntity blockEntity) {
+    public MoonlightForgeMenu(int containerId, Inventory inventory, BlockEntity blockEntity, ContainerData containerData) {
         super(TAMenuTypes.MOONLIGHT_FORGE_MENU.get(), containerId, inventory);
         checkContainerSize(inventory, 3);
         this.moonlightForge = (MoonlightForgeBlockEntity) blockEntity;
+        this.containerData = containerData;
         this.moonlightForge.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             this.addSlot(new SlotItemHandler(itemHandler, 0, 22, 35));
             this.addSlot(new SlotItemHandler(itemHandler, 1, 84, 35));
             this.addSlot(new TAResultSlot(itemHandler, 2, 142, 35));
         });
+        this.addDataSlots(containerData);
+    }
+
+    public int getCraftProgress() {
+        return this.containerData.get(0);
     }
 
     @Override

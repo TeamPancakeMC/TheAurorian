@@ -1,10 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.effect.FrostbiteEffect;
-import cn.teampancake.theaurorian.common.effect.PressureEffect;
-import cn.teampancake.theaurorian.common.effect.TAMobEffect;
-import cn.teampancake.theaurorian.common.effect.TempShieldEffect;
+import cn.teampancake.theaurorian.common.effect.*;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -25,5 +22,6 @@ public class TAMobEffects {
     public static final RegistryObject<MobEffect> TEMP_SHIELD = MOB_EFFECTS.register("temp_shield", TempShieldEffect::new);
     public static final RegistryObject<MobEffect> PRESSURE = MOB_EFFECTS.register("pressure", PressureEffect::new);
     public static final RegistryObject<MobEffect> FROSTBITE = MOB_EFFECTS.register("frostbite", FrostbiteEffect::new);
+    public static final RegistryObject<MobEffect> CONFUSION = MOB_EFFECTS.register("confusion", ConfusionEffect::new);
 
 }

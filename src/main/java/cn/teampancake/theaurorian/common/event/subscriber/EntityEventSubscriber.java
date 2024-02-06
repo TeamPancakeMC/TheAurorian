@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
+import cn.teampancake.theaurorian.common.effect.NatureEffect;
 import cn.teampancake.theaurorian.common.entities.ai.CatFollowCatBellGoal;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
@@ -18,6 +19,7 @@ import cn.teampancake.theaurorian.common.utils.AurorianUtil;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -36,6 +38,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -113,8 +116,18 @@ public class EntityEventSubscriber {
     public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
         if (entity.hasEffect(TAMobEffects.STUN.get()) || entity.hasEffect(TAMobEffects.PARALYSIS.get())) {
-            entity.setDeltaMovement(0.0, 0.0, 0.0);
+            entity.setDeltaMovement(Vec3.ZERO);
         }
+    }
+
+    @SubscribeEvent
+    public static void onLivingHurt(LivingHurtEvent event) {
+        float amount = event.getAmount();
+        DamageSource source = event.getSource();
+        LivingEntity entity = event.getEntity();
+        boolean isHarmfulEffect = source.is(DamageTypes.INDIRECT_MAGIC) || source.is(DamageTypes.MAGIC);
+        event.setCanceled(isHarmfulEffect && entity.hasEffect(TAMobEffects.HOLINESS.get()));
+        event.setAmount(NatureEffect.getDamageAfterMagicAbsorb(entity, source, amount));
     }
 
     @SubscribeEvent

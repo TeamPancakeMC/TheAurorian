@@ -19,9 +19,11 @@ public class TAMobEffects {
             .addAttributeModifier(Attributes.MOVEMENT_SPEED, "3e4b0f9a-243e-4ea0-96ed-240437577f30", (-1), AttributeModifier.Operation.MULTIPLY_TOTAL));
     public static final RegistryObject<MobEffect> WARN = MOB_EFFECTS.register("warm", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xfdefab));
     public static final RegistryObject<MobEffect> BROKEN = MOB_EFFECTS.register("broken", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0x808080));
-    public static final RegistryObject<MobEffect> TEMP_SHIELD = MOB_EFFECTS.register("temp_shield", TempShieldEffect::new);
+    public static final RegistryObject<MobEffect> NATURE = MOB_EFFECTS.register("nature", NatureEffect::new);
+    public static final RegistryObject<MobEffect> HOLINESS = MOB_EFFECTS.register("holiness", HolinessEffect::new);
     public static final RegistryObject<MobEffect> PRESSURE = MOB_EFFECTS.register("pressure", PressureEffect::new);
-    public static final RegistryObject<MobEffect> FROSTBITE = MOB_EFFECTS.register("frostbite", FrostbiteEffect::new);
     public static final RegistryObject<MobEffect> CONFUSION = MOB_EFFECTS.register("confusion", ConfusionEffect::new);
+    public static final RegistryObject<MobEffect> FROSTBITE = MOB_EFFECTS.register("frostbite", FrostbiteEffect::new);
+    public static final RegistryObject<MobEffect> TEMP_SHIELD = MOB_EFFECTS.register("temp_shield", TempShieldEffect::new);
 
 }

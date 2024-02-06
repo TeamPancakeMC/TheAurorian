@@ -558,8 +558,11 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         //MOB EFFECT
         this.add(TAMobEffects.STUN.get(), "眩晕");
         this.add(TAMobEffects.BROKEN.get(),"破盾");
+        this.add(TAMobEffects.NATURE.get(), "自然");
+        this.add(TAMobEffects.HOLINESS.get(), "圣洁");
         this.add(TAMobEffects.PRESSURE.get(), "威压");
         this.add(TAMobEffects.PARALYSIS.get(), "瘫痪");
+        this.add(TAMobEffects.CONFUSION.get(), "混乱");
         this.add(TAMobEffects.FROSTBITE.get(), "冻伤");
         this.add(TAMobEffects.TEMP_SHIELD.get(), "临时护盾");
 

@@ -5,7 +5,6 @@ import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -15,17 +14,10 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class StunEventSubscriber {
+
     @SubscribeEvent
     public static void onPlayerAttack(AttackEntityEvent event) {
         event.setCanceled(event.getEntity().hasEffect(TAMobEffects.STUN.get()));
-    }
-
-    @SubscribeEvent
-    public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
-        LivingEntity entity = event.getEntity();
-        if (entity.hasEffect(TAMobEffects.STUN.get())) {
-            entity.setDeltaMovement(0.0, 0.0, 0.0);
-        }
     }
 
     @SubscribeEvent

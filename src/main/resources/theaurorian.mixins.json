@@ -11,7 +11,9 @@
         "MixinWorldOptions",
         "PlayerListMixin"
     ],
-    "client": [],
+    "client": [
+        "MixinHumanoidModel"
+    ],
     "injectors": {
         "defaultRequire": 1
   }

@@ -7,8 +7,7 @@ import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
-import cn.teampancake.theaurorian.common.registry.TAFluidTypes;
-import net.minecraft.client.Camera;
+import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -17,12 +16,13 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.material.FogType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
+import net.minecraftforge.client.event.MovementInputUpdateEvent;
+import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, value = Dist.CLIENT)
@@ -32,14 +32,17 @@ public class ClientEventSubscriber {
     private static final ResourceLocation SPIDER_MOTHER_BARS = AurorianMod.prefix("textures/gui/spider_mother_bars.png");
     private static final ResourceLocation MOON_QUEEN_BARS = AurorianMod.prefix("textures/gui/moon_queen_bars.png");
 
-
     @SubscribeEvent
     public static void onMovementInputUpdate(MovementInputUpdateEvent event) {
-        var input = event.getInput();
-        var player = (LocalPlayer) event.getEntity();
-        for (var entry : player.getActiveEffectsMap().entrySet()) {
-            if (entry.getKey() instanceof ConfusionEffect effect) {
-                effect.onMovementInputUpdate(entry.getValue().getAmplifier(), input, player);
+        Input input = event.getInput();
+        Player player = event.getEntity();
+        if (player instanceof LocalPlayer localPlayer) {
+            for (var entry : localPlayer.getActiveEffectsMap().entrySet()) {
+                if (entry.getKey() instanceof ConfusionEffect effect) {
+                    effect.onMovementInputUpdate(entry.getValue().getAmplifier(), input, localPlayer);
+                } else if (entry.getKey() == TAMobEffects.PARALYSIS.get()) {
+                    localPlayer.crouching = false;
+                }
             }
         }
     }
@@ -61,8 +64,8 @@ public class ClientEventSubscriber {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static void renderBossBar(CustomizeGuiOverlayEvent.BossEventProgress event, ResourceLocation atlasLocation,
-            Component description, int frameWidth, int frameHeight, int frameYOffset, int barWidth, int barHeight, int barYOffset, int textYOffset, int textColor) {
+    private static void renderBossBar(CustomizeGuiOverlayEvent.BossEventProgress event, ResourceLocation atlasLocation, Component description,
+            int frameWidth, int frameHeight, int frameYOffset, int barWidth, int barHeight, int barYOffset, int textYOffset, int textColor) {
         event.setCanceled(true);
         Font font = Minecraft.getInstance().font;
         GuiGraphics graphics = event.getGuiGraphics();
@@ -82,24 +85,12 @@ public class ClientEventSubscriber {
         float partialTick = (float) event.getPartialTick();
         int renderDistanceChunks = mc.options.getEffectiveRenderDistance();
         float darkenWorldAmount = mc.gameRenderer.getDarkenWorldAmount(partialTick);
-        float[] colors = TAFogRenderer.setupColor(event.getCamera(), partialTick,
-                mc.level, renderDistanceChunks, darkenWorldAmount);
         if (mc.level != null && mc.level.dimension() == TADimensions.AURORIAN_DIMENSION) {
+            float[] colors = TAFogRenderer.setupColor(event.getCamera(), partialTick,
+                    mc.level, renderDistanceChunks, darkenWorldAmount);
             event.setRed(colors[0]);
             event.setGreen(colors[1]);
             event.setBlue(colors[2]);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onRenderFog(ViewportEvent.RenderFog event) {
-        Camera camera = event.getCamera();
-        BlockGetter level = camera.getEntity().level();
-        FluidType fluidType = level.getFluidState(camera.getBlockPosition()).getFluidType();
-        if (event.getType() == FogType.WATER && fluidType == TAFluidTypes.MOON_WATER.get()) {
-            event.setCanceled(true);
-            event.setNearPlaneDistance(-8.0F);
-            event.setFarPlaneDistance(96.0F);
         }
     }
 

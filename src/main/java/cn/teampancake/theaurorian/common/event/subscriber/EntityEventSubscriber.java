@@ -28,17 +28,19 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.Snowball;
+import net.minecraft.world.entity.projectile.ThrownEgg;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingHealEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -108,6 +110,14 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
+    public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity.hasEffect(TAMobEffects.STUN.get()) || entity.hasEffect(TAMobEffects.PARALYSIS.get())) {
+            entity.setDeltaMovement(0.0, 0.0, 0.0);
+        }
+    }
+
+    @SubscribeEvent
     public static void onLivingDamage(LivingDamageEvent event) {
         LivingEntity target = event.getEntity();
         if (target != null) {
@@ -130,11 +140,25 @@ public class EntityEventSubscriber {
                     }
                 }
             }
+
             if (chance != 0.00F && AurorianUtil.randomChanceOf(chance)) {
                 for (MobEffectInstance effectInstance : livingEntity.getActiveEffects()) {
                     if (effectInstance.getEffect().getCategory() == MobEffectCategory.HARMFUL) {
                         livingEntity.removeEffect(effectInstance.getEffect());
                     }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onProjectileImpact(ProjectileImpactEvent event) {
+        if (event.getRayTraceResult() instanceof EntityHitResult result) {
+            Projectile projectile = event.getProjectile();
+            if (result.getEntity() instanceof LivingEntity livingEntity) {
+                boolean flag = projectile instanceof ThrownEgg || projectile instanceof Snowball;
+                if (flag && projectile.getOwner() instanceof Player player && player.hasEffect(TAMobEffects.PARALYSIS.get())) {
+                    livingEntity.hurt(livingEntity.damageSources().thrown(projectile, player), 1.0F);
                 }
             }
         }

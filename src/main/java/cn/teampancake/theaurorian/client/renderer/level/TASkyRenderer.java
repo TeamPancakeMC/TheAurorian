@@ -76,13 +76,6 @@ public class TASkyRenderer {
         bufferBuilder.vertex(matrix4f1, moonSize, -100.0F, -moonSize).uv(f13, f14).endVertex();
         bufferBuilder.vertex(matrix4f1, -moonSize, -100.0F, -moonSize).uv(f15, f14).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
-        RenderSystem.setShaderTexture(0, LevelRenderer.MOON_LOCATION);
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferBuilder.vertex(matrix4f1, -moonSize, 100.0F, -moonSize).uv(f15, f16).endVertex();
-        bufferBuilder.vertex(matrix4f1, moonSize, 100.0F, -moonSize).uv(f13, f16).endVertex();
-        bufferBuilder.vertex(matrix4f1, moonSize, 100.0F, moonSize).uv(f13, f14).endVertex();
-        bufferBuilder.vertex(matrix4f1, -moonSize, 100.0F, moonSize).uv(f15, f14).endVertex();
-        BufferUploader.drawWithShader(bufferBuilder.end());
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         FogRenderer.setupNoFog();
         starBuffer.bind();

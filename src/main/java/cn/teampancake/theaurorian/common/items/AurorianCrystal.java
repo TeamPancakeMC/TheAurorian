@@ -15,41 +15,37 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
 
-public class AurorianCrystal extends Item implements ITooltipsItem{
+public class AurorianCrystal extends Item implements ITooltipsItem {
+
     public AurorianCrystal() {
         super(new Item.Properties().durability(1));
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        ItemStack itemstack = player.getItemInHand(usedHand);
+        ItemStack itemInHand = player.getItemInHand(usedHand);
         player.startUsingItem(usedHand);
-        return InteractionResultHolder.consume(itemstack);
+        return InteractionResultHolder.consume(itemInHand);
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        System.out.println("finishUsingItem");
         if (pLivingEntity instanceof ServerPlayer serverPlayer) {
-
             MinecraftServer server = serverPlayer.getServer();
-            ResourceKey<Level> dimension = serverPlayer.level().dimension();
-            ServerLevel aurorian = server.getLevel(TADimensions.AURORIAN_DIMENSION);
-            ServerLevel overworld = server.getLevel(Level.OVERWORLD);
-
-            if (dimension == TADimensions.AURORIAN_DIMENSION) {
-                serverPlayer.teleportTo(overworld, 0, 100, 0, serverPlayer.getYRot(), serverPlayer.getXRot());
-            }
-            if (dimension == Level.OVERWORLD) {
-                serverPlayer.teleportTo(aurorian, 0, 100, 0, serverPlayer.getYRot(), serverPlayer.getXRot());
+            if (server != null) {
+                ResourceKey<Level> dimension = serverPlayer.level().dimension();
+                ServerLevel overworld = server.getLevel(Level.OVERWORLD);
+                ServerLevel aurorian = server.getLevel(TADimensions.AURORIAN_DIMENSION);
+                if (overworld != null && dimension == TADimensions.AURORIAN_DIMENSION) {
+                    serverPlayer.teleportTo(overworld, 0, 100, 0, serverPlayer.getYRot(), serverPlayer.getXRot());
+                }
+                if (aurorian != null && dimension == Level.OVERWORLD) {
+                    serverPlayer.teleportTo(aurorian, 0, 100, 0, serverPlayer.getYRot(), serverPlayer.getXRot());
+                }
             }
         }
+
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
-    }
-    @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
-        System.out.println("releaseUsing");
-        super.releaseUsing(stack, level, livingEntity, timeLeft);
     }
 
     @Override

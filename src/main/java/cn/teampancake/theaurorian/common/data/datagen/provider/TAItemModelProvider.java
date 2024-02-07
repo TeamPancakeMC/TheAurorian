@@ -50,6 +50,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
         this.simpleBlockItem(TABlocks.AURORIAN_FURNACE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_PERIDOTITE.get());
+        this.simpleBlockItem(TABlocks.MYSTERIUM_WOOL.get());
         this.simpleBlockItem(TABlocks.MOON_SAND.get());
         this.simpleBlockItem(TABlocks.MOON_SAND_RIVER.get());
         this.simpleBlockItem(TABlocks.MOON_SANDSTONE.get());

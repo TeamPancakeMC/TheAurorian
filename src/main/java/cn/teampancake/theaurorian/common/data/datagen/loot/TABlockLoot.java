@@ -49,6 +49,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
         this.dropSelf(TABlocks.AURORIAN_PERIDOTITE.get());
         this.dropSelf(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get());
+        this.dropSelf(TABlocks.MYSTERIUM_WOOL.get());
         this.dropSelf(TABlocks.AURORIAN_FLOWER_1.get());
         this.dropSelf(TABlocks.AURORIAN_FLOWER_2.get());
         this.dropSelf(TABlocks.AURORIAN_FLOWER_3.get());

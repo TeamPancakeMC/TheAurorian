@@ -39,7 +39,27 @@
               "function": "minecraft:looting_enchant"
             }
           ],
-          "name": "minecraft:mutton"
+          "name": "theaurorian:aurorian_mutton"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "theaurorian:mysterium_wool"
+        }
+      ],
+      "functions": [
+        {
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "function": "minecraft:looting_enchant"
         }
       ],
       "rolls": 1.0

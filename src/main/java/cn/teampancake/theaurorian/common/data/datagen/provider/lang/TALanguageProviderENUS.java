@@ -58,6 +58,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_PORTAL.get(), "Aurorian Portal");
         this.add(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(), "Aurorian Portal Frame Brick");
         this.add(TABlocks.URN.get(), "Urn");
+        this.add(TABlocks.MYSTERIUM_WOOL.get(), "Mysterium Wool");
         this.add(TABlocks.AURORIAN_FLOWER_1.get(), "Aurorian Flower");
         this.add(TABlocks.AURORIAN_FLOWER_2.get(), "Aurorian Flower");
         this.add(TABlocks.AURORIAN_FLOWER_3.get(), "Aurorian Flower");
@@ -374,6 +375,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_COAL.get(),"Aurorian Coal");
         this.add(TAItems.AURORIAN_COAL_NUGGET.get(),"Aurorian Coal Nugget");
         this.add(TAItems.AURORIAN_PORK.get(),"Aurorian Pork");
+        this.add(TAItems.AURORIAN_BEEF.get(), "Aurorian Beef");
+        this.add(TAItems.AURORIAN_MUTTON.get(), "Aurorian Mutton");
+        this.add(TAItems.AURORIAN_RABBIT.get(), "Aurorian Rabbit");
         this.add(TAItems.MOON_FISH_SPAWN_EGG.get(), "Moon Fish Spawn Egg");
         this.add(TAItems.AURORIAN_WINGED_FISH_SPAWN_EGG.get(), "Aurorian Winged Fish Spawn Egg");
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(),"Aurorian Pig Spawn Egg");
@@ -417,6 +421,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.CERULEAN_BOOTS.get(),"Cerulean Boots");
         this.add(TAItems.CERULEAN_SHIELD.get(),"Cerulean Shield");
         this.add(TAItems.COOKED_AURORIAN_PORK.get(),"Cooked Aurorian Pork");
+        this.add(TAItems.COOKED_AURORIAN_BEEF.get(), "Cooked Aurorian Beef");
+        this.add(TAItems.COOKED_AURORIAN_MUTTON.get(), "Cooked Aurorian Mutton");
+        this.add(TAItems.COOKED_AURORIAN_RABBIT.get(), "Cooked Aurorian Rabbit");
         this.add(TAItems.CRYSTAL.get(),"Crystal");
         this.add(TAItems.CRYSTAL_ARROW.get(),"Crystal Arrow");
         this.add(TAItems.CRYSTALLINE_INGOT.get(),"Crystalline Ingot");
@@ -517,6 +524,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_CHAIN.get(),"Aurorian Chain");
         this.add(TAItems.AURORIAN_BERRY.get(),"Aurorian Berry");
         this.add(TAItems.AURORIAN_CRYSTAL.get(),"Aurorian Crystal");
+        this.add(TAItems.BROKEN_OX_HORN.get(), "Broken Ox Horn");
+        this.add(TAItems.LUCKY_RABBIT_EAR.get(), "Lucky Rabbit Ear");
         this.add(TAItems.EQUINOX_MUSHROOM.get(),"Equinox Mushroom");
         this.add(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(),"Dream Dyeing Crystal Fragment");
         this.add(TAItems.RED_BOOK.get(), "Red Book");

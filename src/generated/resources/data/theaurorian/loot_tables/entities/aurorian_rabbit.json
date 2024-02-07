@@ -25,7 +25,7 @@
               "function": "minecraft:looting_enchant"
             }
           ],
-          "name": "minecraft:rabbit_hide"
+          "name": "theaurorian:lucky_rabbit_ear"
         }
       ],
       "rolls": 1.0
@@ -64,7 +64,7 @@
               "function": "minecraft:looting_enchant"
             }
           ],
-          "name": "minecraft:rabbit"
+          "name": "theaurorian:aurorian_rabbit"
         }
       ],
       "rolls": 1.0

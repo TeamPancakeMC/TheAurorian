@@ -58,6 +58,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.AURORIAN_PORTAL.get(), "极光传送门");
         this.add(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(), "极光传送门框架");
         this.add(TABlocks.URN.get(), "瓮");
+        this.add(TABlocks.MYSTERIUM_WOOL.get(), "秘境羊毛");
         this.add(TABlocks.AURORIAN_FLOWER_1.get(), "极光花");
         this.add(TABlocks.AURORIAN_FLOWER_2.get(), "极光花");
         this.add(TABlocks.AURORIAN_FLOWER_3.get(), "极光花");
@@ -375,6 +376,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_COAL.get(), "极光煤炭");
         this.add(TAItems.AURORIAN_COAL_NUGGET.get(), "极光煤粒");
         this.add(TAItems.AURORIAN_PORK.get(), "生极光猪排");
+        this.add(TAItems.AURORIAN_BEEF.get(), "生极光牛肉");
+        this.add(TAItems.AURORIAN_MUTTON.get(), "生极光羊肉");
+        this.add(TAItems.AURORIAN_RABBIT.get(), "生极光兔肉");
         this.add(TAItems.MOON_FISH_SPAWN_EGG.get(), "皎月鱼刷怪蛋");
         this.add(TAItems.AURORIAN_WINGED_FISH_SPAWN_EGG.get(), "极光翅鱼刷怪蛋");
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(), "极光猪刷怪蛋");
@@ -418,6 +422,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.CERULEAN_BOOTS.get(), "晶蓝靴子");
         this.add(TAItems.CERULEAN_SHIELD.get(), "晶蓝盾牌");
         this.add(TAItems.COOKED_AURORIAN_PORK.get(), "熟极光猪排");
+        this.add(TAItems.COOKED_AURORIAN_BEEF.get(), "熟极光牛肉");
+        this.add(TAItems.COOKED_AURORIAN_MUTTON.get(), "熟极光羊肉");
+        this.add(TAItems.COOKED_AURORIAN_RABBIT.get(), "熟极光兔肉");
         this.add(TAItems.CRYSTAL.get(), "水晶");
         this.add(TAItems.CRYSTAL_ARROW.get(), "水晶箭");
         this.add(TAItems.CRYSTALLINE_INGOT.get(), "月凝晶锭");
@@ -519,6 +526,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_CRYSTAL.get(),"极光水晶");
         this.add(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(),"融梦水晶碎片");
         this.add(TAItems.EQUINOX_MUSHROOM.get(),"彼岸蘑菇");
+        this.add(TAItems.BROKEN_OX_HORN.get(), "碎裂的牛角");
+        this.add(TAItems.LUCKY_RABBIT_EAR.get(), "幸运兔耳");
         this.add(TAItems.RED_BOOK.get(), "红皮书");
         this.add(TAItems.RED_BOOK_RING.get(), "红皮书戒指");
         this.add(TAItems.STAR_OCEAN_CROSSBOW.get(), "星弩");

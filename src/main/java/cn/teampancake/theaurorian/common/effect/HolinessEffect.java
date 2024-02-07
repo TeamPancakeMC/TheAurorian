@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.effect;
 
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
 public class HolinessEffect extends TAMobEffect {
@@ -11,8 +12,10 @@ public class HolinessEffect extends TAMobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        livingEntity.getActiveEffects().stream().filter(instance -> getCategory() == MobEffectCategory.HARMFUL)
-                .forEach(instance -> livingEntity.removeEffect(instance.getEffect()));
+        livingEntity.getActiveEffectsMap().values().stream()
+                .map(MobEffectInstance::getEffect)
+                .filter(effect -> !effect.isBeneficial())
+                .forEach(livingEntity::removeEffect);
     }
 
     @Override

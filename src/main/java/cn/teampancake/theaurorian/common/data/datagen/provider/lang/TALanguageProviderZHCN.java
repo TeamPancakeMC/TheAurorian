@@ -568,12 +568,16 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAMobEffects.STUN.get(), "眩晕");
         this.add(TAMobEffects.BROKEN.get(),"破盾");
         this.add(TAMobEffects.NATURE.get(), "自然");
+        this.add(TAMobEffects.CRESCENT.get(), "新月");
         this.add(TAMobEffects.HOLINESS.get(), "圣洁");
         this.add(TAMobEffects.PRESSURE.get(), "威压");
         this.add(TAMobEffects.PARALYSIS.get(), "瘫痪");
         this.add(TAMobEffects.CONFUSION.get(), "混乱");
         this.add(TAMobEffects.FROSTBITE.get(), "冻伤");
         this.add(TAMobEffects.TEMP_SHIELD.get(), "临时护盾");
+        this.add(TAMobEffects.FALL_OF_MOON.get(), "月之降临");
+        this.add(TAMobEffects.BLESS_OF_MOON.get(), "月之加护");
+        this.add(TAMobEffects.MOON_OF_VENGEANCE.get(), "复仇之月");
 
         //MOD ENCHANTMENT
         this.add(TAEnchantments.FREEZE_ASPECT.get(), "冰霜附加");

@@ -4,7 +4,7 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
-import cn.teampancake.theaurorian.common.effect.NatureEffect;
+import cn.teampancake.theaurorian.common.effect.TAMobEffect;
 import cn.teampancake.theaurorian.common.entities.ai.CatFollowCatBellGoal;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
@@ -122,12 +122,11 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onLivingHurt(LivingHurtEvent event) {
-        float amount = event.getAmount();
         DamageSource source = event.getSource();
         LivingEntity entity = event.getEntity();
         boolean isHarmfulEffect = source.is(DamageTypes.INDIRECT_MAGIC) || source.is(DamageTypes.MAGIC);
+        event.setAmount(TAMobEffect.getDamageAfterMagicAbsorb(entity, source, event.getAmount()));
         event.setCanceled(isHarmfulEffect && entity.hasEffect(TAMobEffects.HOLINESS.get()));
-        event.setAmount(NatureEffect.getDamageAfterMagicAbsorb(entity, source, amount));
     }
 
     @SubscribeEvent
@@ -160,6 +159,12 @@ public class EntityEventSubscriber {
                         livingEntity.removeEffect(effectInstance.getEffect());
                     }
                 }
+            }
+
+            if (livingEntity.hasEffect(TAMobEffects.CRESCENT.get())) {
+                livingEntity.heal((event.getAmount() / 2.0F));
+            } else if (livingEntity.hasEffect(TAMobEffects.BLESS_OF_MOON.get())) {
+                event.setAmount((event.getAmount() / 2.0F));
             }
         }
     }
@@ -204,15 +209,24 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void additionDamage(LivingAttackEvent event) {
-        if (event.getSource().getEntity() instanceof ServerPlayer serverPlayer){
-            ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-            if (stack.is(TAItems.TSLAT_SWORD.get()) && !event.getEntity().isDamageSourceBlocked(event.getSource())) {
-                int count = stack.getOrCreateTag().getInt("KillCount");
-                if (count > 20) {
-                    count = 20;
-                }
-                if (event.getEntity().isAlive()) {
-                    event.getEntity().setHealth(event.getEntity().getHealth() - count * 0.05F);
+        LivingEntity target = event.getEntity();
+        DamageSource source = event.getSource();
+        if (source.getEntity() instanceof LivingEntity livingEntity) {
+            if (livingEntity.hasEffect(TAMobEffects.FALL_OF_MOON.get())) {
+                target.kill();
+            }
+
+            if (livingEntity instanceof ServerPlayer serverPlayer) {
+                ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+                if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(event.getSource())) {
+                    int count = stack.getOrCreateTag().getInt("KillCount");
+                    if (count > 20) {
+                        count = 20;
+                    }
+
+                    if (target.isAlive()) {
+                        target.setHealth(event.getEntity().getHealth() - count * 0.05F);
+                    }
                 }
             }
         }

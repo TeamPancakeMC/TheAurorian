@@ -568,12 +568,16 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAMobEffects.STUN.get(), "Stun");
         this.add(TAMobEffects.BROKEN.get(),"Broken");
         this.add(TAMobEffects.NATURE.get(), "Nature");
+        this.add(TAMobEffects.CRESCENT.get(), "Crescent");
         this.add(TAMobEffects.HOLINESS.get(), "Holiness");
         this.add(TAMobEffects.PRESSURE.get(), "Pressure");
         this.add(TAMobEffects.PARALYSIS.get(), "Paralysis");
         this.add(TAMobEffects.CONFUSION.get(), "Confusion");
         this.add(TAMobEffects.FROSTBITE.get(), "Frostbite");
         this.add(TAMobEffects.TEMP_SHIELD.get(), "Temp Shield");
+        this.add(TAMobEffects.FALL_OF_MOON.get(), "Fall of Moon");
+        this.add(TAMobEffects.BLESS_OF_MOON.get(), "Bless of Moon");
+        this.add(TAMobEffects.MOON_OF_VENGEANCE.get(), "Moon of Vengeance");
 
         //MOD ENCHANTMENT
         this.add(TAEnchantments.FREEZE_ASPECT.get(), "Freeze Aspect");

@@ -4,16 +4,17 @@ import net.minecraft.client.player.Input;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.effect.MobEffectCategory;
 
-public class ConfusionEffect extends TAMobEffect{
+public class ConfusionEffect extends TAMobEffect {
+
     public ConfusionEffect() {
         super(MobEffectCategory.HARMFUL, 0xEB00c4);
     }
+
     public void onMovementInputUpdate(int amplifier, Input input, LocalPlayer player) {
         swapValues(input);
         invertValues(input);
         calculate(input, player.isMovingSlowly());
     }
-
 
     private void swapValues(Input input) {
         boolean temp = input.jumping;

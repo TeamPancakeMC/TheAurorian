@@ -51,7 +51,6 @@ public class SafeTeleportHandler {
         }
     }
 
-
     private static void randomTeleportTo(Level level, Player entity) {
         Random random = new Random();
         int x = random.nextInt(250);

@@ -16,7 +16,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
@@ -25,8 +24,6 @@ import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, value = Dist.CLIENT)
 public class ClientEventSubscriber {
@@ -40,29 +37,23 @@ public class ClientEventSubscriber {
         Input input = event.getInput();
         Player player = event.getEntity();
         if (player instanceof LocalPlayer localPlayer) {
-            localPlayer.getActiveEffectsMap()
-                    .values()
-                    .forEach(effect -> {
-                        if (effect.getEffect() instanceof ConfusionEffect confusionEffect) {
-                            confusionEffect.onMovementInputUpdate(effect.getAmplifier(), input, localPlayer);
-                        }
+            localPlayer.getActiveEffectsMap().values().forEach(effect -> {
+                if (effect.getEffect() instanceof ConfusionEffect confusionEffect) {
+                    confusionEffect.onMovementInputUpdate(effect.getAmplifier(), input, localPlayer);
+                }
 
-                        if (effect.getEffect() == TAMobEffects.PARALYSIS.get()) {
-                            localPlayer.crouching = false;
-                        }
-                    });
+                if (effect.getEffect() == TAMobEffects.PARALYSIS.get()) {
+                    localPlayer.crouching = false;
+                }
+            });
         }
     }
 
     @SubscribeEvent
     public static void onViewportComputeCameraAngles(ViewportEvent.ComputeCameraAngles event) {
         LocalPlayer player = Minecraft.getInstance().player;
-
         if (player == null) return;
-        player.getActiveEffectsMap()
-                .values()
-                .stream()
-
+        player.getActiveEffectsMap().values().stream()
                 .filter(effect -> effect.getEffect() instanceof ConfusionEffect)
                 .forEach(effect -> {
                     if (effect.getAmplifier() == 1) {
@@ -73,11 +64,7 @@ public class ClientEventSubscriber {
                         event.setRoll(180);
                     }
                 });
-
-
     }
-
-
 
     @SubscribeEvent
     public static void onRenderBossBars(CustomizeGuiOverlayEvent.BossEventProgress event) {

@@ -79,13 +79,6 @@ public class ShieldSubscriber {
         }
     }
 
-    //物品使用事件
-//    @SubscribeEvent
-//    public static void onLivingEntityUseItem(LivingEntityUseItemEvent event) {
-//        ItemStack item = event.getItem();
-//        System.out.println("onLivingEntityUseItem: " + item);
-//    }
-
     @SubscribeEvent
     public static void onPlayerInteractRightClickItem(PlayerInteractEvent.RightClickItem event) {
         ItemStack itemStack = event.getItemStack();

@@ -26,7 +26,7 @@ public abstract class MixinHumanoidModel<T extends LivingEntity> extends Ageable
     @Inject(method = "setupAnim*", at = @At("TAIL"))
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo cir) {
         if (entity.hasEffect(TAMobEffects.PARALYSIS.get())) {
-            this.bodyParts().forEach(modelPart -> modelPart.y -= 1.0F);
+            this.bodyParts().forEach(modelPart -> modelPart.y += 10.0F);
             this.rightArm.xRot += (-(float)Math.PI / 5F);
             this.leftArm.xRot += (-(float)Math.PI / 5F);
             this.rightLeg.xRot = -1.4137167F;
@@ -35,7 +35,7 @@ public abstract class MixinHumanoidModel<T extends LivingEntity> extends Ageable
             this.leftLeg.xRot = -1.4137167F;
             this.leftLeg.yRot = (-(float)Math.PI / 10F);
             this.leftLeg.zRot = -0.07853982F;
-            this.head.y -= 1.0F;
+            this.head.y += 10.0F;
         }
     }
 

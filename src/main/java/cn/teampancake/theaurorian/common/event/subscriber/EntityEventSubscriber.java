@@ -20,6 +20,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -48,6 +49,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Set;
+
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class EntityEventSubscriber {
 
@@ -61,6 +64,17 @@ public class EntityEventSubscriber {
         if (hasKnightHelmet && hasKnightChestplate && hasKnightLeggings && hasKnightBoots) {
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100));
         }
+    }
+
+    @SubscribeEvent
+    public static void onCalculatePotionColor(PotionColorCalculationEvent event) {
+        Set<MobEffect> effects = TAMobEffect.getMoonQueenOnlyEffects();
+        event.getEffects().forEach(instance -> {
+            if (effects.contains(instance.getEffect())) {
+                event.shouldHideParticles(true);
+                event.setColor(0);
+            }
+        });
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -170,33 +184,6 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onProjectileImpact(ProjectileImpactEvent event) {
-        if (event.getRayTraceResult() instanceof EntityHitResult result) {
-            Projectile projectile = event.getProjectile();
-            if (result.getEntity() instanceof LivingEntity livingEntity) {
-                boolean flag = projectile instanceof ThrownEgg || projectile instanceof Snowball;
-                if (flag && projectile.getOwner() instanceof Player player && player.hasEffect(TAMobEffects.PARALYSIS.get())) {
-                    livingEntity.hurt(livingEntity.damageSources().thrown(projectile, player), 1.0F);
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void playerBreakSpeed(PlayerEvent.BreakSpeed event) {
-        Player player = event.getEntity();
-        BlockState state = event.getState();
-        ItemStack blockStack = new ItemStack(state.getBlock());
-        ItemStack handStack = player.getItemInHand(player.getUsedItemHand());
-        if (blockStack.is(Tags.Items.ORES) && handStack.is(TAItems.AURORIANITE_PICKAXE.get())) {
-            event.setNewSpeed(event.getOriginalSpeed() * 1.4F);
-        } else if (state.is(TABlockTags.DUNGEON_BRICKS)) {
-            boolean flag = handStack.is(TAItems.QUEENS_CHIPPER.get());
-            event.setNewSpeed(flag ? event.getOriginalSpeed() * 16.0F : 0.0F);
-        }
-    }
-
-    @SubscribeEvent
     public static void onKilledMob(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer serverPlayer) {
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
@@ -229,6 +216,33 @@ public class EntityEventSubscriber {
                     }
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onProjectileImpact(ProjectileImpactEvent event) {
+        if (event.getRayTraceResult() instanceof EntityHitResult result) {
+            Projectile projectile = event.getProjectile();
+            if (result.getEntity() instanceof LivingEntity livingEntity) {
+                boolean flag = projectile instanceof ThrownEgg || projectile instanceof Snowball;
+                if (flag && projectile.getOwner() instanceof Player player && player.hasEffect(TAMobEffects.PARALYSIS.get())) {
+                    livingEntity.hurt(livingEntity.damageSources().thrown(projectile, player), 1.0F);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerBreakSpeed(PlayerEvent.BreakSpeed event) {
+        Player player = event.getEntity();
+        BlockState state = event.getState();
+        ItemStack blockStack = new ItemStack(state.getBlock());
+        ItemStack handStack = player.getItemInHand(player.getUsedItemHand());
+        if (blockStack.is(Tags.Items.ORES) && handStack.is(TAItems.AURORIANITE_PICKAXE.get())) {
+            event.setNewSpeed(event.getOriginalSpeed() * 1.4F);
+        } else if (state.is(TABlockTags.DUNGEON_BRICKS)) {
+            boolean flag = handStack.is(TAItems.QUEENS_CHIPPER.get());
+            event.setNewSpeed(flag ? event.getOriginalSpeed() * 16.0F : 0.0F);
         }
     }
 

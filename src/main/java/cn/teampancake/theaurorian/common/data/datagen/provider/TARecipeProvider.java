@@ -280,6 +280,8 @@ public class TARecipeProvider extends RecipeProvider {
                 TAItems.CERULEAN_LEGGINGS.get(), TAItems.CERULEAN_BOOTS.get(), TAItems.CERULEAN_INGOT.get());
         this.buildArmorRecipes(consumer, TAItems.SPECTRAL_HELMET.get(), TAItems.SPECTRAL_CHESTPLATE.get(),
                 TAItems.SPECTRAL_LEGGINGS.get(), TAItems.SPECTRAL_BOOTS.get(), TAItems.SPECTRAL_SILK.get());
+        this.buildArmorRecipes(consumer, TAItems.MYSTERIUM_WOOL_HELMET.get(), TAItems.MYSTERIUM_WOOL_CHESTPLATE.get(),
+                TAItems.MYSTERIUM_WOOL_LEGGINGS.get(), TAItems.MYSTERIUM_WOOL_BOOTS.get(), TABlocks.MYSTERIUM_WOOL.get());
         this.buildBaseToolRecipes(consumer, TAItems.AURORIAN_STEEL_SWORD.get(), TAItems.AURORIAN_STEEL_PICKAXE.get(),
                 TAItems.AURORIAN_STEEL_SHOVEL.get(), TAItems.AURORIAN_STEEL_AXE.get(),
                 TAItems.AURORIAN_STEEL_HOE.get(), TAItems.AURORIAN_STEEL.get());

@@ -498,6 +498,10 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.SPECTRAL_CHESTPLATE.get(), "幽冥胸甲");
         this.add(TAItems.SPECTRAL_LEGGINGS.get(), "幽冥护腿");
         this.add(TAItems.SPECTRAL_BOOTS.get(), "幽冥靴子");
+        this.add(TAItems.MYSTERIUM_WOOL_HELMET.get(),"秘境羊毛帽子");
+        this.add(TAItems.MYSTERIUM_WOOL_CHESTPLATE.get(),"秘境羊毛外套");
+        this.add(TAItems.MYSTERIUM_WOOL_LEGGINGS.get(),"秘境羊毛裤子");
+        this.add(TAItems.MYSTERIUM_WOOL_BOOTS.get(),"秘境羊毛靴子");
         this.add(TAItems.SPIDER_MOTHER_SPAWN_EGG.get(), "蛛母刷怪蛋");
         this.add(TAItems.SPIDERLING_SPAWN_EGG.get(), "幼蛛刷怪蛋");
         this.add(TAItems.SPIRIT_SPAWN_EGG.get(), "魂灵刷怪蛋");

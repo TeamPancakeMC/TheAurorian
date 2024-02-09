@@ -2,10 +2,7 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.items.*;
-import cn.teampancake.theaurorian.common.items.armor.AurorianSteelArmor;
-import cn.teampancake.theaurorian.common.items.armor.CeruleanArmor;
-import cn.teampancake.theaurorian.common.items.armor.KnightArmor;
-import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
+import cn.teampancake.theaurorian.common.items.armor.*;
 import cn.teampancake.theaurorian.common.items.developer.*;
 import cn.teampancake.theaurorian.common.items.shield.CeruleanShield;
 import cn.teampancake.theaurorian.common.items.shield.CrystallineShield;
@@ -67,6 +64,10 @@ public class TAItems {
     public static final RegistryObject<Item> SPECTRAL_CHESTPLATE = ITEMS.register("spectral_chestplate", () -> new SpectralArmor(CHESTPLATE));
     public static final RegistryObject<Item> SPECTRAL_LEGGINGS = ITEMS.register("spectral_leggings", () -> new SpectralArmor(LEGGINGS));
     public static final RegistryObject<Item> SPECTRAL_BOOTS = ITEMS.register("spectral_boots", () -> new SpectralArmor(BOOTS));
+    public static final RegistryObject<Item> MYSTERIUM_WOOL_HELMET = ITEMS.register("mysterium_wool_helmet", () -> new MysteriumWoolArmor(HELMET));
+    public static final RegistryObject<Item> MYSTERIUM_WOOL_CHESTPLATE = ITEMS.register("mysterium_wool_chestplate", () -> new MysteriumWoolArmor(CHESTPLATE));
+    public static final RegistryObject<Item> MYSTERIUM_WOOL_LEGGINGS = ITEMS.register("mysterium_wool_leggings", () -> new MysteriumWoolArmor(LEGGINGS));
+    public static final RegistryObject<Item> MYSTERIUM_WOOL_BOOTS = ITEMS.register("mysterium_wool_boots", () -> new MysteriumWoolArmor(BOOTS));
     public static final RegistryObject<Item> SPIKED_CHESTPLATE = ITEMS.register("spiked_chestplate", SpikedItemArmor::new);
     public static final RegistryObject<Item> AURORIAN_SLIME_BOOTS = ITEMS.register("aurorian_slime_boots",
             () -> new ArmorItem(TAArmorMaterials.AURORIAN_SLIME, BOOTS, new Item.Properties().rarity(Rarity.RARE)));

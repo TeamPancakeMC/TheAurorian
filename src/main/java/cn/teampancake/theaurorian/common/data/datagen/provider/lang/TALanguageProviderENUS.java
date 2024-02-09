@@ -498,6 +498,10 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.SPECTRAL_CHESTPLATE.get(),"Spectral Chestplate");
         this.add(TAItems.SPECTRAL_LEGGINGS.get(),"Spectral Leggings");
         this.add(TAItems.SPECTRAL_BOOTS.get(),"Spectral Boots");
+        this.add(TAItems.MYSTERIUM_WOOL_HELMET.get(),"Mysterium Wool Helmet");
+        this.add(TAItems.MYSTERIUM_WOOL_CHESTPLATE.get(),"Mysterium Wool Chestplate");
+        this.add(TAItems.MYSTERIUM_WOOL_LEGGINGS.get(),"Mysterium Wool Leggings");
+        this.add(TAItems.MYSTERIUM_WOOL_BOOTS.get(),"Mysterium Wool Boots");
         this.add(TAItems.SPIDER_MOTHER_SPAWN_EGG.get(),"Spider Mother Spawn Egg");
         this.add(TAItems.SPIDERLING_SPAWN_EGG.get(),"Spiderling Spawn Egg");
         this.add(TAItems.SPIRIT_SPAWN_EGG.get(),"Spirit Spawn Egg");

@@ -1,10 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.entity.armor.AurorianSteelArmorModel;
-import cn.teampancake.theaurorian.client.model.entity.armor.CeruleanArmorModel;
-import cn.teampancake.theaurorian.client.model.entity.armor.KnightArmorModel;
-import cn.teampancake.theaurorian.client.model.entity.armor.SpectralArmorModel;
+import cn.teampancake.theaurorian.client.model.entity.armor.*;
 import cn.teampancake.theaurorian.client.model.entity.circle.LunaCircleModel;
 import cn.teampancake.theaurorian.client.model.entity.*;
 import cn.teampancake.theaurorian.client.renderer.entity.*;
@@ -182,6 +179,7 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.CERULEAN_ARMOR, CeruleanArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.KNIGHT_ARMOR, KnightArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPECTRAL_ARMOR, SpectralArmorModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.MYSTERIUM_ARMOR, MysteriumWoolArmorModel::createBodyLayer);
     }
 
     @SubscribeEvent

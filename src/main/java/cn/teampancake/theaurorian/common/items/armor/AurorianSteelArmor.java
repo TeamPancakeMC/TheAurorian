@@ -18,8 +18,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class AurorianSteelArmor extends BaseArmor<AurorianSteelArmorModel> {
 
-    public AurorianSteelArmor(Type pType) {
-        super(TAArmorMaterials.AURORIAN_STEEL, pType, new Item.Properties().rarity(Rarity.RARE));
+    public AurorianSteelArmor(Type type) {
+        super(TAArmorMaterials.AURORIAN_STEEL, type, new Item.Properties().rarity(Rarity.RARE));
     }
 
     @Override

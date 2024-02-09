@@ -18,8 +18,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class CeruleanArmor extends BaseArmor<CeruleanArmorModel> {
 
-    public CeruleanArmor(Type pType) {
-        super(TAArmorMaterials.CERULEAN, pType, new Item.Properties().rarity(Rarity.RARE));
+    public CeruleanArmor(Type type) {
+        super(TAArmorMaterials.CERULEAN, type, new Item.Properties().rarity(Rarity.RARE));
     }
 
     @Override

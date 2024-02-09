@@ -10,7 +10,7 @@ public class WhiteChocolate extends Item implements IDeveloperItem, ITooltipsIte
 
     public WhiteChocolate() {
         super(new Properties().food(new FoodProperties.Builder()
-                .effect(() -> new MobEffectInstance(TAMobEffects.PARALYSIS.get(), 1200), 1.0F).build()));
+                .effect(() -> new MobEffectInstance(TAMobEffects.PARALYSIS.get(), 2400), 1.0F).build()));
     }
 
 }

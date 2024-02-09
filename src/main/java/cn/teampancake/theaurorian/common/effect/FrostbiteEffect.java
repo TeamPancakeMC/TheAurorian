@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.effect;
 
+import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -24,7 +25,9 @@ public class FrostbiteEffect extends TAMobEffect {
         if (!level.isClientSide) {
             livingEntity.setTicksFrozen(140);
             livingEntity.setSharedFlagOnFire(livingEntity.isOnFire());
-            livingEntity.hurt(livingEntity.damageSources().freeze(), amplifier + 1.0F);
+            if (!MysteriumWoolArmor.isWearFullArmor(livingEntity)) {
+                livingEntity.hurt(livingEntity.damageSources().freeze(), (amplifier + 1.0F));
+            }
         } else {
             RandomSource random = level.getRandom();
             if ((livingEntity.xOld != livingEntity.getX() || livingEntity.zOld != livingEntity.getZ())) {

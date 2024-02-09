@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -21,13 +22,18 @@ public class StunEventSubscriber {
 
     @SubscribeEvent
     public static void onUseItem(LivingEntityUseItemEvent event) {
-        event.setCanceled(event.isCancelable() && event.getEntity().hasEffect(TAMobEffects.STUN.get()));
+        if (event.isCancelable() && event.getEntity().hasEffect(TAMobEffects.STUN.get())) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent
     public static void onPlaceBlock(BlockEvent.EntityPlaceEvent event) {
-        if (event.getEntity() instanceof LivingEntity living) {
-            event.setCanceled(living.hasEffect(TAMobEffects.STUN.get()));
+        Entity entity = event.getEntity();
+        if (entity instanceof LivingEntity living) {
+            if (living.hasEffect(TAMobEffects.STUN.get())) {
+                event.setCanceled(true);
+            }
         }
     }
 
@@ -44,7 +50,9 @@ public class StunEventSubscriber {
 
     @SubscribeEvent
     public static void onPlayerInteract(PlayerInteractEvent event) {
-        event.setCanceled(event.isCancelable() && event.getEntity().hasEffect(TAMobEffects.STUN.get()));
+        if (event.isCancelable() && event.getEntity().hasEffect(TAMobEffects.STUN.get())){
+            event.setCanceled(true);
+        }
     }
 
 }

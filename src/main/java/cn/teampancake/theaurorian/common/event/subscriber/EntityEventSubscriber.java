@@ -46,6 +46,7 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -75,6 +76,19 @@ public class EntityEventSubscriber {
                 event.setColor(0);
             }
         });
+    }
+
+    @SubscribeEvent
+    public static void onMobEffectApplicable(MobEffectEvent.Applicable event) {
+        LivingEntity entity = event.getEntity();
+        MobEffect effect = event.getEffectInstance().getEffect();
+        final MobEffect holiness = TAMobEffects.HOLINESS.get();
+        final MobEffect incantation = TAMobEffects.INCANTATION.get();
+        boolean flag1 = effect == incantation && entity.hasEffect(holiness);
+        boolean flag2 = effect == holiness && entity.hasEffect(incantation);
+        if (flag1 || flag2) {
+            event.setResult(Event.Result.DENY);
+        }
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -123,13 +137,16 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onLivingHeal(LivingHealEvent event) {
-        event.setCanceled(event.getEntity() instanceof Player player && player.hasEffect(TAMobEffects.PRESSURE.get()));
+        event.setCanceled(event.getEntity() instanceof Player player &&
+                (player.hasEffect(TAMobEffects.INCANTATION.get()) ||
+                        player.hasEffect(TAMobEffects.PRESSURE.get())));
     }
 
     @SubscribeEvent
     public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
         LivingEntity entity = event.getEntity();
-        if (entity.hasEffect(TAMobEffects.STUN.get()) || entity.hasEffect(TAMobEffects.PARALYSIS.get())) {
+        if (entity.hasEffect(TAMobEffects.PARALYSIS.get()) ||
+                entity.hasEffect(TAMobEffects.STUN.get())) {
             entity.setDeltaMovement(Vec3.ZERO);
         }
     }

@@ -16,6 +16,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        this.add("death.attack.corruption", "The price of dark power is death!");
+        this.add("death.attack.corruption.player", "The price of dark power is death!");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "The Aurorian");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "The Aurorian (Building Materials)");
         this.add("theaurorian.container.moonlight_forge", "Moonlight Forge");
@@ -578,6 +580,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAMobEffects.PARALYSIS.get(), "Paralysis");
         this.add(TAMobEffects.CONFUSION.get(), "Confusion");
         this.add(TAMobEffects.FROSTBITE.get(), "Frostbite");
+        this.add(TAMobEffects.CORRUPTION.get(), "Corruption");
         this.add(TAMobEffects.INCANTATION.get(), "Incantation");
         this.add(TAMobEffects.TEMP_SHIELD.get(), "Temp Shield");
         this.add(TAMobEffects.FALL_OF_MOON.get(), "Fall of Moon");

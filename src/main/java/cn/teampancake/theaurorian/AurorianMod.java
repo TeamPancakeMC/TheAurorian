@@ -52,6 +52,7 @@ public class AurorianMod {
         TARecipes.RECIPE_TYPES.register(modEventBus);
         TARecipes.RECIPE_SERIALIZERS.register(modEventBus);
         TASoundEvents.SOUND_EVENTS.register(modEventBus);
+        TAAttributes.ATTRIBUTES.register(modEventBus);
         TAFluidTypes.FLUID_TYPES.register(modEventBus);
         TAEntityTypes.ENTITY_TYPES.register(modEventBus);
         TAEnchantments.ENCHANTMENTS.register(modEventBus);
@@ -79,7 +80,7 @@ public class AurorianMod {
         if (ModList.get().isLoaded("thirst")) {
             ThirstWasTakenCompat.init();
         }
-        if(ModList.get().isLoaded("modernui")){
+        if (ModList.get().isLoaded("modernui")){
             ModernUICompat.LOADED = true;
         }
 

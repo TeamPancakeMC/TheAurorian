@@ -16,6 +16,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        this.add("death.attack.corruption", "黑暗力量的代价是死亡！");
+        this.add("death.attack.corruption.player", "黑暗力量的代价是死亡！");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "极光幽境");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "极光幽境（建材）");
         this.add("theaurorian.container.moonlight_forge", "月光融锻台");
@@ -578,6 +580,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAMobEffects.PARALYSIS.get(), "瘫痪");
         this.add(TAMobEffects.CONFUSION.get(), "混乱");
         this.add(TAMobEffects.FROSTBITE.get(), "冻伤");
+        this.add(TAMobEffects.CORRUPTION.get(), "堕落");
         this.add(TAMobEffects.INCANTATION.get(), "咒文");
         this.add(TAMobEffects.TEMP_SHIELD.get(), "临时护盾");
         this.add(TAMobEffects.FALL_OF_MOON.get(), "月之降临");

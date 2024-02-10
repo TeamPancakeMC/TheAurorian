@@ -11,9 +11,7 @@ import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.CrystallineSprite;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
-import cn.teampancake.theaurorian.common.registry.TAGameRules;
-import cn.teampancake.theaurorian.common.registry.TAItems;
-import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.common.utils.AurorianUtil;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,6 +25,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.monster.Monster;
@@ -38,6 +38,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
@@ -88,6 +89,26 @@ public class EntityEventSubscriber {
         boolean flag2 = effect == holiness && entity.hasEffect(incantation);
         if (flag1 || flag2) {
             event.setResult(Event.Result.DENY);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMobEffectExpired(MobEffectEvent.Expired event) {
+        LivingEntity entity = event.getEntity();
+        MobEffectInstance effectInstance = event.getEffectInstance();
+        if (effectInstance != null && effectInstance.getEffect() == TAMobEffects.CORRUPTION.get()) {
+            DamageSource source = entity.damageSources().source(TADamageTypes.CORRUPTION);
+            Attribute attribute = TAAttributes.DAMAGE_ACCUMULATION.get();
+            AttributeInstance instance = entity.getAttribute(attribute);
+            float i = (float) entity.getAttributeValue(attribute);
+            float j = entity.getAbsorptionAmount();
+            if (i > 0.0F && instance != null) {
+                entity.getCombatTracker().recordDamage(source, i);
+                entity.setHealth(entity.getHealth() - i);
+                entity.setAbsorptionAmount(j - i);
+                entity.gameEvent(GameEvent.ENTITY_DAMAGE);
+                instance.setBaseValue(0.0D);
+            }
         }
     }
 
@@ -171,6 +192,16 @@ public class EntityEventSubscriber {
                     }
                 }
             }
+
+            if (target.hasEffect(TAMobEffects.CORRUPTION.get())) {
+                Attribute attribute = TAAttributes.DAMAGE_ACCUMULATION.get();
+                AttributeInstance instance = target.getAttribute(attribute);
+                double i = target.getAttributeValue(attribute);
+                if (instance != null) {
+                    instance.setBaseValue(i + event.getAmount());
+                    event.setCanceled(true);
+                }
+            }
         }
 
         DamageSource source = event.getSource();
@@ -215,6 +246,7 @@ public class EntityEventSubscriber {
     public static void additionDamage(LivingAttackEvent event) {
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
+        event.setCanceled(target.hasEffect(TAMobEffects.CORRUPTION.get()));
         if (source.getEntity() instanceof LivingEntity livingEntity) {
             if (livingEntity.hasEffect(TAMobEffects.FALL_OF_MOON.get())) {
                 target.kill();

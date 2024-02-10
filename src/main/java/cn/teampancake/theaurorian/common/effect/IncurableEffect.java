@@ -5,10 +5,10 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class PressureEffect extends TAMobEffect {
+public class IncurableEffect extends TAMobEffect {
 
-    public PressureEffect() {
-        super(MobEffectCategory.HARMFUL, 0x714bdb);
+    public IncurableEffect(MobEffectCategory category, int color) {
+        super(category, color);
     }
 
     @Override

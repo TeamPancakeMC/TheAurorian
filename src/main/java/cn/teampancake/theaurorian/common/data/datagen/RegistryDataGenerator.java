@@ -24,6 +24,7 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.CONFIGURED_FEATURE, TAConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, TAPlacedFeatures::bootstrap)
             .add(Registries.TRIM_MATERIAL, TATrimMaterials::bootstrap)
+            .add(Registries.DAMAGE_TYPE, TADamageTypes::bootstrap)
             .add(Registries.STRUCTURE, TAStructures::bootstrap)
             .add(Registries.STRUCTURE_SET, TAStructureSets::bootstrap)
             .add(TABiomeLayerStack.BIOME_STACK_KEY, TABiomeLayerStack::bootstrap);

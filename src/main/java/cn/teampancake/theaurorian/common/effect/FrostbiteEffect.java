@@ -10,7 +10,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 
-public class FrostbiteEffect extends TAMobEffect {
+public class FrostbiteEffect extends IncurableEffect {
 
     public static final String UUID = "9e74f30c-c40a-4206-aa6c-5ee1f3cbe333";
 

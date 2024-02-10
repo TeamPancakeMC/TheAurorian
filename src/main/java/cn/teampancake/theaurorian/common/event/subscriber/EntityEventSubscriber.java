@@ -246,7 +246,6 @@ public class EntityEventSubscriber {
     public static void additionDamage(LivingAttackEvent event) {
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
-        event.setCanceled(target.hasEffect(TAMobEffects.CORRUPTION.get()));
         if (source.getEntity() instanceof LivingEntity livingEntity) {
             if (livingEntity.hasEffect(TAMobEffects.FALL_OF_MOON.get())) {
                 target.kill();

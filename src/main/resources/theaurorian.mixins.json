@@ -8,11 +8,14 @@
         "InvokeAbstractFurnaceBlockEntity",
         "MixinDiggerItem",
         "MixinLevel",
+        "MixinPlayer",
         "MixinWorldOptions",
         "PlayerListMixin"
     ],
     "client": [
-        "MixinHumanoidModel"
+        "MixinGameRenderer",
+        "MixinHumanoidModel",
+        "MixinLivingEntityRenderer"
     ],
     "injectors": {
         "defaultRequire": 1

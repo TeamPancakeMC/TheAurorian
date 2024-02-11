@@ -30,6 +30,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.Snowball;
@@ -98,16 +99,27 @@ public class EntityEventSubscriber {
         MobEffectInstance effectInstance = event.getEffectInstance();
         if (effectInstance != null && effectInstance.getEffect() == TAMobEffects.CORRUPTION.get()) {
             DamageSource source = entity.damageSources().source(TADamageTypes.CORRUPTION);
-            Attribute attribute = TAAttributes.DAMAGE_ACCUMULATION.get();
-            AttributeInstance instance = entity.getAttribute(attribute);
-            float i = (float) entity.getAttributeValue(attribute);
-            float j = entity.getAbsorptionAmount();
-            if (i > 0.0F && instance != null) {
+            Attribute da = TAAttributes.DAMAGE_ACCUMULATION.get();
+            Attribute ea = TAAttributes.EXHAUSTION_ACCUMULATION.get();
+            Attribute aa = TAAttributes.ARMOR_HURT_ACCUMULATION.get();
+            AttributeInstance daInstance = entity.getAttribute(da);
+            AttributeInstance eaInstance = entity.getAttribute(ea);
+            AttributeInstance aaInstance = entity.getAttribute(aa);
+            float i = (float) entity.getAttributeValue(da);
+            float j = (float) entity.getAttributeValue(aa);
+            float k = entity.getAbsorptionAmount();
+            if (i > 0.0F && daInstance != null) {
                 entity.getCombatTracker().recordDamage(source, i);
                 entity.setHealth(entity.getHealth() - i);
-                entity.setAbsorptionAmount(j - i);
+                entity.setAbsorptionAmount(k - i);
                 entity.gameEvent(GameEvent.ENTITY_DAMAGE);
-                instance.setBaseValue(0.0D);
+                daInstance.setBaseValue(0.0D);
+                if (entity instanceof Player player && eaInstance != null && aaInstance != null) {
+                    player.causeFoodExhaustion((float) player.getAttributeValue(ea));
+                    player.getInventory().hurtArmor(source, j, Inventory.ALL_ARMOR_SLOTS);
+                    eaInstance.setBaseValue(0.0D);
+                    aaInstance.setBaseValue(0.0D);
+                }
             }
         }
     }
@@ -179,6 +191,14 @@ public class EntityEventSubscriber {
         boolean isHarmfulEffect = source.is(DamageTypes.INDIRECT_MAGIC) || source.is(DamageTypes.MAGIC);
         event.setAmount(TAMobEffect.getDamageAfterMagicAbsorb(entity, source, event.getAmount()));
         event.setCanceled(isHarmfulEffect && entity.hasEffect(TAMobEffects.HOLINESS.get()));
+        if (entity instanceof Player player) {
+            Attribute attribute = TAAttributes.EXHAUSTION_ACCUMULATION.get();
+            AttributeInstance instance = player.getAttribute(attribute);
+            if (instance != null) {
+                double i = player.getAttributeValue(attribute);
+                instance.setBaseValue(i + source.getFoodExhaustion());
+            }
+        }
     }
 
     @SubscribeEvent
@@ -253,7 +273,7 @@ public class EntityEventSubscriber {
 
             if (livingEntity instanceof ServerPlayer serverPlayer) {
                 ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-                if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(event.getSource())) {
+                if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(source)) {
                     int count = stack.getOrCreateTag().getInt("KillCount");
                     if (count > 20) {
                         count = 20;

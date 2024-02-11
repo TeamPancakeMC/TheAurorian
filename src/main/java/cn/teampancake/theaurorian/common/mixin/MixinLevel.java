@@ -15,12 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Level.class)
 public abstract class MixinLevel {
 
-    @Shadow @Final public ResourceKey<Level> dimension;
+    @Shadow @Final private ResourceKey<Level> dimension;
     @Shadow public abstract float getRainLevel(float delta);
     @Shadow public abstract float getThunderLevel(float delta);
     @Shadow public abstract DimensionType dimensionType();
     @Shadow public abstract long getDayTime();
-    @Shadow public int skyDarken;
+    @Shadow private int skyDarken;
 
     @Inject(method = "updateSkyBrightness", at = @At(value = "HEAD"), cancellable = true)
     public void updateSkyBrightness(CallbackInfo ci) {

@@ -68,6 +68,7 @@ public class TADimensions {
         RuleSource aurorianDirt = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_DIRT.get());
         RuleSource aurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_GRASS_BLOCK.get());
         RuleSource lightAurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get());
+        RuleSource snowaurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get());
         RuleSource redAurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
         RuleSource brightMoonSand = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SAND.get());
         RuleSource brightMoonSandstone = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SANDSTONE.get());
@@ -76,6 +77,7 @@ public class TADimensions {
         RuleSource overworldLike = sequence(
                 ifTrue(ON_FLOOR, sequence(ifTrue(notUnderWater, sequence(
                         ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST), lightAurorianGrassBlock),
+                        ifTrue(isBiome(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD), snowaurorianGrassBlock),
                         ifTrue(isBiome(TABiomes.EQUINOX_FLOWER_PLAINS), redAurorianGrassBlock),
                         ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSand), aurorianGrassBlock)))),
                 ifTrue(notUnderDeepWater, sequence(ifTrue(UNDER_FLOOR, sequence(

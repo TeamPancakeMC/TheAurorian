@@ -24,6 +24,7 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -32,6 +33,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
@@ -51,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class TAConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_GRASS = createKey("patch_aurorian_grass");
@@ -63,6 +66,8 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_WEEPING_WILLOW_FOREST = createKey("trees_weeping_willow_forest");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_AURORIAN_FOREST_RUINS = createKey("small_aurorian_forest_ruins");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FILTHY_WATER_LAKE = createKey("filthy_water_lake");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FILTHY_FREEZE_TOP_LAYER = createKey("filthy_freeze_top_layer");
     public static final ResourceKey<ConfiguredFeature<?, ?>> HUGE_INDIGO_MUSHROOM = createKey("huge_indigo_mushroom");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_FALLEN_SILENT_LOG = createKey("random_fallen_silent_log");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_WATER_SURFACE_PLANT = createKey("random_water_surface_plant");
@@ -210,6 +215,10 @@ public class TAConfiguredFeatures {
                         new WeightedPlacedFeature(mediumRuinHolder3, 0.125F), new WeightedPlacedFeature(mediumRuinHolder4, 0.125F),
                         new WeightedPlacedFeature(mediumRuinHolder5, 0.125F), new WeightedPlacedFeature(mediumRuinHolder6, 0.125F),
                         new WeightedPlacedFeature(mediumRuinHolder7, 0.125F)), mediumRuinHolder1));
+        FeatureUtils.register(context, FILTHY_WATER_LAKE, TAFeatures.FILTHY_WATER_LAKE.get(),
+                new LakeFeature.Configuration(BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
+                        BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get().defaultBlockState())));
+        FeatureUtils.register(context, FILTHY_FREEZE_TOP_LAYER, TAFeatures.FILTHY_FREEZE_TOP_LAYER.get());
         FeatureUtils.register(context, HUGE_INDIGO_MUSHROOM, TAFeatures.HUGE_INDIGO_MUSHROOM.get(),
                 new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_BLOCK.get()),
                         BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_STEM.get()), 5));
@@ -223,6 +232,7 @@ public class TAConfiguredFeatures {
         FeatureUtils.register(context, RIVERSIDE_MOON_SAND, Feature.ORE, new OreConfiguration(ImmutableList.of(
                 OreConfiguration.target(new BlockMatchTest(TABlocks.AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
                 OreConfiguration.target(new BlockMatchTest(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
+                OreConfiguration.target(new BlockMatchTest(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
                 OreConfiguration.target(new BlockMatchTest(TABlocks.RED_AURORIAN_GRASS_BLOCK.get()), TABlocks.MOON_SAND.get().defaultBlockState()),
                 OreConfiguration.target(new BlockMatchTest(TABlocks.AURORIAN_DIRT.get()), TABlocks.MOON_SANDSTONE.get().defaultBlockState())), 64));
         FeatureUtils.register(context, SILENT_TREE, Feature.TREE, silentTree()

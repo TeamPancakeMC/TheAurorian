@@ -1,13 +1,12 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.level.feature.FallenLogFeature;
-import cn.teampancake.theaurorian.common.level.feature.HugeIndigoMushroomFeature;
-import cn.teampancake.theaurorian.common.level.feature.UrnFeature;
+import cn.teampancake.theaurorian.common.level.feature.*;
 import cn.teampancake.theaurorian.common.level.feature.config.FallenLogConfig;
 import cn.teampancake.theaurorian.common.level.feature.ruin.MediumRuinFeature;
 import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,11 +16,16 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class TAFeatures {
 
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, AurorianMod.MOD_ID);
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> RANDOM_URN = FEATURES.register("random_urn", UrnFeature::new);
     public static final RegistryObject<Feature<FallenLogConfig>> RANDOM_FALLEN_LOGS = FEATURES.register("random_fallen_logs", FallenLogFeature::new);
+    public static final RegistryObject<Feature<LakeFeature.Configuration>> FILTHY_WATER_LAKE =
+            FEATURES.register("filthy_water_lake", FilthyLakeFeature::new);
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> FILTHY_FREEZE_TOP_LAYER =
+            FEATURES.register("filthy_freeze_top_layer", FilthySnowAndFreezeFeature::new);
     public static final RegistryObject<Feature<HugeMushroomFeatureConfiguration>> HUGE_INDIGO_MUSHROOM =
             FEATURES.register("huge_indigo_mushroom", HugeIndigoMushroomFeature::new);
     public static final RegistryObject<MediumRuinFeature> AURORIAN_FOREST_SPRING = registerMediumRuins("aurorian_forest_spring");

@@ -35,6 +35,8 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> TREES_WEEPING_WILLOW_FOREST = createKey("trees_weeping_willow_forest");
     public static final ResourceKey<PlacedFeature> SMALL_AURORIAN_FOREST_RUINS = createKey("small_aurorian_forest_ruins");
     public static final ResourceKey<PlacedFeature> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
+    public static final ResourceKey<PlacedFeature> FILTHY_WATER_LAKE = createKey("filthy_water_lake");
+    public static final ResourceKey<PlacedFeature> FILTHY_FREEZE_TOP_LAYER = createKey("filthy_freeze_top_layer");
     public static final ResourceKey<PlacedFeature> RANDOM_FALLEN_SILENT_LOG = createKey("random_fallen_silent_log");
     public static final ResourceKey<PlacedFeature> RANDOM_WATER_SURFACE_PLANT = createKey("random_water_surface_plant");
     public static final ResourceKey<PlacedFeature> RANDOM_CRYSTAL_CLUSTER = createKey("random_crystal_cluster");
@@ -96,6 +98,9 @@ public class TAPlacedFeatures {
                 .add(RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
         PlacementUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, configuredFeature.getOrThrow(TAConfiguredFeatures.MEDIUM_AURORIAN_FOREST_RUINS), ImmutableList.<PlacementModifier>builder()
                 .add(RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
+        PlacementUtils.register(context, FILTHY_WATER_LAKE, configuredFeature.getOrThrow(TAConfiguredFeatures.FILTHY_WATER_LAKE),
+                RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+        PlacementUtils.register(context, FILTHY_FREEZE_TOP_LAYER, configuredFeature.getOrThrow(TAConfiguredFeatures.FILTHY_FREEZE_TOP_LAYER), BiomeFilter.biome());
         PlacementUtils.register(context, RANDOM_FALLEN_SILENT_LOG, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_FALLEN_SILENT_LOG), VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, RANDOM_WATER_SURFACE_PLANT, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_WATER_SURFACE_PLANT), VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, RANDOM_CRYSTAL_CLUSTER, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_CRYSTAL_CLUSTER), VegetationPlacements.worldSurfaceSquaredWithCount(1));

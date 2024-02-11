@@ -46,6 +46,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.AURORIAN_BARRIER_STONE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_GRASS_BLOCK.get());
         this.simpleBlockItem(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get());
+        this.simpleBlockItem(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get());
         this.simpleBlockItem(TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
         this.simpleBlockItem(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
         this.simpleBlockItem(TABlocks.AURORIAN_FURNACE.get());
@@ -124,6 +125,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.CURTAIN_TREE_LOG.get());
         this.simpleBlockItem(TABlocks.CURTAIN_TREE_WOOD.get());
         this.simpleBlockItem(TABlocks.CURTAIN_TREE_PLANKS.get());
+        this.simpleBlockItem(TABlocks.FILTHY_ICE.get());
         this.simpleBlockItem(TABlocks.MOON_GLASS.get());
         this.simpleBlockItem(TABlocks.AURORIAN_GLASS.get());
         this.simpleBlockItem(TABlocks.DARK_STONE_GLASS.get());

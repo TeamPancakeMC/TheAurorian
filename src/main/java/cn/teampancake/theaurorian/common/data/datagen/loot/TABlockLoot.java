@@ -82,6 +82,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.CURTAIN_TREE_PLANKS.get());
         this.dropSelf(TABlocks.CURTAIN_TREE_WOOD.get());
         this.dropSelf(TABlocks.CURTAIN_TREE_SAPLING.get());
+        this.dropWhenSilkTouch(TABlocks.FILTHY_ICE.get());
         this.dropWhenSilkTouch(TABlocks.MOON_GLASS.get());
         this.dropWhenSilkTouch(TABlocks.AURORIAN_GLASS.get());
         this.dropWhenSilkTouch(TABlocks.DARK_STONE_GLASS.get());
@@ -118,6 +119,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.add(TABlocks.AURORIAN_STONE.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_COBBLESTONE.get()));
         this.add(TABlocks.AURORIAN_GRASS_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_DIRT.get()));
         this.add(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_DIRT.get()));
+        this.add(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_DIRT.get()));
         this.add(TABlocks.RED_AURORIAN_GRASS_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_DIRT.get()));
         this.add(TABlocks.AURORIAN_FARM_TILE.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_DIRT.get()));
         this.add(TABlocks.AURORIAN_GRASS.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.AURORIAN_GRASS.get()));

@@ -16,15 +16,16 @@ import java.util.function.Consumer;
 public class TABiomeBuilder {
 
     public static List<TATerrainColumn> makeBiomeList(HolderGetter<Biome> biomeRegistry) {
-        return List.of(biomeColumnWithUnderground(9F+0.3F, 0.3F, biomeRegistry, TABiomes.AURORIAN_PLAINS),
-                biomeColumnWithUnderground(9F+0.3F, 0.3F, biomeRegistry, TABiomes.AURORIAN_FOREST),
-                biomeColumnWithUnderground(9F+0.4F, 0.4F, biomeRegistry, TABiomes.AURORIAN_FOREST_HILL),
-                biomeColumnWithUnderground(9F+0.25F, 0.3F, biomeRegistry, TABiomes.EQUINOX_FLOWER_PLAINS),
-                biomeColumnWithUnderground(9F+0.35F, 0.4F, biomeRegistry, TABiomes.LAVENDER_PLAINS),
-                biomeColumnWithUnderground(9F+0.3F, 0.4F, biomeRegistry, TABiomes.WEEPING_WILLOW_FOREST),
-                biomeColumnWithUnderground(9F+0.3F, 0.4F, biomeRegistry, TABiomes.BRIGHT_MOON_DESERT),
-                biomeColumnForLake(9-1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_RIVER),
-                biomeColumnForLake(9-1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_LAKE));
+        return List.of(biomeColumnWithUnderground(9.0F + 0.3F, 0.3F, biomeRegistry, TABiomes.AURORIAN_PLAINS),
+                biomeColumnWithUnderground(9.0F + 0.3F, 0.3F, biomeRegistry, TABiomes.AURORIAN_FOREST),
+                biomeColumnWithUnderground(9.0F + 0.4F, 0.4F, biomeRegistry, TABiomes.AURORIAN_FOREST_HILL),
+                biomeColumnWithUnderground(9.0F + 0.25F, 0.3F, biomeRegistry, TABiomes.EQUINOX_FLOWER_PLAINS),
+                biomeColumnWithUnderground(9.0F + 0.35F, 0.4F, biomeRegistry, TABiomes.LAVENDER_PLAINS),
+                biomeColumnWithUnderground(9.0F + 0.3F, 0.4F, biomeRegistry, TABiomes.WEEPING_WILLOW_FOREST),
+                biomeColumnWithUnderground(9.0F + 0.36F, 0.5F, biomeRegistry, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD),
+                biomeColumnWithUnderground(9.0F + 0.3F, 0.4F, biomeRegistry, TABiomes.BRIGHT_MOON_DESERT),
+                biomeColumnForLake(9.0F - 1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_RIVER),
+                biomeColumnForLake(9.0F - 1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_LAKE));
     }
 
     private static TATerrainColumn biomeColumnWithUnderground(float noiseDepth, float noiseScale, HolderGetter<Biome> biomeRegistry, ResourceKey<Biome> key) {

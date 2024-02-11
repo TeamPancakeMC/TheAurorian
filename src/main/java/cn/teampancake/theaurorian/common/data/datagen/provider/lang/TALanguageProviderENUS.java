@@ -41,8 +41,10 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_COAL_ORE.get(), "Aurorian Coal Ore");
         this.add(TABlocks.AURORIAN_GRASS_BLOCK.get(), "Aurorian Grass Block");
         this.add(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), "Light Aurorian Grass Block");
+        this.add(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get(), "Snow Aurorian Grass Block");
         this.add(TABlocks.RED_AURORIAN_GRASS_BLOCK.get(), "Red Aurorian Grass Block");
         this.add(TABlocks.AURORIAN_FARM_TILE.get(), "Aurorian Farm Tile");
+        this.add(TABlocks.FILTHY_ICE.get(), "Filthy Ice");
         this.add(TABlocks.MOON_GLASS.get(), "Moon Glass");
         this.add(TABlocks.AURORIAN_GLASS.get(), "Aurorian Glass");
         this.add(TABlocks.DARK_STONE_GLASS.get(), "Dark Stone Glass");

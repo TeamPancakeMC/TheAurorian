@@ -50,7 +50,8 @@ public class TABiomeLayerStack {
     public static Pair<BiomeLayerFactory, BiomeLayerFactory> getRiverLayer() {
         BiomeLayerFactory biomes = new RandomBiomeLayer.Factory(1L, 15,
                 ImmutableList.of(TABiomes.AURORIAN_PLAINS, TABiomes.AURORIAN_FOREST,
-                        TABiomes.AURORIAN_FOREST_HILL, TABiomes.LAVENDER_PLAINS),
+                        TABiomes.AURORIAN_FOREST_HILL, TABiomes.LAVENDER_PLAINS,
+                        TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD),
                 ImmutableList.of(TABiomes.AURORIAN_LAKE, TABiomes.WEEPING_WILLOW_FOREST,
                         TABiomes.BRIGHT_MOON_DESERT, TABiomes.EQUINOX_FLOWER_PLAINS));
         biomes = new ZoomLayer.Factory(1000L, false, Holder.direct(biomes));

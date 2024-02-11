@@ -14,7 +14,8 @@
                         "theaurorian:aurorian_plains",
                         "theaurorian:aurorian_forest",
                         "theaurorian:aurorian_forest_hill",
-                        "theaurorian:lavender_plains"
+                        "theaurorian:lavender_plains",
+                        "theaurorian:filthy_ice_crystal_snowfield"
                       ],
                       "layer_type": "theaurorian:random_biomes",
                       "rare_biome_chance": 15,

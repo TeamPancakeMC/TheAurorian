@@ -160,6 +160,11 @@ public class TABlockStateProvider extends BlockStateProvider {
                         this.modLoc("block/light_aurorian_grass_block"),
                         this.modLoc("block/aurorian_dirt"),
                         this.modLoc("block/light_aurorian_grass_block_top")));
+        this.simpleBlock(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get(),
+                this.models().cubeBottomTop("snow_aurorian_grass_block",
+                        this.modLoc("block/snow_aurorian_grass_block"),
+                        this.modLoc("block/aurorian_dirt"),
+                        this.modLoc("block/snow_aurorian_grass_block_top")));
         this.simpleBlock(TABlocks.RED_AURORIAN_GRASS_BLOCK.get(),
                 this.models().cubeBottomTop("red_aurorian_grass_block",
                         this.modLoc("block/red_aurorian_grass_block"),
@@ -174,6 +179,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerDoubleLightPlantStates(TABlocks.TALL_AURORIAN_GRASS_LIGHT.get());
         this.registerWaterSurfacePlantStates(TABlocks.AURORIAN_LILY_PAD.get());
         this.registerWaterSurfacePlantStates(TABlocks.AURORIAN_WATER_MUSHROOM.get());
+        this.simpleBlockWithRenderType(TABlocks.FILTHY_ICE.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.MOON_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.AURORIAN_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.DARK_STONE_GLASS.get(), TRANSLUCENT);

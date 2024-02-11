@@ -30,6 +30,7 @@ public class TABiomes {
     public static final ResourceKey<Biome> EQUINOX_FLOWER_PLAINS = createKey("equinox_flower_plains");
     public static final ResourceKey<Biome> LAVENDER_PLAINS = createKey("lavender_plains");
     public static final ResourceKey<Biome> WEEPING_WILLOW_FOREST = createKey("weeping_willow_forest");
+    public static final ResourceKey<Biome> FILTHY_ICE_CRYSTAL_SNOWFIELD = createKey("filthy_ice_crystal_snowfield");
     public static final ResourceKey<Biome> BRIGHT_MOON_DESERT = createKey("bright_moon_desert");
     public static final ResourceKey<Biome> UNDERGROUND = createKey("underground");
     public static final ResourceKey<Biome> UNDERWATER = createKey("underwater");
@@ -63,6 +64,9 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_WEEPING_WILLOW_FOREST))
                 .mobSpawnSettings(defaultMobSpawning().build()).build());
+        context.register(FILTHY_ICE_CRYSTAL_SNOWFIELD, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+                .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
+                .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE)).build());
         context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
                 .mobSpawnSettings(desertMobSpawning().build()).build());
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());

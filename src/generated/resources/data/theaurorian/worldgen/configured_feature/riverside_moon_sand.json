@@ -27,6 +27,15 @@
           "Name": "theaurorian:moon_sand"
         },
         "target": {
+          "block": "theaurorian:snow_aurorian_grass_block",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "theaurorian:moon_sand"
+        },
+        "target": {
           "block": "theaurorian:red_aurorian_grass_block",
           "predicate_type": "minecraft:block_match"
         }

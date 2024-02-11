@@ -51,7 +51,8 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(TABlockTags.CURTAIN_TREE_LOGS).add(TABlocks.STRIPPED_CURTAIN_TREE_LOG.get(),
                 TABlocks.STRIPPED_CURTAIN_TREE_WOOD.get(), TABlocks.CURTAIN_TREE_LOG.get(), TABlocks.CURTAIN_TREE_WOOD.get());
         this.tag(TABlockTags.AURORIAN_GRASS_BLOCK).add(TABlocks.AURORIAN_GRASS_BLOCK.get(),
-                TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
+                TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get(),
+                TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
         this.tag(BlockTags.PLANKS).add(TABlocks.SILENT_TREE_PLANKS.get(), TABlocks.WEEPING_WILLOW_PLANKS.get(), TABlocks.CURTAIN_TREE_PLANKS.get());
         this.tag(BlockTags.LEAVES).add(TABlocks.SILENT_TREE_LEAVES.get(), TABlocks.WEEPING_WILLOW_LEAVES.get(), TABlocks.CURTAIN_TREE_LEAVES.get());
         this.tag(BlockTags.LOGS).addTag(TABlockTags.SILENT_TREE_LOGS).addTag(TABlockTags.WEEPING_WILLOW_LOGS).addTag(TABlockTags.CURTAIN_TREE_LOGS);
@@ -66,7 +67,8 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 TABlocks.VERTICAL_SILENT_WOOD_STAIRS.get(), TABlocks.VERTICAL_SILENT_WOOD_SLAB.get(), TABlocks.SILENT_WOOD_CHEST.get());
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(TABlocks.MOON_SAND.get(), TABlocks.AURORIAN_FARM_TILE.get(),
                 TABlocks.AURORIAN_DIRT.get(), TABlocks.AURORIAN_GRASS_BLOCK.get(),
-                TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
+                TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get(),
+                TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TABlocks.AURORIAN_STONE.get(), TABlocks.AURORIAN_STONE_BRICKS.get(),
                 TABlocks.AURORIAN_COBBLESTONE.get(), TABlocks.AURORIAN_GRANITE.get(), TABlocks.AURORIAN_DIORITE.get(),
                 TABlocks.AURORIAN_ANDESITE.get(), TABlocks.AURORIAN_BARRIER_STONE.get(), TABlocks.AURORIAN_COAL_ORE.get(),

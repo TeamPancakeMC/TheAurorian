@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class ForbiddenCurseEffect extends TAMobEffect{
+
     public ForbiddenCurseEffect() {
         super(MobEffectCategory.HARMFUL, 0x4b6584);
     }
 
-
     @Override
-    public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        if (pLivingEntity instanceof Player player) {
+    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        if (livingEntity instanceof Player player) {
             removePlayerInventoryItemEnchantments(player);
         }
     }
@@ -33,7 +33,6 @@ public class ForbiddenCurseEffect extends TAMobEffect{
 
     public void processPlayerInventoryItems(Player player, Consumer<NonNullList<ItemStack>> processItems) {
         Inventory inventory = player.getInventory();
-
         processItems.accept(inventory.armor);
         processItems.accept(inventory.offhand);
         processItems.accept(inventory.items);
@@ -48,21 +47,20 @@ public class ForbiddenCurseEffect extends TAMobEffect{
     }
 
     public void removeItemEnchantments(List<ItemStack> itemStackList) {
-        itemStackList.stream()
-                .filter(ItemStack::isEnchanted)
-                .forEach(itemStack -> {
-                    CompoundTag tag = itemStack.getOrCreateTag();
-                    Tag tag1 = tag.get("Enchantments");
+        itemStackList.stream().filter(ItemStack::isEnchanted).forEach(itemStack -> {
+            CompoundTag tag = itemStack.getOrCreateTag();
+            Tag tag1 = tag.get("Enchantments");
+            if (!tag.contains("forbidden_curse", 9)) {
+                tag.put("forbidden_curse", new ListTag());
+            }
 
-                    if (!tag.contains("forbidden_curse", 9)) {
-                        tag.put("forbidden_curse", new ListTag());
-                    }
+            ListTag listTag = tag.getList("forbidden_curse", 10);
+            if (tag1 instanceof ListTag listTag1) {
+                listTag.addAll(listTag1);
+            }
 
-                    ListTag listtag = tag.getList("forbidden_curse", 10);
-                    listtag.addAll((ListTag) tag1);
-
-                    tag.remove("Enchantments");
-                });
+            tag.remove("Enchantments");
+        });
     }
 
     public void restoreItemEnchantments(List<ItemStack> itemStackList) {
@@ -75,6 +73,5 @@ public class ForbiddenCurseEffect extends TAMobEffect{
                     tag.remove("forbidden_curse");
                 });
     }
-
 
 }

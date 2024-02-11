@@ -4,8 +4,8 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
+import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
 import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
-import cn.teampancake.theaurorian.common.effect.IncurableEffect;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
 import cn.teampancake.theaurorian.common.entities.ai.CatFollowCatBellGoal;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
@@ -32,7 +32,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.Snowball;
@@ -41,7 +40,6 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
@@ -99,23 +97,17 @@ public class EntityEventSubscriber {
     public static void onMobEffectExpired(MobEffectEvent.Expired event) {
         LivingEntity entity = event.getEntity();
         MobEffectInstance instance = event.getEffectInstance();
-
         if (instance != null) {
             MobEffect effect = instance.getEffect();
-            if (effect == TAMobEffects.CORRUPTION.get()) {
-                ((IncurableEffect) effect).EntityCorruptionEffect(entity);
+            if (effect instanceof CorruptionEffect corruption) {
+                corruption.entityCorruptionEffect(entity);
             }
 
-            if (effect == TAMobEffects.FORBIDDEN_CURSE.get()) {
-                if (entity instanceof Player player) {
-                    ((ForbiddenCurseEffect) effect).restorePlayerInventoryItemEnchantments(player);
-                }
+            if (effect instanceof ForbiddenCurseEffect forbiddenCurse && entity instanceof Player player) {
+                forbiddenCurse.restorePlayerInventoryItemEnchantments(player);
             }
-
         }
     }
-
-
 
     @SuppressWarnings("ConstantConditions")
     @SubscribeEvent

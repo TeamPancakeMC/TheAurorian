@@ -96,8 +96,8 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onMobEffectExpired(MobEffectEvent.Expired event) {
         LivingEntity entity = event.getEntity();
-        MobEffectInstance effectInstance = event.getEffectInstance();
-        if (effectInstance != null && effectInstance.getEffect() == TAMobEffects.CORRUPTION.get()) {
+        MobEffectInstance instance = event.getEffectInstance();
+        if (instance != null && instance.getEffect() == TAMobEffects.CORRUPTION.get()) {
             DamageSource source = entity.damageSources().source(TADamageTypes.CORRUPTION);
             Attribute da = TAAttributes.DAMAGE_ACCUMULATION.get();
             Attribute ea = TAAttributes.EXHAUSTION_ACCUMULATION.get();

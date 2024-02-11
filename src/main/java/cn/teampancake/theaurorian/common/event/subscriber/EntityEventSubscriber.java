@@ -4,6 +4,8 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
+import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
+import cn.teampancake.theaurorian.common.effect.IncurableEffect;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
 import cn.teampancake.theaurorian.common.entities.ai.CatFollowCatBellGoal;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
@@ -97,32 +99,23 @@ public class EntityEventSubscriber {
     public static void onMobEffectExpired(MobEffectEvent.Expired event) {
         LivingEntity entity = event.getEntity();
         MobEffectInstance instance = event.getEffectInstance();
-        if (instance != null && instance.getEffect() == TAMobEffects.CORRUPTION.get()) {
-            DamageSource source = entity.damageSources().source(TADamageTypes.CORRUPTION);
-            Attribute da = TAAttributes.DAMAGE_ACCUMULATION.get();
-            Attribute ea = TAAttributes.EXHAUSTION_ACCUMULATION.get();
-            Attribute aa = TAAttributes.ARMOR_HURT_ACCUMULATION.get();
-            AttributeInstance daInstance = entity.getAttribute(da);
-            AttributeInstance eaInstance = entity.getAttribute(ea);
-            AttributeInstance aaInstance = entity.getAttribute(aa);
-            float i = (float) entity.getAttributeValue(da);
-            float j = (float) entity.getAttributeValue(aa);
-            float k = entity.getAbsorptionAmount();
-            if (i > 0.0F && daInstance != null) {
-                entity.getCombatTracker().recordDamage(source, i);
-                entity.setHealth(entity.getHealth() - i);
-                entity.setAbsorptionAmount(k - i);
-                entity.gameEvent(GameEvent.ENTITY_DAMAGE);
-                daInstance.setBaseValue(0.0D);
-                if (entity instanceof Player player && eaInstance != null && aaInstance != null) {
-                    player.causeFoodExhaustion((float) player.getAttributeValue(ea));
-                    player.getInventory().hurtArmor(source, j, Inventory.ALL_ARMOR_SLOTS);
-                    eaInstance.setBaseValue(0.0D);
-                    aaInstance.setBaseValue(0.0D);
+
+        if (instance != null) {
+            MobEffect effect = instance.getEffect();
+            if (effect == TAMobEffects.CORRUPTION.get()) {
+                ((IncurableEffect) effect).EntityCorruptionEffect(entity);
+            }
+
+            if (effect == TAMobEffects.FORBIDDEN_CURSE.get()) {
+                if (entity instanceof Player player) {
+                    ((ForbiddenCurseEffect) effect).restorePlayerInventoryItemEnchantments(player);
                 }
             }
+
         }
     }
+
+
 
     @SuppressWarnings("ConstantConditions")
     @SubscribeEvent

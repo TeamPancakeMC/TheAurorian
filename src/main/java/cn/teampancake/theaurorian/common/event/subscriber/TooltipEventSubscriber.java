@@ -5,6 +5,9 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TATooltipRenderUtils;
 import cn.teampancake.theaurorian.compat.ModernUICompat;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -13,6 +16,8 @@ import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.List;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class TooltipEventSubscriber {
@@ -35,110 +40,214 @@ public class TooltipEventSubscriber {
     public static void onRenderTooltips(RenderTooltipEvent.Pre event) {
         ModernUICompat.ResetModernUIRender();
         ItemStack itemStack = event.getItemStack();
+        CompoundTag tag = itemStack.getTag();
+
         if (itemStack.is(TAItemTags.HAS_CUSTOM_TOOLTIPS)) {
             event.setCanceled(true);
             ModernUICompat.CancelModernUIRender();
-            if (itemStack.is(TAItemTags.IS_UNCOMMON)) {
-                int[] xOffset = new int[] {-5, -5, -3, -3};
-                int[] yOffset = new int[] {-17, -15, -17, -15, -18};
-                int[] uOffset = new int[] {0, 0, 8, 8, 16};
-                int[] vOffset = new int[] {0, 8, 0, 8, 0};
-                int[] uWidth = new int[] {8, 8, 8, 8, 12};
-                int[] vHeight = new int[] {8, 8, 8, 8, 6};
-                TATooltipRenderUtils.renderTooltips(event, UNCOMMON, (0xff686f99), (0xfff1f2ff),
-                        (0xff686f99), (48), (32), (2), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
-            } else if (itemStack.is(TAItemTags.IS_RARE)) {
-                int[] xOffset = new int[] {-5, -5, -4, -4};
-                int[] yOffset = new int[] {-17, -16, -17, -16, -20};
-                int[] uOffset = new int[] {0, 0, 9, 9, 18};
-                int[] vOffset = new int[] {0, 9, 0, 9, 0};
-                int[] uWidth = new int[] {9, 9, 9, 9, 12};
-                int[] vHeight = new int[] {9, 9, 9, 9, 10};
-                TATooltipRenderUtils.renderTooltips(event, RARE, (0xff686f99), (0xfff1f2ff),
-                        (0xff686f99), (48), (32), (2), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
-            } else if (itemStack.is(TAItemTags.IS_EPIC)) {
-                int[] xOffset = new int[] {-5, -5, -4, -4};
-                int[] yOffset = new int[] {-17, -16, -17, -16, -21};
-                int[] uOffset = new int[] {0, 0, 9, 9, 18};
-                int[] vOffset = new int[] {0, 9, 0, 9, 0};
-                int[] uWidth = new int[] {9, 9, 9, 9, 18};
-                int[] vHeight = new int[] {9, 9, 9, 9, 11};
-                TATooltipRenderUtils.renderTooltips(event, EPIC, (0xff804085), (0xffe3a084),
-                        (0xff804085), (48), (32), (4), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
-            } else if (itemStack.is(TAItemTags.IS_LEGENDARY)) {
-                int[] xOffset = new int[] {-5, -5, -4, -4};
-                int[] yOffset = new int[] {-17, -16, -17, -16, -20, -5};
-                int[] uOffset = new int[] {0, 0, 9, 9, 18, 18};
-                int[] vOffset = new int[] {0, 9, 0, 9, 0, 11};
-                int[] uWidth = new int[] {9, 9, 9, 9, 18, 10};
-                int[] vHeight = new int[] {9, 9, 9, 9, 11, 4};
-                TATooltipRenderUtils.renderTooltips(event, LEGENDARY, (0xff412051), (0xffe88a36),
-                        (0xff14182e), (48), (32), (4), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
-            } else if (itemStack.is(TAItemTags.IS_MYTHICAL)) {
-                int[] xOffset = new int[] {-5, -5, -4, -4};
-                int[] yOffset = new int[] {-17, -16, -17, -16, -20, -6};
-                int[] uOffset = new int[] {0, 0, 9, 9, 18, 18};
-                int[] vOffset = new int[] {0, 9, 0, 9, 0, 12};
-                int[] uWidth = new int[] {9, 9, 9, 9, 18, 14};
-                int[] vHeight = new int[] {9, 9, 9, 9, 12, 5};
-                TATooltipRenderUtils.renderTooltips(event, MYTHICAL, (0xff621748), (0xff3d003d),
-                        (0xff3d003d), (48), (32), (4), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
-            } else if (itemStack.is(TAItems.WHITE_CHOCOLATE.get())) {
-                int[] xOffset = new int[] {-6, -26, -5, -2};
-                int[] yOffset = new int[] {-18, -40, -18, -40, -22};
-                int[] uOffset = new int[] {0, 0, 11, 28, 22};
-                int[] vOffset = new int[] {0, 15, 0, 15, 0};
-                int[] uWidth = new int[] {11, 28, 11, 28, 18};
-                int[] vHeight = new int[] {11, 34, 11, 34, 15};
-                TATooltipRenderUtils.renderTooltips(event, WHITE_CHOCOLATE, (0xff694e36), (0xffddcea3),
-                        (0xff503a26), (128), (128), (5), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
-            } else if (itemStack.is(TAItems.RED_BOOK.get()) || itemStack.is(TAItems.RED_BOOK_RING.get())) {
-                int[] xOffset = new int[] {-5, -5, -4, -4};
-                int[] yOffset = new int[] {-17, -15, -17, -15, -25};
-                int[] uOffset = new int[] {0, 0, 9, 9, 18};
-                int[] vOffset = new int[] {0, 9, 0, 9, 0};
-                int[] uWidth = new int[] {9, 9, 9, 9, 23};
-                int[] vHeight = new int[] {9, 9, 9, 9, 16};
-                TATooltipRenderUtils.renderTooltips(event, RED_BOOK, (-267386864), (0xff6c337d),
-                        (-267386864), (48), (32), (4), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
-            } else if (itemStack.is(TAItems.STAR_OCEAN_CROSSBOW.get())) {
-                int[] xOffset = new int[] {-4, -4, -3, -4};
-                int[] yOffset = new int[] {-16, -18, -18, -16};
-                int[] uOffset = new int[] {0, 0, 8, 12};
-                int[] vOffset = new int[] {0, 9, 0, 11};
-                int[] uWidth = new int[] {8, 12, 9, 8};
-                int[] vHeight = new int[] {8, 10, 9, 8};
-                TATooltipRenderUtils.renderTooltips(event, STAR_OCEAN_CROSSBOW, (-267386864), (0xff217279),
-                        (-267386864), (64), (64), (0), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
-            } else if (itemStack.is(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get())) {
-                int[] xOffset = new int[] {-5, -5, -4, -4};
-                int[] yOffset = new int[] {-17, -16, -17, -16, -18, -7};
-                int[] uOffset = new int[] {0, 0, 9, 9, 18, 18};
-                int[] vOffset = new int[] {0, 9, 0, 9, 0, 9};
-                int[] uWidth = new int[] {9, 9, 9, 9, 14, 14};
-                int[] vHeight = new int[] {9, 9, 9, 9, 9, 5};
-                TATooltipRenderUtils.renderTooltips(event, DREAM_DYEING_CRYSTAL_FRAGMENT, (0xffcf5eac), (0xffffddeb),
-                        (0xffcf5eac), (48), (32), (2), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
-            } else if (itemStack.is(TAItems.CAT_BELL.get())) {
-                int[] xOffset = new int[] {-4, -4, -5, -5};
-                int[] yOffset = new int[] {-16, -17, -16, -17};
-                int[] uOffset = new int[] {0, 0, 9, 9};
-                int[] vOffset = new int[] {0, 9, 0, 9};
-                int[] uWidth = new int[] {9, 9, 9, 11};
-                int[] vHeight = new int[] {9, 9, 9, 9};
-                TATooltipRenderUtils.renderTooltips(event, CAT_BELL, (0xff272736), (0xff4b5bab),
-                        (0xff272736), (48), (32), (0), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
-            } else if (itemStack.is(TAItems.TSLAT_SWORD.get())) {
-                int[] xOffset = new int[] {-4, -4, -1, -1};
-                int[] yOffset = new int[] {-16, -13, -16, -13, -19};
-                int[] uOffset = new int[] {0, 0, 5, 5, 10};
-                int[] vOffset = new int[] {0, 5, 0, 5, 0};
-                int[] uWidth = new int[] {5, 5, 5, 5, 22};
-                int[] vHeight = new int[] {5, 5, 5, 5, 7};
-                TATooltipRenderUtils.renderTooltips(event, TSLAT_SWORD, (-267386864), (0xff37f037),
-                        (-267386864), (64), (64), (2), xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
-            }
+            if (itemStack.is(TAItemTags.IS_UNCOMMON)) TooltipData.UNCOMMON_ITEM.renderTooltips(event);
+            if (itemStack.is(TAItemTags.IS_RARE)) TooltipData.RARE_ITEM.renderTooltips(event);
+            if (itemStack.is(TAItemTags.IS_EPIC)) TooltipData.EPIC_ITEM.renderTooltips(event);
+            if (itemStack.is(TAItemTags.IS_LEGENDARY)) TooltipData.LEGENDARY_ITEM.renderTooltips(event);
+            if (itemStack.is(TAItemTags.IS_MYTHICAL)) TooltipData.MYTHICAL_ITEM.renderTooltips(event);
+            if (itemStack.is(TAItems.WHITE_CHOCOLATE.get())) TooltipData.WHITE_CHOCOLATE_ITEM.renderTooltips(event);
+            if (itemStack.is(TAItems.RED_BOOK.get()) || itemStack.is(TAItems.RED_BOOK_RING.get()))
+                TooltipData.RED_BOOK_ITEM.renderTooltips(event);
+            if (itemStack.is(TAItems.STAR_OCEAN_CROSSBOW.get()))
+                TooltipData.STAR_OCEAN_CROSSBOW_ITEM.renderTooltips(event);
+            if (itemStack.is(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get()))
+                TooltipData.DREAM_DYEING_CRYSTAL_FRAGMENT_ITEM.renderTooltips(event);
+            if (itemStack.is(TAItems.CAT_BELL.get())) TooltipData.CAT_BELL_ITEM.renderTooltips(event);
+            if (itemStack.is(TAItems.TSLAT_SWORD.get())) TooltipData.TSLAT_SWORD_ITEM.renderTooltips(event);
         }
+
     }
+
+
+    public record TooltipData(ResourceLocation texture, int backgroundColor, int borderColor, int textureWidth, int textureHeight, int textureOffsetX, int textureOffsetY,
+                       int[] xOffset, int[] yOffset, int[] uOffset, int[] vOffset, int[] uWidth, int[] vHeight) {
+        public static final TooltipData TSLAT_SWORD_ITEM = new TooltipData(
+                TSLAT_SWORD,
+                -267386864,
+                0xff37f037,
+                -267386864,
+                64,
+                64,
+                2,
+                new int[] {-4, -4, -1, -1},
+                new int[] {-16, -13, -16, -13, -19},
+                new int[] {0, 0, 5, 5, 10},
+                new int[] {0, 5, 0, 5, 0},
+                new int[] {5, 5, 5, 5, 22},
+                new int[] {5, 5, 5, 5, 7}
+        );
+
+        public static final TooltipData CAT_BELL_ITEM = new TooltipData(
+                CAT_BELL,
+                0xff272736,
+                0xff4b5bab,
+                0xff272736,
+                48,
+                32,
+                0,
+                new int[] {-4, -4, -5, -5},
+                new int[] {-16, -17, -16, -17},
+                new int[] {0, 0, 9, 9},
+                new int[] {0, 9, 0, 9},
+                new int[] {9, 9, 9, 11},
+                new int[] {9, 9, 9, 9}
+        );
+
+        public static final TooltipData DREAM_DYEING_CRYSTAL_FRAGMENT_ITEM = new TooltipData(
+                DREAM_DYEING_CRYSTAL_FRAGMENT,
+                0xffcf5eac,
+                0xffffddeb,
+                0xffcf5eac,
+                48,
+                32,
+                2,
+                new int[] {-5, -5, -4, -4},
+                new int[] {-17, -16, -17, -16, -18, -7},
+                new int[] {0, 0, 9, 9, 18, 18},
+                new int[] {0, 9, 0, 9, 0, 9},
+                new int[] {9, 9, 9, 9, 14, 14},
+                new int[] {9, 9, 9, 9, 9, 5}
+        );
+
+        public static final TooltipData  STAR_OCEAN_CROSSBOW_ITEM = new TooltipData(
+                STAR_OCEAN_CROSSBOW,
+                -267386864,
+                0xff217279,
+                -267386864,
+                64,
+                64,
+                0,
+                new int[] {-4, -4, -3, -4},
+                new int[] {-16, -18, -18, -16},
+                new int[] {0, 0, 8, 12},
+                new int[] {0, 9, 0, 11},
+                new int[] {8, 12, 9, 8},
+                new int[] {8, 10, 9, 8}
+        );
+
+        public static final TooltipData RED_BOOK_ITEM = new TooltipData(
+                RED_BOOK,
+                -267386864,
+                0xff6c337d,
+                -267386864,
+                48,
+                32,
+                4,
+                new int[] {-5, -5, -4, -4},
+                new int[] {-17, -15, -17, -15, -25},
+                new int[] {0, 0, 9, 9, 18},
+                new int[] {0, 9, 0, 9, 0},
+                new int[] {9, 9, 9, 9, 23},
+                new int[] {9, 9, 9, 9, 16}
+        );
+
+        public static final TooltipData WHITE_CHOCOLATE_ITEM = new TooltipData(
+                WHITE_CHOCOLATE,
+                0xff694e36,
+                0xffddcea3,
+                0xff503a26,
+                128,
+                128,
+                5,
+                new int[] {-6, -26, -5, -2},
+                new int[] {-18, -40, -18, -40, -22},
+                new int[] {0, 0, 11, 28, 22},
+                new int[] {0, 15, 0, 15, 0},
+                new int[] {11, 28, 11, 28, 18},
+                new int[] {11, 34, 11, 34, 15}
+        );
+
+        public static final TooltipData MYTHICAL_ITEM = new TooltipData(
+                MYTHICAL,
+                0xff621748,
+                0xff3d003d,
+                0xff621748,
+                48,
+                32,
+                4,
+                new int[] {-5, -5, -4, -4},
+                new int[] {-17, -16, -17, -16, -20, -6},
+                new int[] {0, 0, 9, 9, 18, 18},
+                new int[] {0, 9, 0, 9, 0, 12},
+                new int[] {9, 9, 9, 9, 18, 14},
+                new int[] {9, 9, 9, 9, 12, 5}
+        );
+
+        public static final TooltipData LEGENDARY_ITEM = new TooltipData(
+                LEGENDARY,
+                0xff412051,
+                0xffe88a36,
+                0xff14182e,
+                48,
+                32,
+                4,
+                new int[] {-5, -5, -4, -4},
+                new int[] {-17, -16, -17, -16, -20, -5},
+                new int[] {0, 0, 9, 9, 18, 18},
+                new int[] {0, 9, 0, 9, 0, 11},
+                new int[] {9, 9, 9, 9, 18, 10},
+                new int[] {9, 9, 9, 9, 11, 4}
+        );
+
+        public static final TooltipData EPIC_ITEM = new TooltipData(
+                EPIC,
+                0xff804085,
+                0xffe3a084,
+                0xff804085,
+                48,
+                32,
+                4,
+                new int[] {-5, -5, -4, -4},
+                new int[] {-17, -16, -17, -16, -21},
+                new int[] {0, 0, 9, 9, 18},
+                new int[] {0, 9, 0, 9, 0},
+                new int[] {9, 9, 9, 9, 18},
+                new int[] {9, 9, 9, 9, 11}
+        );
+
+        public static final TooltipData RARE_ITEM = new TooltipData(
+                RARE,
+                0xff686f99,
+                0xfff1f2ff,
+                0xff686f99,
+                48,
+                32,
+                2,
+                new int[] {-5, -5, -4, -4},
+                new int[] {-17, -16, -17, -16, -20},
+                new int[] {0, 0, 9, 9, 18},
+                new int[] {0, 9, 0, 9, 0},
+                new int[] {9, 9, 9, 9, 12},
+                new int[] {9, 9, 9, 9, 10}
+        );
+
+        public static final TooltipData UNCOMMON_ITEM = new TooltipData(
+                UNCOMMON,
+                0xff686f99,
+                0xfff1f2ff,
+                0xff686f99,
+                48,
+                32,
+                2,
+                new int[] {-5, -5, -3, -3},
+                new int[] {-17, -15, -17, -15, -18},
+                new int[] {0, 0, 8, 8, 16},
+                new int[] {0, 8, 0, 8, 0},
+                new int[] {8, 8, 8, 8, 12},
+                new int[] {8, 8, 8, 8, 6}
+        );
+
+        public void renderTooltips(RenderTooltipEvent.Pre event) {
+            TATooltipRenderUtils.renderTooltips(event, texture, backgroundColor, borderColor, textureWidth, textureHeight, textureOffsetX, textureOffsetY,
+                    xOffset, yOffset, uOffset, vOffset, uWidth, vHeight);
+        }
+
+    }
+
 
 }

@@ -588,6 +588,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAMobEffects.MOON_OF_VENGEANCE.get(), "复仇之月");
 
         //MOD ENCHANTMENT
+        this.add(TAEnchantments.OVERLOAD.get(), "过载");
         this.add(TAEnchantments.FREEZE_ASPECT.get(), "冰霜附加");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get(), "雷电");
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "雷电抵御");

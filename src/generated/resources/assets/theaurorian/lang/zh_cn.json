@@ -356,6 +356,7 @@
   "enchantment.theaurorian.lightning.desc": "根据对方穿戴的护甲数量造成额外伤害",
   "enchantment.theaurorian.lightning_resistance": "雷电抵御",
   "enchantment.theaurorian.lightning_resistance.desc": "降低“雷电”魔咒造成的额外伤害，同时完全抵消被雷击中的伤害",
+  "enchantment.theaurorian.overload": "过载",
   "entity.theaurorian.aurorian_cow": "极光牛",
   "entity.theaurorian.aurorian_pig": "极光猪",
   "entity.theaurorian.aurorian_pixie": "极光精灵",

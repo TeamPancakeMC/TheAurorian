@@ -588,6 +588,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAMobEffects.MOON_OF_VENGEANCE.get(), "Moon of Vengeance");
 
         //MOD ENCHANTMENT
+        this.add(TAEnchantments.OVERLOAD.get(), "Overload");
         this.add(TAEnchantments.FREEZE_ASPECT.get(), "Freeze Aspect");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get(), "Lightning");
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "Lightning Resistance");

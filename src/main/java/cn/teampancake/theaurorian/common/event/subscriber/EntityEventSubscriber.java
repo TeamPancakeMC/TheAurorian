@@ -199,6 +199,15 @@ public class EntityEventSubscriber {
                 instance.setBaseValue(i + source.getFoodExhaustion());
             }
         }
+
+        if (source.getEntity() instanceof LivingEntity livingEntity) {
+            ItemStack itemInHand = livingEntity.getItemInHand(livingEntity.getUsedItemHand());
+            int level = itemInHand.getEnchantmentLevel(TAEnchantments.OVERLOAD.get());
+            float amount = event.getAmount();
+            if (level > 0) {
+                event.setAmount(amount + amount * level);
+            }
+        }
     }
 
     @SubscribeEvent
@@ -245,7 +254,9 @@ public class EntityEventSubscriber {
 
             if (livingEntity.hasEffect(TAMobEffects.CRESCENT.get())) {
                 livingEntity.heal((event.getAmount() / 2.0F));
-            } else if (livingEntity.hasEffect(TAMobEffects.BLESS_OF_MOON.get())) {
+            }
+
+            if (livingEntity.hasEffect(TAMobEffects.BLESS_OF_MOON.get())) {
                 event.setAmount((event.getAmount() / 2.0F));
             }
         }
@@ -263,7 +274,7 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void additionDamage(LivingAttackEvent event) {
+    public static void onLivingAttacked(LivingAttackEvent event) {
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
         if (source.getEntity() instanceof LivingEntity livingEntity) {

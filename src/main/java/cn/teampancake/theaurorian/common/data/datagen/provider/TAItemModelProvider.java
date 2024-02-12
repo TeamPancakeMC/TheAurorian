@@ -167,6 +167,12 @@ public class TAItemModelProvider extends ItemModelProvider {
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.CURTAIN_TREE_SAPLING.get())));
         this.withExistingParent(this.name(TABlocks.INDIGO_MUSHROOM.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.INDIGO_MUSHROOM.get())));
+        this.withExistingParent(this.name(TABlocks.SMALL_FILTHY_ICE_SPIKE.get()), this.modLoc("item/ta_small_bud"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.SMALL_FILTHY_ICE_SPIKE.get())));
+        this.withExistingParent(this.name(TABlocks.MEDIUM_FILTHY_ICE_SPIKE.get()), this.modLoc("item/ta_medium_bud"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.MEDIUM_FILTHY_ICE_SPIKE.get())));
+        this.withExistingParent(this.name(TABlocks.LARGE_FILTHY_ICE_SPIKE.get()), this.modLoc("item/ta_large_bud"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.LARGE_FILTHY_ICE_SPIKE.get())));
         this.withExistingParent(this.name(TABlocks.CERULEAN_CLUSTER.get()), this.modLoc("item/ta_cluster"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.CERULEAN_CLUSTER.get())));
         this.withExistingParent(this.name(TABlocks.LARGE_CERULEAN_BUD.get()), this.modLoc("item/ta_large_bud"))

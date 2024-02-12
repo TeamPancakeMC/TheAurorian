@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "vertical_direction=down": {
+      "model": "theaurorian:block/small_filthy_ice_spike"
+    },
+    "vertical_direction=up": {
+      "model": "theaurorian:block/small_filthy_ice_spike"
+    }
+  }
+}

@@ -42,14 +42,13 @@
     [],
     [],
     [
-      "theaurorian:random_riverside_plant",
       "theaurorian:riverside_moon_sand"
     ],
     [
       "theaurorian:filthy_freeze_top_layer"
     ]
   ],
-  "has_precipitation": false,
+  "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
     "ambient": [],
@@ -105,5 +104,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.2
+  "temperature": -0.7
 }

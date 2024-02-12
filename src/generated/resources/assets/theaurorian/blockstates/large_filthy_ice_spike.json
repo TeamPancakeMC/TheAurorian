@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "half=lower,vertical_direction=down": {
+      "model": "theaurorian:block/large_filthy_ice_spike_lower"
+    },
+    "half=lower,vertical_direction=up": {
+      "model": "theaurorian:block/large_filthy_ice_spike_lower"
+    },
+    "half=upper,vertical_direction=down": {
+      "model": "theaurorian:block/large_filthy_ice_spike_upper"
+    },
+    "half=upper,vertical_direction=up": {
+      "model": "theaurorian:block/large_filthy_ice_spike_upper"
+    }
+  }
+}

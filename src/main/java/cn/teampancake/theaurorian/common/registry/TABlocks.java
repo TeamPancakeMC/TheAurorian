@@ -127,6 +127,9 @@ public class TABlocks {
     public static final RegistryObject<Block> MOONSTONE_BLOCK = normal("moonstone_block", defaultStoneProperties(3.0F).mapColor(MapColor.METAL));
     public static final RegistryObject<Block> AURORIAN_COAL_BLOCK = normal("aurorian_coal_block", defaultStoneProperties(5.0F).mapColor(MapColor.METAL));
     public static final RegistryObject<Block> AURORIAN_STEEL_BLOCK = normal("aurorian_steel_block", defaultStoneProperties(5.0F).mapColor(MapColor.METAL));
+    public static final RegistryObject<Block> LARGE_FILTHY_ICE_SPIKE = register("large_filthy_ice_spike", LargeFilthyIceSpike::new);
+    public static final RegistryObject<Block> MEDIUM_FILTHY_ICE_SPIKE = register("medium_filthy_ice_spike", () -> new FilthyIceSpike(FilthyIceSpike.Size.MEDIUM));
+    public static final RegistryObject<Block> SMALL_FILTHY_ICE_SPIKE = register("small_filthy_ice_spike", () -> new FilthyIceSpike(FilthyIceSpike.Size.SMALL));
     public static final RegistryObject<Block> CERULEAN_CLUSTER = register("cerulean_cluster", () -> new TAClusterBlock(7, 3, copy(Blocks.AMETHYST_CLUSTER)));
     public static final RegistryObject<Block> LARGE_CERULEAN_BUD = register("large_cerulean_bud", () -> new TAClusterBlock(5, 3, copy(Blocks.LARGE_AMETHYST_BUD)));
     public static final RegistryObject<Block> MEDIUM_CERULEAN_BUD = register("medium_cerulean_bud", () -> new TAClusterBlock(4, 3, copy(Blocks.MEDIUM_AMETHYST_BUD)));

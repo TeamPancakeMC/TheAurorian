@@ -116,6 +116,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.AURORIAN_COAL_BLOCK.get(), "极光煤块");
         this.add(TABlocks.AURORIAN_STEEL_BLOCK.get(), "极光钢块");
         this.add(TABlocks.CERULEAN_CLUSTER.get(), "晶蓝簇");
+        this.add(TABlocks.SMALL_FILTHY_ICE_SPIKE.get(), "小型污秽冰刺");
+        this.add(TABlocks.MEDIUM_FILTHY_ICE_SPIKE.get(), "中型污秽冰刺");
+        this.add(TABlocks.LARGE_FILTHY_ICE_SPIKE.get(), "大型污秽冰刺");
         this.add(TABlocks.LARGE_CERULEAN_BUD.get(), "大型晶蓝芽");
         this.add(TABlocks.MEDIUM_CERULEAN_BUD.get(), "中型晶蓝芽");
         this.add(TABlocks.SMALL_CERULEAN_BUD.get(), "小型晶蓝芽");

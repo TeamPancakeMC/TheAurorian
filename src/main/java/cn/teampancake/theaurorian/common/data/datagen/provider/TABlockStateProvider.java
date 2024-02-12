@@ -40,6 +40,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerScrapperState();
         this.registerCraftingTableState();
         this.registerMysticalBarrierState();
+        this.registerLargeFilthyIceSpike();
         this.registerAurorianPortalState();
         this.registerAurorianFurnaceState();
         this.registerAurorianFarmlandState();
@@ -179,6 +180,8 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerDoubleLightPlantStates(TABlocks.TALL_AURORIAN_GRASS_LIGHT.get());
         this.registerWaterSurfacePlantStates(TABlocks.AURORIAN_LILY_PAD.get());
         this.registerWaterSurfacePlantStates(TABlocks.AURORIAN_WATER_MUSHROOM.get());
+        this.registerFilthyIceSpike(TABlocks.SMALL_FILTHY_ICE_SPIKE.get());
+        this.registerFilthyIceSpike(TABlocks.MEDIUM_FILTHY_ICE_SPIKE.get());
         this.simpleBlockWithRenderType(TABlocks.FILTHY_ICE.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.MOON_GLASS.get(), TRANSLUCENT);
         this.simpleBlockWithRenderType(TABlocks.AURORIAN_GLASS.get(), TRANSLUCENT);
@@ -409,6 +412,16 @@ public class TABlockStateProvider extends BlockStateProvider {
         }, VerticalSlabBlockWithBase.WATERLOGGED);
     }
 
+    private void registerFilthyIceSpike(Block block) {
+        DirectionProperty property = BlockStateProperties.VERTICAL_DIRECTION;
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        ResourceLocation texture = this.modLoc("block/" + this.name(block));
+        ModelFile modelFile = this.models().cross(this.name(block), texture).renderType(CUTOUT);
+        for (Direction direction : property.getPossibleValues()) {
+            builder.partialState().with(property, direction).modelForState().modelFile(modelFile).addModel();
+        }
+    }
+
     private void registerClusterStates(Block block) {
         VariantBlockStateBuilder builder = this.getVariantBuilder(block);
         ResourceLocation texture = this.modLoc("block/" + this.name(block));
@@ -579,6 +592,28 @@ public class TABlockStateProvider extends BlockStateProvider {
         for (Direction direction : MysticalBarrier.FACING.getPossibleValues()) {
             builder.partialState().with(MysticalBarrier.FACING, direction).modelForState()
                     .modelFile(modelFile).rotationY(direction.get2DDataValue() * 90).addModel();
+        }
+    }
+
+    private void registerLargeFilthyIceSpike() {
+        Block block = TABlocks.LARGE_FILTHY_ICE_SPIKE.get();
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        DirectionProperty property1 = BlockStateProperties.VERTICAL_DIRECTION;
+        EnumProperty<DoubleBlockHalf> property2 = BlockStateProperties.DOUBLE_BLOCK_HALF;
+        ResourceLocation lowerTexture = this.modLoc("block/large_filthy_ice_spike");
+        ResourceLocation upperTexture = this.modLoc("block/medium_filthy_ice_spike");
+        ResourceLocation parent = this.mcLoc("block/tinted_cross");
+        Map<DoubleBlockHalf, ResourceLocation> map = Map.of(
+                DoubleBlockHalf.LOWER, lowerTexture,
+                DoubleBlockHalf.UPPER, upperTexture);
+        for (Direction direction : property1.getPossibleValues()) {
+            for (DoubleBlockHalf half : property2.getPossibleValues()) {
+                String name = this.name(block) + "_" + half.toString();
+                ModelFile modelFile = this.models().withExistingParent(name, parent)
+                        .texture("cross", map.get(half)).renderType(CUTOUT);
+                builder.partialState().with(property1, direction).with(property2, half)
+                        .modelForState().modelFile(modelFile).addModel();
+            }
         }
     }
 

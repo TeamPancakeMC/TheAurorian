@@ -115,6 +115,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.MOONSTONE_BLOCK.get(), "Moonstone Block");
         this.add(TABlocks.AURORIAN_COAL_BLOCK.get(), "Aurorian Coal Block");
         this.add(TABlocks.AURORIAN_STEEL_BLOCK.get(), "Aurorian Steel Block");
+        this.add(TABlocks.SMALL_FILTHY_ICE_SPIKE.get(), "Small Filthy Ice Spike");
+        this.add(TABlocks.MEDIUM_FILTHY_ICE_SPIKE.get(), "Medium Filthy Ice Spike");
+        this.add(TABlocks.LARGE_FILTHY_ICE_SPIKE.get(), "Large Filthy Ice Spike");
         this.add(TABlocks.CERULEAN_CLUSTER.get(), "Cerulean Cluster");
         this.add(TABlocks.LARGE_CERULEAN_BUD.get(), "Large Cerulean Bud");
         this.add(TABlocks.MEDIUM_CERULEAN_BUD.get(), "Medium Cerulean Bud");

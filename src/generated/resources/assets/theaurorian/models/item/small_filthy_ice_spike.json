@@ -1,0 +1,6 @@
+{
+  "parent": "theaurorian:item/ta_small_bud",
+  "textures": {
+    "layer0": "theaurorian:block/small_filthy_ice_spike"
+  }
+}

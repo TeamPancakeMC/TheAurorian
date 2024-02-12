@@ -10,28 +10,23 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 @OnlyIn(Dist.CLIENT)
 public class TASpecialEffects extends DimensionSpecialEffects {
 
     public TASpecialEffects() {
-        super(OverworldEffects.CLOUD_LEVEL, Boolean.TRUE, DimensionSpecialEffects.SkyType.NONE, Boolean.FALSE, Boolean.FALSE);
+        super(OverworldEffects.CLOUD_LEVEL, Boolean.TRUE, SkyType.NONE, Boolean.FALSE, Boolean.FALSE);
     }
 
     @Override
-    public float @Nullable [] getSunriseColor(float timeOfDay, float partialTicks) {
+    public float[] getSunriseColor(float timeOfDay, float partialTicks) {
         return null;
     }
 
     @Override
-    public @NotNull Vec3 getBrightnessDependentFogColor(Vec3 fogColor, float brightness) {
+    public Vec3 getBrightnessDependentFogColor(Vec3 fogColor, float brightness) {
         return Vec3.ZERO;
     }
 
@@ -46,6 +41,11 @@ public class TASpecialEffects extends DimensionSpecialEffects {
     }
 
     @Override
+    public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, LightTexture lightTexture, double camX, double camY, double camZ) {
+        return TAWeatherRenderer.renderSnowAndRain(level, ticks, partialTick, lightTexture, camX, camY, camZ);
+    }
+
+    @Override
     public void adjustLightmapColors(ClientLevel level, float partialTicks, float skyDarken, float blockLightRedFlicker, float skyLight, int pixelX, int pixelY, Vector3f colors) {
         GameRenderer gameRenderer = Minecraft.getInstance().gameRenderer;
         float f = Math.min(level.getSkyDarken(partialTicks), 0.35F);
@@ -55,7 +55,8 @@ public class TASpecialEffects extends DimensionSpecialEffects {
         float f10 = f9 * ((f9 * 0.6F + 0.4F) * 0.6F + 0.4F);
         float f11 = f9 * (f9 * f9 * 0.6F + 0.4F);
         colors.set(f9, f10, f11);
-        Vector3f vector3f = (new Vector3f(f, f, 1.0F)).lerp(new Vector3f(1.0F, 1.0F, 1.0F), 0.35F);
+        Vector3f defaultScale = new Vector3f(1.0F, 1.0F, 1.0F);
+        Vector3f vector3f = (new Vector3f(f, f, 1.0F)).lerp(defaultScale, 0.35F);
         colors.add((new Vector3f(vector3f)).mul(f8));
         colors.lerp(new Vector3f(0.75F, 0.75F, 0.75F), 0.04F);
         if (gameRenderer.getDarkenWorldAmount(partialTicks) > 0.0F) {

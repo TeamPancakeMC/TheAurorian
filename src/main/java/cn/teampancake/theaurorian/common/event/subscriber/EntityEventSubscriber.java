@@ -13,9 +13,12 @@ import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.CrystallineSprite;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
+import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.common.utils.AurorianUtil;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -39,6 +42,8 @@ import net.minecraft.world.entity.projectile.ThrownEgg;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -60,12 +65,24 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onPlayerTicking(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
+        Level level = player.level();
         boolean hasKnightHelmet = player.getItemBySlot(EquipmentSlot.HEAD).is(TAItems.KNIGHT_HELMET.get());
         boolean hasKnightChestplate = player.getItemBySlot(EquipmentSlot.CHEST).is(TAItems.KNIGHT_CHESTPLATE.get());
         boolean hasKnightLeggings = player.getItemBySlot(EquipmentSlot.LEGS).is(TAItems.KNIGHT_LEGGINGS.get());
         boolean hasKnightBoots = player.getItemBySlot(EquipmentSlot.FEET).is(TAItems.KNIGHT_BOOTS.get());
         if (hasKnightHelmet && hasKnightChestplate && hasKnightLeggings && hasKnightBoots) {
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100));
+        }
+
+        if (event.phase == TickEvent.Phase.END && level instanceof ServerLevel serverLevel && !serverLevel.isClientSide) {
+            Holder<Biome> biomeHolder = serverLevel.getBiome(player.blockPosition());
+            if (biomeHolder.is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD) && player.tickCount % 60 == 0) {
+                if (!MysteriumWoolArmor.isWearFullArmor(player) && !player.isCreative() && !player.isSpectator()) {
+                    player.setTicksFrozen(player.getTicksRequiredToFreeze());
+                    player.hurt(player.damageSources().freeze(), (1.0F));
+                    player.setSharedFlagOnFire(player.isOnFire());
+                }
+            }
         }
     }
 

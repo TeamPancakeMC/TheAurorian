@@ -9,6 +9,7 @@
         "MixinLevel",
         "MixinLivingEntity",
         "MixinPlayer",
+        "MixinServerLevel",
         "MixinWorldOptions",
         "PlayerListMixin"
     ],

@@ -6,7 +6,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class AurorianShield extends CommonShield{
+public class AurorianShield extends CommonShield {
+
     public AurorianShield(int priority,float shield, float maxShield,int color) {
         super(priority,shield, maxShield,color);
         this.rate = 0.25f;
@@ -30,4 +31,5 @@ public class AurorianShield extends CommonShield{
         }
         return damage;
     }
+
 }

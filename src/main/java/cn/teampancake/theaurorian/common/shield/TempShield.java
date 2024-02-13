@@ -13,12 +13,12 @@ public class TempShield extends BaseShield {
     private IShield shieldType;
 
     public TempShield(int priority, float shield, float maxShield, int color) {
-        super(priority, shield, maxShield,color);
+        super(priority, shield, maxShield, color);
     }
 
     @Override
     public IShield copy() {
-        return new TempShield(getPriority(),getShield(), getMaxShield(),getColor());
+        return new TempShield(this.getPriority(), this.getShield(), this.getMaxShield(), this.getColor());
     }
 
     public void setTempShield(IShield shieldType) {
@@ -28,17 +28,17 @@ public class TempShield extends BaseShield {
     }
 
     public void clearTempShield(ServerPlayer player){
-        consumeShield(getShield());
-        consumeMaxShield(getMaxShield());
+        consumeShield(this.getShield());
+        consumeMaxShield(this.getMaxShield());
         this.shieldType = null;
-        TAMessages.sendToPlayer(new ShieldSyncS2CMessage(serializeNBT()),player);
+        TAMessages.sendToPlayer(new ShieldSyncS2CMessage(this.serializeNBT()), player);
     }
 
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag compoundTag = super.serializeNBT();
         if (this.shieldType != null){
-            compoundTag.put("tempShield",shieldType.serializeNBT());
+            compoundTag.put("tempShield", this.shieldType.serializeNBT());
         }
         return compoundTag;
     }

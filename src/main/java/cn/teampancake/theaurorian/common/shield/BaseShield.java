@@ -10,6 +10,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
 public abstract class BaseShield implements IShield {
+
     private final int priority;
     private final MaxShieldData maxShieldData;
     private float shield;
@@ -101,13 +102,13 @@ public abstract class BaseShield implements IShield {
     public float naturalRecovery(LivingEntity entity) {
         return 0.0f;
     }
+
     @Override
     public boolean isNaturalRecovery(LivingEntity entity) {
         boolean effect = entity.getEffect(TAMobEffects.BROKEN.get()) == null;
         boolean isCombat = entity.getLastDamageSource() == null;
         return effect && isCombat;
     }
-
 
     @Override
     public float applyDamageModifiers(LivingEntity entity, DamageSource source, float damage) {

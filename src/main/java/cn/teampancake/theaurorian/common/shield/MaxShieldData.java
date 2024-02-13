@@ -15,9 +15,10 @@ import java.util.List;
 import java.util.Map;
 
 public class MaxShieldData implements INBTSerializable<CompoundTag> {
+
     private final IShield shield;
     private float maxShield;
-    public Map<String,List<ResourceLocation>> MAP = Maps.newHashMap();
+    public Map<String, List<ResourceLocation>> MAP = Maps.newHashMap();
     public List<ResourceLocation> Dimension = Lists.newArrayList();
     public List<ResourceLocation> Item = Lists.newArrayList();
     public List<ResourceLocation> Achievements = Lists.newArrayList();
@@ -28,7 +29,7 @@ public class MaxShieldData implements INBTSerializable<CompoundTag> {
     public MaxShieldData(IShield shield,float maxShield) {
         this.shield = shield;
         this.maxShield = maxShield;
-        register();
+        this.register();
     }
 
     public float getMaxShield() {
@@ -42,11 +43,12 @@ public class MaxShieldData implements INBTSerializable<CompoundTag> {
     public void consumeMaxShield(float maxShield) {
         this.maxShield = Math.max(this.maxShield - maxShield, 0);
     }
+
     public void increaseMaxShield(float maxShield) {
         this.maxShield = Math.max(this.maxShield + maxShield, 0);
     }
 
-    public boolean Vaild(String type,ResourceLocation location,Boolean bool) {
+    public boolean Vaild(String type, ResourceLocation location, Boolean bool) {
         ResourceLocation registryName = shield.getRegistryName();
         if (MaxShieldLoader.MAP.get(type).containsKey(registryName)) {
             if (bool){
@@ -89,20 +91,17 @@ public class MaxShieldData implements INBTSerializable<CompoundTag> {
         deserializeList(nbt.getList("Buff", 10), Buff);
     }
 
-
     private void deserializeList(ListTag nbtList, List<ResourceLocation> locations) {
         nbtList.forEach(tag -> locations.add(new ResourceLocation(tag.getAsString())));
     }
 
     public void register() {
-        MAP.put("dimension",Dimension);
-        MAP.put("item",Item);
-        MAP.put("achievements",Achievements);
-        MAP.put("entity",Entity);
-        MAP.put("armor",Armor);
-        MAP.put("buff",Buff);
+        MAP.put("dimension", Dimension);
+        MAP.put("item", Item);
+        MAP.put("achievements", Achievements);
+        MAP.put("entity", Entity);
+        MAP.put("armor", Armor);
+        MAP.put("buff", Buff);
     }
-
-
 
 }

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "theaurorian:cursed_frost_tree_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "theaurorian:cursed_frost_tree_planks"
+  }
+}

@@ -45,18 +45,27 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 TABlocks.MOON_CASTLE_RUNE_STONE.get(), TABlocks.TRANSPARENT_RUNE_STONE.get(),
                 TABlocks.UMBRA_CASTLE_RUNE_STONE.get());
         this.tag(TABlockTags.SILENT_TREE_LOGS).add(TABlocks.STRIPPED_SILENT_TREE_LOG.get(),
-                TABlocks.STRIPPED_SILENT_TREE_WOOD.get(), TABlocks.SILENT_TREE_LOG.get(), TABlocks.SILENT_TREE_WOOD.get());
+                TABlocks.STRIPPED_SILENT_TREE_WOOD.get(), TABlocks.SILENT_TREE_LOG.get(),
+                TABlocks.SILENT_TREE_WOOD.get());
         this.tag(TABlockTags.WEEPING_WILLOW_LOGS).add(TABlocks.STRIPPED_WEEPING_WILLOW_LOG.get(),
-                TABlocks.STRIPPED_WEEPING_WILLOW_WOOD.get(), TABlocks.WEEPING_WILLOW_LOG.get(), TABlocks.WEEPING_WILLOW_WOOD.get());
+                TABlocks.STRIPPED_WEEPING_WILLOW_WOOD.get(), TABlocks.WEEPING_WILLOW_LOG.get(),
+                TABlocks.WEEPING_WILLOW_WOOD.get());
         this.tag(TABlockTags.CURTAIN_TREE_LOGS).add(TABlocks.STRIPPED_CURTAIN_TREE_LOG.get(),
-                TABlocks.STRIPPED_CURTAIN_TREE_WOOD.get(), TABlocks.CURTAIN_TREE_LOG.get(), TABlocks.CURTAIN_TREE_WOOD.get());
+                TABlocks.STRIPPED_CURTAIN_TREE_WOOD.get(), TABlocks.CURTAIN_TREE_LOG.get(),
+                TABlocks.CURTAIN_TREE_WOOD.get());
+        this.tag(TABlockTags.CURSED_FROST_TREE_LOGS).add(TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get(),
+                TABlocks.STRIPPED_CURSED_FROST_TREE_WOOD.get(), TABlocks.CURSED_FROST_TREE_LOG.get(),
+                TABlocks.CURSED_FROST_TREE_WOOD.get());
         this.tag(TABlockTags.AURORIAN_GRASS_BLOCK).add(TABlocks.AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
-        this.tag(BlockTags.PLANKS).add(TABlocks.SILENT_TREE_PLANKS.get(), TABlocks.WEEPING_WILLOW_PLANKS.get(), TABlocks.CURTAIN_TREE_PLANKS.get());
-        this.tag(BlockTags.LEAVES).add(TABlocks.SILENT_TREE_LEAVES.get(), TABlocks.WEEPING_WILLOW_LEAVES.get(), TABlocks.CURTAIN_TREE_LEAVES.get());
+        this.tag(BlockTags.PLANKS).add(TABlocks.SILENT_TREE_PLANKS.get(), TABlocks.WEEPING_WILLOW_PLANKS.get(),
+                TABlocks.CURTAIN_TREE_PLANKS.get(), TABlocks.CURSED_FROST_TREE_PLANKS.get());
+        this.tag(BlockTags.LEAVES).add(TABlocks.SILENT_TREE_LEAVES.get(), TABlocks.WEEPING_WILLOW_LEAVES.get(),
+                TABlocks.CURTAIN_TREE_LEAVES.get(), TABlocks.CURSED_FROST_TREE_LEAVES.get());
         this.tag(BlockTags.LOGS).addTag(TABlockTags.SILENT_TREE_LOGS).addTag(TABlockTags.WEEPING_WILLOW_LOGS).addTag(TABlockTags.CURTAIN_TREE_LOGS);
-        this.tag(BlockTags.SAPLINGS).add(TABlocks.SILENT_TREE_SAPLING.get(), TABlocks.CURTAIN_TREE_SAPLING.get());
+        this.tag(BlockTags.SAPLINGS).add(TABlocks.SILENT_TREE_SAPLING.get(), TABlocks.CURTAIN_TREE_SAPLING.get(),
+                TABlocks.CURSED_FROST_TREE_SAPLING.get());
         this.tag(BlockTags.CROPS).add(TABlocks.LAVENDER_CROP.get(), TABlocks.SILK_BERRY_CROP.get());
         this.tag(BlockTags.FALL_DAMAGE_RESETTING).add(TABlocks.BLUEBERRY_BUSH.get());
         this.tag(BlockTags.SWORD_EFFICIENT).add(TABlocks.BLUEBERRY_BUSH.get());

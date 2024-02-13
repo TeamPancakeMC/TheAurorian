@@ -14,6 +14,7 @@ public class TABlockTags {
     public static final TagKey<Block> SILENT_TREE_LOGS = create("silent_tree_logs");
     public static final TagKey<Block> WEEPING_WILLOW_LOGS = create("weeping_willow_logs");
     public static final TagKey<Block> CURTAIN_TREE_LOGS = create("curtain_tree_logs");
+    public static final TagKey<Block> CURSED_FROST_TREE_LOGS = create("cursed_frost_tree_logs");
     public static final TagKey<Block> AURORIAN_GRASS_BLOCK = create("aurorian_grass_block");
     public static final TagKey<Block> AURORIAN_CARVER_REPLACEABLES = create("aurorian_carver_replaceables");
     public static final TagKey<Block> AUROTIAN_ANIMAL_UNSPAWNABLE_ON = create("aurotian_animal_unspawnable_on");

@@ -125,6 +125,11 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.CURTAIN_TREE_LOG.get());
         this.simpleBlockItem(TABlocks.CURTAIN_TREE_WOOD.get());
         this.simpleBlockItem(TABlocks.CURTAIN_TREE_PLANKS.get());
+        this.simpleBlockItem(TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get());
+        this.simpleBlockItem(TABlocks.STRIPPED_CURSED_FROST_TREE_WOOD.get());
+        this.simpleBlockItem(TABlocks.CURSED_FROST_TREE_LOG.get());
+        this.simpleBlockItem(TABlocks.CURSED_FROST_TREE_WOOD.get());
+        this.simpleBlockItem(TABlocks.CURSED_FROST_TREE_PLANKS.get());
         this.simpleBlockItem(TABlocks.FILTHY_ICE.get());
         this.simpleBlockItem(TABlocks.MOON_GLASS.get());
         this.simpleBlockItem(TABlocks.AURORIAN_GLASS.get());
@@ -132,6 +137,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.SILENT_TREE_LEAVES.get());
         this.simpleBlockItem(TABlocks.WEEPING_WILLOW_LEAVES.get());
         this.simpleBlockItem(TABlocks.CURTAIN_TREE_LEAVES.get());
+        this.simpleBlockItem(TABlocks.CURSED_FROST_TREE_LEAVES.get());
         this.simpleBlockItem(TABlocks.AURORIAN_CRAFTING_TABLE.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_GRASS.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_GRASS_LIGHT.get());
@@ -165,6 +171,8 @@ public class TAItemModelProvider extends ItemModelProvider {
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_SAPLING.get())));
         this.withExistingParent(this.name(TABlocks.CURTAIN_TREE_SAPLING.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.CURTAIN_TREE_SAPLING.get())));
+        this.withExistingParent(this.name(TABlocks.CURSED_FROST_TREE_SAPLING.get()), this.mcLoc("item/generated"))
+                .texture("layer0", this.modLoc("block/" + this.name(TABlocks.CURSED_FROST_TREE_SAPLING.get())));
         this.withExistingParent(this.name(TABlocks.INDIGO_MUSHROOM.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.name(TABlocks.INDIGO_MUSHROOM.get())));
         this.withExistingParent(this.name(TABlocks.SMALL_FILTHY_ICE_SPIKE.get()), this.modLoc("item/ta_small_bud"))

@@ -112,6 +112,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.SILENT_TREE_PLANKS.get());
         this.simpleBlock(TABlocks.WEEPING_WILLOW_PLANKS.get());
         this.simpleBlock(TABlocks.CURTAIN_TREE_PLANKS.get());
+        this.simpleBlock(TABlocks.CURSED_FROST_TREE_PLANKS.get());
         this.simpleBlock(TABlocks.SILENT_WOOD_CHEST.get(), this.models().getBuilder(this.name(TABlocks.SILENT_WOOD_CHEST.get()))
                 .texture("particle", this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_PLANKS.get()))));
         this.simpleBlock(TABlocks.SILENT_WOOD_TORCH.get(), this.models().torch(this.name(TABlocks.SILENT_WOOD_TORCH.get()),
@@ -124,15 +125,20 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_SILENT_TREE_LOG.get());
         this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_WEEPING_WILLOW_LOG.get());
         this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_CURTAIN_TREE_LOG.get());
+        this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get());
         this.logBlock((RotatedPillarBlock) TABlocks.SILENT_TREE_LOG.get());
         this.logBlock((RotatedPillarBlock) TABlocks.WEEPING_WILLOW_LOG.get());
         this.logBlock((RotatedPillarBlock) TABlocks.CURTAIN_TREE_LOG.get());
+        this.logBlock((RotatedPillarBlock) TABlocks.CURSED_FROST_TREE_LOG.get());
         this.simpleBlock(TABlocks.SILENT_TREE_SAPLING.get(),
                 this.models().cross(this.name(TABlocks.SILENT_TREE_SAPLING.get()),
                         this.blockTexture(TABlocks.SILENT_TREE_SAPLING.get())).renderType(CUTOUT));
         this.simpleBlock(TABlocks.CURTAIN_TREE_SAPLING.get(),
                 this.models().cross(this.name(TABlocks.CURTAIN_TREE_SAPLING.get()),
                         this.blockTexture(TABlocks.CURTAIN_TREE_SAPLING.get())).renderType(CUTOUT));
+        this.simpleBlock(TABlocks.CURSED_FROST_TREE_SAPLING.get(),
+                this.models().cross(this.name(TABlocks.CURSED_FROST_TREE_SAPLING.get()),
+                        this.blockTexture(TABlocks.CURSED_FROST_TREE_SAPLING.get())).renderType(CUTOUT));
         this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_SILENT_TREE_WOOD.get(),
                 this.modLoc("block/stripped_silent_tree_log"),
                 this.modLoc("block/stripped_silent_tree_log"));
@@ -142,6 +148,9 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_CURTAIN_TREE_WOOD.get(),
                 this.modLoc("block/stripped_curtain_tree_log"),
                 this.modLoc("block/stripped_curtain_tree_log"));
+        this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_CURSED_FROST_TREE_WOOD.get(),
+                this.modLoc("block/stripped_cursed_frost_tree_log"),
+                this.modLoc("block/stripped_cursed_frost_tree_log"));
         this.axisBlock((RotatedPillarBlock) TABlocks.SILENT_TREE_WOOD.get(),
                 this.modLoc("block/silent_tree_log"),
                 this.modLoc("block/silent_tree_log"));
@@ -151,6 +160,9 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.axisBlock((RotatedPillarBlock) TABlocks.CURTAIN_TREE_WOOD.get(),
                 this.modLoc("block/curtain_tree_log"),
                 this.modLoc("block/curtain_tree_log"));
+        this.axisBlock((RotatedPillarBlock) TABlocks.CURSED_FROST_TREE_WOOD.get(),
+                this.modLoc("block/cursed_frost_tree_log"),
+                this.modLoc("block/cursed_frost_tree_log"));
         this.simpleBlock(TABlocks.AURORIAN_GRASS_BLOCK.get(),
                 this.models().cubeBottomTop("aurorian_grass_block",
                         this.modLoc("block/aurorian_grass_block"),
@@ -189,6 +201,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlockWithRenderType(TABlocks.SILENT_TREE_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.WEEPING_WILLOW_LEAVES.get(), CUTOUT_MIPPED);
         this.simpleBlockWithRenderType(TABlocks.CURTAIN_TREE_LEAVES.get(), CUTOUT_MIPPED);
+        this.simpleBlockWithRenderType(TABlocks.CURSED_FROST_TREE_LEAVES.get(), CUTOUT_MIPPED);
         this.paneBlockWithRenderType((IronBarsBlock) TABlocks.MOON_GLASS_PANE.get(),
                 this.blockTexture(TABlocks.MOON_GLASS.get()),
                 this.blockTexture(TABlocks.MOON_GLASS_PANE.get()), TRANSLUCENT);

@@ -181,6 +181,13 @@ public class TABlocks {
     public static final RegistryObject<Block> CURTAIN_TREE_LOG = wood("curtain_tree_log", STRIPPED_CURTAIN_TREE_LOG, MapColor.COLOR_LIGHT_GRAY, 2.0F);
     public static final RegistryObject<Block> CURTAIN_TREE_WOOD = wood("curtain_tree_wood", STRIPPED_CURTAIN_TREE_WOOD, MapColor.COLOR_LIGHT_GRAY, 2.0F);
     public static final RegistryObject<Block> CURTAIN_TREE_SAPLING = register("curtain_tree_sapling", () -> new CurtainTreeSapling(copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> STRIPPED_CURSED_FROST_TREE_LOG = wood("stripped_cursed_frost_tree_log", MapColor.COLOR_LIGHT_GRAY, 2.0F);
+    public static final RegistryObject<Block> STRIPPED_CURSED_FROST_TREE_WOOD = wood("stripped_cursed_frost_tree_wood", MapColor.COLOR_LIGHT_GRAY, 2.0F);
+    public static final RegistryObject<Block> CURSED_FROST_TREE_LEAVES = register("cursed_frost_tree_leaves", () -> Blocks.leaves(SoundType.GRASS));
+    public static final RegistryObject<Block> CURSED_FROST_TREE_PLANKS = normal("cursed_frost_tree_planks", copy(Blocks.OAK_PLANKS));
+    public static final RegistryObject<Block> CURSED_FROST_TREE_LOG = wood("cursed_frost_tree_log", STRIPPED_CURSED_FROST_TREE_LOG, MapColor.COLOR_LIGHT_GRAY, 2.0F);
+    public static final RegistryObject<Block> CURSED_FROST_TREE_WOOD = wood("cursed_frost_tree_wood", STRIPPED_CURSED_FROST_TREE_WOOD, MapColor.COLOR_LIGHT_GRAY, 2.0F);
+    public static final RegistryObject<Block> CURSED_FROST_TREE_SAPLING = register("cursed_frost_tree_sapling", () -> new CurtainTreeSapling(copy(Blocks.OAK_SAPLING)));
 
     /**
      * Potted Flower Blocks
@@ -196,6 +203,7 @@ public class TABlocks {
     public static final RegistryObject<Block> POTTED_SILENT_TREE_SAPLING = flowerPot(SILENT_TREE_SAPLING.getId().getPath(), SILENT_TREE_SAPLING);
     public static final RegistryObject<Block> POTTED_AURORIAN_GRASS_LIGHT = flowerPot(AURORIAN_GRASS_LIGHT.getId().getPath(), AURORIAN_GRASS_LIGHT);
     public static final RegistryObject<Block> POTTED_CURTAIN_TREE_SAPLING = flowerPot(CURTAIN_TREE_SAPLING.getId().getPath(), CURTAIN_TREE_SAPLING);
+    public static final RegistryObject<Block> POTTED_CURSED_FROST_TREE_SAPLING = flowerPot(CURSED_FROST_TREE_SAPLING.getId().getPath(), CURSED_FROST_TREE_SAPLING);
 
     /**
      * Vertical Stair Blocks

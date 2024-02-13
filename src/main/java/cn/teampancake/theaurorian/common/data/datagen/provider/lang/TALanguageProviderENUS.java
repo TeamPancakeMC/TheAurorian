@@ -181,6 +181,13 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.CURTAIN_TREE_LOG.get(), "Curtain Tree Log");
         this.add(TABlocks.CURTAIN_TREE_WOOD.get(), "Curtain Tree Wood");
         this.add(TABlocks.CURTAIN_TREE_SAPLING.get(), "Curtain Tree Sapling");
+        this.add(TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get(), "Stripped Cursed Frost Tree Log");
+        this.add(TABlocks.STRIPPED_CURSED_FROST_TREE_WOOD.get(), "Stripped Cursed Frost Tree Wood");
+        this.add(TABlocks.CURSED_FROST_TREE_LEAVES.get(), "Cursed Frost Tree Leaves");
+        this.add(TABlocks.CURSED_FROST_TREE_PLANKS.get(), "Cursed Frost Tree Planks");
+        this.add(TABlocks.CURSED_FROST_TREE_LOG.get(), "Cursed Frost Tree Log");
+        this.add(TABlocks.CURSED_FROST_TREE_WOOD.get(), "Cursed Frost Tree Wood");
+        this.add(TABlocks.CURSED_FROST_TREE_SAPLING.get(), "Cursed Frost Tree Sapling");
         this.add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(), "Silent Wood Pressure Plate");
         this.add(TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get(), "Weeping Willow Pressure Plate");
         this.add(TABlocks.CURTAIN_WOOD_PRESSURE_PLATE.get(), "Curtain Wood Pressure Plate");

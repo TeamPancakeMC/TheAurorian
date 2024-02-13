@@ -38,6 +38,10 @@ public class VanillaBlockCompat {
         fireBlock.setFlammable(TABlocks.CURTAIN_TREE_LOG.get(), 5, 5);
         fireBlock.setFlammable(TABlocks.CURTAIN_TREE_WOOD.get(), 5, 5);
         fireBlock.setFlammable(TABlocks.CURTAIN_TREE_LEAVES.get(), 30, 30);
+        fireBlock.setFlammable(TABlocks.CURSED_FROST_TREE_PLANKS.get(), 5, 20);
+        fireBlock.setFlammable(TABlocks.CURSED_FROST_TREE_LOG.get(), 5, 5);
+        fireBlock.setFlammable(TABlocks.CURSED_FROST_TREE_WOOD.get(), 5, 5);
+        fireBlock.setFlammable(TABlocks.CURSED_FROST_TREE_LEAVES.get(), 30, 30);
         fireBlock.setFlammable(TABlocks.AURORIAN_GRASS.get(), 60, 100);
         fireBlock.setFlammable(TABlocks.AURORIAN_GRASS_LIGHT.get(), 60, 100);
         fireBlock.setFlammable(TABlocks.LAVENDER_PLANT.get(), 60, 100);

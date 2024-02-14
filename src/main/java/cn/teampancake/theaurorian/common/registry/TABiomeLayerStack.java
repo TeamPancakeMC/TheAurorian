@@ -61,7 +61,7 @@ public class TABiomeLayerStack {
         biomes = new ZoomLayer.Factory(1004L, false, Holder.direct(biomes));
         biomes = new ZoomLayer.Factory(1005L, false, Holder.direct(biomes));
         BiomeLayerFactory riverLayer = new SeamLayer.Factory(1L, TABiomes.AURORIAN_RIVER,
-                List.of(),
+                List.of(TABiomes.BRIGHT_MOON_DESERT,TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD),
                 List.of(Pair.of(TABiomes.AURORIAN_PLAINS,TABiomes.AURORIAN_PLAINS),
                         Pair.of(TABiomes.AURORIAN_FOREST_HILL,TABiomes.AURORIAN_FOREST_HILL),
                         Pair.of(TABiomes.EQUINOX_FLOWER_PLAINS,TABiomes.EQUINOX_FLOWER_PLAINS),

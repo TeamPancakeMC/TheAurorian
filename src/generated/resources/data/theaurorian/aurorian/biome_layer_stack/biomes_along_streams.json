@@ -70,7 +70,10 @@
             "theaurorian:lavender_plains"
           ]
         ],
-        "excluded_neighbor_biomes": [],
+        "excluded_neighbor_biomes": [
+          "theaurorian:bright_moon_desert",
+          "theaurorian:filthy_ice_crystal_snowfield"
+        ],
         "layer_type": "theaurorian:river",
         "salt": 1
       },

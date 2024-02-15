@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_down",
+  "textures": {
+    "texture": "theaurorian:block/cursed_frost_tree_planks"
+  }
+}

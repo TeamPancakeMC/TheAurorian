@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "theaurorian:cursed_frost_tree_planks"
+    }
+  },
+  "pattern": [
+    "###",
+    " ##",
+    "  #"
+  ],
+  "result": {
+    "count": 6,
+    "item": "theaurorian:vertical_cursed_frost_wood_slab"
+  },
+  "show_notification": true
+}

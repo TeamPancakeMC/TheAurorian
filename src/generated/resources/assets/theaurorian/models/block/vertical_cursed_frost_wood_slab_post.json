@@ -1,0 +1,6 @@
+{
+  "parent": "theaurorian:block/vertical_slab_post",
+  "textures": {
+    "all": "theaurorian:block/cursed_frost_tree_planks"
+  }
+}

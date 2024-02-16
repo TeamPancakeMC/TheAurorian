@@ -6,6 +6,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 public class TAModelLayers {
 
     public static final ModelLayerLocation LUNA_CIRCLE = register("luna_circle");
+    public static final ModelLayerLocation BREAD_BEAST = register("bread_beast");
     public static final ModelLayerLocation MOON_FISH = register("moon_fish");
     public static final ModelLayerLocation AURORIAN_WINGED_FISH = register("aurorian_winged_fish");
     public static final ModelLayerLocation AURORIAN_RABBIT = register("aurorian_rabbit");
@@ -25,6 +26,8 @@ public class TAModelLayers {
     public static final ModelLayerLocation SPIDERLING = register("spiderling");
     public static final ModelLayerLocation CRYSTALLINE_SPRITE = register("crystalline_sprite");
     public static final ModelLayerLocation CAVE_DWELLER = register("cave_dweller");
+    public static final ModelLayerLocation ROCK_HAMMER = register("rock_hammer");
+    public static final ModelLayerLocation TONG_SCORPION = register("tong_scorpion");
     public static final ModelLayerLocation RUNESTONE_KEEPER = register("runestone_keeper");
     public static final ModelLayerLocation RUNESTONE_BOOKS = register("runestone_books");
     public static final ModelLayerLocation SPIDER_MOTHER = register("spider_mother");

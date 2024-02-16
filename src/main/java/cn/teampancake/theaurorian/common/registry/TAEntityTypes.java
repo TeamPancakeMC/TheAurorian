@@ -61,6 +61,9 @@ public class TAEntityTypes {
             () -> EntityType.Builder.of(LunaCircleEntity::new, MobCategory.MISC).sized(5.0F, 0.1F)
                     .clientTrackingRange((4)).updateInterval((10)).build("luna_circle"));
     //Animal
+    public static final RegistryObject<EntityType<BreadBeast>> BREAD_BEAST = ENTITY_TYPES.register("bread_beast",
+            () -> EntityType.Builder.of(BreadBeast::new, MobCategory.CREATURE).sized(1.0F, 2.0F)
+                    .clientTrackingRange((10)).build("bread_beast"));
     public static final RegistryObject<EntityType<MoonFish>> MOON_FISH = ENTITY_TYPES.register("moon_fish",
             () -> EntityType.Builder.of(MoonFish::new, MobCategory.WATER_AMBIENT).sized(0.8F, 0.5F)
                     .clientTrackingRange((4)).build("moon_fish"));
@@ -107,6 +110,12 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<CaveDweller>> CAVE_DWELLER = ENTITY_TYPES.register("cave_dweller",
             () -> EntityType.Builder.of(CaveDweller::new, MobCategory.MONSTER).sized(2.0F, 3.0F)
                     .clientTrackingRange((8)).build("cave_dweller"));
+    public static final RegistryObject<EntityType<RockHammer>> ROCK_HAMMER = ENTITY_TYPES.register("rock_hammer",
+            () -> EntityType.Builder.of(RockHammer::new, MobCategory.MONSTER).sized(3.0F, 3.0F)
+                    .clientTrackingRange((8)).build("rock_hammer"));
+    public static final RegistryObject<EntityType<TongScorpion>> TONG_SCORPION = ENTITY_TYPES.register("tong_scorpion",
+            () -> EntityType.Builder.of(TongScorpion::new, MobCategory.MONSTER).sized(2.5F, 1.5F)
+                    .clientTrackingRange((8)).build("tong_scorpion"));
     //Boss
     public static final RegistryObject<EntityType<RunestoneKeeper>> RUNESTONE_KEEPER = ENTITY_TYPES.register("runestone_keeper",
             () -> EntityType.Builder.of(RunestoneKeeper::new, MobCategory.MONSTER).sized(1.4F, 4.2F)
@@ -128,6 +137,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(WEBBING.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(EYE_OF_DISTURBED.get(), EyeOfDisturbedRenderer::new);
         event.registerEntityRenderer(LUNA_CIRCLE.get(), LunaCircleRenderer::new);
+        event.registerEntityRenderer(BREAD_BEAST.get(), BreadBeastRenderer::new);
         event.registerEntityRenderer(MOON_FISH.get(), MoonFishRenderer::new);
         event.registerEntityRenderer(AURORIAN_WINGED_FISH.get(), AurorianWingedFishRenderer::new);
         event.registerEntityRenderer(AURORIAN_RABBIT.get(), AurorianRabbitRenderer::new);
@@ -143,6 +153,8 @@ public class TAEntityTypes {
         event.registerEntityRenderer(SPIDERLING.get(), SpiderlingRenderer::new);
         event.registerEntityRenderer(CRYSTALLINE_SPRITE.get(), CrystallineSpriteRenderer::new);
         event.registerEntityRenderer(CAVE_DWELLER.get(), CaveDwellerRenderer::new);
+        event.registerEntityRenderer(ROCK_HAMMER.get(), RockHammerRenderer::new);
+        event.registerEntityRenderer(TONG_SCORPION.get(), TongScorpionRenderer::new);
         event.registerEntityRenderer(RUNESTONE_KEEPER.get(), RunestoneKeeperRenderer::new);
         event.registerEntityRenderer(SPIDER_MOTHER.get(), SpiderMotherRenderer::new);
         event.registerEntityRenderer(MOON_QUEEN.get(), MoonQueenRenderer::new);
@@ -152,6 +164,7 @@ public class TAEntityTypes {
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(TAModelLayers.LUNA_CIRCLE, LunaCircleModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.BREAD_BEAST, BreadBeastModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.MOON_FISH, MoonFishModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_WINGED_FISH, AurorianWingedFishModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_RABBIT, AurorianRabbitModel::createBodyLayer);
@@ -171,6 +184,8 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.SPIDERLING, SpiderlingModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CRYSTALLINE_SPRITE, CrystallineSpriteModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CAVE_DWELLER, CaveDwellerModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.ROCK_HAMMER, RockHammerModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.TONG_SCORPION, TongScorpionModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_KEEPER, RunestoneKeeperModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDER_MOTHER, SpiderMotherModel::createBodyLayer);
@@ -184,6 +199,7 @@ public class TAEntityTypes {
 
     @SubscribeEvent
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
+        normalEntitySpawn(event, BREAD_BEAST.get(), SpawnPlacements.Type.ON_GROUND, BreadBeast::checkBreadBeastSpawnRules);
         normalEntitySpawn(event, MOON_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkAbstractAurorianFishSpawnRules);
         normalEntitySpawn(event, AURORIAN_WINGED_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkAbstractAurorianFishSpawnRules);
         normalEntitySpawn(event, AURORIAN_RABBIT.get(), SpawnPlacements.Type.ON_GROUND, AurorianRabbit::checkAurorianRabbitSpawnRules);
@@ -198,10 +214,13 @@ public class TAEntityTypes {
         normalEntitySpawn(event, SPIDERLING.get(), SpawnPlacements.Type.ON_GROUND, Spiderling::checkSpiderlingSpawnRules);
         normalEntitySpawn(event, CRYSTALLINE_SPRITE.get(), SpawnPlacements.Type.ON_GROUND, CrystallineSprite::checkCrystallineSpriteRules);
         normalEntitySpawn(event, CAVE_DWELLER.get(), SpawnPlacements.Type.ON_GROUND, CaveDweller::checkMonsterSpawnRules);
+        normalEntitySpawn(event, ROCK_HAMMER.get(), SpawnPlacements.Type.ON_GROUND, RockHammer::checkRockHammerSpawnRules);
+        normalEntitySpawn(event, TONG_SCORPION.get(), SpawnPlacements.Type.ON_GROUND, TongScorpion::checkTongScorpionSpawnRules);
     }
 
     @SubscribeEvent
     public static void addEntityAttributes(EntityAttributeCreationEvent event) {
+        event.put(BREAD_BEAST.get(), BreadBeast.createAttributes().build());
         event.put(MOON_FISH.get(), MoonFish.createAttributes().build());
         event.put(AURORIAN_WINGED_FISH.get(), AurorianWingedFish.createAttributes().build());
         event.put(AURORIAN_RABBIT.get(), AurorianRabbit.createAttributes().build());
@@ -217,6 +236,8 @@ public class TAEntityTypes {
         event.put(SPIDERLING.get(), Spiderling.createAttributes().build());
         event.put(CRYSTALLINE_SPRITE.get(), CrystallineSprite.createAttributes().build());
         event.put(CAVE_DWELLER.get(), CaveDweller.createAttributes().build());
+        event.put(ROCK_HAMMER.get(), RockHammer.createAttributes().build());
+        event.put(TONG_SCORPION.get(), TongScorpion.createAttributes().build());
         event.put(RUNESTONE_KEEPER.get(), RunestoneKeeper.createAttributes().build());
         event.put(SPIDER_MOTHER.get(), SpiderMother.createAttributes().build());
         event.put(MOON_QUEEN.get(), MoonQueen.createAttributes().build());

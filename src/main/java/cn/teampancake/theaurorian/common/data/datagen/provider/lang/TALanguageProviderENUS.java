@@ -403,6 +403,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_BEEF.get(), "Aurorian Beef");
         this.add(TAItems.AURORIAN_MUTTON.get(), "Aurorian Mutton");
         this.add(TAItems.AURORIAN_RABBIT.get(), "Aurorian Rabbit");
+        this.add(TAItems.BREAD_BEAST_SPAWN_EGG.get(), "Bread Beast Spawn Egg");
         this.add(TAItems.MOON_FISH_SPAWN_EGG.get(), "Moon Fish Spawn Egg");
         this.add(TAItems.AURORIAN_WINGED_FISH_SPAWN_EGG.get(), "Aurorian Winged Fish Spawn Egg");
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(),"Aurorian Pig Spawn Egg");
@@ -462,6 +463,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.DUNGEON_KEEPER_AMULET.get(),"Dungeon Keeper Amulet");
         this.add(TAItems.DISTURBED_HOLLOW_SPAWN_EGG.get(),"Disturbed Hollow Spawn Egg");
         this.add(TAItems.CAVE_DWELLER_SPAWN_EGG.get(), "Cave Dweller Spawn Egg");
+        this.add(TAItems.ROCK_HAMMER_SPAWN_EGG.get(), "Rock Hammer Spawn Egg");
+        this.add(TAItems.TONG_SCORPION_SPAWN_EGG.get(), "Tong Scorpion Spawn Egg");
         this.add(TAItems.DUNGEON_LOCATOR.get(),"Dungeon Locator");
         this.add(TAItems.KEEPERS_BOW.get(),"Keeper's Bow");
         this.add(TAItems.KNIGHT_HELMET.get(),"Knight Helmet");
@@ -574,6 +577,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.STICKY_SPIKER.get(), "Sticky Spiker");
         this.add(TAEntityTypes.WEBBING.get(), "Webbing");
         this.add(TAEntityTypes.EYE_OF_DISTURBED.get(), "Eye Of Disturbed");
+        this.add(TAEntityTypes.BREAD_BEAST.get(), "Bread Beast");
         this.add(TAEntityTypes.MOON_FISH.get(), "Moon Fish");
         this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), "Aurorian Winged Fish");
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "Aurorian Rabbit");
@@ -589,6 +593,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.SPIDERLING.get(), "Spiderling");
         this.add(TAEntityTypes.CRYSTALLINE_SPRITE.get(), "Crystalline Sprite");
         this.add(TAEntityTypes.CAVE_DWELLER.get(), "Cave Dweller");
+        this.add(TAEntityTypes.ROCK_HAMMER.get(), "Rock Hammer");
+        this.add(TAEntityTypes.TONG_SCORPION.get(), "Tong Scorpion");
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), "Runestone Keeper");
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), "Spider Mother");
         this.add(TAEntityTypes.MOON_QUEEN.get(), "Moon Queen");

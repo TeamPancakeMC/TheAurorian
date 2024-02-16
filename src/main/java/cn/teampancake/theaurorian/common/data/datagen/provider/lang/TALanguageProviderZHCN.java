@@ -405,6 +405,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_MUTTON.get(), "生极光羊肉");
         this.add(TAItems.AURORIAN_RABBIT.get(), "生极光兔肉");
         this.add(TAItems.MOON_FISH_SPAWN_EGG.get(), "皎月鱼刷怪蛋");
+        this.add(TAItems.BREAD_BEAST_SPAWN_EGG.get(), "面包果兽刷怪蛋");
         this.add(TAItems.AURORIAN_WINGED_FISH_SPAWN_EGG.get(), "极光翅鱼刷怪蛋");
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(), "极光猪刷怪蛋");
         this.add(TAItems.AURORIAN_COW_SPAWN_EGG.get(), "极光牛刷怪蛋");
@@ -463,6 +464,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.DUNGEON_KEEPER_AMULET.get(), "地牢守卫护身符");
         this.add(TAItems.DISTURBED_HOLLOW_SPAWN_EGG.get(), "空谷之扰刷怪蛋");
         this.add(TAItems.CAVE_DWELLER_SPAWN_EGG.get(), "晶洞居者刷怪蛋");
+        this.add(TAItems.ROCK_HAMMER_SPAWN_EGG.get(), "岩锤兽刷怪蛋");
+        this.add(TAItems.TONG_SCORPION_SPAWN_EGG.get(), "钳蝎刷怪蛋");
         this.add(TAItems.DUNGEON_LOCATOR.get(), "地牢定位器");
         this.add(TAItems.KEEPERS_BOW.get(), "守卫之弓");
         this.add(TAItems.KNIGHT_HELMET.get(), "骑士头盔");
@@ -574,6 +577,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.STICKY_SPIKER.get(), "粘性尖刺");
         this.add(TAEntityTypes.WEBBING.get(), "蛛母之网");
         this.add(TAEntityTypes.EYE_OF_DISTURBED.get(), "空谷之眼");
+        this.add(TAEntityTypes.BREAD_BEAST.get(), "面包果兽");
         this.add(TAEntityTypes.MOON_FISH.get(), "皎月鱼");
         this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), "极光翅鱼");
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "极光兔");
@@ -589,6 +593,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.SPIDERLING.get(), "幼蛛");
         this.add(TAEntityTypes.CRYSTALLINE_SPRITE.get(), "月凝晶魂");
         this.add(TAEntityTypes.CAVE_DWELLER.get(), "晶洞居者");
+        this.add(TAEntityTypes.ROCK_HAMMER.get(), "岩锤兽");
+        this.add(TAEntityTypes.TONG_SCORPION.get(), "钳蝎");
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), "符石守卫");
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), "蛛母");
         this.add(TAEntityTypes.MOON_QUEEN.get(), "皎月女王");

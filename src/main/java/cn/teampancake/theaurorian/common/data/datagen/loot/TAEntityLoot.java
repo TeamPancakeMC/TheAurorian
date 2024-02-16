@@ -33,6 +33,7 @@ public class TAEntityLoot extends VanillaEntityLoot {
     @Override
     public void generate() {
         //Animal
+        this.add(TAEntityTypes.BREAD_BEAST.get(), LootTable.lootTable());
         this.add(TAEntityTypes.MOON_FISH.get(), LootTable.lootTable());
         this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), LootTable.lootTable());
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), LootTable.lootTable()
@@ -81,6 +82,8 @@ public class TAEntityLoot extends VanillaEntityLoot {
         this.addMonsterLoot(TAEntityTypes.SPIRIT.get(), TAItems.SPECTRAL_SILK.get(), 2.0F);
         this.addMonsterLoot(TAEntityTypes.SPIDERLING.get(), Items.SPIDER_EYE, 1.0F);
         this.add(TAEntityTypes.CAVE_DWELLER.get(), LootTable.lootTable());
+        this.add(TAEntityTypes.ROCK_HAMMER.get(), LootTable.lootTable());
+        this.add(TAEntityTypes.TONG_SCORPION.get(), LootTable.lootTable());
         //Boss
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))

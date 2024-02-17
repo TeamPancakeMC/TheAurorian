@@ -5,7 +5,7 @@
       "theaurorian:ta_cave_extra_underground"
     ]
   },
-  "creature_spawn_probability": 0.3,
+  "creature_spawn_probability": 0.2,
   "downfall": 0.0,
   "effects": {
     "fog_color": 12648408,
@@ -53,28 +53,16 @@
     "axolotls": [],
     "creature": [
       {
-        "type": "theaurorian:aurorian_rabbit",
+        "type": "theaurorian:icefield_deer",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 5
+        "weight": 20
       },
       {
-        "type": "theaurorian:aurorian_sheep",
+        "type": "theaurorian:blue_tail_wolf",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 5
-      },
-      {
-        "type": "theaurorian:aurorian_pig",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 5
-      },
-      {
-        "type": "theaurorian:aurorian_cow",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 5
+        "weight": 20
       }
     ],
     "misc": [],
@@ -83,13 +71,13 @@
         "type": "theaurorian:crystalline_sprite",
         "maxCount": 2,
         "minCount": 2,
-        "weight": 65
+        "weight": 35
       },
       {
         "type": "theaurorian:disturbed_hollow",
         "maxCount": 4,
         "minCount": 1,
-        "weight": 35
+        "weight": 45
       },
       {
         "type": "theaurorian:moon_acolyte",

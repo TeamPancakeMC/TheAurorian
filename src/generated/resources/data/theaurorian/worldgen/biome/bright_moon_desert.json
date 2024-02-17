@@ -5,7 +5,7 @@
       "theaurorian:ta_cave_extra_underground"
     ]
   },
-  "creature_spawn_probability": 0.25,
+  "creature_spawn_probability": 0.2,
   "downfall": 0.0,
   "effects": {
     "fog_color": 12648408,
@@ -49,14 +49,21 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "theaurorian:bread_beast",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 20
+      }
+    ],
     "misc": [],
     "monster": [
       {
         "type": "theaurorian:crystalline_sprite",
         "maxCount": 2,
         "minCount": 2,
-        "weight": 65
+        "weight": 45
       },
       {
         "type": "theaurorian:disturbed_hollow",
@@ -69,6 +76,12 @@
         "maxCount": 2,
         "minCount": 1,
         "weight": 35
+      },
+      {
+        "type": "theaurorian:rock_hammer",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 10
       }
     ],
     "underground_water_creature": [],

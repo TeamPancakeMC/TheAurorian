@@ -66,8 +66,8 @@ public class TABiomes {
                 .mobSpawnSettings(defaultMobSpawning().build()).build());
         context.register(FILTHY_ICE_CRYSTAL_SNOWFIELD, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
-                .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE), defaultMobSpawning().build())
-                .hasPrecipitation(Boolean.TRUE).temperature((-0.7F)).build());
+                .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE),
+                snowfieldMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature((-0.7F)).build());
         context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
                 .mobSpawnSettings(desertMobSpawning().build()).build());
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
@@ -140,7 +140,7 @@ public class TABiomes {
 
     private static MobSpawnSettings.Builder defaultMobSpawning() {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
-        spawnInfo.creatureGenerationProbability(0.3F);
+        spawnInfo.creatureGenerationProbability(0.2F);
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_RABBIT.get(), 5, 1, 3));
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_SHEEP.get(), 5, 1, 3));
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_PIG.get(), 5, 1, 3));
@@ -151,12 +151,25 @@ public class TABiomes {
         return spawnInfo;
     }
 
+    private static MobSpawnSettings.Builder snowfieldMobSpawning() {
+        MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
+        spawnInfo.creatureGenerationProbability(0.2F);
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.CRYSTALLINE_SPRITE.get(), 35, 2, 2));
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 45, 1, 4));
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_ACOLYTE.get(), 35, 1, 2));
+        spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.ICEFIELD_DEER.get(), 20, 1, 3));
+        spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.BLUE_TAIL_WOLF.get(), 20, 1, 3));
+        return spawnInfo;
+    }
+
     private static MobSpawnSettings.Builder desertMobSpawning(){
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
-        spawnInfo.creatureGenerationProbability(0.25F);
-        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.CRYSTALLINE_SPRITE.get(), 65, 2, 2));
+        spawnInfo.creatureGenerationProbability(0.2F);
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.CRYSTALLINE_SPRITE.get(), 45, 2, 2));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 35, 1, 4));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_ACOLYTE.get(), 35, 1, 2));
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.ROCK_HAMMER.get(), 10, 1, 2));
+        spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.BREAD_BEAST.get(), 20, 1, 3));
         return spawnInfo;
     }
 

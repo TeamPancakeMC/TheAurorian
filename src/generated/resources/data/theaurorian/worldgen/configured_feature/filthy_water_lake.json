@@ -7,6 +7,15 @@
         "Name": "theaurorian:aurorian_dirt"
       }
     },
+    "barrier_top": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "theaurorian:snow_aurorian_grass_block",
+        "Properties": {
+          "snowy": "false"
+        }
+      }
+    },
     "fluid": {
       "type": "minecraft:simple_state_provider",
       "state": {

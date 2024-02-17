@@ -99,7 +99,7 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, configuredFeature.getOrThrow(TAConfiguredFeatures.MEDIUM_AURORIAN_FOREST_RUINS), ImmutableList.<PlacementModifier>builder()
                 .add(RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
         PlacementUtils.register(context, FILTHY_WATER_LAKE, configuredFeature.getOrThrow(TAConfiguredFeatures.FILTHY_WATER_LAKE),
-                RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+                RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(context, FILTHY_FREEZE_TOP_LAYER, configuredFeature.getOrThrow(TAConfiguredFeatures.FILTHY_FREEZE_TOP_LAYER), BiomeFilter.biome());
         PlacementUtils.register(context, RANDOM_FALLEN_SILENT_LOG, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_FALLEN_SILENT_LOG), VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, RANDOM_WATER_SURFACE_PLANT, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_WATER_SURFACE_PLANT), VegetationPlacements.worldSurfaceSquaredWithCount(1));

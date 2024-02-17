@@ -1,39 +1,43 @@
 package cn.teampancake.theaurorian.common.level.feature;
 
 import cn.teampancake.theaurorian.common.registry.TABlocks;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 @SuppressWarnings("deprecation")
-public class FilthyLakeFeature extends Feature<LakeFeature.Configuration> {
+public class FilthyLakeFeature extends Feature<FilthyLakeFeature.Configuration> {
 
     private static final BlockState AIR = Blocks.CAVE_AIR.defaultBlockState();
 
     public FilthyLakeFeature() {
-        super(LakeFeature.Configuration.CODEC);
+        super(FilthyLakeFeature.Configuration.CODEC);
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<LakeFeature.Configuration> context) {
+    public boolean place(FeaturePlaceContext<Configuration> context) {
         BlockPos origin = context.origin();
         WorldGenLevel level = context.level();
         RandomSource random = context.random();
-        LakeFeature.Configuration config = context.config();
+        Configuration config = context.config();
         if (origin.getY() <= level.getMinBuildHeight() + 4) {
             return false;
         } else {
             origin = origin.below(4);
             boolean[] bl = new boolean[2048];
             int i = random.nextInt(4) + 4;
-            for(int j = 0; j < i; ++j) {
+            for (int j = 0; j < i; ++j) {
                 double d0 = random.nextDouble() * 6.0D + 3.0D;
                 double d1 = random.nextDouble() * 4.0D + 2.0D;
                 double d2 = random.nextDouble() * 6.0D + 3.0D;
@@ -77,14 +81,14 @@ public class FilthyLakeFeature extends Feature<LakeFeature.Configuration> {
                 }
             }
 
-            for(int l1 = 0; l1 < 16; ++l1) {
-                for(int i2 = 0; i2 < 16; ++i2) {
-                    for(int i3 = 0; i3 < 8; ++i3) {
+            for (int l1 = 0; l1 < 16; ++l1) {
+                for (int i2 = 0; i2 < 16; ++i2) {
+                    for (int i3 = 0; i3 < 8; ++i3) {
                         if (bl[(l1 * 16 + i2) * 8 + i3]) {
                             BlockPos offsetPos = origin.offset(l1, i3, i2);
                             if (this.canReplaceBlock(level.getBlockState(offsetPos))) {
                                 boolean flag1 = i3 >= 4;
-                                level.setBlock(offsetPos, flag1 ? AIR : fluidState, 2);
+                                level.setBlock(offsetPos, flag1 ? AIR : fluidState, Block.UPDATE_CLIENTS);
                                 if (flag1) {
                                     level.scheduleTick(offsetPos, AIR.getBlock(), 0);
                                     this.markAboveForPostProcessing(level, offsetPos);
@@ -96,16 +100,23 @@ public class FilthyLakeFeature extends Feature<LakeFeature.Configuration> {
             }
 
             BlockState barrierState = config.barrier().getState(random, origin);
-            if (!barrierState.isAir()) {
-                for(int j2 = 0; j2 < 16; ++j2) {
-                    for(int j3 = 0; j3 < 16; ++j3) {
-                        for(int l3 = 0; l3 < 8; ++l3) {
-                            boolean flag2 = !bl[(j2 * 16 + j3) * 8 + l3] && (j2 < 15 && bl[((j2 + 1) * 16 + j3) * 8 + l3] || j2 > 0 && bl[((j2 - 1) * 16 + j3) * 8 + l3] || j3 < 15 && bl[(j2 * 16 + j3 + 1) * 8 + l3] || j3 > 0 && bl[(j2 * 16 + (j3 - 1)) * 8 + l3] || l3 < 7 && bl[(j2 * 16 + j3) * 8 + l3 + 1] || l3 > 0 && bl[(j2 * 16 + j3) * 8 + (l3 - 1)]);
+            BlockState barrierTopState = config.barrierTop().getState(random, origin);
+            if (!barrierState.isAir() && !barrierTopState.isAir()) {
+                for (int j2 = 0; j2 < 16; ++j2) {
+                    for (int j3 = 0; j3 < 16; ++j3) {
+                        for (int l3 = 0; l3 < 8; ++l3) {
+                            boolean flag2 = !bl[(j2 * 16 + j3) * 8 + l3] && (j2 < 15 && bl[((j2 + 1) * 16 + j3) * 8 + l3] ||
+                                    j2 > 0 && bl[((j2 - 1) * 16 + j3) * 8 + l3] || j3 < 15 && bl[(j2 * 16 + j3 + 1) * 8 + l3] ||
+                                    j3 > 0 && bl[(j2 * 16 + (j3 - 1)) * 8 + l3] || l3 < 7 && bl[(j2 * 16 + j3) * 8 + l3 + 1] ||
+                                    l3 > 0 && bl[(j2 * 16 + j3) * 8 + (l3 - 1)]);
                             if (flag2 && (l3 < 4 || random.nextInt(2) != 0)) {
-                                BlockState blockstate = level.getBlockState(origin.offset(j2, l3, j3));
-                                if (blockstate.isSolid() && !blockstate.is(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE)) {
+                                BlockState blockState = level.getBlockState(origin.offset(j2, l3, j3));
+                                if (blockState.isSolid() && !blockState.is(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE)) {
                                     BlockPos offsetPos = origin.offset(j2, l3, j3);
-                                    level.setBlock(offsetPos, barrierState, 2);
+                                    BlockState aboveState = level.getBlockState(offsetPos.above());
+                                    boolean flag = aboveState.canBeReplaced() && !aboveState.liquid();
+                                    BlockState state =  flag ? barrierTopState : barrierState;
+                                    level.setBlock(offsetPos, state, Block.UPDATE_CLIENTS);
                                     this.markAboveForPostProcessing(level, offsetPos);
                                 }
                             }
@@ -118,9 +129,9 @@ public class FilthyLakeFeature extends Feature<LakeFeature.Configuration> {
                 for (int k2 = 0; k2 < 16; ++k2) {
                     for (int k3 = 0; k3 < 16; ++k3) {
                         BlockPos offsetPos = origin.offset(k2, 4, k3);
-                        if (level.getBiome(offsetPos).value().shouldFreeze(level, offsetPos, Boolean.FALSE) && this.canReplaceBlock(level.getBlockState(offsetPos))) {
-                            // All code is copy from vanilla LakeFeature, but I just want to modify the following line.
-                            level.setBlock(offsetPos, TABlocks.FILTHY_ICE.get().defaultBlockState(), 2);
+                        boolean flag = this.canReplaceBlock(level.getBlockState(offsetPos));
+                        if (level.getBiome(offsetPos).value().shouldFreeze(level, offsetPos, Boolean.FALSE) && flag) {
+                            level.setBlock(offsetPos, TABlocks.FILTHY_ICE.get().defaultBlockState(), Block.UPDATE_CLIENTS);
                         }
                     }
                 }
@@ -132,6 +143,15 @@ public class FilthyLakeFeature extends Feature<LakeFeature.Configuration> {
 
     private boolean canReplaceBlock(BlockState state) {
         return !state.is(BlockTags.FEATURES_CANNOT_REPLACE);
+    }
+
+    public record Configuration(BlockStateProvider fluid, BlockStateProvider barrier, BlockStateProvider barrierTop) implements FeatureConfiguration {
+        public static final Codec<FilthyLakeFeature.Configuration> CODEC =
+                RecordCodecBuilder.create((instance) -> instance.group(
+                        BlockStateProvider.CODEC.fieldOf("fluid").forGetter(Configuration::fluid),
+                        BlockStateProvider.CODEC.fieldOf("barrier").forGetter(Configuration::barrier),
+                        BlockStateProvider.CODEC.fieldOf("barrier_top").forGetter(Configuration::barrierTop)
+                ).apply(instance, Configuration::new));
     }
 
 }

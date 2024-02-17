@@ -1,7 +1,11 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.blocks.*;
+import cn.teampancake.theaurorian.common.blocks.AurorianWaterSurfacePlant;
+import cn.teampancake.theaurorian.common.blocks.BlueberryBush;
+import cn.teampancake.theaurorian.common.blocks.IRiversidePlant;
+import cn.teampancake.theaurorian.common.blocks.TAClusterBlock;
+import cn.teampancake.theaurorian.common.level.feature.FilthyLakeFeature;
 import cn.teampancake.theaurorian.common.level.feature.config.FallenLogConfig;
 import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
 import cn.teampancake.theaurorian.common.level.feature.tree.decorators.CrystalBudDecorator;
@@ -33,7 +37,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
@@ -53,7 +56,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
 public class TAConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_GRASS = createKey("patch_aurorian_grass");
@@ -216,8 +218,9 @@ public class TAConfiguredFeatures {
                         new WeightedPlacedFeature(mediumRuinHolder5, 0.125F), new WeightedPlacedFeature(mediumRuinHolder6, 0.125F),
                         new WeightedPlacedFeature(mediumRuinHolder7, 0.125F)), mediumRuinHolder1));
         FeatureUtils.register(context, FILTHY_WATER_LAKE, TAFeatures.FILTHY_WATER_LAKE.get(),
-                new LakeFeature.Configuration(BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
-                        BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get().defaultBlockState())));
+                new FilthyLakeFeature.Configuration(BlockStateProvider.simple(Blocks.WATER),
+                        BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get()),
+                        BlockStateProvider.simple(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get())));
         FeatureUtils.register(context, FILTHY_FREEZE_TOP_LAYER, TAFeatures.FILTHY_FREEZE_TOP_LAYER.get());
         FeatureUtils.register(context, HUGE_INDIGO_MUSHROOM, TAFeatures.HUGE_INDIGO_MUSHROOM.get(),
                 new HugeMushroomFeatureConfiguration(BlockStateProvider.simple(TABlocks.INDIGO_MUSHROOM_BLOCK.get()),

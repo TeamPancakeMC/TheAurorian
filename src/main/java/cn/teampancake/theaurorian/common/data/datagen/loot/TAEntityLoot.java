@@ -34,6 +34,8 @@ public class TAEntityLoot extends VanillaEntityLoot {
     public void generate() {
         //Animal
         this.add(TAEntityTypes.BREAD_BEAST.get(), LootTable.lootTable());
+        this.add(TAEntityTypes.ICEFIELD_DEER.get(), LootTable.lootTable());
+        this.add(TAEntityTypes.BLUE_TAIL_WOLF.get(), LootTable.lootTable());
         this.add(TAEntityTypes.MOON_FISH.get(), LootTable.lootTable());
         this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), LootTable.lootTable());
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), LootTable.lootTable()

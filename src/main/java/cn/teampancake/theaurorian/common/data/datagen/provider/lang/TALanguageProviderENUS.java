@@ -404,6 +404,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.AURORIAN_MUTTON.get(), "Aurorian Mutton");
         this.add(TAItems.AURORIAN_RABBIT.get(), "Aurorian Rabbit");
         this.add(TAItems.BREAD_BEAST_SPAWN_EGG.get(), "Bread Beast Spawn Egg");
+        this.add(TAItems.ICEFIELD_DEER_SPAWN_EGG.get(), "Icefield Deer Spawn Egg");
+        this.add(TAItems.BLUE_TAIL_WOLF_SPAWN_EGG.get(), "Blue Tail Wolf Spawn Egg");
         this.add(TAItems.MOON_FISH_SPAWN_EGG.get(), "Moon Fish Spawn Egg");
         this.add(TAItems.AURORIAN_WINGED_FISH_SPAWN_EGG.get(), "Aurorian Winged Fish Spawn Egg");
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(),"Aurorian Pig Spawn Egg");
@@ -578,6 +580,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.WEBBING.get(), "Webbing");
         this.add(TAEntityTypes.EYE_OF_DISTURBED.get(), "Eye Of Disturbed");
         this.add(TAEntityTypes.BREAD_BEAST.get(), "Bread Beast");
+        this.add(TAEntityTypes.ICEFIELD_DEER.get(), "Icefield Deer");
+        this.add(TAEntityTypes.BLUE_TAIL_WOLF.get(), "Blue Tail Wolf");
         this.add(TAEntityTypes.MOON_FISH.get(), "Moon Fish");
         this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), "Aurorian Winged Fish");
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "Aurorian Rabbit");

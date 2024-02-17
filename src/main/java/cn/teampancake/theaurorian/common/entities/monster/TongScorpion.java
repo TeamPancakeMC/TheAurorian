@@ -55,7 +55,6 @@ public class TongScorpion extends Monster {
         }
     }
 
-    @SuppressWarnings("unused")
     public static boolean checkTongScorpionSpawnRules(EntityType<TongScorpion> breadBeast, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getDifficulty() != Difficulty.PEACEFUL && checkMobSpawnRules(breadBeast, level, spawnType, pos, random);
     }

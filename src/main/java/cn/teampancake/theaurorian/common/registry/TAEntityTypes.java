@@ -64,6 +64,12 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<BreadBeast>> BREAD_BEAST = ENTITY_TYPES.register("bread_beast",
             () -> EntityType.Builder.of(BreadBeast::new, MobCategory.CREATURE).sized(1.0F, 2.0F)
                     .clientTrackingRange((10)).build("bread_beast"));
+    public static final RegistryObject<EntityType<IcefieldDeer>> ICEFIELD_DEER = ENTITY_TYPES.register("icefield_deer",
+            () -> EntityType.Builder.of(IcefieldDeer::new, MobCategory.CREATURE).sized(1.0F, 2.0F)
+                    .clientTrackingRange((10)).build("icefield_deer"));
+    public static final RegistryObject<EntityType<BlueTailWolf>> BLUE_TAIL_WOLF = ENTITY_TYPES.register("blue_tail_wolf",
+            () -> EntityType.Builder.of(BlueTailWolf::new, MobCategory.CREATURE).sized(1.2F, 1.0F)
+                    .clientTrackingRange((10)).build("blue_tail_wolf"));
     public static final RegistryObject<EntityType<MoonFish>> MOON_FISH = ENTITY_TYPES.register("moon_fish",
             () -> EntityType.Builder.of(MoonFish::new, MobCategory.WATER_AMBIENT).sized(0.8F, 0.5F)
                     .clientTrackingRange((4)).build("moon_fish"));
@@ -138,6 +144,8 @@ public class TAEntityTypes {
         event.registerEntityRenderer(EYE_OF_DISTURBED.get(), EyeOfDisturbedRenderer::new);
         event.registerEntityRenderer(LUNA_CIRCLE.get(), LunaCircleRenderer::new);
         event.registerEntityRenderer(BREAD_BEAST.get(), BreadBeastRenderer::new);
+        event.registerEntityRenderer(ICEFIELD_DEER.get(), IcefieldDeerRenderer::new);
+        event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), BlueTailWolfRenderer::new);
         event.registerEntityRenderer(MOON_FISH.get(), MoonFishRenderer::new);
         event.registerEntityRenderer(AURORIAN_WINGED_FISH.get(), AurorianWingedFishRenderer::new);
         event.registerEntityRenderer(AURORIAN_RABBIT.get(), AurorianRabbitRenderer::new);
@@ -165,6 +173,8 @@ public class TAEntityTypes {
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(TAModelLayers.LUNA_CIRCLE, LunaCircleModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.BREAD_BEAST, BreadBeastModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.ICEFIELD_DEER, IcefieldDeerModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.BLUE_TAIL_WOLF, BlueTailWolfModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.MOON_FISH, MoonFishModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_WINGED_FISH, AurorianWingedFishModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_RABBIT, AurorianRabbitModel::createBodyLayer);
@@ -200,6 +210,8 @@ public class TAEntityTypes {
     @SubscribeEvent
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
         normalEntitySpawn(event, BREAD_BEAST.get(), SpawnPlacements.Type.ON_GROUND, BreadBeast::checkBreadBeastSpawnRules);
+        normalEntitySpawn(event, ICEFIELD_DEER.get(), SpawnPlacements.Type.ON_GROUND, IcefieldDeer::checkIcefieldDeerSpawnRules);
+        normalEntitySpawn(event, BLUE_TAIL_WOLF.get(), SpawnPlacements.Type.ON_GROUND, BlueTailWolf::checkBlueTailWolfSpawnRules);
         normalEntitySpawn(event, MOON_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkAbstractAurorianFishSpawnRules);
         normalEntitySpawn(event, AURORIAN_WINGED_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkAbstractAurorianFishSpawnRules);
         normalEntitySpawn(event, AURORIAN_RABBIT.get(), SpawnPlacements.Type.ON_GROUND, AurorianRabbit::checkAurorianRabbitSpawnRules);
@@ -221,6 +233,8 @@ public class TAEntityTypes {
     @SubscribeEvent
     public static void addEntityAttributes(EntityAttributeCreationEvent event) {
         event.put(BREAD_BEAST.get(), BreadBeast.createAttributes().build());
+        event.put(ICEFIELD_DEER.get(), IcefieldDeer.createAttributes().build());
+        event.put(BLUE_TAIL_WOLF.get(), BlueTailWolf.createAttributes().build());
         event.put(MOON_FISH.get(), MoonFish.createAttributes().build());
         event.put(AURORIAN_WINGED_FISH.get(), AurorianWingedFish.createAttributes().build());
         event.put(AURORIAN_RABBIT.get(), AurorianRabbit.createAttributes().build());

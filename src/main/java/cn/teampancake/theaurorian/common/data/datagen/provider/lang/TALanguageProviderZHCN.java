@@ -406,6 +406,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_RABBIT.get(), "生极光兔肉");
         this.add(TAItems.MOON_FISH_SPAWN_EGG.get(), "皎月鱼刷怪蛋");
         this.add(TAItems.BREAD_BEAST_SPAWN_EGG.get(), "面包果兽刷怪蛋");
+        this.add(TAItems.ICEFIELD_DEER_SPAWN_EGG.get(), "冰原鹿刷怪蛋");
+        this.add(TAItems.BLUE_TAIL_WOLF_SPAWN_EGG.get(), "青尾狼刷怪蛋");
         this.add(TAItems.AURORIAN_WINGED_FISH_SPAWN_EGG.get(), "极光翅鱼刷怪蛋");
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(), "极光猪刷怪蛋");
         this.add(TAItems.AURORIAN_COW_SPAWN_EGG.get(), "极光牛刷怪蛋");
@@ -578,6 +580,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.WEBBING.get(), "蛛母之网");
         this.add(TAEntityTypes.EYE_OF_DISTURBED.get(), "空谷之眼");
         this.add(TAEntityTypes.BREAD_BEAST.get(), "面包果兽");
+        this.add(TAEntityTypes.ICEFIELD_DEER.get(), "冰原鹿");
+        this.add(TAEntityTypes.BLUE_TAIL_WOLF.get(), "青尾狼");
         this.add(TAEntityTypes.MOON_FISH.get(), "皎月鱼");
         this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), "极光翅鱼");
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "极光兔");

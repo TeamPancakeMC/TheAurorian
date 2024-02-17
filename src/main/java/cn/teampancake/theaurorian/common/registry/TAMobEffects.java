@@ -33,6 +33,7 @@ public class TAMobEffects {
     public static final RegistryObject<MobEffect> TEMP_SHIELD = MOB_EFFECTS.register("temp_shield", TempShieldEffect::new);
     public static final RegistryObject<MobEffect> INCANTATION = MOB_EFFECTS.register("incantation", IncantationEffect::new);
     public static final RegistryObject<MobEffect> FORBIDDEN_CURSE = MOB_EFFECTS.register("forbidden_curse", ForbiddenCurseEffect::new);
+    public static final RegistryObject<MobEffect> TREMOR = MOB_EFFECTS.register("tremor", TremorEffect::new);
 
 
 }

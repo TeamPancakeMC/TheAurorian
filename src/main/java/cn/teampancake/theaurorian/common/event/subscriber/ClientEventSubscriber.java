@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.client.renderer.level.TAFogRenderer;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
+import cn.teampancake.theaurorian.common.effect.TremorEffect;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
@@ -16,6 +17,8 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
@@ -53,18 +56,34 @@ public class ClientEventSubscriber {
     public static void onViewportComputeCameraAngles(ViewportEvent.ComputeCameraAngles event) {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
-        player.getActiveEffectsMap().values().stream()
-                .filter(effect -> effect.getEffect() instanceof ConfusionEffect)
-                .forEach(effect -> {
-                    if (effect.getAmplifier() == 1) {
-                        double rotation = Math.sin(player.tickCount / 10.0) * 45;
-                        event.setRoll((float)rotation);
-                    }
-                    if (effect.getAmplifier() == 2) {
-                        event.setRoll(180);
-                    }
-                });
+
+        player.getActiveEffectsMap().forEach((effect, mobEffectInstance) -> {
+            if (effect instanceof ConfusionEffect) {
+                if (mobEffectInstance.getAmplifier() == 1) {
+                    double rotation = Math.sin(player.tickCount / 10.0) * 45;
+                    event.setRoll((float)rotation);
+                }
+                if (mobEffectInstance.getAmplifier() == 2) {
+                    event.setRoll(180);
+                }
+            }
+
+            if (effect instanceof TremorEffect){
+                RandomSource rng = player.level().random;
+                Entity cameraEntity = Minecraft.getInstance().getCameraEntity();
+                float partialTick = Minecraft.getInstance().getPartialTick();
+
+                float tremorAmount = 0.5f;
+                event.getCamera().move(
+                        (Math.sin((cameraEntity.tickCount + partialTick) * 0.5f) * tremorAmount) * rng.nextFloat(),
+                        (Math.sin((cameraEntity.tickCount + partialTick) * 0.5f) * tremorAmount) * rng.nextFloat(),
+                        (Math.sin((cameraEntity.tickCount + partialTick) * 0.5f) * tremorAmount) * rng.nextFloat()
+                );
+            }
+        });
+
     }
+
 
     @SubscribeEvent
     public static void onRenderBossBars(CustomizeGuiOverlayEvent.BossEventProgress event) {

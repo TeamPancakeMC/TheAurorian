@@ -122,6 +122,9 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<TongScorpion>> TONG_SCORPION = ENTITY_TYPES.register("tong_scorpion",
             () -> EntityType.Builder.of(TongScorpion::new, MobCategory.MONSTER).sized(2.5F, 1.5F)
                     .clientTrackingRange((8)).build("tong_scorpion"));
+    public static final RegistryObject<EntityType<SnowTundraGiantCrab>> SNOW_TUNDRA_GIANT_CRAB = ENTITY_TYPES.register("snow_tundra_giant_crab",
+            () -> EntityType.Builder.of(SnowTundraGiantCrab::new, MobCategory.MONSTER).sized(3.5F, 3.0F)
+                    .clientTrackingRange((8)).build("snow_tundra_giant_crab"));
     //Boss
     public static final RegistryObject<EntityType<RunestoneKeeper>> RUNESTONE_KEEPER = ENTITY_TYPES.register("runestone_keeper",
             () -> EntityType.Builder.of(RunestoneKeeper::new, MobCategory.MONSTER).sized(1.4F, 4.2F)
@@ -163,6 +166,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(CAVE_DWELLER.get(), CaveDwellerRenderer::new);
         event.registerEntityRenderer(ROCK_HAMMER.get(), RockHammerRenderer::new);
         event.registerEntityRenderer(TONG_SCORPION.get(), TongScorpionRenderer::new);
+        event.registerEntityRenderer(SNOW_TUNDRA_GIANT_CRAB.get(), SnowTundraGiantCrabRenderer::new);
         event.registerEntityRenderer(RUNESTONE_KEEPER.get(), RunestoneKeeperRenderer::new);
         event.registerEntityRenderer(SPIDER_MOTHER.get(), SpiderMotherRenderer::new);
         event.registerEntityRenderer(MOON_QUEEN.get(), MoonQueenRenderer::new);
@@ -196,6 +200,7 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.CAVE_DWELLER, CaveDwellerModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.ROCK_HAMMER, RockHammerModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.TONG_SCORPION, TongScorpionModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.SNOW_TUNDRA_GIANT_CRAB, SnowTundraGiantCrabModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_KEEPER, RunestoneKeeperModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDER_MOTHER, SpiderMotherModel::createBodyLayer);
@@ -228,6 +233,7 @@ public class TAEntityTypes {
         normalEntitySpawn(event, CAVE_DWELLER.get(), SpawnPlacements.Type.ON_GROUND, CaveDweller::checkMonsterSpawnRules);
         normalEntitySpawn(event, ROCK_HAMMER.get(), SpawnPlacements.Type.ON_GROUND, RockHammer::checkRockHammerSpawnRules);
         normalEntitySpawn(event, TONG_SCORPION.get(), SpawnPlacements.Type.ON_GROUND, TongScorpion::checkTongScorpionSpawnRules);
+        normalEntitySpawn(event, SNOW_TUNDRA_GIANT_CRAB.get(), SpawnPlacements.Type.ON_GROUND, SnowTundraGiantCrab::checkSnowTundraGiantCrabSpawnRules);
     }
 
     @SubscribeEvent
@@ -252,6 +258,7 @@ public class TAEntityTypes {
         event.put(CAVE_DWELLER.get(), CaveDweller.createAttributes().build());
         event.put(ROCK_HAMMER.get(), RockHammer.createAttributes().build());
         event.put(TONG_SCORPION.get(), TongScorpion.createAttributes().build());
+        event.put(SNOW_TUNDRA_GIANT_CRAB.get(), SnowTundraGiantCrab.createAttributes().build());
         event.put(RUNESTONE_KEEPER.get(), RunestoneKeeper.createAttributes().build());
         event.put(SPIDER_MOTHER.get(), SpiderMother.createAttributes().build());
         event.put(MOON_QUEEN.get(), MoonQueen.createAttributes().build());

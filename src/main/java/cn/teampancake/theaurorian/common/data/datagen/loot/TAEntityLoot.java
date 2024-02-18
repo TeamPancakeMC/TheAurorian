@@ -86,6 +86,7 @@ public class TAEntityLoot extends VanillaEntityLoot {
         this.add(TAEntityTypes.CAVE_DWELLER.get(), LootTable.lootTable());
         this.add(TAEntityTypes.ROCK_HAMMER.get(), LootTable.lootTable());
         this.add(TAEntityTypes.TONG_SCORPION.get(), LootTable.lootTable());
+        this.add(TAEntityTypes.SNOW_TUNDRA_GIANT_CRAB.get(), LootTable.lootTable());
         //Boss
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))

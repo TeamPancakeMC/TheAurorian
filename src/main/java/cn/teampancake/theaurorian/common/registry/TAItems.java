@@ -353,6 +353,7 @@ public class TAItems {
     public static final RegistryObject<Item> CAVE_DWELLER_SPAWN_EGG = spawnEgg("cave_dweller", TAEntityTypes.CAVE_DWELLER, 0x5e6b7d, 0xdc54f7);
     public static final RegistryObject<Item> ROCK_HAMMER_SPAWN_EGG = spawnEgg("rock_hammer", TAEntityTypes.ROCK_HAMMER, 0xe3e0d1, 0x45332e);
     public static final RegistryObject<Item> TONG_SCORPION_SPAWN_EGG = spawnEgg("tong_scorpion", TAEntityTypes.TONG_SCORPION, 0x4f4334, 0x211a18);
+    public static final RegistryObject<Item> SNOW_TUNDRA_GIANT_CRAB_SPAWN_EGG = spawnEgg("snow_tundra_giant_crab", TAEntityTypes.SNOW_TUNDRA_GIANT_CRAB, 0xd8deed, 0x2347d9);
     public static final RegistryObject<Item> RUNESTONE_KEEPER_SPAWN_EGG = spawnEgg("runestone_keeper", TAEntityTypes.RUNESTONE_KEEPER, 0xccc0e7, 0x550098);
     public static final RegistryObject<Item> SPIDER_MOTHER_SPAWN_EGG = spawnEgg("spider_mother", TAEntityTypes.SPIDER_MOTHER, 0x595d70, 0x0f1018);
     public static final RegistryObject<Item> MOON_QUEEN_SPAWN_EGG = spawnEgg("moon_queen", TAEntityTypes.MOON_QUEEN, 0xff82d4, 0x313d4b);

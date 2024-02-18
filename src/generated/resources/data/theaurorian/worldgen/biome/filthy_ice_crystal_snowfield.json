@@ -5,7 +5,6 @@
       "theaurorian:ta_cave_extra_underground"
     ]
   },
-  "creature_spawn_probability": 0.2,
   "downfall": 0.0,
   "effects": {
     "fog_color": 12648408,
@@ -84,6 +83,12 @@
         "maxCount": 2,
         "minCount": 1,
         "weight": 35
+      },
+      {
+        "type": "theaurorian:snow_tundra_giant_crab",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 30
       }
     ],
     "underground_water_creature": [],

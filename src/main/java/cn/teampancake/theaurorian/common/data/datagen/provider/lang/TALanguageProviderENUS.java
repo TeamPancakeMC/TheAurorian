@@ -467,6 +467,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.CAVE_DWELLER_SPAWN_EGG.get(), "Cave Dweller Spawn Egg");
         this.add(TAItems.ROCK_HAMMER_SPAWN_EGG.get(), "Rock Hammer Spawn Egg");
         this.add(TAItems.TONG_SCORPION_SPAWN_EGG.get(), "Tong Scorpion Spawn Egg");
+        this.add(TAItems.SNOW_TUNDRA_GIANT_CRAB_SPAWN_EGG.get(), "Snow Tundra Giant Crab Spawn Egg");
         this.add(TAItems.DUNGEON_LOCATOR.get(),"Dungeon Locator");
         this.add(TAItems.KEEPERS_BOW.get(),"Keeper's Bow");
         this.add(TAItems.KNIGHT_HELMET.get(),"Knight Helmet");
@@ -599,6 +600,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.CAVE_DWELLER.get(), "Cave Dweller");
         this.add(TAEntityTypes.ROCK_HAMMER.get(), "Rock Hammer");
         this.add(TAEntityTypes.TONG_SCORPION.get(), "Tong Scorpion");
+        this.add(TAEntityTypes.SNOW_TUNDRA_GIANT_CRAB.get(), "Snow Tundra Giant Crab");
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), "Runestone Keeper");
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), "Spider Mother");
         this.add(TAEntityTypes.MOON_QUEEN.get(), "Moon Queen");

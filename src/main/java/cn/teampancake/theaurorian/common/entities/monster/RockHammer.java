@@ -55,7 +55,7 @@ public class RockHammer extends Monster implements NeutralMob {
     }
 
     @SuppressWarnings("unused")
-    public static boolean checkRockHammerSpawnRules(EntityType<RockHammer> breadBeast, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean checkRockHammerSpawnRules(EntityType<RockHammer> rockHammer, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
     }
 

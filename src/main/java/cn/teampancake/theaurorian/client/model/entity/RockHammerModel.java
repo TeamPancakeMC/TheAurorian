@@ -21,7 +21,7 @@ public class RockHammerModel<T extends RockHammer> extends HierarchicalModel<T> 
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
         PartDefinition body = partDefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, -7.25F, 1.0F));
-        PartDefinition body_2 = body.addOrReplaceChild("body_2", CubeListBuilder.create(), PartPose.offset(-4.0F, -3.5F, 11.0F));        
+        PartDefinition body_2 = body.addOrReplaceChild("body_2", CubeListBuilder.create(), PartPose.offset(-4.0F, -3.5F, 11.0F));
         body_2.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(96, 52).mirror().addBox(-10.25F, 4.0471F, -0.411F, 3.0F, 5.0F, 2.0F, new CubeDeformation(0.01F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.4659F, -0.1198F, -0.2333F));
         body_2.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(96, 52).addBox(7.25F, 4.0471F, -0.411F, 3.0F, 5.0F, 2.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(8.0F, 0.0F, 0.0F, -0.4659F, 0.1198F, 0.2333F));
         body_2.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(83, 51).addBox(4.8F, -0.9529F, -0.911F, 3.0F, 10.0F, 3.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(8.0F, 0.0F, 0.0F, -0.4659F, -0.1198F, -0.2333F));
@@ -89,7 +89,8 @@ public class RockHammerModel<T extends RockHammer> extends HierarchicalModel<T> 
         head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(0, 98).addBox(-5.5F, 0.0F, -11.0F, 11.0F, 3.0F, 13.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 5.0F, -1.0F));
         PartDefinition leg_left = body.addOrReplaceChild("leg_left", CubeListBuilder.create().texOffs(0, 114).addBox(-5.0F, -4.0F, -5.0F, 10.0F, 15.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(8.5F, 12.0F, 7.0F, -0.829F, 0.0F, 0.0F));
         PartDefinition leg_left_2 = leg_left.addOrReplaceChild("leg_left_2", CubeListBuilder.create().texOffs(43, 117).addBox(-4.0F, 0.0F, 0.0F, 8.0F, 15.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 8.75F, -1.25F, 1.2654F, 0.0F, 0.0F));
-        PartDefinition foot_left = leg_left_2.addOrReplaceChild("foot_left", CubeListBuilder.create().texOffs(76, 122).addBox(-5.0F, 0.0F, -12.0F, 10.0F, 5.0F, 13.0F, new CubeDeformation(0.0F))
+        PartDefinition foot_left = leg_left_2.addOrReplaceChild("foot_left", CubeListBuilder.create()
+                .texOffs(76, 122).addBox(-5.0F, 0.0F, -12.0F, 10.0F, 5.0F, 13.0F, new CubeDeformation(0.0F))
                 .texOffs(68, 116).addBox(-1.0F, 1.0F, -16.0F, 2.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 13.5F, 6.5F, -0.4363F, 0.0F, 0.0F));
         foot_left.addOrReplaceChild("cube_r59", CubeListBuilder.create().texOffs(68, 116).addBox(0.0F, -4.0F, -4.0F, 2.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, 5.0F, -12.0F, 0.0F, -0.1745F, 0.0F));
         foot_left.addOrReplaceChild("cube_r60", CubeListBuilder.create().texOffs(68, 116).addBox(-2.0F, -4.0F, -4.0F, 2.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.0F, 5.0F, -12.0F, 0.0F, 0.1745F, 0.0F));

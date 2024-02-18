@@ -5,7 +5,6 @@
       "theaurorian:ta_cave_extra_underground"
     ]
   },
-  "creature_spawn_probability": 0.2,
   "downfall": 0.0,
   "effects": {
     "fog_color": 12648408,
@@ -36,12 +35,6 @@
       "theaurorian:ore_moonstone",
       "theaurorian:ore_cerulean",
       "theaurorian:ore_geode"
-    ],
-    [],
-    [],
-    [
-      "theaurorian:random_riverside_plant",
-      "theaurorian:riverside_moon_sand"
     ]
   ],
   "has_precipitation": false,
@@ -49,53 +42,9 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [
-      {
-        "type": "theaurorian:aurorian_rabbit",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 5
-      },
-      {
-        "type": "theaurorian:aurorian_sheep",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 5
-      },
-      {
-        "type": "theaurorian:aurorian_pig",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 5
-      },
-      {
-        "type": "theaurorian:aurorian_cow",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 5
-      }
-    ],
+    "creature": [],
     "misc": [],
-    "monster": [
-      {
-        "type": "theaurorian:crystalline_sprite",
-        "maxCount": 2,
-        "minCount": 2,
-        "weight": 65
-      },
-      {
-        "type": "theaurorian:disturbed_hollow",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 35
-      },
-      {
-        "type": "theaurorian:moon_acolyte",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 35
-      }
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

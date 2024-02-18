@@ -9,8 +9,13 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SnowLayerBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.WritableLevelData;
@@ -29,12 +34,36 @@ public abstract class MixinServerLevel extends Level {
         super(levelData, dimension, registryAccess, dimensionTypeRegistration, profiler, isClientSide, isDebug, biomeZoomSeed, maxChainedNeighborUpdates);
     }
 
-    @Inject(method = "tickChunk", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/server/level/ServerLevel;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z",
-            ordinal = 0, shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    public void tickChunk(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos, boolean flag, int i, int j, ProfilerFiller profilerFiller, BlockPos blockPos1, BlockPos blockPos2, Biome biome) {
+    @Inject(method = "tickChunk", at = @At(
+            target = "Lnet/minecraft/world/level/biome/Biome;shouldFreeze(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z",
+            value = "INVOKE", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    public void tickChunk(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos, boolean flag, int i, int j, ProfilerFiller profiler, BlockPos blockPos1, BlockPos blockPos2, Biome biome) {
         if (this.getBiome(blockPos2).is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD)) {
-            this.setBlockAndUpdate(blockPos2, TABlocks.FILTHY_ICE.get().defaultBlockState());
+            if (biome.shouldFreeze(this, blockPos2)) {
+                this.setBlockAndUpdate(blockPos2, TABlocks.FILTHY_ICE.get().defaultBlockState());
+            }
+
+            int i1 = this.getGameRules().getInt(GameRules.RULE_SNOW_ACCUMULATION_HEIGHT);
+            if (i1 > 0 && biome.shouldSnow(this, blockPos1)) {
+                BlockState state = this.getBlockState(blockPos1);
+                if (state.is(Blocks.SNOW)) {
+                    int k = state.getValue(SnowLayerBlock.LAYERS);
+                    if (k < Math.min(i1, 8)) {
+                        BlockState state1 = state.setValue(SnowLayerBlock.LAYERS, k + 1);
+                        Block.pushEntitiesUp(state, state1, this, blockPos1);
+                        this.setBlockAndUpdate(blockPos1, state1);
+                    }
+                } else {
+                    this.setBlockAndUpdate(blockPos1, Blocks.SNOW.defaultBlockState());
+                }
+            }
+
+            Biome.Precipitation precipitation = biome.getPrecipitationAt(blockPos2);
+            if (precipitation != Biome.Precipitation.NONE) {
+                BlockState state = this.getBlockState(blockPos2);
+                state.getBlock().handlePrecipitation(state, this, blockPos2, precipitation);
+            }
+
             ci.cancel();
         }
     }

@@ -4,5 +4,5 @@
   "ingredient": {
     "item": "minecraft:diamond_hoe"
   },
-  "result": "diamond"
+  "result": "minecraft:diamond"
 }

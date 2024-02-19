@@ -152,7 +152,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.CUT_MOON_SANDSTONE.get(), "切制皎月砂岩");
         this.add(TABlocks.SMOOTH_MOON_SANDSTONE.get(), "平滑皎月砂岩");
         this.add(TABlocks.BRIGHT_MOON_SAND.get(), "皓月沙");
-        this.add(TABlocks.BRIGHT_MOON_SANDSTONE.get(), "皓月沙岩");
+        this.add(TABlocks.BRIGHT_MOON_SANDSTONE.get(), "皓月砂岩");
         this.add(TABlocks.MOON_TORCH.get(), "皎月火把");
         this.add(TABlocks.SCRAPPER.get(), "粉碎器");
         this.add(TABlocks.UMBRA_STONE.get(), "本影石");
@@ -478,6 +478,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.LAVENDER.get(), "薰衣草");
         this.add(TAItems.LAVENDER_BREAD.get(), "薰衣草面包");
         this.add(TAItems.LAVENDER_TEA.get(), "薰衣草茶");
+        this.add(TAItems.LAVENDER_SEEDS.get(),"薰衣草种子");
         this.add(TAItems.LIVING_DIVINING_ROD.get(), "生命卜窥权杖");
         this.add(TAItems.MOON_WATER_BUCKET.get(), "皎月水桶");
         this.add(TAItems.MOON_FISH_BUCKET.get(), "皎月鱼桶");
@@ -643,6 +644,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         //MOD GUI TOOLTIPS
         this.add("tooltips.block.theaurorian.moonlight_forge.gui.redstone", "目前已被红石信号禁用！");
         this.add("tooltips.block.theaurorian.moonlight_forge.gui.no_moonlight", "没有检测到月光！");
+        this.add("tooltips.block.theaurorian.moonlight_forge.gui.has_moonlight","月光祝福中！");
 
         //MOD TOOLTIPS
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");

@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.blocks.entity;
 import cn.teampancake.theaurorian.client.inventory.MoonlightForgeMenu;
 import cn.teampancake.theaurorian.common.items.crafting.MoonlightForgeRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
+import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TARecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -49,7 +50,7 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
             MoonlightForgeRecipe recipe = !equipment.isEmpty() ? blockEntity.quickCheck
                     .getRecipeFor(blockEntity, level).orElse(null) : null;
             blockEntity.isPowered = level.hasNeighborSignal(pos);
-            blockEntity.hasMoonLight = level.canSeeSky(pos.above()) && level.isNight();
+            blockEntity.hasMoonLight = level.canSeeSky(pos.above()) &&(level.dimension() == TADimensions.AURORIAN_DIMENSION || level.isNight());
             blockEntity.isCrafting = blockEntity.canWork(level.registryAccess(), recipe, inventory);
             if (blockEntity.isCrafting && upgradeMaterial.getCount() > 0) {
                 float heightPercent = (float) pos.getY() / (float) level.getHeight();

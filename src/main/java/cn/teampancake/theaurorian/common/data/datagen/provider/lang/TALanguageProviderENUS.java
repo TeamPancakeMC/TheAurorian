@@ -318,6 +318,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.CURSED_FROST_WOOD_FENCE.get(), "Cursed Frost Wood Fence");
         this.add(TABlocks.SILENT_WOOD_DOOR.get(), "Silent Wood Door");
         this.add(TABlocks.WEEPING_WILLOW_DOOR.get(), "Weeping Willow Door");
+        this.add(TABlocks.CURTAIN_WOOD_DOOR.get(), "Curtain Wood Door");
         this.add(TABlocks.CURSED_FROST_WOOD_DOOR.get(), "Cursed Frost Wood Door");
         this.add(TABlocks.AURORIAN_STONE_SLAB.get(), "Aurorian Stone Slab");
         this.add(TABlocks.AURORIAN_STONE_BRICK_SLAB.get(), "Aurorian Stone Brick Slab");
@@ -643,6 +644,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         //MOD GUI TOOLTIPS
         this.add("tooltips.block.theaurorian.moonlight_forge.gui.redstone", "Currently disabled by redstone power.");
         this.add("tooltips.block.theaurorian.moonlight_forge.gui.no_moonlight", "No Moonlight Detected!");
+        this.add("tooltips.block.theaurorian.moonlight_forge.gui.has_moonlight","Blessed By Moonlight!");
 
         //MOD TOOLTIPS
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");

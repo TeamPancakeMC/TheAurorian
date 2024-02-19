@@ -106,7 +106,7 @@ public class MoonlightForgeRecipeBuilder implements RecipeBuilder {
         public void serializeRecipeData(JsonObject json) {
             json.add("equipment", this.equipment.toJson());
             json.add("upgrade_material", this.upgradeMaterial.toJson());
-            json.addProperty("result", ForgeRegistries.ITEMS.getKey(this.result).getPath());
+            json.addProperty("result", ForgeRegistries.ITEMS.getKey(this.result).toString());
         }
 
         @Override

@@ -34,7 +34,7 @@
               ]
             }
           ],
-          "name": "minecraft:air"
+          "name": "theaurorian:aurorian_grass"
         },
         {
           "type": "minecraft:item",
@@ -56,5 +56,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "theaurorian:blocks/tall_wick_grass"
+  "random_sequence": "theaurorian:blocks/tall_aurorian_grass"
 }

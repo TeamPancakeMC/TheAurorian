@@ -3,7 +3,7 @@
   "equipment": {
     "item": "theaurorian:aurorian_steel_pickaxe"
   },
-  "result": "queens_chipper",
+  "result": "theaurorian:queens_chipper",
   "upgrade_material": {
     "item": "theaurorian:trophy_moon_queen"
   }

@@ -4,5 +4,5 @@
   "ingredient": {
     "item": "minecraft:iron_pickaxe"
   },
-  "result": "iron_nugget"
+  "result": "minecraft:iron_nugget"
 }

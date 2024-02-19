@@ -47,6 +47,8 @@ public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForge
                 s += "redstone";
             } else if (!blockEntity.hasMoonLight) {
                 s += "no_moonlight";
+            }else {
+                s += "has_moonlight";
             }
 
             List<Component> tooltipLines = List.of(Component.translatable(s));

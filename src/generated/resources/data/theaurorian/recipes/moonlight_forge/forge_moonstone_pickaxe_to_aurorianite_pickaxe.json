@@ -3,7 +3,7 @@
   "equipment": {
     "item": "theaurorian:moonstone_pickaxe"
   },
-  "result": "aurorianite_pickaxe",
+  "result": "theaurorian:aurorianite_pickaxe",
   "upgrade_material": {
     "item": "theaurorian:aurorianite_ingot"
   }

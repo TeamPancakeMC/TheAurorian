@@ -102,7 +102,7 @@ public class ScrapperRecipeBuilder implements RecipeBuilder {
         @SuppressWarnings("ConstantConditions")
         public void serializeRecipeData(JsonObject json) {
             json.add("ingredient", this.ingredient.toJson());
-            json.addProperty("result", ForgeRegistries.ITEMS.getKey(this.result).getPath());
+            json.addProperty("result", ForgeRegistries.ITEMS.getKey(this.result).toString());
             json.addProperty("amount", this.amount);
         }
 

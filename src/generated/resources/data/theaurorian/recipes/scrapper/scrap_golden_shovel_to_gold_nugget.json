@@ -4,5 +4,5 @@
   "ingredient": {
     "item": "minecraft:golden_shovel"
   },
-  "result": "gold_nugget"
+  "result": "minecraft:gold_nugget"
 }

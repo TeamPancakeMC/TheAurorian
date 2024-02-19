@@ -3,7 +3,7 @@
   "equipment": {
     "item": "theaurorian:moonstone_shield"
   },
-  "result": "moon_shield",
+  "result": "theaurorian:moon_shield",
   "upgrade_material": {
     "item": "theaurorian:trophy_moon_queen"
   }

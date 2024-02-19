@@ -54,7 +54,6 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.AURORIAN_FLOWER_2.get());
         this.dropSelf(TABlocks.AURORIAN_FLOWER_3.get());
         this.dropSelf(TABlocks.EQUINOX_FLOWER.get());
-        this.dropSelf(TABlocks.WICK_GRASS.get());
         this.dropSelf(TABlocks.CERULEAN_BLOCK.get());
         this.dropSelf(TABlocks.MOONSTONE_BLOCK.get());
         this.dropSelf(TABlocks.INDIGO_MUSHROOM.get());
@@ -128,9 +127,15 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.add(TABlocks.RED_AURORIAN_GRASS_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_DIRT.get()));
         this.add(TABlocks.AURORIAN_FARM_TILE.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_DIRT.get()));
         this.add(TABlocks.AURORIAN_GRASS.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.AURORIAN_GRASS.get()));
+        this.add(TABlocks.TALL_AURORIAN_GRASS.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.AURORIAN_GRASS.get()));
+        this.add(TABlocks.AURORIAN_WATER_GRASS.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.AURORIAN_WATER_GRASS.get()));
+        this.add(TABlocks.TALL_AURORIAN_WATER_GRASS.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.AURORIAN_WATER_GRASS.get()));
         this.add(TABlocks.AURORIAN_GRASS_LIGHT.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.AURORIAN_GRASS_LIGHT.get()));
-        this.add(TABlocks.TALL_WICK_GRASS.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.TALL_WICK_GRASS.get()));
+        this.add(TABlocks.TALL_AURORIAN_GRASS_LIGHT.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.AURORIAN_GRASS_LIGHT.get()));
+        this.add(TABlocks.WICK_GRASS.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.WICK_GRASS.get()));
+        this.add(TABlocks.TALL_WICK_GRASS.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.WICK_GRASS.get()));
         this.add(TABlocks.LAVENDER_PLANT.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.LAVENDER_PLANT.get()));
+        this.add(TABlocks.TALL_LAVENDER_PLANT.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.LAVENDER_PLANT.get()));
         this.add(TABlocks.PETUNIA_PLANT.get(), block -> createSilkTouchOrSicklesDispatchTable(TABlocks.PETUNIA_PLANT.get()));
         this.add(TABlocks.LAVENDER_CROP.get(), this.createCropDrops(TABlocks.LAVENDER_CROP.get(), TAItems.LAVENDER.get(), TAItems.LAVENDER_SEEDS.get(),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(TABlocks.LAVENDER_CROP.get())

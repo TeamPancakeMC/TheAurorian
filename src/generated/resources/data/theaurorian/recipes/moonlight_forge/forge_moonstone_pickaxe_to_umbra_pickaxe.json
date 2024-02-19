@@ -3,7 +3,7 @@
   "equipment": {
     "item": "theaurorian:moonstone_pickaxe"
   },
-  "result": "umbra_pickaxe",
+  "result": "theaurorian:umbra_pickaxe",
   "upgrade_material": {
     "item": "theaurorian:umbra_ingot"
   }

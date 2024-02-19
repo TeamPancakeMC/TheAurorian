@@ -31,20 +31,17 @@ public class CrystallinePickaxe extends PickaxeItem implements ITooltipsItem{
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if (!level.isClientSide && state.getDestroySpeed(level, pos) != 0.0D) {
-            if (state.is(Tags.Blocks.ORES)) {
+            if (state.is(Tags.Blocks.ORES) && Math.random()*100<30) {
                 Optional<SmeltingRecipe> recipe= level.getRecipeManager().getRecipeFor(RecipeType.SMELTING,new SimpleContainer(new ItemStack(state.getBlock())), level);
                 ItemStack ingot = ItemStack.EMPTY;
                 if(recipe.isPresent()) {
                     ingot = recipe.get().getResultItem(level.registryAccess());
                     ingot.setCount(1);
                 }
-                ItemStack nugget = getCraftingRemainingItem(ingot);
+
                 if (ingot != ItemStack.EMPTY) {
+                    ingot.setCount(level.random.nextIntBetweenInclusive(1,3)+1);
                     level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), ingot));
-                    if (nugget != null) {
-                        nugget.setCount(level.random.nextIntBetweenInclusive(1,3)+1);
-                        level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), nugget));
-                    }
                     stack.hurtAndBreak(2,entityLiving,(player) -> player.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                     return true;
                 }

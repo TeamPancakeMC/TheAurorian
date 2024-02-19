@@ -32,6 +32,7 @@ public class TABiomes {
     public static final ResourceKey<Biome> WEEPING_WILLOW_FOREST = createKey("weeping_willow_forest");
     public static final ResourceKey<Biome> FILTHY_ICE_CRYSTAL_SNOWFIELD = createKey("filthy_ice_crystal_snowfield");
     public static final ResourceKey<Biome> BRIGHT_MOON_DESERT = createKey("bright_moon_desert");
+    public static final ResourceKey<Biome> UNDER_SNOWFIELD = createKey("under_snowfield");
     public static final ResourceKey<Biome> UNDERGROUND = createKey("underground");
     public static final ResourceKey<Biome> UNDERWATER = createKey("underwater");
 
@@ -65,11 +66,13 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_WEEPING_WILLOW_FOREST))
                 .mobSpawnSettings(defaultMobSpawning().build()).build());
         context.register(FILTHY_ICE_CRYSTAL_SNOWFIELD, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
-                .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE),
+                        .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
+                        .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE),
                 snowfieldMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature((-0.7F)).build());
         context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
                 .mobSpawnSettings(desertMobSpawning().build()).build());
+        context.register(UNDER_SNOWFIELD, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+                .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER), new MobSpawnSettings.Builder().build()).build());
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(UNDERWATER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter), defaultFishSpawning().build()).build());
     }
@@ -156,7 +159,7 @@ public class TABiomes {
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.CRYSTALLINE_SPRITE.get(), 35, 2, 2));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 45, 1, 4));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_ACOLYTE.get(), 35, 1, 2));
-        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.SNOW_TUNDRA_GIANT_CRAB.get(), 30, 1, 2));
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.SNOW_TUNDRA_GIANT_CRAB.get(), 10, 1, 2));
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.ICEFIELD_DEER.get(), 20, 1, 3));
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.BLUE_TAIL_WOLF.get(), 20, 1, 3));
         return spawnInfo;

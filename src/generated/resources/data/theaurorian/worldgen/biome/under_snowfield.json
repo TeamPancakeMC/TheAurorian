@@ -20,9 +20,7 @@
   },
   "features": [
     [],
-    [
-      "theaurorian:filthy_water_lake"
-    ],
+    [],
     [],
     [],
     [],
@@ -45,55 +43,17 @@
       "theaurorian:filthy_freeze_top_layer"
     ]
   ],
-  "has_precipitation": true,
+  "has_precipitation": false,
   "spawn_costs": {},
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [
-      {
-        "type": "theaurorian:icefield_deer",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 20
-      },
-      {
-        "type": "theaurorian:blue_tail_wolf",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 20
-      }
-    ],
+    "creature": [],
     "misc": [],
-    "monster": [
-      {
-        "type": "theaurorian:crystalline_sprite",
-        "maxCount": 2,
-        "minCount": 2,
-        "weight": 35
-      },
-      {
-        "type": "theaurorian:disturbed_hollow",
-        "maxCount": 4,
-        "minCount": 1,
-        "weight": 45
-      },
-      {
-        "type": "theaurorian:moon_acolyte",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 35
-      },
-      {
-        "type": "theaurorian:snow_tundra_giant_crab",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 10
-      }
-    ],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": -0.7
+  "temperature": 0.2
 }

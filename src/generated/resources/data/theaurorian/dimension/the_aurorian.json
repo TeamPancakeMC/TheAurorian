@@ -76,7 +76,7 @@
           {
             "biome_layers": {
               "-1.0": "theaurorian:filthy_ice_crystal_snowfield",
-              "-3.0": "theaurorian:underground"
+              "-3.0": "theaurorian:under_snowfield"
             },
             "depth": 9.36,
             "key_biome": "theaurorian:filthy_ice_crystal_snowfield",

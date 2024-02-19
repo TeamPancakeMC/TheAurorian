@@ -33,7 +33,7 @@ public class FilthySnowAndFreezeFeature extends Feature<NoneFeatureConfiguration
                 mutableBlockPos.set(k, i1, l);
                 mutableBlockPos1.set(mutableBlockPos).move(Direction.DOWN, 1);
                 Biome biome = level.getBiome(mutableBlockPos).value();
-                if (biome.shouldFreeze(level, mutableBlockPos1, false)) {
+                if (biome.shouldFreeze(level, mutableBlockPos1, Boolean.FALSE)) {
                     level.setBlock(mutableBlockPos1, TABlocks.FILTHY_ICE.get().defaultBlockState(), 2);
                 }
 

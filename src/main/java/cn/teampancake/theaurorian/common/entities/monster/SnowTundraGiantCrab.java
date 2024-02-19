@@ -55,7 +55,7 @@ public class SnowTundraGiantCrab extends Monster implements NeutralMob {
     }
 
     public static boolean checkSnowTundraGiantCrabSpawnRules(EntityType<SnowTundraGiantCrab> snowTundraGiantCrab, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkMobSpawnRules(snowTundraGiantCrab, level, spawnType, pos, random);
+        return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkMobSpawnRules(snowTundraGiantCrab, level, spawnType, pos, random) && level.getRawBrightness(pos, 0) > 6;
     }
 
     @Override

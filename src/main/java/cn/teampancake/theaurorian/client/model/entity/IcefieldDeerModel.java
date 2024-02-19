@@ -5,6 +5,7 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -12,9 +13,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class IcefieldDeerModel<T extends IcefieldDeer> extends HierarchicalModel<T> {
 
     private final ModelPart body;
+    private final ModelPart head;
+    private final ModelPart rightHindLeg;
+    private final ModelPart leftHindLeg;
+    private final ModelPart rightFrontLeg;
+    private final ModelPart leftFrontLeg;
 
     public IcefieldDeerModel(ModelPart root) {
         this.body = root.getChild("body");
+        this.head = this.body.getChild("neck").getChild("head");
+        this.rightHindLeg = this.body.getChild("right_hind_leg");
+        this.leftHindLeg = this.body.getChild("left_hind_leg");
+        this.rightFrontLeg = this.body.getChild("right_front_leg");
+        this.leftFrontLeg = this.body.getChild("left_front_leg");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -22,10 +33,10 @@ public class IcefieldDeerModel<T extends IcefieldDeer> extends HierarchicalModel
         PartDefinition partDefinition = meshDefinition.getRoot();
         PartDefinition body = partDefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -1.0F, -7.0F, 8.0F, 7.0F, 14.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 10.0F, 0.0F));
         body.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(30, 0).addBox(-1.5F, -1.25F, -0.75F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 7.0F, 0.3054F, 0.0F, 0.0F));
-        body.addOrReplaceChild("leg_front_right", CubeListBuilder.create().texOffs(45, 9).addBox(-1.0F, 0.0F, -2.0F, 3.0F, 10.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.05F, 4.0F, -4.95F));
-        body.addOrReplaceChild("leg_front_left", CubeListBuilder.create().texOffs(45, 9).mirror().addBox(-2.0F, 0.0F, -2.0F, 3.0F, 10.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.05F, 4.0F, -4.95F));
-        body.addOrReplaceChild("leg_front_right2", CubeListBuilder.create().texOffs(45, 9).addBox(-1.0F, 0.0F, -2.0F, 3.0F, 10.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.05F, 4.0F, 5.05F));
-        body.addOrReplaceChild("leg_front_left2", CubeListBuilder.create().texOffs(45, 9).mirror().addBox(-2.0F, 0.0F, -2.0F, 3.0F, 10.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.05F, 4.0F, 5.05F));
+        body.addOrReplaceChild("right_front_leg", CubeListBuilder.create().texOffs(45, 9).addBox(-1.0F, 0.0F, -2.0F, 3.0F, 10.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.05F, 4.0F, -4.95F));
+        body.addOrReplaceChild("left_front_leg", CubeListBuilder.create().texOffs(45, 9).mirror().addBox(-2.0F, 0.0F, -2.0F, 3.0F, 10.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.05F, 4.0F, -4.95F));
+        body.addOrReplaceChild("right_hind_leg", CubeListBuilder.create().texOffs(45, 9).addBox(-1.0F, 0.0F, -2.0F, 3.0F, 10.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.05F, 4.0F, 5.05F));
+        body.addOrReplaceChild("left_hind_leg", CubeListBuilder.create().texOffs(45, 9).mirror().addBox(-2.0F, 0.0F, -2.0F, 3.0F, 10.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.05F, 4.0F, 5.05F));
         PartDefinition neck = body.addOrReplaceChild("neck", CubeListBuilder.create().texOffs(0, 21).addBox(-2.5F, -8.5F, -0.5F, 5.0F, 11.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 3.0F, -7.0F));
         PartDefinition head = neck.addOrReplaceChild("head", CubeListBuilder.create()
                 .texOffs(19, 21).addBox(-3.0F, -5.0F, -4.0F, 5.0F, 5.0F, 7.0F, new CubeDeformation(0.01F))
@@ -40,6 +51,12 @@ public class IcefieldDeerModel<T extends IcefieldDeer> extends HierarchicalModel
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
+        this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.rightFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
     }
 
     @Override

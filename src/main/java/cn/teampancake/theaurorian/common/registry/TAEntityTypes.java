@@ -123,7 +123,7 @@ public class TAEntityTypes {
             () -> EntityType.Builder.of(TongScorpion::new, MobCategory.MONSTER).sized(2.5F, 1.5F)
                     .clientTrackingRange((8)).build("tong_scorpion"));
     public static final RegistryObject<EntityType<SnowTundraGiantCrab>> SNOW_TUNDRA_GIANT_CRAB = ENTITY_TYPES.register("snow_tundra_giant_crab",
-            () -> EntityType.Builder.of(SnowTundraGiantCrab::new, MobCategory.MONSTER).sized(3.5F, 3.0F)
+            () -> EntityType.Builder.of(SnowTundraGiantCrab::new, MobCategory.MONSTER).sized(4.0F, 3.5F)
                     .clientTrackingRange((8)).build("snow_tundra_giant_crab"));
     //Boss
     public static final RegistryObject<EntityType<RunestoneKeeper>> RUNESTONE_KEEPER = ENTITY_TYPES.register("runestone_keeper",

@@ -1,7 +1,9 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
 import cn.teampancake.theaurorian.common.entities.animal.BreadBeast;
-import net.minecraft.client.model.HierarchicalModel;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -10,22 +12,27 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class BreadBeastModel<T extends BreadBeast> extends HierarchicalModel<T> {
+public class BreadBeastModel<T extends BreadBeast> extends EntityModel<T> {
 
-    private final ModelPart body;
     private final ModelPart head;
     private final ModelPart rightHindLeg;
     private final ModelPart leftHindLeg;
     private final ModelPart rightFrontLeg;
     private final ModelPart leftFrontLeg;
+    private final ModelPart fullTail;
+    private final ModelPart eatenTail1;
+    private final ModelPart eatenTail2;
 
     public BreadBeastModel(ModelPart root) {
-        this.body = root.getChild("body");
-        this.head = this.body.getChild("neck").getChild("head");
-        this.rightHindLeg = this.body.getChild("right_hind_leg");
-        this.leftHindLeg = this.body.getChild("left_hind_leg");
-        this.rightFrontLeg = this.body.getChild("right_front_leg");
-        this.leftFrontLeg = this.body.getChild("left_front_leg");
+        ModelPart body = root.getChild("body");
+        this.head = body.getChild("neck").getChild("head");
+        this.rightHindLeg = body.getChild("right_hind_leg");
+        this.leftHindLeg = body.getChild("left_hind_leg");
+        this.rightFrontLeg = body.getChild("right_front_leg");
+        this.leftFrontLeg = body.getChild("left_front_leg");
+        this.fullTail = body.getChild("tail_full");
+        this.eatenTail1 = body.getChild("tail_eaten_1");
+        this.eatenTail2 = body.getChild("tail_eaten_2");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -50,9 +57,6 @@ public class BreadBeastModel<T extends BreadBeast> extends HierarchicalModel<T> 
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
         this.rightHindLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.rightFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
@@ -60,8 +64,41 @@ public class BreadBeastModel<T extends BreadBeast> extends HierarchicalModel<T> 
     }
 
     @Override
-    public ModelPart root() {
-        return this.body;
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        this.head.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+        this.rightHindLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+        this.leftHindLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+        this.rightFrontLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+        this.leftFrontLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+        this.fullTail.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+        this.eatenTail1.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+        this.eatenTail2.render(poseStack, vertexConsumer, packedLight, packedOverlay);
+    }
+
+    @Override
+    public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
+        switch (entity.getTailState()) {
+            case 1 -> {
+                this.fullTail.visible = false;
+                this.eatenTail1.visible = true;
+                this.eatenTail2.visible = false;
+            }
+            case 2 -> {
+                this.fullTail.visible = false;
+                this.eatenTail1.visible = false;
+                this.eatenTail2.visible = true;
+            }
+            case 3 -> {
+                this.fullTail.visible = false;
+                this.eatenTail1.visible = false;
+                this.eatenTail2.visible = false;
+            }
+            default -> {
+                this.fullTail.visible = true;
+                this.eatenTail1.visible = false;
+                this.eatenTail2.visible = false;
+            }
+        }
     }
 
 }

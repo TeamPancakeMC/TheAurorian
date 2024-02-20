@@ -16,8 +16,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        this.add("death.attack.corruption", "The price of dark power is death!");
-        this.add("death.attack.corruption.player", "The price of dark power is death!");
+        this.add("death.attack.corruption_1", "When %1$s gaze long into an abyss, the abyss also gazes into %1$s");
+        this.add("death.attack.corruption_2", "It seems that Saigyouji Yuyuko doesn't like %1$s");
+        this.add("death.attack.corruption_3", "%1$s died under the cherry blossom tree");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "The Aurorian");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "The Aurorian (Building Materials)");
         this.add("theaurorian.container.moonlight_forge", "Moonlight Forge");

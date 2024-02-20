@@ -93,12 +93,13 @@ public class BreadBeast extends PathfinderMob {
         if (this.getTailState() >= 3 || !foodData.needsFood()) {
             return InteractionResult.PASS;
         } else {
+            int i = this.getTailState();
             ItemStack itemInHand = player.getItemInHand(player.getUsedItemHand());
             float f1 = 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F;
             if (itemInHand.is(TAItems.LAVENDER.get())) {
                 boolean isCreative = player.getAbilities().instabuild;
                 this.playSound(SoundEvents.ITEM_PICKUP, 1.0F, f1);
-                if (!this.level().isClientSide && (this.coolDownTime == 0 || isCreative)) {
+                if (!this.level().isClientSide && i == 0 && (this.coolDownTime == 0 || isCreative)) {
                     this.coolDownTime = 6000;
                     this.setTailState(0);
                     if (!isCreative) {
@@ -109,7 +110,6 @@ public class BreadBeast extends PathfinderMob {
                 this.playSound(SoundEvents.GENERIC_EAT, 1.0F, f1);
                 foodData.eat((4), (0.1F));
                 if (!this.level().isClientSide) {
-                    int i = this.getTailState();
                     this.setTailState(i + 1);
                 }
             }

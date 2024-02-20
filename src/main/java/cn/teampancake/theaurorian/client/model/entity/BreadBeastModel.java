@@ -66,10 +66,8 @@ public class BreadBeastModel<T extends BreadBeast> extends EntityModel<T> {
         this.leftHindLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.rightFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.leftFrontLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.tail.getAllParts().forEach(part -> part.y = 2.5F);
         this.body.y = 5.5F;
-        this.fullTail.y = 2.5F;
-        this.eatenTail1.y = 2.5F;
-        this.eatenTail2.y = 2.5F;
     }
 
     @Override

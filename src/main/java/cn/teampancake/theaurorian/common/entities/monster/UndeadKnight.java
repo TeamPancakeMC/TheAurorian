@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -28,7 +29,7 @@ public class UndeadKnight extends Monster {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
-    public float attackAnimationTick;
+    public int attackAnimationTick;
 
     public UndeadKnight(EntityType<? extends UndeadKnight> type, Level level) {
         super(type, level);
@@ -38,12 +39,12 @@ public class UndeadKnight extends Monster {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, Boolean.FALSE));
-        this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(1, new UndeadKnightAttackGoal(this));
+        this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, (1.0D)));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(this, (1.0D)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, (8.0F)));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
     }
 
     public static boolean checkUndeadKnightSpawnRules(EntityType<UndeadKnight> undeadKnight, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
@@ -63,7 +64,7 @@ public class UndeadKnight extends Monster {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (this.attackAnimationTick <= 25.0F) {
+        if (this.attackAnimationTick <= 25) {
             ++this.attackAnimationTick;
         }
         if (this.level().isClientSide()) {
@@ -74,8 +75,7 @@ public class UndeadKnight extends Monster {
     @Override
     public void handleEntityEvent(byte id) {
         if (id == 4) {
-            this.attackAnimationTick = 0.0F;
-            this.attackAnimationState.startIfStopped(this.tickCount);
+            this.attackAnimationState.start(this.tickCount);
         } else {
             super.handleEntityEvent(id);
         }
@@ -83,8 +83,6 @@ public class UndeadKnight extends Monster {
 
     @Override
     public boolean doHurtTarget(@NotNull Entity entity) {
-        this.attackAnimationTick = 0.0F;
-        this.level().broadcastEntityEvent(this, (byte)4);
         if (super.doHurtTarget(entity)) {
             if (entity instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 60));
@@ -93,6 +91,12 @@ public class UndeadKnight extends Monster {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean canBeAffected(MobEffectInstance effectInstance) {
+        MobEffect effect = effectInstance.getEffect();
+        return effect == MobEffects.REGENERATION || effect == MobEffects.WITHER;
     }
 
     @Override
@@ -118,6 +122,7 @@ public class UndeadKnight extends Monster {
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(TAItems.AURORIAN_STONE_SWORD.get()));
+        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(TAItems.KNIGHT_HELMET.get()));
         this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(TAItems.KNIGHT_CHESTPLATE.get()));
         this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(TAItems.KNIGHT_LEGGINGS.get()));
         this.setItemSlot(EquipmentSlot.FEET, new ItemStack(TAItems.KNIGHT_BOOTS.get()));
@@ -126,6 +131,29 @@ public class UndeadKnight extends Monster {
     @Override
     public int getMaxSpawnClusterSize() {
         return 3 * AurorianConfig.CONFIG_RUNESTONE_DUNGEON_MOB_DENSITY.get();
+    }
+
+    private static class UndeadKnightAttackGoal extends MeleeAttackGoal {
+
+        private final UndeadKnight undeadKnight;
+
+        public UndeadKnightAttackGoal(UndeadKnight undeadKnight) {
+            super(undeadKnight, (1.0D), Boolean.FALSE);
+            this.undeadKnight = undeadKnight;
+        }
+
+        @Override
+        protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
+            if (distToEnemySqr < this.getAttackReachSqr(enemy) && this.ticksUntilNextAttack <= 0) {
+                this.undeadKnight.level().broadcastEntityEvent(this.undeadKnight, (byte)4);
+                this.ticksUntilNextAttack = this.adjustedTickDelay((20));
+                if (this.undeadKnight.attackAnimationTick >= 10) {
+                    this.undeadKnight.attackAnimationTick = 0;
+                    this.undeadKnight.doHurtTarget(enemy);
+                }
+            }
+        }
+
     }
 
 }

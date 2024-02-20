@@ -10,7 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class UndeadKnightAnimation {
 
-    public static final AnimationDefinition ATTACK = AnimationDefinition.Builder.withLength(1.25f).looping()
+    public static final AnimationDefinition ATTACK = AnimationDefinition.Builder.withLength(1.25f)
             .addAnimation("all", new AnimationChannel(AnimationChannel.Targets.POSITION,
                     new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(0.4167667f, KeyframeAnimations.posVec(0f, -0.9f, 3f), AnimationChannel.Interpolations.LINEAR),

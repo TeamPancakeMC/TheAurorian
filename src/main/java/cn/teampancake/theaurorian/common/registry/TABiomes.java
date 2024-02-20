@@ -111,8 +111,7 @@ public class TABiomes {
 
     private static Biome.BiomeBuilder biomeWithParticle(BiomeGenerationSettings.Builder biomeGenerationSettings, ParticleOptions options, float probability) {
         return biomeWithParticle(biomeGenerationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacedFeatures.RANDOM_RIVERSIDE_PLANT)
-                        .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacedFeatures.RIVERSIDE_MOON_SAND),
-                options, defaultMobSpawning().build(), probability);
+                        .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TAPlacedFeatures.RIVERSIDE_MOON_SAND), options, defaultMobSpawning().build(), probability);
     }
 
     private static BiomeGenerationSettings.Builder defaultOreBuilder(BiomeGenerationSettings.Builder biomeGenerationSettings) {

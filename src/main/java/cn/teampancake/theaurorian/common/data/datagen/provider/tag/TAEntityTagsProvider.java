@@ -21,18 +21,10 @@ public class TAEntityTagsProvider extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
-                .add(TAEntityTypes.AURORIAN_PIXIE.get());
-        this.tag(Tags.EntityTypes.BOSSES)
-                .add(TAEntityTypes.RUNESTONE_KEEPER.get())
-                .add(TAEntityTypes.SPIDER_MOTHER.get())
-                .add(TAEntityTypes.MOON_QUEEN.get());
-        this.tag(TAEntityTags.AFFECTED_BY_NIGHTMARE_MODE)
-                .add(TAEntityTypes.DISTURBED_HOLLOW.get())
-                .add(TAEntityTypes.UNDEAD_KNIGHT.get())
-                .add(TAEntityTypes.SPIDERLING.get())
-                .add(TAEntityTypes.MOON_ACOLYTE.get())
-                .add(TAEntityTypes.CRYSTALLINE_SPRITE.get());
+        this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(TAEntityTypes.AURORIAN_PIXIE.get(), TAEntityTypes.CRYSTALLINE_SPRITE.get());
+        this.tag(Tags.EntityTypes.BOSSES).add(TAEntityTypes.RUNESTONE_KEEPER.get(), TAEntityTypes.SPIDER_MOTHER.get(), TAEntityTypes.MOON_QUEEN.get());
+        this.tag(TAEntityTags.AFFECTED_BY_NIGHTMARE_MODE).add(TAEntityTypes.DISTURBED_HOLLOW.get(), TAEntityTypes.UNDEAD_KNIGHT.get(),
+                        TAEntityTypes.SPIDERLING.get(), TAEntityTypes.MOON_ACOLYTE.get(), TAEntityTypes.CRYSTALLINE_SPRITE.get());
     }
 
 }

@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
@@ -38,12 +39,12 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 0.85F, 40, 40.0F));
+        this.goalSelector.addGoal(2, new RangedAttackGoal((this), (0.85F), (40), (40.0F)));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
     }
 
     public static boolean checkCrystallineSpriteRules(EntityType<CrystallineSprite> crystallineSprite, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
@@ -107,6 +108,11 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
     @Override
     public int getMaxSpawnClusterSize() {
         return 5 * AurorianConfig.CONFIG_MOON_TEMPLE_MOB_DENSITY.get();
+    }
+
+    @Override
+    public boolean canBeAffected(MobEffectInstance effectInstance) {
+        return false;
     }
 
 }

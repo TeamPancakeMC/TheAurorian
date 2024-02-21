@@ -29,6 +29,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -40,6 +41,7 @@ public class AurorianMod {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public AurorianMod() {
+        GeckoLib.initialize();
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON,
                 AurorianConfig.SPEC, "theaurorian/TheAurorian.toml");

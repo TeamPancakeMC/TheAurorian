@@ -40,7 +40,7 @@ public class Spiderling extends Spider implements NeutralMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Spider.createAttributes().add(Attributes.MAX_HEALTH, 7.0D);
+        return Spider.createAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.ATTACK_DAMAGE, 1.0D);
     }
 
     @Override

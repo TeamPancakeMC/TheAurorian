@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.model.entity.circle;
 
-import cn.teampancake.theaurorian.client.animation.definitions.circle.LunaCircleAnimation;
+import cn.teampancake.theaurorian.client.animation.circle.LunaCircleAnimation;
 import cn.teampancake.theaurorian.common.entities.technical.LunaCircleEntity;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;

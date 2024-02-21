@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.animation.definitions;
+package cn.teampancake.theaurorian.client.animation;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;

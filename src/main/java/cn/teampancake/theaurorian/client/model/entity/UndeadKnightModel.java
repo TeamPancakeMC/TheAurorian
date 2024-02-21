@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
-import cn.teampancake.theaurorian.client.animation.definitions.UndeadKnightAnimation;
+import cn.teampancake.theaurorian.client.animation.UndeadKnightAnimation;
 import cn.teampancake.theaurorian.common.entities.monster.UndeadKnight;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;

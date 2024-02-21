@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
-import cn.teampancake.theaurorian.client.animation.definitions.SpiderlingAnimation;
+import cn.teampancake.theaurorian.client.animation.SpiderlingAnimation;
 import cn.teampancake.theaurorian.common.entities.monster.Spiderling;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
-import cn.teampancake.theaurorian.client.animation.definitions.RunestoneKeeperAnimation;
+import cn.teampancake.theaurorian.client.animation.RunestoneKeeperAnimation;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

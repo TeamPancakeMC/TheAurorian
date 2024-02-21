@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
-import cn.teampancake.theaurorian.client.animation.definitions.MoonQueenAnimation;
+import cn.teampancake.theaurorian.client.animation.MoonQueenAnimation;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;

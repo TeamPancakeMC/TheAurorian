@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
-import cn.teampancake.theaurorian.client.animation.DisturbedHollowAnimation;
+import cn.teampancake.theaurorian.client.animation.definitions.DisturbedHollowAnimation;
 import cn.teampancake.theaurorian.common.entities.monster.DisturbedHollow;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;

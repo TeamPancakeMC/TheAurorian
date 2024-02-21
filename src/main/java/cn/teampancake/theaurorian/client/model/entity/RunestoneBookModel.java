@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
-import cn.teampancake.theaurorian.client.animation.RunestoneBooksAnimation;
+import cn.teampancake.theaurorian.client.animation.definitions.RunestoneBooksAnimation;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.HierarchicalModel;

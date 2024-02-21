@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
-import cn.teampancake.theaurorian.client.animation.AurorianPixieAnimation;
+import cn.teampancake.theaurorian.client.animation.definitions.AurorianPixieAnimation;
 import cn.teampancake.theaurorian.common.entities.animal.AurorianPixie;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;

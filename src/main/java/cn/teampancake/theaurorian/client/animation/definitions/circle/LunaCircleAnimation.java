@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.animation.circle;
+package cn.teampancake.theaurorian.client.animation.definitions.circle;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;

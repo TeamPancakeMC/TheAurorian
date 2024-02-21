@@ -57,7 +57,7 @@ public class UndeadKnight extends Monster {
         builder.add(Attributes.MOVEMENT_SPEED, 0.25F);
         builder.add(Attributes.ATTACK_DAMAGE, 3.0F);
         builder.add(Attributes.FOLLOW_RANGE, 35.0D);
-        builder.add(Attributes.ARMOR, 2.0F);
+        builder.add(Attributes.ARMOR, 6.0F);
         return builder;
     }
 
@@ -152,6 +152,11 @@ public class UndeadKnight extends Monster {
                     this.undeadKnight.doHurtTarget(enemy);
                 }
             }
+        }
+
+        @Override
+        protected double getAttackReachSqr(LivingEntity attackTarget) {
+            return super.getAttackReachSqr(attackTarget) + 9.0D;
         }
 
     }

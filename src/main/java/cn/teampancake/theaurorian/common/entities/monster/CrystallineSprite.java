@@ -7,15 +7,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MoveTowardsRestrictionGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -39,6 +37,7 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, (1.0D), Boolean.FALSE));
         this.goalSelector.addGoal(2, new RangedAttackGoal((this), (0.85F), (40), (40.0F)));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -53,10 +52,10 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
 
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, 20.0F);
-        builder.add(Attributes.ATTACK_DAMAGE, 6.0F);
-        builder.add(Attributes.MOVEMENT_SPEED, 0.23000000417232513D);
-        builder.add(Attributes.FOLLOW_RANGE, 20.0F);
+        builder.add(Attributes.MAX_HEALTH, 20.0D);
+        builder.add(Attributes.ATTACK_DAMAGE, 2.0D);
+        builder.add(Attributes.MOVEMENT_SPEED, 0.25D);
+        builder.add(Attributes.FOLLOW_RANGE, 20.0D);
         return builder;
     }
 
@@ -66,12 +65,23 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
     }
 
     @Override
+    protected void tickDeath() {
+        ++this.deathTime;
+        Level.ExplosionInteraction type = Level.ExplosionInteraction.MOB;
+        if (this.deathTime >= 20 && !this.level().isClientSide() && !this.isRemoved()) {
+            this.level().explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, type);
+            this.level().broadcastEntityEvent(this, (byte)60);
+            this.remove(Entity.RemovalReason.KILLED);
+        }
+    }
+
+    @Override
     public void aiStep() {
+        super.aiStep();
         Vec3 vec3 = this.getDeltaMovement();
         if (!this.onGround() && vec3.y < 0.0D) {
             this.setDeltaMovement(vec3.multiply(1.0D, 0.6D, 1.0D));
         }
-        super.aiStep();
     }
 
     @Override
@@ -81,13 +91,13 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
             this.nextHeightOffsetChangeTick = 100;
             this.allowedHeightOffset = (float) this.random.triangle(0.5D, 6.891D);
         }
+
         LivingEntity target = this.getTarget();
         if (target != null && target.getEyeY() > this.getEyeY() + (double)this.allowedHeightOffset && this.canAttack(target)) {
             Vec3 vec3 = this.getDeltaMovement();
             this.setDeltaMovement(vec3.add(0.0D, ((double)0.3F - vec3.y) * (double)0.3F, 0.0D));
             this.hasImpulse = true;
         }
-        super.customServerAiStep();
     }
 
     @Override

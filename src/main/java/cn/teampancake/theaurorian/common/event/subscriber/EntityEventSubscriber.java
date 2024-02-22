@@ -12,6 +12,7 @@ import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.CrystallineSprite;
+import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.registry.*;
@@ -20,6 +21,9 @@ import cn.teampancake.theaurorian.common.utils.AurorianUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -48,6 +52,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
@@ -83,6 +88,40 @@ public class EntityEventSubscriber {
                     player.setSharedFlagOnFire(player.isOnFire());
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onShieldBlock(ShieldBlockEvent event) {
+        DamageSource source = event.getDamageSource();
+        if (event.getEntity() instanceof Player player && source.getEntity() instanceof SnowTundraGiantCrab) {
+            float damage = event.getBlockedDamage();
+            if (player.useItem.canPerformAction(ToolActions.SHIELD_BLOCK)) {
+                if (!player.level().isClientSide) {
+                    player.awardStat(Stats.ITEM_USED.get(player.useItem.getItem()));
+                }
+
+                if (damage > 3.0F) {
+                    int i = (1 + Mth.floor(damage)) * 3;
+                    InteractionHand usedItemHand = player.getUsedItemHand();
+                    player.level().broadcastEntityEvent(player, (byte) 29);
+                    player.useItem.hurtAndBreak(i, player, p -> {
+                        p.broadcastBreakEvent(usedItemHand);
+                        player.stopUsingItem();
+                    });
+
+                    if (player.useItem.isEmpty() || player.getRandom().nextInt(100) < 2) {
+                        float pitch = 0.8F + player.level().random.nextFloat() * 0.4F;
+                        EquipmentSlot slot = usedItemHand == InteractionHand.MAIN_HAND ?
+                                EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+                        player.playSound(SoundEvents.SHIELD_BREAK, 0.8F, pitch);
+                        player.setItemSlot(slot, ItemStack.EMPTY);
+                        player.useItem = ItemStack.EMPTY;
+                    }
+                }
+            }
+
+            event.setCanceled(true);
         }
     }
 

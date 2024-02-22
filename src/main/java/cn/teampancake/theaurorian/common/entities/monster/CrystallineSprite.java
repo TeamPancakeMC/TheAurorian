@@ -6,7 +6,8 @@ import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -65,9 +66,19 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
     }
 
     @Override
+    public boolean isInWall() {
+        return false;
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        return source.is(DamageTypes.GENERIC) || super.isInvulnerableTo(source);
+    }
+
+    @Override
     protected void tickDeath() {
         ++this.deathTime;
-        Level.ExplosionInteraction type = Level.ExplosionInteraction.MOB;
+        Level.ExplosionInteraction type = Level.ExplosionInteraction.NONE;
         if (this.deathTime >= 20 && !this.level().isClientSide() && !this.isRemoved()) {
             this.level().explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, type);
             this.level().broadcastEntityEvent(this, (byte)60);
@@ -118,11 +129,6 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
     @Override
     public int getMaxSpawnClusterSize() {
         return 5 * AurorianConfig.CONFIG_MOON_TEMPLE_MOB_DENSITY.get();
-    }
-
-    @Override
-    public boolean canBeAffected(MobEffectInstance effectInstance) {
-        return false;
     }
 
 }

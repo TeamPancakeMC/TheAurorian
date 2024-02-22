@@ -647,7 +647,12 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add("tooltips.block.theaurorian.moonlight_forge.gui.no_moonlight", "No Moonlight Detected!");
         this.add("tooltips.block.theaurorian.moonlight_forge.gui.has_moonlight","Blessed By Moonlight!");
 
+        //MOD MESSAGES
+        this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness.success", "All evil has been dispelled!");
+        this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness.fail", "Unable to use during cool down time!");
+
         //MOD TOOLTIPS
+        this.add("tooltips." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness.cooldown", "Holiness effect cool down time: %ss");
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");
         this.addTooltips(TAItems.AURORIAN_STEEL_CHESTPLATE, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");
         this.addTooltips(TAItems.AURORIAN_STEEL_LEGGINGS, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");

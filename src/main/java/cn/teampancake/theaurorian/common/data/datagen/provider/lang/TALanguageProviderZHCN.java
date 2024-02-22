@@ -620,9 +620,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAMobEffects.CORRUPTION.get(), "堕落");
         this.add(TAMobEffects.INCANTATION.get(), "咒文");
         this.add(TAMobEffects.TEMP_SHIELD.get(), "临时护盾");
-        this.add(TAMobEffects.FALL_OF_MOON.get(), "月之降临");
-        this.add(TAMobEffects.BLESS_OF_MOON.get(), "月之加护");
-        this.add(TAMobEffects.MOON_OF_VENGEANCE.get(), "复仇之月");
+        this.add(TAMobEffects.FALL_OF_MOON.get(), "月临");
+        this.add(TAMobEffects.BLESS_OF_MOON.get(), "护月");
+        this.add(TAMobEffects.MOON_OF_VENGEANCE.get(), "仇月");
 
         //MOD ENCHANTMENT
         this.add(TAEnchantments.OVERLOAD.get(), "过载");
@@ -647,7 +647,12 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add("tooltips.block.theaurorian.moonlight_forge.gui.no_moonlight", "没有检测到月光！");
         this.add("tooltips.block.theaurorian.moonlight_forge.gui.has_moonlight","月光祝福中！");
 
+        //MOD MESSAGES
+        this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness.success", "所有的罪恶已驱散！");
+        this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness.fail", "在冷却时间中无法使用！");
+
         //MOD TOOLTIPS
+        this.add("tooltips." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness.cooldown", "圣洁效果冷却时间：%s秒");
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
         this.addTooltips(TAItems.AURORIAN_STEEL_CHESTPLATE, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
         this.addTooltips(TAItems.AURORIAN_STEEL_LEGGINGS, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
@@ -709,7 +714,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.addTooltips(TAItems.LAVENDER_SEEDY_TEA, "悠闲时光.饮用后获得持续10秒的速度I效果.");
         this.addTooltips(TAItems.PETUNIA_TEA, "悠闲时光.饮用后获得持续15秒的力量I效果.");
         this.addTooltips(TAItems.BEPSI, "哪来的山寨货？？");
-        this.addTooltips(TAItems.WEEPING_WILLOW_SAP, "不错的解毒剂.去除你的中毒效果，但却会使你获得缓慢效果，持续时间取决于中毒效果被移除之前的剩余持续时间.");
+        this.addTooltips(TAItems.WEEPING_WILLOW_SAP, "不错的解毒剂！它能去除你的中毒效果，但却会使你获得缓慢效果，持续时间取决于中毒效果被移除之前的剩余持续时间.");
         this.addTooltips(TAItems.SILK_BERRY_JAM, "不错！要是来点搭配就好！");
         this.addTooltips(TAItems.SILK_BERRY_JAM_SANDWICH, "美味！味道好极了！");
         this.addTooltips(TAItems.AURORIAN_PORK, "丰富的蛋白质！建议烤熟再吃！");

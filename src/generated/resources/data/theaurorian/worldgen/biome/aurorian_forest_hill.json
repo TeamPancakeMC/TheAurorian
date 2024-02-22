@@ -63,25 +63,25 @@
         "type": "theaurorian:aurorian_rabbit",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 5
+        "weight": 10
       },
       {
         "type": "theaurorian:aurorian_sheep",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 5
+        "weight": 10
       },
       {
         "type": "theaurorian:aurorian_pig",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 5
+        "weight": 10
       },
       {
         "type": "theaurorian:aurorian_cow",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 5
+        "weight": 10
       },
       {
         "type": "minecraft:allay",
@@ -109,6 +109,12 @@
         "maxCount": 2,
         "minCount": 1,
         "weight": 35
+      },
+      {
+        "type": "theaurorian:spiderling",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 50
       }
     ],
     "underground_water_creature": [],

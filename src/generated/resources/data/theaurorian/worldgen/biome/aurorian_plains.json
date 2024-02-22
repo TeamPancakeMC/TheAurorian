@@ -62,25 +62,25 @@
         "type": "theaurorian:aurorian_rabbit",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 5
+        "weight": 10
       },
       {
         "type": "theaurorian:aurorian_sheep",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 5
+        "weight": 10
       },
       {
         "type": "theaurorian:aurorian_pig",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 5
+        "weight": 10
       },
       {
         "type": "theaurorian:aurorian_cow",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 5
+        "weight": 10
       }
     ],
     "misc": [],

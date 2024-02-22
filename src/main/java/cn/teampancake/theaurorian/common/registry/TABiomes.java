@@ -87,9 +87,9 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_FALLEN_SILENT_LOG)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_AURORIAN_FOREST)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_CRYSTAL_CLUSTER)
-                .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_WEAK_GRASS))
-                .mobSpawnSettings(defaultMobSpawning().addSpawn(MobCategory.CREATURE,
-                        new MobSpawnSettings.SpawnerData(EntityType.ALLAY, (1), (1), (2))).build());
+                .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_WEAK_GRASS)).mobSpawnSettings(defaultMobSpawning()
+                .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.SPIDERLING.get(), (50), (4), (4)))
+                .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.ALLAY, (1), (1), (2))).build());
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings) {
@@ -143,10 +143,10 @@ public class TABiomes {
     private static MobSpawnSettings.Builder defaultMobSpawning() {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
         spawnInfo.creatureGenerationProbability(0.2F);
-        spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_RABBIT.get(), 5, 1, 3));
-        spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_SHEEP.get(), 5, 1, 3));
-        spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_PIG.get(), 5, 1, 3));
-        spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_COW.get(), 5, 1, 3));
+        spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_RABBIT.get(), 10, 1, 3));
+        spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_SHEEP.get(), 10, 1, 3));
+        spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_PIG.get(), 10, 1, 3));
+        spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_COW.get(), 10, 1, 3));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.CRYSTALLINE_SPRITE.get(), 65, 2, 2));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 35, 1, 4));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_ACOLYTE.get(), 35, 1, 2));

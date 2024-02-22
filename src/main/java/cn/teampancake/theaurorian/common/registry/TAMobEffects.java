@@ -26,6 +26,7 @@ public class TAMobEffects {
     public static final RegistryObject<MobEffect> FALL_OF_MOON = MOB_EFFECTS.register("fall_of_moon", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xb76ce6));
     public static final RegistryObject<MobEffect> BLESS_OF_MOON = MOB_EFFECTS.register("bless_of_moon", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xe3d5aa));
     public static final RegistryObject<MobEffect> NATURE = MOB_EFFECTS.register("nature", NatureEffect::new);
+    public static final RegistryObject<MobEffect> TREMOR = MOB_EFFECTS.register("tremor", TremorEffect::new);
     public static final RegistryObject<MobEffect> HOLINESS = MOB_EFFECTS.register("holiness", HolinessEffect::new);
     public static final RegistryObject<MobEffect> CONFUSION = MOB_EFFECTS.register("confusion", ConfusionEffect::new);
     public static final RegistryObject<MobEffect> FROSTBITE = MOB_EFFECTS.register("frostbite", FrostbiteEffect::new);
@@ -33,7 +34,5 @@ public class TAMobEffects {
     public static final RegistryObject<MobEffect> TEMP_SHIELD = MOB_EFFECTS.register("temp_shield", TempShieldEffect::new);
     public static final RegistryObject<MobEffect> INCANTATION = MOB_EFFECTS.register("incantation", IncantationEffect::new);
     public static final RegistryObject<MobEffect> FORBIDDEN_CURSE = MOB_EFFECTS.register("forbidden_curse", ForbiddenCurseEffect::new);
-    public static final RegistryObject<MobEffect> TREMOR = MOB_EFFECTS.register("tremor", TremorEffect::new);
-
 
 }

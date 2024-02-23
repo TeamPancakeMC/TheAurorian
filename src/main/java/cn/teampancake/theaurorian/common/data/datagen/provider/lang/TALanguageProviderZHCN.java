@@ -648,11 +648,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add("tooltips.block.theaurorian.moonlight_forge.gui.has_moonlight","月光祝福中！");
 
         //MOD MESSAGES
-        this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness.success", "所有的罪恶已驱散！");
-        this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness.fail", "在冷却时间中无法使用！");
+        this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness", "所有的罪恶已被驱散！");
 
         //MOD TOOLTIPS
-        this.add("tooltips." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness.cooldown", "圣洁效果冷却时间：%s秒");
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
         this.addTooltips(TAItems.AURORIAN_STEEL_CHESTPLATE, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
         this.addTooltips(TAItems.AURORIAN_STEEL_LEGGINGS, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");

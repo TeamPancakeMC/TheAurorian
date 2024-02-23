@@ -1,10 +1,12 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
+import cn.teampancake.theaurorian.client.animation.BlueTailWolfAnimation;
 import cn.teampancake.theaurorian.common.entities.animal.BlueTailWolf;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -12,9 +14,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class BlueTailWolfModel<T extends BlueTailWolf> extends HierarchicalModel<T> {
 
     private final ModelPart body;
+    private final ModelPart head;
+    private final ModelPart tail;
 
     public BlueTailWolfModel(ModelPart root) {
         this.body = root.getChild("body");
+        this.head = this.body.getChild("body_front").getChild("head");
+        this.tail = this.body.getChild("body_back").getChild("tail");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -32,8 +38,8 @@ public class BlueTailWolfModel<T extends BlueTailWolf> extends HierarchicalModel
         head.addOrReplaceChild("cube_r5", CubeListBuilder.create().texOffs(44, 18).mirror().addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 3.0F, new CubeDeformation(0.01F)).mirror(false), PartPose.offsetAndRotation(-3.5F, -3.25F, -1.5F, 0.0F, -0.8727F, 0.0F));
         head.addOrReplaceChild("cube_r6", CubeListBuilder.create().texOffs(44, 18).addBox(0.0F, 0.0F, 0.0F, 0.0F, 5.0F, 3.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(3.5F, -3.25F, -1.5F, 0.0F, 0.8727F, 0.0F));
         head.addOrReplaceChild("cube_r7", CubeListBuilder.create().texOffs(31, 22).addBox(-3.0F, 0.0F, -0.5F, 7.0F, 4.0F, 5.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(-0.5F, -3.25F, -1.5F, 0.5236F, 0.0F, 0.0F));
-        head.addOrReplaceChild("jaw", CubeListBuilder.create().texOffs(76, 12)
-                .addBox(-2.5F, 0.0F, -4.0F, 5.0F, 2.0F, 5.0F, new CubeDeformation(0.0F))
+        head.addOrReplaceChild("jaw", CubeListBuilder.create()
+                .texOffs(76, 12).addBox(-2.5F, 0.0F, -4.0F, 5.0F, 2.0F, 5.0F, new CubeDeformation(0.0F))
                 .texOffs(76, 19).addBox(-2.5F, -1.0F, -4.0F, 5.0F, 1.0F, 5.0F, new CubeDeformation(-0.02F)), PartPose.offset(0.0F, 1.75F, -7.0F));
         head.addOrReplaceChild("ear_right", CubeListBuilder.create().texOffs(23, 22).addBox(-1.0F, -3.5F, -0.25F, 2.0F, 4.0F, 0.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(-2.5F, -2.75F, -2.0F, -0.4305F, -0.0735F, -0.1585F));
         head.addOrReplaceChild("ear_left", CubeListBuilder.create().texOffs(23, 22).mirror().addBox(-1.0F, -3.5F, -0.25F, 2.0F, 4.0F, 0.0F, new CubeDeformation(0.01F)).mirror(false), PartPose.offsetAndRotation(2.5F, -2.75F, -2.0F, -0.4305F, 0.0735F, 0.1585F));
@@ -53,20 +59,22 @@ public class BlueTailWolfModel<T extends BlueTailWolf> extends HierarchicalModel
         leg_front_left_3.addOrReplaceChild("cube_r11", CubeListBuilder.create().texOffs(51, 35).mirror().addBox(0.0F, -2.0F, -2.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(1.0F, 3.0F, -3.75F, 0.0F, -0.0873F, 0.0F));
         PartDefinition body_back = body.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(41, 0).addBox(-4.0F, -3.0F, 0.0F, 8.0F, 8.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 1.0F));
         body_back.addOrReplaceChild("cube_r12", CubeListBuilder.create().texOffs(0, 55).addBox(-4.5F, -3.275F, -2.5F, 9.0F, 9.0F, 8.0F, new CubeDeformation(-0.02F)), PartPose.offsetAndRotation(0.0F, 0.0F, 6.0F, -0.0873F, 0.0F, 0.0F));
-        PartDefinition leg_back_right = body_back.addOrReplaceChild("leg_back_right", CubeListBuilder.create().texOffs(57, 35).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-4.0F, 2.0F, 7.0F, 0.3054F, 0.0F, 0.0F));
+        PartDefinition leg_back_right = body_back.addOrReplaceChild("leg_back_right", CubeListBuilder.create(), PartPose.offsetAndRotation(-4.0F, 2.0F, 7.0F, 0.3054F, 0.0F, 0.0F));
+        leg_back_right.addOrReplaceChild("cube_r13", CubeListBuilder.create().texOffs(57, 35).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.6545F, 0.0F, 0.0F));
         PartDefinition leg_back_right_2 = leg_back_right.addOrReplaceChild("leg_back_right_2", CubeListBuilder.create().texOffs(74, 36).addBox(-1.0F, 0.0F, -1.5F, 2.0F, 6.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-0.5F, 2.25F, 0.5F, -0.5672F, 0.0F, 0.0F));
         PartDefinition leg_back_right_3 = leg_back_right_2.addOrReplaceChild("leg_back_right_3", CubeListBuilder.create()
                 .texOffs(0, 47).addBox(-1.5F, 0.0F, -3.0F, 3.0F, 3.0F, 5.0F, new CubeDeformation(0.0F))
                 .texOffs(51, 35).addBox(-0.5F, 1.0F, -5.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 5.35F, 0.25F, 0.2618F, 0.0F, 0.0F));
-        leg_back_right_3.addOrReplaceChild("cube_r13", CubeListBuilder.create().texOffs(51, 35).addBox(-1.0F, -2.0F, -2.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-0.5F, 3.0F, -3.0F, 0.0F, 0.0873F, 0.0F));
-        leg_back_right_3.addOrReplaceChild("cube_r14", CubeListBuilder.create().texOffs(51, 35).addBox(0.0F, -2.0F, -2.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.5F, 3.0F, -3.0F, 0.0F, -0.0873F, 0.0F));
-        PartDefinition leg_back_left = body_back.addOrReplaceChild("leg_back_left", CubeListBuilder.create().texOffs(57, 35).mirror().addBox(-1.0F, -2.0F, -2.0F, 3.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(4.0F, 2.0F, 7.0F, 0.3054F, 0.0F, 0.0F));
+        leg_back_right_3.addOrReplaceChild("cube_r14", CubeListBuilder.create().texOffs(51, 35).addBox(-1.0F, -2.0F, -2.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-0.5F, 3.0F, -3.0F, 0.0F, 0.0873F, 0.0F));
+        leg_back_right_3.addOrReplaceChild("cube_r15", CubeListBuilder.create().texOffs(51, 35).addBox(0.0F, -2.0F, -2.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.5F, 3.0F, -3.0F, 0.0F, -0.0873F, 0.0F));
+        PartDefinition leg_back_left = body_back.addOrReplaceChild("leg_back_left", CubeListBuilder.create(), PartPose.offsetAndRotation(4.0F, 2.0F, 7.0F, 0.3054F, 0.0F, 0.0F));
+        leg_back_left.addOrReplaceChild("cube_r16", CubeListBuilder.create().texOffs(57, 35).mirror().addBox(-1.0F, -2.0F, -2.0F, 3.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.6545F, 0.0F, 0.0F));
         PartDefinition leg_back_left_2 = leg_back_left.addOrReplaceChild("leg_back_left_2", CubeListBuilder.create().texOffs(74, 36).mirror().addBox(-1.0F, 0.0F, -1.5F, 2.0F, 6.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.5F, 2.25F, 0.5F, -0.5672F, 0.0F, 0.0F));
         PartDefinition leg_back_left_3 = leg_back_left_2.addOrReplaceChild("leg_back_left_3", CubeListBuilder.create()
                 .texOffs(0, 47).mirror().addBox(-1.5F, 0.0F, -3.0F, 3.0F, 3.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(51, 35).mirror().addBox(-0.5F, 1.0F, -5.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 5.35F, 0.25F, 0.2618F, 0.0F, 0.0F));
-        leg_back_left_3.addOrReplaceChild("cube_r15", CubeListBuilder.create().texOffs(51, 35).mirror().addBox(0.0F, -2.0F, -2.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.5F, 3.0F, -3.0F, 0.0F, -0.0873F, 0.0F));
-        leg_back_left_3.addOrReplaceChild("cube_r16", CubeListBuilder.create().texOffs(51, 35).mirror().addBox(-1.0F, -2.0F, -2.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-0.5F, 3.0F, -3.0F, 0.0F, 0.0873F, 0.0F));
+        leg_back_left_3.addOrReplaceChild("cube_r17", CubeListBuilder.create().texOffs(51, 35).mirror().addBox(0.0F, -2.0F, -2.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.5F, 3.0F, -3.0F, 0.0F, -0.0873F, 0.0F));
+        leg_back_left_3.addOrReplaceChild("cube_r18", CubeListBuilder.create().texOffs(51, 35).mirror().addBox(-1.0F, -2.0F, -2.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-0.5F, 3.0F, -3.0F, 0.0F, 0.0873F, 0.0F));
         body_back.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(48, 43).addBox(0.0F, -6.0F, -1.0F, 0.0F, 12.0F, 17.0F, new CubeDeformation(0.01F)), PartPose.offset(0.0F, 1.0F, 11.0F));
         return LayerDefinition.create(meshDefinition, 96, 96);
     }
@@ -74,6 +82,13 @@ public class BlueTailWolfModel<T extends BlueTailWolf> extends HierarchicalModel
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.animate(entity.runAnimationState, BlueTailWolfAnimation.MOVE_RUN, ageInTicks);
+        this.animate(entity.biteAnimationState, BlueTailWolfAnimation.ATTACK_BITE, ageInTicks);
+        this.animate(entity.howlAnimationState, BlueTailWolfAnimation.MISC_HOWL, ageInTicks);
+        this.animateWalk(BlueTailWolfAnimation.MOVE_WALK, limbSwing, limbSwingAmount, (1.5F), (2.5F));
+        this.head.xRot = headPitch * ((float)Math.PI / 180.0F);
+        this.head.yRot = netHeadYaw * ((float)Math.PI / 180.0F);
+        this.tail.yRot = Mth.sin(ageInTicks / 2.0F) * 0.2F;
     }
 
     @Override

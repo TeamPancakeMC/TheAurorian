@@ -9,21 +9,25 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class TeaFood extends BowlFoodItem implements ITooltipsItem{
-    public TeaFood(Properties pProperties) {
-        super(pProperties.stacksTo(1));
+public class TeaFood extends BowlFoodItem implements ITooltipsItem {
+
+    public TeaFood(Properties properties) {
+        super(properties.stacksTo(1));
     }
 
     @Override
-    public int getUseDuration(ItemStack pStack){
+    public int getUseDuration(ItemStack stack){
         return 16;
     }
-    public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving) {
-        ItemStack itemstack = super.finishUsingItem(pStack, pLevel, pEntityLiving);
-        return pEntityLiving instanceof Player && ((Player)pEntityLiving).getAbilities().instabuild ? itemstack : new ItemStack(TAItems.TEA_CUP.get());
+
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+        ItemStack itemStack = super.finishUsingItem(stack, level, livingEntity);
+        return livingEntity instanceof Player && ((Player)livingEntity).getAbilities().instabuild ? itemStack : new ItemStack(TAItems.TEA_CUP.get());
     }
+
     @Override
-    public @NotNull UseAnim getUseAnimation(ItemStack pStack) {
+    public @NotNull UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
     }
+
 }

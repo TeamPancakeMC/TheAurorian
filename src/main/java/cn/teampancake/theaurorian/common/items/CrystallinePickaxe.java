@@ -18,7 +18,8 @@ import net.minecraftforge.common.Tags;
 
 import java.util.Optional;
 
-public class CrystallinePickaxe extends PickaxeItem implements ITooltipsItem{
+public class CrystallinePickaxe extends PickaxeItem implements ITooltipsItem {
+
     public CrystallinePickaxe() {
         super(TAToolTiers.CRYSTALLINE, 1, -2.8F, new Properties().rarity(Rarity.EPIC));
     }
@@ -32,7 +33,7 @@ public class CrystallinePickaxe extends PickaxeItem implements ITooltipsItem{
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if (!level.isClientSide && state.getDestroySpeed(level, pos) != 0.0D) {
             if (state.is(Tags.Blocks.ORES) && Math.random()*100<30) {
-                Optional<SmeltingRecipe> recipe= level.getRecipeManager().getRecipeFor(RecipeType.SMELTING,new SimpleContainer(new ItemStack(state.getBlock())), level);
+                Optional<SmeltingRecipe> recipe= level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, new SimpleContainer(new ItemStack(state.getBlock())), level);
                 ItemStack ingot = ItemStack.EMPTY;
                 if(recipe.isPresent()) {
                     ingot = recipe.get().getResultItem(level.registryAccess());
@@ -40,14 +41,15 @@ public class CrystallinePickaxe extends PickaxeItem implements ITooltipsItem{
                 }
 
                 if (ingot != ItemStack.EMPTY) {
-                    ingot.setCount(level.random.nextIntBetweenInclusive(1,3)+1);
+                    ingot.setCount(level.random.nextIntBetweenInclusive(1,3) + 1);
                     level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), ingot));
-                    stack.hurtAndBreak(2,entityLiving,(player) -> player.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                    stack.hurtAndBreak(2, entityLiving, (player) -> player.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                     return true;
                 }
             }
-            stack.hurtAndBreak(1,entityLiving,(player) -> player.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+            stack.hurtAndBreak(1, entityLiving,(player) -> player.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
         return true;
     }
+
 }

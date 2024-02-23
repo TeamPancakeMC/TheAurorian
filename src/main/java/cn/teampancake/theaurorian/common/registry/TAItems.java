@@ -268,7 +268,7 @@ public class TAItems {
      * Tool
      */
     public static final RegistryObject<Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrbItem::new);
-    public static final RegistryObject<Item> SILENT_WOOD_STICK = ITEMS.register("silent_wood_stick", SilentWoodStickItem::new);
+    public static final RegistryObject<Item> SILENT_WOOD_STICK = ITEMS.register("silent_wood_stick", () -> new TASpecialItem(new Item.Properties().stacksTo(1), true));
     public static final RegistryObject<Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(new Item.Properties()
             .rarity(Rarity.EPIC), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.STICKY_SPIKER::get, 1.5F, 1.0F));
 

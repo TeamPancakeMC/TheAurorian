@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.entities.boss;
 
 import cn.teampancake.theaurorian.client.animation.MoonQueenAnimation;
 import cn.teampancake.theaurorian.common.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -10,11 +11,10 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -24,6 +24,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -140,23 +141,57 @@ public class MoonQueen extends AbstractAurorianBoss {
 
     @Override
     public boolean doHurtTarget(Entity entity) {
-        this.level().broadcastEntityEvent(this, (byte) 4);
-        if (super.doHurtTarget(entity)) {
-            if (entity instanceof LivingEntity livingEntity) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 50));
+        float f = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        float f1 = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        if (entity instanceof LivingEntity livingEntity) {
+            f += EnchantmentHelper.getDamageBonus(this.getMainHandItem(), livingEntity.getMobType());
+            f1 += (float)EnchantmentHelper.getKnockbackBonus(this);
+            if (this.hasEffect(TAMobEffects.FALL_OF_MOON.get())) {
+                livingEntity.kill();
+                return true;
             }
-            return true;
-        } else {
-            return false;
         }
+
+        if (this.hasEffect(TAMobEffects.MOON_OF_VENGEANCE.get())) {
+            f *= 2.0F;
+        }
+
+        int i = EnchantmentHelper.getFireAspect(this);
+        if (i > 0) {
+            entity.setSecondsOnFire(i * 4);
+        }
+
+        boolean flag = entity.hurt(this.damageSources().mobAttack(this), f);
+        if (flag) {
+            this.level().broadcastEntityEvent(this, (byte) 4);
+            if (f1 > 0.0F && entity instanceof LivingEntity livingEntity) {
+                float value = this.getYRot() * ((float)Math.PI / 180.0F);
+                livingEntity.knockback(f1 * 0.5F, Mth.sin(value), -Mth.cos(value));
+                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
+            }
+
+            if (entity instanceof Player player) {
+                this.maybeDisableShield(player, this.getMainHandItem(), player.isUsingItem() ? player.getUseItem() : ItemStack.EMPTY);
+            }
+
+            this.doEnchantDamageEffects(this, entity);
+            this.setLastHurtMob(entity);
+            if (this.hasEffect(TAMobEffects.CRESCENT.get())) {
+                this.heal(f / 2.0F);
+            }
+        }
+
+        return flag;
     }
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+        boolean flag = this.hasEffect(TAMobEffects.BLESS_OF_MOON.get());
         if ((source.getEntity() != null && this.isGlinting()) || this.isInvulnerableTo(source)) {
             return false;
         }
-        return super.hurt(source, amount);
+
+        return super.hurt(source, flag ? amount / 2.0F : amount);
     }
 
     @Override

@@ -292,14 +292,6 @@ public class EntityEventSubscriber {
                     }
                 }
             }
-
-            if (livingEntity.hasEffect(TAMobEffects.CRESCENT.get())) {
-                livingEntity.heal((event.getAmount() / 2.0F));
-            }
-
-            if (livingEntity.hasEffect(TAMobEffects.BLESS_OF_MOON.get())) {
-                event.setAmount((event.getAmount() / 2.0F));
-            }
         }
     }
 
@@ -319,10 +311,6 @@ public class EntityEventSubscriber {
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
         if (source.getEntity() instanceof LivingEntity livingEntity) {
-            if (livingEntity.hasEffect(TAMobEffects.FALL_OF_MOON.get())) {
-                target.kill();
-            }
-
             if (livingEntity instanceof ServerPlayer serverPlayer) {
                 ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
                 if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(source)) {

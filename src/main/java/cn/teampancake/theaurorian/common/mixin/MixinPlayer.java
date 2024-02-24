@@ -23,6 +23,10 @@ public abstract class MixinPlayer extends LivingEntity {
 
     @Inject(method = "hurtArmor", at = @At(value = "HEAD"), cancellable = true)
     protected void hurtArmor(DamageSource damageSource, float damage, CallbackInfo ci) {
+        if (this.hasEffect(TAMobEffects.TOUGH.get())) {
+            ci.cancel();
+        }
+
         if (this.hasEffect(TAMobEffects.CORRUPTION.get())) {
             Attribute attribute = TAAttributes.ARMOR_HURT_ACCUMULATION.get();
             AttributeInstance instance = this.getAttribute(attribute);

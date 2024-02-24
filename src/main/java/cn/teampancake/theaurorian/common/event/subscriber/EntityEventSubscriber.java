@@ -81,7 +81,8 @@ public class EntityEventSubscriber {
 
         if (event.phase == TickEvent.Phase.END && level instanceof ServerLevel serverLevel && !serverLevel.isClientSide) {
             Holder<Biome> biomeHolder = serverLevel.getBiome(player.blockPosition());
-            if (biomeHolder.is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD) && player.tickCount % 60 == 0) {
+            boolean isSnowField = biomeHolder.is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD);
+            if (isSnowField && !player.hasEffect(TAMobEffects.WARN.get()) && player.tickCount % 60 == 0) {
                 if (!MysteriumWoolArmor.isWearFullArmor(player) && !player.isCreative() && !player.isSpectator()) {
                     player.setTicksFrozen(player.getTicksRequiredToFreeze());
                     player.hurt(player.damageSources().freeze(), (1.0F));

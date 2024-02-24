@@ -608,9 +608,12 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.MOON_QUEEN.get(), "皎月女王");
 
         //MOB EFFECT
+        this.add(TAMobEffects.WARN.get(), "温暖");
         this.add(TAMobEffects.STUN.get(), "眩晕");
+        this.add(TAMobEffects.TOUGH.get(), "坚韧");
         this.add(TAMobEffects.BROKEN.get(),"破盾");
         this.add(TAMobEffects.NATURE.get(), "自然");
+        this.add(TAMobEffects.TREMOR.get(), "震颤");
         this.add(TAMobEffects.CRESCENT.get(), "新月");
         this.add(TAMobEffects.HOLINESS.get(), "圣洁");
         this.add(TAMobEffects.PRESSURE.get(), "威压");
@@ -622,6 +625,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAMobEffects.TEMP_SHIELD.get(), "临时护盾");
         this.add(TAMobEffects.FALL_OF_MOON.get(), "月临");
         this.add(TAMobEffects.BLESS_OF_MOON.get(), "护月");
+        this.add(TAMobEffects.FORBIDDEN_CURSE.get(), "禁咒");
         this.add(TAMobEffects.MOON_OF_VENGEANCE.get(), "仇月");
 
         //MOD ENCHANTMENT

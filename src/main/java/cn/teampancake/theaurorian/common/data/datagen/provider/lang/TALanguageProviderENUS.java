@@ -608,9 +608,12 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.MOON_QUEEN.get(), "Moon Queen");
 
         //MOB EFFECT
+        this.add(TAMobEffects.WARN.get(), "Warm");
         this.add(TAMobEffects.STUN.get(), "Stun");
+        this.add(TAMobEffects.TOUGH.get(), "Tough");
         this.add(TAMobEffects.BROKEN.get(),"Broken");
         this.add(TAMobEffects.NATURE.get(), "Nature");
+        this.add(TAMobEffects.TREMOR.get(), "Tremor");
         this.add(TAMobEffects.CRESCENT.get(), "Crescent");
         this.add(TAMobEffects.HOLINESS.get(), "Holiness");
         this.add(TAMobEffects.PRESSURE.get(), "Pressure");
@@ -622,6 +625,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAMobEffects.TEMP_SHIELD.get(), "Temp Shield");
         this.add(TAMobEffects.FALL_OF_MOON.get(), "Fall of Moon");
         this.add(TAMobEffects.BLESS_OF_MOON.get(), "Bless of Moon");
+        this.add(TAMobEffects.FORBIDDEN_CURSE.get(), "Forbidden Curse");
         this.add(TAMobEffects.MOON_OF_VENGEANCE.get(), "Moon of Vengeance");
 
         //MOD ENCHANTMENT

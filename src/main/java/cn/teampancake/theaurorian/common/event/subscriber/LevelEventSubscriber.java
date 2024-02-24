@@ -9,6 +9,7 @@ import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.event.TickEvent;
@@ -46,19 +47,19 @@ public class LevelEventSubscriber {
                     }
 
                     if (dayTime > 12000 && dayTime <= 24000) {
-                        serverPlayer.addEffect(new MobEffectInstance(TAMobEffects.PRESSURE.get(),320,0, false, false));
+                        serverPlayer.addEffect(blessEffect(TAMobEffects.PRESSURE.get()));
                     } else {
                         if (phaseCode == 2) {
-                            serverPlayer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 320, 0, false, false));
+                            serverPlayer.addEffect(blessEffect(MobEffects.MOVEMENT_SPEED));
                         } else if (phaseCode == 0) {
-                            serverPlayer.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 320, 0, false, false));
-                            serverPlayer.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 320, 0, false, false));
+                            serverPlayer.addEffect(blessEffect(MobEffects.DAMAGE_BOOST));
+                            serverPlayer.addEffect(blessEffect(MobEffects.DAMAGE_RESISTANCE));
                         } else if (phaseCode == 3) {
-                            serverPlayer.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 320, 0, false, false));
+                            serverPlayer.addEffect(blessEffect(MobEffects.DIG_SPEED));
                         } else if (phaseCode == 4) {
                             //TODO: VEGETABLES GROW FASTER
                         } else if (phaseCode == 1) {
-                            //TODO: STOP ARMOR FROM BREAKING
+                            serverPlayer.addEffect(blessEffect(TAMobEffects.TOUGH.get()));
                         } else {
                             TAEventFactory.onRegisterAurorianSkyBless(serverPlayer, serverLevel, phaseCode);
                         }
@@ -66,6 +67,10 @@ public class LevelEventSubscriber {
                 }
             }
         }
+    }
+    
+    private static MobEffectInstance blessEffect(MobEffect effect) {
+        return new MobEffectInstance(effect, 320, 0, false, false);
     }
 
 }

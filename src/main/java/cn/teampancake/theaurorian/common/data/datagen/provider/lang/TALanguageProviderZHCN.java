@@ -526,6 +526,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.GINGERBREAD_MAN.get(), "姜饼人");
         this.add(TAItems.AURORIAN_SPECIALTY_DRINK.get(), "极光特饮");
         this.add(TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK.get(), "皎月蓝莓特饮");
+        this.add(TAItems.STRANGE_MEAT.get(), "奇怪的肉");
         this.add(TAItems.SPECTRAL_SILK.get(), "幽冥丝绸");
         this.add(TAItems.SPECTRAL_HELMET.get(), "幽冥头盔");
         this.add(TAItems.SPECTRAL_CHESTPLATE.get(), "幽冥胸甲");

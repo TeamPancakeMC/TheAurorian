@@ -526,6 +526,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.GINGERBREAD_MAN.get(), "Gingerbread Man");
         this.add(TAItems.AURORIAN_SPECIALTY_DRINK.get(), "Aurorian Specialty Drink");
         this.add(TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK.get(), "Moonlit Blueberry Specialty Drink");
+        this.add(TAItems.STRANGE_MEAT.get(), "Strange Meat");
         this.add(TAItems.SPECTRAL_SILK.get(),"Spectral Silk");
         this.add(TAItems.SPECTRAL_HELMET.get(),"Spectral Helmet");
         this.add(TAItems.SPECTRAL_CHESTPLATE.get(),"Spectral Chestplate");

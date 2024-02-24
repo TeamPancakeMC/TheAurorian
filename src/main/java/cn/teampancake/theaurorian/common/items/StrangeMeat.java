@@ -13,17 +13,12 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-public class StrangeMeatFood extends Item implements ITooltipsItem {
-    public StrangeMeatFood() {
-        super(new Item.Properties()
-                .rarity(Rarity.EPIC)
-                .durability(10)
-                .food(new FoodProperties.Builder()
-                        .nutrition(8)
-                        .saturationMod(0.9F)
-                        .meat()
-                        .alwaysEat()
-                        .build()));
+public class StrangeMeat extends Item implements ITooltipsItem {
+
+    public StrangeMeat() {
+        super(new Item.Properties().rarity(Rarity.EPIC).durability(10)
+                .food(new FoodProperties.Builder().nutrition(8)
+                        .saturationMod((0.9F)).meat().alwaysEat().build()));
     }
 
     @Override
@@ -31,8 +26,11 @@ public class StrangeMeatFood extends Item implements ITooltipsItem {
         Player player = context.getPlayer();
         Level level = context.getLevel();
         if (player != null) {
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 0.5F, level.random.nextFloat() * 0.1F + 0.9F);
-            player.getFoodData().eat(stack.getItem(), stack,player);
+            float pitch = level.random.nextFloat() * 0.1F + 0.9F;
+            level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                    SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 0.5F, pitch);
+            stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(context.getHand()));
+            player.getFoodData().eat(stack.getItem(), stack, player);
             if (stack.getDamageValue() == stack.getMaxDamage()) {
                 int select = level.random.nextInt(7);
                 switch (select) {
@@ -45,8 +43,8 @@ public class StrangeMeatFood extends Item implements ITooltipsItem {
                     case 6 -> player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 2400));
                 }
             }
-            stack.hurtAndBreak(1, player, (player1) -> player1.broadcastBreakEvent(context.getHand()));
         }
+
         return InteractionResult.SUCCESS;
     }
 

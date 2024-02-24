@@ -39,10 +39,10 @@ public class TAItems {
     public static final RegistryObject<Item> AURORIAN_WATER_MUSHROOM = ITEMS.register("aurorian_water_mushroom",
             () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_WATER_MUSHROOM.get(), new Item.Properties()));
     public static final RegistryObject<Item> SILENT_WOOD_CHEST = ITEMS.register("silent_wood_chest", SilentWoodChestItem::new);
-    public static final RegistryObject<Item> MOON_TORCH = ITEMS.register("moon_torch",
-            () -> new StandingAndWallBlockItem(TABlocks.MOON_TORCH.get(), TABlocks.MOON_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
-    public static final RegistryObject<Item> SILENT_WOOD_TORCH = ITEMS.register("silent_wood_torch",
-            () -> new StandingAndWallBlockItem(TABlocks.SILENT_WOOD_TORCH.get(), TABlocks.SILENT_WOOD_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> MOON_TORCH = ITEMS.register("moon_torch", () -> new StandingAndWallBlockItem(
+            TABlocks.MOON_TORCH.get(), TABlocks.MOON_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> SILENT_WOOD_TORCH = ITEMS.register("silent_wood_torch", () -> new StandingAndWallBlockItem(
+            TABlocks.SILENT_WOOD_TORCH.get(), TABlocks.SILENT_WOOD_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
 
     /**
      * Armor Item
@@ -131,7 +131,7 @@ public class TAItems {
     public static final RegistryObject<Item> AURORIAN_STEEL_HOE = ITEMS.register("aurorian_steel_hoe",
             () -> new HoeItem(TAToolTiers.AURORIAN_STEEL, -2, -1.0F, new Item.Properties()));
     public static final RegistryObject<Item> AURORIAN_STONE_HOE = ITEMS.register("aurorian_stone_hoe",
-            () -> new HoeItem(TAToolTiers.AURORIAN_STONE, -1, -1.0F, new Item.Properties()));
+            () -> new HoeItem(TAToolTiers.AURORIAN_STONE, -2, -1.0F, new Item.Properties()));
     public static final RegistryObject<Item> SILENT_WOOD_HOE = ITEMS.register("silent_wood_hoe",
             () -> new HoeItem(TAToolTiers.SILENT_WOOD, -2, -1.0F, new Item.Properties()));
     public static final RegistryObject<Item> MOONSTONE_HOE = ITEMS.register("moonstone_hoe",
@@ -149,16 +149,17 @@ public class TAItems {
     /**
      * ShieldItem
      */
+    public static final RegistryObject<Item> MOON_SHIELD = ITEMS.register("moon_shield", MoonShield::new);
     public static final RegistryObject<Item> UMBRA_SHIELD = ITEMS.register("umbra_shield", UmbraShield::new);
     public static final RegistryObject<Item> CERULEAN_SHIELD = ITEMS.register("cerulean_shield", CeruleanShield::new);
     public static final RegistryObject<Item> CRYSTALLINE_SHIELD = ITEMS.register("crystalline_shield", CrystallineShield::new);
     public static final RegistryObject<Item> MOONSTONE_SHIELD = ITEMS.register("moonstone_shield", () -> new ShieldItem(new Item.Properties()));
-    public static final RegistryObject<Item> MOON_SHIELD = ITEMS.register("moon_shield", MoonShield::new);
 
     /**
      * BowItem
      */
-    public static final RegistryObject<Item> SILENT_WOOD_BOW = ITEMS.register("silent_wood_bow", () -> new BowItem(new Item.Properties().durability(384)));
+    public static final RegistryObject<Item> SILENT_WOOD_BOW = ITEMS.register("silent_wood_bow",
+            () -> new BowItem(new Item.Properties().durability(384)));
     public static final RegistryObject<Item> KEEPERS_BOW = ITEMS.register("keepers_bow", KeepersBow::new);
 
     /**
@@ -223,8 +224,7 @@ public class TAItems {
     public static final RegistryObject<Item> AURORIAN_BACON = ITEMS.register("aurorian_bacon", () -> new TASpecialItem(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(2).saturationMod((0.8F))
                     .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 60), 1.0F).build()), true));
-    //TODO Translation and Recipe
-//    public static final RegistryObject<Item> STRANGE_MEAT_FOOD = ITEMS.register("strange_meat_food", StrangeMeatFood::new);
+    public static final RegistryObject<Item> STRANGE_MEAT = ITEMS.register("strange_meat", StrangeMeat::new);
 
     /**
      * Materials

@@ -96,27 +96,28 @@ public class EntityEventSubscriber {
         DamageSource source = event.getDamageSource();
         if (event.getEntity() instanceof Player player && source.getEntity() instanceof SnowTundraGiantCrab) {
             float damage = event.getBlockedDamage();
-            if (player.useItem.canPerformAction(ToolActions.SHIELD_BLOCK)) {
+            ItemStack useItem =player.getUseItem();
+            if (useItem.canPerformAction(ToolActions.SHIELD_BLOCK)) {
                 if (!player.level().isClientSide) {
-                    player.awardStat(Stats.ITEM_USED.get(player.useItem.getItem()));
+                    player.awardStat(Stats.ITEM_USED.get(useItem.getItem()));
                 }
 
                 if (damage > 3.0F) {
                     int i = (1 + Mth.floor(damage)) * 3;
                     InteractionHand usedItemHand = player.getUsedItemHand();
                     player.level().broadcastEntityEvent(player, (byte) 29);
-                    player.useItem.hurtAndBreak(i, player, p -> {
+                    useItem.hurtAndBreak(i, player, p -> {
                         p.broadcastBreakEvent(usedItemHand);
                         player.stopUsingItem();
                     });
 
-                    if (player.useItem.isEmpty() || player.getRandom().nextInt(100) < 2) {
+                    if (useItem.isEmpty() || player.getRandom().nextInt(100) < 2) {
                         float pitch = 0.8F + player.level().random.nextFloat() * 0.4F;
                         EquipmentSlot slot = usedItemHand == InteractionHand.MAIN_HAND ?
                                 EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
                         player.playSound(SoundEvents.SHIELD_BREAK, 0.8F, pitch);
                         player.setItemSlot(slot, ItemStack.EMPTY);
-                        player.useItem = ItemStack.EMPTY;
+                        player.stopUsingItem();
                     }
                 }
             }

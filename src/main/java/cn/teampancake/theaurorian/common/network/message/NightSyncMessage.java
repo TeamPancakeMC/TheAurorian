@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.network.message;
 
+import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
@@ -41,6 +42,7 @@ class ClientNightSync {
 
     public static void handlePacket(NightSyncMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         int nightType = message.nightType;
+        NightBarRender.nightType = nightType;
         TASkyRenderer.setCurrentPhase(nightType);
     }
 

@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,17 +20,21 @@ public class DeveloperGift extends Item {
         super(new Properties().fireResistant());
     }
 
+    @Nullable
+    private static List<Item> developerItems = null;
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        List<Item> itemList = this.getDeveloperItems();
+        if(developerItems==null)
+            developerItems=getDeveloperItems();
         ItemStack stack = player.getItemInHand(usedHand);
         stack.shrink(player.getAbilities().instabuild ? 0 : 1);
-        int index = level.random.nextInt(itemList.size());
-        player.addItem(itemList.get(index).getDefaultInstance());
+        int index = level.random.nextInt(developerItems.size());
+        player.addItem(developerItems.get(index).getDefaultInstance());
         return InteractionResultHolder.consume(stack);
     }
 
-    private List<Item> getDeveloperItems() {
+    private static List<Item> getDeveloperItems() {
         HashSet<Item> items = new HashSet<>();
         for (Item item : TACommonUtils.getKnownItems()) {
             if (item instanceof IDeveloperItem) {

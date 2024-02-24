@@ -48,16 +48,17 @@ public class LevelEventSubscriber {
                     if (dayTime > 12000 && dayTime <= 24000) {
                         serverPlayer.addEffect(new MobEffectInstance(TAMobEffects.PRESSURE.get(),320,0, false, false));
                     } else {
-                        if (phaseCode == 0) {
-                            serverPlayer.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 320, 0, false, false));
-                        } else if (phaseCode == 1) {
+                        if (phaseCode == 2) {
                             serverPlayer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 320, 0, false, false));
-                        } else if (phaseCode == 2) {
+                        } else if (phaseCode == 0) {
                             serverPlayer.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 320, 0, false, false));
-                        } else if (phaseCode == 3) {
                             serverPlayer.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 320, 0, false, false));
+                        } else if (phaseCode == 3) {
+                            serverPlayer.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 320, 0, false, false));
                         } else if (phaseCode == 4) {
-
+                            //TODO: VEGETABLES GROW FASTER
+                        } else if (phaseCode == 1) {
+                            //TODO: STOP ARMOR FROM BREAKING
                         } else {
                             TAEventFactory.onRegisterAurorianSkyBless(serverPlayer, serverLevel, phaseCode);
                         }

@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian;
 
+import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.client.gui.hud.ProgressBarRenderer;
 import cn.teampancake.theaurorian.client.gui.hud.ShieldHudRenderer;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
@@ -89,6 +90,7 @@ public class AurorianMod {
         if (FMLEnvironment.dist.isClient()) {
             modEventBus.addListener(ShieldHudRenderer::registerShieldOverlay);
             modEventBus.addListener(ProgressBarRenderer::registerProgressBarOverlay);
+            modEventBus.addListener(NightBarRender::registerNightOverlay);
         }
     }
 

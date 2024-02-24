@@ -94,11 +94,12 @@ public class TASkyRenderer {
 
     public static Map<ResourceLocation, Integer> getDaySkyColors() {
         Map<ResourceLocation, Integer> map = new HashMap<>();
-        map.put(AurorianMod.prefix("ta_cyan"), 0x80e3ec);
         map.put(AurorianMod.prefix("ta_purple"), 0x8d60d7);
+        map.put(AurorianMod.prefix("ta_pink"), 0xf49cae);
+        map.put(AurorianMod.prefix("ta_cyan"), 0x80e3ec);
         map.put(AurorianMod.prefix("ta_orange"), 0xfff089);
         map.put(AurorianMod.prefix("ta_lime"), 0x69c941);
-        map.put(AurorianMod.prefix("ta_pink"), 0xf49cae);
+
         TAEventFactory.onRegisterAurorianSkyColor(map);
         return ImmutableMap.copyOf(map);
     }

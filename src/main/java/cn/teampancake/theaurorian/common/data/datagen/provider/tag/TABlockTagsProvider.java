@@ -44,6 +44,9 @@ public class TABlockTagsProvider extends BlockTagsProvider {
                 TABlocks.CERULEAN_CASTLE_RUNE_STONE.get(), TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE.get(),
                 TABlocks.MOON_CASTLE_RUNE_STONE.get(), TABlocks.TRANSPARENT_RUNE_STONE.get(),
                 TABlocks.UMBRA_CASTLE_RUNE_STONE.get());
+        this.tag(TABlockTags.CAN_HURT_SICKLE).addTag(BlockTags.LEAVES).addTag(BlockTags.WOOL)
+                .add(Blocks.COBWEB, Blocks.GRASS, Blocks.FERN, Blocks.DEAD_BUSH,
+                        Blocks.HANGING_ROOTS, Blocks.VINE, Blocks.TRIPWIRE);
         this.tag(TABlockTags.SILENT_TREE_LOGS).add(TABlocks.STRIPPED_SILENT_TREE_LOG.get(),
                 TABlocks.STRIPPED_SILENT_TREE_WOOD.get(), TABlocks.SILENT_TREE_LOG.get(),
                 TABlocks.SILENT_TREE_WOOD.get());

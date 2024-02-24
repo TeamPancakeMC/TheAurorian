@@ -1,5 +1,7 @@
-package cn.teampancake.theaurorian.common.items;
+package cn.teampancake.theaurorian.common.items.tool;
 
+import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import net.minecraft.network.chat.Component;

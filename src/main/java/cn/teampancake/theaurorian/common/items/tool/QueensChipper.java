@@ -1,6 +1,7 @@
-package cn.teampancake.theaurorian.common.items;
+package cn.teampancake.theaurorian.common.items.tool;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
+import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.Rarity;

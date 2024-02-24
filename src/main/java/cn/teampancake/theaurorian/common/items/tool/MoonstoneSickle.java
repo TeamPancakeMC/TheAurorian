@@ -1,5 +1,6 @@
-package cn.teampancake.theaurorian.common.items;
+package cn.teampancake.theaurorian.common.items.tool;
 
+import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -10,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class MoonstoneSickle extends ShearsItem implements ITooltipsItem{
+public class MoonstoneSickle extends ShearsItem implements ITooltipsItem {
     
     public MoonstoneSickle() {
         super(new Properties().durability(250));

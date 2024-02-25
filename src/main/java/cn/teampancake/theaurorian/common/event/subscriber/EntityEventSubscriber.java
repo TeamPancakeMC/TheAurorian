@@ -172,7 +172,7 @@ public class EntityEventSubscriber {
         if (instance != null) {
             MobEffect effect = instance.getEffect();
             if (effect instanceof CorruptionEffect corruption) {
-                corruption.entityCorruptionEffect(entity);
+                corruption.doHurtTarget(entity);
             }
 
             if (effect instanceof ForbiddenCurseEffect forbiddenCurse && entity instanceof Player player) {

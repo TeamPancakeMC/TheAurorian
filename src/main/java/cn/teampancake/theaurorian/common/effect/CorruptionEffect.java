@@ -15,7 +15,7 @@ public class CorruptionEffect extends IncurableEffect {
         super(MobEffectCategory.HARMFUL, 0x570e20);
     }
 
-    public void entityCorruptionEffect(LivingEntity entity) {
+    public void doHurtTarget(LivingEntity entity) {
         DamageSource source = entity.damageSources().source(TADamageTypes.CORRUPTION);
         entity.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
             float damage = miscNBT.getDamageAccumulation();

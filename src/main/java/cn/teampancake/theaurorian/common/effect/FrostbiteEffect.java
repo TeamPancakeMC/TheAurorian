@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.effect;
 
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
+import cn.teampancake.theaurorian.common.registry.TACapability;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -16,15 +17,17 @@ public class FrostbiteEffect extends IncurableEffect {
 
     public FrostbiteEffect() {
         super(MobEffectCategory.HARMFUL, 0xa7c6ff);
-        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, UUID, (-1), AttributeModifier.Operation.MULTIPLY_TOTAL);
+        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, UUID,
+                (-1), AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         Level level = livingEntity.level();
         if (!level.isClientSide) {
-            livingEntity.setTicksFrozen(140);
-            livingEntity.setSharedFlagOnFire(livingEntity.isOnFire());
+            livingEntity.setSharedFlagOnFire(false);
+            livingEntity.getCapability(TACapability.MISC_CAP)
+                    .ifPresent(miscNBT -> miscNBT.setTicksFrostbite(140));
             if (!MysteriumWoolArmor.isWearFullArmor(livingEntity)) {
                 livingEntity.hurt(livingEntity.damageSources().freeze(), (amplifier + 1.0F));
             }

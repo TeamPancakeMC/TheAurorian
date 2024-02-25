@@ -1,12 +1,10 @@
 package cn.teampancake.theaurorian.common.mixin;
 
-import cn.teampancake.theaurorian.common.registry.TAAttributes;
+import cn.teampancake.theaurorian.common.registry.TACapability;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,13 +26,12 @@ public abstract class MixinPlayer extends LivingEntity {
         }
 
         if (this.hasEffect(TAMobEffects.CORRUPTION.get())) {
-            Attribute attribute = TAAttributes.ARMOR_HURT_ACCUMULATION.get();
-            AttributeInstance instance = this.getAttribute(attribute);
-            double i = this.getAttributeValue(attribute);
-            if (instance != null) {
-                instance.setBaseValue(i + damage);
-                ci.cancel();
-            }
+            this.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
+                float i = miscNBT.getArmorHurtAccumulation();
+                miscNBT.setArmorHurtAccumulation(i + damage);
+            });
+
+            ci.cancel();
         }
     }
 

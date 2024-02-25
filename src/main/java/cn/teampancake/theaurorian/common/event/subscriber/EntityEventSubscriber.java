@@ -15,6 +15,8 @@ import cn.teampancake.theaurorian.common.entities.monster.CrystallineSprite;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
+import cn.teampancake.theaurorian.common.network.TAMessages;
+import cn.teampancake.theaurorian.common.network.message.FrostbiteSyncMessage;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.common.utils.AurorianUtil;
@@ -34,8 +36,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.monster.Monster;
@@ -84,12 +84,26 @@ public class EntityEventSubscriber {
             boolean isSnowField = biomeHolder.is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD);
             if (isSnowField && !player.hasEffect(TAMobEffects.WARN.get()) && player.tickCount % 60 == 0) {
                 if (!MysteriumWoolArmor.isWearFullArmor(player) && !player.isCreative() && !player.isSpectator()) {
-                    player.setTicksFrozen(player.getTicksRequiredToFreeze());
-                    player.hurt(player.damageSources().freeze(), (1.0F));
-                    player.setSharedFlagOnFire(player.isOnFire());
+                    player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> miscNBT.setTicksFrostbite(140));
+                    player.hurt(player.damageSources().freeze(), 1.0F);
+                    player.setSharedFlagOnFire(false);
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
+        LivingEntity entity = event.getEntity();
+        entity.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
+            int i = miscNBT.getTicksFrostbite();
+            if (!entity.level().isClientSide && i > 0) {
+                miscNBT.setTicksFrostbite(Math.max(0, i - 2));
+                if (entity instanceof ServerPlayer serverPlayer) {
+                    TAMessages.sendToPlayer(new FrostbiteSyncMessage(i), serverPlayer);
+                }
+            }
+        });
     }
 
     @SubscribeEvent
@@ -235,12 +249,11 @@ public class EntityEventSubscriber {
         event.setAmount(TAMobEffect.getDamageAfterMagicAbsorb(entity, source, event.getAmount()));
         event.setCanceled(isHarmfulEffect && entity.hasEffect(TAMobEffects.HOLINESS.get()));
         if (entity instanceof Player player) {
-            Attribute attribute = TAAttributes.EXHAUSTION_ACCUMULATION.get();
-            AttributeInstance instance = player.getAttribute(attribute);
-            if (instance != null) {
-                double i = player.getAttributeValue(attribute);
-                instance.setBaseValue(i + source.getFoodExhaustion());
-            }
+            player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
+                float i = miscNBT.getExhaustionAccumulation();
+                float j = source.getFoodExhaustion();
+                miscNBT.setExhaustionAccumulation(i + j);
+            });
         }
 
         if (source.getEntity() instanceof LivingEntity livingEntity) {
@@ -266,13 +279,12 @@ public class EntityEventSubscriber {
             }
 
             if (target.hasEffect(TAMobEffects.CORRUPTION.get())) {
-                Attribute attribute = TAAttributes.DAMAGE_ACCUMULATION.get();
-                AttributeInstance instance = target.getAttribute(attribute);
-                double i = target.getAttributeValue(attribute);
-                if (instance != null) {
-                    instance.setBaseValue(i + event.getAmount());
-                    event.setCanceled(true);
-                }
+                target.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
+                    float i = miscNBT.getDamageAccumulation();
+                    miscNBT.setDamageAccumulation(i + event.getAmount());
+                });
+
+                event.setCanceled(true);
             }
         }
 

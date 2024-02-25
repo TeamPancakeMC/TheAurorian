@@ -54,7 +54,8 @@ public class ClientEventSubscriber {
 
     @SubscribeEvent
     public static void onViewportComputeCameraAngles(ViewportEvent.ComputeCameraAngles event) {
-        LocalPlayer player = Minecraft.getInstance().player;
+        Minecraft minecraft = Minecraft.getInstance();
+        LocalPlayer player = minecraft.player;
         if (player == null) return;
 
         player.getActiveEffectsMap().forEach((effect, mobEffectInstance) -> {
@@ -63,27 +64,24 @@ public class ClientEventSubscriber {
                     double rotation = Math.sin(player.tickCount / 10.0) * 45;
                     event.setRoll((float)rotation);
                 }
+
                 if (mobEffectInstance.getAmplifier() == 2) {
                     event.setRoll(180);
                 }
             }
 
-            if (effect instanceof TremorEffect){
+            if (effect instanceof TremorEffect) {
                 RandomSource rng = player.level().random;
-                Entity cameraEntity = Minecraft.getInstance().getCameraEntity();
-                float partialTick = Minecraft.getInstance().getPartialTick();
-
-                float tremorAmount = 0.5f;
-                event.getCamera().move(
-                        (Math.sin((cameraEntity.tickCount + partialTick) * 0.5f) * tremorAmount) * rng.nextFloat(),
-                        (Math.sin((cameraEntity.tickCount + partialTick) * 0.5f) * tremorAmount) * rng.nextFloat(),
-                        (Math.sin((cameraEntity.tickCount + partialTick) * 0.5f) * tremorAmount) * rng.nextFloat()
-                );
+                Entity cameraEntity = minecraft.getCameraEntity();
+                float partialTick = minecraft.getPartialTick();
+                float tremorAmount = 0.5F;
+                if (cameraEntity != null) {
+                    double d =  Math.sin((cameraEntity.tickCount + partialTick) * 0.5F) * tremorAmount;
+                    event.getCamera().move((d * rng.nextFloat()), (d * rng.nextFloat()), (d * rng.nextFloat()));
+                }
             }
         });
-
     }
-
 
     @SubscribeEvent
     public static void onRenderBossBars(CustomizeGuiOverlayEvent.BossEventProgress event) {

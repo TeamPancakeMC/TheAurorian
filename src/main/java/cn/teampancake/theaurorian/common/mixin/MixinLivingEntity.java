@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.mixin;
 
-import cn.teampancake.theaurorian.common.registry.TABiomes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
@@ -10,9 +9,7 @@ import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class MixinLivingEntity extends Entity {
@@ -21,13 +18,6 @@ public abstract class MixinLivingEntity extends Entity {
 
     public MixinLivingEntity(EntityType<?> type, Level level) {
         super(type, level);
-    }
-
-    @Inject(method = "tryAddFrost", at = @At(value = "HEAD"), cancellable = true)
-    protected void tryAddFrost(CallbackInfo ci) {
-        if (this.level().getBiome(this.blockPosition()).is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD)) {
-            ci.cancel();
-        }
     }
 
     @ModifyArg(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/WalkAnimationState;setSpeed(F)V"))

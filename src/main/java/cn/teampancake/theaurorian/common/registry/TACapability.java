@@ -2,8 +2,10 @@ package cn.teampancake.theaurorian.common.registry;
 
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.capability.MiscCap;
 import cn.teampancake.theaurorian.common.capability.RuneCap;
 import cn.teampancake.theaurorian.common.capability.ShieldCap;
+import cn.teampancake.theaurorian.common.data.nbt.MiscNBT;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
@@ -22,18 +24,24 @@ public class TACapability {
 
     public static final Capability<ShieldCap> SHIELD_CAP = CapabilityManager.get(new CapabilityToken<>() {});
     public static final Capability<RuneCap> RUNE_CAP = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<MiscNBT> MISC_CAP = CapabilityManager.get(new CapabilityToken<>() {});
 
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.register(ShieldCap.class);
         event.register(RuneCap.class);
+        event.register(MiscNBT.class);
     }
 
     @SubscribeEvent
     public static void attachEntityCapability(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
-        if (entity instanceof LivingEntity) {
-            event.addCapability(AurorianMod.prefix("shield"), new ShieldCap.Provider(TAShields.SHIELD.getEntries()));
+        if (entity instanceof LivingEntity livingEntity) {
+            event.addCapability(AurorianMod.prefix("shield"),
+                    new ShieldCap.Provider(TAShields.SHIELD.getEntries()));
+            if (!livingEntity.getCapability(MISC_CAP).isPresent()) {
+                event.addCapability(AurorianMod.prefix("ta_misc_data"), new MiscCap());
+            }
         }
     }
 

@@ -15,7 +15,7 @@ public class SpiderMotherModel<T extends SpiderMother> extends HierarchicalModel
     private final ModelPart head;
 
     public SpiderMotherModel(ModelPart root) {
-        this.body = root.getChild("all");
+        this.body = root.getChild("body");
         this.head = this.body.getChild("body_2").getChild("head");
     }
 

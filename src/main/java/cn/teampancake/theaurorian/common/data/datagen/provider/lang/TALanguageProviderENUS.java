@@ -470,6 +470,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.ROCK_HAMMER_SPAWN_EGG.get(), "Rock Hammer Spawn Egg");
         this.add(TAItems.TONG_SCORPION_SPAWN_EGG.get(), "Tong Scorpion Spawn Egg");
         this.add(TAItems.SNOW_TUNDRA_GIANT_CRAB_SPAWN_EGG.get(), "Snow Tundra Giant Crab Spawn Egg");
+        this.add(TAItems.FLOWER_LEECH_SPAWN_EGG.get(), "Flower Leech Spawn Egg");
+        this.add(TAItems.FORGOTTEN_MAGIC_BOOK_SPAWN_EGG.get(), "Forgotten Magic Book Spawn Egg");
+        this.add(TAItems.HYPHA_WALKING_MUSHROOM_SPAWN_EGG.get(), "Hypha Walking Mushroom Spawn Egg");
         this.add(TAItems.DUNGEON_LOCATOR.get(),"Dungeon Locator");
         this.add(TAItems.KEEPERS_BOW.get(),"Keeper's Bow");
         this.add(TAItems.KNIGHT_HELMET.get(),"Knight Helmet");
@@ -604,6 +607,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.ROCK_HAMMER.get(), "Rock Hammer");
         this.add(TAEntityTypes.TONG_SCORPION.get(), "Tong Scorpion");
         this.add(TAEntityTypes.SNOW_TUNDRA_GIANT_CRAB.get(), "Snow Tundra Giant Crab");
+        this.add(TAEntityTypes.FLOWER_LEECH.get(), "Flower Leech");
+        this.add(TAEntityTypes.FORGOTTEN_MAGIC_BOOK.get(), "Forgotten Magic Book");
+        this.add(TAEntityTypes.HYPHA_WALKING_MUSHROOM.get(), "Hypha Walking Mushroom");
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), "Runestone Keeper");
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), "Spider Mother");
         this.add(TAEntityTypes.MOON_QUEEN.get(), "Moon Queen");

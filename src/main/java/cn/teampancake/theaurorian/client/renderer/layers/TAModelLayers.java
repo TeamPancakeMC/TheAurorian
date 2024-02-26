@@ -30,7 +30,9 @@ public class TAModelLayers {
     public static final ModelLayerLocation CAVE_DWELLER = register("cave_dweller");
     public static final ModelLayerLocation ROCK_HAMMER = register("rock_hammer");
     public static final ModelLayerLocation TONG_SCORPION = register("tong_scorpion");
-    public static final ModelLayerLocation SNOW_TUNDRA_GIANT_CRAB = register("snow_tundra_giant_crab");
+    public static final ModelLayerLocation FLOWER_LEECH = register("flower_leech");
+    public static final ModelLayerLocation FORGOTTEN_MAGIC_BOOK = register("forgotten_magic_book");
+    public static final ModelLayerLocation HYPHA_WALKING_MUSHROOM = register("hypha_walking_mushroom");
     public static final ModelLayerLocation RUNESTONE_KEEPER = register("runestone_keeper");
     public static final ModelLayerLocation RUNESTONE_BOOKS = register("runestone_books");
     public static final ModelLayerLocation SPIDER_MOTHER = register("spider_mother");

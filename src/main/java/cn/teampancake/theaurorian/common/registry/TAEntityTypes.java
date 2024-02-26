@@ -126,6 +126,15 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<SnowTundraGiantCrab>> SNOW_TUNDRA_GIANT_CRAB = ENTITY_TYPES.register("snow_tundra_giant_crab",
             () -> EntityType.Builder.of(SnowTundraGiantCrab::new, MobCategory.MONSTER).sized(4.0F, 3.5F)
                     .clientTrackingRange((8)).build("snow_tundra_giant_crab"));
+    public static final RegistryObject<EntityType<FlowerLeech>> FLOWER_LEECH = ENTITY_TYPES.register("flower_leech",
+            () -> EntityType.Builder.of(FlowerLeech::new, MobCategory.MONSTER).sized(1.0F, 2.0F)
+                    .clientTrackingRange((8)).build("flower_leech"));
+    public static final RegistryObject<EntityType<ForgottenMagicBook>> FORGOTTEN_MAGIC_BOOK = ENTITY_TYPES.register("forgotten_magic_book",
+            () -> EntityType.Builder.of(ForgottenMagicBook::new, MobCategory.MONSTER).sized(1.0F, 2.5F)
+                    .clientTrackingRange((8)).build("forgotten_magic_book"));
+    public static final RegistryObject<EntityType<HyphaWalkingMushroom>> HYPHA_WALKING_MUSHROOM = ENTITY_TYPES.register("hypha_walking_mushroom",
+            () -> EntityType.Builder.of(HyphaWalkingMushroom::new, MobCategory.MONSTER).sized(1.0F, 1.5F)
+                    .clientTrackingRange((8)).build("hypha_walking_mushroom"));
     //Boss
     public static final RegistryObject<EntityType<RunestoneKeeper>> RUNESTONE_KEEPER = ENTITY_TYPES.register("runestone_keeper",
             () -> EntityType.Builder.of(RunestoneKeeper::new, MobCategory.MONSTER).sized(1.4F, 4.2F)
@@ -168,6 +177,9 @@ public class TAEntityTypes {
         event.registerEntityRenderer(ROCK_HAMMER.get(), RockHammerRenderer::new);
         event.registerEntityRenderer(TONG_SCORPION.get(), TongScorpionRenderer::new);
         event.registerEntityRenderer(SNOW_TUNDRA_GIANT_CRAB.get(), SnowTundraGiantCrabRenderer::new);
+        event.registerEntityRenderer(FLOWER_LEECH.get(), FlowerLeechRenderer::new);
+        event.registerEntityRenderer(FORGOTTEN_MAGIC_BOOK.get(), ForgottenMagicBookRenderer::new);
+        event.registerEntityRenderer(HYPHA_WALKING_MUSHROOM.get(), HyphaWalkingMushroomRenderer::new);
         event.registerEntityRenderer(RUNESTONE_KEEPER.get(), RunestoneKeeperRenderer::new);
         event.registerEntityRenderer(SPIDER_MOTHER.get(), SpiderMotherRenderer::new);
         event.registerEntityRenderer(MOON_QUEEN.get(), MoonQueenRenderer::new);
@@ -201,6 +213,9 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.CAVE_DWELLER, CaveDwellerModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.ROCK_HAMMER, RockHammerModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.TONG_SCORPION, TongScorpionModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.FLOWER_LEECH, FlowerLeechModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.FORGOTTEN_MAGIC_BOOK, ForgottenMagicBookModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.HYPHA_WALKING_MUSHROOM, HyphaWalkingMushroomModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_KEEPER, RunestoneKeeperModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDER_MOTHER, SpiderMotherModel::createBodyLayer);
@@ -234,6 +249,9 @@ public class TAEntityTypes {
         normalEntitySpawn(event, ROCK_HAMMER.get(), SpawnPlacements.Type.ON_GROUND, RockHammer::checkSpawnRules);
         normalEntitySpawn(event, TONG_SCORPION.get(), SpawnPlacements.Type.ON_GROUND, TongScorpion::checkSpawnRules);
         normalEntitySpawn(event, SNOW_TUNDRA_GIANT_CRAB.get(), SpawnPlacements.Type.ON_GROUND, SnowTundraGiantCrab::checkSpawnRules);
+        normalEntitySpawn(event, FLOWER_LEECH.get(), SpawnPlacements.Type.IN_WATER, FlowerLeech::checkSpawnRules);
+        normalEntitySpawn(event, FORGOTTEN_MAGIC_BOOK.get(), SpawnPlacements.Type.ON_GROUND, ForgottenMagicBook::checkSpawnRules);
+        normalEntitySpawn(event, HYPHA_WALKING_MUSHROOM.get(), SpawnPlacements.Type.ON_GROUND, HyphaWalkingMushroom::checkSpawnRules);
     }
 
     @SubscribeEvent
@@ -259,6 +277,9 @@ public class TAEntityTypes {
         event.put(ROCK_HAMMER.get(), RockHammer.createAttributes().build());
         event.put(TONG_SCORPION.get(), TongScorpion.createAttributes().build());
         event.put(SNOW_TUNDRA_GIANT_CRAB.get(), SnowTundraGiantCrab.createAttributes().build());
+        event.put(FLOWER_LEECH.get(), FlowerLeech.createAttributes().build());
+        event.put(FORGOTTEN_MAGIC_BOOK.get(), ForgottenMagicBook.createAttributes().build());
+        event.put(HYPHA_WALKING_MUSHROOM.get(), HyphaWalkingMushroom.createAttributes().build());
         event.put(RUNESTONE_KEEPER.get(), RunestoneKeeper.createAttributes().build());
         event.put(SPIDER_MOTHER.get(), SpiderMother.createAttributes().build());
         event.put(MOON_QUEEN.get(), MoonQueen.createAttributes().build());

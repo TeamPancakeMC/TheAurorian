@@ -15,7 +15,7 @@ public class AurorianSlime extends Slime {
         super(type, level);
     }
 
-    public static boolean checkAurorianSlimeSpawnRules(EntityType<AurorianSlime> aurorianSlime, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean checkSpawnRules(EntityType<AurorianSlime> aurorianSlime, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkMobSpawnRules(aurorianSlime, level, spawnType, pos, random);
     }
 

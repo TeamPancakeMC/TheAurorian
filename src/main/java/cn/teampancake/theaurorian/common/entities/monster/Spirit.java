@@ -40,7 +40,7 @@ public class Spirit extends Monster {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    public static boolean checkSpiritSpawnRules(EntityType<Spirit> spirit, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean checkSpawnRules(EntityType<Spirit> spirit, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(TABlocks.AURORIAN_GRASS.get()) && checkAnyLightMonsterSpawnRules(spirit, level, spawnType, pos, random);
     }
 

@@ -35,7 +35,7 @@ public class Spiderling extends Spider implements NeutralMob {
         this.xpReward = 10;
     }
 
-    public static boolean checkSpiderlingSpawnRules(EntityType<Spiderling> spiderling, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean checkSpawnRules(EntityType<Spiderling> spiderling, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(TABlocks.DARK_STONE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(spiderling, level, spawnType, pos, random);
     }
 

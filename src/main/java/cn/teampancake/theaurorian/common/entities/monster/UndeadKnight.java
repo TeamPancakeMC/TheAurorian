@@ -47,7 +47,7 @@ public class UndeadKnight extends Monster {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
     }
 
-    public static boolean checkUndeadKnightSpawnRules(EntityType<UndeadKnight> undeadKnight, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean checkSpawnRules(EntityType<UndeadKnight> undeadKnight, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkMonsterSpawnRules(undeadKnight, level, spawnType, pos, random);
     }
 

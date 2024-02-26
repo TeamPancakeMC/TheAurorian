@@ -46,6 +46,10 @@ public class TongScorpion extends Monster {
         return builder;
     }
 
+    public static boolean checkSpawnRules(EntityType<TongScorpion> breadBeast, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return level.getDifficulty() != Difficulty.PEACEFUL && checkMobSpawnRules(breadBeast, level, spawnType, pos, random);
+    }
+
     @Override
     public boolean doHurtTarget(Entity entity) {
         if (super.doHurtTarget(entity) && entity instanceof LivingEntity livingEntity) {
@@ -53,10 +57,6 @@ public class TongScorpion extends Monster {
         } else {
             return false;
         }
-    }
-
-    public static boolean checkTongScorpionSpawnRules(EntityType<TongScorpion> breadBeast, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getDifficulty() != Difficulty.PEACEFUL && checkMobSpawnRules(breadBeast, level, spawnType, pos, random);
     }
 
 }

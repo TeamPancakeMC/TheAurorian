@@ -1,14 +1,11 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.*;
@@ -23,7 +20,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,11 +66,6 @@ public class BlueTailWolf extends TamableAnimal implements NeutralMob {
         builder.add(Attributes.ATTACK_DAMAGE, 5.0D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.2D);
         return builder;
-    }
-
-    @SuppressWarnings("unused")
-    public static boolean checkBlueTailWolfSpawnRules(EntityType<BlueTailWolf> blueTailWolf, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 6;
     }
 
     @Override

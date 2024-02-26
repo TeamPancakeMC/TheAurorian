@@ -47,7 +47,7 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
     }
 
-    public static boolean checkCrystallineSpriteRules(EntityType<CrystallineSprite> crystallineSprite, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean checkSpawnRules(EntityType<CrystallineSprite> crystallineSprite, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getBlockState(pos.below()).is(TABlocks.MOON_TEMPLE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(crystallineSprite, level, spawnType, pos, random);
     }
 

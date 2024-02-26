@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.client.model.entity.circle.LunaCircleModel;
 import cn.teampancake.theaurorian.client.model.entity.*;
 import cn.teampancake.theaurorian.client.renderer.entity.*;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
+import cn.teampancake.theaurorian.common.entities.TASpawnRules;
 import cn.teampancake.theaurorian.common.entities.animal.*;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
@@ -213,26 +214,26 @@ public class TAEntityTypes {
 
     @SubscribeEvent
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
-        normalEntitySpawn(event, BREAD_BEAST.get(), SpawnPlacements.Type.ON_GROUND, BreadBeast::checkBreadBeastSpawnRules);
-        normalEntitySpawn(event, ICEFIELD_DEER.get(), SpawnPlacements.Type.ON_GROUND, IcefieldDeer::checkIcefieldDeerSpawnRules);
-        normalEntitySpawn(event, BLUE_TAIL_WOLF.get(), SpawnPlacements.Type.ON_GROUND, BlueTailWolf::checkBlueTailWolfSpawnRules);
-        normalEntitySpawn(event, MOON_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkAbstractAurorianFishSpawnRules);
-        normalEntitySpawn(event, AURORIAN_WINGED_FISH.get(), SpawnPlacements.Type.IN_WATER, AbstractAurorianFish::checkAbstractAurorianFishSpawnRules);
-        normalEntitySpawn(event, AURORIAN_RABBIT.get(), SpawnPlacements.Type.ON_GROUND, AurorianRabbit::checkAurorianRabbitSpawnRules);
-        normalEntitySpawn(event, AURORIAN_SHEEP.get(), SpawnPlacements.Type.ON_GROUND, AurorianSheep::checkAurorianSheepSpawnRules);
-        normalEntitySpawn(event, AURORIAN_PIG.get(), SpawnPlacements.Type.ON_GROUND, AurorianPig::checkAurorianPigSpawnRules);
-        normalEntitySpawn(event, AURORIAN_COW.get(), SpawnPlacements.Type.ON_GROUND, AurorianCow::checkAurorianCowSpawnRules);
-        normalEntitySpawn(event, AURORIAN_SLIME.get(), SpawnPlacements.Type.ON_GROUND, AurorianSlime::checkAurorianSlimeSpawnRules);
+        normalEntitySpawn(event, BREAD_BEAST.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        normalEntitySpawn(event, ICEFIELD_DEER.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        normalEntitySpawn(event, BLUE_TAIL_WOLF.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        normalEntitySpawn(event, MOON_FISH.get(), SpawnPlacements.Type.IN_WATER, TASpawnRules::checkWaterAnimalSpawnRules);
+        normalEntitySpawn(event, AURORIAN_WINGED_FISH.get(), SpawnPlacements.Type.IN_WATER, TASpawnRules::checkWaterAnimalSpawnRules);
+        normalEntitySpawn(event, AURORIAN_RABBIT.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        normalEntitySpawn(event, AURORIAN_SHEEP.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        normalEntitySpawn(event, AURORIAN_PIG.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        normalEntitySpawn(event, AURORIAN_COW.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        normalEntitySpawn(event, AURORIAN_SLIME.get(), SpawnPlacements.Type.ON_GROUND, AurorianSlime::checkSpawnRules);
         normalEntitySpawn(event, DISTURBED_HOLLOW.get(), SpawnPlacements.Type.ON_GROUND, Monster::checkMonsterSpawnRules);
-        normalEntitySpawn(event, UNDEAD_KNIGHT.get(), SpawnPlacements.Type.ON_GROUND, UndeadKnight::checkUndeadKnightSpawnRules);
-        normalEntitySpawn(event, SPIRIT.get(), SpawnPlacements.Type.ON_GROUND, Spirit::checkSpiritSpawnRules);
-        normalEntitySpawn(event, MOON_ACOLYTE.get(), SpawnPlacements.Type.ON_GROUND, MoonAcolyte::checkMoonAcolyteRules);
-        normalEntitySpawn(event, SPIDERLING.get(), SpawnPlacements.Type.ON_GROUND, Spiderling::checkSpiderlingSpawnRules);
-        normalEntitySpawn(event, CRYSTALLINE_SPRITE.get(), SpawnPlacements.Type.ON_GROUND, CrystallineSprite::checkCrystallineSpriteRules);
+        normalEntitySpawn(event, UNDEAD_KNIGHT.get(), SpawnPlacements.Type.ON_GROUND, UndeadKnight::checkSpawnRules);
+        normalEntitySpawn(event, SPIRIT.get(), SpawnPlacements.Type.ON_GROUND, Spirit::checkSpawnRules);
+        normalEntitySpawn(event, MOON_ACOLYTE.get(), SpawnPlacements.Type.ON_GROUND, MoonAcolyte::checkSpawnRules);
+        normalEntitySpawn(event, SPIDERLING.get(), SpawnPlacements.Type.ON_GROUND, Spiderling::checkSpawnRules);
+        normalEntitySpawn(event, CRYSTALLINE_SPRITE.get(), SpawnPlacements.Type.ON_GROUND, CrystallineSprite::checkSpawnRules);
         normalEntitySpawn(event, CAVE_DWELLER.get(), SpawnPlacements.Type.ON_GROUND, CaveDweller::checkMonsterSpawnRules);
-        normalEntitySpawn(event, ROCK_HAMMER.get(), SpawnPlacements.Type.ON_GROUND, RockHammer::checkRockHammerSpawnRules);
-        normalEntitySpawn(event, TONG_SCORPION.get(), SpawnPlacements.Type.ON_GROUND, TongScorpion::checkTongScorpionSpawnRules);
-        normalEntitySpawn(event, SNOW_TUNDRA_GIANT_CRAB.get(), SpawnPlacements.Type.ON_GROUND, SnowTundraGiantCrab::checkSnowTundraGiantCrabSpawnRules);
+        normalEntitySpawn(event, ROCK_HAMMER.get(), SpawnPlacements.Type.ON_GROUND, RockHammer::checkSpawnRules);
+        normalEntitySpawn(event, TONG_SCORPION.get(), SpawnPlacements.Type.ON_GROUND, TongScorpion::checkSpawnRules);
+        normalEntitySpawn(event, SNOW_TUNDRA_GIANT_CRAB.get(), SpawnPlacements.Type.ON_GROUND, SnowTundraGiantCrab::checkSpawnRules);
     }
 
     @SubscribeEvent

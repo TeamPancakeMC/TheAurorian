@@ -64,8 +64,8 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
         return builder;
     }
 
-    public static boolean checkSnowTundraGiantCrabSpawnRules(EntityType<SnowTundraGiantCrab> giantCrab, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkMobSpawnRules(giantCrab, level, spawnType, pos, random) && level.getRawBrightness(pos, 0) > 6;
+    public static boolean checkSpawnRules(EntityType<SnowTundraGiantCrab> giantCrab, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkAnyLightMonsterSpawnRules(giantCrab, level, spawnType, pos, random);
     }
 
     @Override

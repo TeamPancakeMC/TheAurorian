@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
@@ -34,6 +36,7 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int remainingPersistentAngerTime;
+    private int safeTime;
     @Nullable
     private UUID persistentAngerTarget;
 
@@ -80,6 +83,17 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     }
 
     @Override
+    protected void customServerAiStep() {
+        if (this.safeTime <= 200) {
+            ++this.safeTime;
+        }
+
+        if (this.safeTime > 160 && this.tickCount % 20 == 0) {
+            this.heal(5.0F);
+        }
+    }
+
+    @Override
     protected int decreaseAirSupply(int currentAir) {
         return currentAir;
     }
@@ -90,8 +104,30 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     }
 
     @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (this.isInvulnerableTo(source)) {
+            return false;
+        } else {
+            this.safeTime = 0;
+            return super.hurt(source, amount);
+        }
+    }
+
+    @Override
     public void knockback(double strength, double x, double z) {
         super.knockback(this.random.nextBoolean() ? 0.0D : strength, x, z);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("SafeTime", this.safeTime);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.safeTime = compound.getInt("SafeTime");
     }
 
     @Override
@@ -131,7 +167,8 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
         @Override
         public void tick() {
             if (this.giantCrab.isInWater()) {
-                this.giantCrab.setDeltaMovement(this.giantCrab.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
+                Vec3 vec3 = this.giantCrab.getDeltaMovement();
+                this.giantCrab.setDeltaMovement(vec3.add(0.0D, 0.005D, 0.0D));
             }
 
             super.tick();

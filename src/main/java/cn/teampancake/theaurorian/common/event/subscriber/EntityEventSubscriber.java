@@ -82,7 +82,7 @@ public class EntityEventSubscriber {
         if (event.phase == TickEvent.Phase.END && level instanceof ServerLevel serverLevel && !serverLevel.isClientSide) {
             Holder<Biome> biomeHolder = serverLevel.getBiome(player.blockPosition());
             boolean isSnowField = biomeHolder.is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD);
-            if (isSnowField && !player.hasEffect(TAMobEffects.WARN.get()) && player.tickCount % 60 == 0) {
+            if (isSnowField && !player.hasEffect(TAMobEffects.WARM.get()) && player.tickCount % 60 == 0) {
                 if (!MysteriumWoolArmor.isWearFullArmor(player) && !player.isCreative() && !player.isSpectator()) {
                     player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> miscNBT.setTicksFrostbite(140));
                     player.hurt(player.damageSources().freeze(), 1.0F);
@@ -324,6 +324,7 @@ public class EntityEventSubscriber {
     public static void onLivingAttacked(LivingAttackEvent event) {
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
+        event.setCanceled(source.is(DamageTypes.FREEZE) && target.hasEffect(TAMobEffects.WARM.get()));
         if (source.getEntity() instanceof LivingEntity livingEntity) {
             if (livingEntity instanceof ServerPlayer serverPlayer) {
                 ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);

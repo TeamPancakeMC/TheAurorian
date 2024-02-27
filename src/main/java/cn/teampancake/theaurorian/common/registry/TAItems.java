@@ -216,7 +216,7 @@ public class TAItems {
                     .effect(() -> new MobEffectInstance(MobEffects.LUCK, 300), 1.0F).build())));
     public static final RegistryObject<Item> GINGERBREAD_MAN = ITEMS.register("gingerbread_man", () -> new Item(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(6).saturationMod((0.4F))
-                    .effect(() -> new MobEffectInstance(TAMobEffects.WARN.get(), 1200), 1.0F).build())));
+                    .effect(() -> new MobEffectInstance(TAMobEffects.WARM.get(), 1200), 1.0F).build())));
     public static final RegistryObject<Item> AURORIAN_SPECIALTY_DRINK = ITEMS.register("aurorian_specialty_drink", () -> new Item(new Item.Properties()
             .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600), 1.0F).build())));
     public static final RegistryObject<Item> MOONLIT_BLUEBERRY_SPECIALTY_DRINK = ITEMS.register("moonlit_blueberry_specialty_drink", () -> new Item(new Item.Properties()

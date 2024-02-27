@@ -10,7 +10,7 @@ public class SleepingBlackTea extends TeaFood implements IDeveloperItem {
 
     public SleepingBlackTea() {
         super(new Item.Properties().food(new FoodProperties.Builder().effect(
-                () -> new MobEffectInstance(TAMobEffects.STUN.get(), 100), 1.0F).build()));
+                () -> new MobEffectInstance(TAMobEffects.WARM.get(), 100), 1.0F).build()));
     }
 
 }

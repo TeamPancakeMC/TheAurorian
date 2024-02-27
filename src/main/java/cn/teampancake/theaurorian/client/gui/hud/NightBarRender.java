@@ -24,13 +24,14 @@ public class NightBarRender {
     public static IGuiOverlay NIGHT_BAR_OVERLAY = (forgeGui, guiGraphics, partialTicks, screenWidth, screenHeight) ->
             render(forgeGui, guiGraphics, screenWidth, screenHeight, minecraft.player);
 
+    @SuppressWarnings("unused")
     public static void render(ForgeGui forgeGui, GuiGraphics guiGraphics, int width, int height, Player player) {
         RenderSystem.enableBlend();
-        int offsetX,offsetY;
+        int offsetX, offsetY;
         long dayTime = player.level().getDayTime();
-        if (dayTime > 12000 && dayTime <= 24000 || player.level().dimension() != TADimensions.AURORIAN_DIMENSION){
+        if (dayTime > 12000 && dayTime <= 24000 || player.level().dimension() != TADimensions.AURORIAN_DIMENSION) {
             guiGraphics.blit(NightRender, 0, 0, 90,64 , BAR_WIDTH, BAR_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT); //Render frame
-        }else {
+        } else {
             if (nightType <= 2) {
                 offsetX = nightType * 45;
                 offsetY = 0;
@@ -38,13 +39,15 @@ public class NightBarRender {
                 offsetX = (nightType - 3) * 45;
                 offsetY = 64;
             }
-            guiGraphics.blit(NightRender, 0, 0, offsetX, offsetY, BAR_WIDTH, BAR_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 
+            guiGraphics.blit(NightRender, 0, 0, offsetX, offsetY, BAR_WIDTH, BAR_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT);
         }
+
         RenderSystem.disableBlend();
     }
 
     public static void registerNightOverlay(RegisterGuiOverlaysEvent event) {
         event.registerAbove(VanillaGuiOverlay.ARMOR_LEVEL.id(), "night_bar", NIGHT_BAR_OVERLAY);
     }
+
 }

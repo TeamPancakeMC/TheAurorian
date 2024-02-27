@@ -889,6 +889,7 @@
 			}
 		},
 		"attack.bite": {
+			"loop": false,
 			"animation_length": 0.33333,
 			"bones": {
 				"head": {

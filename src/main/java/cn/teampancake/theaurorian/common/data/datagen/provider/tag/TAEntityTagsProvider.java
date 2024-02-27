@@ -27,7 +27,7 @@ public class TAEntityTagsProvider extends EntityTypeTagsProvider {
         this.tag(TAEntityTags.AFFECTED_BY_NIGHTMARE_MODE).add(TAEntityTypes.DISTURBED_HOLLOW.get(), TAEntityTypes.UNDEAD_KNIGHT.get(),
                 TAEntityTypes.SPIDERLING.get(), TAEntityTypes.MOON_ACOLYTE.get(), TAEntityTypes.CRYSTALLINE_SPRITE.get());
         this.tag(TAEntityTags.WOLF_NON_TAME_ATTACK_TARGET).add(EntityType.SHEEP, EntityType.RABBIT, EntityType.FOX,
-                TAEntityTypes.AURORIAN_SHEEP.get(), TAEntityTypes.AURORIAN_RABBIT.get());
+                TAEntityTypes.AURORIAN_SHEEP.get(), TAEntityTypes.AURORIAN_RABBIT.get(), TAEntityTypes.ICEFIELD_DEER.get());
     }
 
 }

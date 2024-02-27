@@ -627,6 +627,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAMobEffects.PARALYSIS.get(), "Paralysis");
         this.add(TAMobEffects.CONFUSION.get(), "Confusion");
         this.add(TAMobEffects.FROSTBITE.get(), "Frostbite");
+        this.add(TAMobEffects.LACERATION.get(), "Laceration");
         this.add(TAMobEffects.CORRUPTION.get(), "Corruption");
         this.add(TAMobEffects.INCANTATION.get(), "Incantation");
         this.add(TAMobEffects.TEMP_SHIELD.get(), "Temp Shield");

@@ -31,6 +31,7 @@ public class TAMobEffects {
     public static final RegistryObject<MobEffect> HOLINESS = MOB_EFFECTS.register("holiness", HolinessEffect::new);
     public static final RegistryObject<MobEffect> CONFUSION = MOB_EFFECTS.register("confusion", ConfusionEffect::new);
     public static final RegistryObject<MobEffect> FROSTBITE = MOB_EFFECTS.register("frostbite", FrostbiteEffect::new);
+    public static final RegistryObject<MobEffect> LACERATION = MOB_EFFECTS.register("laceration", LacerationEffect::new);
     public static final RegistryObject<MobEffect> CORRUPTION = MOB_EFFECTS.register("corruption", CorruptionEffect::new);
     public static final RegistryObject<MobEffect> TEMP_SHIELD = MOB_EFFECTS.register("temp_shield", TempShieldEffect::new);
     public static final RegistryObject<MobEffect> INCANTATION = MOB_EFFECTS.register("incantation", IncantationEffect::new);

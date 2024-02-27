@@ -1,10 +1,11 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.entity.armor.*;
-import cn.teampancake.theaurorian.client.model.entity.circle.LunaCircleModel;
 import cn.teampancake.theaurorian.client.model.entity.*;
+import cn.teampancake.theaurorian.client.model.entity.abiotic.LunaCircleModel;
+import cn.teampancake.theaurorian.client.model.entity.armor.*;
 import cn.teampancake.theaurorian.client.renderer.entity.*;
+import cn.teampancake.theaurorian.client.renderer.entity.abiotic.*;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.TASpawnRules;
 import cn.teampancake.theaurorian.common.entities.animal.*;
@@ -33,6 +34,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @SuppressWarnings("SpellCheckingInspection")
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -158,7 +161,8 @@ public class TAEntityTypes {
         event.registerEntityRenderer(LUNA_CIRCLE.get(), LunaCircleRenderer::new);
         event.registerEntityRenderer(BREAD_BEAST.get(), BreadBeastRenderer::new);
         event.registerEntityRenderer(ICEFIELD_DEER.get(), IcefieldDeerRenderer::new);
-        event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), BlueTailWolfRenderer::new);
+        event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(BLUE_TAIL_WOLF.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(MOON_FISH.get(), MoonFishRenderer::new);
         event.registerEntityRenderer(AURORIAN_WINGED_FISH.get(), AurorianWingedFishRenderer::new);
         event.registerEntityRenderer(AURORIAN_RABBIT.get(), AurorianRabbitRenderer::new);
@@ -176,7 +180,8 @@ public class TAEntityTypes {
         event.registerEntityRenderer(CAVE_DWELLER.get(), CaveDwellerRenderer::new);
         event.registerEntityRenderer(ROCK_HAMMER.get(), RockHammerRenderer::new);
         event.registerEntityRenderer(TONG_SCORPION.get(), TongScorpionRenderer::new);
-        event.registerEntityRenderer(SNOW_TUNDRA_GIANT_CRAB.get(), SnowTundraGiantCrabRenderer::new);
+        event.registerEntityRenderer(SNOW_TUNDRA_GIANT_CRAB.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(SNOW_TUNDRA_GIANT_CRAB.getId())));
         event.registerEntityRenderer(FLOWER_LEECH.get(), FlowerLeechRenderer::new);
         event.registerEntityRenderer(FORGOTTEN_MAGIC_BOOK.get(), ForgottenMagicBookRenderer::new);
         event.registerEntityRenderer(HYPHA_WALKING_MUSHROOM.get(), HyphaWalkingMushroomRenderer::new);
@@ -191,7 +196,6 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.LUNA_CIRCLE, LunaCircleModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.BREAD_BEAST, BreadBeastModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.ICEFIELD_DEER, IcefieldDeerModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.BLUE_TAIL_WOLF, BlueTailWolfModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.MOON_FISH, MoonFishModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_WINGED_FISH, AurorianWingedFishModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_RABBIT, AurorianRabbitModel::createBodyLayer);
@@ -229,29 +233,29 @@ public class TAEntityTypes {
 
     @SubscribeEvent
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
-        normalEntitySpawn(event, BREAD_BEAST.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
-        normalEntitySpawn(event, ICEFIELD_DEER.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
-        normalEntitySpawn(event, BLUE_TAIL_WOLF.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
-        normalEntitySpawn(event, MOON_FISH.get(), SpawnPlacements.Type.IN_WATER, TASpawnRules::checkWaterAnimalSpawnRules);
-        normalEntitySpawn(event, AURORIAN_WINGED_FISH.get(), SpawnPlacements.Type.IN_WATER, TASpawnRules::checkWaterAnimalSpawnRules);
-        normalEntitySpawn(event, AURORIAN_RABBIT.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
-        normalEntitySpawn(event, AURORIAN_SHEEP.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
-        normalEntitySpawn(event, AURORIAN_PIG.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
-        normalEntitySpawn(event, AURORIAN_COW.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
-        normalEntitySpawn(event, AURORIAN_SLIME.get(), SpawnPlacements.Type.ON_GROUND, AurorianSlime::checkSpawnRules);
-        normalEntitySpawn(event, DISTURBED_HOLLOW.get(), SpawnPlacements.Type.ON_GROUND, Monster::checkMonsterSpawnRules);
-        normalEntitySpawn(event, UNDEAD_KNIGHT.get(), SpawnPlacements.Type.ON_GROUND, UndeadKnight::checkSpawnRules);
-        normalEntitySpawn(event, SPIRIT.get(), SpawnPlacements.Type.ON_GROUND, Spirit::checkSpawnRules);
-        normalEntitySpawn(event, MOON_ACOLYTE.get(), SpawnPlacements.Type.ON_GROUND, MoonAcolyte::checkSpawnRules);
-        normalEntitySpawn(event, SPIDERLING.get(), SpawnPlacements.Type.ON_GROUND, Spiderling::checkSpawnRules);
-        normalEntitySpawn(event, CRYSTALLINE_SPRITE.get(), SpawnPlacements.Type.ON_GROUND, CrystallineSprite::checkSpawnRules);
-        normalEntitySpawn(event, CAVE_DWELLER.get(), SpawnPlacements.Type.ON_GROUND, CaveDweller::checkMonsterSpawnRules);
-        normalEntitySpawn(event, ROCK_HAMMER.get(), SpawnPlacements.Type.ON_GROUND, RockHammer::checkSpawnRules);
-        normalEntitySpawn(event, TONG_SCORPION.get(), SpawnPlacements.Type.ON_GROUND, TongScorpion::checkSpawnRules);
-        normalEntitySpawn(event, SNOW_TUNDRA_GIANT_CRAB.get(), SpawnPlacements.Type.ON_GROUND, SnowTundraGiantCrab::checkSpawnRules);
-        normalEntitySpawn(event, FLOWER_LEECH.get(), SpawnPlacements.Type.IN_WATER, FlowerLeech::checkSpawnRules);
-        normalEntitySpawn(event, FORGOTTEN_MAGIC_BOOK.get(), SpawnPlacements.Type.ON_GROUND, ForgottenMagicBook::checkSpawnRules);
-        normalEntitySpawn(event, HYPHA_WALKING_MUSHROOM.get(), SpawnPlacements.Type.ON_GROUND, HyphaWalkingMushroom::checkSpawnRules);
+        regsiterNormalSpawn(event, BREAD_BEAST.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        regsiterNormalSpawn(event, ICEFIELD_DEER.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        regsiterNormalSpawn(event, BLUE_TAIL_WOLF.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        regsiterNormalSpawn(event, MOON_FISH.get(), SpawnPlacements.Type.IN_WATER, TASpawnRules::checkWaterAnimalSpawnRules);
+        regsiterNormalSpawn(event, AURORIAN_WINGED_FISH.get(), SpawnPlacements.Type.IN_WATER, TASpawnRules::checkWaterAnimalSpawnRules);
+        regsiterNormalSpawn(event, AURORIAN_RABBIT.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        regsiterNormalSpawn(event, AURORIAN_SHEEP.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        regsiterNormalSpawn(event, AURORIAN_PIG.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        regsiterNormalSpawn(event, AURORIAN_COW.get(), SpawnPlacements.Type.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
+        regsiterNormalSpawn(event, AURORIAN_SLIME.get(), SpawnPlacements.Type.ON_GROUND, AurorianSlime::checkSpawnRules);
+        regsiterNormalSpawn(event, DISTURBED_HOLLOW.get(), SpawnPlacements.Type.ON_GROUND, Monster::checkMonsterSpawnRules);
+        regsiterNormalSpawn(event, UNDEAD_KNIGHT.get(), SpawnPlacements.Type.ON_GROUND, UndeadKnight::checkSpawnRules);
+        regsiterNormalSpawn(event, SPIRIT.get(), SpawnPlacements.Type.ON_GROUND, Spirit::checkSpawnRules);
+        regsiterNormalSpawn(event, MOON_ACOLYTE.get(), SpawnPlacements.Type.ON_GROUND, MoonAcolyte::checkSpawnRules);
+        regsiterNormalSpawn(event, SPIDERLING.get(), SpawnPlacements.Type.ON_GROUND, Spiderling::checkSpawnRules);
+        regsiterNormalSpawn(event, CRYSTALLINE_SPRITE.get(), SpawnPlacements.Type.ON_GROUND, CrystallineSprite::checkSpawnRules);
+        regsiterNormalSpawn(event, CAVE_DWELLER.get(), SpawnPlacements.Type.ON_GROUND, CaveDweller::checkMonsterSpawnRules);
+        regsiterNormalSpawn(event, ROCK_HAMMER.get(), SpawnPlacements.Type.ON_GROUND, RockHammer::checkSpawnRules);
+        regsiterNormalSpawn(event, TONG_SCORPION.get(), SpawnPlacements.Type.ON_GROUND, TongScorpion::checkSpawnRules);
+        regsiterNormalSpawn(event, SNOW_TUNDRA_GIANT_CRAB.get(), SpawnPlacements.Type.ON_GROUND, SnowTundraGiantCrab::checkSpawnRules);
+        regsiterNormalSpawn(event, FLOWER_LEECH.get(), SpawnPlacements.Type.IN_WATER, FlowerLeech::checkSpawnRules);
+        regsiterNormalSpawn(event, FORGOTTEN_MAGIC_BOOK.get(), SpawnPlacements.Type.ON_GROUND, ForgottenMagicBook::checkSpawnRules);
+        regsiterNormalSpawn(event, HYPHA_WALKING_MUSHROOM.get(), SpawnPlacements.Type.ON_GROUND, HyphaWalkingMushroom::checkSpawnRules);
     }
 
     @SubscribeEvent
@@ -285,7 +289,7 @@ public class TAEntityTypes {
         event.put(MOON_QUEEN.get(), MoonQueen.createAttributes().build());
     }
 
-    private static <T extends Entity> void normalEntitySpawn(SpawnPlacementRegisterEvent event, EntityType<T> entityType, SpawnPlacements.Type type, SpawnPlacements.SpawnPredicate<T> predicate) {
+    private static <T extends Entity> void regsiterNormalSpawn(SpawnPlacementRegisterEvent event, EntityType<T> entityType, SpawnPlacements.Type type, SpawnPlacements.SpawnPredicate<T> predicate) {
         event.register(entityType, type, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, predicate, SpawnPlacementRegisterEvent.Operation.REPLACE);
     }
 

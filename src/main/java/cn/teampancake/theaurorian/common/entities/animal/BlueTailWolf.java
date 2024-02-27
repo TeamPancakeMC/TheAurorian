@@ -24,20 +24,23 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class BlueTailWolf extends TamableAnimal implements NeutralMob {
+public class BlueTailWolf extends TamableAnimal implements GeoEntity, NeutralMob {
 
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(BlueTailWolf.class, EntityDataSerializers.INT);
     private static final Predicate<LivingEntity> PREY_SELECTOR = (entity) -> entity.getType().is(TAEntityTags.WOLF_NON_TAME_ATTACK_TARGET);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Nullable
     private UUID persistentAngerTarget;
-    public final AnimationState runAnimationState = new AnimationState();
-    public final AnimationState biteAnimationState = new AnimationState();
-    public final AnimationState howlAnimationState = new AnimationState();
 
     public BlueTailWolf(EntityType<? extends BlueTailWolf> type, Level level) {
         super(type, level);
@@ -71,6 +74,17 @@ public class BlueTailWolf extends TamableAnimal implements NeutralMob {
     }
 
     @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericWalkIdleController(this));
+        controllers.add(DefaultAnimations.genericAttackAnimation(this, DefaultAnimations.ATTACK_BITE));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
@@ -91,23 +105,6 @@ public class BlueTailWolf extends TamableAnimal implements NeutralMob {
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.readPersistentAngerSaveData(this.level(), compound);
-    }
-
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        if (!this.level().isClientSide && this.level() instanceof ServerLevel serverLevel) {
-            this.updatePersistentAnger(serverLevel, Boolean.TRUE);
-        }
-    }
-
-    @Override
-    public void handleEntityEvent(byte id) {
-        if (id == 4) {
-            this.biteAnimationState.start(this.tickCount);
-        } else {
-            super.handleEntityEvent(id);
-        }
     }
 
     @Override

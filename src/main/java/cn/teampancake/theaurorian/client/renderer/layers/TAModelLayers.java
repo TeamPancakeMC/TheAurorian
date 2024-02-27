@@ -8,7 +8,6 @@ public class TAModelLayers {
     public static final ModelLayerLocation LUNA_CIRCLE = register("luna_circle");
     public static final ModelLayerLocation BREAD_BEAST = register("bread_beast");
     public static final ModelLayerLocation ICEFIELD_DEER = register("icefield_deer");
-    public static final ModelLayerLocation BLUE_TAIL_WOLF = register("blue_tail_wolf");
     public static final ModelLayerLocation MOON_FISH = register("moon_fish");
     public static final ModelLayerLocation AURORIAN_WINGED_FISH = register("aurorian_winged_fish");
     public static final ModelLayerLocation AURORIAN_RABBIT = register("aurorian_rabbit");

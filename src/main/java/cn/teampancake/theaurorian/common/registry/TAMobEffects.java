@@ -19,13 +19,13 @@ public class TAMobEffects {
             .addAttributeModifier(Attributes.MOVEMENT_SPEED, "3e4b0f9a-243e-4ea0-96ed-240437577f30", (-1), AttributeModifier.Operation.MULTIPLY_TOTAL));
     public static final RegistryObject<MobEffect> MOON_OF_VENGEANCE = MOB_EFFECTS.register("moon_of_vengeance", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0x960a17)
             .addAttributeModifier(Attributes.ATTACK_DAMAGE, "b8b5ad84-3a19-416a-870f-ac44bdee5954", 2.0F, AttributeModifier.Operation.MULTIPLY_TOTAL));
-    public static final RegistryObject<MobEffect> WARM = MOB_EFFECTS.register("warm", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xfdefab));
     public static final RegistryObject<MobEffect> TOUGH = MOB_EFFECTS.register("tough", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xf49cae));
     public static final RegistryObject<MobEffect> BROKEN = MOB_EFFECTS.register("broken", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0x808080));
     public static final RegistryObject<MobEffect> CRESCENT = MOB_EFFECTS.register("crescent", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xd1b9a1));
     public static final RegistryObject<MobEffect> PRESSURE = MOB_EFFECTS.register("pressure", () -> new IncurableEffect(MobEffectCategory.HARMFUL, 0x714bdb));
     public static final RegistryObject<MobEffect> FALL_OF_MOON = MOB_EFFECTS.register("fall_of_moon", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xb76ce6));
     public static final RegistryObject<MobEffect> BLESS_OF_MOON = MOB_EFFECTS.register("bless_of_moon", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xe3d5aa));
+    public static final RegistryObject<MobEffect> WARM = MOB_EFFECTS.register("warm", WarmEffect::new);
     public static final RegistryObject<MobEffect> NATURE = MOB_EFFECTS.register("nature", NatureEffect::new);
     public static final RegistryObject<MobEffect> TREMOR = MOB_EFFECTS.register("tremor", TremorEffect::new);
     public static final RegistryObject<MobEffect> HOLINESS = MOB_EFFECTS.register("holiness", HolinessEffect::new);

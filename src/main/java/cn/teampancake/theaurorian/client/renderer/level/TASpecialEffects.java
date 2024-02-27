@@ -27,7 +27,7 @@ public class TASpecialEffects extends DimensionSpecialEffects {
 
     @Override
     public Vec3 getBrightnessDependentFogColor(Vec3 fogColor, float brightness) {
-        return Vec3.ZERO;
+        return fogColor.multiply(brightness * 0.94F + 0.06F, brightness * 0.94F + 0.06F, brightness * 0.91F + 0.09F);
     }
 
     @Override

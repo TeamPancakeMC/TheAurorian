@@ -1,12 +1,10 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.renderer.level.TAFogRenderer;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
 import cn.teampancake.theaurorian.common.effect.TremorEffect;
-import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.client.Minecraft;
@@ -113,21 +111,6 @@ public class ClientEventSubscriber {
         graphics.blit(atlasLocation, (guiWidth - barWidth) / 2, event.getY() + barYOffset, 0, 0, progress, barHeight);
         graphics.drawString(font, description, strX, event.getY() + textYOffset, textColor);
         event.setIncrement(frameHeight + 3);
-    }
-
-    @SubscribeEvent
-    public static void onSetupFogColor(ViewportEvent.ComputeFogColor event) {
-        Minecraft mc = Minecraft.getInstance();
-        float partialTick = (float) event.getPartialTick();
-        int renderDistanceChunks = mc.options.getEffectiveRenderDistance();
-        float darkenWorldAmount = mc.gameRenderer.getDarkenWorldAmount(partialTick);
-        if (mc.level != null && mc.level.dimension() == TADimensions.AURORIAN_DIMENSION) {
-            float[] colors = TAFogRenderer.setupColor(event.getCamera(), partialTick,
-                    mc.level, renderDistanceChunks, darkenWorldAmount);
-            event.setRed(colors[0]);
-            event.setGreen(colors[1]);
-            event.setBlue(colors[2]);
-        }
     }
 
     @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)

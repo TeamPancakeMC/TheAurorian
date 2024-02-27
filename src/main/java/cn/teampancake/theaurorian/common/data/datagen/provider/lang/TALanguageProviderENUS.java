@@ -615,7 +615,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.MOON_QUEEN.get(), "Moon Queen");
 
         //MOB EFFECT
-        this.add(TAMobEffects.WARN.get(), "Warm");
+        this.add(TAMobEffects.WARM.get(), "Warm");
         this.add(TAMobEffects.STUN.get(), "Stun");
         this.add(TAMobEffects.TOUGH.get(), "Tough");
         this.add(TAMobEffects.BROKEN.get(),"Broken");

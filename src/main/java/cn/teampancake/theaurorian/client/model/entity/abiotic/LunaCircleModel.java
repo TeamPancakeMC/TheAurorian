@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.model.entity.circle;
+package cn.teampancake.theaurorian.client.model.entity.abiotic;
 
 import cn.teampancake.theaurorian.client.animation.circle.LunaCircleAnimation;
 import cn.teampancake.theaurorian.common.entities.technical.LunaCircleEntity;

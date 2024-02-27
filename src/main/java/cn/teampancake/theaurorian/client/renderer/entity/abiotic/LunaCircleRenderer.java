@@ -1,7 +1,7 @@
-package cn.teampancake.theaurorian.client.renderer.entity;
+package cn.teampancake.theaurorian.client.renderer.entity.abiotic;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.entity.circle.LunaCircleModel;
+import cn.teampancake.theaurorian.client.model.entity.abiotic.LunaCircleModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.technical.LunaCircleEntity;
 import com.mojang.blaze3d.vertex.PoseStack;

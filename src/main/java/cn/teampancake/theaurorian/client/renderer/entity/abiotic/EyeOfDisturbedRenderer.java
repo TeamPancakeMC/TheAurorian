@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.renderer.entity;
+package cn.teampancake.theaurorian.client.renderer.entity.abiotic;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.entities.projectile.EyeOfDisturbedEntity;

@@ -409,6 +409,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_PERIDOTITE_WALL.get(), "Aurorian Peridotite Wall");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE_WALL.get(), "Smooth Aurorian Peridotite Wall");
 
+        //MISC
+        this.add(TABlocks.MYSTERIUM_WOOL_BED.get(),"Mysterium Wool Bed");
+        this.add(TABlocks.SILENT_CAMPFIRE.get(),"Slient Campfire");
         //MOD ITEM
         this.add(TAItems.DARK_STONE_KEY.get(),"Dark Stone Key");
         this.add(TAItems.MOON_TEMPLE_KEY.get(),"Moon Temple Key");

@@ -408,6 +408,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.AURORIAN_PERIDOTITE_WALL.get(), "橄榄岩墙");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE_WALL.get(), "平滑橄榄岩墙");
 
+        //MISC
+        this.add(TABlocks.MYSTERIUM_WOOL_BED.get(),"秘境羊毛床");
+        this.add(TABlocks.SILENT_CAMPFIRE.get(),"静谧营火");
         //MOD ITEM
         this.add(TAItems.DARK_STONE_KEY.get(), "暗石钥匙");
         this.add(TAItems.MOON_TEMPLE_KEY.get(), "月宫钥匙");

@@ -8,6 +8,7 @@ import net.minecraftforge.common.data.LanguageProvider;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class TALanguageProviderENUS extends LanguageProvider {
 
     public TALanguageProviderENUS(PackOutput output) {
@@ -33,6 +34,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         //MOD BLOCK
         this.add(TABlocks.AURORIAN_DIRT.get(), "Aurorian Dirt");
         this.add(TABlocks.AURORIAN_STONE.get(), "Aurorian Stone");
+        this.add(TABlocks.AURORIAN_EROSIVE.get(), "Aurorian Erosive Stone");
         this.add(TABlocks.AURORIAN_STONE_BRICKS.get(), "Aurorian Stone Bricks");
         this.add(TABlocks.AURORIAN_COBBLESTONE.get(), "Aurorian Cobblestone");
         this.add(TABlocks.AURORIAN_GRANITE.get(), "Aurorian Granite");
@@ -79,8 +81,25 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "Aurorian Peridotite");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "Smooth Aurorian Peridotite");
         this.add(TABlocks.MOONSTONE_ORE.get(), "Moonstone Ore");
+        this.add(TABlocks.EROSIVE_MOONSTONE_ORE.get(),"Erosive Moonstone Ore");
         this.add(TABlocks.CERULEAN_ORE.get(), "Cerulean Ore");
+        this.add(TABlocks.EROSIVE_CERULEAN_ORE.get(),"Erosive Cerulean Ore");
         this.add(TABlocks.GEODE_ORE.get(), "Geode Ore");
+        this.add(TABlocks.EROSIVE_GEODE_ORE.get(),"Erosive Geode Ore");
+        this.add(TABlocks.AURORIAN_EMERALD_ORE.get(),"Aurorian Emerald Ore");
+        this.add(TABlocks.AURORIAN_GOLD_ORE.get(),"Aurorian Gold Ore");
+        this.add(TABlocks.AURORIAN_IRON_ORE.get(),"Aurorian Iron Ore");
+        this.add(TABlocks.AURORIAN_LAPIS_ORE.get(),"Aurorian Lapis Ore");
+        this.add(TABlocks.AURORIAN_REDSTONE_ORE.get(),"Aurorian Redstone Ore");
+        this.add(TABlocks.AURORIAN_COPPER_ORE.get(),"Aurorian Copper Ore");
+        this.add(TABlocks.AURORIAN_DIAMOND_ORE.get(),"Aurorian Diamond Ore");
+        this.add(TABlocks.EROSIVE_AURORIAN_EMERALD_ORE.get(),"Erosive Aurorian Emerald Ore");
+        this.add(TABlocks.EROSIVE_AURORIAN_GOLD_ORE.get(),"Erosive Aurorian Gold Ore");
+        this.add(TABlocks.EROSIVE_AURORIAN_IRON_ORE.get(),"Erosive Aurorian Iron Ore");
+        this.add(TABlocks.EROSIVE_AURORIAN_LAPIS_ORE.get(),"Erosive Aurorian Lapis Ore");
+        this.add(TABlocks.EROSIVE_AURORIAN_REDSTONE_ORE.get(),"Erosive Aurorian Redstone Ore");
+        this.add(TABlocks.EROSIVE_AURORIAN_COPPER_ORE.get(),"Erosive Aurorian Copper Ore");
+        this.add(TABlocks.EROSIVE_AURORIAN_DIAMOND_ORE.get(),"Erosive Aurorian Diamond Ore");
         this.add(TABlocks.RUNE_STONE.get(), "Runestone");
         this.add(TABlocks.SMOOTH_RUNE_STONE.get(), "Smooth Runestone");
         this.add(TABlocks.CHISELED_RUNE_STONE.get(), "Chiseled Runestone");

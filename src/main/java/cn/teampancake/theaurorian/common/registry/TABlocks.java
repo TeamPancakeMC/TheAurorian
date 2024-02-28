@@ -27,6 +27,7 @@ public class TABlocks {
     public static final RegistryObject<LiquidBlock> MOON_WATER = BLOCKS.register("moon_water", () -> new LiquidBlock(TAFluids.MOON_WATER_STILL, copy(Blocks.WATER)));
     public static final RegistryObject<Block> AURORIAN_DIRT = normal("aurorian_dirt", copy(Blocks.DIRT));
     public static final RegistryObject<Block> AURORIAN_STONE = normal("aurorian_stone", defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_EROSIVE = normal("aurorian_erosive", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_STONE_BRICKS = normal("aurorian_stone_bricks", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_COBBLESTONE = normal("aurorian_cobblestone", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_GRANITE = normal("aurorian_granite", defaultStoneProperties(2.0F));
@@ -75,9 +76,32 @@ public class TABlocks {
     public static final RegistryObject<Block> TALL_AURORIAN_GRASS_LIGHT = register("tall_aurorian_grass_light", () -> new TALightDoublePlantBlock(copy(Blocks.TALL_GRASS), LIGHT_AURORIAN_GRASS_BLOCK));
     public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE = normal("smooth_aurorian_peridotite", defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> AURORIAN_PERIDOTITE = normal("aurorian_peridotite", defaultStoneProperties(5.0F));
+
+    /**
+     * Ore
+     */
+
     public static final RegistryObject<Block> MOONSTONE_ORE = ore("moonstone_ore", defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> EROSIVE_MOONSTONE_ORE = ore("erosive_moonstone_ore", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> CERULEAN_ORE = ore("cerulean_ore", defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> EROSIVE_CERULEAN_ORE = ore("erosive_cerulean_ore", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> GEODE_ORE = ore("geode_ore", defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> EROSIVE_GEODE_ORE = ore("erosive_geode_ore", defaultStoneProperties(2.0F));
+    public static final RegistryObject<Block> AURORIAN_EMERALD_ORE = ore("aurorian_emerald_ore", copy(Blocks.EMERALD_ORE));
+    public static final RegistryObject<Block> AURORIAN_GOLD_ORE =  ore("aurorian_gold_ore",copy(Blocks.GOLD_ORE));
+    public static final RegistryObject<Block> AURORIAN_IRON_ORE =  ore("aurorian_iron_ore", copy(Blocks.IRON_ORE));
+    public static final RegistryObject<Block> AURORIAN_LAPIS_ORE =  ore("aurorian_lapis_ore", copy(Blocks.LAPIS_ORE));
+    public static final RegistryObject<Block> AURORIAN_REDSTONE_ORE =  register("aurorian_redstone_ore", ()->new RedStoneOreBlock(copy(Blocks.REDSTONE_ORE)));
+    public static final RegistryObject<Block> AURORIAN_COPPER_ORE =  ore("aurorian_copper_ore", copy(Blocks.COPPER_ORE));
+    public static final RegistryObject<Block> AURORIAN_DIAMOND_ORE =  ore("aurorian_diamond_ore", copy(Blocks.DIAMOND_ORE));
+    public static final RegistryObject<Block> EROSIVE_AURORIAN_EMERALD_ORE = ore("erosive_aurorian_emerald_ore", copy(Blocks.DEEPSLATE_EMERALD_ORE));
+    public static final RegistryObject<Block> EROSIVE_AURORIAN_GOLD_ORE =  ore("erosive_aurorian_gold_ore", copy(Blocks.DEEPSLATE_GOLD_ORE));
+    public static final RegistryObject<Block> EROSIVE_AURORIAN_IRON_ORE =  ore("erosive_aurorian_iron_ore", copy(Blocks.DEEPSLATE_IRON_ORE));
+    public static final RegistryObject<Block> EROSIVE_AURORIAN_LAPIS_ORE =  ore("erosive_aurorian_lapis_ore", copy(Blocks.DEEPSLATE_LAPIS_ORE));
+    public static final RegistryObject<Block> EROSIVE_AURORIAN_REDSTONE_ORE =  register("erosive_aurorian_redstone_ore", ()-> new RedStoneOreBlock(copy(Blocks.DEEPSLATE_REDSTONE_ORE)));
+    public static final RegistryObject<Block> EROSIVE_AURORIAN_COPPER_ORE = ore("erosive_aurorian_copper_ore", copy(Blocks.DEEPSLATE_COPPER_ORE));
+    public static final RegistryObject<Block> EROSIVE_AURORIAN_DIAMOND_ORE =  ore("erosive_aurorian_diamond_ore", copy(Blocks.DEEPSLATE_DIAMOND_ORE));
+
     public static final RegistryObject<Block> RUNE_STONE = normal("rune_stone", breakWithQueenPickaxe());
     public static final RegistryObject<Block> SMOOTH_RUNE_STONE = normal("smooth_rune_stone", breakWithQueenPickaxe());
     public static final RegistryObject<Block> CHISELED_RUNE_STONE = normal("chiseled_rune_stone", breakWithQueenPickaxe());
@@ -448,6 +472,11 @@ public class TABlocks {
     public static final RegistryObject<Block> UMBRA_STONE_ROOF_WALL = wall("umbra_stone_roof_wall", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> AURORIAN_PERIDOTITE_WALL = wall("aurorian_peridotite_wall", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE_WALL = wall("smooth_aurorian_peridotite_wall", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+
+    /**
+     * Misc
+     */
+//    public static final  RegistryObject<Block> BED = register("bed",()->new BedBlock()) ;
 
     private static BlockBehaviour.Properties defaultStoneProperties(float destroyTime) {
         return of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM)

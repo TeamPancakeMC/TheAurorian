@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "aurorian_copper",
+  "ingredient": {
+    "item": "theaurorian:aurorian_copper_ore"
+  },
+  "result": "minecraft:copper_ingot"
+}

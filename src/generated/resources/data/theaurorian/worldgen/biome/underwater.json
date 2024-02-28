@@ -34,7 +34,22 @@
       "theaurorian:ore_aurorian_coal",
       "theaurorian:ore_moonstone",
       "theaurorian:ore_cerulean",
-      "theaurorian:ore_geode"
+      "theaurorian:ore_geode",
+      "theaurorian:ore_copper",
+      "theaurorian:ore_iron_middle",
+      "theaurorian:ore_iron_small",
+      "theaurorian:ore_iron_upper",
+      "theaurorian:ore_gold",
+      "theaurorian:ore_gold_extra",
+      "theaurorian:ore_gold_lower",
+      "theaurorian:ore_emerald",
+      "theaurorian:ore_lapis",
+      "theaurorian:ore_lapis_buried",
+      "theaurorian:ore_diamond",
+      "theaurorian:ore_diamond_large",
+      "theaurorian:ore_diamond_buried",
+      "theaurorian:ore_redstone",
+      "theaurorian:ore_redstone_lower"
     ]
   ],
   "has_precipitation": false,

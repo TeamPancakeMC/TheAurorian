@@ -39,14 +39,17 @@ public class LevelEventSubscriber {
                 }
             }
 
-            long dayTime = serverLevel.dayTime();
+            if (serverLevel.dimension() != TADimensions.AURORIAN_DIMENSION) {
+                return;
+            }
+
+            long dayTime = (serverLevel.dayTime()-6000L)/24000;
             if (dayTime % 200 == 0) {
                 for (ServerPlayer serverPlayer : playerList) {
-                    if (serverLevel.dimension() != TADimensions.AURORIAN_DIMENSION) {
-                        return;
-                    }
+                    if(serverPlayer.level().dimension() != TADimensions.AURORIAN_DIMENSION)
+                        continue;
 
-                    if (dayTime > 12000 && dayTime <= 24000) {
+                    if (dayTime > 6000 && dayTime <= 18000) {
                         serverPlayer.addEffect(blessEffect(TAMobEffects.PRESSURE.get()));
                     } else {
                         if (phaseCode == 2) {

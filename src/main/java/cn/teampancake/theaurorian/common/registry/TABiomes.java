@@ -126,7 +126,22 @@ public class TABiomes {
                 .addFeature(undergroundOre, TAPlacedFeatures.ORE_AURORIAN_COAL)
                 .addFeature(undergroundOre, TAPlacedFeatures.ORE_MOONSTONE)
                 .addFeature(undergroundOre, TAPlacedFeatures.ORE_CERULEAN)
-                .addFeature(undergroundOre, TAPlacedFeatures.ORE_GEODE);
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_GEODE)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_COPPER)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_IRON_MIDDLE)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_IRON_SMALL)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_IRON_UPPER)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_GOLD)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_GOLD_EXTRA)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_GOLD_LOWER)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_EMERALD)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_LAPIS)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_LAPIS_BURIED)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_DIAMOND)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_DIAMOND_LARGE)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_DIAMOND_BURIED)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_REDSTONE)
+                .addFeature(undergroundOre,TAPlacedFeatures.ORE_REDSTONE_LOWER);
     }
 
     private static BiomeSpecialEffects.Builder defaultAmbientBuilder() {

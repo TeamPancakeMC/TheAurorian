@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "aurorian_redstone",
+  "ingredient": {
+    "item": "theaurorian:erosive_aurorian_redstone_ore"
+  },
+  "result": "minecraft:redstone"
+}

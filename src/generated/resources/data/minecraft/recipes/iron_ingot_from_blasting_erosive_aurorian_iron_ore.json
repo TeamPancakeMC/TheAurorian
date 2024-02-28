@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "aurorian_iron",
+  "ingredient": {
+    "item": "theaurorian:erosive_aurorian_iron_ore"
+  },
+  "result": "minecraft:iron_ingot"
+}

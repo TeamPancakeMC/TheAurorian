@@ -12,6 +12,15 @@
           "block": "theaurorian:aurorian_stone",
           "predicate_type": "minecraft:block_match"
         }
+      },
+      {
+        "state": {
+          "Name": "theaurorian:erosive_geode_ore"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        }
       }
     ]
   }

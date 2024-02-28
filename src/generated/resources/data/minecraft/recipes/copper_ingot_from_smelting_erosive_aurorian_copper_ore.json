@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "aurorian_copper",
+  "ingredient": {
+    "item": "theaurorian:erosive_aurorian_copper_ore"
+  },
+  "result": "minecraft:copper_ingot"
+}

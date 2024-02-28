@@ -33,6 +33,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         //MOD BLOCK
         this.add(TABlocks.AURORIAN_DIRT.get(), "极光泥土");
         this.add(TABlocks.AURORIAN_STONE.get(), "极光石");
+        this.add(TABlocks.AURORIAN_EROSIVE.get(), "极光侵蚀岩");
         this.add(TABlocks.AURORIAN_STONE_BRICKS.get(), "极光石砖");
         this.add(TABlocks.AURORIAN_COBBLESTONE.get(), "极光圆石");
         this.add(TABlocks.AURORIAN_GRANITE.get(), "极光花岗岩");
@@ -79,8 +80,25 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.AURORIAN_PERIDOTITE.get(), "极光橄榄岩");
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), "平滑极光橄榄岩");
         this.add(TABlocks.MOONSTONE_ORE.get(), "皎月石矿石");
+        this.add(TABlocks.EROSIVE_MOONSTONE_ORE.get(),"侵蚀化皎月石矿石");
         this.add(TABlocks.CERULEAN_ORE.get(), "晶蓝矿石");
+        this.add(TABlocks.EROSIVE_CERULEAN_ORE.get(),"侵蚀化晶蓝矿石");
         this.add(TABlocks.GEODE_ORE.get(), "晶簇矿石");
+        this.add(TABlocks.EROSIVE_GEODE_ORE.get(),"侵蚀化晶簇矿石");
+        this.add(TABlocks.AURORIAN_EMERALD_ORE.get(),"极光绿宝石矿石");
+        this.add(TABlocks.AURORIAN_GOLD_ORE.get(),"极光金矿石");
+        this.add(TABlocks.AURORIAN_IRON_ORE.get(),"极光铁矿石");
+        this.add(TABlocks.AURORIAN_LAPIS_ORE.get(),"极光青金石矿石");
+        this.add(TABlocks.AURORIAN_REDSTONE_ORE.get(),"极光红石矿石");
+        this.add(TABlocks.AURORIAN_COPPER_ORE.get(),"极光铜矿石");
+        this.add(TABlocks.AURORIAN_DIAMOND_ORE.get(),"极光钻石矿石");
+        this.add(TABlocks.EROSIVE_AURORIAN_EMERALD_ORE.get(),"侵蚀化极光绿宝石矿石");
+        this.add(TABlocks.EROSIVE_AURORIAN_GOLD_ORE.get(),"侵蚀化极光金矿石");
+        this.add(TABlocks.EROSIVE_AURORIAN_IRON_ORE.get(),"侵蚀化极光铁矿石");
+        this.add(TABlocks.EROSIVE_AURORIAN_LAPIS_ORE.get(),"侵蚀化极光青金石矿石");
+        this.add(TABlocks.EROSIVE_AURORIAN_REDSTONE_ORE.get(),"侵蚀化极光红石矿石");
+        this.add(TABlocks.EROSIVE_AURORIAN_COPPER_ORE.get(),"侵蚀化极光铜矿石");
+        this.add(TABlocks.EROSIVE_AURORIAN_DIAMOND_ORE.get(),"侵蚀化极光钻石矿石");
         this.add(TABlocks.RUNE_STONE.get(), "符石");
         this.add(TABlocks.SMOOTH_RUNE_STONE.get(), "平滑符石");
         this.add(TABlocks.CHISELED_RUNE_STONE.get(), "雕纹符石");

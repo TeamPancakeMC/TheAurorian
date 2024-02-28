@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "aurorian_emerald",
+  "ingredient": {
+    "item": "theaurorian:erosive_aurorian_emerald_ore"
+  },
+  "result": "minecraft:emerald"
+}

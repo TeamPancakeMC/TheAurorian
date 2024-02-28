@@ -50,7 +50,7 @@ public class DecorationProcessor extends StructureProcessor {
             return new StructureTemplate.StructureBlockInfo(relativeBlockInfo.pos(), bushState, null);
         }
 
-        if ((state.getBlock() instanceof DropExperienceBlock || state.is(TABlocks.AURORIAN_STONE.get()) && random.nextBoolean())) {
+        if((state.getBlock() instanceof DropExperienceBlock || state.is(TABlocks.AURORIAN_STONE.get()) || state.is(TABlocks.AURORIAN_EROSIVE.get())) && random.nextBoolean()) {
             BlockState oreState = transferAllStateKeys(state, oreList().get(random.nextInt(oreList().size())));
             return new StructureTemplate.StructureBlockInfo(relativeBlockInfo.pos(), oreState, null);
         }
@@ -84,6 +84,7 @@ public class DecorationProcessor extends StructureProcessor {
     private static List<BlockState> oreList() {
         List<BlockState> list = new ArrayList<>();
         list.add(TABlocks.AURORIAN_STONE.get().defaultBlockState());
+        list.add(TABlocks.AURORIAN_EROSIVE.get().defaultBlockState());
         for (Block block : TACommonUtils.getKnownBlocks()) {
             if (block instanceof DropExperienceBlock) {
                 list.add(block.defaultBlockState());

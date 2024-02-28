@@ -72,25 +72,45 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.CROPS).add(TABlocks.LAVENDER_CROP.get(), TABlocks.SILK_BERRY_CROP.get());
         this.tag(BlockTags.FALL_DAMAGE_RESETTING).add(TABlocks.BLUEBERRY_BUSH.get());
         this.tag(BlockTags.SWORD_EFFICIENT).add(TABlocks.BLUEBERRY_BUSH.get());
-        this.tag(BlockTags.NEEDS_STONE_TOOL).add(TABlocks.MOONSTONE_ORE.get(), TABlocks.CERULEAN_ORE.get());
-        this.tag(BlockTags.NEEDS_IRON_TOOL).add(TABlocks.GEODE_ORE.get(), TABlocks.MOON_GEM.get(), TABlocks.MOONLIGHT_FORGE.get(),
-                TABlocks.CERULEAN_BLOCK.get(), TABlocks.MOONSTONE_BLOCK.get(), TABlocks.AURORIAN_STEEL_BLOCK.get());
+        this.tag(BlockTags.NEEDS_STONE_TOOL).add(TABlocks.MOONSTONE_ORE.get(), TABlocks.CERULEAN_ORE.get(),TABlocks.EROSIVE_MOONSTONE_ORE.get(),
+                TABlocks.EROSIVE_CERULEAN_ORE.get(),TABlocks.AURORIAN_IRON_ORE.get(),TABlocks.EROSIVE_AURORIAN_IRON_ORE.get(),
+                TABlocks.AURORIAN_COPPER_ORE.get(),TABlocks.EROSIVE_AURORIAN_COPPER_ORE.get(),TABlocks.AURORIAN_LAPIS_ORE.get(),
+                TABlocks.EROSIVE_AURORIAN_LAPIS_ORE.get());
+        this.tag(BlockTags.NEEDS_IRON_TOOL).add(TABlocks.GEODE_ORE.get(),TABlocks.EROSIVE_GEODE_ORE.get(), TABlocks.MOON_GEM.get(),
+                TABlocks.MOONLIGHT_FORGE.get(), TABlocks.CERULEAN_BLOCK.get(), TABlocks.MOONSTONE_BLOCK.get(),
+                TABlocks.AURORIAN_STEEL_BLOCK.get(),TABlocks.AURORIAN_GOLD_ORE.get(),TABlocks.EROSIVE_AURORIAN_GOLD_ORE.get(),
+                TABlocks.AURORIAN_DIAMOND_ORE.get(),TABlocks.EROSIVE_AURORIAN_DIAMOND_ORE.get(),TABlocks.AURORIAN_REDSTONE_ORE.get(),
+                TABlocks.EROSIVE_AURORIAN_REDSTONE_ORE.get(),TABlocks.AURORIAN_EMERALD_ORE.get(),TABlocks.EROSIVE_AURORIAN_EMERALD_ORE.get());
         this.tag(BlockTags.MINEABLE_WITH_AXE).add(TABlocks.AURORIAN_CRAFTING_TABLE.get(), TABlocks.BLUEBERRY_BUSH.get(),
                 TABlocks.VERTICAL_SILENT_WOOD_STAIRS.get(), TABlocks.VERTICAL_SILENT_WOOD_SLAB.get(), TABlocks.SILENT_WOOD_CHEST.get());
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(TABlocks.MOON_SAND.get(), TABlocks.AURORIAN_FARM_TILE.get(),
                 TABlocks.AURORIAN_DIRT.get(), TABlocks.AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
+        this.tag(BlockTags.COAL_ORES).add(TABlocks.AURORIAN_COAL_ORE.get());
+        this.tag(BlockTags.IRON_ORES).add(TABlocks.AURORIAN_IRON_ORE.get(),TABlocks.EROSIVE_AURORIAN_IRON_ORE.get());
+        this.tag(BlockTags.GOLD_ORES).add(TABlocks.AURORIAN_GOLD_ORE.get(),TABlocks.EROSIVE_AURORIAN_GOLD_ORE.get());
+        this.tag(BlockTags.COPPER_ORES).add(TABlocks.AURORIAN_COPPER_ORE.get(),TABlocks.EROSIVE_AURORIAN_COPPER_ORE.get());
+        this.tag(BlockTags.LAPIS_ORES).add(TABlocks.AURORIAN_LAPIS_ORE.get(),TABlocks.EROSIVE_AURORIAN_LAPIS_ORE.get());
+        this.tag(BlockTags.DIAMOND_ORES).add(TABlocks.AURORIAN_DIAMOND_ORE.get(),TABlocks.EROSIVE_AURORIAN_DIAMOND_ORE.get());
+        this.tag(BlockTags.REDSTONE_ORES).add(TABlocks.AURORIAN_REDSTONE_ORE.get(),TABlocks.EROSIVE_AURORIAN_REDSTONE_ORE.get());
+        this.tag(BlockTags.EMERALD_ORES).add(TABlocks.AURORIAN_EMERALD_ORE.get(),TABlocks.EROSIVE_AURORIAN_EMERALD_ORE.get());
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(TABlocks.AURORIAN_STONE.get(), TABlocks.AURORIAN_STONE_BRICKS.get(),
                 TABlocks.AURORIAN_COBBLESTONE.get(), TABlocks.AURORIAN_GRANITE.get(), TABlocks.AURORIAN_DIORITE.get(),
                 TABlocks.AURORIAN_ANDESITE.get(), TABlocks.AURORIAN_BARRIER_STONE.get(), TABlocks.AURORIAN_COAL_ORE.get(),
                 TABlocks.AURORIAN_FURNACE.get(), TABlocks.AURORIAN_FURNACE_CHIMNEY.get(), TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(),
                 TABlocks.AURORIAN_PERIDOTITE.get(), TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get(), TABlocks.MOONSTONE_ORE.get(),
-                TABlocks.CERULEAN_ORE.get(), TABlocks.GEODE_ORE.get(), TABlocks.CERULEAN_BLOCK.get(), TABlocks.MOONSTONE_BLOCK.get(),
-                TABlocks.AURORIAN_COAL_BLOCK.get(), TABlocks.AURORIAN_STEEL_BLOCK.get(), TABlocks.INDIGO_MUSHROOM_CRYSTAL.get(),
-                TABlocks.MOONLIGHT_FORGE.get(), TABlocks.MOON_GEM.get(), TABlocks.UMBRA_STONE.get(),
-                TABlocks.UMBRA_STONE_CRACKED.get(), TABlocks.UMBRA_STONE_ROOF_TILES.get(), TABlocks.MOON_SANDSTONE.get(),
-                TABlocks.SMOOTH_MOON_SANDSTONE.get(), TABlocks.CUT_MOON_SANDSTONE.get(), TABlocks.BRIGHT_MOON_SANDSTONE.get());
+                TABlocks.CERULEAN_ORE.get(), TABlocks.GEODE_ORE.get(), TABlocks.AURORIAN_EMERALD_ORE.get(),TABlocks.AURORIAN_GOLD_ORE.get(),
+                TABlocks.AURORIAN_IRON_ORE.get(),TABlocks.AURORIAN_REDSTONE_ORE.get(),TABlocks.AURORIAN_LAPIS_ORE.get(),
+                TABlocks.AURORIAN_DIAMOND_ORE.get(), TABlocks.AURORIAN_COPPER_ORE.get(), TABlocks.CERULEAN_BLOCK.get(),
+                TABlocks.EROSIVE_AURORIAN_EMERALD_ORE.get(),TABlocks.EROSIVE_AURORIAN_REDSTONE_ORE.get(),TABlocks.EROSIVE_AURORIAN_GOLD_ORE.get(),
+                TABlocks.EROSIVE_AURORIAN_COPPER_ORE.get(),TABlocks.EROSIVE_AURORIAN_IRON_ORE.get(),TABlocks.EROSIVE_AURORIAN_LAPIS_ORE.get(),
+                TABlocks.EROSIVE_AURORIAN_DIAMOND_ORE.get(), TABlocks.MOONSTONE_BLOCK.get(), TABlocks.AURORIAN_COAL_BLOCK.get(),
+                TABlocks.AURORIAN_STEEL_BLOCK.get(), TABlocks.INDIGO_MUSHROOM_CRYSTAL.get(), TABlocks.MOONLIGHT_FORGE.get(),
+                TABlocks.MOON_GEM.get(), TABlocks.UMBRA_STONE.get(), TABlocks.UMBRA_STONE_CRACKED.get(),
+                TABlocks.UMBRA_STONE_ROOF_TILES.get(), TABlocks.MOON_SANDSTONE.get(), TABlocks.SMOOTH_MOON_SANDSTONE.get(),
+                TABlocks.CUT_MOON_SANDSTONE.get(), TABlocks.BRIGHT_MOON_SANDSTONE.get(),TABlocks.EROSIVE_MOONSTONE_ORE.get(),
+                TABlocks.EROSIVE_GEODE_ORE.get(),TABlocks.EROSIVE_CERULEAN_ORE.get());
         this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(),
                 TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get(), TABlocks.CURTAIN_WOOD_PRESSURE_PLATE.get(),
                 TABlocks.CURSED_FROST_WOOD_PRESSURE_PLATE.get());

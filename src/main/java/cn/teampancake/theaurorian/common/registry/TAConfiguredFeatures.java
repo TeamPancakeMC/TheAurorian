@@ -22,6 +22,7 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -49,6 +50,7 @@ import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -56,6 +58,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class TAConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_GRASS = createKey("patch_aurorian_grass");
@@ -87,6 +90,20 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MOONSTONE = createKey("ore_moonstone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_CERULEAN = createKey("ore_cerulean");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GEODE = createKey("ore_geode");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON = createKey("ore_iron");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON_SMALL = createKey("ore_iron_small");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GOLD = createKey("ore_gold");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GOLD_BURIED = createKey("ore_gold_buried");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_REDSTONE = createKey("ore_redstone");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DIAMOND_SMALL = createKey("ore_diamond_small");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DIAMOND_LARGE = createKey("ore_diamond_large");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DIAMOND_BURIED = createKey("ore_diamond_buried");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_LAPIS = createKey("ore_lapis");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_LAPIS_BURIED = createKey("ore_lapis_buried");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_EMERALD = createKey("ore_emerald");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPPER_SMALL = createKey("ore_copper_small");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_LARGE = createKey("ore_copper_large");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_URN = createKey("random_urn");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SILENT_TREE = createKey("silent_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WEEPING_WILLOW_TREE = createKey("weeping_willow_tree");
@@ -132,6 +149,17 @@ public class TAConfiguredFeatures {
         HolderGetter<PlacedFeature> placedFeature = context.lookup(Registries.PLACED_FEATURE);
         RuleTest defaultStoneRuleTest = new BlockMatchTest(TABlocks.AURORIAN_STONE.get());
         RuleTest defaultDirtRuleTest = new BlockMatchTest(TABlocks.AURORIAN_DIRT.get());
+        RuleTest deepslateOreReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
+        List<OreConfiguration.TargetBlockState> ironTarget = List.of(OreConfiguration.target(defaultStoneRuleTest, TABlocks.AURORIAN_IRON_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_AURORIAN_IRON_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> goldTarget = List.of(OreConfiguration.target(defaultStoneRuleTest, TABlocks.AURORIAN_GOLD_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_AURORIAN_GOLD_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> diamondTarget = List.of(OreConfiguration.target(defaultStoneRuleTest, TABlocks.AURORIAN_DIAMOND_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_AURORIAN_DIAMOND_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> lapisTarget = List.of(OreConfiguration.target(defaultStoneRuleTest, TABlocks.AURORIAN_LAPIS_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_AURORIAN_LAPIS_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> copperTarget = List.of(OreConfiguration.target(defaultStoneRuleTest, TABlocks.AURORIAN_COPPER_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_AURORIAN_COPPER_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> redstoneTarget = List.of(OreConfiguration.target(defaultStoneRuleTest, TABlocks.AURORIAN_REDSTONE_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_AURORIAN_REDSTONE_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> ceruleanTarget = List.of(OreConfiguration.target(defaultStoneRuleTest, TABlocks.CERULEAN_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_CERULEAN_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> moonstoneTarget = List.of(OreConfiguration.target(defaultStoneRuleTest, TABlocks.MOONSTONE_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_MOONSTONE_ORE.get().defaultBlockState()));
+        List<OreConfiguration.TargetBlockState> geodeTarget = List.of(OreConfiguration.target(defaultStoneRuleTest, TABlocks.GEODE_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_GEODE_ORE.get().defaultBlockState()));
+
         BlockState wickGrass = TABlocks.WICK_GRASS.get().defaultBlockState();
         BlockState tallWickGrass = TABlocks.TALL_WICK_GRASS.get().defaultBlockState();
         BlockState blueberryBush = TABlocks.BLUEBERRY_BUSH.get().defaultBlockState();
@@ -253,9 +281,22 @@ public class TAConfiguredFeatures {
         FeatureUtils.register(context, ORE_AURORIAN_DIORITE, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.AURORIAN_DIORITE.get().defaultBlockState(), 33));
         FeatureUtils.register(context, ORE_AURORIAN_ANDESITE, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.AURORIAN_ANDESITE.get().defaultBlockState(), 33));
         FeatureUtils.register(context, ORE_AURORIAN_COAL, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.AURORIAN_COAL_ORE.get().defaultBlockState(), 16));
-        FeatureUtils.register(context, ORE_MOONSTONE, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.MOONSTONE_ORE.get().defaultBlockState(), 9));
-        FeatureUtils.register(context, ORE_CERULEAN, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.CERULEAN_ORE.get().defaultBlockState(), 7));
-        FeatureUtils.register(context, ORE_GEODE, Feature.ORE, new OreConfiguration(defaultStoneRuleTest, TABlocks.GEODE_ORE.get().defaultBlockState(), 5));
+        FeatureUtils.register(context, ORE_MOONSTONE, Feature.ORE, new OreConfiguration(moonstoneTarget, 9));
+        FeatureUtils.register(context, ORE_CERULEAN, Feature.ORE, new OreConfiguration(ceruleanTarget, 7));
+        FeatureUtils.register(context, ORE_GEODE, Feature.ORE, new OreConfiguration(geodeTarget, 5));
+        FeatureUtils.register(context, ORE_IRON, Feature.ORE, new OreConfiguration(ironTarget, 9));
+        FeatureUtils.register(context, ORE_IRON_SMALL, Feature.ORE, new OreConfiguration(ironTarget, 4));
+        FeatureUtils.register(context, ORE_GOLD, Feature.ORE, new OreConfiguration(goldTarget,9));
+        FeatureUtils.register(context, ORE_GOLD_BURIED, Feature.ORE, new OreConfiguration(goldTarget, 9, 0.5F));
+        FeatureUtils.register(context, ORE_REDSTONE, Feature.ORE, new OreConfiguration(redstoneTarget, 8));
+        FeatureUtils.register(context, ORE_DIAMOND_SMALL, Feature.ORE, new OreConfiguration(diamondTarget, 4, 0.5F));
+        FeatureUtils.register(context, ORE_DIAMOND_LARGE, Feature.ORE, new OreConfiguration(diamondTarget, 12, 0.7F));
+        FeatureUtils.register(context, ORE_DIAMOND_BURIED, Feature.ORE, new OreConfiguration(diamondTarget, 8, 1.0F));
+        FeatureUtils.register(context, ORE_LAPIS, Feature.ORE, new OreConfiguration(lapisTarget, 7));
+        FeatureUtils.register(context, ORE_LAPIS_BURIED, Feature.ORE, new OreConfiguration(lapisTarget, 7, 1.0F));
+        FeatureUtils.register(context, ORE_EMERALD, Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(defaultStoneRuleTest, TABlocks.AURORIAN_EMERALD_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_AURORIAN_EMERALD_ORE.get().defaultBlockState())), 3));
+        FeatureUtils.register(context, ORE_COPPPER_SMALL, Feature.ORE, new OreConfiguration(copperTarget, 10));
+        FeatureUtils.register(context, ORE_COPPER_LARGE, Feature.ORE, new OreConfiguration(copperTarget, 20));
         FeatureUtils.register(context, AURORIAN_FOREST_SPRING, TAFeatures.AURORIAN_FOREST_SPRING.get(), NoneFeatureConfiguration.NONE);
         FeatureUtils.register(context, AURORIAN_FOREST_REMAINS, TAFeatures.AURORIAN_FOREST_REMAINS.get(), NoneFeatureConfiguration.NONE);
         FeatureUtils.register(context, AURORIAN_FOREST_MEMORY_LOOP, TAFeatures.AURORIAN_FOREST_MEMORY_LOOP.get(), NoneFeatureConfiguration.NONE);

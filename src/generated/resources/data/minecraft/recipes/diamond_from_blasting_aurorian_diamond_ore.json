@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "aurorian_diamond",
+  "ingredient": {
+    "item": "theaurorian:aurorian_diamond_ore"
+  },
+  "result": "minecraft:diamond"
+}

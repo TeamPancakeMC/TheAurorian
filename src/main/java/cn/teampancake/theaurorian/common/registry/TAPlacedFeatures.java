@@ -12,6 +12,7 @@ import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -53,6 +54,22 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_MOONSTONE = createKey("ore_moonstone");
     public static final ResourceKey<PlacedFeature> ORE_CERULEAN = createKey("ore_cerulean");
     public static final ResourceKey<PlacedFeature> ORE_GEODE = createKey("ore_geode");
+    public static final ResourceKey<PlacedFeature> ORE_IRON_UPPER = createKey("ore_iron_upper");
+    public static final ResourceKey<PlacedFeature> ORE_IRON_MIDDLE = createKey("ore_iron_middle");
+    public static final ResourceKey<PlacedFeature> ORE_IRON_SMALL = createKey("ore_iron_small");
+    public static final ResourceKey<PlacedFeature> ORE_GOLD_EXTRA = createKey("ore_gold_extra");
+    public static final ResourceKey<PlacedFeature> ORE_GOLD = createKey("ore_gold");
+    public static final ResourceKey<PlacedFeature> ORE_GOLD_LOWER = createKey("ore_gold_lower");
+    public static final ResourceKey<PlacedFeature> ORE_REDSTONE = createKey("ore_redstone");
+    public static final ResourceKey<PlacedFeature> ORE_REDSTONE_LOWER = createKey("ore_redstone_lower");
+    public static final ResourceKey<PlacedFeature> ORE_DIAMOND = createKey("ore_diamond");
+    public static final ResourceKey<PlacedFeature> ORE_DIAMOND_LARGE = createKey("ore_diamond_large");
+    public static final ResourceKey<PlacedFeature> ORE_DIAMOND_BURIED = createKey("ore_diamond_buried");
+    public static final ResourceKey<PlacedFeature> ORE_LAPIS = createKey("ore_lapis");
+    public static final ResourceKey<PlacedFeature> ORE_LAPIS_BURIED = createKey("ore_lapis_buried");
+    public static final ResourceKey<PlacedFeature> ORE_EMERALD = createKey("ore_emerald");
+    public static final ResourceKey<PlacedFeature> ORE_COPPER = createKey("ore_copper");
+    public static final ResourceKey<PlacedFeature> ORE_COPPER_LARGE = createKey("ore_copper_large");
     public static final ResourceKey<PlacedFeature> RANDOM_URNS = createKey("random_urns");
     public static final ResourceKey<PlacedFeature> SILENT_TREE = createKey("silent_tree");
     public static final ResourceKey<PlacedFeature> WEEPING_WILLOW_TREE = createKey("weeping_willow_tree");
@@ -137,6 +154,39 @@ public class TAPlacedFeatures {
                 OrePlacements.commonOrePlacement(13, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(-32))));
         PlacementUtils.register(context, ORE_GEODE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_GEODE),
                 OrePlacements.commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(-16))));
+        PlacementUtils.register(context,ORE_GOLD,configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_GOLD),
+                OrePlacements.commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32))));
+        PlacementUtils.register(context,ORE_GOLD_LOWER,configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_GOLD_BURIED),
+                OrePlacements.orePlacement(CountPlacement.of(UniformInt.of(0, 1)), HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(-48))));
+        PlacementUtils.register(context,ORE_GOLD_EXTRA,configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_GOLD),
+                OrePlacements.commonOrePlacement(50, HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.absolute(256))));
+        PlacementUtils.register(context,ORE_IRON_UPPER,configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_IRON),
+                OrePlacements.commonOrePlacement(90, HeightRangePlacement.triangle(VerticalAnchor.absolute(80), VerticalAnchor.absolute(384))));
+        PlacementUtils.register(context,ORE_IRON_MIDDLE,configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_IRON),
+                OrePlacements.commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
+        PlacementUtils.register(context,ORE_IRON_SMALL,configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_IRON),
+                OrePlacements.commonOrePlacement(10, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(72))));
+        PlacementUtils.register(context,ORE_REDSTONE,configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_REDSTONE),
+                OrePlacements.commonOrePlacement(4, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(15))));
+        PlacementUtils.register(context,ORE_REDSTONE_LOWER,configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_REDSTONE),
+                OrePlacements.commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-32), VerticalAnchor.aboveBottom(32))));
+        PlacementUtils.register(context,ORE_DIAMOND,configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_DIAMOND_SMALL),
+                OrePlacements.commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-32), VerticalAnchor.aboveBottom(32))));
+        PlacementUtils.register(context,ORE_DIAMOND_BURIED,configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_DIAMOND_BURIED),
+                OrePlacements.commonOrePlacement(4, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
+        PlacementUtils.register(context, ORE_DIAMOND_LARGE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_DIAMOND_LARGE),
+                OrePlacements.rareOrePlacement(9, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
+        PlacementUtils.register(context, ORE_LAPIS,configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_LAPIS),
+                OrePlacements.commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32))));
+        PlacementUtils.register(context, ORE_LAPIS_BURIED, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_LAPIS_BURIED),
+                OrePlacements.commonOrePlacement(4, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(64))));
+        PlacementUtils.register(context, ORE_EMERALD, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_EMERALD),
+                OrePlacements.commonOrePlacement(100, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(480))));
+        PlacementUtils.register(context, ORE_COPPER, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_COPPPER_SMALL),
+                OrePlacements.commonOrePlacement(16, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(112))));
+        PlacementUtils.register(context, ORE_COPPER_LARGE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_COPPER_LARGE),
+                OrePlacements.commonOrePlacement(16, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(112))));
+
         PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URN));
         if (!smallRuinConfigList.isEmpty() && !AURORIAN_FOREST_SMALL_RUINS.isEmpty()) {
             for (int i = 0; i < AURORIAN_FOREST_SMALL_RUINS.size(); i++) {

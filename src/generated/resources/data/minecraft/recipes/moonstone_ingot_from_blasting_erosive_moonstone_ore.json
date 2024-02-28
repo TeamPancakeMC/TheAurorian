@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "moonstone",
+  "ingredient": {
+    "item": "theaurorian:erosive_moonstone_ore"
+  },
+  "result": "theaurorian:moonstone_ingot"
+}

@@ -8,10 +8,8 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -479,8 +477,8 @@ public class TABlocks {
     /**
      * Misc
      */
-    public static final RegistryObject<Block> MYSTERIUM_WOOL_BED = register("mysterium_wool_bed",()->new BedBlock(DyeColor.BLUE, BlockBehaviour.Properties.of().mapColor((mapcolor) -> mapcolor.getValue(BedBlock.PART) == BedPart.FOOT ? DyeColor.BLUE.getMapColor() : MapColor.WOOL).sound(SoundType.WOOD).strength(0.2F).noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)));
-    public static final RegistryObject<Block> SILENT_CAMPFIRE = register("silent_campfire", ()->new CampfireBlock(true, 1, copy(Blocks.CAMPFIRE)));
+    public static final RegistryObject<Block> MYSTERIUM_WOOL_BED = BLOCKS.register("mysterium_wool_bed", MysteriumWoolBed::new);
+    public static final RegistryObject<Block> SILENT_CAMPFIRE = register("silent_campfire", () -> new CampfireBlock(true, 1, copy(Blocks.CAMPFIRE)));
 
     private static BlockBehaviour.Properties defaultStoneProperties(float destroyTime) {
         return of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM)

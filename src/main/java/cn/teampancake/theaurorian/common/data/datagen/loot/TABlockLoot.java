@@ -17,6 +17,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -117,6 +118,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropNuggets(TABlocks.LARGE_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 5.0F, 6.0F);
         this.dropNuggets(TABlocks.MEDIUM_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 3.0F, 4.0F);
         this.dropNuggets(TABlocks.SMALL_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 0.0F, 2.0F);
+        this.add(TABlocks.MYSTERIUM_WOOL_BED.get(), block -> this.createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));
         this.add(TABlocks.MOONSTONE_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_MOONSTONE.get()));
         this.add(TABlocks.EROSIVE_MOONSTONE_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_MOONSTONE.get()));
         this.add(TABlocks.CERULEAN_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_CERULEAN.get()));

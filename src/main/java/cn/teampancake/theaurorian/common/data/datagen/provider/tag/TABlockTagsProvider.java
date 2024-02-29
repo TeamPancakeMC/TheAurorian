@@ -132,6 +132,7 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON).add(TABlocks.FILTHY_ICE.get());
         this.tag(BlockTags.ICE).add(TABlocks.FILTHY_ICE.get());
         this.tag(BlockTags.WOOL).add(TABlocks.MYSTERIUM_WOOL.get());
+        this.tag(BlockTags.BEDS).add(TABlocks.MYSTERIUM_WOOL_BED.get());
         this.tag(Tags.Blocks.CHESTS_WOODEN).add(TABlocks.SILENT_WOOD_CHEST.get());
         for (Block block : TACommonUtils.getKnownBlocks()) {
             float f1 = Blocks.BEDROCK.defaultDestroyTime();

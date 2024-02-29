@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.renderer.block.MoonlightForgeRenderer;
+import cn.teampancake.theaurorian.client.renderer.block.MysteriumWoolBedRenderer;
 import cn.teampancake.theaurorian.client.renderer.block.SilentWoodChestRenderer;
 import cn.teampancake.theaurorian.common.blocks.entity.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -28,11 +29,14 @@ public class TABlockEntityTypes {
             () -> BlockEntityType.Builder.of(SilentWoodChestBlockEntity::new, TABlocks.SILENT_WOOD_CHEST.get()).build(null));
     public static final RegistryObject<BlockEntityType<SilentWoodCraftingBlockEntity>> SILENT_WOOD_CRAFTING_TABLE = BLOCK_ENTITY_TYPES.register("silent_wood_crafting_table",
             () -> BlockEntityType.Builder.of(SilentWoodCraftingBlockEntity::new, TABlocks.AURORIAN_CRAFTING_TABLE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<MysteriumWoolBedBlockEntity>> MYSTERIUM_WOOL_BED = BLOCK_ENTITY_TYPES.register("mysterium_wool_bed",
+            () -> BlockEntityType.Builder.of(MysteriumWoolBedBlockEntity::new, TABlocks.MYSTERIUM_WOOL_BED.get()).build(null));
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(MOONLIGHT_FORGE.get(), MoonlightForgeRenderer::new);
         event.registerBlockEntityRenderer(SILENT_WOOD_CHEST.get(), SilentWoodChestRenderer::new);
+        event.registerBlockEntityRenderer(MYSTERIUM_WOOL_BED.get(), MysteriumWoolBedRenderer::new);
     }
 
 }

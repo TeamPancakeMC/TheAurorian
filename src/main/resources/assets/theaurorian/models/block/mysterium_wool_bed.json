@@ -1,6 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "block/cube_all",
+	"parent": "bed",
 	"texture_size": [48, 48],
 	"render_type": "cutout_mipped",
 	"textures": {

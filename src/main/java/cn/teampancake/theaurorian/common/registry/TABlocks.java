@@ -480,7 +480,7 @@ public class TABlocks {
      * Misc
      */
     public static final RegistryObject<Block> MYSTERIUM_WOOL_BED = register("mysterium_wool_bed",()->new BedBlock(DyeColor.BLUE, BlockBehaviour.Properties.of().mapColor((mapcolor) -> mapcolor.getValue(BedBlock.PART) == BedPart.FOOT ? DyeColor.BLUE.getMapColor() : MapColor.WOOL).sound(SoundType.WOOD).strength(0.2F).noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)));
-    public static final RegistryObject<Block> SILENT_CAMPFIRE = register("silent_campfire", ()->new CampfireBlock(true, 1, copy(Blocks.CAMPFIRE)));
+    public static final RegistryObject<Block> SILENT_CAMPFIRE = register("silent_campfire", ()->new SilentCampfireBlock(true, 1, copy(Blocks.CAMPFIRE)));
 
     private static BlockBehaviour.Properties defaultStoneProperties(float destroyTime) {
         return of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM)

@@ -4,11 +4,10 @@ import cn.teampancake.theaurorian.AurorianMod;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 
 public class TAItemTags {
 
-    public static final TagKey<Item> IS_UNCOMMON = create("is_uncommon");
+    public static final TagKey<Item> BUILDING_BLOCK = create("building_block");
     public static final TagKey<Item> IS_RARE = create("is_rare");
     public static final TagKey<Item> IS_EPIC = create("is_epic");
     public static final TagKey<Item> IS_LEGENDARY = create("is_legendary");

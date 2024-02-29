@@ -86,7 +86,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.CURSED_FROST_TREE_WOOD.get());
         this.dropSelf(TABlocks.CURSED_FROST_TREE_SAPLING.get());
         this.dropSelf(TABlocks.MYSTERIUM_WOOL_BED.get());
-        this.dropSelf(TABlocks.SILENT_CAMPFIRE.get());
+        this.dropWhenSilkTouch(TABlocks.SILENT_CAMPFIRE.get());
         this.dropWhenSilkTouch(TABlocks.FILTHY_ICE.get());
         this.dropWhenSilkTouch(TABlocks.MOON_GLASS.get());
         this.dropWhenSilkTouch(TABlocks.AURORIAN_GLASS.get());

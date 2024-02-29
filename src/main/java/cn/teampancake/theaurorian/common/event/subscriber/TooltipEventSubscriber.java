@@ -5,9 +5,7 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TATooltipRenderUtils;
 import cn.teampancake.theaurorian.compat.ModernUICompat;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,8 +14,6 @@ import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class TooltipEventSubscriber {
@@ -45,7 +41,7 @@ public class TooltipEventSubscriber {
         if (itemStack.is(TAItemTags.HAS_CUSTOM_TOOLTIPS)) {
             event.setCanceled(true);
             ModernUICompat.CancelModernUIRender();
-            if (itemStack.is(TAItemTags.IS_UNCOMMON)) TooltipData.UNCOMMON_ITEM.renderTooltips(event);
+            if (itemStack.is(TAItemTags.BUILDING_BLOCK)) TooltipData.UNCOMMON_ITEM.renderTooltips(event);
             if (itemStack.is(TAItemTags.IS_RARE)) TooltipData.RARE_ITEM.renderTooltips(event);
             if (itemStack.is(TAItemTags.IS_EPIC)) TooltipData.EPIC_ITEM.renderTooltips(event);
             if (itemStack.is(TAItemTags.IS_LEGENDARY)) TooltipData.LEGENDARY_ITEM.renderTooltips(event);

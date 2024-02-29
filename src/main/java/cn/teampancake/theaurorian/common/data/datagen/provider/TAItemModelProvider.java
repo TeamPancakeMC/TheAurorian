@@ -31,6 +31,8 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleItem(TAItems.SILK_BERRY.get());
         this.simpleItem(TAItems.BLUEBERRY.get());
         this.simpleItem(TAItems.LAVENDER_SEEDS.get());
+        this.simpleItem(TABlocks.MYSTERIUM_WOOL_BED.get().asItem());
+        this.simpleItem(TABlocks.SILENT_CAMPFIRE.get().asItem());
         this.simpleBlockItem(TABlocks.GEODE_ORE.get());
         this.simpleBlockItem(TABlocks.EROSIVE_GEODE_ORE.get());
         this.simpleBlockItem(TABlocks.CERULEAN_ORE.get());

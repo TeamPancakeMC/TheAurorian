@@ -50,7 +50,7 @@ public class TAItemTagsProvider extends ItemTagsProvider {
                 .add(TAItems.MOON_TEMPLE_KEY.get()).add(TAItems.MOON_TEMPLE_CELL_KEY.get()).add(TAItems.DARK_STONE_KEY.get());
         this.tag(TAItemTags.SPECTRAL_ARMOR).add(TAItems.SPECTRAL_HELMET.get(), TAItems.SPECTRAL_CHESTPLATE.get(),
                 TAItems.SPECTRAL_LEGGINGS.get(), TAItems.SPECTRAL_BOOTS.get());
-        this.tag(TAItemTags.HAS_CUSTOM_TOOLTIPS).addTag(TAItemTags.IS_UNCOMMON).addTag(TAItemTags.IS_RARE)
+        this.tag(TAItemTags.HAS_CUSTOM_TOOLTIPS).addTag(TAItemTags.BUILDING_BLOCK).addTag(TAItemTags.IS_RARE)
                 .addTag(TAItemTags.IS_EPIC).addTag(TAItemTags.IS_LEGENDARY).addTag(TAItemTags.IS_MYTHICAL)
                 .add(TAItems.WHITE_CHOCOLATE.get(), TAItems.RED_BOOK.get(), TAItems.RED_BOOK_RING.get(),
                         TAItems.STAR_OCEAN_CROSSBOW.get(), TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(),
@@ -78,7 +78,7 @@ public class TAItemTagsProvider extends ItemTagsProvider {
                 } else if (item.isEdible()) {
                     this.tag(TAItemTags.IS_RARE).add(item);
                 } else if (item instanceof BlockItem) {
-                    this.tag(TAItemTags.IS_UNCOMMON).add(item);
+                    this.tag(TAItemTags.BUILDING_BLOCK).add(item);
                 }
             }
         }

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "cookingtime": 100,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "theaurorian:aurorian_winged_fish"
+  },
+  "result": "theaurorian:cooked_aurorian_winged_fish"
+}

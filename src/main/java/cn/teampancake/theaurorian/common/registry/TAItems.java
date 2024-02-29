@@ -17,6 +17,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -205,7 +206,10 @@ public class TAItems {
     public static final RegistryObject<Item> SILK_SHROOM_STEW = food("silk_shroom_stew", 6, 1F, false);
     public static final RegistryObject<Item> LAVENDER_BREAD = food("lavender_bread", 4, 0.4F, false);
     public static final RegistryObject<Item> SOULLESS_FLESH = food("soulless_flesh", 2, 0.1F, false);
-    public static final RegistryObject<Item> MOON_FISH = food("moon_fish", 2, 0.1F, false);
+    public static final RegistryObject<Item> AURORIAN_WINGED_FISH = food("aurorian_winged_fish",2,0.4F,false);
+    public static final RegistryObject<Item> MOON_FISH = food("moon_fish", 2, 0.4F, false);
+    public static final RegistryObject<Item> COOKED_AURORIAN_WINGED_FISH = food("cooked_aurorian_winged_fish",5,6,false);
+    public static final RegistryObject<Item> COOKED_MOON_FISH = food("cooked_moon_fish",5,6,false);
     public static final RegistryObject<Item> LAVENDER_SEEDS = alias("lavender_seeds", TABlocks.LAVENDER_CROP, new Item.Properties());
     public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", TABlocks.SILK_BERRY_CROP,
             new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod((0.1F)).build()));
@@ -314,8 +318,10 @@ public class TAItems {
     public static final RegistryObject<Item> LIVING_DIVINING_ROD = ITEMS.register("living_divining_rod", LivingDiviningRod::new);
     public static final RegistryObject<Item> LOCK_PICKS = ITEMS.register("lock_picks", () -> new Item(new Item.Properties().durability(10)));
     public static final RegistryObject<Item> MOON_WATER_BUCKET = ITEMS.register("moon_water_bucket", () -> new BucketItem(TAFluids.MOON_WATER_STILL, new Item.Properties()));
+    public static final RegistryObject<Item> AURORIAN_WINGED_FISH_BUCKET = ITEMS.register("aurorian_winged_fish_bucket", () -> new MobBucketItem(TAEntityTypes.AURORIAN_WINGED_FISH,
+            () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
     public static final RegistryObject<Item> MOON_FISH_BUCKET = ITEMS.register("moon_fish_bucket", () -> new MobBucketItem(TAEntityTypes.MOON_FISH,
-            TAFluids.MOON_WATER_STILL, () -> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
+            () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
     public static final RegistryObject<Item> DEVELOPER_GIFT = ITEMS.register("developer_gift", DeveloperGift::new);
 
     /**

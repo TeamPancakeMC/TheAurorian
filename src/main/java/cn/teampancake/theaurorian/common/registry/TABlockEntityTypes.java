@@ -31,7 +31,6 @@ public class TABlockEntityTypes {
             () -> BlockEntityType.Builder.of(SilentWoodCraftingBlockEntity::new, TABlocks.AURORIAN_CRAFTING_TABLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<SilentCampfireBlockEntity>> SILENT_CAMPFIRE =  BLOCK_ENTITY_TYPES.register("silent_campfire",
             ()-> BlockEntityType.Builder.of(SilentCampfireBlockEntity::new,TABlocks.SILENT_CAMPFIRE.get()).build(null));
-
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(MOONLIGHT_FORGE.get(), MoonlightForgeRenderer::new);

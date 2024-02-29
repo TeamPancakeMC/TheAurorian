@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
+import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.AnimationState;
@@ -32,7 +33,7 @@ public class AurorianWingedFish extends AbstractAurorianFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return null;
+        return TAItems.AURORIAN_WINGED_FISH_BUCKET.get().getDefaultInstance();
     }
 
 }

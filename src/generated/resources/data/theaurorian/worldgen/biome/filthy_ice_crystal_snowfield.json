@@ -5,6 +5,7 @@
       "theaurorian:ta_cave_extra_underground"
     ]
   },
+  "creature_spawn_probability": 0.15,
   "downfall": 0.0,
   "effects": {
     "fog_color": 12648408,

@@ -36,8 +36,16 @@ public class TAEntityLoot extends VanillaEntityLoot {
         this.add(TAEntityTypes.BREAD_BEAST.get(), LootTable.lootTable());
         this.add(TAEntityTypes.ICEFIELD_DEER.get(), LootTable.lootTable());
         this.add(TAEntityTypes.BLUE_TAIL_WOLF.get(), LootTable.lootTable());
-        this.add(TAEntityTypes.MOON_FISH.get(), LootTable.lootTable());
-        this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), LootTable.lootTable());
+        this.add(TAEntityTypes.MOON_FISH.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(TAItems.MOON_FISH.get()))
+                        .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))));
+        this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(TAItems.AURORIAN_WINGED_FISH.get()))
+                        .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))));
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TAItems.LUCKY_RABBIT_EAR.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))

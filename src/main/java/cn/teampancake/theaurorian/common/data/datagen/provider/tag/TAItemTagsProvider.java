@@ -66,7 +66,8 @@ public class TAItemTagsProvider extends ItemTagsProvider {
                 TAItems.SILENT_WOOD_STICK.get(), TAItems.STICKY_SPIKER.get(), TAItems.CRYSTALLINE_SPRITE.get(), TAItems.CRYSTAL.get(),
                 TAItems.AURORIAN_CHAIN.get(), TAItems.AURORIAN_BERRY.get(), TAItems.EQUINOX_MUSHROOM.get(),
                 TAItems.WORLD_SCROLL_FRAGMENT.get(), TAItems.WORLD_SCROLL.get(), TAItems.WEBBING.get(),
-                TAItems.LIVING_DIVINING_ROD.get(), TAItems.MOON_WATER_BUCKET.get(), TAItems.MOON_FISH_BUCKET.get());
+                TAItems.LIVING_DIVINING_ROD.get(), TAItems.MOON_WATER_BUCKET.get(), TAItems.MOON_FISH_BUCKET.get(),
+                TAItems.AURORIAN_WINGED_FISH_BUCKET.get());
         this.tag(TAItemTags.IS_EPIC).add(TAItems.AURORIAN_STEEL.get());
         this.tag(TAItemTags.IS_LEGENDARY).add(TAItems.TROPHY_KEEPER.get(), TAItems.TROPHY_SPIDER_MOTHER.get(),
                 TAItems.TROPHY_MOON_QUEEN.get(), TAItems.DEVELOPER_GIFT.get(), TAItems.AURORIAN_CRYSTAL.get(),

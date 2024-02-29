@@ -11,12 +11,14 @@ import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
@@ -180,9 +182,10 @@ public class TARecipeProvider extends RecipeProvider {
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(TABlocks.MOON_TEMPLE_BRICKS.get()),
                         RecipeCategory.BUILDING_BLOCKS, TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get(), (0.1F), (200))
                 .unlockedBy(getHasName(TABlocks.MOON_TEMPLE_BRICKS.get()), has(TABlocks.MOON_TEMPLE_BRICKS.get())).save(consumer);
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(TAItems.AURORIAN_PORK.get()),
-                        RecipeCategory.FOOD, TAItems.COOKED_AURORIAN_PORK.get(), (0.3F), (200))
-                .unlockedBy(getHasName(TAItems.AURORIAN_PORK.get()), has(TAItems.AURORIAN_PORK.get())).save(consumer);
+        //food
+        buildFoodProcessRecipes(consumer,TAItems.AURORIAN_PORK.get(), TAItems.COOKED_AURORIAN_PORK.get(), 0.3F);
+        buildFoodProcessRecipes(consumer,TAItems.MOON_FISH.get(), TAItems.COOKED_MOON_FISH.get(),0.3F);
+        buildFoodProcessRecipes(consumer,TAItems.AURORIAN_WINGED_FISH.get(), TAItems.COOKED_AURORIAN_WINGED_FISH.get(),0.3F);
         //Moonlight Forge Recipes
         forging(consumer, TAItems.MOONSTONE_SWORD.get(), TAItems.UMBRA_INGOT.get(), TAItems.UMBRA_SWORD.get());
         forging(consumer, TAItems.MOONSTONE_PICKAXE.get(), TAItems.UMBRA_INGOT.get(), TAItems.UMBRA_PICKAXE.get());
@@ -452,6 +455,21 @@ public class TARecipeProvider extends RecipeProvider {
     private void buildSickleRecipes(Consumer<FinishedRecipe> consumer, ItemLike sickle, ItemLike material) {
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, sickle).define('#', material).define('I', TAItems.SILENT_WOOD_STICK.get())
                 .pattern("##I").pattern("# I").pattern("  I").unlockedBy(getHasName(material), has(material)).save(consumer);
+    }
+
+    protected void buildFoodProcessRecipes(Consumer<FinishedRecipe> consumer, Item input, Item output, float xp) {
+
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 200)
+                .unlockedBy(getHasName(input), has(input))
+                .save(consumer,AurorianMod.MOD_ID+":"+ ForgeRegistries.ITEMS.getKey(output).getPath() + "_smelting");
+
+        SimpleCookingRecipeBuilder.smoking(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 100)
+                .unlockedBy(getHasName(input), has(input))
+                .save(consumer,AurorianMod.MOD_ID+":"+ ForgeRegistries.ITEMS.getKey(output).getPath() + "_smoking");
+
+        SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 600)
+                .unlockedBy(getHasName(input), has(input))
+                .save(consumer,AurorianMod.MOD_ID+":"+ ForgeRegistries.ITEMS.getKey(output).getPath() + "_campfire_cooking");
     }
 
 }

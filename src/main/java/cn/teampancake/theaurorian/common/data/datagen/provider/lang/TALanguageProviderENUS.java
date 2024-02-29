@@ -521,6 +521,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.LIVING_DIVINING_ROD.get(),"Living Divining Rod");
         this.add(TAItems.MOON_WATER_BUCKET.get(), "Moon Water Bucket");
         this.add(TAItems.MOON_FISH_BUCKET.get(), "Moon Fish Bucket");
+        this.add(TAItems.AURORIAN_WINGED_FISH_BUCKET.get(), "Aurorian Winged Fish Bucket");
         this.add(TAItems.LOCK_PICKS.get(),"Lock Picks");
         this.add(TAItems.DEVELOPER_GIFT.get(), "Developer Gift");
         this.add(TAItems.RAW_MOONSTONE.get(), "Raw Moonstone");
@@ -557,7 +558,10 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.SILK_SHROOM_STEW.get(),"Silk Shroom Stew");
         this.add(TAItems.SLEEPING_BLACK_TEA.get(),"Sleeping Black Tea");
         this.add(TAItems.SOULLESS_FLESH.get(),"Soulless Flesh");
+        this.add(TAItems.AURORIAN_WINGED_FISH.get(), "Aurorian Winged Fish");
         this.add(TAItems.MOON_FISH.get(), "Moon Fish");
+        this.add(TAItems.COOKED_MOON_FISH.get(),"Cooked Moon Fish");
+        this.add(TAItems.COOKED_AURORIAN_WINGED_FISH.get(), "Cooked Aurorian Winged Fish");
         this.add(TAItems.WHITE_CHOCOLATE.get(), "White Chocolate");
         this.add(TAItems.CANDY.get(), "Candy");
         this.add(TAItems.CANDY_CANE.get(), "Candy Cane");

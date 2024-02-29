@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_aurorian_pork": {
+    "has_aurorian_winged_fish": {
       "conditions": {
         "items": [
           {
             "items": [
-              "theaurorian:aurorian_pork"
+              "theaurorian:aurorian_winged_fish"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "theaurorian:cooked_aurorian_pork"
+        "recipe": "theaurorian:cooked_aurorian_winged_fish_smoking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_aurorian_pork",
+      "has_aurorian_winged_fish",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "theaurorian:cooked_aurorian_pork"
+      "theaurorian:cooked_aurorian_winged_fish_smoking"
     ]
   },
   "sends_telemetry_event": false

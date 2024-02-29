@@ -85,6 +85,7 @@ public class VanillaItemCompat {
             DispenserBlock.registerBehavior(TAItems.CRYSTAL_ARROW.get(), new CrystalArrow.Dispense());
             DispenserBlock.registerBehavior(TAItems.MOON_WATER_BUCKET.get(), new DispenseBucket());
             DispenserBlock.registerBehavior(TAItems.MOON_FISH_BUCKET.get(), new DispenseBucket());
+            DispenserBlock.registerBehavior(TAItems.AURORIAN_WINGED_FISH_BUCKET.get(), new DispenseBucket());
         }
 
         @SubscribeEvent

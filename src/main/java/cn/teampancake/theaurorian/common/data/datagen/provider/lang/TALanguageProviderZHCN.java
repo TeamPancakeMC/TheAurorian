@@ -520,6 +520,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.LIVING_DIVINING_ROD.get(), "生命卜窥权杖");
         this.add(TAItems.MOON_WATER_BUCKET.get(), "皎月水桶");
         this.add(TAItems.MOON_FISH_BUCKET.get(), "皎月鱼桶");
+        this.add(TAItems.AURORIAN_WINGED_FISH_BUCKET.get(), "极光翅鱼桶");
         this.add(TAItems.LOCK_PICKS.get(), "开锁器");
         this.add(TAItems.DEVELOPER_GIFT.get(), "开发者礼物");
         this.add(TAItems.RAW_MOONSTONE.get(), "粗皎月石");
@@ -556,7 +557,10 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.SILK_SHROOM_STEW.get(), "桑葚煲");
         this.add(TAItems.SLEEPING_BLACK_TEA.get(), "昏睡红茶");
         this.add(TAItems.SOULLESS_FLESH.get(), "魂灭之肉");
+        this.add(TAItems.AURORIAN_WINGED_FISH.get(), "生极光翅鱼");
         this.add(TAItems.MOON_FISH.get(), "生皎月鱼");
+        this.add(TAItems.COOKED_MOON_FISH.get(),"熟皎月鱼");
+        this.add(TAItems.COOKED_AURORIAN_WINGED_FISH.get(), "熟极光翅鱼");
         this.add(TAItems.WHITE_CHOCOLATE.get(), "白巧克力");
         this.add(TAItems.CANDY.get(), "糖果");
         this.add(TAItems.CANDY_CANE.get(), "拐杖糖");

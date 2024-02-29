@@ -3,7 +3,9 @@ package cn.teampancake.theaurorian.common.data.datagen.provider.lang;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.data.LanguageProvider;
 
 import java.util.function.Supplier;
@@ -29,6 +31,17 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add("gamerule.enableNightmareMode.description", "开启后，极光维度中的所有非Boss怪物的部分基础属性将会得到增强，可通过调整相关的乘数来控制。");
         this.add("gamerule.nightmareModeMultiplier", "噩梦模式乘数");
         this.add("gamerule.nightmareModeMultiplier.description", "用于控制噩梦模式开启后，怪物属性翻的倍数。");
+        this.addBiome(TABiomes.AURORIAN_FOREST,"谧树森林");
+        this.addBiome(TABiomes.AURORIAN_PLAINS,"极光平原");
+        this.addBiome(TABiomes.AURORIAN_BEACH,"极光沙滩");
+        this.addBiome(TABiomes.AURORIAN_RIVER,"极光河流");
+        this.addBiome(TABiomes.AURORIAN_LAKE,"极光湖泊");
+        this.addBiome(TABiomes.AURORIAN_FOREST_HILL,"谧树森林山丘");
+        this.addBiome(TABiomes.EQUINOX_FLOWER_PLAINS,"彼岸花平原");
+        this.addBiome(TABiomes.LAVENDER_PLAINS,"薰衣草平原");
+        this.addBiome(TABiomes.WEEPING_WILLOW_FOREST,"垂柳森林");
+        this.addBiome(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD,"黯晶雪原");
+        this.addBiome(TABiomes.BRIGHT_MOON_DESERT,"皓月沙漠");
 
         //MOD BLOCK
         this.add(TABlocks.AURORIAN_DIRT.get(), "极光泥土");
@@ -796,8 +809,12 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.addTooltips(TAItems.TSLAT_SWORD, "没有人比tslat更懂该怎么做muti-dims mod XD");
     }
 
-    private void addTooltips(Supplier<Item> key, String name) {
-        this.add("tooltips." + key.get().getDescriptionId(), name);
+    private void addTooltips(Supplier<Item> key, String context) {
+        this.add("tooltips." + key.get().getDescriptionId(), context);
+    }
+
+    private void addBiome(ResourceKey<Biome> biome, String context){
+        this.add("biome." + biome.location().toLanguageKey(), context);
     }
 
 }

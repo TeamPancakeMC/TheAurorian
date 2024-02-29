@@ -1,8 +1,11 @@
 {
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
+	"render_type": "cutout_mipped",
 	"textures": {
-		"0": "theaurorian:block/silent_campfire"
+		"0": "theaurorian:block/silent_campfire",
+		"1": "theaurorian:block/silent_campfire_fire",
+		"particle": "theaurorian:block/silent_campfire_fire"
 	},
 	"elements": [
 		{
@@ -68,6 +71,32 @@
 				"up": {"uv": [0, 2.5, 8, 5.5], "texture": "#0"},
 				"down": {"uv": [0, 2.5, 8, 5.5], "texture": "#0"}
 			}
+		},
+		{
+			"from": [8, 1, -1],
+			"to": [8, 19, 17],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 1, 8]},
+			"faces": {
+				"north": {"uv": [1, 0, 0, 11], "texture": "#1"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"south": {"uv": [0, 0, 0, 16], "texture": "#1"},
+				"west": {"uv": [16, 0, 0, 16], "texture": "#1"},
+				"up": {"uv": [0, 0, 0, 16], "texture": "#1"},
+				"down": {"uv": [0, 0, 0, 16], "texture": "#1"}
+			}
+		},
+		{
+			"from": [-1, 1, 8],
+			"to": [17, 19, 8],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 1, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"east": {"uv": [0, 0, 0, 16], "texture": "#1"},
+				"south": {"uv": [16, 0, 0, 16], "texture": "#1"},
+				"west": {"uv": [0, 0, 0, 16], "texture": "#1"},
+				"up": {"uv": [0, 0, 0, 16], "rotation": 270, "texture": "#1"},
+				"down": {"uv": [0, 0, 0, 16], "rotation": 90, "texture": "#1"}
+			}
 		}
 	],
 	"groups": [
@@ -75,7 +104,7 @@
 			"name": "bone",
 			"origin": [8, 0, 8],
 			"color": 0,
-			"children": [0, 1, 2, 3, 4]
+			"children": [0, 1, 2, 3, 4, 5, 6]
 		}
 	]
 }

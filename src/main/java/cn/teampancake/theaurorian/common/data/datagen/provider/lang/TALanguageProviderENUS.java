@@ -3,7 +3,9 @@ package cn.teampancake.theaurorian.common.data.datagen.provider.lang;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.data.LanguageProvider;
 
 import java.util.function.Supplier;
@@ -30,6 +32,17 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add("gamerule.enableNightmareMode.description", "Enable to make Aurorian mobs(not bosses) fast and strong, change multiplier to adjust the strength of these effects.");
         this.add("gamerule.nightmareModeMultiplier", "Nightmare Mode Multiplier");
         this.add("gamerule.nightmareModeMultiplier.description", "Controls the multiplier of monster attributes when Nightmare Mode is enable.");
+        this.addBiome(TABiomes.AURORIAN_FOREST,"Aurorian Forest");
+        this.addBiome(TABiomes.AURORIAN_PLAINS,"Aurorian Plains");
+        this.addBiome(TABiomes.AURORIAN_BEACH,"Aurorian Beach");
+        this.addBiome(TABiomes.AURORIAN_RIVER,"Aurorian River");
+        this.addBiome(TABiomes.AURORIAN_LAKE,"Aurorian Lake");
+        this.addBiome(TABiomes.AURORIAN_FOREST_HILL,"Aurorian Forest Hill");
+        this.addBiome(TABiomes.EQUINOX_FLOWER_PLAINS,"Equinox Flower Plains");
+        this.addBiome(TABiomes.LAVENDER_PLAINS,"Lavender Plains");
+        this.addBiome(TABiomes.WEEPING_WILLOW_FOREST,"Weeping Willow Forest");
+        this.addBiome(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD,"Filthy Ice Crystal Snowfield");
+        this.addBiome(TABiomes.BRIGHT_MOON_DESERT,"Bright Moon Desert");
 
         //MOD BLOCK
         this.add(TABlocks.AURORIAN_DIRT.get(), "Aurorian Dirt");
@@ -797,8 +810,12 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.addTooltips(TAItems.TSLAT_SWORD, "Nobody know how to make muti-dims mod better than Tslat XD.");
     }
 
-    private void addTooltips(Supplier<Item> key, String name) {
-        this.add("tooltips." + key.get().getDescriptionId(), name);
+    private void addTooltips(Supplier<Item> key, String context) {
+        this.add("tooltips." + key.get().getDescriptionId(), context);
+    }
+
+    private void addBiome(ResourceKey<Biome> biome,String context){
+        this.add("biome." + biome.location().toLanguageKey(), context);
     }
 
 }

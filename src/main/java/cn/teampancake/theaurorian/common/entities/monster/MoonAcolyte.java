@@ -22,11 +22,15 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MoonAcolyte extends Monster {
+public class MoonAcolyte extends Monster implements GeoEntity {
 
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState attackAnimationState = new AnimationState();
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public MoonAcolyte(EntityType<? extends MoonAcolyte> type, Level level) {
         super(type, level);
@@ -58,20 +62,14 @@ public class MoonAcolyte extends Monster {
     }
 
     @Override
-    public void aiStep() {
-        super.aiStep();
-        if (this.level().isClientSide()) {
-            this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.walkAnimation.isMoving(), this.tickCount);
-        }
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericWalkIdleController(this));
+        controllers.add(DefaultAnimations.genericAttackAnimation(this, DefaultAnimations.ATTACK_SWING));
     }
 
     @Override
-    public void handleEntityEvent(byte id) {
-        if (id == 4) {
-            this.attackAnimationState.startIfStopped(this.tickCount);
-        } else {
-            super.handleEntityEvent(id);
-        }
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
     @Override

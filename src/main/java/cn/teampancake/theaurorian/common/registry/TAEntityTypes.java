@@ -164,7 +164,8 @@ public class TAEntityTypes {
         event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(BLUE_TAIL_WOLF.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(MOON_FISH.get(), MoonFishRenderer::new);
-        event.registerEntityRenderer(AURORIAN_WINGED_FISH.get(), AurorianWingedFishRenderer::new);
+        event.registerEntityRenderer(AURORIAN_WINGED_FISH.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(AURORIAN_WINGED_FISH.getId())));
         event.registerEntityRenderer(AURORIAN_RABBIT.get(), AurorianRabbitRenderer::new);
         event.registerEntityRenderer(AURORIAN_SHEEP.get(), AurorianSheepRenderer::new);
         event.registerEntityRenderer(AURORIAN_PIG.get(), AurorianPigRenderer::new);
@@ -174,7 +175,8 @@ public class TAEntityTypes {
         event.registerEntityRenderer(DISTURBED_HOLLOW.get(), DisturbedHollowRenderer::new);
         event.registerEntityRenderer(UNDEAD_KNIGHT.get(), UndeadKnightRenderer::new);
         event.registerEntityRenderer(SPIRIT.get(), SpiritRenderer::new);
-        event.registerEntityRenderer(MOON_ACOLYTE.get(), MoonAcolyteRenderer::new);
+        event.registerEntityRenderer(MOON_ACOLYTE.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(MOON_ACOLYTE.getId())));
         event.registerEntityRenderer(SPIDERLING.get(), SpiderlingRenderer::new);
         event.registerEntityRenderer(CRYSTALLINE_SPRITE.get(), CrystallineSpriteRenderer::new);
         event.registerEntityRenderer(CAVE_DWELLER.get(), CaveDwellerRenderer::new);
@@ -197,7 +199,6 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.BREAD_BEAST, BreadBeastModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.ICEFIELD_DEER, IcefieldDeerModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.MOON_FISH, MoonFishModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.AURORIAN_WINGED_FISH, AurorianWingedFishModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_RABBIT, AurorianRabbitModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SHEEP, AurorianSheepModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_PIG, AurorianPigModel::createBodyLayer);
@@ -211,7 +212,6 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.DISTURBED_HOLLOW, DisturbedHollowModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.UNDEAD_KNIGHT, UndeadKnightModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIRIT, SpiritModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.MOON_ACOLYTE, MoonAcolyteModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDERLING, SpiderlingModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CRYSTALLINE_SPRITE, CrystallineSpriteModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CAVE_DWELLER, CaveDwellerModel::createBodyLayer);

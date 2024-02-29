@@ -9,7 +9,6 @@ public class TAModelLayers {
     public static final ModelLayerLocation BREAD_BEAST = register("bread_beast");
     public static final ModelLayerLocation ICEFIELD_DEER = register("icefield_deer");
     public static final ModelLayerLocation MOON_FISH = register("moon_fish");
-    public static final ModelLayerLocation AURORIAN_WINGED_FISH = register("aurorian_winged_fish");
     public static final ModelLayerLocation AURORIAN_RABBIT = register("aurorian_rabbit");
     public static final ModelLayerLocation AURORIAN_SHEEP = register("aurorian_sheep");
     public static final ModelLayerLocation AURORIAN_PIG = register("aurorian_pig");
@@ -23,7 +22,6 @@ public class TAModelLayers {
     public static final ModelLayerLocation DISTURBED_HOLLOW = register("disturbed_hollow");
     public static final ModelLayerLocation UNDEAD_KNIGHT = register("undead_knight");
     public static final ModelLayerLocation SPIRIT = register("spirit");
-    public static final ModelLayerLocation MOON_ACOLYTE = register("moon_acolyte");
     public static final ModelLayerLocation SPIDERLING = register("spiderling");
     public static final ModelLayerLocation CRYSTALLINE_SPRITE = register("crystalline_sprite");
     public static final ModelLayerLocation CAVE_DWELLER = register("cave_dweller");

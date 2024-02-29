@@ -3,27 +3,31 @@ package cn.teampancake.theaurorian.common.entities.animal;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class AurorianWingedFish extends AbstractAurorianFish {
+public class AurorianWingedFish extends AbstractAurorianFish implements GeoEntity {
 
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState crashAnimationState = new AnimationState();
-    public final AnimationState crash2AnimationState = new AnimationState();
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public AurorianWingedFish(EntityType<? extends AurorianWingedFish> type, Level level) {
         super(type, level);
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        if (this.level().isClientSide) {
-            this.swimAnimationState.animateWhen(this.walkAnimation.isMoving(), this.tickCount);
-        }
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericSwimController(this));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
     @Override

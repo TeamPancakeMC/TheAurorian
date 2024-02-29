@@ -39,7 +39,6 @@ public class TAItems {
     public static final RegistryObject<Item> AURORIAN_WATER_MUSHROOM = ITEMS.register("aurorian_water_mushroom",
             () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_WATER_MUSHROOM.get(), new Item.Properties()));
     public static final RegistryObject<Item> SILENT_WOOD_CHEST = ITEMS.register("silent_wood_chest", SilentWoodChestItem::new);
-    public static final RegistryObject<Item> MYSTERIUM_WOOL_BED = ITEMS.register("mysterium_wool_bed", MysteriumWoolBedItem::new);
     public static final RegistryObject<Item> MOON_TORCH = ITEMS.register("moon_torch", () -> new StandingAndWallBlockItem(
             TABlocks.MOON_TORCH.get(), TABlocks.MOON_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
     public static final RegistryObject<Item> SILENT_WOOD_TORCH = ITEMS.register("silent_wood_torch", () -> new StandingAndWallBlockItem(

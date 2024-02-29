@@ -1,5 +1,4 @@
 {
-	"credit": "Made with Blockbench",
 	"parent": "bed",
 	"texture_size": [48, 48],
 	"render_type": "cutout_mipped",

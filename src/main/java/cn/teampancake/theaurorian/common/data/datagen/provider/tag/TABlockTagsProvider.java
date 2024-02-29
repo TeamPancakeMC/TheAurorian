@@ -59,6 +59,9 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(TABlockTags.CURSED_FROST_TREE_LOGS).add(TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get(),
                 TABlocks.STRIPPED_CURSED_FROST_TREE_WOOD.get(), TABlocks.CURSED_FROST_TREE_LOG.get(),
                 TABlocks.CURSED_FROST_TREE_WOOD.get());
+        this.tag(TABlockTags.AURORIAN_PLANKS).add(TABlocks.SILENT_TREE_PLANKS.get(),
+                TABlocks.WEEPING_WILLOW_PLANKS.get(), TABlocks.CURTAIN_TREE_PLANKS.get(),
+                TABlocks.CURSED_FROST_TREE_PLANKS.get());
         this.tag(TABlockTags.AURORIAN_GRASS_BLOCK).add(TABlocks.AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.RED_AURORIAN_GRASS_BLOCK.get());

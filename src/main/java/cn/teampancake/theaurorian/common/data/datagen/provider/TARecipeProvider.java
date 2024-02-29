@@ -117,6 +117,11 @@ public class TARecipeProvider extends RecipeProvider {
                 .define('X', TABlocks.AURORIAN_GLASS.get())
                 .pattern("IOI").pattern("OXO").pattern("IOI")
                 .unlockedBy(getHasName(TABlocks.AURORIAN_GLASS.get()), has(TABlocks.AURORIAN_GLASS.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.MYSTERIUM_WOOL_BED.get())
+                .define('#', TABlocks.MYSTERIUM_WOOL.get())
+                .define('X', TAItemTags.AURORIAN_PLANKS)
+                .pattern("###").pattern("XXX").group("bed")
+                .unlockedBy(getHasName(TABlocks.MYSTERIUM_WOOL.get()), has(TABlocks.MYSTERIUM_WOOL.get())).save(consumer);
         //Vanilla Shaped Recipes
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STRING).define('#', TAItems.PLANT_FIBER.get())
                 .pattern("###").pattern("###").pattern("###")

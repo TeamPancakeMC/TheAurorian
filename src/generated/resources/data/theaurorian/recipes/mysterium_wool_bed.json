@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "bed",
+  "key": {
+    "#": {
+      "item": "theaurorian:mysterium_wool"
+    },
+    "X": {
+      "tag": "theaurorian:aurorian_planks"
+    }
+  },
+  "pattern": [
+    "###",
+    "XXX"
+  ],
+  "result": {
+    "item": "theaurorian:mysterium_wool_bed"
+  },
+  "show_notification": true
+}

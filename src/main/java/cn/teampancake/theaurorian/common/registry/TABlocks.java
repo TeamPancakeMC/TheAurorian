@@ -5,7 +5,6 @@ import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockSetType;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -477,7 +476,7 @@ public class TABlocks {
     /**
      * Misc
      */
-    public static final RegistryObject<Block> MYSTERIUM_WOOL_BED = BLOCKS.register("mysterium_wool_bed", MysteriumWoolBed::new);
+    public static final RegistryObject<Block> MYSTERIUM_WOOL_BED = register("mysterium_wool_bed", MysteriumWoolBed::new);
     public static final RegistryObject<Block> SILENT_CAMPFIRE = register("silent_campfire", () -> new CampfireBlock(true, 1, copy(Blocks.CAMPFIRE)));
 
     private static BlockBehaviour.Properties defaultStoneProperties(float destroyTime) {

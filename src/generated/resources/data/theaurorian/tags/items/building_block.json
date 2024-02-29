@@ -3,7 +3,6 @@
     "theaurorian:aurorian_lily_pad",
     "theaurorian:aurorian_water_mushroom",
     "theaurorian:silent_wood_chest",
-    "theaurorian:mysterium_wool_bed",
     "theaurorian:moon_torch",
     "theaurorian:silent_wood_torch",
     "theaurorian:tall_wick_grass",
@@ -374,6 +373,7 @@
     "theaurorian:umbra_stone_roof_wall",
     "theaurorian:aurorian_peridotite_wall",
     "theaurorian:smooth_aurorian_peridotite_wall",
+    "theaurorian:mysterium_wool_bed",
     "theaurorian:silent_campfire",
     "theaurorian:lavender_seeds"
   ]

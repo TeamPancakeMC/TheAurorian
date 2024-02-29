@@ -37,6 +37,7 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.copy(TABlockTags.AURORIAN_GRASS_BLOCK, TAItemTags.AURORIAN_GRASS_BLOCK);
         this.copy(TABlockTags.AURORIAN_CARVER_REPLACEABLES, TAItemTags.AURORIAN_CARVER_REPLACEABLES);
         this.copy(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, TAItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
+        this.tag(Tags.Items.RODS_WOODEN).add(TAItems.SILENT_WOOD_STICK.get());
         this.tag(Tags.Items.TOOLS_CROSSBOWS).add(TAItems.STAR_OCEAN_CROSSBOW.get());
         this.tag(Tags.Items.TOOLS_BOWS).add(TAItems.SILENT_WOOD_BOW.get()).add(TAItems.KEEPERS_BOW.get());
         this.tag(Tags.Items.TOOLS_SHIELDS).add(TAItems.CERULEAN_SHIELD.get(), TAItems.CRYSTALLINE_SHIELD.get(),

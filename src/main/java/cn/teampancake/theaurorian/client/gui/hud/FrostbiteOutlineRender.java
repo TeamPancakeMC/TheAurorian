@@ -21,7 +21,7 @@ public class FrostbiteOutlineRender {
             player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
                 int i = miscNBT.getTicksFrostbite();
                 int j = player.getTicksRequiredToFreeze();
-                if (i > 0 && player.getTicksFrozen() <= 0) {
+                if (player.getTicksFrozen() <= 0) {
                     float percentFrozen = (float) Math.min(i, j) / (float) j;
                     forgeGui.renderTextureOverlay(guiGraphics, Gui.POWDER_SNOW_OUTLINE_LOCATION, percentFrozen);
                 }

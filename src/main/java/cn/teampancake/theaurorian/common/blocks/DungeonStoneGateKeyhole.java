@@ -1,11 +1,9 @@
 package cn.teampancake.theaurorian.common.blocks;
 
+import cn.teampancake.theaurorian.common.blocks.entity.DungeonStoneGateBlockEntity;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
-import cn.teampancake.theaurorian.common.utils.AurorianUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -40,27 +38,26 @@ public class DungeonStoneGateKeyhole extends DungeonStoneGate {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack handStack = player.getItemInHand(hand);
         int amount = player.getAbilities().instabuild ? 0 : 1;
-        if (!player.isSteppingCarefully() && handStack.is(this.keyItem.get())) {
-            this.unlockRelativeSameBlock(state, level, pos);
-            handStack.shrink(amount);
-        } else if (!player.isSteppingCarefully() && handStack.is(TAItems.LOCK_PICKS.get()) && this.lockPickable) {
-            handStack.hurtAndBreak(amount, player, p -> p.broadcastBreakEvent(hand));
-            if (AurorianUtil.randomChanceOf(0.33F)) {
-                this.unlockRelativeSameBlock(state, level, pos);
-            } else {
-                level.playSound(null, player.getOnPos(), SoundEvents.ITEM_BREAK, SoundSource.NEUTRAL, 0.5F, 1F);
+        if (!player.isSteppingCarefully() && state.hasBlockEntity()) {
+            if (level.getBlockEntity(pos) instanceof DungeonStoneGateBlockEntity blockEntity && !blockEntity.isActive()) {
+                boolean canUnlock = this.lockPickable && level.random.nextFloat() <= 0.33F;
+                if (handStack.is(this.keyItem.get()) || (handStack.is(TAItems.LOCK_PICKS.get()) && canUnlock)) {
+                    blockEntity.setActiveInterval(level.random.nextInt(20));
+                    int preset = level.random.nextInt(40);
+                    int interval = blockEntity.getActiveInterval();
+                    blockEntity.setDestroyCountdown(preset < interval ? interval + preset : preset);
+                    blockEntity.setGateState(this.gateBlock.get().defaultBlockState());
+                    blockEntity.setActive(true);
+                    if (handStack.isDamageableItem()) {
+                        handStack.hurtAndBreak(amount, player, p -> p.broadcastBreakEvent(hand));
+                    } else {
+                        handStack.shrink(amount);
+                    }
+                }
             }
         }
-        return InteractionResult.SUCCESS;
-    }
 
-    @Override
-    protected void unlockRelativeSameBlock(BlockState state, Level level, BlockPos pos) {
-        BlockState relativeState = level.getBlockState(pos);
-        if (relativeState.getBlock() == this.gateBlock.get() && !this.isDestroyed(relativeState) && !relativeState.getValue(UNLOCKED)) {
-            level.setBlockAndUpdate(pos, relativeState.setValue(UNLOCKED, true));
-            level.scheduleTick(pos, relativeState.getBlock(), 2 + level.getRandom().nextInt(5));
-        }
+        return InteractionResult.SUCCESS;
     }
 
 }

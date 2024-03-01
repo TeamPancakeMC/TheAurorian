@@ -30,7 +30,13 @@ public class TABlockEntityTypes {
     public static final RegistryObject<BlockEntityType<SilentWoodCraftingBlockEntity>> SILENT_WOOD_CRAFTING_TABLE = BLOCK_ENTITY_TYPES.register("silent_wood_crafting_table",
             () -> BlockEntityType.Builder.of(SilentWoodCraftingBlockEntity::new, TABlocks.AURORIAN_CRAFTING_TABLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<SilentCampfireBlockEntity>> SILENT_CAMPFIRE =  BLOCK_ENTITY_TYPES.register("silent_campfire",
-            ()-> BlockEntityType.Builder.of(SilentCampfireBlockEntity::new,TABlocks.SILENT_CAMPFIRE.get()).build(null));
+            ()-> BlockEntityType.Builder.of(SilentCampfireBlockEntity::new, TABlocks.SILENT_CAMPFIRE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<DungeonStoneGateBlockEntity>> DUNGEON_STONE_GATE = BLOCK_ENTITY_TYPES.register("dungeon_stone_gate",
+            () -> BlockEntityType.Builder.of(DungeonStoneGateBlockEntity::new, TABlocks.RUNE_STONE_GATE.get(), TABlocks.MOON_TEMPLE_GATE.get(),
+                    TABlocks.DARK_STONE_GATE.get(), TABlocks.RUNE_STONE_LOOT_GATE.get(), TABlocks.MOON_TEMPLE_CELL_GATE.get(),
+                    TABlocks.DARK_STONE_GATE_KEYHOLE.get(), TABlocks.MOON_TEMPLE_GATE_KEYHOLE.get(), TABlocks.RUNE_STONE_GATE_KEYHOLE.get(),
+                    TABlocks.RUNE_STONE_LOOT_GATE_KEYHOLE.get(), TABlocks.MOON_TEMPLE_CELL_GATE_KEYHOLE.get()).build(null));
+
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(MOONLIGHT_FORGE.get(), MoonlightForgeRenderer::new);

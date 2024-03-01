@@ -19,6 +19,9 @@ public class TAMobEffects {
             .addAttributeModifier(Attributes.MOVEMENT_SPEED, "3e4b0f9a-243e-4ea0-96ed-240437577f30", (-1), AttributeModifier.Operation.MULTIPLY_TOTAL));
     public static final RegistryObject<MobEffect> MOON_OF_VENGEANCE = MOB_EFFECTS.register("moon_of_vengeance", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0x960a17)
             .addAttributeModifier(Attributes.ATTACK_DAMAGE, "b8b5ad84-3a19-416a-870f-ac44bdee5954", 2.0F, AttributeModifier.Operation.MULTIPLY_TOTAL));
+    public static final RegistryObject<MobEffect> OVERHEATING = MOB_EFFECTS.register("overheating", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0xdb5f39)
+            .addAttributeModifier(Attributes.MOVEMENT_SPEED, "67f2d4c8-ccad-4d1b-9723-7f451a1a2519", -0.1D, AttributeModifier.Operation.MULTIPLY_TOTAL)
+            .addAttributeModifier(Attributes.ATTACK_SPEED, "6b1234f2-8578-49c5-bac1-ce2ed42445c5", -0.2D, AttributeModifier.Operation.MULTIPLY_TOTAL));
     public static final RegistryObject<MobEffect> TOUGH = MOB_EFFECTS.register("tough", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xf49cae));
     public static final RegistryObject<MobEffect> BROKEN = MOB_EFFECTS.register("broken", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0x808080));
     public static final RegistryObject<MobEffect> CRESCENT = MOB_EFFECTS.register("crescent", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xd1b9a1));

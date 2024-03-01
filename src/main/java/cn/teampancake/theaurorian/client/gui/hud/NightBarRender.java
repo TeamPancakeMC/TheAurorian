@@ -28,7 +28,7 @@ public class NightBarRender {
     public static void render(ForgeGui forgeGui, GuiGraphics guiGraphics, int width, int height, Player player) {
         RenderSystem.enableBlend();
         int offsetX, offsetY;
-        long dayTime = (player.level().getDayTime()-6000L) % 24000;
+        long dayTime = (player.level().getDayTime()+6000L) % 24000;
         if (dayTime > 6000 && dayTime <= 18000 || player.level().dimension() != TADimensions.AURORIAN_DIMENSION) {
             guiGraphics.blit(NightRender, 0, 0, 90,64 , BAR_WIDTH, BAR_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT); //Render frame
         } else {

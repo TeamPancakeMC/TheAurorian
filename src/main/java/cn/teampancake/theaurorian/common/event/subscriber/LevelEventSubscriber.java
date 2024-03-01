@@ -35,7 +35,7 @@ public class LevelEventSubscriber {
         if (event.level instanceof ServerLevel serverLevel) {
             List<ServerPlayer> playerList = serverLevel.players();
             if (serverLevel.dimension() == TADimensions.AURORIAN_DIMENSION) {
-                long dayCounter = (serverLevel.dayTime() - 6000L) / 24000;
+                long dayCounter = (serverLevel.dayTime() + 6000L) / 24000;
                 if (dayCounter != dayCount) {
                     dayCount = (int) Math.floor(dayCounter);
 
@@ -55,7 +55,7 @@ public class LevelEventSubscriber {
                 return;
             }
 
-            long dayTime = (serverLevel.dayTime()-6000L) % 24000;
+            long dayTime = (serverLevel.dayTime()+6000L) % 24000;
             if (dayTime % 200 == 0) {
                 for (ServerPlayer serverPlayer : playerList) {
                     if(serverPlayer.level().dimension() != TADimensions.AURORIAN_DIMENSION)

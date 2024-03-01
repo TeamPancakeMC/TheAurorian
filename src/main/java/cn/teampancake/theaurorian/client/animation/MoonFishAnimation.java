@@ -8,9 +8,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class QuartzFishAnimation {
+public class MoonFishAnimation {
     
-    public static final AnimationDefinition QUARTZ_FISH_SWIM = AnimationDefinition.Builder.withLength(1f).looping()
+    public static final AnimationDefinition SWIM = AnimationDefinition.Builder.withLength(1f).looping()
             .addAnimation("main_body", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(0.375f, KeyframeAnimations.degreeVec(0f, 5f, 0f), AnimationChannel.Interpolations.LINEAR),

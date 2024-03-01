@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
-import cn.teampancake.theaurorian.client.animation.QuartzFishAnimation;
+import cn.teampancake.theaurorian.client.animation.MoonFishAnimation;
 import cn.teampancake.theaurorian.common.entities.animal.MoonFish;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -38,7 +38,7 @@ public class MoonFishModel<T extends MoonFish> extends HierarchicalModel<T> {
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(QuartzFishAnimation.QUARTZ_FISH_SWIM, limbSwing, limbSwingAmount, (1.5F), (1.0F));
+        this.animateWalk(MoonFishAnimation.SWIM, limbSwing, limbSwingAmount, (1.0F), (1.0F));
     }
 
     @Override

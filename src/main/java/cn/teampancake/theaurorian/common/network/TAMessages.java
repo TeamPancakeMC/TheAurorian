@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.network;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.network.message.FrostbiteSyncMessage;
+import cn.teampancake.theaurorian.common.network.message.FutureNightMessage;
 import cn.teampancake.theaurorian.common.network.message.NightSyncMessage;
 import cn.teampancake.theaurorian.common.network.message.ShieldSyncS2CMessage;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,6 +25,7 @@ public class TAMessages {
         INSTANCE.registerMessage(id(), ShieldSyncS2CMessage.class, ShieldSyncS2CMessage::encode, ShieldSyncS2CMessage::decode, ShieldSyncS2CMessage::handle);
         INSTANCE.registerMessage(id(), NightSyncMessage.class, NightSyncMessage::encode, NightSyncMessage::decode, NightSyncMessage::handle);
         INSTANCE.registerMessage(id(), FrostbiteSyncMessage.class, FrostbiteSyncMessage::encode, FrostbiteSyncMessage::decode, FrostbiteSyncMessage::handle);
+        INSTANCE.registerMessage(id(), FutureNightMessage.class,FutureNightMessage::encode,FutureNightMessage::decode,FutureNightMessage::handle);
     }
 
     public static <MSG> void sendToServer(MSG message) {

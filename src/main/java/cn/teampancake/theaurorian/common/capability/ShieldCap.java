@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -58,13 +59,14 @@ public class ShieldCap implements INBTSerializable<CompoundTag> {
     }
 
     private float applyShields(LivingEntity entity, DamageSource source, float damage, List<IShield> shields, int index) {
+
         if (index >= shields.size() || damage <= 0.0f) {
             return damage;
         }
 
         IShield currentShield = shields.get(index);
         if (currentShield.getShield() <= 0.0f) {
-            if (currentShield.isBroken()){
+            if (currentShield.isBroken() && entity instanceof Player){
                 currentShield.onBroken(entity);
             }
             return applyShields(entity, source, damage, shields, index + 1);

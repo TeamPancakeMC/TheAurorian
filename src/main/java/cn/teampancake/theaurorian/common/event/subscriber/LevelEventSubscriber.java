@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.common.event.TAEventFactory;
 import cn.teampancake.theaurorian.common.network.TAMessages;
+import cn.teampancake.theaurorian.common.network.message.FutureNightMessage;
 import cn.teampancake.theaurorian.common.network.message.NightSyncMessage;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
@@ -16,13 +17,18 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class LevelEventSubscriber {
 
     private static int dayCount;
     public static int phaseCode = 0;
+
+    public static Queue<Integer> futurePhase= new LinkedList<>();
 
     @SubscribeEvent
     public static void onLevelTick(TickEvent.LevelTickEvent event) {
@@ -32,9 +38,15 @@ public class LevelEventSubscriber {
                 long dayCounter = (serverLevel.dayTime() - 6000L) / 24000;
                 if (dayCounter != dayCount) {
                     dayCount = (int) Math.floor(dayCounter);
-                    phaseCode = (int) (Math.random() * TASkyRenderer.getDaySkyColors().size());
+
+                    if(futurePhase.size()<4)
+                        futurePhase.add((int) (Math.random() * TASkyRenderer.getDaySkyColors().size()));
+                    phaseCode = futurePhase.remove();
+
+                    Integer[] list=futurePhase.toArray(Integer[]::new);
                     for (ServerPlayer serverPlayer : playerList) {
                         TAMessages.sendToPlayer(new NightSyncMessage(phaseCode), serverPlayer);
+                        TAMessages.sendToPlayer(new FutureNightMessage(Arrays.stream(list).mapToInt(Integer::valueOf).toArray()),serverPlayer);
                     }
                 }
             }
@@ -43,7 +55,7 @@ public class LevelEventSubscriber {
                 return;
             }
 
-            long dayTime = (serverLevel.dayTime()-6000L)/24000;
+            long dayTime = (serverLevel.dayTime()-6000L) % 24000;
             if (dayTime % 200 == 0) {
                 for (ServerPlayer serverPlayer : playerList) {
                     if(serverPlayer.level().dimension() != TADimensions.AURORIAN_DIMENSION)

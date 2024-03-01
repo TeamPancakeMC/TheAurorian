@@ -75,7 +75,7 @@
         "type": "theaurorian:spirit",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 2
+        "weight": 90
       }
     ],
     "underground_water_creature": [],

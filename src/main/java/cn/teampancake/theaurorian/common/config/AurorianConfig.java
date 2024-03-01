@@ -121,7 +121,7 @@ public class AurorianConfig {
                 .defineInRange("MaximumChimneys", 10, 0, 255);
 
         CONFIG_CHIMNEY_SPEED_MULTIPLIER = BUILDER
-                .comment("Maximum number of chimneys able to be stacked on Aurorian Furnace")
+                .comment("Maximum number of chimneys able to boost on Aurorian Furnace")
                 .defineInRange("ChimneySpeedMultiplier", 0.5D, 0.0D, 0.99D);
 
         CONFIG_CRYSTALS_SPEED_UP_MACHINES = BUILDER

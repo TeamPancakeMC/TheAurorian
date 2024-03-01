@@ -481,6 +481,7 @@ public class TABlocks {
 
     private static BlockBehaviour.Properties defaultStoneProperties(float destroyTime) {
         return of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM)
+                .sound(SoundType.STONE)
                 .requiresCorrectToolForDrops().strength(destroyTime, (destroyTime * 5.0F));
     }
 

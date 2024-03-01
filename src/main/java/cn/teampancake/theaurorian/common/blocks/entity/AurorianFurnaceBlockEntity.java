@@ -44,32 +44,33 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         return (float) ((chimneyCount / AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) * AurorianConfig.CONFIG_CHIMNEY_SPEED_MULTIPLIER.get());
     }
 
-    private int getSmeltTime() {
-        return (int) (200 - 200 * this.getChimneySpeedMultiplier());
+    private int getSmeltTime(float ChimneySpeedMultiplier) {
+        return (int) (200 - 200 * ChimneySpeedMultiplier);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, AurorianFurnaceBlockEntity blockEntity) {
-        boolean flag = blockEntity.isLit();
+        boolean isLit = blockEntity.isLit();
         boolean flag1 = false;
-        if (blockEntity.isLit()) {
+        if (isLit) {
             --blockEntity.litTime;
         }
 
         ItemStack itemStack = blockEntity.items.get(1);
-        boolean flag2 = !blockEntity.items.get(0).isEmpty();
-        boolean flag3 = !itemStack.isEmpty();
-        if (blockEntity.isLit() || flag3 && flag2) {
+        boolean hasInput = !blockEntity.items.get(0).isEmpty();
+        boolean hasFuel = !itemStack.isEmpty();
+        if (isLit || hasFuel && hasInput) {
             int i = blockEntity.getMaxStackSize();
-            Recipe<?> recipe = flag2 ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
+            float chimneySpeedMultiplier = blockEntity.getChimneySpeedMultiplier();
+            Recipe<?> recipe = hasInput ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
             if (!blockEntity.isLit() && blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, i)) {
                 int burnDuration = blockEntity.getBurnDuration(itemStack);
-                blockEntity.litTime = (int) (burnDuration - burnDuration * blockEntity.getChimneySpeedMultiplier());
+                blockEntity.litTime = (int) (burnDuration - burnDuration * chimneySpeedMultiplier);
                 blockEntity.litDuration = blockEntity.litTime;
                 if (blockEntity.isLit()) {
                     flag1 = true;
                     if (itemStack.hasCraftingRemainingItem()) {
                         blockEntity.items.set(1, itemStack.getCraftingRemainingItem());
-                    } else if (flag3) {
+                    } else if (hasFuel) {
                         itemStack.shrink(1);
                         if (itemStack.isEmpty()) {
                             blockEntity.items.set(1, itemStack.getCraftingRemainingItem());
@@ -82,7 +83,7 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
                 ++blockEntity.cookingProgress;
                 if (blockEntity.cookingProgress == blockEntity.cookingTotalTime) {
                     blockEntity.cookingProgress = 0;
-                    blockEntity.cookingTotalTime = blockEntity.getSmeltTime();
+                    blockEntity.cookingTotalTime = blockEntity.getSmeltTime(chimneySpeedMultiplier);
                     if (blockEntity.burn(level.registryAccess(), recipe, blockEntity.items, i)) {
                         blockEntity.setRecipeUsed(recipe);
                     }
@@ -96,7 +97,7 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
             blockEntity.cookingProgress = Mth.clamp(blockEntity.cookingProgress - 2, 0, blockEntity.cookingTotalTime);
         }
 
-        if (flag != blockEntity.isLit()) {
+        if (isLit != blockEntity.isLit()) {
             flag1 = true;
             state = state.setValue(AurorianFurnace.LIT, blockEntity.isLit());
             level.setBlock(pos, state, 3);
@@ -161,7 +162,7 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         }
 
         if (index == 0 && !flag) {
-            this.cookingTotalTime = this.getSmeltTime();
+            this.cookingTotalTime = this.getSmeltTime(this.getChimneySpeedMultiplier());
             this.cookingProgress = 0;
             this.setChanged();
         }

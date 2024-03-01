@@ -88,11 +88,11 @@
         "type": "theaurorian:crystalline_sprite",
         "maxCount": 2,
         "minCount": 2,
-        "weight": 95
+        "weight": 100
       },
       {
         "type": "theaurorian:disturbed_hollow",
-        "maxCount": 4,
+        "maxCount": 3,
         "minCount": 1,
         "weight": 100
       },
@@ -101,6 +101,12 @@
         "maxCount": 2,
         "minCount": 1,
         "weight": 100
+      },
+      {
+        "type": "theaurorian:snow_tundra_giant_crab",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 10
       }
     ],
     "underground_water_creature": [],

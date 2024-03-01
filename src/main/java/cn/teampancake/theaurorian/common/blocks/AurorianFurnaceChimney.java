@@ -1,13 +1,25 @@
 package cn.teampancake.theaurorian.common.blocks;
 
+import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -31,6 +43,58 @@ public class AurorianFurnaceChimney extends Block implements ITooltipsItem {
             double d2 = (double) pos.getZ() + 0.5D;
             level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
+        if(!state.canSurvive(level,pos)){
+            level.destroyBlock(pos, true);
+        }
     }
 
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        return level.getBlockState(pos.below()).is(this) || level.getBlockState(pos.below()).is(TABlocks.AURORIAN_FURNACE.get());
+    }
+
+    @Override
+    public BlockState updateShape(BlockState state, Direction pDirection, BlockState pNeighborState, LevelAccessor level, BlockPos pos, BlockPos pNeighborPos) {
+        if(!state.canSurvive(level,pos))
+            level.scheduleTick(pos,this,1);
+        return super.updateShape(state, pDirection, pNeighborState, level, pos, pNeighborPos);
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if(level.isClientSide)
+            return InteractionResult.SUCCESS;
+
+        if(!player.getItemInHand(hand).is(this.asItem()))
+            return InteractionResult.PASS;
+
+        int y=1;
+        while (level.getBlockState(pos.above(y)).is(this)){
+            y++;
+        }
+
+        if(y>=AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get())
+            return InteractionResult.PASS;
+
+        BlockPos newPos=pos.above(y);
+
+        int i=1;
+        while (level.getBlockState(pos.below(i)).is(this)){
+            i++;
+        }
+
+        if((i+y)>=AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get())
+            return InteractionResult.PASS;
+
+        if(level.isEmptyBlock(newPos)){
+            if(!player.getAbilities().instabuild)
+                player.getItemInHand(hand).shrink(1);
+            level.setBlockAndUpdate(newPos,this.defaultBlockState());
+            BlockState newState = level.getBlockState(newPos);
+            SoundType soundtype = newState.getSoundType(level, newPos, player);
+            level.playSound(null, newPos, soundtype.getPlaceSound(), SoundSource.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.PASS;
+    }
 }

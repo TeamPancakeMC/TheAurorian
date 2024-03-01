@@ -100,7 +100,7 @@
       },
       {
         "type": "theaurorian:disturbed_hollow",
-        "maxCount": 4,
+        "maxCount": 3,
         "minCount": 1,
         "weight": 35
       },

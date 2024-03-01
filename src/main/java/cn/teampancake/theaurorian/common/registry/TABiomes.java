@@ -70,7 +70,7 @@ public class TABiomes {
                         .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE))
                 .mobSpawnSettings(snowfieldMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature((-0.7F)).build());
         context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
-                .mobSpawnSettings(desertMobSpawning().build()).build());
+                .mobSpawnSettings(desertMobSpawning().build()).hasPrecipitation(Boolean.FALSE).build());
         context.register(UNDER_SNOWFIELD, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER), new MobSpawnSettings.Builder().build()).build());
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
@@ -127,21 +127,21 @@ public class TABiomes {
                 .addFeature(undergroundOre, TAPlacedFeatures.ORE_MOONSTONE)
                 .addFeature(undergroundOre, TAPlacedFeatures.ORE_CERULEAN)
                 .addFeature(undergroundOre, TAPlacedFeatures.ORE_GEODE)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_COPPER)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_IRON_MIDDLE)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_IRON_SMALL)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_IRON_UPPER)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_GOLD)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_GOLD_EXTRA)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_GOLD_LOWER)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_EMERALD)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_LAPIS)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_LAPIS_BURIED)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_DIAMOND)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_DIAMOND_LARGE)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_DIAMOND_BURIED)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_REDSTONE)
-                .addFeature(undergroundOre,TAPlacedFeatures.ORE_REDSTONE_LOWER);
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_COPPER)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_IRON_MIDDLE)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_IRON_SMALL)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_IRON_UPPER)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_GOLD)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_GOLD_EXTRA)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_GOLD_LOWER)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_EMERALD)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_LAPIS)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_LAPIS_BURIED)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_DIAMOND)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_DIAMOND_LARGE)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_DIAMOND_BURIED)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_REDSTONE)
+                .addFeature(undergroundOre, TAPlacedFeatures.ORE_REDSTONE_LOWER);
     }
 
     private static BiomeSpecialEffects.Builder defaultAmbientBuilder() {
@@ -163,7 +163,7 @@ public class TABiomes {
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_PIG.get(), 10, 1, 3));
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_COW.get(), 10, 1, 3));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.CRYSTALLINE_SPRITE.get(), 65, 2, 2));
-        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 35, 1, 4));
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 35, 1, 3));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_ACOLYTE.get(), 35, 1, 2));
         return spawnInfo;
     }
@@ -171,7 +171,7 @@ public class TABiomes {
     private static MobSpawnSettings.Builder snowfieldMobSpawning() {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.CRYSTALLINE_SPRITE.get(), 100, 2, 2));
-        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 100, 1, 4));
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 100, 1, 3));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_ACOLYTE.get(), 100, 1, 2));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.SNOW_TUNDRA_GIANT_CRAB.get(), 10, 1, 1));
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.ICEFIELD_DEER.get(), 20, 1, 3));
@@ -193,7 +193,7 @@ public class TABiomes {
 
     private static MobSpawnSettings.Builder equinoxFlowerPlainsMobSpawning() {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
-        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.SPIRIT.get(), 2, 1, 2));
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.SPIRIT.get(), 90, 1, 2));
         return spawnInfo;
     }
 

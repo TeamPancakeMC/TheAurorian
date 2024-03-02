@@ -20,6 +20,7 @@ import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.common.utils.AurorianUtil;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -159,6 +160,21 @@ public class EntityEventSubscriber {
         boolean flag1 = effect == incantation && entity.hasEffect(holiness);
         boolean flag2 = effect == holiness && entity.hasEffect(incantation);
         if (flag1 || flag2) {
+            event.setResult(Event.Result.DENY);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMobEffectAdded(MobEffectEvent.Added event) {
+        LivingEntity entity = event.getEntity();
+        MobEffect effect = event.getEffectInstance().getEffect();
+        Set<MobEffect> effects = TAMobEffect.getMoonQueenOnlyEffects();
+        if (effects.contains(effect) && !(entity instanceof MoonQueen)) {
+            if (entity instanceof ServerPlayer serverPlayer) {
+                String message = "messages.effect.theaurorian.moon_queen_only";
+                serverPlayer.sendSystemMessage(Component.translatable(message));
+            }
+
             event.setResult(Event.Result.DENY);
         }
     }

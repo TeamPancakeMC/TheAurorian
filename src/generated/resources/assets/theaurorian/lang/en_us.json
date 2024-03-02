@@ -653,6 +653,7 @@
   "item.theaurorian.world_scroll_fragment": "World Scroll Fragment",
   "itemGroup.theaurorian.building": "The Aurorian (Building Materials)",
   "itemGroup.theaurorian.normal": "The Aurorian",
+  "messages.effect.theaurorian.moon_queen_only": "These effects are exclusive to the Moon Queen, and it's invalid for other entity!",
   "messages.item.theaurorian.aurorian_steel_sword.holiness": "All evil has been dispelled!",
   "painting.theaurorian.aurorian_steel": "Aurorian Steel",
   "painting.theaurorian.dungeon": "Dungeon",

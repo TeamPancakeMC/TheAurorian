@@ -702,6 +702,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add("tooltips.block.theaurorian.moonlight_forge.gui.has_moonlight","月光祝福中！");
 
         //MOD MESSAGES
+        this.add("messages.effect.theaurorian.moon_queen_only", "这是皎月女王专属的效果，对于其它实体是无效的！");
         this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness", "所有的罪恶已被驱散！");
 
         //MOD TOOLTIPS

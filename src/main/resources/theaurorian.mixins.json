@@ -11,6 +11,7 @@
         "MixinLivingEntity",
         "MixinPlayer",
         "MixinServerLevel",
+        "MixinTemptGoal",
         "MixinWorldOptions",
         "PlayerListMixin"
     ],

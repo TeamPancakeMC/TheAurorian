@@ -423,6 +423,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
 
         //MISC
         this.add(TABlocks.ALCHEMY_TABLE.get(), "炼药桌");
+        this.add(TABlocks.RELIC_TABLE.get(), "圣物台");
         this.add(TABlocks.MYSTERIUM_WOOL_BED.get(),"秘境羊毛床");
         this.add(TABlocks.SILENT_CAMPFIRE.get(),"静谧营火");
         //MOD ITEM

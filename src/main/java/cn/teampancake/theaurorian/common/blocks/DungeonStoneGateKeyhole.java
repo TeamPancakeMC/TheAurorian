@@ -12,6 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.function.Supplier;
@@ -38,16 +40,17 @@ public class DungeonStoneGateKeyhole extends DungeonStoneGate {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack handStack = player.getItemInHand(hand);
         int amount = player.getAbilities().instabuild ? 0 : 1;
-        if (!player.isSteppingCarefully() && state.hasBlockEntity()) {
-            if (level.getBlockEntity(pos) instanceof DungeonStoneGateBlockEntity blockEntity && !blockEntity.isActive()) {
+        if (!level.isClientSide() && !player.isSteppingCarefully() && state.hasBlockEntity()) {
+            if (level.getBlockEntity(pos) instanceof DungeonStoneGateBlockEntity blockEntity && !blockEntity.isUnlock()) {
                 boolean canUnlock = this.lockPickable && level.random.nextFloat() <= 0.33F;
                 if (handStack.is(this.keyItem.get()) || (handStack.is(TAItems.LOCK_PICKS.get()) && canUnlock)) {
-                    blockEntity.setActiveInterval(level.random.nextInt(20));
+                    level.setBlockAndUpdate(pos, state.setValue(UNLOCKED, true));
+                    blockEntity.setUnlockInterval(level.random.nextInt(20));
                     int preset = level.random.nextInt(40);
-                    int interval = blockEntity.getActiveInterval();
+                    int interval = blockEntity.getUnlockInterval();
                     blockEntity.setDestroyCountdown(preset < interval ? interval + preset : preset);
                     blockEntity.setGateState(this.gateBlock.get().defaultBlockState());
-                    blockEntity.setActive(true);
+                    blockEntity.setUnlock(true);
                     if (handStack.isDamageableItem()) {
                         handStack.hurtAndBreak(amount, player, p -> p.broadcastBreakEvent(hand));
                     } else {

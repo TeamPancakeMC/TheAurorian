@@ -144,7 +144,7 @@ public class TABlocks {
     public static final RegistryObject<Block> MOON_TEMPLE_CELL_GATE = register("moon_temple_cell_gate", () -> new DungeonStoneGate(breakWithQueenPickaxe()));
     public static final RegistryObject<Block> DARK_STONE_GATE_KEYHOLE = register("dark_stone_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.DARK_STONE_KEY, DARK_STONE_GATE));
     public static final RegistryObject<Block> MOON_TEMPLE_GATE_KEYHOLE = register("moon_temple_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.MOON_TEMPLE_KEY, MOON_TEMPLE_GATE));
-    public static final RegistryObject<Block> RUNE_STONE_GATE_KEYHOLE = register("rune_stone_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.RUNE_STONE_KEY, RUNE_STONE_GATE, Boolean.FALSE));
+    public static final RegistryObject<Block> RUNE_STONE_GATE_KEYHOLE = register("rune_stone_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.RUNE_STONE_KEY, RUNE_STONE_GATE, Boolean.TRUE));
     public static final RegistryObject<Block> RUNE_STONE_LOOT_GATE_KEYHOLE = register("rune_stone_loot_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.RUNE_STONE_LOOT_KEY, RUNE_STONE_LOOT_GATE));
     public static final RegistryObject<Block> MOON_TEMPLE_CELL_GATE_KEYHOLE = register("moon_temple_cell_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.MOON_TEMPLE_CELL_KEY, MOON_TEMPLE_CELL_GATE));
     public static final RegistryObject<Block> CERULEAN_BLOCK = normal("cerulean_block", defaultStoneProperties(3.0F).mapColor(MapColor.METAL));

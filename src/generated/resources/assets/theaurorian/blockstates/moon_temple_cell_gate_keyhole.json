@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "unlocked=false": {
       "model": "theaurorian:block/moon_temple_cell_gate_keyhole"
+    },
+    "unlocked=true": {
+      "model": "theaurorian:block/moon_temple_cell_gate_keyhole_unlocked"
     }
   }
 }

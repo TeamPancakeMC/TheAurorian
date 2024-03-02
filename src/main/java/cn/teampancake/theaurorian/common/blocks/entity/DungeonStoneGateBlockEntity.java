@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
+import cn.teampancake.theaurorian.common.blocks.DungeonStoneGate;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,8 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class DungeonStoneGateBlockEntity extends BlockEntity {
 
-    private boolean active;
-    private int activeInterval;
+    private boolean unlock;
+    private int unlockInterval;
     private int destroyCountdown;
     private BlockState gateState = Blocks.AIR.defaultBlockState();
 
@@ -26,20 +27,21 @@ public class DungeonStoneGateBlockEntity extends BlockEntity {
 
     @SuppressWarnings("unused")
     public static void serverTick(Level level, BlockPos pos, BlockState state, DungeonStoneGateBlockEntity blockEntity) {
-        if (!level.isClientSide() && blockEntity.active && !blockEntity.gateState.is(Blocks.AIR)) {
-            if (--blockEntity.activeInterval <= 0) {
+        if (!level.isClientSide() && blockEntity.unlock && !blockEntity.gateState.is(Blocks.AIR)) {
+            if (--blockEntity.unlockInterval <= 0) {
                 for (Direction direction : Direction.values()) {
                     BlockPos relativePos = pos.relative(direction);
                     BlockState neighborState = level.getBlockState(relativePos);
                     if (neighborState.is(blockEntity.gateState.getBlock()) && neighborState.hasBlockEntity()) {
                         BlockEntity relativeBlockEntity = level.getBlockEntity(relativePos);
-                        if (relativeBlockEntity instanceof DungeonStoneGateBlockEntity gateBlockEntity && !gateBlockEntity.active) {
-                            gateBlockEntity.activeInterval = level.random.nextInt(20);
+                        level.setBlockAndUpdate(relativePos, neighborState.setValue(DungeonStoneGate.UNLOCKED, true));
+                        if (relativeBlockEntity instanceof DungeonStoneGateBlockEntity gateBlockEntity && !gateBlockEntity.unlock) {
+                            gateBlockEntity.unlockInterval = level.random.nextInt(20);
                             int preset = level.random.nextInt(40);
-                            int interval = gateBlockEntity.activeInterval;
+                            int interval = gateBlockEntity.unlockInterval;
                             gateBlockEntity.destroyCountdown = preset < interval ? interval + preset : preset;
                             gateBlockEntity.gateState = blockEntity.gateState;
-                            gateBlockEntity.active = true;
+                            gateBlockEntity.unlock = true;
                         }
                     }
                 }
@@ -54,8 +56,8 @@ public class DungeonStoneGateBlockEntity extends BlockEntity {
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        this.active = tag.getBoolean("Active");
-        this.activeInterval = tag.getInt("ActiveInterval");
+        this.unlock = tag.getBoolean("Unlock");
+        this.unlockInterval = tag.getInt("UnlockInterval");
         this.destroyCountdown = tag.getInt("DestroyCountdown");
         if (this.level != null) {
             HolderLookup<Block> blockGetter = this.level.holderLookup(Registries.BLOCK);
@@ -66,26 +68,26 @@ public class DungeonStoneGateBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        tag.putBoolean("Active", this.active);
-        tag.putInt("ActiveInterval", this.activeInterval);
+        tag.putBoolean("Unlock", this.unlock);
+        tag.putInt("UnlockInterval", this.unlockInterval);
         tag.putInt("DestroyCountdown", this.destroyCountdown);
         tag.put("GateState", NbtUtils.writeBlockState(this.gateState));
     }
 
-    public boolean isActive() {
-        return this.active;
+    public boolean isUnlock() {
+        return this.unlock;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setUnlock(boolean unlock) {
+        this.unlock = unlock;
     }
 
-    public int getActiveInterval() {
-        return this.activeInterval;
+    public int getUnlockInterval() {
+        return this.unlockInterval;
     }
 
-    public void setActiveInterval(int activeInterval) {
-        this.activeInterval = activeInterval;
+    public void setUnlockInterval(int unlockInterval) {
+        this.unlockInterval = unlockInterval;
     }
 
     public void setDestroyCountdown(int destroyCountdown) {

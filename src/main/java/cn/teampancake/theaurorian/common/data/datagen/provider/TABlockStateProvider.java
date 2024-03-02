@@ -118,11 +118,6 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.MOON_TEMPLE_GATE.get());
         this.simpleBlock(TABlocks.RUNE_STONE_LOOT_GATE.get());
         this.simpleBlock(TABlocks.MOON_TEMPLE_CELL_GATE.get());
-        this.simpleBlock(TABlocks.RUNE_STONE_GATE_KEYHOLE.get());
-        this.simpleBlock(TABlocks.DARK_STONE_GATE_KEYHOLE.get());
-        this.simpleBlock(TABlocks.MOON_TEMPLE_GATE_KEYHOLE.get());
-        this.simpleBlock(TABlocks.RUNE_STONE_LOOT_GATE_KEYHOLE.get());
-        this.simpleBlock(TABlocks.MOON_TEMPLE_CELL_GATE_KEYHOLE.get());
         this.simpleBlock(TABlocks.UMBRA_STONE.get());
         this.simpleBlock(TABlocks.UMBRA_STONE_CRACKED.get());
         this.simpleBlock(TABlocks.UMBRA_STONE_ROOF_TILES.get());
@@ -294,6 +289,8 @@ public class TABlockStateProvider extends BlockStateProvider {
                 this.registerPottedPlantStates(flowerPotBlock, flowerPotBlock.getContent());
             } else if (block instanceof TAClusterBlock clusterBlock) {
                 this.registerClusterStates(clusterBlock);
+            } else if (block instanceof DungeonStoneGateKeyhole keyhole) {
+                this.registerKeyholeStates(keyhole);
             }
         }
     }
@@ -471,6 +468,16 @@ public class TABlockStateProvider extends BlockStateProvider {
                     .partialState().with(TAClusterBlock.FACING, Direction.UP).with(TAClusterBlock.LEVEL, level)
                     .modelForState().modelFile(modelFile).addModel();
         }
+    }
+
+    private void registerKeyholeStates(Block block) {
+        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        BooleanProperty property = DungeonStoneGate.UNLOCKED;
+        property.getPossibleValues().forEach(unlocked -> {
+            String name = "block/" + this.name(block) + (unlocked ? "_unlocked" : "");
+            ModelFile modelFile = this.models().cubeAll(name, this.modLoc(name));
+            builder.partialState().with(property, unlocked).modelForState().modelFile(modelFile).addModel();
+        });
     }
 
     private void registerPottedPlantStates(Block block, Block content) {

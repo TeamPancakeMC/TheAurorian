@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.base;
 
-import cn.teampancake.theaurorian.common.blocks.state.VerticalSlabShape;
+import cn.teampancake.theaurorian.common.blocks.state.properties.VerticalSlabShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;

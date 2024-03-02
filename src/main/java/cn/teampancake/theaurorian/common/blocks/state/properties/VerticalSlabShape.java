@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.blocks.state;
+package cn.teampancake.theaurorian.common.blocks.state.properties;
 
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;

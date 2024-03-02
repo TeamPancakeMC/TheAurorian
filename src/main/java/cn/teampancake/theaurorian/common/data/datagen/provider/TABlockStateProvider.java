@@ -3,7 +3,7 @@ package cn.teampancake.theaurorian.common.data.datagen.provider;
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.blocks.base.*;
-import cn.teampancake.theaurorian.common.blocks.state.VerticalSlabShape;
+import cn.teampancake.theaurorian.common.blocks.state.properties.VerticalSlabShape;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.Direction;

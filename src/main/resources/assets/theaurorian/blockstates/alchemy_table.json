@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=east": {
+            "model": "theaurorian:block/alchemy_table",
+            "y": 270
+        },
+        "facing=north": {
+            "model": "theaurorian:block/alchemy_table",
+            "y": 180
+        },
+        "facing=south": {
+            "model": "theaurorian:block/alchemy_table"
+        },
+        "facing=west": {
+            "model": "theaurorian:block/alchemy_table",
+            "y": 90
+        }
+    }
+}

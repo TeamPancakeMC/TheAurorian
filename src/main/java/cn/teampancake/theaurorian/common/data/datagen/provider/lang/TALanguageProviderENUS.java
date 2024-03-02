@@ -423,6 +423,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE_WALL.get(), "Smooth Aurorian Peridotite Wall");
 
         //MISC
+        this.add(TABlocks.ALCHEMY_TABLE.get(), "Alchemy Table");
         this.add(TABlocks.MYSTERIUM_WOOL_BED.get(),"Mysterium Wool Bed");
         this.add(TABlocks.SILENT_CAMPFIRE.get(),"Slient Campfire");
         //MOD ITEM

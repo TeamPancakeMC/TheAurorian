@@ -80,7 +80,6 @@ public class TABlocks {
     /**
      * Ore
      */
-
     public static final RegistryObject<Block> MOONSTONE_ORE = ore("moonstone_ore", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> EROSIVE_MOONSTONE_ORE = ore("erosive_moonstone_ore", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> CERULEAN_ORE = ore("cerulean_ore", defaultStoneProperties(2.0F));
@@ -476,12 +475,12 @@ public class TABlocks {
     /**
      * Misc
      */
+    public static final RegistryObject<Block> ALCHEMY_TABLE = register("alchemy_table", AlchemyTable::new);
     public static final RegistryObject<Block> MYSTERIUM_WOOL_BED = register("mysterium_wool_bed", MysteriumWoolBed::new);
     public static final RegistryObject<Block> SILENT_CAMPFIRE = register("silent_campfire", () -> new SilentCampfireBlock(true, 1, copy(Blocks.CAMPFIRE)));
 
     private static BlockBehaviour.Properties defaultStoneProperties(float destroyTime) {
-        return of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM)
-                .sound(SoundType.STONE)
+        return of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE)
                 .requiresCorrectToolForDrops().strength(destroyTime, (destroyTime * 5.0F));
     }
 

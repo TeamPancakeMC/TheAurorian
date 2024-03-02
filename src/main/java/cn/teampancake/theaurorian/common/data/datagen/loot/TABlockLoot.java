@@ -1,9 +1,11 @@
 package cn.teampancake.theaurorian.common.data.datagen.loot;
 
+import cn.teampancake.theaurorian.common.blocks.AlchemyTable;
 import cn.teampancake.theaurorian.common.blocks.BlueberryBush;
 import cn.teampancake.theaurorian.common.blocks.TACropBlock;
 import cn.teampancake.theaurorian.common.blocks.base.DoorBlockWithBase;
 import cn.teampancake.theaurorian.common.blocks.base.IHasBaseBlock;
+import cn.teampancake.theaurorian.common.blocks.state.properties.AlchemyTablePart;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
@@ -86,7 +88,6 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.CURSED_FROST_TREE_PLANKS.get());
         this.dropSelf(TABlocks.CURSED_FROST_TREE_WOOD.get());
         this.dropSelf(TABlocks.CURSED_FROST_TREE_SAPLING.get());
-        this.dropSelf(TABlocks.MYSTERIUM_WOOL_BED.get());
         this.dropWhenSilkTouch(TABlocks.SILENT_CAMPFIRE.get());
         this.dropWhenSilkTouch(TABlocks.FILTHY_ICE.get());
         this.dropWhenSilkTouch(TABlocks.MOON_GLASS.get());
@@ -118,6 +119,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropNuggets(TABlocks.LARGE_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 5.0F, 6.0F);
         this.dropNuggets(TABlocks.MEDIUM_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 3.0F, 4.0F);
         this.dropNuggets(TABlocks.SMALL_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 0.0F, 2.0F);
+        this.add(TABlocks.ALCHEMY_TABLE.get(), block -> this.createSinglePropConditionTable(block, AlchemyTable.PART, AlchemyTablePart.RIGHT));
         this.add(TABlocks.MYSTERIUM_WOOL_BED.get(), block -> this.createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));
         this.add(TABlocks.MOONSTONE_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_MOONSTONE.get()));
         this.add(TABlocks.EROSIVE_MOONSTONE_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_MOONSTONE.get()));

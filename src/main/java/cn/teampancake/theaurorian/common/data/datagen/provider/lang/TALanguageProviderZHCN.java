@@ -422,6 +422,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.SMOOTH_AURORIAN_PERIDOTITE_WALL.get(), "平滑橄榄岩墙");
 
         //MISC
+        this.add(TABlocks.ALCHEMY_TABLE.get(), "炼药桌");
         this.add(TABlocks.MYSTERIUM_WOOL_BED.get(),"秘境羊毛床");
         this.add(TABlocks.SILENT_CAMPFIRE.get(),"静谧营火");
         //MOD ITEM

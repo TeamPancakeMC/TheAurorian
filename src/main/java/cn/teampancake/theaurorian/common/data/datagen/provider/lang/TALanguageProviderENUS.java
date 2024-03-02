@@ -425,6 +425,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         //MISC
         this.add(TABlocks.ALCHEMY_TABLE.get(), "Alchemy Table");
         this.add(TABlocks.RELIC_TABLE.get(), "Relic Table");
+        this.add(TABlocks.ASTROLOGER.get(), "Astrologer");
         this.add(TABlocks.MYSTERIUM_WOOL_BED.get(),"Mysterium Wool Bed");
         this.add(TABlocks.SILENT_CAMPFIRE.get(),"Slient Campfire");
         //MOD ITEM

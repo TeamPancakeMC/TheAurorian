@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.data.datagen.loot;
 
 import cn.teampancake.theaurorian.common.blocks.AlchemyTable;
 import cn.teampancake.theaurorian.common.blocks.BlueberryBush;
+import cn.teampancake.theaurorian.common.blocks.RelicTable;
 import cn.teampancake.theaurorian.common.blocks.TACropBlock;
 import cn.teampancake.theaurorian.common.blocks.base.DoorBlockWithBase;
 import cn.teampancake.theaurorian.common.blocks.base.IHasBaseBlock;
@@ -20,6 +21,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -75,7 +77,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.SILENT_TREE_SAPLING.get());
         this.dropSelf(TABlocks.SILENT_WOOD_TORCH.get());
         this.dropSelf(TABlocks.SILENT_WOOD_CHEST.get());
-        this.dropSelf(TABlocks.RELIC_TABLE.get());
+        this.dropSelf(TABlocks.ASTROLOGER.get());
         this.dropSelf(TABlocks.AURORIAN_CRAFTING_TABLE.get());
         this.dropSelf(TABlocks.SILENT_WOOD_LADDER.get());
         this.dropSelf(TABlocks.WEEPING_WILLOW_LOG.get());
@@ -121,6 +123,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropNuggets(TABlocks.MEDIUM_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 3.0F, 4.0F);
         this.dropNuggets(TABlocks.SMALL_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 0.0F, 2.0F);
         this.add(TABlocks.ALCHEMY_TABLE.get(), block -> this.createSinglePropConditionTable(block, AlchemyTable.PART, AlchemyTablePart.RIGHT));
+        this.add(TABlocks.RELIC_TABLE.get(), block -> this.createSinglePropConditionTable(block, RelicTable.HALF, DoubleBlockHalf.LOWER));
         this.add(TABlocks.MYSTERIUM_WOOL_BED.get(), block -> this.createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));
         this.add(TABlocks.MOONSTONE_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_MOONSTONE.get()));
         this.add(TABlocks.EROSIVE_MOONSTONE_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_MOONSTONE.get()));

@@ -1,7 +1,6 @@
 {
-	"parent": "alchemy_table",
 	"texture_size": [64, 64],
-	"render_type": "cutout_mipped",
+	"render_type": "cutout",
 	"textures": {
 		"0": "theaurorian:block/alchemy_table",
 		"particle": "theaurorian:block/alchemy_table"

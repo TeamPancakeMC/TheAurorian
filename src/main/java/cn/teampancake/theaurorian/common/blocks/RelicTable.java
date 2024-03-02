@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -24,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings({"deprecation", "NullableProblems"})
 public class RelicTable extends HorizontalDirectionalBlock implements EntityBlock {
 
-    private static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+    public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
     public RelicTable() {
         super(TABlocks.defaultStoneProperties(2.0F));
@@ -46,6 +47,15 @@ public class RelicTable extends HorizontalDirectionalBlock implements EntityBloc
         } else {
             return doubleBlockHalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
         }
+    }
+
+    @Override
+    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        if (!level.isClientSide && player.isCreative()) {
+            DoublePlantBlock.preventCreativeDropFromBottomPart(level, pos, state, player);
+        }
+
+        super.playerWillDestroy(level, pos, state, player);
     }
 
     @Override
@@ -79,7 +89,7 @@ public class RelicTable extends HorizontalDirectionalBlock implements EntityBloc
 
     @Override
     public RenderShape getRenderShape(BlockState state) {
-        return state.getValue(HALF) == DoubleBlockHalf.UPPER ? RenderShape.INVISIBLE : super.getRenderShape(state);
+        return state.getValue(HALF) == DoubleBlockHalf.UPPER ? RenderShape.INVISIBLE : RenderShape.MODEL;
     }
 
     @Nullable @Override

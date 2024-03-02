@@ -1,7 +1,6 @@
 {
-	"parent": "block/block",
 	"texture_size": [48, 48],
-	"render_type": "cutout_mipped",
+	"render_type": "cutout",
 	"textures": {
 		"0": "theaurorian:block/relic_table",
 		"particle": "theaurorian:block/relic_table"
@@ -105,6 +104,28 @@
 			}
 		}
 	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [63, 0, 0],
+			"scale": [0.2, 0.2, 0.2]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 105, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"scale": [0.3, 0.3, 0.3]
+		},
+		"gui": {
+			"rotation": [30, 135, 0],
+			"translation": [-0.25, -2.5, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"fixed": {
+			"translation": [0, -2.75, -1.25],
+			"scale": [0.4, 0.4, 0.4]
+		}
+	},
 	"groups": [
 		{
 			"name": "group",

@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=east": {
+            "model": "theaurorian:block/astrologer",
+            "y": 270
+        },
+        "facing=north": {
+            "model": "theaurorian:block/astrologer",
+            "y": 180
+        },
+        "facing=south": {
+            "model": "theaurorian:block/astrologer"
+        },
+        "facing=west": {
+            "model": "theaurorian:block/astrologer",
+            "y": 90
+        }
+    }
+}

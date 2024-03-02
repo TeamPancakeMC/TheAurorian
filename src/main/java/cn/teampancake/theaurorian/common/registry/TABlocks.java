@@ -477,6 +477,7 @@ public class TABlocks {
      */
     public static final RegistryObject<Block> ALCHEMY_TABLE = register("alchemy_table", AlchemyTable::new);
     public static final RegistryObject<Block> RELIC_TABLE = register("relic_table", RelicTable::new);
+    public static final RegistryObject<Block> ASTROLOGER = register("astrologer", Astrologer::new);
     public static final RegistryObject<Block> MYSTERIUM_WOOL_BED = register("mysterium_wool_bed", MysteriumWoolBed::new);
     public static final RegistryObject<Block> SILENT_CAMPFIRE = register("silent_campfire", () -> new SilentCampfireBlock(true, 1, copy(Blocks.CAMPFIRE)));
 

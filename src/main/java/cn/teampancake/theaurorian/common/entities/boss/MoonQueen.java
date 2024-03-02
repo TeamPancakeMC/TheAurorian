@@ -32,8 +32,8 @@ import net.minecraft.world.phys.Vec3;
 public class MoonQueen extends AbstractAurorianBoss {
 
     public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState meleeAttackAnimationState = new AnimationState();
     public final AnimationState defendAnimationState = new AnimationState();
+    public final AnimationState meleeAttackAnimationState = new AnimationState();
     public final AnimationState skillLunaBefallAnimationState = new AnimationState();
     public final AnimationState skillLunaBefallEndAnimationState = new AnimationState();
 
@@ -47,7 +47,7 @@ public class MoonQueen extends AbstractAurorianBoss {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new MoonQueenAttackGoal(this));
+        this.goalSelector.addGoal(3, new MoonQueenAttackGoal());
         this.goalSelector.addGoal(6, new SkillLunaBefall());
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, (1.0D)));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, (1.0D)));
@@ -100,6 +100,14 @@ public class MoonQueen extends AbstractAurorianBoss {
 
     public boolean isGlinting() {
         return this.entityData.get(GLINTING);
+    }
+
+    private void stopAllAnimationStates() {
+        this.idleAnimationState.stop();
+        this.defendAnimationState.stop();
+        this.meleeAttackAnimationState.stop();
+        this.skillLunaBefallAnimationState.stop();
+        this.skillLunaBefallEndAnimationState.stop();
     }
 
     @Override
@@ -209,78 +217,13 @@ public class MoonQueen extends AbstractAurorianBoss {
 
     private class MoonQueenAttackGoal extends MeleeAttackGoal {
 
-        private int attackAnimationTick;
-
-        public MoonQueenAttackGoal(MoonQueen moonQueen) {
-            super(moonQueen, 1.35F, Boolean.FALSE);
+        public MoonQueenAttackGoal() {
+            super(MoonQueen.this, 1.0F, Boolean.FALSE);
         }
 
         @Override
-        public void start() {
-            super.start();
-            this.attackAnimationTick = 0;
-        }
+        protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
 
-        @Override
-        public void stop() {
-            super.stop();
-            this.attackAnimationTick = 40;
-        }
-
-        @Override
-        public void tick() {
-            LivingEntity target = getTarget();
-            if (target != null && this.attackAnimationTick <= 40) {
-                getLookControl().setLookAt(target, 30.0F, 30.0F);
-                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                boolean flag0 = this.followingTargetEvenIfNotSeen || getSensing().hasLineOfSight(target);
-                boolean flag1 = this.pathedTargetX == 0.0D && this.pathedTargetY == 0.0D && this.pathedTargetZ == 0.0D;
-                boolean flag2 = target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0D;
-                boolean flag3 = getRandom().nextFloat() < 0.05F;
-                double d0 = getPerceivedTargetDistanceSquareForMeleeAttack(target);
-                if (isAlive() && this.attackAnimationTick == 0 && d0 <= this.getAttackReachSqr(target) && this.ticksUntilNextAttack <= 0) {
-                    level().broadcastEntityEvent(MoonQueen.this, (byte) 4);
-                }
-
-                ++this.attackAnimationTick;
-                if (flag0 && this.ticksUntilNextPathRecalculation <= 0 && (flag1 || flag2 || flag3)) {
-                    this.pathedTargetX = target.getX();
-                    this.pathedTargetY = target.getY();
-                    this.pathedTargetZ = target.getZ();
-                    this.ticksUntilNextPathRecalculation = 4 + getRandom().nextInt(7);
-                    if (d0 > 1024.0D) {
-                        this.ticksUntilNextPathRecalculation += 10;
-                    } else if (d0 > 256.0D) {
-                        this.ticksUntilNextPathRecalculation += 5;
-                    }
-
-                    if (!getNavigation().moveTo(target, this.speedModifier)) {
-                        this.ticksUntilNextPathRecalculation += 15;
-                    }
-
-                    this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
-                }
-
-                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
-                if (this.attackAnimationTick > 6 && this.attackAnimationTick <= 8) {
-                    if (d0 <= this.getAttackReachSqr(target)) {
-                        doHurtTarget(target);
-                    }
-                }
-
-                if (this.attackAnimationTick > 12 && this.attackAnimationTick <= 14) {
-                    if (d0 <= this.getAttackReachSqr(target)) {
-                        doHurtTarget(target);
-                    }
-                }
-
-                if (this.attackAnimationTick > 20) {
-                    this.resetAttackCooldown();
-                    if (level().isClientSide) {
-                        meleeAttackAnimationState.stop();
-                    }
-                }
-            }
         }
 
     }

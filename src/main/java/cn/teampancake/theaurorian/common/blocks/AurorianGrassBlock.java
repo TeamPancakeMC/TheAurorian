@@ -4,15 +4,28 @@ import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class AurorianGrassBlock extends GrassBlock {
 
     public AurorianGrassBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
+        if (toolAction == ToolActions.HOE_TILL) {
+            return TABlocks.AURORIAN_FARM_TILE.get().defaultBlockState();
+        } else {
+            return null;
+        }
     }
 
     @Override

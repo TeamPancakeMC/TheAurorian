@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.*;
+import cn.teampancake.theaurorian.common.blocks.modified.HoeTillableBlock;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockSetType;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
 import net.minecraft.core.particles.ParticleTypes;
@@ -25,7 +26,6 @@ public class TABlocks {
     public static final RegistryObject<LiquidBlock> MOLTEN_CERULEAN = BLOCKS.register("molten_cerulean", () -> new LiquidBlock(TAFluids.MOLTEN_CERULEAN_STILL, copy(Blocks.LAVA)));
     public static final RegistryObject<LiquidBlock> MOLTEN_MOONSTONE = BLOCKS.register("molten_moonstone", () -> new LiquidBlock(TAFluids.MOLTEN_MOONSTONE_STILL, copy(Blocks.LAVA)));
     public static final RegistryObject<LiquidBlock> MOON_WATER = BLOCKS.register("moon_water", () -> new LiquidBlock(TAFluids.MOON_WATER_STILL, copy(Blocks.WATER)));
-    public static final RegistryObject<Block> AURORIAN_DIRT = normal("aurorian_dirt", copy(Blocks.DIRT));
     public static final RegistryObject<Block> AURORIAN_STONE = normal("aurorian_stone", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_EROSIVE = normal("aurorian_erosive", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_STONE_BRICKS = normal("aurorian_stone_bricks", defaultStoneProperties(2.0F));
@@ -40,6 +40,7 @@ public class TABlocks {
     public static final RegistryObject<Block> SNOW_AURORIAN_GRASS_BLOCK = register("snow_aurorian_grass_block", () -> new AurorianGrassBlock(copy(Blocks.GRASS_BLOCK)));
     public static final RegistryObject<Block> RED_AURORIAN_GRASS_BLOCK = register("red_aurorian_grass_block", () -> new AurorianGrassBlock(copy(Blocks.GRASS_BLOCK)));
     public static final RegistryObject<Block> AURORIAN_FARM_TILE = register("aurorian_farm_tile", () -> new AurorianFarmTile(copy(Blocks.FARMLAND)));
+    public static final RegistryObject<Block> AURORIAN_DIRT = register("aurorian_dirt", () -> new HoeTillableBlock(AURORIAN_FARM_TILE, copy(Blocks.DIRT)));
     public static final RegistryObject<Block> FILTHY_ICE = register("filthy_ice", FilthyIce::new);
     public static final RegistryObject<Block> MOON_GLASS = register("moon_glass", () -> new GlassBlock(copy(Blocks.GLASS)));
     public static final RegistryObject<Block> MOON_GLASS_PANE = register("moon_glass_pane", () -> new IronBarsBlock(copy(Blocks.GLASS_PANE)));

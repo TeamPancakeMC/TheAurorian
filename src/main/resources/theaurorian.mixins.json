@@ -6,9 +6,7 @@
     "refmap": "theaurorian.refmap.json",
     "mixins": [
         "MixinDamageSource",
-        "MixinDiggerItem",
         "MixinLevel",
-        "MixinLivingEntity",
         "MixinPlayer",
         "MixinServerLevel",
         "MixinTemptGoal",
@@ -16,9 +14,7 @@
         "PlayerListMixin"
     ],
     "client": [
-        "MixinGameRenderer",
-        "MixinHumanoidModel",
-        "MixinLivingEntityRenderer"
+        "MixinHumanoidModel"
     ],
     "injectors": {
         "defaultRequire": 1

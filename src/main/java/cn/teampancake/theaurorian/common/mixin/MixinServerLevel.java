@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.mixin;
 import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
 import cn.teampancake.theaurorian.common.registry.TABiomes;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
+import cn.teampancake.theaurorian.common.registry.TADimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -78,7 +79,7 @@ public abstract class MixinServerLevel extends Level {
     @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;popPush(Ljava/lang/String;)V",
             ordinal = 1, shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
     public void tickChunk(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos, boolean flag, int i, int j, ProfilerFiller profiler) {
-        if (LevelEventSubscriber.phaseCode == 4) {
+        if (this.dimension() == TADimensions.AURORIAN_DIMENSION && LevelEventSubscriber.phaseCode == 4) {
             LevelChunkSection[] chunkSections = chunk.getSections();
             for (int l = 0; l < chunkSections.length; ++l) {
                 LevelChunkSection chunkSection = chunkSections[l];

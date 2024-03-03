@@ -155,26 +155,19 @@ public class EntityEventSubscriber {
     public static void onMobEffectApplicable(MobEffectEvent.Applicable event) {
         LivingEntity entity = event.getEntity();
         MobEffect effect = event.getEffectInstance().getEffect();
+        Set<MobEffect> effects = TAMobEffect.getMoonQueenOnlyEffects();
         final MobEffect holiness = TAMobEffects.HOLINESS.get();
         final MobEffect incantation = TAMobEffects.INCANTATION.get();
         boolean flag1 = effect == incantation && entity.hasEffect(holiness);
         boolean flag2 = effect == holiness && entity.hasEffect(incantation);
-        if (flag1 || flag2) {
-            event.setResult(Event.Result.DENY);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onMobEffectAdded(MobEffectEvent.Added event) {
-        LivingEntity entity = event.getEntity();
-        MobEffect effect = event.getEffectInstance().getEffect();
-        Set<MobEffect> effects = TAMobEffect.getMoonQueenOnlyEffects();
         if (effects.contains(effect) && !(entity instanceof MoonQueen)) {
             if (entity instanceof ServerPlayer serverPlayer) {
                 String message = "messages.effect.theaurorian.moon_queen_only";
                 serverPlayer.sendSystemMessage(Component.translatable(message));
             }
-
+            event.setResult(Event.Result.DENY);
+        }
+        if (flag1 || flag2) {
             event.setResult(Event.Result.DENY);
         }
     }

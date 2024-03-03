@@ -51,11 +51,18 @@ public class ClientEventSubscriber {
     }
 
     @SubscribeEvent
+    public static void onViewpoint(ViewportEvent event) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (player != null && player.hasEffect(TAMobEffects.CORRUPTION.get())) {
+            player.hurtTime = 0;
+        }
+    }
+
+    @SubscribeEvent
     public static void onViewportComputeCameraAngles(ViewportEvent.ComputeCameraAngles event) {
         Minecraft minecraft = Minecraft.getInstance();
         LocalPlayer player = minecraft.player;
         if (player == null) return;
-
         player.getActiveEffectsMap().forEach((effect, mobEffectInstance) -> {
             if (effect instanceof ConfusionEffect) {
                 if (mobEffectInstance.getAmplifier() == 1) {

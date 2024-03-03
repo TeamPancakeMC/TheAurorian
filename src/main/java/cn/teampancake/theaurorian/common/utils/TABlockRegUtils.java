@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.utils;
 
-import cn.teampancake.theaurorian.common.blocks.AxeStrippableBlock;
+import cn.teampancake.theaurorian.common.blocks.modified.AxeStrippableBlock;
 import cn.teampancake.theaurorian.common.blocks.base.*;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;

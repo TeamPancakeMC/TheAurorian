@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.blocks;
+package cn.teampancake.theaurorian.common.blocks.modified;
 
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
@@ -24,8 +24,9 @@ public class AxeStrippableBlock extends RotatedPillarBlock {
     public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
         if (toolAction == ToolActions.AXE_STRIP) {
             return transferAllBlockStates(state, this.block.get().defaultBlockState());
+        } else {
+            return null;
         }
-        return super.getToolModifiedState(state, context, toolAction, simulate);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})

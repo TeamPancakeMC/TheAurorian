@@ -44,6 +44,10 @@ public class TAItems {
             TABlocks.MOON_TORCH.get(), TABlocks.MOON_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
     public static final RegistryObject<Item> SILENT_WOOD_TORCH = ITEMS.register("silent_wood_torch", () -> new StandingAndWallBlockItem(
             TABlocks.SILENT_WOOD_TORCH.get(), TABlocks.SILENT_WOOD_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> SILENT_WOOD_HANGING_SIGN = ITEMS.register("silent_wood_hanging_sign", () -> new HangingSignItem(
+            TABlocks.SILENT_WOOD_HANGING_SIGN.get(), TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> SILENT_WOOL_SIGN = ITEMS.register("silent_wood_sign", () -> new SignItem(
+            new Item.Properties().stacksTo(16), TABlocks.SILENT_WOOD_SIGN.get(), TABlocks.SILENT_WOOD_WALL_SIGN.get()));
 
     /**
      * Armor Item

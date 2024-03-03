@@ -65,8 +65,7 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(TABlockTags.AURORIAN_GRASS_BLOCK).add(TABlocks.AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
-        this.tag(BlockTags.PLANKS).add(TABlocks.SILENT_TREE_PLANKS.get(), TABlocks.WEEPING_WILLOW_PLANKS.get(),
-                TABlocks.CURTAIN_TREE_PLANKS.get(), TABlocks.CURSED_FROST_TREE_PLANKS.get());
+        this.tag(BlockTags.PLANKS).addTag(TABlockTags.AURORIAN_PLANKS);
         this.tag(BlockTags.LEAVES).add(TABlocks.SILENT_TREE_LEAVES.get(), TABlocks.WEEPING_WILLOW_LEAVES.get(),
                 TABlocks.CURTAIN_TREE_LEAVES.get(), TABlocks.CURSED_FROST_TREE_LEAVES.get());
         this.tag(BlockTags.LOGS).addTag(TABlockTags.SILENT_TREE_LOGS).addTag(TABlockTags.WEEPING_WILLOW_LOGS).addTag(TABlockTags.CURTAIN_TREE_LOGS);
@@ -132,6 +131,8 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.FENCE_GATES).add(TABlocks.SILENT_WOOD_FENCE_GATE.get(), TABlocks.WEEPING_WILLOW_FENCE_GATE.get(),
                 TABlocks.CURTAIN_WOOD_FENCE_GATE.get(), TABlocks.CURSED_FROST_WOOD_FENCE_GATE.get());
         this.tag(BlockTags.SAND).add(TABlocks.MOON_SAND.get(), TABlocks.MOON_SAND_RIVER.get(), TABlocks.BRIGHT_MOON_SAND.get());
+        this.tag(BlockTags.STANDING_SIGNS).add(TABlocks.SILENT_WOOD_SIGN.get());
+        this.tag(BlockTags.WALL_SIGNS).add(TABlocks.SILENT_WOOD_WALL_SIGN.get());
         this.tag(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON).add(TABlocks.FILTHY_ICE.get());
         this.tag(BlockTags.ICE).add(TABlocks.FILTHY_ICE.get());
         this.tag(BlockTags.WOOL).add(TABlocks.MYSTERIUM_WOOL.get());

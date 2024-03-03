@@ -132,6 +132,9 @@ public class TABlockStateProvider extends BlockStateProvider {
                 this.blockTexture(TABlocks.SILENT_WOOD_TORCH.get())).renderType(CUTOUT));
         this.simpleBlock(TABlocks.MOON_TORCH.get(), this.models().torch(this.name(TABlocks.MOON_TORCH.get()),
                 this.blockTexture(TABlocks.MOON_TORCH.get())).renderType(CUTOUT));
+        this.signBlock((StandingSignBlock) TABlocks.SILENT_WOOD_SIGN.get(),
+                (WallSignBlock) TABlocks.SILENT_WOOD_WALL_SIGN.get(),
+                this.blockTexture(TABlocks.SILENT_TREE_PLANKS.get()));
         this.logBlock((RotatedPillarBlock) TABlocks.RUNE_STONE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.DARK_STONE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.MOON_TEMPLE_PILLAR.get());
@@ -248,6 +251,8 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerLuminousStates(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE.get(), TABlocks.CERULEAN_CASTLE_RUNE_STONE.get());
         this.registerLuminousStates(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE.get(), TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE.get());
         this.registerLuminousStates(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE.get(), TABlocks.MOON_CASTLE_RUNE_STONE.get());
+        this.registerHangingSignStates(TABlocks.SILENT_WOOD_HANGING_SIGN.get(), TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(),
+                this.blockTexture(TABlocks.STRIPPED_SILENT_TREE_LOG.get()));
         for (Block block : TACommonUtils.getKnownBlocks()) {
             if (block instanceof PressurePlateBlockWithBase pressurePlateBlock) {
                 this.pressurePlateBlock(pressurePlateBlock, this.blockTexture(pressurePlateBlock.getBase()));
@@ -478,6 +483,12 @@ public class TABlockStateProvider extends BlockStateProvider {
             ModelFile modelFile = this.models().cubeAll(name, this.modLoc(name));
             builder.partialState().with(property, unlocked).modelForState().modelFile(modelFile).addModel();
         });
+    }
+
+    private void registerHangingSignStates(Block standing, Block wall, ResourceLocation texture) {
+        ModelFile sign = this.models().sign(this.name(standing), texture);
+        this.simpleBlock(standing, sign);
+        this.simpleBlock(wall, sign);
     }
 
     private void registerPottedPlantStates(Block block, Block content) {

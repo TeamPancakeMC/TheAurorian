@@ -77,9 +77,9 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.SILENT_TREE_SAPLING.get());
         this.dropSelf(TABlocks.SILENT_WOOD_TORCH.get());
         this.dropSelf(TABlocks.SILENT_WOOD_CHEST.get());
+        this.dropSelf(TABlocks.SILENT_WOOD_LADDER.get());
         this.dropSelf(TABlocks.ASTROLOGER.get());
         this.dropSelf(TABlocks.AURORIAN_CRAFTING_TABLE.get());
-        this.dropSelf(TABlocks.SILENT_WOOD_LADDER.get());
         this.dropSelf(TABlocks.WEEPING_WILLOW_LOG.get());
         this.dropSelf(TABlocks.WEEPING_WILLOW_PLANKS.get());
         this.dropSelf(TABlocks.WEEPING_WILLOW_WOOD.get());
@@ -122,6 +122,10 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropNuggets(TABlocks.LARGE_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 5.0F, 6.0F);
         this.dropNuggets(TABlocks.MEDIUM_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 3.0F, 4.0F);
         this.dropNuggets(TABlocks.SMALL_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 0.0F, 2.0F);
+        this.add(TABlocks.SILENT_WOOD_SIGN.get(), block -> this.createSingleItemTable(TAItems.SILENT_WOOL_SIGN.get()));
+        this.add(TABlocks.SILENT_WOOD_WALL_SIGN.get(), block -> this.createSingleItemTable(TAItems.SILENT_WOOL_SIGN.get()));
+        this.add(TABlocks.SILENT_WOOD_HANGING_SIGN.get(), block -> this.createSingleItemTable(TAItems.SILENT_WOOD_HANGING_SIGN.get()));
+        this.add(TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(), block -> this.createSingleItemTable(TAItems.SILENT_WOOD_HANGING_SIGN.get()));
         this.add(TABlocks.ALCHEMY_TABLE.get(), block -> this.createSinglePropConditionTable(block, AlchemyTable.PART, AlchemyTablePart.RIGHT));
         this.add(TABlocks.RELIC_TABLE.get(), block -> this.createSinglePropConditionTable(block, RelicTable.HALF, DoubleBlockHalf.LOWER));
         this.add(TABlocks.MYSTERIUM_WOOL_BED.get(), block -> this.createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));

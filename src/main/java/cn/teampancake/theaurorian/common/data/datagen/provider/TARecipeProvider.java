@@ -8,6 +8,10 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
@@ -124,6 +128,12 @@ public class TARecipeProvider extends RecipeProvider {
                 .define('X', TAItemTags.AURORIAN_PLANKS)
                 .pattern("###").pattern("XXX").group("bed")
                 .unlockedBy(getHasName(TABlocks.MYSTERIUM_WOOL.get()), has(TABlocks.MYSTERIUM_WOOL.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.SILENT_WOOD_CHEST.get())
+                .define('#', TABlocks.SILENT_TREE_PLANKS.get()).define('X', Blocks.CHEST)
+                .pattern("###").pattern("#X#").pattern("###")
+                .unlockedBy("has_lots_of_items", new InventoryChangeTrigger.TriggerInstance(
+                        ContextAwarePredicate.ANY, MinMaxBounds.Ints.atLeast(10),
+                        MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, new ItemPredicate[0])).save(consumer);
         //Vanilla Shaped Recipes
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STRING).define('#', TAItems.PLANT_FIBER.get())
                 .pattern("###").pattern("###").pattern("###")
@@ -261,6 +271,8 @@ public class TARecipeProvider extends RecipeProvider {
         scrapping(consumer, Items.DIAMOND_LEGGINGS, Items.DIAMOND, 4);
         scrapping(consumer, Items.DIAMOND_BOOTS, Items.DIAMOND, 2);
 
+        signBuilder(TAItems.SILENT_WOOL_SIGN.get(), Ingredient.of(TABlocks.SILENT_TREE_PLANKS.get()));
+        hangingSign(consumer, TAItems.SILENT_WOOD_HANGING_SIGN.get(), TABlocks.STRIPPED_CURTAIN_TREE_LOG.get());
         cut(consumer, RecipeCategory.BUILDING_BLOCKS, TABlocks.CUT_MOON_SANDSTONE.get(), TABlocks.MOON_SANDSTONE.get());
         stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, TABlocks.CUT_MOON_SANDSTONE.get(), TABlocks.MOON_SANDSTONE.get());
         stonecutterResultFromBase(consumer, RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_STONE_BRICKS.get(), TABlocks.AURORIAN_STONE.get());
@@ -458,7 +470,6 @@ public class TARecipeProvider extends RecipeProvider {
     }
 
     protected void buildFoodProcessRecipes(Consumer<FinishedRecipe> consumer, Item input, Item output, float xp) {
-
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 200)
                 .unlockedBy(getHasName(input), has(input))
                 .save(consumer,AurorianMod.MOD_ID+":"+ ForgeRegistries.ITEMS.getKey(output).getPath() + "_smelting");

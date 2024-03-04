@@ -174,7 +174,8 @@ public class TAEntityTypes {
         event.registerEntityRenderer(AURORIAN_SLIME.get(), AurorianSlimeRenderer::new);
         event.registerEntityRenderer(DISTURBED_HOLLOW.get(), DisturbedHollowRenderer::new);
         event.registerEntityRenderer(UNDEAD_KNIGHT.get(), UndeadKnightRenderer::new);
-        event.registerEntityRenderer(SPIRIT.get(), SpiritRenderer::new);
+        event.registerEntityRenderer(SPIRIT.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(SPIRIT.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(MOON_ACOLYTE.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(MOON_ACOLYTE.getId())));
         event.registerEntityRenderer(SPIDERLING.get(), SpiderlingRenderer::new);
@@ -211,7 +212,6 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME_OUTER, SlimeModel::createOuterBodyLayer);
         event.registerLayerDefinition(TAModelLayers.DISTURBED_HOLLOW, DisturbedHollowModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.UNDEAD_KNIGHT, UndeadKnightModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.SPIRIT, SpiritModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDERLING, SpiderlingModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CRYSTALLINE_SPRITE, CrystallineSpriteModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CAVE_DWELLER, CaveDwellerModel::createBodyLayer);

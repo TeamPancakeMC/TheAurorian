@@ -8,12 +8,14 @@ import cn.teampancake.theaurorian.common.network.message.FutureNightMessage;
 import cn.teampancake.theaurorian.common.network.message.NightSyncMessage;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -27,8 +29,15 @@ public class LevelEventSubscriber {
 
     private static int dayCount;
     public static int phaseCode = 0;
+    public static Queue<Integer> futurePhase = new LinkedList<>();
 
-    public static Queue<Integer> futurePhase= new LinkedList<>();
+    @SubscribeEvent
+    public static void onLevelLoad(LevelEvent.Load event) {
+        MinecraftServer server = event.getLevel().getServer();
+        if (server != null) {
+            TADimensions.seed = server.getWorldData().worldGenOptions().seed();
+        }
+    }
 
     @SubscribeEvent
     public static void onLevelTick(TickEvent.LevelTickEvent event) {
@@ -38,15 +47,15 @@ public class LevelEventSubscriber {
                 long dayCounter = (serverLevel.dayTime() + 6000L) / 24000;
                 if (dayCounter != dayCount) {
                     dayCount = (int) Math.floor(dayCounter);
-
-                    if(futurePhase.size()<4)
+                    if (futurePhase.size() < 4) {
                         futurePhase.add((int) (Math.random() * TASkyRenderer.getDaySkyColors().size()));
-                    phaseCode = futurePhase.remove();
+                    }
 
-                    Integer[] list=futurePhase.toArray(Integer[]::new);
+                    phaseCode = futurePhase.remove();
+                    Integer[] list = futurePhase.toArray(Integer[]::new);
                     for (ServerPlayer serverPlayer : playerList) {
                         TAMessages.sendToPlayer(new NightSyncMessage(phaseCode), serverPlayer);
-                        TAMessages.sendToPlayer(new FutureNightMessage(Arrays.stream(list).mapToInt(Integer::valueOf).toArray()),serverPlayer);
+                        TAMessages.sendToPlayer(new FutureNightMessage(Arrays.stream(list).mapToInt(Integer::valueOf).toArray()), serverPlayer);
                     }
                 }
             }
@@ -55,11 +64,12 @@ public class LevelEventSubscriber {
                 return;
             }
 
-            long dayTime = (serverLevel.dayTime()+6000L) % 24000;
+            long dayTime = (serverLevel.dayTime() + 6000L) % 24000;
             if (dayTime % 200 == 0) {
                 for (ServerPlayer serverPlayer : playerList) {
-                    if(serverPlayer.level().dimension() != TADimensions.AURORIAN_DIMENSION)
+                    if (serverPlayer.level().dimension() != TADimensions.AURORIAN_DIMENSION) {
                         continue;
+                    }
 
                     if (dayTime > 6000 && dayTime <= 18000) {
                         serverPlayer.addEffect(blessEffect(TAMobEffects.PRESSURE.get()));

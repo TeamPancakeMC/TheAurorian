@@ -10,7 +10,6 @@
         "MixinPlayer",
         "MixinServerLevel",
         "MixinTemptGoal",
-        "MixinWorldOptions",
         "PlayerListMixin"
     ],
     "client": [

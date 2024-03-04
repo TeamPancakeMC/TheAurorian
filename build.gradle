@@ -184,16 +184,25 @@ tasks.named('jar', Jar).configure {
     finalizedBy 'reobfJar'
 }
 
-// Example configuration to allow publishing using the maven-publish plugin
+var commitHash = System.getenv("GITHUB_SHA")
+
 publishing {
     publications {
-        register('mavenJava', MavenPublication) {
-            artifact jar
+        register("mavenJava", MavenPublication.class) {
+            groupId = group
+            artifactId = mod_id
+            version = "${mod_version}-pre+" + commitHash?.substring(0, 8)
+            from components.java
         }
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+            url 'http://rm.fubuki.vip:8081/repository/maven-snapshots/'
+            name = 'maven'
+            credentials (PasswordCredentials.class)
+            authentication {
+                basic(BasicAuthentication)
+            }
         }
     }
 }

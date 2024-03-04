@@ -1,12 +1,5 @@
 {
   "values": [
-    "theaurorian:aurorian_lily_pad",
-    "theaurorian:aurorian_water_mushroom",
-    "theaurorian:silent_wood_chest",
-    "theaurorian:moon_torch",
-    "theaurorian:silent_wood_torch",
-    "theaurorian:silent_wood_hanging_sign",
-    "theaurorian:silent_wood_sign",
     "theaurorian:tall_wick_grass",
     "theaurorian:aurorian_stone",
     "theaurorian:aurorian_erosive",
@@ -380,6 +373,13 @@
     "theaurorian:astrologer",
     "theaurorian:mysterium_wool_bed",
     "theaurorian:silent_campfire",
-    "theaurorian:lavender_seeds"
+    "theaurorian:lavender_seeds",
+    "theaurorian:aurorian_lily_pad",
+    "theaurorian:aurorian_water_mushroom",
+    "theaurorian:silent_wood_chest",
+    "theaurorian:moon_torch",
+    "theaurorian:silent_wood_torch",
+    "theaurorian:silent_wood_hanging_sign",
+    "theaurorian:silent_wood_sign"
   ]
 }

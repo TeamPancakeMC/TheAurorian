@@ -33,21 +33,25 @@ public class TAItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AurorianMod.MOD_ID);
 
     /**
-     * Block Item
-     * */
-    public static final RegistryObject<Item> AURORIAN_LILY_PAD = ITEMS.register("aurorian_lily_pad",
-            () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_LILY_PAD.get(), new Item.Properties()));
-    public static final RegistryObject<Item> AURORIAN_WATER_MUSHROOM = ITEMS.register("aurorian_water_mushroom",
-            () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_WATER_MUSHROOM.get(), new Item.Properties()));
-    public static final RegistryObject<Item> SILENT_WOOD_CHEST = ITEMS.register("silent_wood_chest", SilentWoodChestItem::new);
-    public static final RegistryObject<Item> MOON_TORCH = ITEMS.register("moon_torch", () -> new StandingAndWallBlockItem(
-            TABlocks.MOON_TORCH.get(), TABlocks.MOON_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
-    public static final RegistryObject<Item> SILENT_WOOD_TORCH = ITEMS.register("silent_wood_torch", () -> new StandingAndWallBlockItem(
-            TABlocks.SILENT_WOOD_TORCH.get(), TABlocks.SILENT_WOOD_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
-    public static final RegistryObject<Item> SILENT_WOOD_HANGING_SIGN = ITEMS.register("silent_wood_hanging_sign", () -> new HangingSignItem(
-            TABlocks.SILENT_WOOD_HANGING_SIGN.get(), TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> SILENT_WOOL_SIGN = ITEMS.register("silent_wood_sign", () -> new SignItem(
-            new Item.Properties().stacksTo(16), TABlocks.SILENT_WOOD_SIGN.get(), TABlocks.SILENT_WOOD_WALL_SIGN.get()));
+     * Materials
+     */
+    public static final RegistryObject<Item> RAW_CERULEAN = normal("raw_cerulean", false);
+    public static final RegistryObject<Item> RAW_MOONSTONE = normal("raw_moonstone", false);
+    public static final RegistryObject<Item> AURORIAN_COAL = normal("aurorian_coal", true);
+    public static final RegistryObject<Item> AURORIANITE_INGOT = normal("aurorianite_ingot", true);
+    public static final RegistryObject<Item> AURORIAN_STEEL = normal("aurorian_steel", true);
+    public static final RegistryObject<Item> CERULEAN_INGOT = normal("cerulean_ingot", true);
+    public static final RegistryObject<Item> CRYSTALLINE_INGOT = normal("crystalline_ingot", true);
+    public static final RegistryObject<Item> MOONSTONE_INGOT = normal("moonstone_ingot", true);
+    public static final RegistryObject<Item> UMBRA_INGOT = normal("umbra_ingot", true);
+    public static final RegistryObject<Item> LAVENDER = normal("lavender", true);
+    public static final RegistryObject<Item> PLANT_FIBER = normal("plant_fiber", true);
+    public static final RegistryObject<Item> AURORIANITE_SCRAP = normal("aurorianite_scrap", true);
+    public static final RegistryObject<Item> CRYSTALLINE_SCRAP = normal("crystalline_scrap", true);
+    public static final RegistryObject<Item> UMBRA_SCRAP = normal("umbra_scrap", true);
+    public static final RegistryObject<Item> SPECTRAL_SILK = normal("spectral_silk", true);
+    public static final RegistryObject<Item> DARK_AMULET = normal("dark_amulet", true);
+    public static final RegistryObject<Item> DUNGEON_KEEPER_AMULET = normal("dungeon_keeper_amulet", true);
 
     /**
      * Armor Item
@@ -235,27 +239,6 @@ public class TAItems {
     public static final RegistryObject<Item> STRANGE_MEAT = ITEMS.register("strange_meat", StrangeMeat::new);
 
     /**
-     * Materials
-     */
-    public static final RegistryObject<Item> RAW_CERULEAN = normal("raw_cerulean", false);
-    public static final RegistryObject<Item> RAW_MOONSTONE = normal("raw_moonstone", false);
-    public static final RegistryObject<Item> AURORIAN_COAL = normal("aurorian_coal", true);
-    public static final RegistryObject<Item> AURORIANITE_INGOT = normal("aurorianite_ingot", true);
-    public static final RegistryObject<Item> AURORIAN_STEEL = normal("aurorian_steel", true);
-    public static final RegistryObject<Item> CERULEAN_INGOT = normal("cerulean_ingot", true);
-    public static final RegistryObject<Item> CRYSTALLINE_INGOT = normal("crystalline_ingot", true);
-    public static final RegistryObject<Item> MOONSTONE_INGOT = normal("moonstone_ingot", true);
-    public static final RegistryObject<Item> UMBRA_INGOT = normal("umbra_ingot", true);
-    public static final RegistryObject<Item> LAVENDER = normal("lavender", true);
-    public static final RegistryObject<Item> PLANT_FIBER = normal("plant_fiber", true);
-    public static final RegistryObject<Item> AURORIANITE_SCRAP = normal("aurorianite_scrap", true);
-    public static final RegistryObject<Item> CRYSTALLINE_SCRAP = normal("crystalline_scrap", true);
-    public static final RegistryObject<Item> UMBRA_SCRAP = normal("umbra_scrap", true);
-    public static final RegistryObject<Item> SPECTRAL_SILK = normal("spectral_silk", true);
-    public static final RegistryObject<Item> DARK_AMULET = normal("dark_amulet", true);
-    public static final RegistryObject<Item> DUNGEON_KEEPER_AMULET = normal("dungeon_keeper_amulet", true);
-
-    /**
      * Key
      */
     public static final RegistryObject<Item> MOON_TEMPLE_CELL_KEY_FRAGMENT = normal("moon_temple_cell_key_fragment", true);
@@ -370,4 +353,20 @@ public class TAItems {
     public static final RegistryObject<Item> SPIDER_MOTHER_SPAWN_EGG = spawnEgg("spider_mother", TAEntityTypes.SPIDER_MOTHER, 0x595d70, 0x0f1018);
     public static final RegistryObject<Item> MOON_QUEEN_SPAWN_EGG = spawnEgg("moon_queen", TAEntityTypes.MOON_QUEEN, 0xff82d4, 0x313d4b);
 
+    /**
+     * Block Item
+     * */
+    public static final RegistryObject<Item> AURORIAN_LILY_PAD = ITEMS.register("aurorian_lily_pad",
+            () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_LILY_PAD.get(), new Item.Properties()));
+    public static final RegistryObject<Item> AURORIAN_WATER_MUSHROOM = ITEMS.register("aurorian_water_mushroom",
+            () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_WATER_MUSHROOM.get(), new Item.Properties()));
+    public static final RegistryObject<Item> SILENT_WOOD_CHEST = ITEMS.register("silent_wood_chest", SilentWoodChestItem::new);
+    public static final RegistryObject<Item> MOON_TORCH = ITEMS.register("moon_torch", () -> new StandingAndWallBlockItem(
+            TABlocks.MOON_TORCH.get(), TABlocks.MOON_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> SILENT_WOOD_TORCH = ITEMS.register("silent_wood_torch", () -> new StandingAndWallBlockItem(
+            TABlocks.SILENT_WOOD_TORCH.get(), TABlocks.SILENT_WOOD_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> SILENT_WOOD_HANGING_SIGN = ITEMS.register("silent_wood_hanging_sign", () -> new HangingSignItem(
+            TABlocks.SILENT_WOOD_HANGING_SIGN.get(), TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> SILENT_WOOL_SIGN = ITEMS.register("silent_wood_sign", () -> new SignItem(
+            new Item.Properties().stacksTo(16), TABlocks.SILENT_WOOD_SIGN.get(), TABlocks.SILENT_WOOD_WALL_SIGN.get()));
 }

@@ -770,18 +770,6 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.addTooltips(TAItems.PETUNIA_TEA, "悠闲时光.饮用后获得持续15秒的力量I效果.");
         this.addTooltips(TAItems.BEPSI, "哪来的山寨货？？");
         this.addTooltips(TAItems.WEEPING_WILLOW_SAP, "不错的解毒剂！它能去除你的中毒效果，但却会使你获得缓慢效果，持续时间取决于中毒效果被移除之前的剩余持续时间.");
-        this.addTooltips(TAItems.SILK_BERRY_JAM, "不错！要是来点搭配就好！");
-        this.addTooltips(TAItems.SILK_BERRY_JAM_SANDWICH, "美味！味道好极了！");
-        this.addTooltips(TAItems.AURORIAN_PORK, "丰富的蛋白质！建议烤熟再吃！");
-        this.addTooltips(TAItems.COOKED_AURORIAN_PORK, "美味！很好的饱腹食物！");
-        this.addTooltips(TAItems.AURORIAN_BACON, "不错！虽泛紫意，但鲜嫩多汁！");
-        this.addTooltips(TAItems.AURORIAN_SLIMEBALL, "黏糊糊的！感觉不是很好.");
-        this.addTooltips(TAItems.SILK_SHROOM_STEW, "美味！如果再来一碗也不错.");
-        this.addTooltips(TAItems.LAVENDER_BREAD, "不错！为什么不试试搭配果酱呢？");
-        this.addTooltips(TAItems.SOULLESS_FLESH, "恶心！如果实在没有办法我一定不会去吃！");
-        this.addTooltips(TAItems.MOON_FISH, "好重的鱼腥味！不如试着烤熟再吃！");
-        this.addTooltips(TAItems.SILK_BERRY, "可以做成果酱，应该更加可口！");
-        this.addTooltips(TAItems.BLUEBERRY, "鲜嫩的水果也会心情愉悦呢！");
         this.addTooltips(TAItems.AURORIAN_COAL, "比普通煤炭更持久一点.");
         this.addTooltips(TAItems.AURORIANITE_INGOT, "极光加护！");
         this.addTooltips(TAItems.AURORIAN_STEEL, "真正的极光赐福！随着时间的推移，此物品上的附魔会升级！");

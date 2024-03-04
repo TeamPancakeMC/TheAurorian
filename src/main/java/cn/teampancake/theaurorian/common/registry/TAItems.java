@@ -190,22 +190,22 @@ public class TAItems {
     public static final RegistryObject<Item> AURORIAN_PORK = ITEMS.register("aurorian_pork",
             () -> new TASpecialItem(new Item.Properties().food(Foods.PORKCHOP), false));
     public static final RegistryObject<Item> COOKED_AURORIAN_PORK = ITEMS.register("cooked_aurorian_pork",
-            () -> new TASpecialItem(new Item.Properties().food(Foods.COOKED_PORKCHOP), true));
+            () -> new TASpecialItem(new Item.Properties().food(Foods.COOKED_PORKCHOP), false));
     public static final RegistryObject<Item> AURORIAN_BEEF = ITEMS.register("aurorian_beef",
             () -> new TASpecialItem(new Item.Properties().food(Foods.BEEF), false));
     public static final RegistryObject<Item> COOKED_AURORIAN_BEEF = ITEMS.register("cooked_aurorian_beef",
-            () -> new TASpecialItem(new Item.Properties().food(Foods.COOKED_BEEF), true));
+            () -> new TASpecialItem(new Item.Properties().food(Foods.COOKED_BEEF), false));
     public static final RegistryObject<Item> AURORIAN_MUTTON = ITEMS.register("aurorian_mutton",
             () -> new TASpecialItem(new Item.Properties().food(Foods.MUTTON), false));
     public static final RegistryObject<Item> COOKED_AURORIAN_MUTTON = ITEMS.register("cooked_aurorian_mutton",
-            () -> new TASpecialItem(new Item.Properties().food(Foods.COOKED_MUTTON), true));
+            () -> new TASpecialItem(new Item.Properties().food(Foods.COOKED_MUTTON), false));
     public static final RegistryObject<Item> AURORIAN_RABBIT = ITEMS.register("aurorian_rabbit",
             () -> new TASpecialItem(new Item.Properties().food(Foods.RABBIT), false));
     public static final RegistryObject<Item> COOKED_AURORIAN_RABBIT = ITEMS.register("cooked_aurorian_rabbit",
-            () -> new TASpecialItem(new Item.Properties().food(Foods.COOKED_RABBIT), true));
+            () -> new TASpecialItem(new Item.Properties().food(Foods.COOKED_RABBIT), false));
     public static final RegistryObject<Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap", WeepingWillowSap::new);
     public static final RegistryObject<Item> SILK_BERRY_JAM = food("silk_berry_jam", 2, 0.5F, false);
-    public static final RegistryObject<Item> SILK_BERRY_JAM_SANDWICH = food("silk_berry_jam_sandwich", 6, 0.9F, true);
+    public static final RegistryObject<Item> SILK_BERRY_JAM_SANDWICH = food("silk_berry_jam_sandwich", 6, 0.9F, false);
     public static final RegistryObject<Item> AURORIAN_SLIMEBALL = food("aurorian_slimeball", 1, 0.2F, false);
     public static final RegistryObject<Item> SILK_SHROOM_STEW = food("silk_shroom_stew", 6, 1F, false);
     public static final RegistryObject<Item> LAVENDER_BREAD = food("lavender_bread", 4, 0.4F, false);

@@ -770,18 +770,6 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.addTooltips(TAItems.PETUNIA_TEA, "Leisure time. Drink and got strength I in 15s.");
         this.addTooltips(TAItems.BEPSI, "How'd this get here??");
         this.addTooltips(TAItems.WEEPING_WILLOW_SAP, "A nice antidote, which will cleanse poison but gives you slowness. The duration depends on the remaining duration before the poison effect is removed.");
-        this.addTooltips(TAItems.SILK_BERRY_JAM, "Nice! It would be great if there were some side dish!");
-        this.addTooltips(TAItems.SILK_BERRY_JAM_SANDWICH, "Tasty!");
-        this.addTooltips(TAItems.AURORIAN_PORK, "Rich in protein, but it is recommended to roast before eating.");
-        this.addTooltips(TAItems.COOKED_AURORIAN_PORK, "Tasty! Good satiety food!");
-        this.addTooltips(TAItems.AURORIAN_BACON, "Purple, but still tasty!");
-        this.addTooltips(TAItems.AURORIAN_SLIMEBALL, "It's sticky! I don't feel very good!");
-        this.addTooltips(TAItems.SILK_SHROOM_STEW, "Delicious! If we had another bowl, it would be great!");
-        this.addTooltips(TAItems.LAVENDER_BREAD, "Nice! Why not try pairing it with jam?");
-        this.addTooltips(TAItems.SOULLESS_FLESH, "Disgusting! If there is really no other way, I will definitely not go eat it!");
-        this.addTooltips(TAItems.MOON_FISH, "What a strong fishy smell! Why don't you try grilling it before eating it?");
-        this.addTooltips(TAItems.SILK_BERRY, "It can be made into jam, which should be more delicious.");
-        this.addTooltips(TAItems.BLUEBERRY, "Fresh and tender fruits can also make people feel happy!");
         this.addTooltips(TAItems.AURORIAN_COAL, "A fuel that better than coal.");
         this.addTooltips(TAItems.AURORIANITE_INGOT, "Aurorian Blessing!");
         this.addTooltips(TAItems.AURORIAN_STEEL, "The truth blessing of the aurora! The enchantment will upgrade slowly as time goes on until the max level!");

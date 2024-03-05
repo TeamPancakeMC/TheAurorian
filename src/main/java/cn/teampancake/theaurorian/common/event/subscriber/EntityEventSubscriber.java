@@ -12,6 +12,7 @@ import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.CrystallineSprite;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
+import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.network.TAMessages;
@@ -19,6 +20,7 @@ import cn.teampancake.theaurorian.common.network.message.FrostbiteSyncMessage;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.common.utils.AurorianUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -94,6 +96,16 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();
+        Level level = entity.level();
+        if (!level.isClientSide()) {
+            MobEffect effect = TAMobEffects.PARALYSIS.get();
+            if (entity.hasEffect(effect) && entity.getVehicle() == null) {
+                SitEntity sitEntity = new SitEntity(level, entity.getOnPos(), 0.7D);
+                level.addFreshEntity(sitEntity);
+                entity.startRiding(sitEntity);
+            }
+        }
+
         entity.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
             int i = miscNBT.getTicksFrostbite();
             if (!entity.level().isClientSide && i > 0) {
@@ -178,6 +190,15 @@ public class EntityEventSubscriber {
         MobEffectInstance instance = event.getEffectInstance();
         if (instance != null) {
             MobEffect effect = instance.getEffect();
+            if (effect == TAMobEffects.PARALYSIS.get()) {
+                BlockPos pos = entity.getOnPos();
+                if (entity.getVehicle() instanceof SitEntity sitEntity) {
+                    entity.moveTo(pos.getX(), pos.above().getY(), pos.getZ());
+                    sitEntity.ejectPassengers();
+                    sitEntity.discard();
+                }
+            }
+
             if (effect instanceof CorruptionEffect corruption) {
                 corruption.doHurtTarget(entity);
             }

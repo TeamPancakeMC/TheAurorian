@@ -15,6 +15,7 @@ import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.*;
 import cn.teampancake.theaurorian.common.entities.projectile.*;
 import cn.teampancake.theaurorian.common.entities.technical.LunaCircleEntity;
+import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import net.minecraft.client.model.SlimeModel;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.Entity;
@@ -43,6 +44,9 @@ public class TAEntityTypes {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, AurorianMod.MOD_ID);
     //Projectile
+    public static final RegistryObject<EntityType<EyeOfDisturbedEntity>> EYE_OF_DISTURBED = ENTITY_TYPES.register("eye_of_disturbed",
+            () -> EntityType.Builder.<EyeOfDisturbedEntity>of(EyeOfDisturbedEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
+                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("eye_of_disturbed"));
     public static final RegistryObject<EntityType<Arrow>> CRYSTALLINE_BEAM = ENTITY_TYPES.register("crystalline_beam",
             () -> EntityType.Builder.<Arrow>of(Arrow::new, MobCategory.MISC).sized(0.5F, 0.5F)
                     .clientTrackingRange((4)).updateInterval((20)).build("crystalline_beam"));
@@ -58,9 +62,9 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<WebbingEntity>> WEBBING = ENTITY_TYPES.register("webbing",
             () -> EntityType.Builder.<WebbingEntity>of(WebbingEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
                     .clientTrackingRange((4)).updateInterval((10)).build("webbing"));
-    public static final RegistryObject<EntityType<EyeOfDisturbedEntity>> EYE_OF_DISTURBED = ENTITY_TYPES.register("eye_of_disturbed",
-            () -> EntityType.Builder.<EyeOfDisturbedEntity>of(EyeOfDisturbedEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
-                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("eye_of_disturbed"));
+    public static final RegistryObject<EntityType<SitEntity>> SIT = ENTITY_TYPES.register("sit",
+            () -> EntityType.Builder.<SitEntity>of(SitEntity::new, MobCategory.MISC).sized(0.1F, 0.1F)
+                    .clientTrackingRange((4)).updateInterval((10)).build("sit"));
     public static final RegistryObject<EntityType<LunaCircleEntity>> LUNA_CIRCLE = ENTITY_TYPES.register("luna_circle",
             () -> EntityType.Builder.of(LunaCircleEntity::new, MobCategory.MISC).sized(5.0F, 0.1F)
                     .clientTrackingRange((4)).updateInterval((10)).build("luna_circle"));
@@ -152,12 +156,13 @@ public class TAEntityTypes {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(EYE_OF_DISTURBED.get(), EyeOfDisturbedRenderer::new);
         event.registerEntityRenderer(CRYSTALLINE_BEAM.get(), CrystallineBeamRenderer::new);
         event.registerEntityRenderer(CERULEAN_ARROW.get(), CeruleanArrowRenderer::new);
         event.registerEntityRenderer(CRYSTAL_ARROW.get(), CrystalArrowRenderer::new);
         event.registerEntityRenderer(STICKY_SPIKER.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(WEBBING.get(), ThrownItemRenderer::new);
-        event.registerEntityRenderer(EYE_OF_DISTURBED.get(), EyeOfDisturbedRenderer::new);
+        event.registerEntityRenderer(SIT.get(), SitRenderer::new);
         event.registerEntityRenderer(LUNA_CIRCLE.get(), LunaCircleRenderer::new);
         event.registerEntityRenderer(BREAD_BEAST.get(), BreadBeastRenderer::new);
         event.registerEntityRenderer(ICEFIELD_DEER.get(), IcefieldDeerRenderer::new);

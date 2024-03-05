@@ -42,10 +42,6 @@ public class ClientEventSubscriber {
                 if (effect.getEffect() instanceof ConfusionEffect confusionEffect) {
                     confusionEffect.onMovementInputUpdate(effect.getAmplifier(), input, localPlayer);
                 }
-
-                if (effect.getEffect() == TAMobEffects.PARALYSIS.get()) {
-                    localPlayer.crouching = false;
-                }
             });
         }
     }

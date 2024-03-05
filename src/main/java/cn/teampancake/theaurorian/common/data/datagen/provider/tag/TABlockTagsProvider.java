@@ -131,13 +131,21 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.FENCE_GATES).add(TABlocks.SILENT_WOOD_FENCE_GATE.get(), TABlocks.WEEPING_WILLOW_FENCE_GATE.get(),
                 TABlocks.CURTAIN_WOOD_FENCE_GATE.get(), TABlocks.CURSED_FROST_WOOD_FENCE_GATE.get());
         this.tag(BlockTags.SAND).add(TABlocks.MOON_SAND.get(), TABlocks.MOON_SAND_RIVER.get(), TABlocks.BRIGHT_MOON_SAND.get());
-        this.tag(BlockTags.STANDING_SIGNS).add(TABlocks.SILENT_WOOD_SIGN.get());
-        this.tag(BlockTags.WALL_SIGNS).add(TABlocks.SILENT_WOOD_WALL_SIGN.get());
-        this.tag(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON).add(TABlocks.FILTHY_ICE.get());
+        this.tag(BlockTags.STANDING_SIGNS).add(TABlocks.SILENT_WOOD_SIGN.get(), TABlocks.WEEPING_WILLOW_WOOD_SIGN.get(),
+                TABlocks.CURTAIN_WOOD_SIGN.get(), TABlocks.CURSED_FROST_WOOD_SIGN.get());
+        this.tag(BlockTags.WALL_SIGNS).add(TABlocks.SILENT_WOOD_WALL_SIGN.get(), TABlocks.WEEPING_WILLOW_WOOD_WALL_SIGN.get(),
+                TABlocks.CURTAIN_WOOD_WALL_SIGN.get(), TABlocks.CURSED_FROST_WOOD_WALL_SIGN.get());
+        this.tag(BlockTags.CEILING_HANGING_SIGNS).add(TABlocks.SILENT_WOOD_HANGING_SIGN.get(),
+                TABlocks.WEEPING_WILLOW_WOOD_HANGING_SIGN.get(), TABlocks.CURTAIN_WOOD_HANGING_SIGN.get(),
+                TABlocks.CURSED_FROST_WOOD_HANGING_SIGN.get());
+        this.tag(BlockTags.WALL_HANGING_SIGNS).add(TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(),
+                TABlocks.WEEPING_WILLOW_WOOD_WALL_HANGING_SIGN.get(), TABlocks.CURTAIN_WOOD_WALL_HANGING_SIGN.get(),
+                TABlocks.CURSED_FROST_WOOD_WALL_HANGING_SIGN.get());
         this.tag(BlockTags.ICE).add(TABlocks.FILTHY_ICE.get());
         this.tag(BlockTags.WOOL).add(TABlocks.MYSTERIUM_WOOL.get());
         this.tag(BlockTags.BEDS).add(TABlocks.MYSTERIUM_WOOL_BED.get());
         this.tag(BlockTags.CLIMBABLE).add(TABlocks.SILENT_WOOD_LADDER.get());
+        this.tag(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON).add(TABlocks.FILTHY_ICE.get());
         this.tag(Tags.Blocks.CHESTS_WOODEN).add(TABlocks.SILENT_WOOD_CHEST.get());
         for (Block block : TACommonUtils.getKnownBlocks()) {
             float f1 = Blocks.BEDROCK.defaultDestroyTime();

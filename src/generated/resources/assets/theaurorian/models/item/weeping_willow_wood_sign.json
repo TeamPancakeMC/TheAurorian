@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "theaurorian:item/weeping_willow_wood_sign"
+  }
+}

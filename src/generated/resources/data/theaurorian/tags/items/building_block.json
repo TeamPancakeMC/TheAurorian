@@ -379,7 +379,13 @@
     "theaurorian:silent_wood_chest",
     "theaurorian:moon_torch",
     "theaurorian:silent_wood_torch",
+    "theaurorian:silent_wood_sign",
+    "theaurorian:weeping_willow_wood_sign",
+    "theaurorian:curtain_wood_sign",
+    "theaurorian:cursed_frost_wood_sign",
     "theaurorian:silent_wood_hanging_sign",
-    "theaurorian:silent_wood_sign"
+    "theaurorian:weeping_willow_wood_hanging_sign",
+    "theaurorian:curtain_wood_hanging_sign",
+    "theaurorian:cursed_frost_wood_hanging_sign"
   ]
 }

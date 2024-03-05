@@ -365,8 +365,21 @@ public class TAItems {
             TABlocks.MOON_TORCH.get(), TABlocks.MOON_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
     public static final RegistryObject<Item> SILENT_WOOD_TORCH = ITEMS.register("silent_wood_torch", () -> new StandingAndWallBlockItem(
             TABlocks.SILENT_WOOD_TORCH.get(), TABlocks.SILENT_WOOD_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> SILENT_WOOD_SIGN = ITEMS.register("silent_wood_sign", () -> new SignItem(
+            new Item.Properties().stacksTo(16), TABlocks.SILENT_WOOD_SIGN.get(), TABlocks.SILENT_WOOD_WALL_SIGN.get()));
+    public static final RegistryObject<Item> WEEPING_WILLOW_WOOD_SIGN = ITEMS.register("weeping_willow_wood_sign", () -> new SignItem(
+            new Item.Properties().stacksTo(16), TABlocks.WEEPING_WILLOW_WOOD_SIGN.get(), TABlocks.WEEPING_WILLOW_WOOD_WALL_SIGN.get()));
+    public static final RegistryObject<Item> CURTAIN_WOOD_SIGN = ITEMS.register("curtain_wood_sign", () -> new SignItem(
+            new Item.Properties().stacksTo(16), TABlocks.CURTAIN_WOOD_SIGN.get(), TABlocks.CURTAIN_WOOD_WALL_SIGN.get()));
+    public static final RegistryObject<Item> CURSED_FROST_WOOD_SIGN = ITEMS.register("cursed_frost_wood_sign", () -> new SignItem(
+            new Item.Properties().stacksTo(16), TABlocks.CURSED_FROST_WOOD_SIGN.get(), TABlocks.CURSED_FROST_WOOD_WALL_SIGN.get()));
     public static final RegistryObject<Item> SILENT_WOOD_HANGING_SIGN = ITEMS.register("silent_wood_hanging_sign", () -> new HangingSignItem(
             TABlocks.SILENT_WOOD_HANGING_SIGN.get(), TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> SILENT_WOOL_SIGN = ITEMS.register("silent_wood_sign", () -> new SignItem(
-            new Item.Properties().stacksTo(16), TABlocks.SILENT_WOOD_SIGN.get(), TABlocks.SILENT_WOOD_WALL_SIGN.get()));
+    public static final RegistryObject<Item> WEEPING_WILLOW_WOOD_HANGING_SIGN = ITEMS.register("weeping_willow_wood_hanging_sign", () -> new HangingSignItem(
+            TABlocks.WEEPING_WILLOW_WOOD_HANGING_SIGN.get(), TABlocks.WEEPING_WILLOW_WOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> CURTAIN_WOOD_HANGING_SIGN = ITEMS.register("curtain_wood_hanging_sign", () -> new HangingSignItem(
+            TABlocks.CURTAIN_WOOD_HANGING_SIGN.get(), TABlocks.CURTAIN_WOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> CURSED_FROST_WOOD_HANGING_SIGN = ITEMS.register("cursed_frost_wood_hanging_sign", () -> new HangingSignItem(
+            TABlocks.CURSED_FROST_WOOD_HANGING_SIGN.get(), TABlocks.CURSED_FROST_WOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+
 }

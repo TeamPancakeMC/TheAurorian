@@ -208,6 +208,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.WEEPING_WILLOW_PLANKS.get(), "垂柳木板");
         this.add(TABlocks.WEEPING_WILLOW_LOG.get(), "垂柳原木");
         this.add(TABlocks.WEEPING_WILLOW_WOOD.get(), "垂柳木头");
+        this.add(TABlocks.WEEPING_WILLOW_WOOD_SIGN.get(), "垂柳木告示牌");
+        this.add(TABlocks.WEEPING_WILLOW_WOOD_HANGING_SIGN.get(), "悬挂式垂柳木告示牌");
         this.add(TABlocks.STRIPPED_CURTAIN_TREE_LOG.get(), "去皮幽帘树原木");
         this.add(TABlocks.STRIPPED_CURTAIN_TREE_WOOD.get(), "去皮幽帘树木头");
         this.add(TABlocks.CURTAIN_TREE_LEAVES.get(), "幽帘树叶");
@@ -215,6 +217,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.CURTAIN_TREE_LOG.get(), "幽帘树原木");
         this.add(TABlocks.CURTAIN_TREE_WOOD.get(), "幽帘树木头");
         this.add(TABlocks.CURTAIN_TREE_SAPLING.get(), "幽帘树苗");
+        this.add(TABlocks.CURTAIN_WOOD_SIGN.get(), "幽帘木告示牌");
+        this.add(TABlocks.CURTAIN_WOOD_HANGING_SIGN.get(), "悬挂式幽帘木告示牌");
         this.add(TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get(), "去皮咒霜树原木");
         this.add(TABlocks.STRIPPED_CURSED_FROST_TREE_WOOD.get(), "去皮咒霜树木头");
         this.add(TABlocks.CURSED_FROST_TREE_LEAVES.get(), "咒霜树叶");
@@ -222,6 +226,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.CURSED_FROST_TREE_LOG.get(), "咒霜树原木");
         this.add(TABlocks.CURSED_FROST_TREE_WOOD.get(), "咒霜树木头");
         this.add(TABlocks.CURSED_FROST_TREE_SAPLING.get(), "咒霜树苗");
+        this.add(TABlocks.CURSED_FROST_WOOD_SIGN.get(), "咒霜木告示牌");
+        this.add(TABlocks.CURSED_FROST_WOOD_HANGING_SIGN.get(), "悬挂式咒霜木告示牌");
         this.add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(), "谧木压力板");
         this.add(TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get(), "垂柳木压力板");
         this.add(TABlocks.CURTAIN_WOOD_PRESSURE_PLATE.get(), "幽帘木压力板");

@@ -39,9 +39,15 @@ public class TABlockEntityTypes {
                     TABlocks.DARK_STONE_GATE_KEYHOLE.get(), TABlocks.MOON_TEMPLE_GATE_KEYHOLE.get(), TABlocks.RUNE_STONE_GATE_KEYHOLE.get(),
                     TABlocks.RUNE_STONE_LOOT_GATE_KEYHOLE.get(), TABlocks.MOON_TEMPLE_CELL_GATE_KEYHOLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<TASignBlockEntity>> TA_SIGN = BLOCK_ENTITY_TYPES.register("ta_sign",
-            () -> BlockEntityType.Builder.of(TASignBlockEntity::new, TABlocks.SILENT_WOOD_SIGN.get(), TABlocks.SILENT_WOOD_WALL_SIGN.get()).build(null));
+            () -> BlockEntityType.Builder.of(TASignBlockEntity::new, TABlocks.SILENT_WOOD_SIGN.get(), TABlocks.WEEPING_WILLOW_WOOD_SIGN.get(),
+                    TABlocks.CURTAIN_WOOD_SIGN.get(), TABlocks.CURSED_FROST_WOOD_SIGN.get(), TABlocks.SILENT_WOOD_WALL_SIGN.get(),
+                    TABlocks.WEEPING_WILLOW_WOOD_WALL_SIGN.get(), TABlocks.CURTAIN_WOOD_WALL_SIGN.get(),
+                    TABlocks.CURSED_FROST_WOOD_WALL_SIGN.get()).build(null));
     public static final RegistryObject<BlockEntityType<TAHangingSignBlockEntity>> TA_HANGING_SIGN = BLOCK_ENTITY_TYPES.register("ta_hanging_sign",
-            () -> BlockEntityType.Builder.of(TAHangingSignBlockEntity::new, TABlocks.SILENT_WOOD_HANGING_SIGN.get(), TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get()).build(null));
+            () -> BlockEntityType.Builder.of(TAHangingSignBlockEntity::new, TABlocks.SILENT_WOOD_HANGING_SIGN.get(), TABlocks.WEEPING_WILLOW_WOOD_HANGING_SIGN.get(),
+                    TABlocks.CURTAIN_WOOD_HANGING_SIGN.get(), TABlocks.CURSED_FROST_WOOD_HANGING_SIGN.get(), TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(),
+                    TABlocks.WEEPING_WILLOW_WOOD_WALL_HANGING_SIGN.get(), TABlocks.CURTAIN_WOOD_WALL_HANGING_SIGN.get(),
+                    TABlocks.CURSED_FROST_WOOD_WALL_HANGING_SIGN.get()).build(null));
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {

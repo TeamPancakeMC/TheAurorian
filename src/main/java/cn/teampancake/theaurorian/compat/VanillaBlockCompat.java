@@ -26,10 +26,10 @@ public class VanillaBlockCompat {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerWoodType(FMLClientSetupEvent event) {
-        Sheets.addWoodType(TAWoodType.SILENT_WOOD);
+        Sheets.addWoodType(TAWoodType.SILENT);
         Sheets.addWoodType(TAWoodType.WEEPING_WILLOW);
-        Sheets.addWoodType(TAWoodType.CURTAIN_TREE);
-        Sheets.addWoodType(TAWoodType.CURSED_FROST_TREE);
+        Sheets.addWoodType(TAWoodType.CURTAIN);
+        Sheets.addWoodType(TAWoodType.CURSED_FROST);
     }
 
     @SubscribeEvent

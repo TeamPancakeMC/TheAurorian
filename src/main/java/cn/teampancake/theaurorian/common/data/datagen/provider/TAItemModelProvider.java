@@ -31,8 +31,15 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleItem(TAItems.SILK_BERRY.get());
         this.simpleItem(TAItems.BLUEBERRY.get());
         this.simpleItem(TAItems.LAVENDER_SEEDS.get());
-        this.simpleItem(TAItems.SILENT_WOOL_SIGN.get());
+        this.simpleItem(TAItems.SILENT_WOOD_SIGN.get());
+        this.simpleItem(TAItems.WEEPING_WILLOW_WOOD_SIGN.get());
+        this.simpleItem(TAItems.CURTAIN_WOOD_SIGN.get());
+        this.simpleItem(TAItems.CURSED_FROST_WOOD_SIGN.get());
         this.simpleItem(TAItems.SILENT_WOOD_HANGING_SIGN.get());
+        this.simpleItem(TAItems.SILENT_WOOD_HANGING_SIGN.get());
+        this.simpleItem(TAItems.WEEPING_WILLOW_WOOD_HANGING_SIGN.get());
+        this.simpleItem(TAItems.CURTAIN_WOOD_HANGING_SIGN.get());
+        this.simpleItem(TAItems.CURSED_FROST_WOOD_HANGING_SIGN.get());
         this.simpleItem(TABlocks.MYSTERIUM_WOOL_BED.get().asItem());
         this.simpleItem(TABlocks.SILENT_CAMPFIRE.get().asItem());
         this.simpleBlockItem(TABlocks.GEODE_ORE.get());

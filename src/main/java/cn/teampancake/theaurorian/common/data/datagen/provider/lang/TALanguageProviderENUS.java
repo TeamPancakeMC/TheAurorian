@@ -208,6 +208,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.WEEPING_WILLOW_PLANKS.get(), "Weeping Willow Planks");
         this.add(TABlocks.WEEPING_WILLOW_LOG.get(), "Weeping Willow Log");
         this.add(TABlocks.WEEPING_WILLOW_WOOD.get(), "Weeping Willow Wood");
+        this.add(TABlocks.WEEPING_WILLOW_WOOD_SIGN.get(), "Weeping Willow Wood Sign");
+        this.add(TABlocks.WEEPING_WILLOW_WOOD_HANGING_SIGN.get(), "Weeping Willow Wood Hanging Sign");
         this.add(TABlocks.STRIPPED_CURTAIN_TREE_LOG.get(), "Stripped Curtain Tree Log");
         this.add(TABlocks.STRIPPED_CURTAIN_TREE_WOOD.get(), "Stripped Curtain Tree Wood");
         this.add(TABlocks.CURTAIN_TREE_LEAVES.get(), "Curtain Tree Leaves");
@@ -215,6 +217,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.CURTAIN_TREE_LOG.get(), "Curtain Tree Log");
         this.add(TABlocks.CURTAIN_TREE_WOOD.get(), "Curtain Tree Wood");
         this.add(TABlocks.CURTAIN_TREE_SAPLING.get(), "Curtain Tree Sapling");
+        this.add(TABlocks.CURTAIN_WOOD_SIGN.get(), "Curtain Wood Sign");
+        this.add(TABlocks.CURTAIN_WOOD_HANGING_SIGN.get(), "Curtain Wood Hanging Sign");
         this.add(TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get(), "Stripped Cursed Frost Tree Log");
         this.add(TABlocks.STRIPPED_CURSED_FROST_TREE_WOOD.get(), "Stripped Cursed Frost Tree Wood");
         this.add(TABlocks.CURSED_FROST_TREE_LEAVES.get(), "Cursed Frost Tree Leaves");
@@ -222,6 +226,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.CURSED_FROST_TREE_LOG.get(), "Cursed Frost Tree Log");
         this.add(TABlocks.CURSED_FROST_TREE_WOOD.get(), "Cursed Frost Tree Wood");
         this.add(TABlocks.CURSED_FROST_TREE_SAPLING.get(), "Cursed Frost Tree Sapling");
+        this.add(TABlocks.CURSED_FROST_WOOD_SIGN.get(), "Cursed Frost Wood Sign");
+        this.add(TABlocks.CURSED_FROST_WOOD_HANGING_SIGN.get(), "Cursed Frost Wood Hanging Sign");
         this.add(TABlocks.SILENT_WOOD_PRESSURE_PLATE.get(), "Silent Wood Pressure Plate");
         this.add(TABlocks.WEEPING_WILLOW_PRESSURE_PLATE.get(), "Weeping Willow Pressure Plate");
         this.add(TABlocks.CURTAIN_WOOD_PRESSURE_PLATE.get(), "Curtain Wood Pressure Plate");

@@ -135,6 +135,15 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.signBlock((StandingSignBlock) TABlocks.SILENT_WOOD_SIGN.get(),
                 (WallSignBlock) TABlocks.SILENT_WOOD_WALL_SIGN.get(),
                 this.blockTexture(TABlocks.SILENT_TREE_PLANKS.get()));
+        this.signBlock((StandingSignBlock) TABlocks.WEEPING_WILLOW_WOOD_SIGN.get(),
+                (WallSignBlock) TABlocks.WEEPING_WILLOW_WOOD_WALL_SIGN.get(),
+                this.blockTexture(TABlocks.WEEPING_WILLOW_PLANKS.get()));
+        this.signBlock((StandingSignBlock) TABlocks.CURTAIN_WOOD_SIGN.get(),
+                (WallSignBlock) TABlocks.CURTAIN_WOOD_WALL_SIGN.get(),
+                this.blockTexture(TABlocks.CURTAIN_TREE_PLANKS.get()));
+        this.signBlock((StandingSignBlock) TABlocks.CURSED_FROST_WOOD_SIGN.get(),
+                (WallSignBlock) TABlocks.CURSED_FROST_WOOD_WALL_SIGN.get(),
+                this.blockTexture(TABlocks.CURSED_FROST_TREE_PLANKS.get()));
         this.logBlock((RotatedPillarBlock) TABlocks.RUNE_STONE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.DARK_STONE_PILLAR.get());
         this.logBlock((RotatedPillarBlock) TABlocks.MOON_TEMPLE_PILLAR.get());
@@ -251,8 +260,18 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerLuminousStates(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE.get(), TABlocks.CERULEAN_CASTLE_RUNE_STONE.get());
         this.registerLuminousStates(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE.get(), TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE.get());
         this.registerLuminousStates(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE.get(), TABlocks.MOON_CASTLE_RUNE_STONE.get());
-        this.registerHangingSignStates(TABlocks.SILENT_WOOD_HANGING_SIGN.get(), TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(),
+        this.registerHangingSignStates(TABlocks.SILENT_WOOD_HANGING_SIGN.get(),
+                TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(),
                 this.blockTexture(TABlocks.STRIPPED_SILENT_TREE_LOG.get()));
+        this.registerHangingSignStates(TABlocks.WEEPING_WILLOW_WOOD_HANGING_SIGN.get(),
+                TABlocks.WEEPING_WILLOW_WOOD_WALL_HANGING_SIGN.get(),
+                this.blockTexture(TABlocks.STRIPPED_WEEPING_WILLOW_LOG.get()));
+        this.registerHangingSignStates(TABlocks.CURTAIN_WOOD_HANGING_SIGN.get(),
+                TABlocks.CURTAIN_WOOD_WALL_HANGING_SIGN.get(),
+                this.blockTexture(TABlocks.STRIPPED_CURTAIN_TREE_LOG.get()));
+        this.registerHangingSignStates(TABlocks.CURSED_FROST_WOOD_HANGING_SIGN.get(),
+                TABlocks.CURSED_FROST_WOOD_WALL_HANGING_SIGN.get(),
+                this.blockTexture(TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get()));
         for (Block block : TACommonUtils.getKnownBlocks()) {
             if (block instanceof PressurePlateBlockWithBase pressurePlateBlock) {
                 this.pressurePlateBlock(pressurePlateBlock, this.blockTexture(pressurePlateBlock.getBase()));

@@ -7,6 +7,7 @@ import cn.teampancake.theaurorian.common.network.TAMessages;
 import cn.teampancake.theaurorian.common.network.message.FutureNightMessage;
 import cn.teampancake.theaurorian.common.network.message.NightSyncMessage;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
+import cn.teampancake.theaurorian.common.registry.TAGameRules;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -74,19 +75,21 @@ public class LevelEventSubscriber {
                     if (dayTime > 6000 && dayTime <= 18000) {
                         serverPlayer.addEffect(blessEffect(TAMobEffects.PRESSURE.get()));
                     } else {
-                        if (phaseCode == 2) {
-                            serverPlayer.addEffect(blessEffect(MobEffects.MOVEMENT_SPEED));
-                        } else if (phaseCode == 0) {
-                            serverPlayer.addEffect(blessEffect(MobEffects.DAMAGE_BOOST));
-                            serverPlayer.addEffect(blessEffect(MobEffects.DAMAGE_RESISTANCE));
-                        } else if (phaseCode == 3) {
-                            serverPlayer.addEffect(blessEffect(MobEffects.DIG_SPEED));
-                        } else if (phaseCode == 4) {
-                            //TODO: VEGETABLES GROW FASTER
-                        } else if (phaseCode == 1) {
-                            serverPlayer.addEffect(blessEffect(TAMobEffects.TOUGH.get()));
-                        } else {
-                            TAEventFactory.onRegisterAurorianSkyBless(serverPlayer, serverLevel, phaseCode);
+                        if (serverLevel.getGameRules().getBoolean(TAGameRules.RULE_ENABLE_AURORIAN_BLESS)) {
+                            if (phaseCode == 2) {
+                                serverPlayer.addEffect(blessEffect(MobEffects.MOVEMENT_SPEED));
+                            } else if (phaseCode == 0) {
+                                serverPlayer.addEffect(blessEffect(MobEffects.DAMAGE_BOOST));
+                                serverPlayer.addEffect(blessEffect(MobEffects.DAMAGE_RESISTANCE));
+                            } else if (phaseCode == 3) {
+                                serverPlayer.addEffect(blessEffect(MobEffects.DIG_SPEED));
+                            } else if (phaseCode == 4) {
+                                //TODO: VEGETABLES GROW FASTER
+                            } else if (phaseCode == 1) {
+                                serverPlayer.addEffect(blessEffect(TAMobEffects.TOUGH.get()));
+                            } else {
+                                TAEventFactory.onRegisterAurorianSkyBless(serverPlayer, serverLevel, phaseCode);
+                            }
                         }
                     }
                 }

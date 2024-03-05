@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.client.gui.hud.FrostbiteOutlineRender;
 import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.client.gui.hud.ProgressBarRenderer;
 import cn.teampancake.theaurorian.client.gui.hud.ShieldHudRenderer;
+import cn.teampancake.theaurorian.common.commands.CommandCenter;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.data.pack.MaxShieldLoader;
 import cn.teampancake.theaurorian.common.event.subscriber.ItemSubscriber;
@@ -19,6 +20,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -75,10 +77,12 @@ public class AurorianMod {
         TAShields.SHIELD.register(modEventBus);
         modEventBus.addListener(this::registerExtraStuff);
         modEventBus.addListener(this::setRegistriesForDatapack);
-        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onNewRegistry);
+        MinecraftForge.EVENT_BUS.register(new TAGameRules());
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.addListener(this::onDataPackLoad);
+        MinecraftForge.EVENT_BUS.addListener(this::onRegisterCommands);
         ItemSubscriber.register();
         if (ModList.get().isLoaded("thirst")) {
             ThirstWasTakenCompat.init();
@@ -123,7 +127,12 @@ public class AurorianMod {
         event.addListener(new MaxShieldLoader());
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
+    @SubscribeEvent
+    public void onRegisterCommands(RegisterCommandsEvent event) {
+        new CommandCenter(event.getDispatcher());
+    }
+
+    private void onCommonSetup(final FMLCommonSetupEvent event) {
         TAMessages.register();
     }
 

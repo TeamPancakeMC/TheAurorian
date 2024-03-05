@@ -221,16 +221,14 @@ public class EntityEventSubscriber {
             GameRules.BooleanValue rule1 = gameRules.getRule(TAGameRules.RULE_ENABLE_NIGHTMARE_MODE);
             GameRules.IntegerValue rule2 = gameRules.getRule(TAGameRules.RULE_NIGHTMARE_MODE_MULTIPLIER);
             if (monster.getType().is(TAEntityTags.AFFECTED_BY_NIGHTMARE_MODE)) {
-                if (rule1 != null && rule2 != null) {
-                    double multiplier = Math.max(1.0D, rule2.get());
-                    double newHealth = rule1.get() ? baseHealth * multiplier * 2.0D : baseHealth;
-                    double newAttackDamage = rule1.get() ? baseAttackDamage * multiplier * 2.0D : baseAttackDamage;
-                    double newMovementSpeed = rule1.get() ? baseMovementSpeed * multiplier * 2.0D : baseMovementSpeed;
-                    monster.getAttribute(Attributes.MAX_HEALTH).setBaseValue(newHealth);
-                    monster.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(newAttackDamage);
-                    if (!(monster instanceof CrystallineSprite)) {
-                        monster.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newMovementSpeed);
-                    }
+                double multiplier = Math.max(1.0D, rule2.get());
+                double newHealth = rule1.get() ? baseHealth * multiplier * 2.0D : baseHealth;
+                double newAttackDamage = rule1.get() ? baseAttackDamage * multiplier * 2.0D : baseAttackDamage;
+                double newMovementSpeed = rule1.get() ? baseMovementSpeed * multiplier * 2.0D : baseMovementSpeed;
+                monster.getAttribute(Attributes.MAX_HEALTH).setBaseValue(newHealth);
+                monster.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(newAttackDamage);
+                if (!(monster instanceof CrystallineSprite)) {
+                    monster.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newMovementSpeed);
                 }
             } else if (monster instanceof RunestoneKeeper runestoneKeeper) {
                 double healthMultiplier = AurorianConfig.CONFIG_RUNESTONE_KEEPER_HEALTH_MULIPLIER.get();

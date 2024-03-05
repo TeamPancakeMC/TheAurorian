@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.common.items.tool;
 
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
-import cn.teampancake.theaurorian.common.utils.AurorianUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,7 +23,7 @@ public class AurorianStonePickaxe extends PickaxeItem {
         if (!level.isClientSide && state.getDestroySpeed(level, pos) != 0.0F) {
             Consumer<LivingEntity> onBroken = p -> p.broadcastBreakEvent(EquipmentSlot.MAINHAND);
             if (state.getBlock() == TABlocks.AURORIAN_STONE.get()) {
-                if (AurorianUtil.randomChanceOf(0.75F)) {
+                if (level.random.nextDouble() <= 0.75D) {
                     stack.hurtAndBreak(1, livingEntity, onBroken);
                 }
             } else {

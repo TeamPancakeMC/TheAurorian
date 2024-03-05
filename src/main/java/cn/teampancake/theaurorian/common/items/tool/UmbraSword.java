@@ -23,21 +23,23 @@ public class UmbraSword extends SwordItem implements ITooltipsItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack itemInHand = player.getItemInHand(usedHand);
-        itemInHand.hurtAndBreak(20, player, (playerEntity) -> playerEntity.broadcastBreakEvent(usedHand));
-
+        player.getCooldowns().addCooldown(this, AurorianConfig.Config_UmbraSwordCooldown.get());
         int time = 120;
-        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, time, 4, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, time, 4, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, time, 2, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, time, 1, false, false));
-
-        player.getCooldowns().addCooldown(this,AurorianConfig.Config_UmbraSwordCooldown.get());
-
         if (level.isClientSide) {
             player.playSound(SoundEvents.ENCHANTMENT_TABLE_USE, 1f, 0.5f);
             player.playSound(SoundEvents.IRON_DOOR_OPEN, 1f, 0.25f);
+        } else {
+            player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, time, 4, false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, time, 4, false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, time, 2, false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, time, 1, false, false));
         }
-        return InteractionResultHolder.success(itemInHand);
 
+        if (!player.getAbilities().instabuild) {
+            itemInHand.hurtAndBreak(20, player, (playerEntity) -> playerEntity.broadcastBreakEvent(usedHand));
+        }
+
+        return InteractionResultHolder.success(itemInHand);
     }
+
 }

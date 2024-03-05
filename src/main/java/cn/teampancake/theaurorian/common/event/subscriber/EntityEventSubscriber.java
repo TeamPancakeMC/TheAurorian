@@ -19,7 +19,6 @@ import cn.teampancake.theaurorian.common.network.TAMessages;
 import cn.teampancake.theaurorian.common.network.message.FrostbiteSyncMessage;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
-import cn.teampancake.theaurorian.common.utils.AurorianUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -323,7 +322,7 @@ public class EntityEventSubscriber {
                 }
             }
 
-            if (chance != 0.00F && AurorianUtil.randomChanceOf(chance)) {
+            if (chance != 0.00F && livingEntity.getRandom().nextFloat() <= chance) {
                 for (MobEffectInstance effectInstance : livingEntity.getActiveEffects()) {
                     if (effectInstance.getEffect().getCategory() == MobEffectCategory.HARMFUL) {
                         livingEntity.removeEffect(effectInstance.getEffect());

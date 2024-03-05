@@ -8,7 +8,6 @@ import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
-import cn.teampancake.theaurorian.common.utils.AurorianUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -64,7 +63,7 @@ public class ItemEventSubscriber {
         if (level.isClientSide()) return;
         entity.getArmorSlots().forEach(itemStack -> {
             if (itemStack.is(TAItemTags.SPECTRAL_ARMOR)
-                    && AurorianUtil.randomChanceOf(AurorianConfig.CONFIG_SPECTRAL_ARMOR_CLEANSE_CHANCE.get())
+                    && level.random.nextDouble() <= AurorianConfig.CONFIG_SPECTRAL_ARMOR_CLEANSE_CHANCE.get()
                     && entity instanceof Player player) {
                 player.getActiveEffects().forEach(effectInstance -> {
                     if (!effectInstance.getEffect().isBeneficial()) {

@@ -1,12 +1,7 @@
 package cn.teampancake.theaurorian.common.utils;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.List;
 
 public class EntityHelper {
 
@@ -22,18 +17,6 @@ public class EntityHelper {
         vec = vec.normalize();
         double mult = lookvec.dot(vec);
         return mult > 1.0D - accuracy / leng && target.isInvisible();
-    }
-
-    public static List<LivingEntity> getEntitiesAround(Level worldIn,LivingEntity target, double x, double y, double z, double distance, boolean debugRender) {
-        return EntityHelper.getEntitiesAround(worldIn,target, x, y, z, distance, distance, debugRender);
-    }
-
-    public static List<LivingEntity> getEntitiesAround(Level worldIn,LivingEntity target ,double x, double y, double z, double distance, double height, boolean debugRender) {
-        AABB aabb = new AABB(x - distance, y - height, z - distance, x + distance, y + height, z + distance);
-        if (debugRender) {
-            AurorianUtil.renderAABBBounds(worldIn, aabb);
-        }
-        return worldIn.getNearbyEntities(LivingEntity.class,TargetingConditions.DEFAULT,target, aabb);
     }
 
 }

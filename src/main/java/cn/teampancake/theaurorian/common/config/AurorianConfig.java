@@ -46,7 +46,6 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.IntValue Config_UmbraShieldOverheatCooldown;
     public static final ForgeConfigSpec.IntValue Config_UmbraSwordCooldown;
     public static final ForgeConfigSpec.IntValue Config_SlimeBootsCooldown;
-    public static final ForgeConfigSpec.IntValue Config_OrbOfAbsorptionWhitelistBlacklist;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_OrbOfAbsorptionList;
     public static final ForgeConfigSpec.DoubleValue Config_UmbraPickaxeMiningSpeedMultiplier;
     public static final ForgeConfigSpec.BooleanValue Config_MoonlightForgeTransfersEnchants;
@@ -155,12 +154,9 @@ public class AurorianConfig {
         Config_UmbraShieldOverheatCooldown = BUILDER
                 .comment("Cooldown in ticks for the player to be able to use the shield again after it overheats")
                 .defineInRange("UmbraShieldOverheatCooldown", 60, 0, 72000);
-        Config_OrbOfAbsorptionWhitelistBlacklist = BUILDER
-                .comment("Decides how to treat OrbOfAbsorptionList: 0 - ignored (Orb of Absorption can repair any damaged object), 1 - whitelist (can only repair items in the list), 2 - blacklist (repairs everything but items in the list)")
-                .defineInRange("OrbOfAbsorptionWhitelistBlacklist", 2, 0, 2);
         Config_OrbOfAbsorptionList = BUILDER
                 .comment("List of items, use is decided by OrbOfAbsorptionWhitelistBlacklist, you can also specify mod ids to whitelist or blacklist whole mods, ex: (tconstruct, minecraft:elytra)")
-                .defineList("OrbOfAbsorptionList", List.of("theaurorian:absorptionorb", "theaurorian:strangemeat"), o -> o instanceof String);
+                .defineList("OrbOfAbsorptionList", List.of("theaurorian:absorption_orb", "theaurorian:strange_meat"), o -> o instanceof String);
         Config_UmbraSwordCooldown = BUILDER
                 .comment("Cooldown in ticks for the Umbra Sword’s ability")
                 .defineInRange("UmbraSwordCooldown", 900, 0, 72000);

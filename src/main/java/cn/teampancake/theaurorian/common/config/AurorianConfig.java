@@ -24,18 +24,6 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.DoubleValue CONFIG_CRYSTALS_SPEED_REDUCTION;
     public static final ForgeConfigSpec.IntValue CONFIG_SCRAPPER_TICK_INTERVAL;
 
-    //Structures
-    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_RUNESTONE_DUNGEON;
-    public static final ForgeConfigSpec.IntValue CONFIG_DUNGEON_DENSITY;
-    public static final ForgeConfigSpec.IntValue CONFIG_RUNESTONE_DUNGEON_FLOORS;
-    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_RUINS;
-    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_MOON_TEMPLE;
-    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_MOON_TEMPLE_PATH;
-    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_UMBRA_TOWER;
-    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_MUSHROOM_CAVES;
-    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_GRAVEYARDS;
-    public static final ForgeConfigSpec.BooleanValue CONFIG_GENERATE_DARKSTONE_DUNGEON;
-
     //Entities
     public static final ForgeConfigSpec.IntValue CONFIG_RUNESTONE_DUNGEON_MOB_DENSITY;
     public static final ForgeConfigSpec.IntValue CONFIG_MOON_TEMPLE_MOB_DENSITY;
@@ -46,33 +34,6 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.DoubleValue CONFIG_RUNESTONE_KEEPER_DAMAGE_MULIPLIER;
     public static final ForgeConfigSpec.DoubleValue CONFIG_MOON_QUEEN_DAMAGE_MULIPLIER;
     public static final ForgeConfigSpec.DoubleValue CONFIG_SPIDER_MOTHER_DAMAGE_MULIPLIER;
-
-    //Generation
-    public static final ForgeConfigSpec.IntValue Config_AurorianCoalOre_Size;
-    public static final ForgeConfigSpec.IntValue Config_AurorianCoalOre_Count;
-    public static final ForgeConfigSpec.IntValue Config_AurorianCoalOre_HeightMin;
-    public static final ForgeConfigSpec.IntValue Config_AurorianCoalOre_HeightMax;
-    public static final ForgeConfigSpec.IntValue Config_CeruleanOre_Size;
-    public static final ForgeConfigSpec.IntValue Config_CeruleanOre_Count;
-    public static final ForgeConfigSpec.IntValue Config_CeruleanOre_HeightMin;
-    public static final ForgeConfigSpec.IntValue Config_CeruleanOre_HeightMax;
-    public static final ForgeConfigSpec.IntValue Config_MoonstoneOre_Size;
-    public static final ForgeConfigSpec.IntValue Config_MoonstoneOre_Count;
-    public static final ForgeConfigSpec.IntValue Config_MoonstoneOre_HeightMin;
-    public static final ForgeConfigSpec.IntValue Config_MoonstoneOre_HeightMax;
-    public static final ForgeConfigSpec.IntValue Config_GeodeOre_Size;
-    public static final ForgeConfigSpec.IntValue Config_GeodeOre_Count;
-    public static final ForgeConfigSpec.IntValue Config_GeodeOre_HeightMin;
-    public static final ForgeConfigSpec.IntValue Config_GeodeOre_HeightMax;
-    public static final ForgeConfigSpec.IntValue Config_Peridotite_Size;
-    public static final ForgeConfigSpec.IntValue Config_Peridotite_Count;
-    public static final ForgeConfigSpec.IntValue Config_Peridotite_HeightMin;
-    public static final ForgeConfigSpec.IntValue Config_Peridotite_HeightMax;
-    public static final ForgeConfigSpec.IntValue Config_Dirt_Size;
-    public static final ForgeConfigSpec.IntValue Config_Dirt_Count;
-    public static final ForgeConfigSpec.IntValue Config_Dirt_HeightMin;
-    public static final ForgeConfigSpec.IntValue Config_Dirt_HeightMax;
-    public static final ForgeConfigSpec.BooleanValue Config_GenerateUrns;
 
     //Misc
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_PortalLighter;
@@ -113,6 +74,7 @@ public class AurorianConfig {
                 .define("EnableConstructsArmoryCompatibility", true);
         BUILDER.pop();
     }
+
     //blocks
     static {
         BUILDER.push("Blocks");
@@ -140,41 +102,6 @@ public class AurorianConfig {
         BUILDER.pop();
     }
 
-    //Structures
-    static {
-        BUILDER.push("Structures");
-        CONFIG_GENERATE_RUNESTONE_DUNGEON = BUILDER
-                .comment("Set to false to disable Runestone Dungeons (Why would anyone do this? :c )")
-                .define("GenerateRunestoneDungeon", true);
-        CONFIG_DUNGEON_DENSITY = BUILDER.comment("How many chunks away until another Runestone Dungeons can generate, also affects Moon Temple generation")
-                .defineInRange("DungeonDensity",32,16,256);
-        CONFIG_RUNESTONE_DUNGEON_FLOORS = BUILDER
-                .comment("How many floors each Runestone Dungeon has, including double sized floors, code only accepts odd numbers! Evens will have +1 added")
-                .defineInRange("RunestoneDungeonFloors",4,1,17);
-        CONFIG_GENERATE_RUINS = BUILDER
-                .comment("Set to false to disable ruin structures (like destroyed houses or small underground structures)")
-                .define("GenerateRuins",true);
-        CONFIG_GENERATE_MOON_TEMPLE = BUILDER
-                .comment("Set to false to disable Moon Temples")
-                .define("GenerateMoonTemple",true);
-        CONFIG_GENERATE_MOON_TEMPLE_PATH = BUILDER
-                .comment("Set to false to disable Moon Temple's spiral path up")
-                .define("GenerateMoonTemplePath",true);
-        CONFIG_GENERATE_UMBRA_TOWER = BUILDER
-                .comment("Set to false to disable Umbra Towers")
-                .define("GenerateUmbraTower",true);
-        CONFIG_GENERATE_MUSHROOM_CAVES = BUILDER
-                .comment("Set to false to disable Mushroom Caves")
-                .define("GenerateMushroomCaves",true);
-        CONFIG_GENERATE_GRAVEYARDS = BUILDER
-                .comment("Set to false to disable Graveyards")
-                .define("GenerateGraveyards",false);
-        CONFIG_GENERATE_DARKSTONE_DUNGEON = BUILDER
-                .comment("Set to false to disable Darkstone Dungeons")
-                .define("GenerateDarkstoneDungeon",true);
-        BUILDER.pop();
-    }
-
     //Entities
     static {
         BUILDER.push("Entity");
@@ -199,87 +126,6 @@ public class AurorianConfig {
                 .defineInRange("MoonQueenDamageMuliplier", 1.0f, 0.0f, 100.0f);
         CONFIG_SPIDER_MOTHER_DAMAGE_MULIPLIER = BUILDER
                 .defineInRange("SpiderMotherDamageMuliplier", 1.0f, 0.0f, 100.0f);
-        BUILDER.pop();
-    }
-
-    //Generation
-    static {
-        BUILDER.push("Generation");
-        Config_AurorianCoalOre_Size = BUILDER
-                .comment("Changes the size of Aurorian Coal Ore vein")
-                .defineInRange("AurorianCoalOreSize", 12, 0, 50);
-        Config_AurorianCoalOre_Count = BUILDER
-                .comment("Changes the count of Aurorian Coal Ore vein")
-                .defineInRange("AurorianCoalOreCount", 13, 0, 50);
-        Config_AurorianCoalOre_HeightMin = BUILDER
-                .comment("Changes the min height of Aurorian Coal Ore vein")
-                .defineInRange("AurorianCoalOreHeightMin", 40, 0, 255);
-        Config_AurorianCoalOre_HeightMax = BUILDER
-                .comment("Changes the max height of Aurorian Coal Ore vein")
-                .defineInRange("AurorianCoalOreHeightMax", 128, 0, 255);
-        Config_CeruleanOre_Size = BUILDER
-                .comment("Changes the size of Cerulean Ore vein")
-                .defineInRange("CeruleanOreSize", 7, 0, 50);
-        Config_CeruleanOre_Count = BUILDER
-                .comment("Changes the count of Cerulean Ore vein")
-                .defineInRange("CeruleanOreCount", 13, 0, 50);
-        Config_CeruleanOre_HeightMin = BUILDER
-                .comment("Changes the min height of Cerulean Ore vein")
-                .defineInRange("CeruleanOreHeightMin", 5, 0, 255);
-        Config_CeruleanOre_HeightMax = BUILDER
-                .comment("Changes the max height of Cerulean Ore vein")
-                .defineInRange("CeruleanOreHeightMax", 60, 0, 255);
-        Config_MoonstoneOre_Size = BUILDER
-                .comment("Changes the size of Moonstone Ore vein")
-                .defineInRange("MoonstoneOreSize", 9, 0, 50);
-        Config_MoonstoneOre_Count = BUILDER
-                .comment("Changes the count of Moonstone Ore vein")
-                .defineInRange("MoonstoneOreCount", 2, 0, 50);
-        Config_MoonstoneOre_HeightMin = BUILDER
-                .comment("Changes the min height of Moonstone Ore vein")
-                .defineInRange("MoonstoneOreHeightMin", 5, 0, 255);
-        Config_MoonstoneOre_HeightMax = BUILDER
-                .comment("Changes the max height of Moonstone Ore vein")
-                .defineInRange("MoonstoneOreHeightMax", 30, 0, 255);
-        Config_GeodeOre_Size = BUILDER
-                .comment("Changes the size of Geode Ore vein")
-                .defineInRange("GeodeOreSize", 5, 0, 50);
-        Config_GeodeOre_Count = BUILDER
-                .comment("Changes the count of Geode Ore vein")
-                .defineInRange("GeodeOreCount", 8, 0, 50);
-        Config_GeodeOre_HeightMin = BUILDER
-                .comment("Changes the min height of Geode Ore vein")
-                .defineInRange("GeodeOreHeightMin", 5, 0, 255);
-        Config_GeodeOre_HeightMax = BUILDER
-                .comment("Changes the max height of Geode Ore vein")
-                .defineInRange("GeodeOreHeightMax", 128, 0, 255);
-        Config_Peridotite_Size = BUILDER
-                .comment("Changes the size of Peridotite vein")
-                .defineInRange("PeridotiteSize", 33, 0, 50);
-        Config_Peridotite_Count = BUILDER
-                .comment("Changes the count of Peridotite vein")
-                .defineInRange("PeridotiteCount", 10, 0, 50);
-        Config_Peridotite_HeightMin = BUILDER
-                .comment("Changes the min height of Peridotite vein")
-                .defineInRange("PeridotiteHeightMin", 5, 0, 255);
-        Config_Peridotite_HeightMax = BUILDER
-                .comment("Changes the max height of Peridotite vein")
-                .defineInRange("PeridotiteHeightMax", 80, 0, 255);
-        Config_Dirt_Size = BUILDER
-                .comment("Changes the size of Dirt vein")
-                .defineInRange("DirtSize", 33, 0, 50);
-        Config_Dirt_Count = BUILDER
-                .comment("Changes the count of Dirt vein")
-                .defineInRange("DirtCount", 10, 0, 50);
-        Config_Dirt_HeightMin = BUILDER
-                .comment("Changes the min height of Dirt vein")
-                .defineInRange("DirtHeightMin", 5, 0, 255);
-        Config_Dirt_HeightMax = BUILDER
-                .comment("Changes the max height of Dirt vein")
-                .defineInRange("DirtHeightMax", 256, 0, 255);
-        Config_GenerateUrns = BUILDER
-                .comment("Set to false to disable Urns that spawn underground")
-                .define("GenerateUrns", true);
         BUILDER.pop();
     }
 

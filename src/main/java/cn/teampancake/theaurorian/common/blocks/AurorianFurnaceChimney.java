@@ -38,12 +38,13 @@ public class AurorianFurnaceChimney extends Block implements ITooltipsItem {
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (level.isEmptyBlock(pos.above())) {
+            double dy = (random.nextDouble() * 6.0D / 16.0D);
             double d0 = (double) pos.getX() + 0.5D;
-            double d1 = (double) pos.getY() + 0.5D + (random.nextDouble() * 6.0D / 16.0D);
+            double d1 = (double) pos.getY() + 0.5D + dy;
             double d2 = (double) pos.getZ() + 0.5D;
             level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
-        if(!state.canSurvive(level,pos)){
+        if (!state.canSurvive(level,pos)){
             level.destroyBlock(pos, true);
         }
     }
@@ -55,46 +56,56 @@ public class AurorianFurnaceChimney extends Block implements ITooltipsItem {
 
     @Override
     public BlockState updateShape(BlockState state, Direction pDirection, BlockState pNeighborState, LevelAccessor level, BlockPos pos, BlockPos pNeighborPos) {
-        if(!state.canSurvive(level,pos))
-            level.scheduleTick(pos,this,1);
-        return super.updateShape(state, pDirection, pNeighborState, level, pos, pNeighborPos);
+        if (!state.canSurvive(level, pos)) {
+            level.scheduleTick(pos, this, 1);
+        }
+        return state;
     }
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if(level.isClientSide)
+        if (level.isClientSide) {
             return InteractionResult.SUCCESS;
+        }
 
-        if(!player.getItemInHand(hand).is(this.asItem()))
+        if(!player.getItemInHand(hand).is(this.asItem())) {
             return InteractionResult.PASS;
+        }
 
-        int y=1;
+        int y = 1;
         while (level.getBlockState(pos.above(y)).is(this)){
             y++;
         }
 
-        if(y>=AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get())
+        if(y >= AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
             return InteractionResult.PASS;
+        }
 
-        BlockPos newPos=pos.above(y);
+        BlockPos newPos = pos.above(y);
 
-        int i=1;
-        while (level.getBlockState(pos.below(i)).is(this)){
+        int i = 1;
+        while (level.getBlockState(pos.below(i)).is(this)) {
             i++;
         }
 
-        if((i+y)>=AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get())
+        if ((i + y) >= AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
             return InteractionResult.PASS;
+        }
 
-        if(level.isEmptyBlock(newPos)){
-            if(!player.getAbilities().instabuild)
+        if (level.isEmptyBlock(newPos)){
+            if (!player.getAbilities().instabuild) {
                 player.getItemInHand(hand).shrink(1);
+            }
+
             level.setBlockAndUpdate(newPos,this.defaultBlockState());
             BlockState newState = level.getBlockState(newPos);
             SoundType soundtype = newState.getSoundType(level, newPos, player);
-            level.playSound(null, newPos, soundtype.getPlaceSound(), SoundSource.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+            float volume = (soundtype.getVolume() + 1.0F) / 2.0F;
+            float pitch = soundtype.getPitch() * 0.8F;
+            level.playSound(null, newPos, soundtype.getPlaceSound(), SoundSource.BLOCKS, volume, pitch);
             return InteractionResult.SUCCESS;
         }
+
         return InteractionResult.PASS;
     }
 }

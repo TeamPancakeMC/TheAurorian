@@ -61,7 +61,7 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_FURNACE_CHIMNEY = register("aurorian_furnace_chimney", () -> new AurorianFurnaceChimney(defaultStoneProperties(2.0F)));
     public static final RegistryObject<Block> AURORIAN_CRAFTING_TABLE = register("aurorian_crafting_table", AurorianCraftingTable::new);
     public static final RegistryObject<Block> AURORIAN_PORTAL = BLOCKS.register("aurorian_portal", () -> new AurorianPortal(copy(Blocks.NETHER_PORTAL)));
-    public static final RegistryObject<Block> AURORIAN_PORTAL_FRAME_BRICKS = register("aurorian_portal_frame_bricks", () -> new AurorianPortalFrame(defaultStoneProperties(2.0F)));
+    public static final RegistryObject<Block> AURORIAN_PORTAL_FRAME_BRICKS = normal("aurorian_portal_frame_bricks", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> URN = register("urn", () -> new UrnBlock(of().mapColor(MapColor.STONE).instabreak().sound(SoundType.GLASS)));
     public static final RegistryObject<Block> MYSTERIUM_WOOL = normal("mysterium_wool", copy(Blocks.WHITE_WOOL));
     public static final RegistryObject<Block> AURORIAN_FLOWER_1 = register("aurorian_flower_1", TAFlowerBlock::new);

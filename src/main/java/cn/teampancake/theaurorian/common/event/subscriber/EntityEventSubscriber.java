@@ -328,18 +328,16 @@ public class EntityEventSubscriber {
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
         event.setCanceled(source.is(DamageTypes.FREEZE) && target.hasEffect(TAMobEffects.WARM.get()));
-        if (source.getEntity() instanceof LivingEntity livingEntity) {
-            if (livingEntity instanceof ServerPlayer serverPlayer) {
-                ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-                if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(source)) {
-                    int count = stack.getOrCreateTag().getInt("KillCount");
-                    if (count > 20) {
-                        count = 20;
-                    }
+        if (source.getEntity() instanceof ServerPlayer serverPlayer) {
+            ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+            if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(source)) {
+                int count = stack.getOrCreateTag().getInt("KillCount");
+                if (count > 20) {
+                    count = 20;
+                }
 
-                    if (target.isAlive()) {
-                        target.setHealth(event.getEntity().getHealth() - count * 0.05F);
-                    }
+                if (target.isAlive()) {
+                    target.setHealth(event.getEntity().getHealth() - count * 0.05F);
                 }
             }
         }

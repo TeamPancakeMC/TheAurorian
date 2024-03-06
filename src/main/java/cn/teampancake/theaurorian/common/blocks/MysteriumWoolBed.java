@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 
+@SuppressWarnings("deprecation")
 public class MysteriumWoolBed extends BedBlock {
 
     public MysteriumWoolBed() {

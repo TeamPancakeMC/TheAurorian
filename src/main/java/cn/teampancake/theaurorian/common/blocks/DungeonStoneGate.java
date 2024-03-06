@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("deprecation")
 public class DungeonStoneGate extends BaseEntityBlock implements ITooltipsItem {
 
     public static final BooleanProperty UNLOCKED = BooleanProperty.create("unlocked");

@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.lang;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.commands.server.NightmareModeSettings;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
@@ -23,6 +24,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add("death.attack.corruption_3", "%1$s死在了樱花树下");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "极光幽境");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "极光幽境（建材）");
+        this.add("theaurorian.title.nightmare_mode_settings", "噩梦模式设置");
         this.add("theaurorian.container.moonlight_forge", "月光融锻台");
         this.add("theaurorian.container.aurorian_furnace", "极光熔炉");
         this.add("gamerule.enableAurorianBless", "启用极光赐福");
@@ -712,6 +714,10 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         //MOD MESSAGES
         this.add("messages.effect.theaurorian.moon_queen_only", "这是皎月女王专属的效果，对于其它实体是无效的！");
         this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness", "所有的罪恶已被驱散！");
+
+        //MOD COMMANDS
+        this.add(NightmareModeSettings.ERROR_NOT_AURORIAN_DIMENSION.toString(), "当前的维度不是极光维度！");
+        this.add(NightmareModeSettings.ERROR_NOT_NIGHTMARE_MODE.toString(), "噩梦模式未开启！");
 
         //MOD TOOLTIPS
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");

@@ -36,8 +36,6 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.DoubleValue CONFIG_SPIDER_MOTHER_DAMAGE_MULIPLIER;
 
     //Misc
-    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_PortalLighter;
-    public static final ForgeConfigSpec.BooleanValue Config_SticksMakeFire;
     public static final ForgeConfigSpec.IntValue Config_AurorianiteSwordCooldown;
     public static final ForgeConfigSpec.IntValue Config_CrystallineSwordCooldown;
     public static final ForgeConfigSpec.IntValue Config_AurorianiteAxeMaxChopSize;
@@ -51,7 +49,6 @@ public class AurorianConfig {
     public static final ForgeConfigSpec.BooleanValue Config_MoonlightForgeTransfersEnchants;
     public static final ForgeConfigSpec.IntValue Config_AurorianSteel_BaseMaxLevel;
     public static final ForgeConfigSpec.DoubleValue Config_AurorianSteel_BaseMaxLevelMultiplier;
-    public static final ForgeConfigSpec.IntValue Config_CrystalStackSize;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> Config_AurorianSteel_Enchants;
     public static final ForgeConfigSpec.IntValue Config_AurorianSteel_Enchants_WhitelistBlacklist;
     public static final ForgeConfigSpec.DoubleValue CONFIG_SPECTRAL_ARMOR_CLEANSE_CHANCE;
@@ -130,12 +127,6 @@ public class AurorianConfig {
 
     static {
         BUILDER.push("Misc");
-        Config_PortalLighter = BUILDER
-                .comment("Can change the item(s) used to light the portal here (Uses item’s unlocalized name)")
-                .defineList("PortalLighter", List.of("minecraft:flint_and_steel"),  o -> o instanceof String);
-        Config_SticksMakeFire = BUILDER
-                .comment("Set to false to disable Silentwood Sticks making Fire or lighting Portal")
-                .define("SticksMakeFire", true);
         Config_AurorianiteSwordCooldown = BUILDER
                 .comment("Cooldown in ticks for the Aurorianite Sword’s levitate ability. 600 ticks = 30 seconds")
                 .defineInRange("AurorianiteSwordCooldown", 600, 0, 72000);
@@ -175,9 +166,6 @@ public class AurorianConfig {
         Config_AurorianSteel_BaseMaxLevelMultiplier = BUILDER
                 .comment("Max Level multiplier for Aurorian Steel items, every time they level up the max level is multiplied by this")
                 .defineInRange("AurorianSteel_BaseMaxLevelMultiplier", 1.75F, 1.0F, 100.0F);
-        Config_CrystalStackSize = BUILDER
-                .comment("Stack size of Crystals")
-                .defineInRange("CrystalStackSize", 16, 1, 64);
         Config_AurorianSteel_Enchants = BUILDER
                 .comment("List of enchantments, use is decided by AurorianSteel_Enchants_WhitelistBlacklist, you can also specify mod ids to whitelist or blacklist whole mods, ex: (draconicevolution, minecraft:sharpness)")
                 .defineList("AurorianSteel_Enchants", List.of(), o -> o instanceof String);

@@ -8,9 +8,6 @@ import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
 import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
-import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
-import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
-import cn.teampancake.theaurorian.common.entities.monster.CrystallineSprite;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
@@ -226,24 +223,7 @@ public class EntityEventSubscriber {
                 double newMovementSpeed = rule1.get() ? baseMovementSpeed * multiplier * 2.0D : baseMovementSpeed;
                 monster.getAttribute(Attributes.MAX_HEALTH).setBaseValue(newHealth);
                 monster.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(newAttackDamage);
-                if (!(monster instanceof CrystallineSprite)) {
-                    monster.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newMovementSpeed);
-                }
-            } else if (monster instanceof RunestoneKeeper runestoneKeeper) {
-                double healthMultiplier = AurorianConfig.CONFIG_RUNESTONE_KEEPER_HEALTH_MULIPLIER.get();
-                double damageMultiplier = AurorianConfig.CONFIG_RUNESTONE_KEEPER_DAMAGE_MULIPLIER.get();
-                runestoneKeeper.getAttribute(Attributes.MAX_HEALTH).setBaseValue(baseHealth * healthMultiplier);
-                runestoneKeeper.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(baseAttackDamage * damageMultiplier);
-            } else if (monster instanceof SpiderMother spiderMother) {
-                double healthMultiplier = AurorianConfig.CONFIG_SPIDER_MOTHER_HEALTH_MULIPLIER.get();
-                double damageMultiplier = AurorianConfig.CONFIG_SPIDER_MOTHER_DAMAGE_MULIPLIER.get();
-                spiderMother.getAttribute(Attributes.MAX_HEALTH).setBaseValue(baseHealth * healthMultiplier);
-                spiderMother.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(baseAttackDamage * damageMultiplier);
-            } else if (monster instanceof MoonQueen moonQueen) {
-                double healthMultiplier = AurorianConfig.CONFIG_MOON_QUEEN_HEALTH_MULIPLIER.get();
-                double damageMultiplier = AurorianConfig.CONFIG_MOON_QUEEN_DAMAGE_MULIPLIER.get();
-                moonQueen.getAttribute(Attributes.MAX_HEALTH).setBaseValue(baseHealth * healthMultiplier);
-                moonQueen.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(baseAttackDamage * damageMultiplier);
+                monster.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newMovementSpeed);
             }
         }
     }

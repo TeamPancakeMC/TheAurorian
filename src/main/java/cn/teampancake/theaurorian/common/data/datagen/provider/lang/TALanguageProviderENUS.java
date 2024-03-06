@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.lang;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.commands.server.NightmareModeSettings;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
@@ -23,6 +24,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add("death.attack.corruption_3", "%1$s died under the cherry blossom tree");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "The Aurorian");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "The Aurorian (Building Materials)");
+        this.add("theaurorian.title.nightmare_mode_settings", "Nightmare Mode Settings");
         this.add("theaurorian.container.moonlight_forge", "Moonlight Forge");
         this.add("theaurorian.container.aurorian_furnace", "Aurorian Furnace");
         this.add("gamerule.enableAurorianBless", "Enable Aurorian Bless");
@@ -712,6 +714,10 @@ public class TALanguageProviderENUS extends LanguageProvider {
         //MOD MESSAGES
         this.add("messages.effect.theaurorian.moon_queen_only", "These effects are exclusive to the Moon Queen, and it's invalid for other entity!");
         this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness", "All evil has been dispelled!");
+
+        //MOD COMMANDS
+        this.add(NightmareModeSettings.ERROR_NOT_AURORIAN_DIMENSION.toString(), "Current dimension is not the Aurorian!");
+        this.add(NightmareModeSettings.ERROR_NOT_NIGHTMARE_MODE.toString(), "The nightmare mode is not enabled!");
 
         //MOD TOOLTIPS
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");

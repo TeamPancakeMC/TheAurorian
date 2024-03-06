@@ -74,6 +74,7 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.CROPS).add(TABlocks.LAVENDER_CROP.get(), TABlocks.SILK_BERRY_CROP.get());
         this.tag(BlockTags.FALL_DAMAGE_RESETTING).add(TABlocks.BLUEBERRY_BUSH.get());
         this.tag(BlockTags.SWORD_EFFICIENT).add(TABlocks.BLUEBERRY_BUSH.get());
+        this.tag(BlockTags.DIRT).addTag(TABlockTags.AURORIAN_GRASS_BLOCK).add(TABlocks.AURORIAN_DIRT.get());
         this.tag(BlockTags.NEEDS_STONE_TOOL).add(TABlocks.MOONSTONE_ORE.get(), TABlocks.CERULEAN_ORE.get(),TABlocks.EROSIVE_MOONSTONE_ORE.get(),
                 TABlocks.EROSIVE_CERULEAN_ORE.get(),TABlocks.AURORIAN_IRON_ORE.get(),TABlocks.EROSIVE_AURORIAN_IRON_ORE.get(),
                 TABlocks.AURORIAN_COPPER_ORE.get(),TABlocks.EROSIVE_AURORIAN_COPPER_ORE.get(),TABlocks.AURORIAN_LAPIS_ORE.get(),

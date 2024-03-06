@@ -2,6 +2,8 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.*;
+import cn.teampancake.theaurorian.common.blocks.grower.CurtainTreeGrower;
+import cn.teampancake.theaurorian.common.blocks.grower.SilentTreeGrower;
 import cn.teampancake.theaurorian.common.blocks.modified.HoeTillableBlock;
 import cn.teampancake.theaurorian.common.blocks.sign.TACeilingHangingSignBlock;
 import cn.teampancake.theaurorian.common.blocks.sign.TAStandingSignBlock;
@@ -191,7 +193,7 @@ public class TABlocks {
     public static final RegistryObject<Block> SILENT_TREE_PLANKS = normal("silent_tree_planks", copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> SILENT_TREE_LOG = wood("silent_tree_log", STRIPPED_SILENT_TREE_LOG, MapColor.COLOR_BLUE, 2.0F);
     public static final RegistryObject<Block> SILENT_TREE_WOOD = wood("silent_tree_wood", STRIPPED_SILENT_TREE_WOOD, MapColor.COLOR_BLUE, 2.0F);
-    public static final RegistryObject<Block> SILENT_TREE_SAPLING = register("silent_tree_sapling", () -> new SilentTreeSapling(copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> SILENT_TREE_SAPLING = register("silent_tree_sapling", () -> new SaplingBlock(new SilentTreeGrower(), copy(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> SILENT_WOOD_TORCH = BLOCKS.register("silent_wood_torch", () -> new TorchBlock(copy(Blocks.TORCH), ParticleTypes.FLAME));
     public static final RegistryObject<Block> SILENT_WOOD_WALL_TORCH = BLOCKS.register("silent_wood_wall_torch", () -> new WallTorchBlock(copy(Blocks.WALL_TORCH), ParticleTypes.FLAME));
     public static final RegistryObject<Block> SILENT_WOOD_CHEST = BLOCKS.register("silent_wood_chest", SilentWoodChest::new);
@@ -220,7 +222,7 @@ public class TABlocks {
     public static final RegistryObject<Block> CURTAIN_TREE_PLANKS = normal("curtain_tree_planks", copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> CURTAIN_TREE_LOG = wood("curtain_tree_log", STRIPPED_CURTAIN_TREE_LOG, MapColor.COLOR_LIGHT_GRAY, 2.0F);
     public static final RegistryObject<Block> CURTAIN_TREE_WOOD = wood("curtain_tree_wood", STRIPPED_CURTAIN_TREE_WOOD, MapColor.COLOR_LIGHT_GRAY, 2.0F);
-    public static final RegistryObject<Block> CURTAIN_TREE_SAPLING = register("curtain_tree_sapling", () -> new CurtainTreeSapling(copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> CURTAIN_TREE_SAPLING = register("curtain_tree_sapling", () -> new SaplingBlock(new CurtainTreeGrower(), copy(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> CURTAIN_WOOD_SIGN = BLOCKS.register("curtain_wood_sign", () -> new TAStandingSignBlock(copy(Blocks.OAK_SIGN), TAWoodType.CURTAIN));
     public static final RegistryObject<Block> CURTAIN_WOOD_WALL_SIGN = BLOCKS.register("curtain_wood_wall_sign", () -> new TAWallSignBlock(copy(Blocks.OAK_SIGN), TAWoodType.CURTAIN));
     public static final RegistryObject<Block> CURTAIN_WOOD_HANGING_SIGN = BLOCKS.register("curtain_wood_hanging_sign", () -> new TACeilingHangingSignBlock(copy(Blocks.OAK_HANGING_SIGN), TAWoodType.CURTAIN));
@@ -231,7 +233,7 @@ public class TABlocks {
     public static final RegistryObject<Block> CURSED_FROST_TREE_PLANKS = normal("cursed_frost_tree_planks", copy(Blocks.OAK_PLANKS));
     public static final RegistryObject<Block> CURSED_FROST_TREE_LOG = wood("cursed_frost_tree_log", STRIPPED_CURSED_FROST_TREE_LOG, MapColor.COLOR_LIGHT_GRAY, 2.0F);
     public static final RegistryObject<Block> CURSED_FROST_TREE_WOOD = wood("cursed_frost_tree_wood", STRIPPED_CURSED_FROST_TREE_WOOD, MapColor.COLOR_LIGHT_GRAY, 2.0F);
-    public static final RegistryObject<Block> CURSED_FROST_TREE_SAPLING = register("cursed_frost_tree_sapling", () -> new CurtainTreeSapling(copy(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> CURSED_FROST_TREE_SAPLING = register("cursed_frost_tree_sapling", () -> new SaplingBlock(new CurtainTreeGrower(), copy(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> CURSED_FROST_WOOD_SIGN = BLOCKS.register("cursed_frost_wood_sign", () -> new TAStandingSignBlock(copy(Blocks.OAK_SIGN), TAWoodType.CURTAIN));
     public static final RegistryObject<Block> CURSED_FROST_WOOD_WALL_SIGN = BLOCKS.register("cursed_frost_wood_wall_sign", () -> new TAWallSignBlock(copy(Blocks.OAK_SIGN), TAWoodType.CURTAIN));
     public static final RegistryObject<Block> CURSED_FROST_WOOD_HANGING_SIGN = BLOCKS.register("cursed_frost_wood_hanging_sign", () -> new TACeilingHangingSignBlock(copy(Blocks.OAK_HANGING_SIGN), TAWoodType.CURTAIN));

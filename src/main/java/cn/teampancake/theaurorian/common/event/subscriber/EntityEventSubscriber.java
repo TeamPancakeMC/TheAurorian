@@ -168,6 +168,7 @@ public class EntityEventSubscriber {
         final MobEffect incantation = TAMobEffects.INCANTATION.get();
         boolean flag1 = effect == incantation && entity.hasEffect(holiness);
         boolean flag2 = effect == holiness && entity.hasEffect(incantation);
+        boolean flag3 = effect == TAMobEffects.PARALYSIS.get() && !(entity instanceof Player);
         if (effects.contains(effect) && !(entity instanceof MoonQueen)) {
             if (entity instanceof ServerPlayer serverPlayer) {
                 String message = "messages.effect.theaurorian.moon_queen_only";
@@ -175,7 +176,7 @@ public class EntityEventSubscriber {
             }
             event.setResult(Event.Result.DENY);
         }
-        if (flag1 || flag2) {
+        if (flag1 || flag2 || flag3) {
             event.setResult(Event.Result.DENY);
         }
     }
@@ -224,6 +225,9 @@ public class EntityEventSubscriber {
                 monster.getAttribute(Attributes.MAX_HEALTH).setBaseValue(newHealth);
                 monster.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(newAttackDamage);
                 monster.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newMovementSpeed);
+                if (monster.getLastDamageSource() == null) {
+                    monster.setHealth(monster.getMaxHealth());
+                }
             }
         }
     }
@@ -272,6 +276,7 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onLivingDamage(LivingDamageEvent event) {
         LivingEntity target = event.getEntity();
+        MobEffect effect = TAMobEffects.CORRUPTION.get();
         if (target != null) {
             for (ItemStack piece : target.getArmorSlots()) {
                 if (piece.getItem() instanceof ArmorItem armorItem) {
@@ -281,13 +286,15 @@ public class EntityEventSubscriber {
                 }
             }
 
-            if (target.hasEffect(TAMobEffects.CORRUPTION.get())) {
+            if (target.hasEffect(effect)) {
                 target.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
                     float i = miscNBT.getDamageAccumulation();
                     miscNBT.setDamageAccumulation(i + event.getAmount());
                 });
-
-                event.setCanceled(true);
+                //Prevent the death message doesn't show.
+                if (target.getEffect(effect).getDuration() > 10) {
+                    event.setCanceled(true);
+                }
             }
         }
 
@@ -313,9 +320,10 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onKilledMob(LivingDeathEvent event) {
+    public static void onLivingDeath(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer serverPlayer) {
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+            System.out.println(event.getSource().getMsgId());
             if (stack.is(TAItems.TSLAT_SWORD.get())) {
                 int count = stack.getOrCreateTag().getInt("KillCount");
                 stack.getOrCreateTag().putInt("KillCount", count + 1);

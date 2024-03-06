@@ -19,9 +19,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        this.add("death.attack.corruption_1", "当%1$s在凝视深渊的时候，深渊也在凝视着%1$s");
-        this.add("death.attack.corruption_2", "西行寺幽幽子似乎并不喜欢%1$s");
-        this.add("death.attack.corruption_3", "%1$s死在了樱花树下");
+        this.add("death.attack.corruption_1", "§4当%1$s在凝视深渊的时候，深渊也在凝视着%1$s");
+        this.add("death.attack.corruption_2", "§4西行寺幽幽子似乎并不喜欢%1$s");
+        this.add("death.attack.corruption_3", "§4%1$s死在了樱花树下");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "极光幽境");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "极光幽境（建材）");
         this.add("theaurorian.title.nightmare_mode_settings", "噩梦模式设置");

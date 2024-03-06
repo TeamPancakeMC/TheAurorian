@@ -19,9 +19,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        this.add("death.attack.corruption_1", "When %1$s gaze long into an abyss, the abyss also gazes into %1$s");
-        this.add("death.attack.corruption_2", "It seems that Saigyouji Yuyuko doesn't like %1$s");
-        this.add("death.attack.corruption_3", "%1$s died under the cherry blossom tree");
+        this.add("death.attack.corruption_1", "§4When %1$s gaze long into an abyss, the abyss also gazes into %1$s");
+        this.add("death.attack.corruption_2", "§4It seems that Saigyouji Yuyuko doesn't like %1$s");
+        this.add("death.attack.corruption_3", "§4%1$s died under the cherry blossom tree");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "The Aurorian");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "The Aurorian (Building Materials)");
         this.add("theaurorian.title.nightmare_mode_settings", "Nightmare Mode Settings");

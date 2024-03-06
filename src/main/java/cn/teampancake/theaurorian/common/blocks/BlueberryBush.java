@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.blocks;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -26,11 +25,6 @@ public class BlueberryBush extends SweetBerryBushBlock {
 
     public BlueberryBush() {
         super(Properties.copy(Blocks.SWEET_BERRY_BUSH));
-    }
-
-    @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(TABlockTags.AURORIAN_GRASS_BLOCK);
     }
 
     @Override

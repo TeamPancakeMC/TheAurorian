@@ -108,4 +108,5 @@ public class AurorianFurnaceChimney extends Block implements ITooltipsItem {
 
         return InteractionResult.PASS;
     }
+
 }

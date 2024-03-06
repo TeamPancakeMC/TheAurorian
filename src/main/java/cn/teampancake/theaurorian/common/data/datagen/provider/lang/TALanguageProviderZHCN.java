@@ -680,6 +680,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAMobEffects.FROSTBITE.get(), "冻伤");
         this.add(TAMobEffects.LACERATION.get(), "裂伤");
         this.add(TAMobEffects.CORRUPTION.get(), "堕落");
+        this.add(TAMobEffects.CONCEALMENT.get(), "隐匿");
         this.add(TAMobEffects.INCANTATION.get(), "咒文");
         this.add(TAMobEffects.OVERHEATING.get(), "过热");
         this.add(TAMobEffects.TEMP_SHIELD.get(), "临时护盾");

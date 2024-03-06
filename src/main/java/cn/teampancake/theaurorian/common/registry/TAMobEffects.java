@@ -26,6 +26,7 @@ public class TAMobEffects {
     public static final RegistryObject<MobEffect> BROKEN = MOB_EFFECTS.register("broken", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0x808080));
     public static final RegistryObject<MobEffect> CRESCENT = MOB_EFFECTS.register("crescent", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xd1b9a1));
     public static final RegistryObject<MobEffect> PRESSURE = MOB_EFFECTS.register("pressure", () -> new IncurableEffect(MobEffectCategory.HARMFUL, 0x714bdb));
+    public static final RegistryObject<MobEffect> CONCEALMENT = MOB_EFFECTS.register("concealment", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0x2b2b2b));
     public static final RegistryObject<MobEffect> FALL_OF_MOON = MOB_EFFECTS.register("fall_of_moon", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xb76ce6));
     public static final RegistryObject<MobEffect> BLESS_OF_MOON = MOB_EFFECTS.register("bless_of_moon", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xe3d5aa));
     public static final RegistryObject<MobEffect> WARM = MOB_EFFECTS.register("warm", WarmEffect::new);

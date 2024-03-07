@@ -10,17 +10,17 @@ import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
+import net.minecraftforge.client.event.MovementInputUpdateEvent;
+import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -43,21 +43,10 @@ public class ClientEventSubscriber {
     }
 
     @SubscribeEvent
-    public static <T extends LivingEntity, M extends EntityModel<T>> void onRenderLiving(RenderLivingEvent.Pre<T, M> event) {
-        Entity cameraEntity = Minecraft.getInstance().getCameraEntity();
-        if (cameraEntity instanceof LocalPlayer player && player.hasEffect(TAMobEffects.CONCEALMENT.get())) {
-            event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
     public static void onViewpoint(ViewportEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
         Entity cameraEntity = minecraft.getCameraEntity();
-        ClientLevel level = minecraft.level;
-        if (cameraEntity instanceof LocalPlayer player && level != null) {
-            boolean flag = player.hasEffect(TAMobEffects.CONCEALMENT.get());
-            level.entitiesForRendering().forEach(entity -> entity.setInvisible(flag));
+        if (cameraEntity instanceof LocalPlayer player) {
             if (player.hasEffect(TAMobEffects.CORRUPTION.get())) {
                 player.hurtTime = 0;
             }

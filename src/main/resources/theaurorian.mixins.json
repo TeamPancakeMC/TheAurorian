@@ -13,7 +13,8 @@
         "PlayerListMixin"
     ],
     "client": [
-        "MixinClientPacketListener"
+        "MixinClientPacketListener",
+        "MixinLevelRenderer"
     ],
     "injectors": {
         "defaultRequire": 1

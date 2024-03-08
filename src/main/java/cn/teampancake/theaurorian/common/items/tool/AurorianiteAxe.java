@@ -42,7 +42,7 @@ public class AurorianiteAxe extends AxeItem implements ITooltipsItem {
             }
         }
 
-        return super.mineBlock(stack, level, state, pos, entityLiving);
+        return true;
     }
 
 }

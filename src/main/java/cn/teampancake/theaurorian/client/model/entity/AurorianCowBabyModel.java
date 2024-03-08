@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
-import cn.teampancake.theaurorian.common.entities.animal.AurorianCow;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

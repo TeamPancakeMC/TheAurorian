@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
-import cn.teampancake.theaurorian.common.entities.ai.ZombieLikeAttackGoal;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import cn.teampancake.theaurorian.common.entities.ai.ZombieLikeAttackGoal;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;

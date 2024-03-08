@@ -4,7 +4,6 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.Animal;
 
 public class AbstractAurorianAnimalBabyModel<T extends Entity> extends HierarchicalModel<T> {
 

@@ -1,10 +1,10 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.inventory.MoonlightForgeMenu;
-import cn.teampancake.theaurorian.client.inventory.ScrapperMenu;
 import cn.teampancake.theaurorian.client.gui.MoonlightForgeScreen;
 import cn.teampancake.theaurorian.client.gui.ScrapperScreen;
+import cn.teampancake.theaurorian.client.inventory.MoonlightForgeMenu;
+import cn.teampancake.theaurorian.client.inventory.ScrapperMenu;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;

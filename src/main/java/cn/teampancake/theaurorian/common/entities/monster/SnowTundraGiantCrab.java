@@ -3,57 +3,101 @@ package cn.teampancake.theaurorian.common.entities.monster;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.List;
 import java.util.UUID;
 
-public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMob {
-
+public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMob, MultiPhaseAttacker {
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation SWING_ANIMATION = RawAnimation.begin().thenPlay("attack.swing");
+    private final AnimationController<SnowTundraGiantCrab> SWING_ANIMATION_CONTROLLER = new AnimationController<>(this, "swing_controller", state -> PlayState.STOP)
+            .triggerableAnim("swing_animation", SWING_ANIMATION).transitionLength(5);
+    private static final RawAnimation SMASH_ANIMATION = RawAnimation.begin().thenPlay("attack.smash");
+    private final AnimationController<SnowTundraGiantCrab> SMASH_ANIMATION_CONTROLLER = new AnimationController<>(this, "smash_controller", state -> PlayState.STOP)
+            .triggerableAnim("smash_animation", SMASH_ANIMATION).transitionLength(5);
     private int remainingPersistentAngerTime;
     private int safeTime;
     @Nullable
     private UUID persistentAngerTarget;
 
+    private final AttackManager<SnowTundraGiantCrab> attackManager = new AttackManager<>(this, List.of(
+            new SnowTundraGiantCrabMeleePhase()
+    ));
+
+    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.INT);
+    public int getAttackState() {
+        return entityData.get(ATTACK_STATE);
+    }
+    public void setAttackState(int attackState) {
+        entityData.set(ATTACK_STATE, attackState);
+    }
+
+    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.INT);
+    public int getAttackTicks() {
+        return entityData.get(ATTACK_TICKS);
+    }
+    public void setAttackTicks(int attackTicks) {
+        entityData.set(ATTACK_TICKS, attackTicks);
+    }
+
     public SnowTundraGiantCrab(EntityType<? extends SnowTundraGiantCrab> type, Level level) {
         super(type, level);
-        this.moveControl = new CrabMoveControl(this);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, (1.0D), Boolean.FALSE));
-        this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, IronGolem.class, Boolean.TRUE));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, (1.0D), Boolean.FALSE) {
+            @Override
+            protected void checkAndPerformAttack(LivingEntity target, double dist) {
+                // we use our custom attack manager
+            }
+        });
+        this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, IronGolem.class, Boolean.TRUE));
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(ATTACK_STATE, 0);
+        entityData.define(ATTACK_TICKS, 0);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -74,7 +118,9 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(DefaultAnimations.genericWalkIdleController(this));
-        controllers.add(DefaultAnimations.genericAttackAnimation(this, DefaultAnimations.ATTACK_SWING));
+        controllers.add(SMASH_ANIMATION_CONTROLLER);
+        controllers.add(SWING_ANIMATION_CONTROLLER);
+        // controllers.add(DefaultAnimations.genericAttackAnimation(this, DefaultAnimations.ATTACK_SWING));
     }
 
     @Override
@@ -91,6 +137,8 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
         if (this.safeTime > 160 && this.tickCount % 20 == 0) {
             this.heal(5.0F);
         }
+
+        attackManager.tick();
     }
 
     @Override
@@ -110,6 +158,37 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
         } else {
             this.safeTime = 0;
             return super.hurt(source, amount);
+        }
+    }
+
+    public void triggerMeleeAttackAnim() {
+        String name = getRandom().nextBoolean() ? "swing" : "smash";
+        triggerAnim(name + "_controller", name + "_animation");
+    }
+
+    public boolean canReachTarget(double range) {
+        LivingEntity target = getTarget();
+        if (target == null) {
+            return false;
+        }
+        for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
+            if (livingEntity.getUUID().equals(target.getUUID())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void performMeleeAttack(double range) {
+        LivingEntity target = getTarget();
+        if (target == null) {
+            return;
+        }
+        for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
+            if (livingEntity.getUUID().equals(target.getUUID())) {
+                livingEntity.invulnerableTime = 0;
+                doHurtTarget(livingEntity);
+            }
         }
     }
 
@@ -154,26 +233,4 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     public UUID getPersistentAngerTarget() {
         return this.persistentAngerTarget;
     }
-
-    private static class CrabMoveControl extends MoveControl {
-
-        private final SnowTundraGiantCrab giantCrab;
-
-        public CrabMoveControl(SnowTundraGiantCrab mob) {
-            super(mob);
-            this.giantCrab = mob;
-        }
-
-        @Override
-        public void tick() {
-            if (this.giantCrab.isInWater()) {
-                Vec3 vec3 = this.giantCrab.getDeltaMovement();
-                this.giantCrab.setDeltaMovement(vec3.add(0.0D, 0.005D, 0.0D));
-            }
-
-            super.tick();
-        }
-
-    }
-
 }

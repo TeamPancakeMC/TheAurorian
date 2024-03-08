@@ -1,8 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.registry.TAConfiguredFeatures;
-import cn.teampancake.theaurorian.common.registry.TAPlacedFeatures;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;

@@ -6,11 +6,8 @@ import cn.teampancake.theaurorian.client.rune_game.dao.RuneGameEliminate;
 import cn.teampancake.theaurorian.client.rune_game.dao.RuneGameLayer;
 import cn.teampancake.theaurorian.client.rune_game.dao.RuneGameMap;
 import cn.teampancake.theaurorian.client.widget.RuneGameButton;
-import net.minecraft.client.gui.screens.Screen;
-
-
-
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 

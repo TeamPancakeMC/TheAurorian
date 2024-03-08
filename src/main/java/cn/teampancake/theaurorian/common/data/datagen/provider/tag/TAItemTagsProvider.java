@@ -1,9 +1,9 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.tag;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.items.developer.IDeveloperItem;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.developer.IDeveloperItem;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.HolderLookup;

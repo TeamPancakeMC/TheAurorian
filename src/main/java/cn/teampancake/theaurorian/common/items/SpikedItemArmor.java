@@ -16,7 +16,7 @@ import java.util.Map;
 
 import static net.minecraft.world.item.ArmorItem.Type.CHESTPLATE;
 
-public class SpikedItemArmor extends ArmorItem implements ITooltipsItem{
+public class SpikedItemArmor extends ArmorItem implements ITooltipsItem {
 
     public SpikedItemArmor() {
         super(TAArmorMaterials.SPECTRAL, CHESTPLATE, new Item.Properties());

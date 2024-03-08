@@ -35,4 +35,5 @@ public class LivingDiviningRod extends Item implements ITooltipsItem {
 
         return InteractionResult.SUCCESS;
     }
+
 }

@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.common.blocks.entity.SilentCampfireBlockEntity
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -13,8 +14,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class SilentCampfireBlock extends CampfireBlock {
-    public SilentCampfireBlock(boolean pSpawnParticles, int pFireDamage, Properties pProperties) {
-        super(pSpawnParticles, pFireDamage, pProperties);
+
+    public SilentCampfireBlock() {
+        super(Boolean.TRUE, 1, Properties.copy(Blocks.CAMPFIRE));
     }
 
     @Override

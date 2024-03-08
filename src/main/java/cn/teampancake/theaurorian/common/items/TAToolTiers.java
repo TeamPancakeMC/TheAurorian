@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.api.ISpecialty;
-import cn.teampancake.theaurorian.common.items.tool.ToolSubscriber;
+import cn.teampancake.theaurorian.common.event.subscriber.ToolSubscriber;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.util.LazyLoadedValue;
@@ -36,7 +36,7 @@ public enum TAToolTiers implements Tier, ISpecialty {
     AURORIANITE(3, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.AURORIANITE_INGOT.get())){
         @Override
         public void doSpecialty(ItemStack stack) {
-            ToolSubscriber.aurorianiteSpecialty(stack);
+
         }
     },
     UMBRA(3, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.UMBRA_INGOT.get())){
@@ -54,7 +54,7 @@ public enum TAToolTiers implements Tier, ISpecialty {
     AURORIAN_STEEL(3, 1500, 8.5F, 3.5F, 10, () -> Ingredient.of(TAItems.AURORIAN_STEEL.get())){
         @Override
         public void doSpecialty(ItemStack stack) {
-
+            ToolSubscriber.aurorianSteelSpecialty(stack);
         }
     },
     TSLAT(3, 2000, 1.9F, 7.0F, 15, Ingredient::of){

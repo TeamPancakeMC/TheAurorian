@@ -19,7 +19,7 @@ import java.util.UUID;
 public class AurorianiteAxe extends AxeItem implements ITooltipsItem {
 
     public AurorianiteAxe() {
-        super(TAToolTiers.AURORIANITE, 12.0F, -3.5F, new Properties().rarity(Rarity.EPIC));
+        super(TAToolTiers.AURORIANITE, (12.0F), (-3.5F), new Properties().rarity(Rarity.EPIC));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class AurorianiteAxe extends AxeItem implements ITooltipsItem {
                     level.setBlockAndUpdate(blockPos, TABlocks.TEMP_BARRIER.get().defaultBlockState());
                     if (level.getBlockEntity(blockPos) instanceof TempBarrierBlockEntity blockEntity) {
                         blockEntity.setMinerUUID(entityLiving.getStringUUID());
-                        blockEntity.setDestroyCountdown(30);
+                        blockEntity.setDestroyCountdown(10);
                         blockEntity.setToolUUID(toolUUID);
                         blockEntity.setLogState(state);
                     }

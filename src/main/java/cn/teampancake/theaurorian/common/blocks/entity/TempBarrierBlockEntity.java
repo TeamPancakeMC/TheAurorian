@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.compress.utils.Lists;
@@ -24,8 +23,8 @@ import java.util.List;
 
 public class TempBarrierBlockEntity extends BlockEntity {
 
+    private boolean stopChopping;
     private int destroyCountdown;
-    private int destroyCountdownFinal;
     private String minerUUID = "";
     private String toolUUID = "";
     private BlockState logState = Blocks.AIR.defaultBlockState();
@@ -35,50 +34,55 @@ public class TempBarrierBlockEntity extends BlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, TempBarrierBlockEntity blockEntity) {
-        if (!level.isClientSide()) {
+        if (!level.isClientSide() && level.getGameTime() % 2 == 0) {
             if (blockEntity.destroyCountdown < 0) {
                 level.removeBlock(pos, Boolean.FALSE);
             } else {
                 --blockEntity.destroyCountdown;
             }
-
-            if ((blockEntity.logState.is(BlockTags.LOGS) || blockEntity.logState.getBlock() instanceof LeavesBlock) && !blockEntity.minerUUID.isEmpty()) {
+            // Damage tool when destroy block.
+            if (blockEntity.logState.is(BlockTags.LOGS) && !blockEntity.minerUUID.isEmpty()) {
                 if (level instanceof ServerLevel serverLevel) {
                     List<String> uuidList = Lists.newArrayList();
                     List<ServerPlayer> playerList = serverLevel.players();
                     playerList.forEach(player -> uuidList.add(player.getStringUUID()));
-                    if (!uuidList.contains(blockEntity.minerUUID)) {
-                        level.removeBlock(pos, Boolean.FALSE);
-                    } else if (blockEntity.destroyCountdown == 0) {
+                    blockEntity.stopChopping = !uuidList.contains(blockEntity.minerUUID);
+                    if (blockEntity.destroyCountdown == 0) {
                         playerList.forEach(player -> {
                             InteractionHand hand = player.getUsedItemHand();
+                            List<ItemStack> stackList = Lists.newArrayList();
                             if (player.getStringUUID().equals(blockEntity.minerUUID)) {
                                 player.getInventory().items.stream().filter(ItemStack::isDamageableItem).forEach(stack -> {
                                     boolean flag = stack.getTag() != null && stack.getTag().getAllKeys().contains("ToolUUID");
                                     if (flag && stack.getTag().getString("ToolUUID").equals(blockEntity.toolUUID)) {
                                         stack.hurtAndBreak(1, player, entity -> entity.broadcastBreakEvent(hand));
+                                        stackList.add(stack);
                                     }
                                 });
                             }
+                            // Stop destroy block if tool was break.
+                            blockEntity.stopChopping = stackList.isEmpty();
                         });
                     }
                 }
 
-                for (BlockPos blockPos : BlockPos.withinManhattan(pos, 1, 1, 1)) {
-                    BlockState neighborState = level.getBlockState(blockPos);
-                    if (neighborState.is(BlockTags.LOGS)) {
-                        level.destroyBlock(blockPos, Boolean.TRUE);
-                        level.setBlockAndUpdate(blockPos, state);
-                    }
+                if (!blockEntity.stopChopping) {
+                    for (BlockPos blockPos : BlockPos.withinManhattan(pos, 1, 1, 1)) {
+                        BlockState neighborState = level.getBlockState(blockPos);
+                        if (neighborState.is(blockEntity.logState.getBlock())) {
+                            level.destroyBlock(blockPos, Boolean.TRUE);
+                            level.setBlockAndUpdate(blockPos, state);
+                        }
 
-                    if (neighborState.is(TABlocks.TEMP_BARRIER.get())) {
-                        BlockEntity relativeBlockEntity = level.getBlockEntity(blockPos);
-                        if (relativeBlockEntity instanceof TempBarrierBlockEntity tempBarrier) {
-                            if (tempBarrier.logState.isAir() || tempBarrier.minerUUID.isEmpty()) {
-                                tempBarrier.destroyCountdown = blockEntity.destroyCountdown;
-                                tempBarrier.logState = blockEntity.logState;
-                                tempBarrier.minerUUID = blockEntity.minerUUID;
-                                tempBarrier.toolUUID = blockEntity.toolUUID;
+                        if (neighborState.is(TABlocks.TEMP_BARRIER.get())) {
+                            BlockEntity relativeBlockEntity = level.getBlockEntity(blockPos);
+                            if (relativeBlockEntity instanceof TempBarrierBlockEntity tempBarrier) {
+                                if (tempBarrier.logState.isAir() || tempBarrier.minerUUID.isEmpty()) {
+                                    tempBarrier.destroyCountdown = blockEntity.destroyCountdown;
+                                    tempBarrier.logState = blockEntity.logState;
+                                    tempBarrier.minerUUID = blockEntity.minerUUID;
+                                    tempBarrier.toolUUID = blockEntity.toolUUID;
+                                }
                             }
                         }
                     }
@@ -89,8 +93,8 @@ public class TempBarrierBlockEntity extends BlockEntity {
 
     @Override
     public void load(CompoundTag tag) {
+        this.stopChopping = tag.getBoolean("StopChopping");
         this.destroyCountdown = tag.getInt("DestroyCountdown");
-        this.destroyCountdownFinal = tag.getInt("DestroyCountdownFinal");
         this.minerUUID = tag.getString("MinerUUID");
         this.toolUUID = tag.getString("ToolUUID");
         if (this.level != null) {
@@ -101,8 +105,8 @@ public class TempBarrierBlockEntity extends BlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
+        tag.putBoolean("StopChopping", this.stopChopping);
         tag.putInt("DestroyCountdown", this.destroyCountdown);
-        tag.putInt("DestroyCountdownFinal", this.destroyCountdownFinal);
         tag.putString("MinerUUID", this.minerUUID);
         tag.putString("ToolUUID", this.toolUUID);
         tag.put("LogState", NbtUtils.writeBlockState(this.logState));
@@ -110,7 +114,6 @@ public class TempBarrierBlockEntity extends BlockEntity {
 
     public void setDestroyCountdown(int value) {
         this.destroyCountdown = value;
-        this.destroyCountdownFinal = value;
     }
 
     public void setMinerUUID(String uuid) {

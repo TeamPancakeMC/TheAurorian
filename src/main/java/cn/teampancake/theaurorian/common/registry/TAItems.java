@@ -128,8 +128,7 @@ public class TAItems {
     public static final RegistryObject<Item> UMBRA_PICKAXE = ITEMS.register("umbra_pickaxe", UmbraPickaxe::new);
     public static final RegistryObject<Item> CRYSTALLINE_PICKAXE = ITEMS.register("crystalline_pickaxe", CrystallinePickaxe::new);
     public static final RegistryObject<Item> AURORIAN_STONE_PICKAXE = ITEMS.register("aurorian_stone_pickaxe", AurorianStonePickaxe::new);
-    public static final RegistryObject<Item> SILENT_WOOD_PICKAXE = ITEMS.register("silent_wood_pickaxe",
-            () -> new PickaxeItem(TAToolTiers.SILENT_WOOD, 1, -2.8F, new Item.Properties()));
+    public static final RegistryObject<Item> SILENT_WOOD_PICKAXE = ITEMS.register("silent_wood_pickaxe", SilentWoodPickaxe::new);
     public static final RegistryObject<Item> MOONSTONE_PICKAXE = ITEMS.register("moonstone_pickaxe",
             () -> new PickaxeItem(TAToolTiers.SILENT_WOOD, 1, -2.8F, new Item.Properties()));
     public static final RegistryObject<Item> QUEENS_CHIPPER = ITEMS.register("queens_chipper", QueensChipper::new);

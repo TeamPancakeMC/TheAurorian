@@ -47,16 +47,16 @@ public class TABlocks {
     public static final RegistryObject<Block> RED_AURORIAN_GRASS_BLOCK = register("red_aurorian_grass_block", () -> new AurorianGrassBlock(copy(Blocks.GRASS_BLOCK)));
     public static final RegistryObject<Block> AURORIAN_FARM_TILE = register("aurorian_farm_tile", () -> new AurorianFarmTile(copy(Blocks.FARMLAND)));
     public static final RegistryObject<Block> AURORIAN_DIRT = register("aurorian_dirt", () -> new HoeTillableBlock(AURORIAN_FARM_TILE, copy(Blocks.DIRT)));
-    public static final RegistryObject<Block> FILTHY_ICE = register("filthy_ice", FilthyIce::new);
+    public static final RegistryObject<Block> FILTHY_ICE = register("filthy_ice", () -> new IceBlock(copy(Blocks.ICE)));
     public static final RegistryObject<Block> MOON_GLASS = register("moon_glass", () -> new GlassBlock(copy(Blocks.GLASS)));
     public static final RegistryObject<Block> MOON_GLASS_PANE = register("moon_glass_pane", () -> new IronBarsBlock(copy(Blocks.GLASS_PANE)));
     public static final RegistryObject<Block> AURORIAN_GLASS = register("aurorian_glass", () -> new GlassBlock(copy(Blocks.GLASS)));
     public static final RegistryObject<Block> AURORIAN_GLASS_PANE = register("aurorian_glass_pane", () -> new IronBarsBlock(copy(Blocks.GLASS_PANE)));
     public static final RegistryObject<Block> DARK_STONE_GLASS = register("dark_stone_glass", () -> new GlassBlock(copy(Blocks.GLASS)));
     public static final RegistryObject<Block> DARK_STONE_GLASS_PANE = register("dark_stone_glass_pane", () -> new IronBarsBlock(copy(Blocks.GLASS_PANE)));
-    public static final RegistryObject<Block> AURORIAN_GRASS = register("aurorian_grass", () -> new TAPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
-    public static final RegistryObject<Block> AURORIAN_GRASS_LIGHT = register("aurorian_grass_light", () -> new TAPlantBlock(copy(Blocks.GRASS).lightLevel(s -> 2), LIGHT_AURORIAN_GRASS_BLOCK));
-    public static final RegistryObject<Block> AURORIAN_WATER_GRASS = register("aurorian_water_grass", () -> new TALightPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
+    public static final RegistryObject<Block> AURORIAN_GRASS = register("aurorian_grass", () -> new DeadBushBlock(copy(Blocks.GRASS)));
+    public static final RegistryObject<Block> AURORIAN_GRASS_LIGHT = register("aurorian_grass_light", () -> new DeadBushBlock(copy(Blocks.GRASS).lightLevel(s -> 2)));
+    public static final RegistryObject<Block> AURORIAN_WATER_GRASS = register("aurorian_water_grass", () -> new TALightPlantBlock(copy(Blocks.GRASS)));
     public static final RegistryObject<Block> AURORIAN_LILY_PAD = BLOCKS.register("aurorian_lily_pad", () -> new AurorianWaterSurfacePlant(Block.box(0.5D, 0.0D, 0.5D, 15.5D, 0.5D, 15.5D)));
     public static final RegistryObject<Block> AURORIAN_WATER_MUSHROOM = BLOCKS.register("aurorian_water_mushroom", () -> new AurorianWaterSurfacePlant(Block.box(4.0D, 0.0D, 4.0D, 12.0D, 10.5D, 12.0D)));
     public static final RegistryObject<Block> AURORIAN_FURNACE = register("aurorian_furnace", () -> new AurorianFurnace(defaultStoneProperties(3.5F)));
@@ -75,12 +75,14 @@ public class TABlocks {
     public static final RegistryObject<Block> BLUEBERRY_BUSH = BLOCKS.register("blueberry_bush", BlueberryBush::new);
     public static final RegistryObject<Block> LAVENDER_CROP = BLOCKS.register("lavender_crop", () -> new TACropBlock(copy(Blocks.GRASS), TAItems.LAVENDER_SEEDS));
     public static final RegistryObject<Block> SILK_BERRY_CROP = BLOCKS.register("silk_berry_crop", () -> new TACropBlock(copy(Blocks.GRASS), TAItems.SILK_BERRY));
-    public static final RegistryObject<Block> LAVENDER_PLANT = register("lavender_plant", () -> new TAPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
-    public static final RegistryObject<Block> PETUNIA_PLANT = register("petunia_plant", () -> new TAPlantBlock(copy(Blocks.GRASS), AURORIAN_GRASS_BLOCK));
-    public static final RegistryObject<Block> TALL_AURORIAN_GRASS = register("tall_aurorian_grass", () -> new TADoublePlantBlock(copy(Blocks.TALL_GRASS), AURORIAN_GRASS_BLOCK));
-    public static final RegistryObject<Block> TALL_LAVENDER_PLANT = register("tall_lavender_plant", () -> new TADoublePlantBlock(copy(Blocks.TALL_GRASS), AURORIAN_GRASS_BLOCK));
-    public static final RegistryObject<Block> TALL_AURORIAN_WATER_GRASS = register("tall_aurorian_water_grass", () -> new TALightDoublePlantBlock(copy(Blocks.TALL_GRASS), AURORIAN_GRASS_BLOCK));
-    public static final RegistryObject<Block> TALL_AURORIAN_GRASS_LIGHT = register("tall_aurorian_grass_light", () -> new TALightDoublePlantBlock(copy(Blocks.TALL_GRASS), LIGHT_AURORIAN_GRASS_BLOCK));
+    public static final RegistryObject<Block> LAVENDER_PLANT = register("lavender_plant", () -> new DeadBushBlock(copy(Blocks.GRASS)));
+    public static final RegistryObject<Block> PETUNIA_PLANT = register("petunia_plant", () -> new DeadBushBlock(copy(Blocks.GRASS)));
+    public static final RegistryObject<Block> ICE_CALENDULA = register("ice_calendula", () -> new DeadBushBlock(copy(Blocks.GRASS)));
+    public static final RegistryObject<Block> AURORIAN_WINTER_ROOT = register("aurorian_winter_root", () -> new DeadBushBlock(copy(Blocks.GRASS)));
+    public static final RegistryObject<Block> TALL_AURORIAN_GRASS = register("tall_aurorian_grass", () -> new DoublePlantBlock(copy(Blocks.TALL_GRASS)));
+    public static final RegistryObject<Block> TALL_LAVENDER_PLANT = register("tall_lavender_plant", () -> new DoublePlantBlock(copy(Blocks.TALL_GRASS)));
+    public static final RegistryObject<Block> TALL_AURORIAN_WATER_GRASS = register("tall_aurorian_water_grass", () -> new TALightDoublePlantBlock(copy(Blocks.TALL_GRASS)));
+    public static final RegistryObject<Block> TALL_AURORIAN_GRASS_LIGHT = register("tall_aurorian_grass_light", () -> new TALightDoublePlantBlock(copy(Blocks.TALL_GRASS)));
     public static final RegistryObject<Block> SMOOTH_AURORIAN_PERIDOTITE = normal("smooth_aurorian_peridotite", defaultStoneProperties(5.0F));
     public static final RegistryObject<Block> AURORIAN_PERIDOTITE = normal("aurorian_peridotite", defaultStoneProperties(5.0F));
 
@@ -97,16 +99,16 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_GOLD_ORE =  ore("aurorian_gold_ore",copy(Blocks.GOLD_ORE));
     public static final RegistryObject<Block> AURORIAN_IRON_ORE =  ore("aurorian_iron_ore", copy(Blocks.IRON_ORE));
     public static final RegistryObject<Block> AURORIAN_LAPIS_ORE =  ore("aurorian_lapis_ore", copy(Blocks.LAPIS_ORE));
-    public static final RegistryObject<Block> AURORIAN_REDSTONE_ORE =  register("aurorian_redstone_ore", ()->new RedStoneOreBlock(copy(Blocks.REDSTONE_ORE)));
     public static final RegistryObject<Block> AURORIAN_COPPER_ORE =  ore("aurorian_copper_ore", copy(Blocks.COPPER_ORE));
     public static final RegistryObject<Block> AURORIAN_DIAMOND_ORE =  ore("aurorian_diamond_ore", copy(Blocks.DIAMOND_ORE));
+    public static final RegistryObject<Block> AURORIAN_REDSTONE_ORE =  register("aurorian_redstone_ore", () -> new RedStoneOreBlock(copy(Blocks.REDSTONE_ORE)));
     public static final RegistryObject<Block> EROSIVE_AURORIAN_EMERALD_ORE = ore("erosive_aurorian_emerald_ore", copy(Blocks.DEEPSLATE_EMERALD_ORE));
     public static final RegistryObject<Block> EROSIVE_AURORIAN_GOLD_ORE =  ore("erosive_aurorian_gold_ore", copy(Blocks.DEEPSLATE_GOLD_ORE));
     public static final RegistryObject<Block> EROSIVE_AURORIAN_IRON_ORE =  ore("erosive_aurorian_iron_ore", copy(Blocks.DEEPSLATE_IRON_ORE));
     public static final RegistryObject<Block> EROSIVE_AURORIAN_LAPIS_ORE =  ore("erosive_aurorian_lapis_ore", copy(Blocks.DEEPSLATE_LAPIS_ORE));
-    public static final RegistryObject<Block> EROSIVE_AURORIAN_REDSTONE_ORE =  register("erosive_aurorian_redstone_ore", ()-> new RedStoneOreBlock(copy(Blocks.DEEPSLATE_REDSTONE_ORE)));
     public static final RegistryObject<Block> EROSIVE_AURORIAN_COPPER_ORE = ore("erosive_aurorian_copper_ore", copy(Blocks.DEEPSLATE_COPPER_ORE));
     public static final RegistryObject<Block> EROSIVE_AURORIAN_DIAMOND_ORE =  ore("erosive_aurorian_diamond_ore", copy(Blocks.DEEPSLATE_DIAMOND_ORE));
+    public static final RegistryObject<Block> EROSIVE_AURORIAN_REDSTONE_ORE =  register("erosive_aurorian_redstone_ore", () -> new RedStoneOreBlock(copy(Blocks.DEEPSLATE_REDSTONE_ORE)));
 
     public static final RegistryObject<Block> RUNE_STONE = normal("rune_stone", breakWithQueenPickaxe());
     public static final RegistryObject<Block> SMOOTH_RUNE_STONE = normal("smooth_rune_stone", breakWithQueenPickaxe());
@@ -502,11 +504,12 @@ public class TABlocks {
     /**
      * Misc
      */
+    public static final RegistryObject<Block> TEMP_BARRIER = BLOCKS.register("temp_barrier", TempBarrier::new);
+    public static final RegistryObject<Block> MYSTERIUM_WOOL_BED = register("mysterium_wool_bed", MysteriumWoolBed::new);
+    public static final RegistryObject<Block> SILENT_CAMPFIRE = register("silent_campfire", SilentCampfireBlock::new);
     public static final RegistryObject<Block> ALCHEMY_TABLE = register("alchemy_table", AlchemyTable::new);
     public static final RegistryObject<Block> RELIC_TABLE = register("relic_table", RelicTable::new);
     public static final RegistryObject<Block> ASTROLOGER = register("astrologer", Astrologer::new);
-    public static final RegistryObject<Block> MYSTERIUM_WOOL_BED = register("mysterium_wool_bed", MysteriumWoolBed::new);
-    public static final RegistryObject<Block> SILENT_CAMPFIRE = register("silent_campfire", () -> new SilentCampfireBlock(true, 1, copy(Blocks.CAMPFIRE)));
 
     public static BlockBehaviour.Properties defaultStoneProperties(float destroyTime) {
         return of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE)

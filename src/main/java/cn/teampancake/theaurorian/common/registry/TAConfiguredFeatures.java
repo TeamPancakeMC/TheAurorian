@@ -65,6 +65,7 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_GRASS_LIGHT = createKey("patch_aurorian_grass_light");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_FLOWER_FOREST = createKey("patch_aurorian_flower_forest");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_FLOWER_PLAINS = createKey("patch_aurorian_flower_plains");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLOWER_SNOWFIELD = createKey("patch_flower_snowfield");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_EQUINOX_FLOWER = createKey("patch_equinox_flower");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LAVENDER = createKey("patch_lavender");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_AURORIAN_FOREST = createKey("trees_aurorian_forest");
@@ -90,7 +91,6 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MOONSTONE = createKey("ore_moonstone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_CERULEAN = createKey("ore_cerulean");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GEODE = createKey("ore_geode");
-
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON = createKey("ore_iron");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON_SMALL = createKey("ore_iron_small");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GOLD = createKey("ore_gold");
@@ -229,6 +229,10 @@ public class TAConfiguredFeatures {
                         .add(TABlocks.AURORIAN_FLOWER_1.get().defaultBlockState(), 1)
                         .add(TABlocks.AURORIAN_FLOWER_2.get().defaultBlockState(), 1)
                         .add(TABlocks.AURORIAN_FLOWER_3.get().defaultBlockState(), 1).build()), 6));
+        FeatureUtils.register(context, PATCH_FLOWER_SNOWFIELD, Feature.FLOWER, VegetationFeatures.grassPatch(
+                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                        .add(TABlocks.ICE_CALENDULA.get().defaultBlockState(), 1)
+                        .add(TABlocks.AURORIAN_WINTER_ROOT.get().defaultBlockState(), 1).build()), 5));
         FeatureUtils.register(context, PATCH_EQUINOX_FLOWER, Feature.FLOWER, VegetationFeatures.grassPatch(
                 BlockStateProvider.simple(TABlocks.EQUINOX_FLOWER.get()), 16));
         FeatureUtils.register(context, PATCH_LAVENDER, Feature.FLOWER, VegetationFeatures.grassPatch(
@@ -294,7 +298,9 @@ public class TAConfiguredFeatures {
         FeatureUtils.register(context, ORE_DIAMOND_BURIED, Feature.ORE, new OreConfiguration(diamondTarget, 8, 1.0F));
         FeatureUtils.register(context, ORE_LAPIS, Feature.ORE, new OreConfiguration(lapisTarget, 7));
         FeatureUtils.register(context, ORE_LAPIS_BURIED, Feature.ORE, new OreConfiguration(lapisTarget, 7, 1.0F));
-        FeatureUtils.register(context, ORE_EMERALD, Feature.ORE, new OreConfiguration(List.of(OreConfiguration.target(defaultStoneRuleTest, TABlocks.AURORIAN_EMERALD_ORE.get().defaultBlockState()), OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_AURORIAN_EMERALD_ORE.get().defaultBlockState())), 3));
+        FeatureUtils.register(context, ORE_EMERALD, Feature.ORE, new OreConfiguration(List.of(
+                OreConfiguration.target(defaultStoneRuleTest, TABlocks.AURORIAN_EMERALD_ORE.get().defaultBlockState()),
+                OreConfiguration.target(deepslateOreReplaceables, TABlocks.EROSIVE_AURORIAN_EMERALD_ORE.get().defaultBlockState())), 3));
         FeatureUtils.register(context, ORE_COPPPER_SMALL, Feature.ORE, new OreConfiguration(copperTarget, 10));
         FeatureUtils.register(context, ORE_COPPER_LARGE, Feature.ORE, new OreConfiguration(copperTarget, 20));
         FeatureUtils.register(context, AURORIAN_FOREST_SPRING, TAFeatures.AURORIAN_FOREST_SPRING.get(), NoneFeatureConfiguration.NONE);
@@ -329,9 +335,7 @@ public class TAConfiguredFeatures {
 
     static {
         List<RegistryObject<SmallRuinFeature>> list = TAFeatures.AURORIAN_FOREST_SMALL_RUINS;
-        if (!list.isEmpty()) {
-            list.forEach(object -> AURORIAN_FOREST_SMALL_RUINS.add(createKey(object.getId().getPath())));
-        }
+        list.forEach(object -> AURORIAN_FOREST_SMALL_RUINS.add(createKey(object.getId().getPath())));
     }
 
 }

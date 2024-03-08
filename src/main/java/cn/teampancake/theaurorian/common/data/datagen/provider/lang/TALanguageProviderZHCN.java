@@ -88,6 +88,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.TALL_WICK_GRASS.get(), "高灯芯草");
         this.add(TABlocks.LAVENDER_PLANT.get(), "薰衣草");
         this.add(TABlocks.PETUNIA_PLANT.get(), "牵牛花");
+        this.add(TABlocks.ICE_CALENDULA.get(), "冰金盏");
+        this.add(TABlocks.AURORIAN_WINTER_ROOT.get(), "极光冬根");
         this.add(TABlocks.TALL_AURORIAN_GRASS.get(), "高极光草");
         this.add(TABlocks.TALL_LAVENDER_PLANT.get(), "高薰衣草");
         this.add(TABlocks.TALL_AURORIAN_WATER_GRASS.get(), "高极光水草");

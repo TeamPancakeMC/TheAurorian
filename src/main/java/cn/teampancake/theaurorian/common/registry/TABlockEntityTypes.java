@@ -48,6 +48,8 @@ public class TABlockEntityTypes {
                     TABlocks.CURTAIN_WOOD_HANGING_SIGN.get(), TABlocks.CURSED_FROST_WOOD_HANGING_SIGN.get(), TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(),
                     TABlocks.WEEPING_WILLOW_WOOD_WALL_HANGING_SIGN.get(), TABlocks.CURTAIN_WOOD_WALL_HANGING_SIGN.get(),
                     TABlocks.CURSED_FROST_WOOD_WALL_HANGING_SIGN.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TempBarrierBlockEntity>> TEMP_BARRIER = BLOCK_ENTITY_TYPES.register("temp_barrier",
+            () -> BlockEntityType.Builder.of(TempBarrierBlockEntity::new, TABlocks.TEMP_BARRIER.get()).build(null));
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {

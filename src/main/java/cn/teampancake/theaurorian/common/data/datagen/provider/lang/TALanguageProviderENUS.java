@@ -88,6 +88,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.TALL_WICK_GRASS.get(), "Tall Wick Grass");
         this.add(TABlocks.LAVENDER_PLANT.get(), "Lavender Plant");
         this.add(TABlocks.PETUNIA_PLANT.get(), "Petunia Plant");
+        this.add(TABlocks.ICE_CALENDULA.get(), "Ice Calendula");
+        this.add(TABlocks.AURORIAN_WINTER_ROOT.get(), "Aurorian Winter Root");
         this.add(TABlocks.TALL_LAVENDER_PLANT.get(), "Tall Lavender Plant");
         this.add(TABlocks.TALL_AURORIAN_GRASS.get(), "Tall Aurorian Grass");
         this.add(TABlocks.TALL_AURORIAN_WATER_GRASS.get(), "Tall Aurorian Water Grass");

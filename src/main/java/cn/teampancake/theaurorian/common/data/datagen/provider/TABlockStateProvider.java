@@ -251,8 +251,10 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerPlantStates(TABlocks.LAVENDER_PLANT.get());
         this.registerPlantStates(TABlocks.PETUNIA_PLANT.get());
         this.registerPlantStates(TABlocks.INDIGO_MUSHROOM.get());
+        this.registerPlantStates(TABlocks.ICE_CALENDULA.get());
         this.registerPlantStates(TABlocks.AURORIAN_GRASS.get());
         this.registerPlantStates(TABlocks.AURORIAN_GRASS_LIGHT.get());
+        this.registerPlantStates(TABlocks.AURORIAN_WINTER_ROOT.get());
         this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_BLOCK.get());
         this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_STEM.get());
         this.registerLuminousStates(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE.get(), TABlocks.AURORIAN_CASTLE_RUNE_STONE.get());

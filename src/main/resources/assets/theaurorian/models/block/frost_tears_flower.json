@@ -1,6 +1,7 @@
 {
 	"parent": "block/block",
 	"texture_size": [32, 32],
+	"render_type": "cutout",
 	"textures": {
 		"0": "theaurorian:block/frost_tears_flower",
 		"particle": "theaurorian:block/frost_tears_flower"

@@ -1,6 +1,7 @@
 {
 	"parent": "block/block",
 	"texture_size": [32, 32],
+	"render_type": "cutout",
 	"textures": {
 		"0": "theaurorian:block/dreamscape_pistil",
 		"particle": "theaurorian:block/dreamscape_pistil"

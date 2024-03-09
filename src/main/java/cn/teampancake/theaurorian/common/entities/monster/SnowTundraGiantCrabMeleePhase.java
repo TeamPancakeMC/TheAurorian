@@ -14,7 +14,8 @@ public class SnowTundraGiantCrabMeleePhase extends AttackPhase<SnowTundraGiantCr
 
     @Override
     public void onStart(SnowTundraGiantCrab entity) {
-        entity.triggerMeleeAttackAnim();
+        String name = entity.getRandom().nextBoolean() ? "swing" : "smash";
+        entity.triggerAnim(name + "_controller", name + "_animation");
     }
 
     @Override

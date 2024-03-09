@@ -7,8 +7,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-import java.util.function.Supplier;
-
 public class TALightPlantBlock extends DeadBushBlock implements IRiversidePlant {
 
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL;

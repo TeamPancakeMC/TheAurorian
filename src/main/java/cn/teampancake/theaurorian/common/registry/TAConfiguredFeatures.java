@@ -231,6 +231,10 @@ public class TAConfiguredFeatures {
                         .add(TABlocks.VOID_CANDLE_FLOWER.get().defaultBlockState(), 1).build()), 6));
         FeatureUtils.register(context, PATCH_FLOWER_SNOWFIELD, Feature.FLOWER, VegetationFeatures.grassPatch(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                        .add(TABlocks.DREAMSCAPE_PISTIL.get().defaultBlockState(), 1)
+                        .add(TABlocks.FROST_TEARS_FLOWER.get().defaultBlockState(), 1)
+                        .add(TABlocks.CRISPED_MALLOW.get().defaultBlockState(), 1)
+                        .add(TABlocks.FROST_SNOW_GRASS.get().defaultBlockState(), 1)
                         .add(TABlocks.ICE_CALENDULA.get().defaultBlockState(), 1)
                         .add(TABlocks.AURORIAN_WINTER_ROOT.get().defaultBlockState(), 1).build()), 5));
         FeatureUtils.register(context, PATCH_EQUINOX_FLOWER, Feature.FLOWER, VegetationFeatures.grassPatch(

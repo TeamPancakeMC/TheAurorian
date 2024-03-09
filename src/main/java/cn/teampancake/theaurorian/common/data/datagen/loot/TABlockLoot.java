@@ -180,8 +180,12 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.add(TABlocks.LAVENDER_PLANT.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.LAVENDER_PLANT.get()));
         this.add(TABlocks.TALL_LAVENDER_PLANT.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.LAVENDER_PLANT.get()));
         this.add(TABlocks.PETUNIA_PLANT.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.PETUNIA_PLANT.get()));
+        this.add(TABlocks.CRISPED_MALLOW.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.CRISPED_MALLOW.get()));
+        this.add(TABlocks.FROST_SNOW_GRASS.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.FROST_SNOW_GRASS.get()));
         this.add(TABlocks.ICE_CALENDULA.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.ICE_CALENDULA.get()));
         this.add(TABlocks.AURORIAN_WINTER_ROOT.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.AURORIAN_WINTER_ROOT.get()));
+        this.add(TABlocks.DREAMSCAPE_PISTIL.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.DREAMSCAPE_PISTIL.get()));
+        this.add(TABlocks.FROST_TEARS_FLOWER.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.FROST_TEARS_FLOWER.get()));
         this.add(TABlocks.LAVENDER_CROP.get(), this.createCropDrops(TABlocks.LAVENDER_CROP.get(), TAItems.LAVENDER.get(), TAItems.LAVENDER_SEEDS.get(),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(TABlocks.LAVENDER_CROP.get())
                         .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TACropBlock.AGE, 3))));

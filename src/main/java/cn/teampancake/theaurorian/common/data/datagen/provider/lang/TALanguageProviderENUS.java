@@ -80,6 +80,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(), "Aurorian Portal Frame Brick");
         this.add(TABlocks.URN.get(), "Urn");
         this.add(TABlocks.MYSTERIUM_WOOL.get(), "Mysterium Wool");
+        this.add(TABlocks.DREAMSCAPE_PISTIL.get(), "Dreamscape Pistil");
+        this.add(TABlocks.FROST_TEARS_FLOWER.get(), "Frost Tears Flower");
         this.add(TABlocks.NEBULA_BLOSSOM_CLUSTER.get(), "Nebula Blossom Cluster");
         this.add(TABlocks.MOON_FROST_FLOWER.get(), "Moon Frost Flower");
         this.add(TABlocks.VOID_CANDLE_FLOWER.get(), "Void Candle Flower");
@@ -88,6 +90,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.TALL_WICK_GRASS.get(), "Tall Wick Grass");
         this.add(TABlocks.LAVENDER_PLANT.get(), "Lavender Plant");
         this.add(TABlocks.PETUNIA_PLANT.get(), "Petunia Plant");
+        this.add(TABlocks.CRISPED_MALLOW.get(), "Crisped Mallow");
+        this.add(TABlocks.FROST_SNOW_GRASS.get(), "Frost Snow Grass");
         this.add(TABlocks.ICE_CALENDULA.get(), "Ice Calendula");
         this.add(TABlocks.AURORIAN_WINTER_ROOT.get(), "Aurorian Winter Root");
         this.add(TABlocks.TALL_LAVENDER_PLANT.get(), "Tall Lavender Plant");

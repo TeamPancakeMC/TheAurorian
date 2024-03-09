@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=east": {
+            "model": "theaurorian:block/dreamscape_pistil",
+            "y": 90
+        },
+        "facing=north": {
+            "model": "theaurorian:block/dreamscape_pistil"
+        },
+        "facing=south": {
+            "model": "theaurorian:block/dreamscape_pistil",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "theaurorian:block/dreamscape_pistil",
+            "y": 270
+        }
+    }
+}

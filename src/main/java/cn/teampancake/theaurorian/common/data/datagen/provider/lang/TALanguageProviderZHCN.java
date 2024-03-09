@@ -80,6 +80,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(), "极光传送门框架");
         this.add(TABlocks.URN.get(), "瓮");
         this.add(TABlocks.MYSTERIUM_WOOL.get(), "秘境羊毛");
+        this.add(TABlocks.DREAMSCAPE_PISTIL.get(), "梦境之蕊");
+        this.add(TABlocks.FROST_TEARS_FLOWER.get(), "霜泪花");
         this.add(TABlocks.NEBULA_BLOSSOM_CLUSTER.get(), "星云花簇");
         this.add(TABlocks.MOON_FROST_FLOWER.get(), "月霜花");
         this.add(TABlocks.VOID_CANDLE_FLOWER.get(), "空烛花");
@@ -88,6 +90,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.TALL_WICK_GRASS.get(), "高灯芯草");
         this.add(TABlocks.LAVENDER_PLANT.get(), "薰衣草");
         this.add(TABlocks.PETUNIA_PLANT.get(), "牵牛花");
+        this.add(TABlocks.CRISPED_MALLOW.get(), "冬葵");
+        this.add(TABlocks.FROST_SNOW_GRASS.get(), "霜雪草");
         this.add(TABlocks.ICE_CALENDULA.get(), "冰金盏");
         this.add(TABlocks.AURORIAN_WINTER_ROOT.get(), "极光冬根");
         this.add(TABlocks.TALL_AURORIAN_GRASS.get(), "高极光草");

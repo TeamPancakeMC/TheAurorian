@@ -65,6 +65,8 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_PORTAL_FRAME_BRICKS = normal("aurorian_portal_frame_bricks", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> URN = register("urn", () -> new UrnBlock(of().mapColor(MapColor.STONE).instabreak().sound(SoundType.GLASS)));
     public static final RegistryObject<Block> MYSTERIUM_WOOL = normal("mysterium_wool", copy(Blocks.WHITE_WOOL));
+    public static final RegistryObject<Block> DREAMSCAPE_PISTIL = register("dreamscape_pistil", TASnowfieldTallPlantBlock::new);
+    public static final RegistryObject<Block> FROST_TEARS_FLOWER = register("frost_tears_flower", TASnowfieldTallPlantBlock::new);
     public static final RegistryObject<Block> NEBULA_BLOSSOM_CLUSTER = register("nebula_blossom_cluster", TAFlowerBlock::new);
     public static final RegistryObject<Block> MOON_FROST_FLOWER = register("moon_frost_flower", TAFlowerBlock::new);
     public static final RegistryObject<Block> VOID_CANDLE_FLOWER = register("void_candle_flower", TAFlowerBlock::new);
@@ -76,6 +78,8 @@ public class TABlocks {
     public static final RegistryObject<Block> SILK_BERRY_CROP = BLOCKS.register("silk_berry_crop", () -> new TACropBlock(copy(Blocks.GRASS), TAItems.SILK_BERRY));
     public static final RegistryObject<Block> LAVENDER_PLANT = register("lavender_plant", () -> new DeadBushBlock(copy(Blocks.GRASS)));
     public static final RegistryObject<Block> PETUNIA_PLANT = register("petunia_plant", () -> new DeadBushBlock(copy(Blocks.GRASS)));
+    public static final RegistryObject<Block> CRISPED_MALLOW = register("crisped_mallow", () -> new DeadBushBlock(copy(Blocks.GRASS)));
+    public static final RegistryObject<Block> FROST_SNOW_GRASS = register("frost_snow_grass", () -> new DeadBushBlock(copy(Blocks.GRASS)));
     public static final RegistryObject<Block> ICE_CALENDULA = register("ice_calendula", () -> new DeadBushBlock(copy(Blocks.GRASS)));
     public static final RegistryObject<Block> AURORIAN_WINTER_ROOT = register("aurorian_winter_root", () -> new DeadBushBlock(copy(Blocks.GRASS)));
     public static final RegistryObject<Block> TALL_AURORIAN_GRASS = register("tall_aurorian_grass", () -> new DoublePlantBlock(copy(Blocks.TALL_GRASS)));

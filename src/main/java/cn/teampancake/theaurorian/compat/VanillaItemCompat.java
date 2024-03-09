@@ -64,6 +64,8 @@ public class VanillaItemCompat {
             ComposterBlock.add(0.3F, TABlocks.WEEPING_WILLOW_LEAVES.get());
             ComposterBlock.add(0.3F, TABlocks.CURTAIN_TREE_LEAVES.get());
             ComposterBlock.add(0.3F, TABlocks.CURSED_FROST_TREE_LEAVES.get());
+            ComposterBlock.add(0.65F, TABlocks.DREAMSCAPE_PISTIL.get());
+            ComposterBlock.add(0.65F, TABlocks.FROST_TEARS_FLOWER.get());
             ComposterBlock.add(0.65F, TABlocks.NEBULA_BLOSSOM_CLUSTER.get());
             ComposterBlock.add(0.65F, TABlocks.MOON_FROST_FLOWER.get());
             ComposterBlock.add(0.65F, TABlocks.VOID_CANDLE_FLOWER.get());

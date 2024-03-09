@@ -95,7 +95,7 @@ public class SpiderMotherModel<T extends SpiderMother> extends HierarchicalModel
         leg_left_c_2.addOrReplaceChild("leg_left_c_3", CubeListBuilder.create()
                 .texOffs(57, 62).mirror().addBox(-2.5F, 0.0F, -2.5F, 5.0F, 24.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(78, 74).mirror().addBox(-2.5F, 13.5F, 0.0F, 9.0F, 23.0F, 0.0F, new CubeDeformation(0.01F)).mirror(false), PartPose.offsetAndRotation(0.0F, 1.5F, 0.0F, 0.0F, 0.0F, 0.9599F));
-        return LayerDefinition.create(meshDefinition, 256, 256);
+        return LayerDefinition.create(meshDefinition, 256, 128);
     }
 
     @Override

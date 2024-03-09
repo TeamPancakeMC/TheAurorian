@@ -130,7 +130,7 @@ public class UndeadKnight extends Monster {
 
     @Override
     public int getMaxSpawnClusterSize() {
-        return 3 * AurorianConfig.CONFIG_RUNESTONE_DUNGEON_MOB_DENSITY.get();
+        return 3;
     }
 
     private static class UndeadKnightAttackGoal extends MeleeAttackGoal {

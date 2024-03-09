@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.items.shield;
 
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -33,7 +32,7 @@ public class UmbraShield extends ShieldItem implements ITooltipsItem {
 
     @Override
     public int getUseDuration(ItemStack pStack) {
-        return AurorianConfig.Config_UmbraShieldTimeUntilOverheat.get();
+        return 60;
     }
 
     @Override
@@ -41,7 +40,7 @@ public class UmbraShield extends ShieldItem implements ITooltipsItem {
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         if (entity instanceof Player player) {
             if (!player.isShiftKeyDown()) {
-                player.getCooldowns().addCooldown(stack.getItem(), AurorianConfig.Config_UmbraShieldOverheatCooldown.get());
+                player.getCooldowns().addCooldown(stack.getItem(), 60);
                 if (level.isClientSide) {
                     level.playLocalSound(player.getX() + 0.5D, player.getY(), player.getZ() + 0.5D, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F,false);
                 }

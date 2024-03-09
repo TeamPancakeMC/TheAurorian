@@ -310,7 +310,7 @@ public class EntityEventSubscriber {
             for (ItemStack piece : livingEntity.getArmorSlots()) {
                 if (piece.getItem() instanceof ArmorItem armorItem) {
                     if (armorItem.getMaterial() == TAArmorMaterials.SPECTRAL) {
-                        chance += AurorianConfig.CONFIG_SPECTRAL_ARMOR_CLEANSE_CHANCE.get();
+                        chance += 0.06F;
                     }
                 }
             }

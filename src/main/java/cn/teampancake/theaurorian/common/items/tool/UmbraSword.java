@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import net.minecraft.sounds.SoundEvents;
@@ -23,7 +22,7 @@ public class UmbraSword extends SwordItem implements ITooltipsItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack itemInHand = player.getItemInHand(usedHand);
-        player.getCooldowns().addCooldown(this, AurorianConfig.Config_UmbraSwordCooldown.get());
+        player.getCooldowns().addCooldown(this, 900);
         int time = 120;
         if (level.isClientSide) {
             player.playSound(SoundEvents.ENCHANTMENT_TABLE_USE, 1f, 0.5f);

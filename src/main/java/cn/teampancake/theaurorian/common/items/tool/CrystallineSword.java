@@ -65,7 +65,7 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
             }
 
             if (!player.getAbilities().instabuild) {
-                player.getCooldowns().addCooldown(this, AurorianConfig.Config_CrystallineSwordCooldown.get());
+                player.getCooldowns().addCooldown(this, 600);
             }
         }
     }

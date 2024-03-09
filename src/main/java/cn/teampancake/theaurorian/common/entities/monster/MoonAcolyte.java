@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.entities.ai.ZombieLikeAttackGoal;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -94,7 +93,7 @@ public class MoonAcolyte extends Monster implements GeoEntity {
 
     @Override
     public int getMaxSpawnClusterSize() {
-        return 4 * AurorianConfig.CONFIG_MOON_TEMPLE_MOB_DENSITY.get();
+        return 4;
     }
 
 }

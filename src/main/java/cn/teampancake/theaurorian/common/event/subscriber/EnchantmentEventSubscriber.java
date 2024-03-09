@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -51,7 +50,7 @@ public class EnchantmentEventSubscriber {
             }
         }
 
-        event.setAmount((float) (event.getAmount() + extradamage * AurorianConfig.Config_LightningEnchantmentMulitplier.get()));
+        event.setAmount(event.getAmount() + extradamage * 0.2F);
     }
 
     @SubscribeEvent

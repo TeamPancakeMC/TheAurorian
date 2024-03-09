@@ -63,7 +63,7 @@ public class ItemEventSubscriber {
         if (level.isClientSide()) return;
         entity.getArmorSlots().forEach(itemStack -> {
             if (itemStack.is(TAItemTags.SPECTRAL_ARMOR)
-                    && level.random.nextDouble() <= AurorianConfig.CONFIG_SPECTRAL_ARMOR_CLEANSE_CHANCE.get()
+                    && level.random.nextDouble() <= 0.06F
                     && entity instanceof Player player) {
                 player.getActiveEffects().forEach(effectInstance -> {
                     if (!effectInstance.getEffect().isBeneficial()) {
@@ -81,7 +81,7 @@ public class ItemEventSubscriber {
             player.getArmorSlots().forEach(stack -> {
                 if (stack.is(TAItems.AURORIAN_SLIME_BOOTS.get()) && player.getCooldowns().isOnCooldown(stack.getItem())) {
                     player.setDeltaMovement(player.getDeltaMovement().x, 0.5, player.getDeltaMovement().z);
-                    player.getCooldowns().addCooldown(stack.getItem(), AurorianConfig.Config_SlimeBootsCooldown.get());
+                    player.getCooldowns().addCooldown(stack.getItem(), 100);
                 }
             });
         }

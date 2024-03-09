@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,8 +32,8 @@ public class AurorianiteSword extends SwordItem implements ITooltipsItem {
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         AABB aabb = (new AABB(player.getOnPos())).inflate(5.0D);
+        player.getCooldowns().addCooldown(this, 600);
         List<LivingEntity> entities = level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, aabb);
-        player.getCooldowns().addCooldown(this, AurorianConfig.Config_AurorianiteSwordCooldown.get());
         entities.stream().filter(entity -> !entity.getType().is(Tags.EntityTypes.BOSSES)).forEach(entity -> {
             entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 60));
             entity.moveTo(new Vec3(entity.getX(), entity.getY() + 0.5D, entity.getZ()));

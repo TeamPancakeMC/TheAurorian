@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
@@ -56,6 +57,7 @@ public class TempBarrierBlockEntity extends BlockEntity {
                                     boolean flag = stack.getTag() != null && stack.getTag().getAllKeys().contains("ToolUUID");
                                     if (flag && stack.getTag().getString("ToolUUID").equals(blockEntity.toolUUID)) {
                                         stack.hurtAndBreak(1, player, entity -> entity.broadcastBreakEvent(hand));
+                                        player.awardStat(Stats.BLOCK_MINED.get(blockEntity.logState.getBlock()));
                                         stackList.add(stack);
                                     }
                                 });

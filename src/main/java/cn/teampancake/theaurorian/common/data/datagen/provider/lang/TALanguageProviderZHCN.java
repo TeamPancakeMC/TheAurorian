@@ -19,9 +19,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        this.add("death.attack.corruption_1", "§4当%1$s在凝视深渊的时候，深渊也在凝视着%1$s");
-        this.add("death.attack.corruption_2", "§4西行寺幽幽子似乎并不喜欢%1$s");
-        this.add("death.attack.corruption_3", "§4%1$s死在了樱花树下");
+        this.add("death.attack.corruption_1", "当%1$s在凝视深渊的时候，深渊也在凝视着%1$s");
+        this.add("death.attack.corruption_2", "西行寺幽幽子似乎并不喜欢%1$s");
+        this.add("death.attack.corruption_3", "%1$s死在了樱花树下");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "极光幽境");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "极光幽境（建材）");
         this.add("theaurorian.title.nightmare_mode_settings", "噩梦模式设置");
@@ -718,15 +718,12 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         //MOD MESSAGES
         this.add("messages.effect.theaurorian.moon_queen_only", "这是皎月女王专属的效果，对于其它实体是无效的！");
         this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness", "所有的罪恶已被驱散！");
-        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".selected", "已选择方块：§a%s");
-        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".fail", "§c选择失败，因为剩余耐久已不足60！");
+        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".selected", "已选择方块：%s");
+        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".fail", "选择失败，因为剩余耐久已不足60！");
 
         //MOD COMMANDS
         this.add(NightmareModeSettings.ERROR_NOT_AURORIAN_DIMENSION.toString(), "当前的维度不是极光维度！");
         this.add(NightmareModeSettings.ERROR_NOT_NIGHTMARE_MODE.toString(), "噩梦模式未开启！");
-
-        //MOD CUSTOM TOOLTIPS
-
 
         //MOD TOOLTIPS
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");

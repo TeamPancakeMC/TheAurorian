@@ -19,9 +19,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        this.add("death.attack.corruption_1", "§4When %1$s gaze long into an abyss, the abyss also gazes into %1$s");
-        this.add("death.attack.corruption_2", "§4It seems that Saigyouji Yuyuko doesn't like %1$s");
-        this.add("death.attack.corruption_3", "§4%1$s died under the cherry blossom tree");
+        this.add("death.attack.corruption_1", "When %1$s gaze long into an abyss, the abyss also gazes into %1$s");
+        this.add("death.attack.corruption_2", "It seems that Saigyouji Yuyuko doesn't like %1$s");
+        this.add("death.attack.corruption_3", "%1$s died under the cherry blossom tree");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "The Aurorian");
         this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "The Aurorian (Building Materials)");
         this.add("theaurorian.title.nightmare_mode_settings", "Nightmare Mode Settings");
@@ -718,8 +718,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         //MOD MESSAGES
         this.add("messages.effect.theaurorian.moon_queen_only", "These effects are exclusive to the Moon Queen, and it's invalid for other entity!");
         this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness", "All evil has been dispelled!");
-        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".selected", "Selected Block: §a%s");
-        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".fail", "§cThe remaining durability is less than 60 so select fail!");
+        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".selected", "Selected Block: %s");
+        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".fail", "The remaining durability is less than 60 so select fail!");
 
         //MOD COMMANDS
         this.add(NightmareModeSettings.ERROR_NOT_AURORIAN_DIMENSION.toString(), "Current dimension is not the Aurorian!");

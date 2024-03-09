@@ -47,44 +47,42 @@ public class TempBarrierBlockEntity extends BlockEntity {
                     List<String> uuidList = Lists.newArrayList();
                     List<ServerPlayer> playerList = serverLevel.players();
                     playerList.forEach(player -> uuidList.add(player.getStringUUID()));
-                    blockEntity.stopChopping = !uuidList.contains(blockEntity.minerUUID);
-                    if (blockEntity.destroyCountdown == 0) {
-                        playerList.forEach(player -> {
-                            InteractionHand hand = player.getUsedItemHand();
-                            List<ItemStack> stackList = Lists.newArrayList();
-                            if (player.getStringUUID().equals(blockEntity.minerUUID)) {
-                                player.getInventory().items.stream().filter(ItemStack::isDamageableItem).forEach(stack -> {
-                                    boolean flag = stack.getTag() != null && stack.getTag().getAllKeys().contains("ToolUUID");
-                                    if (flag && stack.getTag().getString("ToolUUID").equals(blockEntity.toolUUID)) {
-                                        stack.hurtAndBreak(1, player, entity -> entity.broadcastBreakEvent(hand));
-                                        player.awardStat(Stats.BLOCK_MINED.get(blockEntity.logState.getBlock()));
-                                        stackList.add(stack);
-                                    }
-                                });
-                            }
-                            // Stop destroy block if tool was break.
-                            blockEntity.stopChopping = stackList.isEmpty();
-                        });
+                    if (!uuidList.contains(blockEntity.minerUUID)) {
+                        blockEntity.minerUUID = "";
+                        blockEntity.toolUUID = "";
+                        blockEntity.logState = Blocks.AIR.defaultBlockState();
+                        return;
                     }
+
+                    playerList.forEach(player -> {
+                        InteractionHand hand = player.getUsedItemHand();
+                        if (player.getStringUUID().equals(blockEntity.minerUUID)) {
+                            player.getInventory().items.stream().filter(ItemStack::isDamageableItem).forEach(stack -> {
+                                boolean flag = stack.getTag() != null && stack.getTag().getAllKeys().contains("ToolUUID");
+                                if (flag && stack.getTag().getString("ToolUUID").equals(blockEntity.toolUUID)) {
+                                    stack.hurtAndBreak(1, player, entity -> entity.broadcastBreakEvent(hand));
+                                    player.awardStat(Stats.BLOCK_MINED.get(blockEntity.logState.getBlock()));
+                                }
+                            });
+                        }
+                    });
                 }
 
-                if (!blockEntity.stopChopping) {
-                    for (BlockPos blockPos : BlockPos.withinManhattan(pos, 1, 1, 1)) {
-                        BlockState neighborState = level.getBlockState(blockPos);
-                        if (neighborState.is(blockEntity.logState.getBlock())) {
-                            level.destroyBlock(blockPos, Boolean.TRUE);
-                            level.setBlockAndUpdate(blockPos, state);
-                        }
+                for (BlockPos blockPos : BlockPos.withinManhattan(pos, 1, 1, 1)) {
+                    BlockState neighborState = level.getBlockState(blockPos);
+                    if (neighborState.is(blockEntity.logState.getBlock())) {
+                        level.destroyBlock(blockPos, Boolean.TRUE);
+                        level.setBlockAndUpdate(blockPos, state);
+                    }
 
-                        if (neighborState.is(TABlocks.TEMP_BARRIER.get())) {
-                            BlockEntity relativeBlockEntity = level.getBlockEntity(blockPos);
-                            if (relativeBlockEntity instanceof TempBarrierBlockEntity tempBarrier) {
-                                if (tempBarrier.logState.isAir() || tempBarrier.minerUUID.isEmpty()) {
-                                    tempBarrier.destroyCountdown = blockEntity.destroyCountdown;
-                                    tempBarrier.logState = blockEntity.logState;
-                                    tempBarrier.minerUUID = blockEntity.minerUUID;
-                                    tempBarrier.toolUUID = blockEntity.toolUUID;
-                                }
+                    if (neighborState.is(TABlocks.TEMP_BARRIER.get())) {
+                        BlockEntity relativeBlockEntity = level.getBlockEntity(blockPos);
+                        if (relativeBlockEntity instanceof TempBarrierBlockEntity tempBarrier) {
+                            if (tempBarrier.logState.isAir() || tempBarrier.minerUUID.isEmpty()) {
+                                tempBarrier.destroyCountdown = 10;
+                                tempBarrier.logState = blockEntity.logState;
+                                tempBarrier.minerUUID = blockEntity.minerUUID;
+                                tempBarrier.toolUUID = blockEntity.toolUUID;
                             }
                         }
                     }

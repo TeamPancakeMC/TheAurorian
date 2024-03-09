@@ -80,9 +80,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(), "极光传送门框架");
         this.add(TABlocks.URN.get(), "瓮");
         this.add(TABlocks.MYSTERIUM_WOOL.get(), "秘境羊毛");
-        this.add(TABlocks.AURORIAN_FLOWER_1.get(), "极光花");
-        this.add(TABlocks.AURORIAN_FLOWER_2.get(), "极光花");
-        this.add(TABlocks.AURORIAN_FLOWER_3.get(), "极光花");
+        this.add(TABlocks.NEBULA_BLOSSOM_CLUSTER.get(), "星云花簇");
+        this.add(TABlocks.MOON_FROST_FLOWER.get(), "月霜花");
+        this.add(TABlocks.VOID_CANDLE_FLOWER.get(), "空烛花");
         this.add(TABlocks.EQUINOX_FLOWER.get(), "彼岸花");
         this.add(TABlocks.WICK_GRASS.get(), "灯芯草");
         this.add(TABlocks.TALL_WICK_GRASS.get(), "高灯芯草");
@@ -439,6 +439,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TABlocks.ASTROLOGER.get(), "占星仪");
         this.add(TABlocks.MYSTERIUM_WOOL_BED.get(),"秘境羊毛床");
         this.add(TABlocks.SILENT_CAMPFIRE.get(),"静谧营火");
+
         //MOD ITEM
         this.add(TAItems.DARK_STONE_KEY.get(), "暗石钥匙");
         this.add(TAItems.MOON_TEMPLE_KEY.get(), "月宫钥匙");
@@ -717,10 +718,15 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         //MOD MESSAGES
         this.add("messages.effect.theaurorian.moon_queen_only", "这是皎月女王专属的效果，对于其它实体是无效的！");
         this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness", "所有的罪恶已被驱散！");
+        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".selected", "已选择方块：§a%s");
+        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".fail", "§c选择失败，因为剩余耐久已不足60！");
 
         //MOD COMMANDS
         this.add(NightmareModeSettings.ERROR_NOT_AURORIAN_DIMENSION.toString(), "当前的维度不是极光维度！");
         this.add(NightmareModeSettings.ERROR_NOT_NIGHTMARE_MODE.toString(), "噩梦模式未开启！");
+
+        //MOD CUSTOM TOOLTIPS
+
 
         //MOD TOOLTIPS
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");

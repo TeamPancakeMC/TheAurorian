@@ -26,11 +26,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "theaurorian:aurorian_flower_2"
+          "name": "theaurorian:void_candle_flower"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "theaurorian:blocks/potted_aurorian_flower_2"
+  "random_sequence": "theaurorian:blocks/potted_void_candle_flower"
 }

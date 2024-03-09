@@ -60,9 +60,9 @@ public class VanillaBlockCompat {
         fireBlock.setFlammable(TABlocks.PETUNIA_PLANT.get(), 60, 100);
         fireBlock.setFlammable(TABlocks.ICE_CALENDULA.get(), 60, 100);
         fireBlock.setFlammable(TABlocks.AURORIAN_WINTER_ROOT.get(), 60, 100);
-        fireBlock.setFlammable(TABlocks.AURORIAN_FLOWER_1.get(), 60, 100);
-        fireBlock.setFlammable(TABlocks.AURORIAN_FLOWER_2.get(), 60, 100);
-        fireBlock.setFlammable(TABlocks.AURORIAN_FLOWER_3.get(), 60, 100);
+        fireBlock.setFlammable(TABlocks.NEBULA_BLOSSOM_CLUSTER.get(), 60, 100);
+        fireBlock.setFlammable(TABlocks.MOON_FROST_FLOWER.get(), 60, 100);
+        fireBlock.setFlammable(TABlocks.VOID_CANDLE_FLOWER.get(), 60, 100);
         fireBlock.setFlammable(TABlocks.EQUINOX_FLOWER.get(), 60, 100);
         fireBlock.setFlammable(TABlocks.WICK_GRASS.get(), 60, 100);
         fireBlock.setFlammable(TABlocks.TALL_WICK_GRASS.get(), 60, 100);

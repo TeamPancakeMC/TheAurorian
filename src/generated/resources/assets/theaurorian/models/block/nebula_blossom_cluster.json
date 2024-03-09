@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cross",
   "render_type": "minecraft:cutout",
   "textures": {
-    "cross": "theaurorian:block/aurorian_flower_1"
+    "cross": "theaurorian:block/nebula_blossom_cluster"
   }
 }

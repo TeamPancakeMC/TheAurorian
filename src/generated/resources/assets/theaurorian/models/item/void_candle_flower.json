@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "theaurorian:block/aurorian_flower_3"
+    "layer0": "theaurorian:block/void_candle_flower"
   }
 }

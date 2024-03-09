@@ -24,7 +24,6 @@ import static cn.teampancake.theaurorian.common.utils.TABlockRegUtils.*;
 import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.copy;
 import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.of;
 
-@SuppressWarnings("SpellCheckingInspection")
 public class TABlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AurorianMod.MOD_ID);
@@ -66,9 +65,9 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_PORTAL_FRAME_BRICKS = normal("aurorian_portal_frame_bricks", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> URN = register("urn", () -> new UrnBlock(of().mapColor(MapColor.STONE).instabreak().sound(SoundType.GLASS)));
     public static final RegistryObject<Block> MYSTERIUM_WOOL = normal("mysterium_wool", copy(Blocks.WHITE_WOOL));
-    public static final RegistryObject<Block> AURORIAN_FLOWER_1 = register("aurorian_flower_1", TAFlowerBlock::new);
-    public static final RegistryObject<Block> AURORIAN_FLOWER_2 = register("aurorian_flower_2", TAFlowerBlock::new);
-    public static final RegistryObject<Block> AURORIAN_FLOWER_3 = register("aurorian_flower_3", TAFlowerBlock::new);
+    public static final RegistryObject<Block> NEBULA_BLOSSOM_CLUSTER = register("nebula_blossom_cluster", TAFlowerBlock::new);
+    public static final RegistryObject<Block> MOON_FROST_FLOWER = register("moon_frost_flower", TAFlowerBlock::new);
+    public static final RegistryObject<Block> VOID_CANDLE_FLOWER = register("void_candle_flower", TAFlowerBlock::new);
     public static final RegistryObject<Block> EQUINOX_FLOWER = register("equinox_flower", TAFlowerBlock::new);
     public static final RegistryObject<Block> WICK_GRASS = BLOCKS.register("wick_grass", WickGrass::new);
     public static final RegistryObject<Block> TALL_WICK_GRASS = BLOCKS.register("tall_wick_grass", TallWickGrass::new);
@@ -244,9 +243,9 @@ public class TABlocks {
     /**
      * Potted Flower Blocks
      */
-    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_1 = flowerPot(AURORIAN_FLOWER_1.getId().getPath(), AURORIAN_FLOWER_1);
-    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_2 = flowerPot(AURORIAN_FLOWER_2.getId().getPath(), AURORIAN_FLOWER_2);
-    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_3 = flowerPot(AURORIAN_FLOWER_3.getId().getPath(), AURORIAN_FLOWER_3);
+    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_1 = flowerPot(NEBULA_BLOSSOM_CLUSTER.getId().getPath(), NEBULA_BLOSSOM_CLUSTER);
+    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_2 = flowerPot(MOON_FROST_FLOWER.getId().getPath(), MOON_FROST_FLOWER);
+    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_3 = flowerPot(VOID_CANDLE_FLOWER.getId().getPath(), VOID_CANDLE_FLOWER);
     public static final RegistryObject<Block> POTTED_EQUINOX_FLOWER = flowerPot(EQUINOX_FLOWER.getId().getPath(), EQUINOX_FLOWER);
     public static final RegistryObject<Block> POTTED_WICK_GRASS = flowerPot(WICK_GRASS.getId().getPath(), WICK_GRASS);
     public static final RegistryObject<Block> POTTED_LAVENDER_PLANT = flowerPot(LAVENDER_PLANT.getId().getPath(), LAVENDER_PLANT);

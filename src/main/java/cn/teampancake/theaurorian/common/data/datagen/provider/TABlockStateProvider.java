@@ -244,9 +244,9 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerCropStates(TABlocks.LAVENDER_CROP.get());
         this.registerCropStates(TABlocks.SILK_BERRY_CROP.get());
         this.registerCrossStates(TABlocks.BLUEBERRY_BUSH.get());
-        this.registerPlantStates(TABlocks.AURORIAN_FLOWER_1.get());
-        this.registerPlantStates(TABlocks.AURORIAN_FLOWER_2.get());
-        this.registerPlantStates(TABlocks.AURORIAN_FLOWER_3.get());
+        this.registerPlantStates(TABlocks.NEBULA_BLOSSOM_CLUSTER.get());
+        this.registerPlantStates(TABlocks.MOON_FROST_FLOWER.get());
+        this.registerPlantStates(TABlocks.VOID_CANDLE_FLOWER.get());
         this.registerPlantStates(TABlocks.EQUINOX_FLOWER.get());
         this.registerPlantStates(TABlocks.LAVENDER_PLANT.get());
         this.registerPlantStates(TABlocks.PETUNIA_PLANT.get());

@@ -26,11 +26,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "theaurorian:aurorian_flower_3"
+          "name": "theaurorian:moon_frost_flower"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "theaurorian:blocks/potted_aurorian_flower_3"
+  "random_sequence": "theaurorian:blocks/potted_moon_frost_flower"
 }

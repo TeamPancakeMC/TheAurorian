@@ -80,9 +80,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(), "Aurorian Portal Frame Brick");
         this.add(TABlocks.URN.get(), "Urn");
         this.add(TABlocks.MYSTERIUM_WOOL.get(), "Mysterium Wool");
-        this.add(TABlocks.AURORIAN_FLOWER_1.get(), "Aurorian Flower");
-        this.add(TABlocks.AURORIAN_FLOWER_2.get(), "Aurorian Flower");
-        this.add(TABlocks.AURORIAN_FLOWER_3.get(), "Aurorian Flower");
+        this.add(TABlocks.NEBULA_BLOSSOM_CLUSTER.get(), "Nebula Blossom Cluster");
+        this.add(TABlocks.MOON_FROST_FLOWER.get(), "Moon Frost Flower");
+        this.add(TABlocks.VOID_CANDLE_FLOWER.get(), "Void Candle Flower");
         this.add(TABlocks.EQUINOX_FLOWER.get(), "Equinox Flower");
         this.add(TABlocks.WICK_GRASS.get(), "Wick Grass");
         this.add(TABlocks.TALL_WICK_GRASS.get(), "Tall Wick Grass");
@@ -439,6 +439,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TABlocks.ASTROLOGER.get(), "Astrologer");
         this.add(TABlocks.MYSTERIUM_WOOL_BED.get(),"Mysterium Wool Bed");
         this.add(TABlocks.SILENT_CAMPFIRE.get(),"Slient Campfire");
+
         //MOD ITEM
         this.add(TAItems.DARK_STONE_KEY.get(),"Dark Stone Key");
         this.add(TAItems.MOON_TEMPLE_KEY.get(),"Moon Temple Key");
@@ -717,6 +718,8 @@ public class TALanguageProviderENUS extends LanguageProvider {
         //MOD MESSAGES
         this.add("messages.effect.theaurorian.moon_queen_only", "These effects are exclusive to the Moon Queen, and it's invalid for other entity!");
         this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness", "All evil has been dispelled!");
+        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".selected", "Selected Block: §a%s");
+        this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".fail", "§cThe remaining durability is less than 60 so select fail!");
 
         //MOD COMMANDS
         this.add(NightmareModeSettings.ERROR_NOT_AURORIAN_DIMENSION.toString(), "Current dimension is not the Aurorian!");

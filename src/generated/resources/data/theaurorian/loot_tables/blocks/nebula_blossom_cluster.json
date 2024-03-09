@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "theaurorian:aurorian_flower_2"
+          "name": "theaurorian:nebula_blossom_cluster"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "theaurorian:blocks/aurorian_flower_2"
+  "random_sequence": "theaurorian:blocks/nebula_blossom_cluster"
 }

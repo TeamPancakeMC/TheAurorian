@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cross",
   "render_type": "minecraft:cutout",
   "textures": {
-    "cross": "theaurorian:block/aurorian_flower_2"
+    "cross": "theaurorian:block/void_candle_flower"
   }
 }

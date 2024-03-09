@@ -1,8 +1,10 @@
-package cn.teampancake.theaurorian.common.entities.monster;
+package cn.teampancake.theaurorian.common.entities.phase;
 
+import cn.teampancake.theaurorian.common.entities.monster.MultiPhaseAttacker;
 import net.minecraft.world.entity.LivingEntity;
 
 public abstract class AttackPhase<T extends LivingEntity & MultiPhaseAttacker> {
+
     private final int id;
     private final int priority;
     private final int duration;
@@ -22,19 +24,19 @@ public abstract class AttackPhase<T extends LivingEntity & MultiPhaseAttacker> {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public int getPriority() {
-        return priority;
+        return this.priority;
     }
 
     public int getDuration() {
-        return duration;
+        return this.duration;
     }
 
     public int getCoolDown() {
-        return coolDown;
+        return this.coolDown;
     }
 
     public abstract boolean canStart(T entity, boolean coolDownOver);
@@ -46,12 +48,13 @@ public abstract class AttackPhase<T extends LivingEntity & MultiPhaseAttacker> {
     public void start(T entity) {
         entity.setAttackState(getId());
         entity.setAttackTicks(0);
-        onStart(entity);
+        this.onStart(entity);
     }
 
     public void stop(T entity) {
-        entity.setAttackState(turnsInto);
+        entity.setAttackState(this.turnsInto);
         onStop(entity);
         entity.setAttackTicks(0);
     }
+
 }

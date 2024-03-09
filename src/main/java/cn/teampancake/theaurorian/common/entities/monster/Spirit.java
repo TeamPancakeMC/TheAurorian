@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.entities.monster;
 import cn.teampancake.theaurorian.common.entities.ai.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.ai.SpiritHauntGoal;
 import cn.teampancake.theaurorian.common.entities.ai.SpiritRunAwayGoal;
+import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.SpiritMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
@@ -112,6 +113,7 @@ public class Spirit extends Monster implements GeoEntity, MultiPhaseAttacker {
     public int getAttackTicks() {
         return this.entityData.get(ATTACK_TICKS);
     }
+
     public void setAttackTicks(int attackTicks) {
         this.entityData.set(ATTACK_TICKS, attackTicks);
     }

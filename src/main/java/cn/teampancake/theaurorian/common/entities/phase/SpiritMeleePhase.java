@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.entities.phase;
 
-import cn.teampancake.theaurorian.common.entities.monster.AttackPhase;
 import cn.teampancake.theaurorian.common.entities.monster.Spirit;
 
 public class SpiritMeleePhase extends AttackPhase<Spirit> {

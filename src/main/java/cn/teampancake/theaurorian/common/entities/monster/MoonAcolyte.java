@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.entities.ai.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.ai.ZombieLikeAttackGoal;
+import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.MoonAcolyteMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -111,6 +112,7 @@ public class MoonAcolyte extends Monster implements GeoEntity, MultiPhaseAttacke
     public int getAttackTicks() {
         return this.entityData.get(ATTACK_TICKS);
     }
+
     public void setAttackTicks(int attackTicks) {
         this.entityData.set(ATTACK_TICKS, attackTicks);
     }

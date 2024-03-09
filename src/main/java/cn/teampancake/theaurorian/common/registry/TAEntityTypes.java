@@ -275,7 +275,7 @@ public class TAEntityTypes {
         event.put(AURORIAN_PIG.get(), AurorianPig.createAttributes().build());
         event.put(AURORIAN_COW.get(), AurorianCow.createAttributes().build());
         event.put(AURORIAN_PIXIE.get(), AurorianPixie.createAttributes().build());
-        event.put(AURORIAN_SLIME.get(), AurorianSlime.createMobAttributes().build());
+        event.put(AURORIAN_SLIME.get(), Monster.createMonsterAttributes().build());
         event.put(DISTURBED_HOLLOW.get(), DisturbedHollow.createAttributes().build());
         event.put(UNDEAD_KNIGHT.get(), UndeadKnight.createAttributes().build());
         event.put(SPIRIT.get(), Spirit.createAttributes().build());

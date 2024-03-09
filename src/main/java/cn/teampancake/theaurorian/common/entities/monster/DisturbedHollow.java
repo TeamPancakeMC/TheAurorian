@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.entities.projectile.EyeOfDisturbedEntity;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;

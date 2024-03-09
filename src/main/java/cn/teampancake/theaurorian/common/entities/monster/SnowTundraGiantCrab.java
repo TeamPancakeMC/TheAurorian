@@ -4,10 +4,10 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.entities.ai.GiantCrabDoNothingGoal;
 import cn.teampancake.theaurorian.common.entities.ai.LookAtTargetGoal;
 import cn.teampancake.theaurorian.common.entities.ai.MoveToTargetGoal;
-import cn.teampancake.theaurorian.common.entities.monster.phase.SnowTundraGiantCrabHidePhase;
-import cn.teampancake.theaurorian.common.entities.monster.phase.SnowTundraGiantCrabMeleePhase;
-import cn.teampancake.theaurorian.common.entities.monster.phase.SnowTundraGiantCrabStartHidePhase;
-import cn.teampancake.theaurorian.common.entities.monster.phase.SnowTundraGiantCrabStopHidePhase;
+import cn.teampancake.theaurorian.common.entities.phase.SnowTundraGiantCrabHidePhase;
+import cn.teampancake.theaurorian.common.entities.phase.SnowTundraGiantCrabMeleePhase;
+import cn.teampancake.theaurorian.common.entities.phase.SnowTundraGiantCrabStartHidePhase;
+import cn.teampancake.theaurorian.common.entities.phase.SnowTundraGiantCrabStopHidePhase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -56,7 +56,6 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     private int remainingPersistentAngerTime;
     @Nullable
     private UUID persistentAngerTarget;
-
     private final AttackManager<SnowTundraGiantCrab> attackManager = new AttackManager<>(this, List.of(
             new SnowTundraGiantCrabMeleePhase(),
             new SnowTundraGiantCrabStartHidePhase(),
@@ -82,8 +81,8 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     }
 
     @Override
-    public void setDeltaMovement(Vec3 pDeltaMovement) {
-        super.setDeltaMovement(getAttackState() == SnowTundraGiantCrabHidePhase.ID ? Vec3.ZERO : pDeltaMovement);
+    public void setDeltaMovement(Vec3 deltaMovement) {
+        super.setDeltaMovement(getAttackState() == SnowTundraGiantCrabHidePhase.ID ? Vec3.ZERO : deltaMovement);
     }
 
     @Override
@@ -114,7 +113,8 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     }
 
     public static <T extends SnowTundraGiantCrab> AnimationController<T> hideController(T animatable) {
-        return new AnimationController<>(animatable, "hide", 0, (state) -> state.getAnimatable().getAttackState() == SnowTundraGiantCrabHidePhase.ID ? state.setAndContinue(RawAnimation.begin().thenLoop("misc.break")) : PlayState.STOP);
+        return new AnimationController<>(animatable, "hide", 0, (state) -> state.getAnimatable().getAttackState() ==
+                SnowTundraGiantCrabHidePhase.ID ? state.setAndContinue(RawAnimation.begin().thenLoop("misc.break")) : PlayState.STOP);
     }
 
     @Override
@@ -157,14 +157,14 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pPose) {
-        return this.getAttackState() == SnowTundraGiantCrabHidePhase.ID ? super.getDimensions(pPose).scale(1, 0.28f) : super.getDimensions(pPose);
+    public EntityDimensions getDimensions(Pose pose) {
+        return this.getAttackState() == SnowTundraGiantCrabHidePhase.ID ? super.getDimensions(pose).scale(1, 0.28f) : super.getDimensions(pose);
     }
 
     @Override
     public void tick() {
         super.tick();
-        refreshDimensions();
+        this.refreshDimensions();
     }
 
     @Override
@@ -197,13 +197,12 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
 
     public void performMeleeAttack(double range) {
         LivingEntity target = this.getTarget();
-        if (target == null) {
-            return;
-        }
-        for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
-            if (livingEntity.getUUID().equals(target.getUUID())) {
-                livingEntity.invulnerableTime = 0;
-                this.doHurtTarget(livingEntity);
+        if (target != null) {
+            for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
+                if (livingEntity.getUUID().equals(target.getUUID())) {
+                    livingEntity.invulnerableTime = 0;
+                    this.doHurtTarget(livingEntity);
+                }
             }
         }
     }
@@ -261,5 +260,7 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
                 super.clientTick();
             }
         }
+
     }
+
 }

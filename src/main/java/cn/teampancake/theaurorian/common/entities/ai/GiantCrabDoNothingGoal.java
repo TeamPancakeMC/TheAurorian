@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.ai;
 
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
-import cn.teampancake.theaurorian.common.entities.monster.phase.SnowTundraGiantCrabHidePhase;
+import cn.teampancake.theaurorian.common.entities.phase.SnowTundraGiantCrabHidePhase;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;

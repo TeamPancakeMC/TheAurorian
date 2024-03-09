@@ -1,7 +1,8 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.entities.monster.phase.UndeadKnightMeleePhase;
+import cn.teampancake.theaurorian.common.entities.ai.MeleeNoAttackGoal;
+import cn.teampancake.theaurorian.common.entities.phase.UndeadKnightMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -32,15 +33,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class UndeadKnight extends Monster implements MultiPhaseAttacker {
+
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
-
     protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(UndeadKnight.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(UndeadKnight.class, EntityDataSerializers.INT);
-
-    private final AttackManager<UndeadKnight> attackManager = new AttackManager<>(this, List.of(
-            new UndeadKnightMeleePhase()
-    ));
+    private final AttackManager<UndeadKnight> attackManager = new AttackManager<>(this, List.of(new UndeadKnightMeleePhase()));
 
     public UndeadKnight(EntityType<? extends UndeadKnight> type, Level level) {
         super(type, level);
@@ -50,12 +48,7 @@ public class UndeadKnight extends Monster implements MultiPhaseAttacker {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, Boolean.FALSE) {
-            @Override
-            protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
-                // we use our custom attack manager
-            }
-        });
+        this.goalSelector.addGoal(1, new MeleeNoAttackGoal(this, Boolean.FALSE));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, (1.0D)));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, (1.0D)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -86,9 +79,9 @@ public class UndeadKnight extends Monster implements MultiPhaseAttacker {
 
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
-        if (accessor.equals(ATTACK_STATE) && getAttackState() != 0) {
-            if (getAttackState() == UndeadKnightMeleePhase.ID) {
-                attackAnimationState.start(tickCount);
+        if (accessor.equals(ATTACK_STATE) && this.getAttackState() != 0) {
+            if (this.getAttackState() == UndeadKnightMeleePhase.ID) {
+                this.attackAnimationState.start(this.tickCount);
             }
         }
         super.onSyncedDataUpdated(accessor);
@@ -123,23 +116,24 @@ public class UndeadKnight extends Monster implements MultiPhaseAttacker {
         if (target == null) {
             return false;
         }
+
         for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
             if (livingEntity.getUUID().equals(target.getUUID())) {
                 return true;
             }
         }
+
         return false;
     }
 
     public void performMeleeAttack(double range) {
         LivingEntity target = this.getTarget();
-        if (target == null) {
-            return;
-        }
-        for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
-            if (livingEntity.getUUID().equals(target.getUUID())) {
-                livingEntity.invulnerableTime = 0;
-                doHurtTarget(livingEntity);
+        if (target != null) {
+            for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
+                if (livingEntity.getUUID().equals(target.getUUID())) {
+                    livingEntity.invulnerableTime = 0;
+                    this.doHurtTarget(livingEntity);
+                }
             }
         }
     }
@@ -195,4 +189,5 @@ public class UndeadKnight extends Monster implements MultiPhaseAttacker {
     public int getMaxSpawnClusterSize() {
         return 3;
     }
+
 }

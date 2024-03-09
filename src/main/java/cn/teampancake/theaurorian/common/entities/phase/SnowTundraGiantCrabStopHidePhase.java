@@ -1,24 +1,24 @@
-package cn.teampancake.theaurorian.common.entities.monster.phase;
+package cn.teampancake.theaurorian.common.entities.phase;
 
 import cn.teampancake.theaurorian.common.entities.monster.AttackPhase;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
 
-public class SnowTundraGiantCrabStartHidePhase extends AttackPhase<SnowTundraGiantCrab> {
+public class SnowTundraGiantCrabStopHidePhase extends AttackPhase<SnowTundraGiantCrab> {
 
-    public static final int ID = 2;
+    public static final int ID = 4;
 
-    public SnowTundraGiantCrabStartHidePhase() {
-        super(ID, 1, 35, 500, SnowTundraGiantCrabHidePhase.ID);
+    public SnowTundraGiantCrabStopHidePhase() {
+        super(ID, 1, 60, 0);
     }
 
     @Override
     public boolean canStart(SnowTundraGiantCrab entity, boolean coolDownOver) {
-        return coolDownOver && entity.getHealth() < entity.getMaxHealth() * 0.3;
+        return false;
     }
 
     @Override
     public void onStart(SnowTundraGiantCrab entity) {
-        entity.triggerAnim("start_hide_controller", "start_hide_animation");
+
     }
 
     @Override

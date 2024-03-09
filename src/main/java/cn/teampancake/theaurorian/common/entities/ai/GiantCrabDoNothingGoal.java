@@ -29,6 +29,5 @@ public class GiantCrabDoNothingGoal extends Goal {
 
     public void tick() {
         mob.getNavigation().stop();
-        mob.getLookControl().setLookAt(mob.getX() + 1, mob.getY(), mob.getZ(), 360, 360);
     }
 }

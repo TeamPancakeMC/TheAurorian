@@ -19,9 +19,7 @@ public class SnowTundraGiantCrabHidePhase extends AttackPhase<SnowTundraGiantCra
 
     @Override
     public void tick(SnowTundraGiantCrab entity) {
-        entity.heal(0.04f);
-        entity.getNavigation().stop();
-        entity.getLookControl().setLookAt(entity.getX() + 1, entity.getY(), entity.getZ(), 360, 360);
+        entity.heal(0.05f);
     }
 
     @Override

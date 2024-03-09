@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.entities.monster;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.entities.ai.GiantCrabDoNothingGoal;
 import cn.teampancake.theaurorian.common.entities.ai.LookAtTargetGoal;
+import cn.teampancake.theaurorian.common.entities.ai.MoveToTargetGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,7 +17,11 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -77,12 +82,7 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new GiantCrabDoNothingGoal(this));
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, (1.0D), Boolean.FALSE) {
-            @Override
-            protected void checkAndPerformAttack(LivingEntity target, double dist) {
-                // we use our custom attack manager
-            }
-        });
+        this.goalSelector.addGoal(2, new MoveToTargetGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new LookAtTargetGoal(this));
         this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -112,6 +112,11 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
         builder.add(Attributes.FOLLOW_RANGE, 40.0F);
         builder.add(Attributes.ARMOR, 8.0D);
         return builder;
+    }
+
+    @Override
+    protected BodyRotationControl createBodyControl() {
+        return new GiantCrabBodyRotationControl(this);
     }
 
     public static boolean checkSpawnRules(EntityType<SnowTundraGiantCrab> giantCrab, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
@@ -256,5 +261,19 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     @Nullable @Override
     public UUID getPersistentAngerTarget() {
         return this.persistentAngerTarget;
+    }
+
+    private class GiantCrabBodyRotationControl extends BodyRotationControl {
+        public GiantCrabBodyRotationControl(Mob pMob) {
+            super(pMob);
+        }
+
+        public void clientTick() {
+            if (getAttackState() == SnowTundraGiantCrabHidePhase.ID || getAttackState() == SnowTundraGiantCrabStartHidePhase.ID) {
+                SnowTundraGiantCrab.this.yBodyRot = 0;
+            } else {
+                super.clientTick();
+            }
+        }
     }
 }

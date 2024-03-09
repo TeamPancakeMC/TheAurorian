@@ -18,6 +18,10 @@ import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,6 +49,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -59,6 +64,7 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
@@ -292,7 +298,7 @@ public class EntityEventSubscriber {
                     miscNBT.setDamageAccumulation(i + event.getAmount());
                 });
                 //Prevent the death message doesn't show.
-                if (target.getEffect(effect).getDuration() > 10) {
+                if (Objects.requireNonNull(target.getEffect(effect)).getDuration() > 10) {
                     event.setCanceled(true);
                 }
             }
@@ -323,7 +329,6 @@ public class EntityEventSubscriber {
     public static void onLivingDeath(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer serverPlayer) {
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-            System.out.println(event.getSource().getMsgId());
             if (stack.is(TAItems.TSLAT_SWORD.get())) {
                 int count = stack.getOrCreateTag().getInt("KillCount");
                 stack.getOrCreateTag().putInt("KillCount", count + 1);
@@ -372,6 +377,13 @@ public class EntityEventSubscriber {
         ItemStack handStack = player.getItemInHand(player.getUsedItemHand());
         if (blockStack.is(Tags.Items.ORES) && handStack.is(TAItems.AURORIANITE_PICKAXE.get())) {
             event.setNewSpeed(event.getOriginalSpeed() * 1.4F);
+        } else if (handStack.is(TAItems.UMBRA_PICKAXE.get())) {
+            CompoundTag compoundTag = handStack.getOrCreateTag().getCompound("SelectedBlock");
+            HolderLookup<Block> blockGetter = player.level().holderLookup(Registries.BLOCK);
+            BlockState selected = NbtUtils.readBlockState(blockGetter, compoundTag);
+            if (state.is(selected.getBlock()) && !state.isAir()) {
+                event.setNewSpeed(event.getOriginalSpeed() * 2.0F);
+            }
         } else if (state.is(TABlockTags.DUNGEON_BRICKS)) {
             boolean flag = handStack.is(TAItems.QUEENS_CHIPPER.get());
             event.setNewSpeed(flag ? event.getOriginalSpeed() * 16.0F : 0.0F);

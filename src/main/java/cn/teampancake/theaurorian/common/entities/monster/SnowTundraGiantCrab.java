@@ -4,6 +4,10 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.entities.ai.GiantCrabDoNothingGoal;
 import cn.teampancake.theaurorian.common.entities.ai.LookAtTargetGoal;
 import cn.teampancake.theaurorian.common.entities.ai.MoveToTargetGoal;
+import cn.teampancake.theaurorian.common.entities.monster.phase.SnowTundraGiantCrabHidePhase;
+import cn.teampancake.theaurorian.common.entities.monster.phase.SnowTundraGiantCrabMeleePhase;
+import cn.teampancake.theaurorian.common.entities.monster.phase.SnowTundraGiantCrabStartHidePhase;
+import cn.teampancake.theaurorian.common.entities.monster.phase.SnowTundraGiantCrabStopHidePhase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -44,10 +48,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMob, MultiPhaseAttacker {
+
+    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int remainingPersistentAngerTime;
-    private int safeTime;
     @Nullable
     private UUID persistentAngerTarget;
 
@@ -57,22 +63,6 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
             new SnowTundraGiantCrabHidePhase(),
             new SnowTundraGiantCrabStopHidePhase()
     ));
-
-    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.INT);
-    public int getAttackState() {
-        return entityData.get(ATTACK_STATE);
-    }
-    public void setAttackState(int attackState) {
-        entityData.set(ATTACK_STATE, attackState);
-    }
-
-    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.INT);
-    public int getAttackTicks() {
-        return entityData.get(ATTACK_TICKS);
-    }
-    public void setAttackTicks(int attackTicks) {
-        entityData.set(ATTACK_TICKS, attackTicks);
-    }
 
     public SnowTundraGiantCrab(EntityType<? extends SnowTundraGiantCrab> type, Level level) {
         super(type, level);
@@ -99,8 +89,8 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        entityData.define(ATTACK_STATE, 0);
-        entityData.define(ATTACK_TICKS, 0);
+        this.entityData.define(ATTACK_STATE, 0);
+        this.entityData.define(ATTACK_TICKS, 0);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -147,13 +137,28 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
         return this.cache;
     }
 
+    public int getAttackState() {
+        return this.entityData.get(ATTACK_STATE);
+    }
+
+    public void setAttackState(int attackState) {
+        this.entityData.set(ATTACK_STATE, attackState);
+    }
+
+    public int getAttackTicks() {
+        return this.entityData.get(ATTACK_TICKS);
+    }
+    public void setAttackTicks(int attackTicks) {
+        this.entityData.set(ATTACK_TICKS, attackTicks);
+    }
+
     public boolean canBeCollidedWith() {
         return this.isAlive();
     }
 
     @Override
     public EntityDimensions getDimensions(Pose pPose) {
-        return getAttackState() == SnowTundraGiantCrabHidePhase.ID ? super.getDimensions(pPose).scale(1, 0.28f) : super.getDimensions(pPose);
+        return this.getAttackState() == SnowTundraGiantCrabHidePhase.ID ? super.getDimensions(pPose).scale(1, 0.28f) : super.getDimensions(pPose);
     }
 
     @Override
@@ -164,15 +169,7 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
 
     @Override
     protected void customServerAiStep() {
-        if (this.safeTime <= 200) {
-            ++this.safeTime;
-        }
-
-        if (this.safeTime > 160 && this.tickCount % 20 == 0) {
-            this.heal(5.0F);
-        }
-
-        attackManager.tick();
+        this.attackManager.tick();
     }
 
     @Override
@@ -185,18 +182,8 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
         return source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FREEZE) || super.isInvulnerableTo(source);
     }
 
-    @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (this.isInvulnerableTo(source)) {
-            return false;
-        } else {
-            this.safeTime = 0;
-            return super.hurt(source, amount);
-        }
-    }
-
     public boolean canReachTarget(double range) {
-        LivingEntity target = getTarget();
+        LivingEntity target = this.getTarget();
         if (target == null) {
             return false;
         }
@@ -209,14 +196,14 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     }
 
     public void performMeleeAttack(double range) {
-        LivingEntity target = getTarget();
+        LivingEntity target = this.getTarget();
         if (target == null) {
             return;
         }
         for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
             if (livingEntity.getUUID().equals(target.getUUID())) {
                 livingEntity.invulnerableTime = 0;
-                doHurtTarget(livingEntity);
+                this.doHurtTarget(livingEntity);
             }
         }
     }
@@ -229,13 +216,11 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("SafeTime", this.safeTime);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.safeTime = compound.getInt("SafeTime");
     }
 
     @Override
@@ -264,8 +249,9 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     }
 
     private class GiantCrabBodyRotationControl extends BodyRotationControl {
-        public GiantCrabBodyRotationControl(Mob pMob) {
-            super(pMob);
+
+        public GiantCrabBodyRotationControl(Mob mob) {
+            super(mob);
         }
 
         public void clientTick() {

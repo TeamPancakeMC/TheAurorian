@@ -1,6 +1,10 @@
-package cn.teampancake.theaurorian.common.entities.monster;
+package cn.teampancake.theaurorian.common.entities.monster.phase;
+
+import cn.teampancake.theaurorian.common.entities.monster.AttackPhase;
+import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
 
 public class SnowTundraGiantCrabStartHidePhase extends AttackPhase<SnowTundraGiantCrab> {
+
     public static final int ID = 2;
 
     public SnowTundraGiantCrabStartHidePhase() {
@@ -31,4 +35,5 @@ public class SnowTundraGiantCrabStartHidePhase extends AttackPhase<SnowTundraGia
     public void onStop(SnowTundraGiantCrab entity) {
 
     }
+
 }

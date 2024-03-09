@@ -1,12 +1,13 @@
 package cn.teampancake.theaurorian.common.entities.ai;
 
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
-import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrabHidePhase;
+import cn.teampancake.theaurorian.common.entities.monster.phase.SnowTundraGiantCrabHidePhase;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
 public class GiantCrabDoNothingGoal extends Goal {
+
     private final SnowTundraGiantCrab mob;
 
     public GiantCrabDoNothingGoal(SnowTundraGiantCrab mob) {
@@ -20,14 +21,15 @@ public class GiantCrabDoNothingGoal extends Goal {
     }
 
     public boolean canUse() {
-        return mob.getAttackState() == SnowTundraGiantCrabHidePhase.ID;
+        return this.mob.getAttackState() == SnowTundraGiantCrabHidePhase.ID;
     }
 
     public boolean canContinueToUse() {
-        return mob.getAttackState() == SnowTundraGiantCrabHidePhase.ID;
+        return this.mob.getAttackState() == SnowTundraGiantCrabHidePhase.ID;
     }
 
     public void tick() {
-        mob.getNavigation().stop();
+        this.mob.getNavigation().stop();
     }
+
 }

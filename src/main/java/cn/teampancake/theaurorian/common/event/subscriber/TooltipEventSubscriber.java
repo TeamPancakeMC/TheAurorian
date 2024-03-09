@@ -34,13 +34,13 @@ public class TooltipEventSubscriber {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     @OnlyIn(Dist.CLIENT)
     public static void onRenderTooltips(RenderTooltipEvent.Pre event) {
-        ModernUICompat.ResetModernUIRender();
+        ModernUICompat.toggleModernUITooltipRenderer(true);
         ItemStack itemStack = event.getItemStack();
         CompoundTag tag = itemStack.getTag();
 
         if (itemStack.is(TAItemTags.HAS_CUSTOM_TOOLTIPS)) {
             event.setCanceled(true);
-            ModernUICompat.CancelModernUIRender();
+            ModernUICompat.toggleModernUITooltipRenderer(false);
             if (itemStack.is(TAItemTags.BUILDING_BLOCK)) TooltipData.UNCOMMON_ITEM.renderTooltips(event);
             if (itemStack.is(TAItemTags.IS_RARE)) TooltipData.RARE_ITEM.renderTooltips(event);
             if (itemStack.is(TAItemTags.IS_EPIC)) TooltipData.EPIC_ITEM.renderTooltips(event);
@@ -110,7 +110,7 @@ public class TooltipEventSubscriber {
                 new int[] {9, 9, 9, 9, 9, 5}
         );
 
-        public static final TooltipData  STAR_OCEAN_CROSSBOW_ITEM = new TooltipData(
+        public static final TooltipData STAR_OCEAN_CROSSBOW_ITEM = new TooltipData(
                 STAR_OCEAN_CROSSBOW,
                 -267386864,
                 0xff217279,
@@ -213,7 +213,7 @@ public class TooltipEventSubscriber {
                 0xff686f99,
                 48,
                 32,
-                2,
+                4,
                 new int[] {-5, -5, -4, -4},
                 new int[] {-17, -16, -17, -16, -20},
                 new int[] {0, 0, 9, 9, 18},

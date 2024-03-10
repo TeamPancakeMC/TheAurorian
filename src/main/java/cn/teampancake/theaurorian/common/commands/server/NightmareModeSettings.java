@@ -1,12 +1,10 @@
 package cn.teampancake.theaurorian.common.commands.server;
 
-import cn.teampancake.theaurorian.client.gui.NightmareModeSettingsScreen;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAGameRules;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -31,10 +29,7 @@ public class NightmareModeSettings {
         GameRules gameRules = serverLevel.getGameRules();
         if (serverLevel.dimension() == TADimensions.AURORIAN_DIMENSION) {
             if (gameRules.getBoolean(TAGameRules.RULE_ENABLE_NIGHTMARE_MODE)) {
-                Minecraft minecraft = Minecraft.getInstance();
-                if (minecraft.screen == null) {
-                    minecraft.setScreen(new NightmareModeSettingsScreen());
-                }
+
             } else {
                 throw ERROR_NOT_NIGHTMARE_MODE.create();
             }

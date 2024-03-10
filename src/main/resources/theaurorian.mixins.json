@@ -13,6 +13,7 @@
         "PlayerListMixin"
     ],
     "client": [
+        "MixinClientLevel",
         "MixinClientPacketListener",
         "MixinLevelRenderer"
     ],

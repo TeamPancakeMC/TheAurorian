@@ -25,20 +25,19 @@ public abstract class BaseArmor<T extends HumanoidModel<?>> extends ArmorItem im
 
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            @NotNull
-            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
-                return getHumanoidModel(armorSlot, _default, getModel());
-            }
-        });
+        consumer.accept(new CustomArmorModel());
     }
 
     @OnlyIn(Dist.CLIENT)
     protected abstract T getModel();
 
-    public HumanoidModel<?> getHumanoidModel(EquipmentSlot slot,HumanoidModel<?> _default, T _default2) {
-        return slot == EquipmentSlot.LEGS ? _default : _default2;
+    private class CustomArmorModel implements IClientItemExtensions {
+
+        @Override @NotNull
+        public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+            return armorSlot == EquipmentSlot.LEGS ? _default : getModel();
+        }
+
     }
 
 }

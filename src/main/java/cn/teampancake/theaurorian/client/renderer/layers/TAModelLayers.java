@@ -21,7 +21,6 @@ public class TAModelLayers {
     public static final ModelLayerLocation AURORIAN_SLIME_OUTER = register("aurorian_slime", "outer");
     public static final ModelLayerLocation DISTURBED_HOLLOW = register("disturbed_hollow");
     public static final ModelLayerLocation UNDEAD_KNIGHT = register("undead_knight");
-    public static final ModelLayerLocation SPIRIT = register("spirit");
     public static final ModelLayerLocation SPIDERLING = register("spiderling");
     public static final ModelLayerLocation CRYSTALLINE_SPRITE = register("crystalline_sprite");
     public static final ModelLayerLocation CAVE_DWELLER = register("cave_dweller");
@@ -34,6 +33,8 @@ public class TAModelLayers {
     public static final ModelLayerLocation RUNESTONE_BOOKS = register("runestone_books");
     public static final ModelLayerLocation SPIDER_MOTHER = register("spider_mother");
     public static final ModelLayerLocation MOON_QUEEN = register("moon_queen");
+    public static final ModelLayerLocation SPIKED_CHESTPLATE = register("spiked_chestplate");
+    public static final ModelLayerLocation AURORIAN_SLIME_BOOTS = register("aurorian_slime_boots");
     public static final ModelLayerLocation AURORIAN_STEEL_ARMOR = register("aurorian_steel_armor");
     public static final ModelLayerLocation CERULEAN_ARMOR = register("cerulean_armor");
     public static final ModelLayerLocation KNIGHT_ARMOR = register("knight_armor");

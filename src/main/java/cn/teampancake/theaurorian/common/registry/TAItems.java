@@ -76,9 +76,8 @@ public class TAItems {
     public static final RegistryObject<Item> MYSTERIUM_WOOL_CHESTPLATE = ITEMS.register("mysterium_wool_chestplate", () -> new MysteriumWoolArmor(CHESTPLATE));
     public static final RegistryObject<Item> MYSTERIUM_WOOL_LEGGINGS = ITEMS.register("mysterium_wool_leggings", () -> new MysteriumWoolArmor(LEGGINGS));
     public static final RegistryObject<Item> MYSTERIUM_WOOL_BOOTS = ITEMS.register("mysterium_wool_boots", () -> new MysteriumWoolArmor(BOOTS));
-    public static final RegistryObject<Item> SPIKED_CHESTPLATE = ITEMS.register("spiked_chestplate", SpikedItemArmor::new);
-    public static final RegistryObject<Item> AURORIAN_SLIME_BOOTS = ITEMS.register("aurorian_slime_boots",
-            () -> new ArmorItem(TAArmorMaterials.AURORIAN_SLIME, BOOTS, new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SPIKED_CHESTPLATE = ITEMS.register("spiked_chestplate", SpikedChestplate::new);
+    public static final RegistryObject<Item> AURORIAN_SLIME_BOOTS = ITEMS.register("aurorian_slime_boots", AurorianSlimeBoots::new);
 
     /**
      * SwordItem

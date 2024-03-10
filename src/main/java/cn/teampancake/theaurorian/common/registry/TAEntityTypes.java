@@ -229,6 +229,8 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDER_MOTHER, SpiderMotherModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.MOON_QUEEN, MoonQueenModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.SPIKED_CHESTPLATE, SpikedChestplateModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME_BOOTS, AurorianSlimeBootsModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_STEEL_ARMOR, AurorianSteelArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CERULEAN_ARMOR, CeruleanArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.KNIGHT_ARMOR, KnightArmorModel::createBodyLayer);

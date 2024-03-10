@@ -3,7 +3,8 @@ package cn.teampancake.theaurorian.common.entities.projectile;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
@@ -47,10 +48,10 @@ public class EyeOfDisturbedEntity extends AbstractHurtingProjectile {
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        if (!this.level().isClientSide) {
-            Entity entity = result.getEntity();
-            if (this.getOwner() instanceof Monster monster && entity == monster.getTarget()) {
-                entity.hurt(this.damageSources().magic(), 2.0F);
+        if (!this.level().isClientSide && this.getOwner() instanceof Monster monster) {
+            if (result.getEntity() instanceof LivingEntity livingEntity && livingEntity == monster.getTarget()) {
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200));
+                livingEntity.hurt(this.damageSources().magic(), 2.0F);
             }
         }
     }

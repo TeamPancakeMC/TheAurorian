@@ -19,7 +19,6 @@ public class TAModelLayers {
     public static final ModelLayerLocation AURORIAN_PIXIE = register("aurorian_pixie");
     public static final ModelLayerLocation AURORIAN_SLIME = register("aurorian_slime");
     public static final ModelLayerLocation AURORIAN_SLIME_OUTER = register("aurorian_slime", "outer");
-    public static final ModelLayerLocation DISTURBED_HOLLOW = register("disturbed_hollow");
     public static final ModelLayerLocation UNDEAD_KNIGHT = register("undead_knight");
     public static final ModelLayerLocation SPIDERLING = register("spiderling");
     public static final ModelLayerLocation CRYSTALLINE_SPRITE = register("crystalline_sprite");

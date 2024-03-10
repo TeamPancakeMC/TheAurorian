@@ -31,7 +31,6 @@ public class TAModelLayers {
     public static final ModelLayerLocation RUNESTONE_KEEPER = register("runestone_keeper");
     public static final ModelLayerLocation RUNESTONE_BOOKS = register("runestone_books");
     public static final ModelLayerLocation SPIDER_MOTHER = register("spider_mother");
-    public static final ModelLayerLocation MOON_QUEEN = register("moon_queen");
     public static final ModelLayerLocation SPIKED_CHESTPLATE = register("spiked_chestplate");
     public static final ModelLayerLocation AURORIAN_SLIME_BOOTS = register("aurorian_slime_boots");
     public static final ModelLayerLocation AURORIAN_STEEL_ARMOR = register("aurorian_steel_armor");

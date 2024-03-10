@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
+import cn.teampancake.theaurorian.common.entities.monster.MultiPhaseAttacker;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -22,9 +23,11 @@ import net.minecraft.world.level.block.HoneyBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
-abstract class AbstractAurorianBoss extends Monster {
+abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacker {
 
-    private static final EntityDataAccessor<Float> BOSS_HEALTH = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.FLOAT);
+    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Float> BOSS_HEALTH = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.FLOAT);
 
     private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(),
             BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
@@ -37,12 +40,33 @@ abstract class AbstractAurorianBoss extends Monster {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(ATTACK_STATE, 0);
+        this.entityData.define(ATTACK_TICKS, 0);
         this.entityData.define(BOSS_HEALTH, 1.0F);
     }
 
     @Override
+    public int getAttackState() {
+        return this.entityData.get(ATTACK_STATE);
+    }
+
+    @Override
+    public void setAttackState(int attackState) {
+        this.entityData.set(ATTACK_STATE, attackState);
+    }
+
+    @Override
+    public int getAttackTicks() {
+        return this.entityData.get(ATTACK_TICKS);
+    }
+
+    @Override
+    public void setAttackTicks(int attackTicks) {
+        this.entityData.set(ATTACK_TICKS, attackTicks);
+    }
+
+    @Override
     protected void customServerAiStep() {
-        super.customServerAiStep();
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
     }
 

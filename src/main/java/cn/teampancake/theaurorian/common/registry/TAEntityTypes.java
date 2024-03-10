@@ -182,7 +182,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(SPIRIT.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(SPIRIT.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(MOON_ACOLYTE.get(), context -> new GeoEntityRenderer<>(
-                context, new DefaultedEntityGeoModel<>(MOON_ACOLYTE.getId())));
+                context, new DefaultedEntityGeoModel<>(MOON_ACOLYTE.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(SPIDERLING.get(), SpiderlingRenderer::new);
         event.registerEntityRenderer(CRYSTALLINE_SPRITE.get(), CrystallineSpriteRenderer::new);
         event.registerEntityRenderer(CAVE_DWELLER.get(), CaveDwellerRenderer::new);
@@ -196,7 +196,8 @@ public class TAEntityTypes {
         event.registerEntityRenderer(HYPHA_WALKING_MUSHROOM.get(), HyphaWalkingMushroomRenderer::new);
         event.registerEntityRenderer(RUNESTONE_KEEPER.get(), RunestoneKeeperRenderer::new);
         event.registerEntityRenderer(SPIDER_MOTHER.get(), SpiderMotherRenderer::new);
-        event.registerEntityRenderer(MOON_QUEEN.get(), MoonQueenRenderer::new);
+        event.registerEntityRenderer(MOON_QUEEN.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(MOON_QUEEN.getId(), Boolean.TRUE)));
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -228,7 +229,6 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_KEEPER, RunestoneKeeperModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDER_MOTHER, SpiderMotherModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.MOON_QUEEN, MoonQueenModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIKED_CHESTPLATE, SpikedChestplateModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME_BOOTS, AurorianSlimeBootsModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_STEEL_ARMOR, AurorianSteelArmorModel::createBodyLayer);

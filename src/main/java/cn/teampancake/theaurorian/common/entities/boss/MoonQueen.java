@@ -1,9 +1,10 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
-import cn.teampancake.theaurorian.client.animation.MoonQueenAnimation;
+import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
+import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
+import cn.teampancake.theaurorian.common.entities.phase.MoonQueenMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
-import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,6 +19,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -27,17 +29,22 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class MoonQueen extends AbstractAurorianBoss {
+import java.util.List;
 
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState defendAnimationState = new AnimationState();
-    public final AnimationState meleeAttackAnimationState = new AnimationState();
-    public final AnimationState skillLunaBefallAnimationState = new AnimationState();
-    public final AnimationState skillLunaBefallEndAnimationState = new AnimationState();
+public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     private static final EntityDataAccessor<Boolean> GLINTING = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
+    private final AttackManager<MoonQueen> attackManager = new AttackManager<>(this, List.of(new MoonQueenMeleePhase()));
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public MoonQueen(EntityType<? extends MoonQueen> type, Level level) {
         super(type, level);
@@ -47,8 +54,7 @@ public class MoonQueen extends AbstractAurorianBoss {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new MoonQueenAttackGoal());
-        this.goalSelector.addGoal(6, new SkillLunaBefall());
+        this.goalSelector.addGoal(3, new MeleeNoAttackGoal(this));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, (1.0D)));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, (1.0D)));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, (8.0F)));
@@ -66,6 +72,52 @@ public class MoonQueen extends AbstractAurorianBoss {
         builder.add(Attributes.FOLLOW_RANGE, 40.0F);
         builder.add(Attributes.ARMOR, 8.0F);
         return builder;
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(GLINTING, Boolean.FALSE);
+        this.entityData.define(ATTACK_Y_ROT, 0.0F);
+    }
+
+    @Override
+    protected BodyRotationControl createBodyControl() {
+        return new MoonQueenBodyRotationControl(this);
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        super.customServerAiStep();
+        this.attackManager.tick();
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericWalkIdleController(this));
+        controllers.add(new AnimationController<>(this, "swing_controller", state -> PlayState.STOP)
+                .triggerableAnim("swing_animation", DefaultAnimations.ATTACK_SWING).transitionLength(5));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    public void setGlinting(boolean glinting) {
+        this.entityData.set(GLINTING, glinting);
+    }
+
+    public boolean isGlinting() {
+        return this.entityData.get(GLINTING);
+    }
+
+    public float getAttackYRot() {
+        return this.entityData.get(ATTACK_Y_ROT);
+    }
+
+    public void setAttackYRot(float attackYRot) {
+        this.entityData.set(ATTACK_Y_ROT, attackYRot);
     }
 
     @Override
@@ -89,36 +141,6 @@ public class MoonQueen extends AbstractAurorianBoss {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(GLINTING, Boolean.FALSE);
-    }
-
-    public void setGlinting(boolean glinting) {
-        this.entityData.set(GLINTING, glinting);
-    }
-
-    public boolean isGlinting() {
-        return this.entityData.get(GLINTING);
-    }
-
-    private void stopAllAnimationStates() {
-        this.idleAnimationState.stop();
-        this.defendAnimationState.stop();
-        this.meleeAttackAnimationState.stop();
-        this.skillLunaBefallAnimationState.stop();
-        this.skillLunaBefallEndAnimationState.stop();
-    }
-
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        if (this.level().isClientSide) {
-            this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.walkAnimation.isMoving(), this.tickCount);
-        }
-    }
-
-    @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Glinting", this.isGlinting());
@@ -128,23 +150,6 @@ public class MoonQueen extends AbstractAurorianBoss {
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setGlinting(compound.getBoolean("Glinting"));
-    }
-
-    @Override
-    public void handleEntityEvent(byte id) {
-        if (id == 4) {
-            this.meleeAttackAnimationState.start(this.tickCount);
-        } else if (id == 5) {
-            this.meleeAttackAnimationState.stop();
-            this.skillLunaBefallAnimationState.start(this.tickCount);
-        } else if (id == 6) {
-            this.skillLunaBefallAnimationState.stop();
-            this.skillLunaBefallEndAnimationState.startIfStopped(this.tickCount);
-        } else if (id == 7) {
-            this.skillLunaBefallEndAnimationState.stop();
-        } else {
-            super.handleEntityEvent(id);
-        }
     }
 
     @Override
@@ -215,76 +220,19 @@ public class MoonQueen extends AbstractAurorianBoss {
         return 1;
     }
 
-    private class MoonQueenAttackGoal extends MeleeAttackGoal {
+    private class MoonQueenBodyRotationControl extends BodyRotationControl {
 
-        public MoonQueenAttackGoal() {
-            super(MoonQueen.this, 1.0F, Boolean.FALSE);
+        public MoonQueenBodyRotationControl(Mob mob) {
+            super(mob);
         }
 
         @Override
-        protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
-
-        }
-
-    }
-
-    private class SkillLunaBefall extends Goal {
-
-        private final float skillAnimationLength = MoonQueenAnimation.SKILL_LUNA_BEFALL.lengthInSeconds() * 20.0F;
-        private float skillTime = 0;
-
-        @Override
-        public boolean canUse() {
-            boolean lessThanHalfHealth = getHealth() < getMaxHealth() / 2.0F;
-            return getTarget() != null && lessThanHalfHealth;
-        }
-
-        @Override
-        public boolean isInterruptable() {
-            return false;
-        }
-
-        @Override
-        public void start() {
-            this.skillTime = 0.0F;
-            setGlinting(true);
-            resetFallDistance();
-        }
-
-        @Override
-        public void stop() {
-            setGlinting(false);
-        }
-
-        @Override
-        public void tick() {
-            LivingEntity target = getTarget();
-            if (target != null) {
-                Vec3 vec3 = getDeltaMovement();
-                boolean flag = getSensing().hasLineOfSight(target);
-                if (target.distanceToSqr(MoonQueen.this) < 400.0D && flag) {
-                    if (this.skillTime < 1.0F) {
-                        level().broadcastEntityEvent(MoonQueen.this, (byte) 5);
-                        lookAt(EntityAnchorArgument.Anchor.EYES, target.position());
-                    }
-
-                    ++this.skillTime;
-                    if (this.skillTime >= 1.0F && this.skillTime <= 80.0F) {
-                        setDeltaMovement(vec3.x, 0.1F, vec3.z);
-                        setNoGravity(true);
-                    } else if (this.skillTime > 160.0F && this.skillTime <= this.skillAnimationLength) {
-                        resetFallDistance();
-                        setDeltaMovement(vec3.x, -0.2F, vec3.z);
-                    } else if (this.skillTime < this.skillAnimationLength + 1.0F) {
-                        level().broadcastEntityEvent(MoonQueen.this, (byte) 6);
-                        setNoGravity(false);
-                    } else {
-                        level().broadcastEntityEvent(MoonQueen.this, (byte) 7);
-                        resetFallDistance();
-                        setGlinting(false);
-                        setTarget(null);
-                    }
-                }
+        public void clientTick() {
+            if (getAttackState() == 1) {
+                yHeadRot = getAttackYRot();
+                yBodyRot = getAttackYRot();
+            } else {
+                super.clientTick();
             }
         }
 

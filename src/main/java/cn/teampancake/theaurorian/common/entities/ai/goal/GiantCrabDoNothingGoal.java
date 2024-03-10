@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.entities.ai;
+package cn.teampancake.theaurorian.common.entities.ai.goal;
 
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
 import cn.teampancake.theaurorian.common.entities.phase.SnowTundraGiantCrabHidePhase;

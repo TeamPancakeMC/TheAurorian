@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
-import cn.teampancake.theaurorian.common.entities.ai.MeleeNoAttackGoal;
-import cn.teampancake.theaurorian.common.entities.ai.SpiritHauntGoal;
-import cn.teampancake.theaurorian.common.entities.ai.SpiritRunAwayGoal;
+import cn.teampancake.theaurorian.common.entities.ai.control.SpiritMoveControl;
+import cn.teampancake.theaurorian.common.entities.ai.goal.SpiritChargeAttackGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.SpiritRandomMoveGoal;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.SpiritMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
@@ -19,7 +19,9 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -41,23 +43,22 @@ public class Spirit extends Monster implements GeoEntity, MultiPhaseAttacker {
 
     protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(Spirit.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(Spirit.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Spirit.class, EntityDataSerializers.BYTE);
     private final AttackManager<Spirit> attackManager = new AttackManager<>(this, List.of(new SpiritMeleePhase()));
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public Spirit(EntityType<? extends Spirit> type, Level level) {
         super(type, level);
+        this.moveControl = new SpiritMoveControl(this);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new SpiritHauntGoal(this));
-        this.goalSelector.addGoal(3, new SpiritRunAwayGoal(this));
-        this.goalSelector.addGoal(1, new MeleeNoAttackGoal(this, Boolean.FALSE));
-        this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new SpiritChargeAttackGoal(this));
+        this.goalSelector.addGoal(8, new SpiritRandomMoveGoal(this));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
@@ -80,11 +81,34 @@ public class Spirit extends Monster implements GeoEntity, MultiPhaseAttacker {
         super.defineSynchedData();
         this.entityData.define(ATTACK_STATE, 0);
         this.entityData.define(ATTACK_TICKS, 0);
+        this.entityData.define(DATA_FLAGS_ID, (byte)0);
+    }
+
+    public boolean getFlag(int mask) {
+        return (this.entityData.get(DATA_FLAGS_ID) & mask) != 0;
+    }
+
+    public void setFlag(int mask, boolean value) {
+        int i = this.entityData.get(DATA_FLAGS_ID);
+        if (value) {
+            i |= mask;
+        } else {
+            i &= ~mask;
+        }
+
+        this.entityData.set(DATA_FLAGS_ID, (byte)(i & 255));
     }
 
     @Override
     protected void customServerAiStep() {
         this.attackManager.tick();
+    }
+
+    public void tick() {
+        this.noPhysics = true;
+        super.tick();
+        this.noPhysics = false;
+        this.setNoGravity(true);
     }
 
     @Override

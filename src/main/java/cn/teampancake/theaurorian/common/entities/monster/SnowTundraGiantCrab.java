@@ -1,9 +1,9 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.entities.ai.GiantCrabDoNothingGoal;
-import cn.teampancake.theaurorian.common.entities.ai.LookAtTargetGoal;
-import cn.teampancake.theaurorian.common.entities.ai.MoveToTargetGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.GiantCrabDoNothingGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.LookAtTargetGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.MoveToTargetGoal;
 import cn.teampancake.theaurorian.common.entities.phase.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.entities.ai.MeleeNoAttackGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.UndeadKnightMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -48,7 +48,7 @@ public class UndeadKnight extends Monster implements MultiPhaseAttacker {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeNoAttackGoal(this, Boolean.FALSE));
+        this.goalSelector.addGoal(1, new MeleeNoAttackGoal(this));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, (1.0D)));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, (1.0D)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));

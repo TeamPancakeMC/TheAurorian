@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.entities.ai;
+package cn.teampancake.theaurorian.common.entities.ai.goal;
 
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.Monster;

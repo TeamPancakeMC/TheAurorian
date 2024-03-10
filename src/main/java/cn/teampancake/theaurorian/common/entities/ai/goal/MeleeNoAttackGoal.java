@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.entities.ai;
+package cn.teampancake.theaurorian.common.entities.ai.goal;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
@@ -12,6 +12,10 @@ public class MeleeNoAttackGoal extends MeleeAttackGoal {
 
     public MeleeNoAttackGoal(PathfinderMob mob, double speed, boolean followingTargetEvenIfNotSeen) {
         super(mob, speed, followingTargetEvenIfNotSeen);
+    }
+
+    public MeleeNoAttackGoal(PathfinderMob mob) {
+        this(mob, 1.0D, Boolean.FALSE);
     }
 
     @Override

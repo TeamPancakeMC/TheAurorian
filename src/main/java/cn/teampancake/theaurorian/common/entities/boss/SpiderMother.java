@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
-import cn.teampancake.theaurorian.common.entities.ai.ModRangedAttackGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.ModRangedAttackGoal;
 import cn.teampancake.theaurorian.common.entities.monster.Spiderling;
 import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
 import cn.teampancake.theaurorian.common.registry.TABlocks;

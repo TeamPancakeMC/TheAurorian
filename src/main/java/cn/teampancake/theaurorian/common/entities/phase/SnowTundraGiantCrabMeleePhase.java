@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.phase;
 
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
+import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 
 public class SnowTundraGiantCrabMeleePhase extends AttackPhase<SnowTundraGiantCrab> {
 
@@ -12,7 +13,7 @@ public class SnowTundraGiantCrabMeleePhase extends AttackPhase<SnowTundraGiantCr
 
     @Override
     public boolean canStart(SnowTundraGiantCrab entity, boolean coolDownOver) {
-        return coolDownOver && entity.canReachTarget(3);
+        return coolDownOver && TAEntityUtils.canReachTarget(entity, 3);
     }
 
     @Override
@@ -24,7 +25,7 @@ public class SnowTundraGiantCrabMeleePhase extends AttackPhase<SnowTundraGiantCr
     @Override
     public void tick(SnowTundraGiantCrab entity) {
         if (entity.getAttackTicks() == 20f * 0.75f) {
-            entity.performMeleeAttack(3);
+            TAEntityUtils.performMeleeAttack(entity, 3);
         }
     }
 

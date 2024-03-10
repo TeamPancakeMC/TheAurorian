@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.phase;
 
 import cn.teampancake.theaurorian.common.entities.monster.UndeadKnight;
+import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 
 public class UndeadKnightMeleePhase extends AttackPhase<UndeadKnight> {
 
@@ -12,7 +13,7 @@ public class UndeadKnightMeleePhase extends AttackPhase<UndeadKnight> {
 
     @Override
     public boolean canStart(UndeadKnight entity, boolean coolDownOver) {
-        return coolDownOver && entity.canReachTarget(3);
+        return coolDownOver && TAEntityUtils.canReachTarget(entity, 3);
     }
 
     @Override
@@ -23,7 +24,7 @@ public class UndeadKnightMeleePhase extends AttackPhase<UndeadKnight> {
     @Override
     public void tick(UndeadKnight entity) {
         if (entity.getAttackTicks() == 12) {
-            entity.performMeleeAttack(3);
+            TAEntityUtils.performMeleeAttack(entity, 3);
         }
     }
 

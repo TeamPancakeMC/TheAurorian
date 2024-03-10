@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.phase;
 
 import cn.teampancake.theaurorian.common.entities.monster.MoonAcolyte;
+import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 
 public class MoonAcolyteMeleePhase extends AttackPhase<MoonAcolyte> {
 
@@ -10,7 +11,7 @@ public class MoonAcolyteMeleePhase extends AttackPhase<MoonAcolyte> {
 
     @Override
     public boolean canStart(MoonAcolyte entity, boolean coolDownOver) {
-        return coolDownOver && entity.canReachTarget(2);
+        return coolDownOver && TAEntityUtils.canReachTarget(entity, 2);
     }
 
     @Override
@@ -21,7 +22,7 @@ public class MoonAcolyteMeleePhase extends AttackPhase<MoonAcolyte> {
     @Override
     public void tick(MoonAcolyte entity) {
         if (entity.getAttackTicks() == 9) {
-            entity.performMeleeAttack(2);
+            TAEntityUtils.performMeleeAttack(entity, 2);
         }
     }
 

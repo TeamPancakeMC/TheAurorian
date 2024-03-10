@@ -19,7 +19,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +26,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
@@ -115,34 +113,6 @@ public class MoonAcolyte extends Monster implements GeoEntity, MultiPhaseAttacke
 
     public void setAttackTicks(int attackTicks) {
         this.entityData.set(ATTACK_TICKS, attackTicks);
-    }
-
-    public boolean canReachTarget(double range) {
-        LivingEntity target = this.getTarget();
-        if (target == null) {
-            return false;
-        }
-
-        for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
-            if (livingEntity.getUUID().equals(target.getUUID())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public void performMeleeAttack(double range) {
-        LivingEntity target = this.getTarget();
-        if (target != null) {
-            AABB area = this.getBoundingBox().inflate(range);
-            for (LivingEntity livingEntity : this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, area)) {
-                if (livingEntity.getUUID().equals(target.getUUID())) {
-                    livingEntity.invulnerableTime = 0;
-                    this.doHurtTarget(livingEntity);
-                }
-            }
-        }
     }
 
     @Override

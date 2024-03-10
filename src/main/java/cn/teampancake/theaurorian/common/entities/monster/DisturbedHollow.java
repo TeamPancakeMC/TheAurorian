@@ -18,6 +18,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.EnumSet;
+
 public class DisturbedHollow extends Monster {
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -30,19 +32,19 @@ public class DisturbedHollow extends Monster {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new ShootingDisturbedEyeGoal(this));
-        this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+        this.goalSelector.addGoal(1, new ShootDisturbedEyeGoal(this));
+        this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
         builder.add(Attributes.MAX_HEALTH, 20.0F);
-        builder.add(Attributes.MOVEMENT_SPEED, 0.1F);
+        builder.add(Attributes.MOVEMENT_SPEED, 0.5F);
         builder.add(Attributes.ATTACK_DAMAGE, 3.0F);
         builder.add(Attributes.FOLLOW_RANGE, 35.0D);
         builder.add(Attributes.ARMOR, 2.0F);
@@ -83,12 +85,13 @@ public class DisturbedHollow extends Monster {
         return 3;
     }
 
-    private static class ShootingDisturbedEyeGoal extends Goal {
+    private static class ShootDisturbedEyeGoal extends Goal {
 
         private final DisturbedHollow disturbedHollow;
         private int chargeTime;
 
-        public ShootingDisturbedEyeGoal(DisturbedHollow disturbedHollow) {
+        public ShootDisturbedEyeGoal(DisturbedHollow disturbedHollow) {
+            setFlags(EnumSet.of(Flag.MOVE));
             this.disturbedHollow = disturbedHollow;
         }
 

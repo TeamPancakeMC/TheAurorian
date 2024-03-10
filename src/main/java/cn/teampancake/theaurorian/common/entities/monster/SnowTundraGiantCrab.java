@@ -48,6 +48,7 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
 
     protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.FLOAT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int remainingPersistentAngerTime;
@@ -88,6 +89,7 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
         super.defineSynchedData();
         this.entityData.define(ATTACK_STATE, 0);
         this.entityData.define(ATTACK_TICKS, 0);
+        this.entityData.define(ATTACK_Y_ROT, 0f);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -148,6 +150,13 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     }
     public void setAttackTicks(int attackTicks) {
         this.entityData.set(ATTACK_TICKS, attackTicks);
+    }
+
+    public float getAttackYRot() {
+        return this.entityData.get(ATTACK_Y_ROT);
+    }
+    public void setAttackYRot(float attackYRot) {
+        this.entityData.set(ATTACK_Y_ROT, attackYRot);
     }
 
     public boolean canBeCollidedWith() {
@@ -229,6 +238,8 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
         public void clientTick() {
             if (getAttackState() == SnowTundraGiantCrabHidePhase.ID || getAttackState() == SnowTundraGiantCrabStartHidePhase.ID) {
                 SnowTundraGiantCrab.this.yBodyRot = 0;
+            } else if (getAttackState() == SnowTundraGiantCrabMeleePhase.ID) {
+                SnowTundraGiantCrab.this.yBodyRot = SnowTundraGiantCrab.this.getAttackYRot();
             } else {
                 super.clientTick();
             }

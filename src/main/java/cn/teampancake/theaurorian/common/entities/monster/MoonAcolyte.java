@@ -52,8 +52,8 @@ public class MoonAcolyte extends Monster implements GeoEntity, MultiPhaseAttacke
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new MeleeNoAttackGoal(this));
         this.goalSelector.addGoal(2, new ZombieLikeAttackGoal(this));
-        this.goalSelector.addGoal(1, new MeleeNoAttackGoal(this, Boolean.FALSE));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));

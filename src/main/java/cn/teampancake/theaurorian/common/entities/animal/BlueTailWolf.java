@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
-import cn.teampancake.theaurorian.common.entities.ai.BlueTailWolfDoNothingGoal;
-import cn.teampancake.theaurorian.common.entities.ai.MeleeNoAttackGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.BlueTailWolfDoNothingGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.monster.MultiPhaseAttacker;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.BlueTailWolfHowlPhase;

@@ -14,6 +14,10 @@ public class MeleeNoAttackGoal extends MeleeAttackGoal {
         super(mob, speed, followingTargetEvenIfNotSeen);
     }
 
+    public MeleeNoAttackGoal(PathfinderMob mob) {
+        this(mob, 1.0D, Boolean.FALSE);
+    }
+
     @Override
     protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr) {
         // we use our custom attack manager

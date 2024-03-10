@@ -186,7 +186,8 @@ public class TAEntityTypes {
         event.registerEntityRenderer(SPIDERLING.get(), SpiderlingRenderer::new);
         event.registerEntityRenderer(CRYSTALLINE_SPRITE.get(), CrystallineSpriteRenderer::new);
         event.registerEntityRenderer(CAVE_DWELLER.get(), CaveDwellerRenderer::new);
-        event.registerEntityRenderer(ROCK_HAMMER.get(), RockHammerRenderer::new);
+        event.registerEntityRenderer(ROCK_HAMMER.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(ROCK_HAMMER.getId())));
         event.registerEntityRenderer(TONG_SCORPION.get(), TongScorpionRenderer::new);
         event.registerEntityRenderer(SNOW_TUNDRA_GIANT_CRAB.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(SNOW_TUNDRA_GIANT_CRAB.getId())));
@@ -220,7 +221,6 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.SPIDERLING, SpiderlingModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CRYSTALLINE_SPRITE, CrystallineSpriteModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CAVE_DWELLER, CaveDwellerModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.ROCK_HAMMER, RockHammerModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.TONG_SCORPION, TongScorpionModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.FLOWER_LEECH, FlowerLeechModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.FORGOTTEN_MAGIC_BOOK, ForgottenMagicBookModel::createBodyLayer);

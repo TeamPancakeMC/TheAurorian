@@ -96,7 +96,7 @@ public class BlueTailWolf extends TamableAnimal implements GeoEntity, NeutralMob
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(DefaultAnimations.genericWalkRunIdleController(this));
         controllers.add(new AnimationController<>(this, "bite_controller", state -> PlayState.STOP)
-                .triggerableAnim("bite_animation", RawAnimation.begin().thenPlay("attack.bite")).transitionLength(5));
+                .triggerableAnim("bite_animation", DefaultAnimations.ATTACK_BITE).transitionLength(5));
         controllers.add(new AnimationController<>(this, "howl_controller", state -> PlayState.STOP)
                 .triggerableAnim("howl_animation", RawAnimation.begin().thenPlay("misc.howl")).transitionLength(5));
     }

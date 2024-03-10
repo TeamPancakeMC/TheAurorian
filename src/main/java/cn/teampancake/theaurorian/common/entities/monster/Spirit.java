@@ -33,7 +33,6 @@ import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -115,7 +114,7 @@ public class Spirit extends Monster implements GeoEntity, MultiPhaseAttacker {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(DefaultAnimations.genericWalkIdleController(this));
         controllers.add(new AnimationController<>(this, "swing_controller", state -> PlayState.STOP)
-                .triggerableAnim("swing_animation", RawAnimation.begin().thenPlay("attack.swing")).transitionLength(5));
+                .triggerableAnim("swing_animation", DefaultAnimations.ATTACK_SWING).transitionLength(5));
     }
 
     @Override

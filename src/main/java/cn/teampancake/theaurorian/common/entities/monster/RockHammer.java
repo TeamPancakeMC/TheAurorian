@@ -1,7 +1,13 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
+import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
+import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
+import cn.teampancake.theaurorian.common.entities.phase.RockHammerMeleePhase;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -18,13 +24,25 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.List;
 import java.util.UUID;
 
-public class RockHammer extends Monster implements NeutralMob {
+public class RockHammer extends Monster implements NeutralMob, GeoEntity, MultiPhaseAttacker {
 
+    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(RockHammer.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(RockHammer.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-
+    private final AttackManager<RockHammer> attackManager = new AttackManager<>(this, List.of(new RockHammerMeleePhase()));
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int remainingPersistentAngerTime;
     @Nullable
     private UUID persistentAngerTarget;
@@ -36,6 +54,7 @@ public class RockHammer extends Monster implements NeutralMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new MeleeNoAttackGoal(this));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -57,6 +76,48 @@ public class RockHammer extends Monster implements NeutralMob {
     @SuppressWarnings("unused")
     public static boolean checkSpawnRules(EntityType<RockHammer> rockHammer, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 6;
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ATTACK_STATE, 0);
+        this.entityData.define(ATTACK_TICKS, 0);
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        this.attackManager.tick();
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericWalkIdleController(this));
+        controllers.add(new AnimationController<>(this, "smash_controller", state -> PlayState.STOP)
+                .triggerableAnim("smash_animation", RawAnimation.begin().thenPlay("attack.smash")).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "hammer_attack_controller", state -> PlayState.STOP)
+                .triggerableAnim("hammer_attack_animation", RawAnimation.begin().thenPlay("hammer_attack.smash")).transitionLength(5));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    public int getAttackState() {
+        return this.entityData.get(ATTACK_STATE);
+    }
+
+    public void setAttackState(int attackState) {
+        this.entityData.set(ATTACK_STATE, attackState);
+    }
+
+    public int getAttackTicks() {
+        return this.entityData.get(ATTACK_TICKS);
+    }
+
+    public void setAttackTicks(int attackTicks) {
+        this.entityData.set(ATTACK_TICKS, attackTicks);
     }
 
     @Override

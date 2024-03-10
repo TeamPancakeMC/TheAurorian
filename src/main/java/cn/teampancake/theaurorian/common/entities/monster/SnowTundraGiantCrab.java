@@ -123,13 +123,12 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
         controllers.add(new AnimationController<>(this, "smash_controller", state -> PlayState.STOP)
                 .triggerableAnim("smash_animation", RawAnimation.begin().thenPlay("attack.smash")).transitionLength(5));
         controllers.add(new AnimationController<>(this, "swing_controller", state -> PlayState.STOP)
-                .triggerableAnim("swing_animation", RawAnimation.begin().thenPlay("attack.swing")).transitionLength(5));
+                .triggerableAnim("swing_animation", DefaultAnimations.ATTACK_SWING).transitionLength(5));
         controllers.add(new AnimationController<>(this, "start_hide_controller", state -> PlayState.STOP)
                 .triggerableAnim("start_hide_animation", RawAnimation.begin().thenPlay("misc.break_begin")).transitionLength(5));
         controllers.add(SnowTundraGiantCrab.hideController(this));
         controllers.add(new AnimationController<>(this, "stop_hide_controller", state -> PlayState.STOP)
                 .triggerableAnim("stop_hide_animation", RawAnimation.begin().thenPlay("misc.break_awake")).transitionLength(5));
-        // controllers.add(DefaultAnimations.genericAttackAnimation(this, DefaultAnimations.ATTACK_SWING));
     }
 
     @Override

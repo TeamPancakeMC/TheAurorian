@@ -59,14 +59,9 @@ public class UndeadKnight extends Monster implements MultiPhaseAttacker, IAffect
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
     }
 
-    @Override
-    public Monster affectedEntity() {
-        return this;
-    }
-
     @Nullable @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        return this.finalizeSpawn(level, spawnData);
+        return this.finalizeSpawn(this, level, spawnData);
     }
 
     public static boolean checkSpawnRules(EntityType<UndeadKnight> undeadKnight, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

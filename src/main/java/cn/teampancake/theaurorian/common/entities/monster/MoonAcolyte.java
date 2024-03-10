@@ -64,14 +64,9 @@ public class MoonAcolyte extends Monster implements GeoEntity, MultiPhaseAttacke
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 
-    @Override
-    public Monster affectedEntity() {
-        return this;
-    }
-
     @Nullable @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        return this.finalizeSpawn(level, spawnData);
+        return this.finalizeSpawn(this, level, spawnData);
     }
 
     public static boolean checkSpawnRules(EntityType<MoonAcolyte> moonAcolyte, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

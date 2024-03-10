@@ -53,14 +53,9 @@ public class DisturbedHollow extends Monster implements IAffectedByNightmareMode
         return builder;
     }
 
-    @Override
-    public Monster affectedEntity() {
-        return this;
-    }
-
     @Nullable @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        return this.finalizeSpawn(level, spawnData);
+        return this.finalizeSpawn(this, level, spawnData);
     }
 
     @Override

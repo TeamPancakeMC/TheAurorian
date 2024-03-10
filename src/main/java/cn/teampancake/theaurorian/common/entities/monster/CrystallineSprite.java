@@ -47,14 +47,9 @@ public class CrystallineSprite extends Monster implements RangedAttackMob, IAffe
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
     }
 
-    @Override
-    public Monster affectedEntity() {
-        return this;
-    }
-
     @Nullable @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        return this.finalizeSpawn(level, spawnData);
+        return this.finalizeSpawn(this, level, spawnData);
     }
 
     public static boolean checkSpawnRules(EntityType<CrystallineSprite> crystallineSprite, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

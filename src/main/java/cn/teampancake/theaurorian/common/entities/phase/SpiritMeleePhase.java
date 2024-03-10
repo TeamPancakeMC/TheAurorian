@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.phase;
 
 import cn.teampancake.theaurorian.common.entities.monster.Spirit;
+import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 
 public class SpiritMeleePhase extends AttackPhase<Spirit> {
 
@@ -10,7 +11,7 @@ public class SpiritMeleePhase extends AttackPhase<Spirit> {
 
     @Override
     public boolean canStart(Spirit entity, boolean coolDownOver) {
-        return coolDownOver && entity.canReachTarget(2);
+        return coolDownOver && TAEntityUtils.canReachTarget(entity, 2);
     }
 
     @Override
@@ -21,7 +22,7 @@ public class SpiritMeleePhase extends AttackPhase<Spirit> {
     @Override
     public void tick(Spirit entity) {
         if (entity.getAttackTicks() == 9) {
-            entity.performMeleeAttack(2);
+            TAEntityUtils.performMeleeAttack(entity, 2);
         }
     }
 

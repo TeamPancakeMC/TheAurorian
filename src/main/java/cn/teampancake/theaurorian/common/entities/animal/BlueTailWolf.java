@@ -1,6 +1,12 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
+import cn.teampancake.theaurorian.common.entities.ai.BlueTailWolfDoNothingGoal;
+import cn.teampancake.theaurorian.common.entities.ai.MeleeNoAttackGoal;
+import cn.teampancake.theaurorian.common.entities.monster.MultiPhaseAttacker;
+import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
+import cn.teampancake.theaurorian.common.entities.phase.BlueTailWolfHowlPhase;
+import cn.teampancake.theaurorian.common.entities.phase.BlueTailWolfMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -11,6 +17,8 @@ import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -28,16 +36,26 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class BlueTailWolf extends TamableAnimal implements GeoEntity, NeutralMob {
+public class BlueTailWolf extends TamableAnimal implements GeoEntity, NeutralMob, MultiPhaseAttacker {
 
+    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(BlueTailWolf.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(BlueTailWolf.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(BlueTailWolf.class, EntityDataSerializers.INT);
     private static final Predicate<LivingEntity> PREY_SELECTOR = (entity) -> entity.getType().is(TAEntityTags.WOLF_NON_TAME_ATTACK_TARGET);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    private final AttackManager<BlueTailWolf> attackManager = new AttackManager<>(this, List.of(
+            new BlueTailWolfMeleePhase(),
+            new BlueTailWolfHowlPhase()
+    ));
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Nullable
     private UUID persistentAngerTarget;
@@ -52,9 +70,10 @@ public class BlueTailWolf extends TamableAnimal implements GeoEntity, NeutralMob
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new WolfPanicGoal(1.5D));
+        this.goalSelector.addGoal(2, new BlueTailWolfDoNothingGoal(this));
+        this.goalSelector.addGoal(3, new WolfPanicGoal(1.5D));
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, Boolean.TRUE));
+        this.goalSelector.addGoal(5, new MeleeNoAttackGoal(this, 1.5, Boolean.TRUE));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
@@ -76,7 +95,10 @@ public class BlueTailWolf extends TamableAnimal implements GeoEntity, NeutralMob
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(DefaultAnimations.genericWalkRunIdleController(this));
-        controllers.add(DefaultAnimations.genericAttackAnimation(this, DefaultAnimations.ATTACK_BITE));
+        controllers.add(new AnimationController<>(this, "bite_controller", state -> PlayState.STOP)
+                .triggerableAnim("bite_animation", RawAnimation.begin().thenPlay("attack.bite")).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "howl_controller", state -> PlayState.STOP)
+                .triggerableAnim("howl_animation", RawAnimation.begin().thenPlay("misc.howl")).transitionLength(5));
     }
 
     @Override
@@ -84,10 +106,57 @@ public class BlueTailWolf extends TamableAnimal implements GeoEntity, NeutralMob
         return this.cache;
     }
 
+    public int getAttackState() {
+        return this.entityData.get(ATTACK_STATE);
+    }
+
+    public void setAttackState(int attackState) {
+        this.entityData.set(ATTACK_STATE, attackState);
+    }
+
+    public int getAttackTicks() {
+        return this.entityData.get(ATTACK_TICKS);
+    }
+    public void setAttackTicks(int attackTicks) {
+        this.entityData.set(ATTACK_TICKS, attackTicks);
+    }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+        this.entityData.define(ATTACK_STATE, 0);
+        this.entityData.define(ATTACK_TICKS, 0);
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        this.attackManager.tick();
+        this.setSprinting(getTarget() != null);
+    }
+
+    public boolean hasNearbyFriends() {
+        for (Mob mob : level().getEntitiesOfClass(Mob.class, getBoundingBox().inflate(50))) {
+            if (mob.getType().is(TAEntityTags.ALERTED_BY_BLUE_TAIL_WOLF) && !mob.getUUID().equals(getUUID()) && mob.getTarget() == null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void alertNearbyFriends() {
+        for (Mob mob : level().getEntitiesOfClass(Mob.class, getBoundingBox().inflate(50))) {
+            if (mob.getType().is(TAEntityTags.ALERTED_BY_BLUE_TAIL_WOLF)) {
+                if (mob.getAttributes().hasAttribute(Attributes.FOLLOW_RANGE)) {
+                    AttributeModifier modifier = new AttributeModifier(UUID.fromString("6b1234f2-8578-49c5-bae1-de2ed42445c6"), "Follow Range Bonus", 100, AttributeModifier.Operation.ADDITION);
+                    AttributeInstance instance = mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE);
+                    if (instance != null && !instance.hasModifier(modifier)) {
+                        instance.addPermanentModifier(modifier);
+                    }
+                }
+                mob.setTarget(getTarget());
+            }
+        }
     }
 
     @Nullable @Override

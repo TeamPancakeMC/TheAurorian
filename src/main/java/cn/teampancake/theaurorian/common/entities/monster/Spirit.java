@@ -15,7 +15,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -24,13 +23,11 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -140,34 +137,6 @@ public class Spirit extends Monster implements GeoEntity, MultiPhaseAttacker {
 
     public void setAttackTicks(int attackTicks) {
         this.entityData.set(ATTACK_TICKS, attackTicks);
-    }
-
-    public boolean canReachTarget(double range) {
-        LivingEntity target = this.getTarget();
-        if (target == null) {
-            return false;
-        }
-
-        for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
-            if (livingEntity.getUUID().equals(target.getUUID())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public void performMeleeAttack(double range) {
-        LivingEntity target = this.getTarget();
-        if (target != null) {
-            AABB area = this.getBoundingBox().inflate(range);
-            for (LivingEntity livingEntity : this.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, area)) {
-                if (livingEntity.getUUID().equals(target.getUUID())) {
-                    livingEntity.invulnerableTime = 0;
-                    this.doHurtTarget(livingEntity);
-                }
-            }
-        }
     }
 
     @Override

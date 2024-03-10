@@ -28,6 +28,7 @@ public class TAEntityTagsProvider extends EntityTypeTagsProvider {
                 TAEntityTypes.SPIDERLING.get(), TAEntityTypes.MOON_ACOLYTE.get(), TAEntityTypes.CRYSTALLINE_SPRITE.get());
         this.tag(TAEntityTags.WOLF_NON_TAME_ATTACK_TARGET).add(EntityType.SHEEP, EntityType.RABBIT, EntityType.FOX,
                 TAEntityTypes.AURORIAN_SHEEP.get(), TAEntityTypes.AURORIAN_RABBIT.get(), TAEntityTypes.ICEFIELD_DEER.get());
+        this.tag(TAEntityTags.ALERTED_BY_BLUE_TAIL_WOLF).add(EntityType.WOLF, TAEntityTypes.BLUE_TAIL_WOLF.get());
     }
 
 }

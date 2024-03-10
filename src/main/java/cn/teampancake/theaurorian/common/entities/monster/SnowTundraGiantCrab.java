@@ -24,7 +24,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -177,31 +176,6 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     @Override
     public boolean isInvulnerableTo(DamageSource source) {
         return source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FREEZE) || super.isInvulnerableTo(source);
-    }
-
-    public boolean canReachTarget(double range) {
-        LivingEntity target = this.getTarget();
-        if (target == null) {
-            return false;
-        }
-        for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
-            if (livingEntity.getUUID().equals(target.getUUID())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void performMeleeAttack(double range) {
-        LivingEntity target = this.getTarget();
-        if (target != null) {
-            for (LivingEntity livingEntity : level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, this, getBoundingBox().inflate(range))) {
-                if (livingEntity.getUUID().equals(target.getUUID())) {
-                    livingEntity.invulnerableTime = 0;
-                    this.doHurtTarget(livingEntity);
-                }
-            }
-        }
     }
 
     @Override

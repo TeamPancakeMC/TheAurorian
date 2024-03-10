@@ -7,6 +7,7 @@ import cn.teampancake.theaurorian.common.entities.phase.MoonAcolyteMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -37,7 +39,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class MoonAcolyte extends Monster implements GeoEntity, MultiPhaseAttacker {
+@SuppressWarnings("deprecation")
+public class MoonAcolyte extends Monster implements GeoEntity, MultiPhaseAttacker, IAffectedByNightmareMode {
 
     protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(MoonAcolyte.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(MoonAcolyte.class, EntityDataSerializers.INT);
@@ -59,6 +62,16 @@ public class MoonAcolyte extends Monster implements GeoEntity, MultiPhaseAttacke
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+    }
+
+    @Override
+    public Monster affectedEntity() {
+        return this;
+    }
+
+    @Nullable @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+        return this.finalizeSpawn(level, spawnData);
     }
 
     public static boolean checkSpawnRules(EntityType<MoonAcolyte> moonAcolyte, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

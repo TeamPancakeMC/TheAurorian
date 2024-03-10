@@ -10,24 +10,27 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerBossEvent;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.BossEvent;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,15 +38,13 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumSet;
 
 @ParametersAreNonnullByDefault
-public class SpiderMother extends Spider {
+@SuppressWarnings("deprecation")
+public class SpiderMother extends AbstractAurorianBoss {
 
     private static final EntityDataAccessor<Boolean> WINDING_UP_SPIT = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SPITTING = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> CLIMBING = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HANGING = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BOOLEAN);
-
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(),
-            BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+    private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BYTE);
 
     public SpiderMother(EntityType<? extends SpiderMother> type, Level level) {
         super(type, level);
@@ -56,13 +57,13 @@ public class SpiderMother extends Spider {
         this.goalSelector.addGoal(1, new HangGoal(this));
         this.goalSelector.addGoal(2, new SpitGoal(this));
         this.goalSelector.addGoal(4, new LeapGoal(this, 0.7F));
-        this.goalSelector.addGoal(4, new Spider.SpiderAttackGoal(this));
+        this.goalSelector.addGoal(4, new SpiderAttackGoal(this));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new Spider.SpiderTargetGoal<>(this, Player.class));
-        this.targetSelector.addGoal(2, new Spider.SpiderTargetGoal<>(this, Cow.class));
+        this.targetSelector.addGoal(2, new SpiderTargetGoal<>(this, Player.class));
+        this.targetSelector.addGoal(2, new SpiderTargetGoal<>(this, Cow.class));
     }
 
     @NotNull
@@ -76,17 +77,38 @@ public class SpiderMother extends Spider {
         return builder;
     }
 
-    public boolean isHanging() {
-        return this.getEntityData().get(HANGING);
-    }
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(WINDING_UP_SPIT, Boolean.FALSE);
         this.entityData.define(SPITTING, Boolean.FALSE);
-        this.entityData.define(CLIMBING, Boolean.FALSE);
         this.entityData.define(HANGING, Boolean.FALSE);
+        this.entityData.define(DATA_FLAGS_ID, (byte)0);
+    }
+
+    @Override
+    public double getPassengersRidingOffset() {
+        return this.getBbHeight() * 0.5F;
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level level) {
+        return new WallClimberNavigation(this, level);
+    }
+
+    public boolean isHanging() {
+        return this.getEntityData().get(HANGING);
+    }
+
+    public void setClimbing(boolean pClimbing) {
+        byte b0 = this.entityData.get(DATA_FLAGS_ID);
+        if (pClimbing) {
+            b0 = (byte)(b0 | 1);
+        } else {
+            b0 = (byte)(b0 & -2);
+        }
+
+        this.entityData.set(DATA_FLAGS_ID, b0);
     }
 
     @Override
@@ -104,7 +126,7 @@ public class SpiderMother extends Spider {
     public void tick() {
         super.tick();
         if (!this.level().isClientSide) {
-            this.entityData.set(CLIMBING, this.horizontalCollision);
+            this.setClimbing(this.horizontalCollision);
         }
     }
 
@@ -124,29 +146,33 @@ public class SpiderMother extends Spider {
     }
 
     @Override
-    protected void customServerAiStep() {
-        super.customServerAiStep();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.SPIDER_AMBIENT;
     }
 
     @Override
-    public void startSeenByPlayer(ServerPlayer player) {
-        super.startSeenByPlayer(player);
-        this.bossEvent.addPlayer(player);
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.SPIDER_HURT;
     }
 
     @Override
-    public void stopSeenByPlayer(ServerPlayer player) {
-        super.stopSeenByPlayer(player);
-        this.bossEvent.removePlayer(player);
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.SPIDER_DEATH;
     }
 
     @Override
-    public void checkDespawn() {
-        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
-            this.discard();
-        } else {
-            this.noActionTime = 0;
+    protected void playStepSound(BlockPos pos, BlockState block) {
+        this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
+    }
+
+    @Override
+    public boolean onClimbable() {
+        return (this.entityData.get(DATA_FLAGS_ID) & 1) != 0;
+    }
+
+    public void makeStuckInBlock(BlockState state, Vec3 motionMultiplier) {
+        if (!state.is(Blocks.COBWEB)) {
+            super.makeStuckInBlock(state, motionMultiplier);
         }
     }
 
@@ -156,18 +182,13 @@ public class SpiderMother extends Spider {
     }
 
     @Override
-    protected boolean canRide(Entity entity) {
-        return false;
+    public boolean canBeAffected(MobEffectInstance potionEffect) {
+        return potionEffect.getEffect() == MobEffects.POISON || super.canBeAffected(potionEffect);
     }
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
         return 1.1F;
-    }
-
-    @Override
-    public int getMaxSpawnClusterSize() {
-        return 1;
     }
 
     private static class HangGoal extends Goal {
@@ -324,7 +345,6 @@ public class SpiderMother extends Spider {
         public boolean canUse() {
             this.target = this.mob.getTarget();
             if (this.target == null) return false;
-
             return this.mob.distanceToSqr(this.target) < 20 && this.mob.onGround();
         }
 
@@ -343,6 +363,49 @@ public class SpiderMother extends Spider {
         public void tick() {
             this.mob.lookAt(this.target, this.mob.getHeadRotSpeed() * 2, this.mob.getMaxHeadXRot() * 2);
             this.mob.getLookControl().setLookAt(this.target, this.mob.getHeadRotSpeed(), this.mob.getMaxHeadXRot());
+        }
+
+    }
+
+    private static class SpiderAttackGoal extends MeleeAttackGoal {
+
+        public SpiderAttackGoal(PathfinderMob mob) {
+            super(mob, 1.0D, true);
+        }
+
+        @Override
+        public boolean canUse() {
+            return super.canUse() && !this.mob.isVehicle();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            float f = this.mob.getLightLevelDependentMagicValue();
+            if (f >= 0.5F && this.mob.getRandom().nextInt(100) == 0) {
+                this.mob.setTarget(null);
+                return false;
+            } else {
+                return super.canContinueToUse();
+            }
+        }
+
+        @Override
+        protected double getAttackReachSqr(LivingEntity attackTarget) {
+            return 4.0F + attackTarget.getBbWidth();
+        }
+
+    }
+
+    private static class SpiderTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
+
+        public SpiderTargetGoal(Mob mob, Class<T> entityTypeToTarget) {
+            super(mob, entityTypeToTarget, true);
+        }
+
+        @Override
+        public boolean canUse() {
+            float f = this.mob.getLightLevelDependentMagicValue();
+            return !(f >= 0.5F) && super.canUse();
         }
 
     }

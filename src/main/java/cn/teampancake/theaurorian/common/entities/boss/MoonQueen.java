@@ -43,12 +43,12 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     private static final EntityDataAccessor<Boolean> GLINTING = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
-    private final AttackManager<MoonQueen> attackManager = new AttackManager<>(this, List.of(new MoonQueenMeleePhase()));
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public MoonQueen(EntityType<? extends MoonQueen> type, Level level) {
         super(type, level);
         this.xpReward = 500;
+        this.attackManager = new AttackManager<>(this, List.of(new MoonQueenMeleePhase()));
     }
 
     @Override
@@ -84,12 +84,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     protected BodyRotationControl createBodyControl() {
         return new MoonQueenBodyRotationControl(this);
-    }
-
-    @Override
-    protected void customServerAiStep() {
-        super.customServerAiStep();
-        this.attackManager.tick();
     }
 
     @Override
@@ -213,11 +207,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(TAItems.KNIGHT_CHESTPLATE.get()));
         this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(TAItems.KNIGHT_LEGGINGS.get()));
         this.setItemSlot(EquipmentSlot.FEET, new ItemStack(TAItems.KNIGHT_BOOTS.get()));
-    }
-
-    @Override
-    public int getMaxSpawnClusterSize() {
-        return 1;
     }
 
     private class MoonQueenBodyRotationControl extends BodyRotationControl {

@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 import static net.minecraft.tags.DamageTypeTags.*;
 
+@SuppressWarnings("unchecked")
 public class CommonShield extends BaseShield{
 
     protected static final TagKey<DamageType>[] DAMAGE_TYPE_TAGS = new TagKey[]{

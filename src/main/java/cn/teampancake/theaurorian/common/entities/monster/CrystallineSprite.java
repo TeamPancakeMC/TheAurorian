@@ -3,14 +3,13 @@ package cn.teampancake.theaurorian.common.entities.monster;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -23,8 +22,10 @@ import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
-public class CrystallineSprite extends Monster implements RangedAttackMob {
+@SuppressWarnings("deprecation")
+public class CrystallineSprite extends Monster implements RangedAttackMob, IAffectedByNightmareMode {
 
     private float allowedHeightOffset = 0.5F;
     private int nextHeightOffsetChangeTick;
@@ -44,6 +45,16 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
+    }
+
+    @Override
+    public Monster affectedEntity() {
+        return this;
+    }
+
+    @Nullable @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+        return this.finalizeSpawn(level, spawnData);
     }
 
     public static boolean checkSpawnRules(EntityType<CrystallineSprite> crystallineSprite, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

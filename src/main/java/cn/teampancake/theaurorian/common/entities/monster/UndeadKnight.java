@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.UndeadKnightMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -29,10 +30,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class UndeadKnight extends Monster implements MultiPhaseAttacker {
+@SuppressWarnings("deprecation")
+public class UndeadKnight extends Monster implements MultiPhaseAttacker, IAffectedByNightmareMode {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
@@ -54,6 +57,16 @@ public class UndeadKnight extends Monster implements MultiPhaseAttacker {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, (8.0F)));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
+    }
+
+    @Override
+    public Monster affectedEntity() {
+        return this;
+    }
+
+    @Nullable @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+        return this.finalizeSpawn(level, spawnData);
     }
 
     public static boolean checkSpawnRules(EntityType<UndeadKnight> undeadKnight, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

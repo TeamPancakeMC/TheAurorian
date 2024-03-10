@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
 import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
@@ -34,18 +33,14 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.entity.projectile.ThrownEgg;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -55,7 +50,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -207,32 +201,6 @@ public class EntityEventSubscriber {
 
             if (effect instanceof ForbiddenCurseEffect forbiddenCurse && entity instanceof Player player) {
                 forbiddenCurse.restorePlayerInventoryItemEnchantments(player);
-            }
-        }
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    @SubscribeEvent
-    public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
-        Entity entity = event.getEntity();
-        if (entity instanceof Monster monster) {
-            GameRules gameRules = event.getLevel().getGameRules();
-            double baseHealth = monster.getAttributeBaseValue(Attributes.MAX_HEALTH);
-            double baseAttackDamage = monster.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
-            double baseMovementSpeed = monster.getAttributeBaseValue(Attributes.MOVEMENT_SPEED);
-            GameRules.BooleanValue rule1 = gameRules.getRule(TAGameRules.RULE_ENABLE_NIGHTMARE_MODE);
-            GameRules.IntegerValue rule2 = gameRules.getRule(TAGameRules.RULE_NIGHTMARE_MODE_MULTIPLIER);
-            if (monster.getType().is(TAEntityTags.AFFECTED_BY_NIGHTMARE_MODE)) {
-                double multiplier = Math.max(1.0D, rule2.get());
-                double newHealth = rule1.get() ? baseHealth * multiplier * 2.0D : baseHealth;
-                double newAttackDamage = rule1.get() ? baseAttackDamage * multiplier * 2.0D : baseAttackDamage;
-                double newMovementSpeed = rule1.get() ? baseMovementSpeed * multiplier * 2.0D : baseMovementSpeed;
-                monster.getAttribute(Attributes.MAX_HEALTH).setBaseValue(newHealth);
-                monster.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(newAttackDamage);
-                monster.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(newMovementSpeed);
-                if (monster.getLastDamageSource() == null) {
-                    monster.setHealth(monster.getMaxHealth());
-                }
             }
         }
     }

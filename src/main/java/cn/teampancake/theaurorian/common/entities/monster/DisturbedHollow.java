@@ -1,12 +1,11 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.entities.projectile.EyeOfDisturbedEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -15,12 +14,15 @@ import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
-public class DisturbedHollow extends Monster {
+@SuppressWarnings("deprecation")
+public class DisturbedHollow extends Monster implements IAffectedByNightmareMode {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
@@ -49,6 +51,16 @@ public class DisturbedHollow extends Monster {
         builder.add(Attributes.FOLLOW_RANGE, 35.0D);
         builder.add(Attributes.ARMOR, 2.0F);
         return builder;
+    }
+
+    @Override
+    public Monster affectedEntity() {
+        return this;
+    }
+
+    @Nullable @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+        return this.finalizeSpawn(level, spawnData);
     }
 
     @Override

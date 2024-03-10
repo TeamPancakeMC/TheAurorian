@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
 import cn.teampancake.theaurorian.common.entities.monster.MultiPhaseAttacker;
+import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -23,14 +24,16 @@ import net.minecraft.world.level.block.HoneyBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacker {
 
-    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Float> BOSS_HEALTH = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.FLOAT);
-
+    private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> BOSS_HEALTH = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.FLOAT);
     private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(),
             BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+    protected AttackManager<?> attackManager = new AttackManager<>(this, List.of());
 
     protected AbstractAurorianBoss(EntityType<? extends Monster> type, Level level) {
         super(type, level);
@@ -68,6 +71,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
     @Override
     protected void customServerAiStep() {
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+        this.attackManager.tick();
     }
 
     @Override
@@ -144,10 +148,16 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
     }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putFloat("TABossHealth", this.getHealth());
+    }
+
+    @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("Health", 99)) {
-            this.setBossHealth(compound.getFloat("Health"));
+        if (compound.contains("TABossHealth", 99)) {
+            this.setBossHealth(compound.getFloat("TABossHealth"));
         }
     }
 
@@ -205,6 +215,11 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
     @Override
     public boolean startRiding(Entity entity, boolean force) {
         return false;
+    }
+
+    @Override
+    public int getMaxSpawnClusterSize() {
+        return 1;
     }
 
 }

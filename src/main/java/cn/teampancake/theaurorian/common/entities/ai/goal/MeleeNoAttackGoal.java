@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.entities.ai;
+package cn.teampancake.theaurorian.common.entities.ai.goal;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.entities.ai.MeleeNoAttackGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.UndeadKnightMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TAItems;

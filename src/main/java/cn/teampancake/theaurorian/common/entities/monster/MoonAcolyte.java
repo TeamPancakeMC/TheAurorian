@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
-import cn.teampancake.theaurorian.common.entities.ai.MeleeNoAttackGoal;
-import cn.teampancake.theaurorian.common.entities.ai.ZombieLikeAttackGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.ZombieLikeAttackGoal;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.MoonAcolyteMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TABlocks;

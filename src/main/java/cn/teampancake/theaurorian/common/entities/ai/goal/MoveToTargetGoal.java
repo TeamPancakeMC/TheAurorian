@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.entities.ai;
+package cn.teampancake.theaurorian.common.entities.ai.goal;
 
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;

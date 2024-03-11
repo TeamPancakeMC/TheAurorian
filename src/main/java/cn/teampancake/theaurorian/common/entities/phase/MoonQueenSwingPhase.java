@@ -4,9 +4,9 @@ import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import net.minecraft.world.entity.LivingEntity;
 
-public class MoonQueenMeleePhase extends AttackPhase<MoonQueen> {
+public class MoonQueenSwingPhase extends AttackPhase<MoonQueen> {
 
-    public MoonQueenMeleePhase() {
+    public MoonQueenSwingPhase() {
         super(1, 1, 42, 10);
     }
 
@@ -20,7 +20,7 @@ public class MoonQueenMeleePhase extends AttackPhase<MoonQueen> {
         entity.triggerAnim("swing_controller", "swing_animation");
         LivingEntity target = entity.getTarget();
         if (target != null) {
-            entity.getLookControl().setLookAt(target);
+            entity.getLookControl().setLookAt(target.getX(), target.getEyeY(), target.getZ());
             entity.setAttackYRot(entity.getYRot());
         }
     }

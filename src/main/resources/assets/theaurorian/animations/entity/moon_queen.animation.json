@@ -609,8 +609,7 @@
 				}
 			}
 		},
-		"defend": {
-			"loop": true,
+		"attack.block": {
 			"animation_length": 1.25,
 			"bones": {
 				"all": {
@@ -809,7 +808,7 @@
 				}
 			}
 		},
-		"shrug": {
+		"misc.shrug": {
 			"animation_length": 0.75,
 			"bones": {
 				"all": {
@@ -924,7 +923,7 @@
 				}
 			}
 		},
-		"attack2": {
+		"skill.luna_befall": {
 			"animation_length": 10.25,
 			"bones": {
 				"all": {
@@ -1242,7 +1241,7 @@
 				}
 			}
 		},
-		"attackBreak": {
+		"skill.luna_befall_end": {
 			"animation_length": 1,
 			"bones": {
 				"all": {

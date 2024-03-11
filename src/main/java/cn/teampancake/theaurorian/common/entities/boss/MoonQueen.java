@@ -1,12 +1,10 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
 import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
-import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
-import cn.teampancake.theaurorian.common.entities.phase.MoonQueenMeleePhase;
+import cn.teampancake.theaurorian.common.entities.phase.*;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -34,6 +32,7 @@ import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -41,14 +40,18 @@ import java.util.List;
 
 public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
-    private static final EntityDataAccessor<Boolean> GLINTING = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.BOOLEAN);
+    private static final RawAnimation SHRUG = RawAnimation.begin().thenPlay("misc.shrug");
+    private static final RawAnimation LUNA_BEFALL = RawAnimation.begin().thenPlay("skill.luna_befall");
+    private static final RawAnimation LUNA_BEFALL_END = RawAnimation.begin().thenPlay("skill.luna_befall_end");
     private static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public MoonQueen(EntityType<? extends MoonQueen> type, Level level) {
         super(type, level);
         this.xpReward = 500;
-        this.attackManager = new AttackManager<>(this, List.of(new MoonQueenMeleePhase()));
+        this.attackManager = new AttackManager<>(this, List.of(
+                new MoonQueenSwingPhase(), new MoonQueenBlockPhase(), new MoonQueenShrugPhase(),
+                new MoonQueenLunaBefallPhase(), new MoonQueenLunaBefallEndPhase()));
     }
 
     @Override
@@ -77,7 +80,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(GLINTING, Boolean.FALSE);
         this.entityData.define(ATTACK_Y_ROT, 0.0F);
     }
 
@@ -91,19 +93,19 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         controllers.add(DefaultAnimations.genericWalkIdleController(this));
         controllers.add(new AnimationController<>(this, "swing_controller", state -> PlayState.STOP)
                 .triggerableAnim("swing_animation", DefaultAnimations.ATTACK_SWING).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "block_controller", state -> PlayState.STOP)
+                .triggerableAnim("block_animation", DefaultAnimations.ATTACK_BLOCK).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "shrug_controller", state -> PlayState.STOP)
+                .triggerableAnim("shrug_animation", SHRUG).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "luna_befall_controller", state -> PlayState.STOP)
+                .triggerableAnim("luna_befall_animation", LUNA_BEFALL).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "luna_befall_end_controller", state -> PlayState.STOP)
+                .triggerableAnim("luna_befall_end_animation", LUNA_BEFALL_END).transitionLength(5));
     }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
-    }
-
-    public void setGlinting(boolean glinting) {
-        this.entityData.set(GLINTING, glinting);
-    }
-
-    public boolean isGlinting() {
-        return this.entityData.get(GLINTING);
     }
 
     public float getAttackYRot() {
@@ -132,18 +134,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.IRON_GOLEM_STEP, 0.15F, 1.0F);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("Glinting", this.isGlinting());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setGlinting(compound.getBoolean("Glinting"));
     }
 
     @Override
@@ -194,10 +184,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     public boolean hurt(DamageSource source, float amount) {
         boolean flag = this.hasEffect(TAMobEffects.BLESS_OF_MOON.get());
-        if ((source.getEntity() != null && this.isGlinting()) || this.isInvulnerableTo(source)) {
-            return false;
-        }
-
         return super.hurt(source, flag ? amount / 2.0F : amount);
     }
 

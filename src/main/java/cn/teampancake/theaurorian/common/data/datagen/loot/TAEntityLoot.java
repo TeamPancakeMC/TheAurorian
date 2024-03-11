@@ -32,6 +32,7 @@ public class TAEntityLoot extends VanillaEntityLoot {
 
     @Override
     public void generate() {
+        this.add(TAEntityTypes.AURORIAN_VILLAGER.get(), LootTable.lootTable());
         //Animal
         this.add(TAEntityTypes.BREAD_BEAST.get(), LootTable.lootTable());
         this.add(TAEntityTypes.ICEFIELD_DEER.get(), LootTable.lootTable());

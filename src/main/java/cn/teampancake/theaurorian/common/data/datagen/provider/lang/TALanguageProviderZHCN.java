@@ -466,6 +466,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.AURORIAN_WINGED_FISH_SPAWN_EGG.get(), "极光翅鱼刷怪蛋");
         this.add(TAItems.AURORIAN_PIG_SPAWN_EGG.get(), "极光猪刷怪蛋");
         this.add(TAItems.AURORIAN_COW_SPAWN_EGG.get(), "极光牛刷怪蛋");
+        this.add(TAItems.AURORIAN_VILLAGER_SPAWN_EGG.get(), "极光村民刷怪蛋");
         this.add(TAItems.AURORIAN_RABBIT_SPAWN_EGG.get(), "极光兔刷怪蛋");
         this.add(TAItems.AURORIAN_SHEEP_SPAWN_EGG.get(), "极光羊刷怪蛋");
         this.add(TAItems.AURORIAN_PIXIE_SPAWN_EGG.get(), "极光精灵刷怪蛋");
@@ -649,6 +650,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.BLUE_TAIL_WOLF.get(), "青尾狼");
         this.add(TAEntityTypes.MOON_FISH.get(), "皎月鱼");
         this.add(TAEntityTypes.AURORIAN_WINGED_FISH.get(), "极光翅鱼");
+        this.add(TAEntityTypes.AURORIAN_VILLAGER.get(), "极光村民");
         this.add(TAEntityTypes.AURORIAN_RABBIT.get(), "极光兔");
         this.add(TAEntityTypes.AURORIAN_SHEEP.get(), "极光羊");
         this.add(TAEntityTypes.AURORIAN_PIG.get(), "极光猪");

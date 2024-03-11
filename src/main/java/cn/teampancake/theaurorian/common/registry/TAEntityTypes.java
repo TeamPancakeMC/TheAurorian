@@ -13,6 +13,7 @@ import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.*;
+import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
 import cn.teampancake.theaurorian.common.entities.projectile.*;
 import cn.teampancake.theaurorian.common.entities.technical.LunaCircleEntity;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
@@ -68,6 +69,10 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<LunaCircleEntity>> LUNA_CIRCLE = ENTITY_TYPES.register("luna_circle",
             () -> EntityType.Builder.of(LunaCircleEntity::new, MobCategory.MISC).sized(5.0F, 0.1F)
                     .clientTrackingRange((4)).updateInterval((10)).build("luna_circle"));
+    //NPC
+    public static final RegistryObject<EntityType<AurorianVillager>> AURORIAN_VILLAGER = ENTITY_TYPES.register("aurorian_villager",
+            () -> EntityType.Builder.of(AurorianVillager::new, MobCategory.CREATURE).sized(0.6F, 1.85F)
+                    .clientTrackingRange((8)).build("aurorian_villager"));
     //Animal
     public static final RegistryObject<EntityType<BreadBeast>> BREAD_BEAST = ENTITY_TYPES.register("bread_beast",
             () -> EntityType.Builder.of(BreadBeast::new, MobCategory.CREATURE).sized(1.0F, 2.0F)
@@ -168,6 +173,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(ICEFIELD_DEER.get(), IcefieldDeerRenderer::new);
         event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(BLUE_TAIL_WOLF.getId(), Boolean.TRUE)));
+        event.registerEntityRenderer(AURORIAN_VILLAGER.get(), AurorianVillagerRenderer::new);
         event.registerEntityRenderer(MOON_FISH.get(), MoonFishRenderer::new);
         event.registerEntityRenderer(AURORIAN_WINGED_FISH.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(AURORIAN_WINGED_FISH.getId())));
@@ -272,6 +278,7 @@ public class TAEntityTypes {
         event.put(BLUE_TAIL_WOLF.get(), BlueTailWolf.createAttributes().build());
         event.put(MOON_FISH.get(), MoonFish.createAttributes().build());
         event.put(AURORIAN_WINGED_FISH.get(), AurorianWingedFish.createAttributes().build());
+        event.put(AURORIAN_VILLAGER.get(), AurorianVillager.createAttributes().build());
         event.put(AURORIAN_RABBIT.get(), AurorianRabbit.createAttributes().build());
         event.put(AURORIAN_SHEEP.get(), AurorianSheep.createAttributes().build());
         event.put(AURORIAN_PIG.get(), AurorianPig.createAttributes().build());

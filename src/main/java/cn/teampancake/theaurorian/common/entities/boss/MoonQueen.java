@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.common.entities.phase.*;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -14,6 +15,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -27,6 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -45,6 +48,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     private static final RawAnimation LUNA_BEFALL_END = RawAnimation.begin().thenPlay("skill.luna_befall_end");
     private static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private long ticksCanOneHitMustKill = 24000L;
 
     public MoonQueen(EntityType<? extends MoonQueen> type, Level level) {
         super(type, level);
@@ -68,10 +72,10 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, 200.0D);
+        builder.add(Attributes.MAX_HEALTH, 500.0D);
         builder.add(Attributes.ATTACK_DAMAGE, 4.0D);
         builder.add(Attributes.KNOCKBACK_RESISTANCE, 0.85D);
-        builder.add(Attributes.MOVEMENT_SPEED, 0.2D);
+        builder.add(Attributes.MOVEMENT_SPEED, 0.25D);
         builder.add(Attributes.FOLLOW_RANGE, 40.0F);
         builder.add(Attributes.ARMOR, 8.0F);
         return builder;
@@ -117,6 +121,16 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     }
 
     @Override
+    public void tick() {
+        if (this.isAlive()) {
+            long l = this.ticksCanOneHitMustKill;
+            this.ticksCanOneHitMustKill = Math.min(l + 1L, 24000L);
+        }
+
+        super.tick();
+    }
+
+    @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.GHAST_AMBIENT;
     }
@@ -134,6 +148,18 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.IRON_GOLEM_STEP, 0.15F, 1.0F);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putLong("TicksCanOneHitMustKill", this.ticksCanOneHitMustKill);
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.ticksCanOneHitMustKill = compound.getLong("TicksCanOneHitMustKill");
     }
 
     @Override
@@ -183,6 +209,13 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+        if (this.isDeadOrDying() && this.ticksCanOneHitMustKill == 24000L) {
+            this.ticksCanOneHitMustKill = this.level().getGameTime();
+            this.addEffect(new MobEffectInstance(TAMobEffects.FALL_OF_MOON.get(), 200));
+            this.setHealth(1.0F);
+            return true;
+        }
+
         boolean flag = this.hasEffect(TAMobEffects.BLESS_OF_MOON.get());
         return super.hurt(source, flag ? amount / 2.0F : amount);
     }

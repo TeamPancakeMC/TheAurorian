@@ -26,6 +26,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -33,6 +34,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -148,17 +150,6 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onCalculatePotionColor(PotionColorCalculationEvent event) {
-        Set<MobEffect> effects = TAMobEffect.getMoonQueenOnlyEffects();
-        event.getEffects().forEach(instance -> {
-            if (effects.contains(instance.getEffect())) {
-                event.shouldHideParticles(true);
-                event.setColor(0);
-            }
-        });
-    }
-
-    @SubscribeEvent
     public static void onMobEffectApplicable(MobEffectEvent.Applicable event) {
         LivingEntity entity = event.getEntity();
         MobEffect effect = event.getEffectInstance().getEffect();
@@ -207,9 +198,9 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onLivingHeal(LivingHealEvent event) {
-        event.setCanceled(event.getEntity() instanceof Player player &&
-                (player.hasEffect(TAMobEffects.INCANTATION.get()) ||
-                        player.hasEffect(TAMobEffects.PRESSURE.get())));
+        if (event.getEntity() instanceof Player player && player.level().getDifficulty() != Difficulty.PEACEFUL) {
+            event.setCanceled(player.hasEffect(TAMobEffects.INCANTATION.get()) || player.hasEffect(TAMobEffects.PRESSURE.get()));
+        }
     }
 
     @SubscribeEvent
@@ -294,7 +285,14 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
-        if (event.getSource().getEntity() instanceof ServerPlayer serverPlayer) {
+        Entity sourceEntity = event.getSource().getEntity();
+        if (sourceEntity instanceof MoonQueen moonQueen) {
+            if (moonQueen.hasEffect(TAMobEffects.FALL_OF_MOON.get())) {
+                moonQueen.setBossHealth(Math.max(100.0F, moonQueen.getHealth()));
+            }
+        }
+
+        if (sourceEntity instanceof ServerPlayer serverPlayer) {
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(TAItems.TSLAT_SWORD.get())) {
                 int count = stack.getOrCreateTag().getInt("KillCount");

@@ -102,7 +102,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
     @Override
     public void setHealth(float health) {}
 
-    private void setBossHealth(float health) {
+    public void setBossHealth(float health) {
         this.entityData.set(BOSS_HEALTH, Mth.clamp(health, 0.0F, this.getMaxHealth()));
     }
 

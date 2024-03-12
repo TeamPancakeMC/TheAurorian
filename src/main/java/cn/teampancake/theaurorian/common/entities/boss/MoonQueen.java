@@ -56,6 +56,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     private static final RawAnimation SHRUG = RawAnimation.begin().thenPlay("misc.shrug");
     private static final RawAnimation LUNA_BEFALL = RawAnimation.begin().thenPlay("skill.luna_befall");
     private static final RawAnimation LUNA_BEFALL_END = RawAnimation.begin().thenPlay("skill.luna_befall_end");
+    private static final UUID HEALTH_ENHANCE_UUID = UUID.fromString("cc1b3ea9-01e6-4c52-bf2a-9b84b8c1792d");
     private static final UUID SPEED_ENHANCE_UUID = UUID.fromString("b215d775-85f4-49d8-96c3-30fec59f99a8");
     private static final UUID ARMOR_ENHANCE_UUID = UUID.fromString("b15bdb0b-0ae6-430a-b879-4d0db50e1268");
     private static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
@@ -70,7 +71,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     private long ticksCanOneHitMustKill = 24000L;
     private int ticksDueling = 2400;
     private int safeTime;
-    private boolean duelingMoment = false;
+    private boolean duelingMoment;
     private String currentDuelistUUID = "";
 
     public MoonQueen(EntityType<? extends MoonQueen> type, Level level) {
@@ -163,7 +164,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         return listTag;
     }
 
-    //随机传送至半径24格内血量最少或者距离最远的目标
     private void randomTeleportBehindTarget() {
         boolean flag = this.random.nextBoolean();
         List<String> uuidList = Lists.newArrayList();
@@ -233,9 +233,8 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             List<Player> playerList16 = this.level().getEntitiesOfClass(Player.class, aabb16);
             AttributeInstance health = this.getAttribute(TAAttributes.MAX_BOSS_HEALTH.get());
             serverPlayerList.forEach(player -> this.currentSavedUUID.add(player.getStringUUID()));
-            boolean isHalfHealth = this.getHealth() < this.getMaxHealth() * 0.5F;
             int size = this.currentSavedUUID.size() - this.alreadyHealForUUID.size();
-            //血量低于一半时，会进入决斗状态，并选中一名玩家，作为决斗者，同时给自身随机增加Buff
+            boolean isHalfHealth = this.getHealth() < this.getMaxHealth() * 0.5F;
             if (isHalfHealth && !this.duelingMoment && this.ticksDueling == 2400) {
                 this.addEffect(BUFF_LIST.get(this.random.nextInt(BUFF_LIST.size())));
                 this.selectDuelistFromNearestTarget();
@@ -247,20 +246,29 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 this.heal(50.0F);
             }
             //如果处在单人模式，一旦离开皎月女王超出十格的距离，那么会有50%的概率进行一次空间斩。
-            if (serverPlayerList.size() == 1) {
-                ServerPlayer singlePlayer = serverPlayerList.get(0);
-                if (this.distanceToSqr(singlePlayer) > 100.0D && this.random.nextBoolean()) {
-                    this.teleportToTheBackOfTheTarget(singlePlayer);
-                }
-            } else {
-                if (playerList16.isEmpty()) {
-                    this.randomTeleportBehindTarget();
+            if (this.duelingMoment) {
+                if (serverPlayerList.size() == 1) {
+                    ServerPlayer singlePlayer = serverPlayerList.get(0);
+                    if (this.distanceToSqr(singlePlayer) > 100.0D && this.random.nextBoolean()) {
+                        this.teleportToTheBackOfTheTarget(singlePlayer);
+                    }
+                } else {
+                    if (playerList16.isEmpty()) {
+                        this.randomTeleportBehindTarget();
+                    }
                 }
             }
             //皎月女王生成时，会根据在线的玩家数量（取不重复uuid值），额外增加”200×玩家数量“的血量。
             if (health != null && size > 0) {
                 float add = size * 200.0F;
-                health.setBaseValue(this.getMaxHealth() + add);
+                String name = "Permanent Health Enhance";
+                AttributeModifier.Operation operation = AttributeModifier.Operation.ADDITION;
+                AttributeModifier modifier = new AttributeModifier(HEALTH_ENHANCE_UUID, name, add, operation);
+                if (health.getModifier(HEALTH_ENHANCE_UUID) != null) {
+                    health.removePermanentModifier(HEALTH_ENHANCE_UUID);
+                }
+
+                health.addPermanentModifier(modifier);
                 this.heal(add);
             }
             //如果在24格之内找不到目标，则自增。
@@ -280,20 +288,18 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     @Override
     public void tick() {
-        if (this.isAlive()) {
+        super.tick();
+        if (!this.level().isClientSide && this.isAlive()) {
             long l = this.ticksCanOneHitMustKill;
             this.ticksCanOneHitMustKill = Math.min(l + 1L, 24000L);
-        }
-        //决斗的时长为期2分钟，故在此自减。
-        if (!this.level().isClientSide && this.duelingMoment) {
-            int i = this.ticksDueling;
-            this.ticksDueling = Math.min(i - 1, 0);
-            if (this.ticksDueling == 0) {
-                this.duelingMoment = false;
+            if (this.duelingMoment) {
+                int i = this.ticksDueling;
+                this.ticksDueling = Math.max(i - 1, 0);
+                if (this.ticksDueling == 0) {
+                    this.duelingMoment = false;
+                }
             }
         }
-
-        super.tick();
     }
 
     @Override
@@ -434,28 +440,10 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     public boolean hurt(DamageSource source, float amount) {
         boolean flag = this.hasEffect(TAMobEffects.BLESS_OF_MOON.get());
         if (!this.isInvulnerableTo(source)) {
-            //设置每个游戏天只能使用一次月临技能，此时皎月女王的护甲和速度都会有加成，并附带秒杀效果。
-            if (this.isDeadOrDying() && this.ticksCanOneHitMustKill == 24000L) {
-                AttributeInstance armor = this.getAttribute(Attributes.ARMOR);
-                AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
-                this.ticksCanOneHitMustKill = this.level().getGameTime();
-                this.addEffect(new MobEffectInstance(TAMobEffects.FALL_OF_MOON.get(), 200));
-                this.setHealth(1.0F);
-                if (armor != null && speed != null) {
-                    AttributeModifier.Operation operation = AttributeModifier.Operation.MULTIPLY_TOTAL;
-                    armor.addPermanentModifier(new AttributeModifier(ARMOR_ENHANCE_UUID, "Final Armor Enhance", 2.0D, operation));
-                    speed.addPermanentModifier(new AttributeModifier(SPEED_ENHANCE_UUID, "Final Speed Enhance", 0.2D, operation));
-                }
-
-                return true;
-            }
-
-            //在决斗期间，免疫任何远程伤害。
             if (this.duelingMoment && source.getDirectEntity() instanceof Projectile) {
                 return false;
             }
 
-            //在决斗期间，免疫任何除决斗者以外的任何伤害来源。
             if (source.getEntity() instanceof Player player) {
                 this.safeTime = 0;
                 if (this.duelingMoment) {
@@ -466,6 +454,26 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             }
 
             return super.hurt(source, flag ? amount / 2.0F : amount);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean checkTotemDeathProtection(DamageSource damageSource) {
+        if (this.ticksCanOneHitMustKill == 24000L) {
+            this.setBossHealth(1.0F);
+            AttributeInstance armor = this.getAttribute(Attributes.ARMOR);
+            AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
+            this.ticksCanOneHitMustKill = this.level().getDayTime() % 24000L;
+            this.addEffect(new MobEffectInstance(TAMobEffects.FALL_OF_MOON.get(), 200));
+            AttributeModifier.Operation operation = AttributeModifier.Operation.MULTIPLY_TOTAL;
+            if (armor != null && speed != null && armor.getModifier(ARMOR_ENHANCE_UUID) == null && speed.getModifier(SPEED_ENHANCE_UUID) == null) {
+                armor.addPermanentModifier(new AttributeModifier(ARMOR_ENHANCE_UUID, "Final Armor Enhance", 2.0D, operation));
+                speed.addPermanentModifier(new AttributeModifier(SPEED_ENHANCE_UUID, "Final Speed Enhance", 0.2D, operation));
+            }
+
+            return true;
         } else {
             return false;
         }

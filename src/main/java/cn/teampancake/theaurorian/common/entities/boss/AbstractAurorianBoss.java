@@ -109,7 +109,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
     public void setHealth(float health) {}
 
     public void setBossHealth(float health) {
-        this.entityData.set(BOSS_HEALTH, Mth.clamp(health, 0.0F, this.getMaxHealth()));
+        this.entityData.set(BOSS_HEALTH, Math.max(0.0F, health));
     }
 
     @Override
@@ -141,17 +141,6 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
             case 54 -> HoneyBlock.showJumpParticles(this);
             case 60 -> this.makePoofParticles();
             default -> {}
-        }
-    }
-
-    private void makePoofParticles() {
-        for (int i = 0; i < 20; ++i) {
-            double x = this.getRandomX(1.0D);
-            double z = this.getRandomZ(1.0D);
-            double d0 = this.random.nextGaussian() * 0.02D;
-            double d1 = this.random.nextGaussian() * 0.02D;
-            double d2 = this.random.nextGaussian() * 0.02D;
-            this.level().addParticle(ParticleTypes.POOF, x, this.getRandomY(), z, d0, d1, d2);
         }
     }
 
@@ -191,7 +180,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
                 }
             }
 
-            if (f != 0.0F && f < this.getMaxHealth() || (flag && damageSource.isCreativePlayer())) {
+            if (f != 0.0F && (f < this.getMaxHealth() || flag && damageSource.isCreativePlayer())) {
                 this.getCombatTracker().recordDamage(damageSource, f);
                 this.setBossHealth(this.getHealth() - f);
                 this.setAbsorptionAmount(this.getAbsorptionAmount() - f);

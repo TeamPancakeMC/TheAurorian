@@ -356,6 +356,9 @@ public class EntityEventSubscriber {
         ItemStack handStack = player.getItemInHand(player.getUsedItemHand());
         if (blockStack.is(Tags.Items.ORES) && handStack.is(TAItems.AURORIANITE_PICKAXE.get())) {
             event.setNewSpeed(event.getOriginalSpeed() * 1.4F);
+        } else if (state.is(TABlockTags.DUNGEON_BRICKS)) {
+            boolean flag = handStack.is(TAItems.QUEENS_CHIPPER.get());
+            event.setNewSpeed(flag ? event.getOriginalSpeed() * 16.0F : 0.0F);
         } else if (handStack.is(TAItems.UMBRA_PICKAXE.get())) {
             CompoundTag compoundTag = handStack.getOrCreateTag().getCompound("SelectedBlock");
             HolderLookup<Block> blockGetter = player.level().holderLookup(Registries.BLOCK);
@@ -363,9 +366,6 @@ public class EntityEventSubscriber {
             if (state.is(selected.getBlock()) && !state.isAir()) {
                 event.setNewSpeed(event.getOriginalSpeed() * 2.0F);
             }
-        } else if (state.is(TABlockTags.DUNGEON_BRICKS)) {
-            boolean flag = handStack.is(TAItems.QUEENS_CHIPPER.get());
-            event.setNewSpeed(flag ? event.getOriginalSpeed() * 16.0F : 0.0F);
         }
     }
 

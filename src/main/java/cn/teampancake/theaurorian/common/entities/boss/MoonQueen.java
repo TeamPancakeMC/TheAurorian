@@ -281,7 +281,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     public void tick() {
         if (this.isAlive()) {
-            //设置每个游戏天只能使用一次月临技能。
             long l = this.ticksCanOneHitMustKill;
             this.ticksCanOneHitMustKill = Math.min(l + 1L, 24000L);
         }
@@ -435,6 +434,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     public boolean hurt(DamageSource source, float amount) {
         boolean flag = this.hasEffect(TAMobEffects.BLESS_OF_MOON.get());
         if (!this.isInvulnerableTo(source)) {
+            //设置每个游戏天只能使用一次月临技能，此时皎月女王的护甲和速度都会有加成，并附带秒杀效果。
             if (this.isDeadOrDying() && this.ticksCanOneHitMustKill == 24000L) {
                 AttributeInstance armor = this.getAttribute(Attributes.ARMOR);
                 AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
@@ -450,10 +450,12 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 return true;
             }
 
+            //在决斗期间，免疫任何远程伤害。
             if (this.duelingMoment && source.getDirectEntity() instanceof Projectile) {
                 return false;
             }
 
+            //在决斗期间，免疫任何除决斗者以外的任何伤害来源。
             if (source.getEntity() instanceof Player player) {
                 this.safeTime = 0;
                 if (this.duelingMoment) {

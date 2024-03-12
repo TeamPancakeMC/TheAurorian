@@ -58,6 +58,7 @@ public class AurorianMod {
         TARecipes.RECIPE_TYPES.register(modEventBus);
         TARecipes.RECIPE_SERIALIZERS.register(modEventBus);
         TASoundEvents.SOUND_EVENTS.register(modEventBus);
+        TAAttributes.ATTRIBUTES.register(modEventBus);
         TAFluidTypes.FLUID_TYPES.register(modEventBus);
         TAEntityTypes.ENTITY_TYPES.register(modEventBus);
         TAEnchantments.ENCHANTMENTS.register(modEventBus);

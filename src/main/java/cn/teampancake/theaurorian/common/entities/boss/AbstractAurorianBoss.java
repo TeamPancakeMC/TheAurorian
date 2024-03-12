@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.entities.boss;
 
 import cn.teampancake.theaurorian.common.entities.monster.MultiPhaseAttacker;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
+import cn.teampancake.theaurorian.common.registry.TAAttributes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -100,6 +101,11 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
     }
 
     @Override
+    public float getMaxHealth() {
+        return (float)this.getAttributeValue(TAAttributes.MAX_BOSS_HEALTH.get());
+    }
+
+    @Override
     public void setHealth(float health) {}
 
     public void setBossHealth(float health) {
@@ -172,6 +178,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
 
     @Override
     protected void actuallyHurt(@NotNull DamageSource damageSource, float amount) {
+        boolean flag = damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
         if (!this.isInvulnerableTo(damageSource)) {
             amount = this.getDamageAfterArmorAbsorb(damageSource, amount);
             amount = this.getDamageAfterMagicAbsorb(damageSource, amount);
@@ -184,7 +191,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
                 }
             }
 
-            if (f != 0.0F && f < this.getMaxHealth() || damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            if (f != 0.0F && f < this.getMaxHealth() || (flag && damageSource.isCreativePlayer())) {
                 this.getCombatTracker().recordDamage(damageSource, f);
                 this.setBossHealth(this.getHealth() - f);
                 this.setAbsorptionAmount(this.getAbsorptionAmount() - f);

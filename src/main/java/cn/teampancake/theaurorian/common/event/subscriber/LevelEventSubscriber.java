@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.event.TAEventFactory;
 import cn.teampancake.theaurorian.common.network.TAMessages;
 import cn.teampancake.theaurorian.common.network.message.FutureNightMessage;
 import cn.teampancake.theaurorian.common.network.message.NightSyncMessage;
+import cn.teampancake.theaurorian.common.registry.TACapability;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAGameRules;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
@@ -73,7 +74,11 @@ public class LevelEventSubscriber {
                     }
 
                     if (dayTime > 6000 && dayTime <= 18000) {
-                        serverPlayer.addEffect(blessEffect(TAMobEffects.PRESSURE.get()));
+                        serverPlayer.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
+                            if (miscNBT.isShouldAffectByPressure()) {
+                                serverPlayer.addEffect(blessEffect(TAMobEffects.PRESSURE.get()));
+                            }
+                        });
                     } else {
                         if (serverLevel.getGameRules().getBoolean(TAGameRules.RULE_ENABLE_AURORIAN_BLESS)) {
                             if (phaseCode == 2) {

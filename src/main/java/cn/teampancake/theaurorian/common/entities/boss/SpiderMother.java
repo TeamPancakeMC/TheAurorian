@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.entities.boss;
 import cn.teampancake.theaurorian.common.entities.ai.goal.ModRangedAttackGoal;
 import cn.teampancake.theaurorian.common.entities.monster.Spiderling;
 import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
+import cn.teampancake.theaurorian.common.registry.TAAttributes;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -69,7 +70,7 @@ public class SpiderMother extends AbstractAurorianBoss {
     @NotNull
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, 160.0D);
+        builder.add(TAAttributes.MAX_BOSS_HEALTH.get(), 160.0D);
         builder.add(Attributes.ATTACK_DAMAGE, 3.0D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.3D);
         builder.add(Attributes.FOLLOW_RANGE, 50.0F);

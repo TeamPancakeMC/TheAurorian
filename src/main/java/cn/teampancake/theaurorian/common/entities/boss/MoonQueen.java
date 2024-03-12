@@ -2,21 +2,28 @@ package cn.teampancake.theaurorian.common.entities.boss;
 
 import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.phase.*;
+import cn.teampancake.theaurorian.common.registry.TAAttributes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -25,10 +32,13 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
@@ -39,16 +49,29 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import java.util.List;
+import java.util.*;
 
 public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     private static final RawAnimation SHRUG = RawAnimation.begin().thenPlay("misc.shrug");
     private static final RawAnimation LUNA_BEFALL = RawAnimation.begin().thenPlay("skill.luna_befall");
     private static final RawAnimation LUNA_BEFALL_END = RawAnimation.begin().thenPlay("skill.luna_befall_end");
+    private static final UUID SPEED_ENHANCE_UUID = UUID.fromString("b215d775-85f4-49d8-96c3-30fec59f99a8");
+    private static final UUID ARMOR_ENHANCE_UUID = UUID.fromString("b15bdb0b-0ae6-430a-b879-4d0db50e1268");
     private static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
+    private static final List<MobEffectInstance> BUFF_LIST = List.of(
+            new MobEffectInstance(TAMobEffects.CRESCENT.get(), 200),
+            new MobEffectInstance(TAMobEffects.BLESS_OF_MOON.get(), 200),
+            new MobEffectInstance(TAMobEffects.MOON_OF_VENGEANCE.get(), 200));
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private final HashSet<String> killedDuelistUUID = new HashSet<>();
+    private final HashSet<String> currentSavedUUID = new HashSet<>();
+    private final HashSet<String> alreadyHealForUUID = new HashSet<>();
     private long ticksCanOneHitMustKill = 24000L;
+    private int ticksDueling = 2400;
+    private int safeTime;
+    private boolean duelingMoment = false;
+    private String currentDuelistUUID = "";
 
     public MoonQueen(EntityType<? extends MoonQueen> type, Level level) {
         super(type, level);
@@ -72,8 +95,9 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, 500.0D);
+        builder.add(TAAttributes.MAX_BOSS_HEALTH.get(), 500.0D);
         builder.add(Attributes.ATTACK_DAMAGE, 4.0D);
+        builder.add(Attributes.ATTACK_KNOCKBACK, 0.5D);
         builder.add(Attributes.KNOCKBACK_RESISTANCE, 0.85D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.25D);
         builder.add(Attributes.FOLLOW_RANGE, 40.0F);
@@ -120,11 +144,154 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         this.entityData.set(ATTACK_Y_ROT, attackYRot);
     }
 
+    public boolean isDuelingMoment() {
+        return this.duelingMoment;
+    }
+
+    public HashSet<String> getKilledDuelistUUID() {
+        return this.killedDuelistUUID;
+    }
+
+    private ListTag saveListTag(HashSet<String> list) {
+        ListTag listTag = new ListTag();
+        list.forEach(s -> {
+            CompoundTag compound = new CompoundTag();
+            compound.putString("UUID", s);
+            listTag.add(compound);
+        });
+
+        return listTag;
+    }
+
+    //随机传送至半径24格内血量最少或者距离最远的目标
+    private void randomTeleportBehindTarget() {
+        boolean flag = this.random.nextBoolean();
+        List<String> uuidList = Lists.newArrayList();
+        List<Integer> integerList = Lists.newArrayList();
+        TreeMap<String, Integer> treeMap = new TreeMap<>();
+        AABB aabb = this.getBoundingBox().inflate((24.0D));
+        List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
+        playerList.stream().filter(this::hasLineOfSight).forEach(player -> {
+            float d = (float) this.distanceToSqr(player);
+            float f = flag ? player.getHealth() : d;
+            treeMap.put(player.getStringUUID(), (int) f);
+        });
+
+        treeMap.forEach((key, value) -> integerList.add(value));
+        Collections.sort(integerList);
+        treeMap.forEach((key, value) -> {
+            int index = flag ? 0 : integerList.size();
+            if (Objects.equals(treeMap.get(key), integerList.get(index))) {
+                uuidList.add(key);
+            }
+        });
+
+        if (!uuidList.isEmpty()) {
+            String uuid = uuidList.get(this.random.nextInt(uuidList.size()));
+            for (Player player : playerList) {
+                if (player.getStringUUID().equals(uuid)) {
+                    this.teleportToTheBackOfTheTarget(player);
+                    break;
+                }
+            }
+        }
+    }
+
+    //传送到玩家的背后
+    private void teleportToTheBackOfTheTarget(LivingEntity target) {
+        double deltaX = this.getX() - target.getX();
+        double deltaZ = this.getZ() - target.getZ();
+        double x = target.getX() - (deltaX * 2.0D);
+        double z = this.getZ() - (deltaZ * 2.0D);
+        this.randomTeleport(x, target.getY(), z, Boolean.TRUE);
+        this.getLookControl().setLookAt(target);
+        this.setTarget(target);
+    }
+
+    //从附近24格之内寻找一名玩家作为决斗者
+    public void selectDuelistFromNearestTarget() {
+        AABB aabb = this.getBoundingBox().inflate(24.0D);
+        List<String> uuidList = Lists.newArrayList();
+        List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
+        playerList.forEach(player -> uuidList.add(player.getStringUUID()));
+        boolean flag = this.currentDuelistUUID.isEmpty() || !uuidList.contains(this.currentDuelistUUID);
+        if (!playerList.isEmpty() && flag && this.ticksDueling > 0) {
+            int index = this.random.nextInt(playerList.size());
+            this.currentDuelistUUID = playerList.get(index).getStringUUID();
+        }
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        super.customServerAiStep();
+        if (this.level() instanceof ServerLevel serverLevel) {
+            String uuid = this.currentDuelistUUID;
+            AABB aabb16 = this.getBoundingBox().inflate(16.0D);
+            AABB aabb24 = this.getBoundingBox().inflate(24.0D);
+            List<ServerPlayer> serverPlayerList = serverLevel.players();
+            List<Player> playerList24 = this.level().getEntitiesOfClass(Player.class, aabb24);
+            List<Player> playerList16 = this.level().getEntitiesOfClass(Player.class, aabb16);
+            AttributeInstance health = this.getAttribute(TAAttributes.MAX_BOSS_HEALTH.get());
+            serverPlayerList.forEach(player -> this.currentSavedUUID.add(player.getStringUUID()));
+            boolean isHalfHealth = this.getHealth() < this.getMaxHealth() * 0.5F;
+            int size = this.currentSavedUUID.size() - this.alreadyHealForUUID.size();
+            //血量低于一半时，会进入决斗状态，并选中一名玩家，作为决斗者，同时给自身随机增加Buff
+            if (isHalfHealth && !this.duelingMoment && this.ticksDueling == 2400) {
+                this.addEffect(BUFF_LIST.get(this.random.nextInt(BUFF_LIST.size())));
+                this.selectDuelistFromNearestTarget();
+                this.duelingMoment = true;
+            }
+            //如果处于决斗期间，并且已经选定好了决斗者的情况下，决斗者脱离战场，则重新寻找决斗者并恢复50点血量。
+            if (!uuid.isEmpty() && playerList24.isEmpty() && this.duelingMoment) {
+                this.selectDuelistFromNearestTarget();
+                this.heal(50.0F);
+            }
+            //如果处在单人模式，一旦离开皎月女王超出十格的距离，那么会有50%的概率进行一次空间斩。
+            if (serverPlayerList.size() == 1) {
+                ServerPlayer singlePlayer = serverPlayerList.get(0);
+                if (this.distanceToSqr(singlePlayer) > 100.0D && this.random.nextBoolean()) {
+                    this.teleportToTheBackOfTheTarget(singlePlayer);
+                }
+            } else {
+                if (playerList16.isEmpty()) {
+                    this.randomTeleportBehindTarget();
+                }
+            }
+            //皎月女王生成时，会根据在线的玩家数量（取不重复uuid值），额外增加”200×玩家数量“的血量。
+            if (health != null && size > 0) {
+                float add = size * 200.0F;
+                health.setBaseValue(this.getMaxHealth() + add);
+                this.heal(add);
+            }
+            //如果在24格之内找不到目标，则自增。
+            if (playerList24.isEmpty()) {
+                ++this.safeTime;
+            } else {
+                this.safeTime = 0;
+            }
+            //超过3秒钟没有目标，则每刻恢复2.5生命值。
+            if (this.safeTime > 60) {
+                this.heal(2.5F);
+            }
+
+            this.alreadyHealForUUID.addAll(this.currentSavedUUID);
+        }
+    }
+
     @Override
     public void tick() {
         if (this.isAlive()) {
+            //设置每个游戏天只能使用一次月临技能。
             long l = this.ticksCanOneHitMustKill;
             this.ticksCanOneHitMustKill = Math.min(l + 1L, 24000L);
+        }
+        //决斗的时长为期2分钟，故在此自减。
+        if (!this.level().isClientSide && this.duelingMoment) {
+            int i = this.ticksDueling;
+            this.ticksDueling = Math.min(i - 1, 0);
+            if (this.ticksDueling == 0) {
+                this.duelingMoment = false;
+            }
         }
 
         super.tick();
@@ -153,13 +320,69 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putInt("SafeTime", this.safeTime);
+        compound.putInt("TicksDueling", this.ticksDueling);
+        compound.putBoolean("DuelingMoment", this.duelingMoment);
+        compound.putString("CurrentDuelistUUID", this.currentDuelistUUID);
         compound.putLong("TicksCanOneHitMustKill", this.ticksCanOneHitMustKill);
+        compound.put("KilledDuelistUUID", this.saveListTag(this.killedDuelistUUID));
+        compound.put("CurrentSavedUUID", this.saveListTag(this.currentSavedUUID));
+        compound.put("AlreadyHealForUUID", this.saveListTag(this.alreadyHealForUUID));
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.safeTime = compound.getInt("SafeTime");
+        this.ticksDueling = compound.getInt("TicksDueling");
+        this.duelingMoment = compound.getBoolean("DuelingMoment");
+        this.currentDuelistUUID = compound.getString("CurrentDuelistUUID");
         this.ticksCanOneHitMustKill = compound.getLong("TicksCanOneHitMustKill");
+        ListTag listTagK = compound.getList("KilledDuelistUUID", 10);
+        for (int i = 0; i < listTagK.size(); i++) {
+            this.killedDuelistUUID.add(listTagK.getCompound(i).getString("UUID"));
+        }
+
+        ListTag listTagC = compound.getList("CurrentSavedUUID", 10);
+        for (int i = 0; i < listTagC.size(); i++) {
+            this.currentSavedUUID.add(listTagC.getCompound(i).getString("UUID"));
+        }
+
+        ListTag listTagT = compound.getList("AlreadyHealForUUID", 10);
+        for (int i = 0; i < listTagT.size(); i++) {
+            this.alreadyHealForUUID.add(listTagT.getCompound(i).getString("UUID"));
+        }
+    }
+
+    @Override
+    protected void tickEffects() {
+        Iterator<MobEffect> iterator = this.getActiveEffectsMap().keySet().iterator();
+        try {
+            while (iterator.hasNext()) {
+                MobEffectInstance instance = this.getActiveEffectsMap().get(iterator.next());
+                if (!instance.tick(this, () -> this.onEffectUpdated(instance, true, null))) {
+                    if (!this.level().isClientSide) {
+                        iterator.remove();
+                        this.onEffectRemoved(instance);
+                        if (this.duelingMoment && BUFF_LIST.contains(instance)) {
+                            this.addEffect(BUFF_LIST.get(this.random.nextInt(BUFF_LIST.size())));
+                        }
+                    }
+                } else if (instance.getDuration() % 600 == 0) {
+                    this.onEffectUpdated(instance, false, null);
+                }
+            }
+        } catch (ConcurrentModificationException ignored) {
+        }
+    }
+
+    @Override
+    public boolean canBeAffected(MobEffectInstance effectInstance) {
+        if (this.duelingMoment && !effectInstance.getEffect().isBeneficial()) {
+            return false;
+        }
+
+        return super.canBeAffected(effectInstance);
     }
 
     @Override
@@ -170,6 +393,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             f += EnchantmentHelper.getDamageBonus(this.getMainHandItem(), livingEntity.getMobType());
             f1 += (float)EnchantmentHelper.getKnockbackBonus(this);
             if (this.hasEffect(TAMobEffects.FALL_OF_MOON.get())) {
+                this.heal(this.getMaxHealth() * 0.2F);
                 livingEntity.kill();
                 return true;
             }
@@ -209,15 +433,40 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (this.isDeadOrDying() && this.ticksCanOneHitMustKill == 24000L) {
-            this.ticksCanOneHitMustKill = this.level().getGameTime();
-            this.addEffect(new MobEffectInstance(TAMobEffects.FALL_OF_MOON.get(), 200));
-            this.setHealth(1.0F);
-            return true;
-        }
-
         boolean flag = this.hasEffect(TAMobEffects.BLESS_OF_MOON.get());
-        return super.hurt(source, flag ? amount / 2.0F : amount);
+        if (!this.isInvulnerableTo(source)) {
+            if (this.isDeadOrDying() && this.ticksCanOneHitMustKill == 24000L) {
+                AttributeInstance armor = this.getAttribute(Attributes.ARMOR);
+                AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
+                this.ticksCanOneHitMustKill = this.level().getGameTime();
+                this.addEffect(new MobEffectInstance(TAMobEffects.FALL_OF_MOON.get(), 200));
+                this.setHealth(1.0F);
+                if (armor != null && speed != null) {
+                    AttributeModifier.Operation operation = AttributeModifier.Operation.MULTIPLY_TOTAL;
+                    armor.addPermanentModifier(new AttributeModifier(ARMOR_ENHANCE_UUID, "Final Armor Enhance", 2.0D, operation));
+                    speed.addPermanentModifier(new AttributeModifier(SPEED_ENHANCE_UUID, "Final Speed Enhance", 0.2D, operation));
+                }
+
+                return true;
+            }
+
+            if (this.duelingMoment && source.getDirectEntity() instanceof Projectile) {
+                return false;
+            }
+
+            if (source.getEntity() instanceof Player player) {
+                this.safeTime = 0;
+                if (this.duelingMoment) {
+                    if (!this.currentDuelistUUID.equals(player.getStringUUID())) {
+                        return false;
+                    }
+                }
+            }
+
+            return super.hurt(source, flag ? amount / 2.0F : amount);
+        } else {
+            return false;
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
+import cn.teampancake.theaurorian.common.data.nbt.MiscNBT;
 import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
 import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
@@ -51,6 +52,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
@@ -287,12 +289,24 @@ public class EntityEventSubscriber {
     public static void onLivingDeath(LivingDeathEvent event) {
         Entity sourceEntity = event.getSource().getEntity();
         if (sourceEntity instanceof MoonQueen moonQueen) {
-            if (moonQueen.hasEffect(TAMobEffects.FALL_OF_MOON.get())) {
+            if (moonQueen.isDuelingMoment()) {
+                if (event.getEntity() instanceof ServerPlayer player) {
+                    moonQueen.heal(50.0F);
+                    String uuid = player.getStringUUID();
+                    moonQueen.getKilledDuelistUUID().add(uuid);
+                    moonQueen.selectDuelistFromNearestTarget();
+                }
+            } else if (moonQueen.hasEffect(TAMobEffects.FALL_OF_MOON.get())) {
                 moonQueen.setBossHealth(Math.max(100.0F, moonQueen.getHealth()));
             }
         }
 
         if (sourceEntity instanceof ServerPlayer serverPlayer) {
+            if (event.getEntity() instanceof MoonQueen) {
+                LazyOptional<MiscNBT> capability = serverPlayer.getCapability(TACapability.MISC_CAP);
+                capability.ifPresent(miscNBT -> miscNBT.setShouldAffectByPressure(false));
+            }
+
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(TAItems.TSLAT_SWORD.get())) {
                 int count = stack.getOrCreateTag().getInt("KillCount");

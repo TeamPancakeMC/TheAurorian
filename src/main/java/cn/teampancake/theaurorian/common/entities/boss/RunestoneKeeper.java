@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
+import cn.teampancake.theaurorian.common.registry.TAAttributes;
 import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
@@ -63,7 +64,7 @@ public class RunestoneKeeper extends AbstractAurorianBoss implements RangedAttac
 
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, 200.0D);
+        builder.add(TAAttributes.MAX_BOSS_HEALTH.get(), 200.0D);
         builder.add(Attributes.ATTACK_DAMAGE, 2.0D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.3D);
         builder.add(Attributes.FOLLOW_RANGE, 50.0F);

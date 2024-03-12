@@ -12,7 +12,7 @@ public class MoonQueenLunaBefallPhase extends AttackPhase<MoonQueen> {
 
     @Override
     public boolean canStart(MoonQueen entity, boolean coolDownOver) {
-        return coolDownOver && entity.getTarget() != null && entity.getHealth() < entity.getMaxHealth() / 2.0D;
+        return coolDownOver && !entity.isDuelingMoment() && entity.getTarget() != null && entity.getHealth() < entity.getMaxHealth() / 2.0D;
     }
 
     @Override

@@ -18,7 +18,7 @@ public class UndeadKnightMeleePhase extends AttackPhase<UndeadKnight> {
 
     @Override
     public void onStart(UndeadKnight entity) {
-
+        entity.triggerAnim("stab_controller", "stab_animation");
     }
 
     @Override
@@ -37,4 +37,5 @@ public class UndeadKnightMeleePhase extends AttackPhase<UndeadKnight> {
     public void onStop(UndeadKnight entity) {
 
     }
+
 }

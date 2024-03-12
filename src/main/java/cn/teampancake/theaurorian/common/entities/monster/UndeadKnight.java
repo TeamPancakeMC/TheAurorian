@@ -31,17 +31,24 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class UndeadKnight extends Monster implements MultiPhaseAttacker, IAffectedByNightmareMode {
+public class UndeadKnight extends Monster implements GeoEntity, MultiPhaseAttacker, IAffectedByNightmareMode {
 
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState attackAnimationState = new AnimationState();
     protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(UndeadKnight.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(UndeadKnight.class, EntityDataSerializers.INT);
     private final AttackManager<UndeadKnight> attackManager = new AttackManager<>(this, List.of(new UndeadKnightMeleePhase()));
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public UndeadKnight(EntityType<? extends UndeadKnight> type, Level level) {
         super(type, level);
@@ -59,15 +66,6 @@ public class UndeadKnight extends Monster implements MultiPhaseAttacker, IAffect
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
     }
 
-    @Nullable @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        return this.finalizeSpawn(this, level, spawnData);
-    }
-
-    public static boolean checkSpawnRules(EntityType<UndeadKnight> undeadKnight, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkMonsterSpawnRules(undeadKnight, level, spawnType, pos, random);
-    }
-
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
         builder.add(Attributes.MAX_HEALTH, 20.0F);
@@ -78,6 +76,15 @@ public class UndeadKnight extends Monster implements MultiPhaseAttacker, IAffect
         return builder;
     }
 
+    public static boolean checkSpawnRules(EntityType<UndeadKnight> undeadKnight, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkMonsterSpawnRules(undeadKnight, level, spawnType, pos, random);
+    }
+
+    @Nullable @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+        return this.finalizeSpawn(this, level, spawnData);
+    }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -86,13 +93,20 @@ public class UndeadKnight extends Monster implements MultiPhaseAttacker, IAffect
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
-        if (accessor.equals(ATTACK_STATE) && this.getAttackState() != 0) {
-            if (this.getAttackState() == UndeadKnightMeleePhase.ID) {
-                this.attackAnimationState.start(this.tickCount);
-            }
-        }
-        super.onSyncedDataUpdated(accessor);
+    protected void customServerAiStep() {
+        this.attackManager.tick();
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericWalkIdleController(this));
+        controllers.add(new AnimationController<>(this, "stab_controller", state -> PlayState.STOP)
+                .triggerableAnim("stab_animation", RawAnimation.begin().thenPlay("attack.stab")).transitionLength(5));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
     public int getAttackState() {
@@ -107,16 +121,6 @@ public class UndeadKnight extends Monster implements MultiPhaseAttacker, IAffect
     }
     public void setAttackTicks(int attackTicks) {
         this.entityData.set(ATTACK_TICKS, attackTicks);
-    }
-
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        if (this.level().isClientSide()) {
-            this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.walkAnimation.isMoving(), this.tickCount);
-        } else {
-            this.attackManager.tick();
-        }
     }
 
     @Override

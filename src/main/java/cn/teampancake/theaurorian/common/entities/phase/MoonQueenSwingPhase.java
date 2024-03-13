@@ -12,7 +12,7 @@ public class MoonQueenSwingPhase extends AttackPhase<MoonQueen> {
 
     @Override
     public boolean canStart(MoonQueen entity, boolean coolDownOver) {
-        return coolDownOver && TAEntityUtils.canReachTarget(entity, 2);
+        return entity.isAlive() && coolDownOver && TAEntityUtils.canReachTarget(entity, 2);
     }
 
     @Override

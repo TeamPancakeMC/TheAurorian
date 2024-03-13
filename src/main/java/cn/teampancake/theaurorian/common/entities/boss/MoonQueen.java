@@ -56,7 +56,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     private static final RawAnimation SHRUG = RawAnimation.begin().thenPlay("misc.shrug");
     private static final RawAnimation LUNA_BEFALL = RawAnimation.begin().thenPlay("skill.luna_befall");
     private static final RawAnimation LUNA_BEFALL_END = RawAnimation.begin().thenPlay("skill.luna_befall_end");
-    private static final UUID HEALTH_ENHANCE_UUID = UUID.fromString("cc1b3ea9-01e6-4c52-bf2a-9b84b8c1792d");
     private static final UUID SPEED_ENHANCE_UUID = UUID.fromString("b215d775-85f4-49d8-96c3-30fec59f99a8");
     private static final UUID ARMOR_ENHANCE_UUID = UUID.fromString("b15bdb0b-0ae6-430a-b879-4d0db50e1268");
     private static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
@@ -145,6 +144,10 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         this.entityData.set(ATTACK_Y_ROT, attackYRot);
     }
 
+    public void setSafeTime(int safeTime) {
+        this.safeTime = safeTime;
+    }
+
     public boolean isDuelingMoment() {
         return this.duelingMoment;
     }
@@ -197,7 +200,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         }
     }
 
-    //传送到玩家的背后
     private void teleportToTheBackOfTheTarget(LivingEntity target) {
         double deltaX = this.getX() - target.getX();
         double deltaZ = this.getZ() - target.getZ();
@@ -208,7 +210,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         this.setTarget(target);
     }
 
-    //从附近24格之内寻找一名玩家作为决斗者
     public void selectDuelistFromNearestTarget() {
         AABB aabb = this.getBoundingBox().inflate(24.0D);
         List<String> uuidList = Lists.newArrayList();
@@ -229,55 +230,33 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             AABB aabb16 = this.getBoundingBox().inflate(16.0D);
             AABB aabb24 = this.getBoundingBox().inflate(24.0D);
             List<ServerPlayer> serverPlayerList = serverLevel.players();
-            List<Player> playerList24 = this.level().getEntitiesOfClass(Player.class, aabb24);
             List<Player> playerList16 = this.level().getEntitiesOfClass(Player.class, aabb16);
+            List<Player> playerList24 = this.level().getEntitiesOfClass(Player.class, aabb24);
             AttributeInstance health = this.getAttribute(TAAttributes.MAX_BOSS_HEALTH.get());
             serverPlayerList.forEach(player -> this.currentSavedUUID.add(player.getStringUUID()));
-            int size = this.currentSavedUUID.size() - this.alreadyHealForUUID.size();
+            int size = this.currentSavedUUID.size() - this.alreadyHealForUUID.size() - 1;
             boolean isHalfHealth = this.getHealth() < this.getMaxHealth() * 0.5F;
             if (isHalfHealth && !this.duelingMoment && this.ticksDueling == 2400) {
                 this.addEffect(BUFF_LIST.get(this.random.nextInt(BUFF_LIST.size())));
                 this.selectDuelistFromNearestTarget();
                 this.duelingMoment = true;
             }
-            //如果处于决斗期间，并且已经选定好了决斗者的情况下，决斗者脱离战场，则重新寻找决斗者并恢复50点血量。
+
             if (!uuid.isEmpty() && playerList24.isEmpty() && this.duelingMoment) {
                 this.selectDuelistFromNearestTarget();
                 this.heal(50.0F);
             }
-            //如果处在单人模式，一旦离开皎月女王超出十格的距离，那么会有50%的概率进行一次空间斩。
-            if (this.duelingMoment) {
-                if (serverPlayerList.size() == 1) {
-                    ServerPlayer singlePlayer = serverPlayerList.get(0);
-                    if (this.distanceToSqr(singlePlayer) > 100.0D && this.random.nextBoolean()) {
-                        this.teleportToTheBackOfTheTarget(singlePlayer);
-                    }
-                } else {
-                    if (playerList16.isEmpty()) {
-                        this.randomTeleportBehindTarget();
-                    }
-                }
-            }
-            //皎月女王生成时，会根据在线的玩家数量（取不重复uuid值），额外增加”200×玩家数量“的血量。
-            if (health != null && size > 0) {
-                float add = size * 200.0F;
-                String name = "Permanent Health Enhance";
-                AttributeModifier.Operation operation = AttributeModifier.Operation.ADDITION;
-                AttributeModifier modifier = new AttributeModifier(HEALTH_ENHANCE_UUID, name, add, operation);
-                if (health.getModifier(HEALTH_ENHANCE_UUID) != null) {
-                    health.removePermanentModifier(HEALTH_ENHANCE_UUID);
-                }
 
-                health.addPermanentModifier(modifier);
-                this.heal(add);
+            if (health != null && size > 0) {
+                health.setBaseValue(this.getMaxHealth() + size * 200.0F);
             }
-            //如果在24格之内找不到目标，则自增。
+
             if (playerList24.isEmpty()) {
                 ++this.safeTime;
             } else {
                 this.safeTime = 0;
             }
-            //超过3秒钟没有目标，则每刻恢复2.5生命值。
+
             if (this.safeTime > 60) {
                 this.heal(2.5F);
             }
@@ -290,14 +269,10 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     public void tick() {
         super.tick();
         if (!this.level().isClientSide && this.isAlive()) {
-            long l = this.ticksCanOneHitMustKill;
-            this.ticksCanOneHitMustKill = Math.min(l + 1L, 24000L);
-            if (this.duelingMoment) {
-                int i = this.ticksDueling;
-                this.ticksDueling = Math.max(i - 1, 0);
-                if (this.ticksDueling == 0) {
-                    this.duelingMoment = false;
-                }
+            long l = this.ticksCanOneHitMustKill + 1L;
+            this.ticksCanOneHitMustKill = Math.min(l, 24000L);
+            if (this.duelingMoment && --this.ticksDueling == 0) {
+                this.duelingMoment = false;
             }
         }
     }

@@ -30,6 +30,7 @@ public class TAMobEffects {
     public static final RegistryObject<MobEffect> CONCEALMENT = MOB_EFFECTS.register("concealment", () -> new IncurableEffect(MobEffectCategory.HARMFUL, 0x2b2b2b));
     public static final RegistryObject<MobEffect> FALL_OF_MOON = MOB_EFFECTS.register("fall_of_moon", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xb76ce6));
     public static final RegistryObject<MobEffect> BLESS_OF_MOON = MOB_EFFECTS.register("bless_of_moon", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xe3d5aa));
+    public static final RegistryObject<MobEffect> POTION_REMAIN = MOB_EFFECTS.register("potion_remain", () -> new TAMobEffect(MobEffectCategory.NEUTRAL, 0xe98551));
     public static final RegistryObject<MobEffect> WARM = MOB_EFFECTS.register("warm", WarmEffect::new);
     public static final RegistryObject<MobEffect> NATURE = MOB_EFFECTS.register("nature", NatureEffect::new);
     public static final RegistryObject<MobEffect> TREMOR = MOB_EFFECTS.register("tremor", TremorEffect::new);

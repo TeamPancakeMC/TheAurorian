@@ -696,6 +696,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAMobEffects.TEMP_SHIELD.get(), "Temp Shield");
         this.add(TAMobEffects.FALL_OF_MOON.get(), "Fall of Moon");
         this.add(TAMobEffects.BLESS_OF_MOON.get(), "Bless of Moon");
+        this.add(TAMobEffects.POTION_REMAIN.get(), "Potion Remain");
         this.add(TAMobEffects.FORBIDDEN_CURSE.get(), "Forbidden Curse");
         this.add(TAMobEffects.MOON_OF_VENGEANCE.get(), "Moon of Vengeance");
 

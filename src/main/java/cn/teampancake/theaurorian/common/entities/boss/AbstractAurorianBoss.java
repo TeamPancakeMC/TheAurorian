@@ -109,7 +109,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
     public void setHealth(float health) {}
 
     public void setBossHealth(float health) {
-        this.entityData.set(BOSS_HEALTH, Math.max(0.0F, health));
+        this.entityData.set(BOSS_HEALTH, Mth.clamp(health, 0.0F, this.getMaxHealth()));
     }
 
     @Override
@@ -208,10 +208,8 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
 
     @Override
     public void checkDespawn() {
-        if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL) {
             this.discard();
-        } else {
-            this.noActionTime = 0;
         }
     }
 

@@ -8,14 +8,14 @@ public class MiscNBT {
     private float damageAccumulation;
     private float exhaustionAccumulation;
     private float armorHurtAccumulation;
-    private boolean shouldAffectByPressure = true;
+    private boolean immuneToPressure;
 
     public void saveNBTData(CompoundTag compound) {
         compound.putInt("TicksFrostbite", this.ticksFrostbite);
         compound.putFloat("DamageAccumulation", this.damageAccumulation);
         compound.putFloat("ExhaustionAccumulation", this.exhaustionAccumulation);
         compound.putFloat("ArmorHurtAccumulation", this.armorHurtAccumulation);
-        compound.putBoolean("ShouldAffectByPressure", this.shouldAffectByPressure);
+        compound.putBoolean("ImmuneToPressure", this.immuneToPressure);
     }
 
     public void loadNBTData(CompoundTag compound) {
@@ -23,7 +23,7 @@ public class MiscNBT {
         this.damageAccumulation = compound.getInt("DamageAccumulation");
         this.exhaustionAccumulation = compound.getInt("ExhaustionAccumulation");
         this.armorHurtAccumulation = compound.getInt("ArmorHurtAccumulation");
-        this.shouldAffectByPressure = compound.getBoolean("ShouldAffectByPressure");
+        this.immuneToPressure = compound.getBoolean("ShouldAffectByPressure");
     }
 
     public void copyFrom(MiscNBT source) {
@@ -31,7 +31,7 @@ public class MiscNBT {
         this.damageAccumulation = source.damageAccumulation;
         this.exhaustionAccumulation = source.exhaustionAccumulation;
         this.armorHurtAccumulation = source.armorHurtAccumulation;
-        this.shouldAffectByPressure = source.shouldAffectByPressure;
+        this.immuneToPressure = source.immuneToPressure;
     }
 
     public int getTicksFrostbite() {
@@ -66,12 +66,12 @@ public class MiscNBT {
         this.armorHurtAccumulation = value;
     }
 
-    public boolean isShouldAffectByPressure() {
-        return this.shouldAffectByPressure;
+    public boolean isImmuneToPressure() {
+        return this.immuneToPressure;
     }
 
-    public void setShouldAffectByPressure(boolean value) {
-        this.shouldAffectByPressure = value;
+    public void setImmuneToPressure(boolean value) {
+        this.immuneToPressure = value;
     }
 
 }

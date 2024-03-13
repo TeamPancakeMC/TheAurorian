@@ -61,6 +61,7 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
@@ -89,6 +90,20 @@ public class EntityEventSubscriber {
                     player.setSharedFlagOnFire(false);
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerCloned(PlayerEvent.Clone event) {
+        Player originalPlayer = event.getOriginal();
+        Player newPlayer = event.getEntity();
+        Collection<MobEffectInstance> activeEffects = originalPlayer.getActiveEffects();
+        boolean flag = originalPlayer.hasEffect(TAMobEffects.POTION_REMAIN.get());
+        originalPlayer.getCapability(TACapability.MISC_CAP).ifPresent(oldStore ->
+                newPlayer.getCapability(TACapability.MISC_CAP).ifPresent(newStore ->
+                        newStore.setImmuneToPressure(oldStore.isImmuneToPressure())));
+        if (event.isWasDeath() && !activeEffects.isEmpty() && flag) {
+            originalPlayer.getActiveEffects().forEach(newPlayer::addEffect);
         }
     }
 
@@ -289,22 +304,21 @@ public class EntityEventSubscriber {
     public static void onLivingDeath(LivingDeathEvent event) {
         Entity sourceEntity = event.getSource().getEntity();
         if (sourceEntity instanceof MoonQueen moonQueen) {
+            moonQueen.setSafeTime(0);
             if (moonQueen.isDuelingMoment()) {
                 if (event.getEntity() instanceof ServerPlayer player) {
-                    moonQueen.heal(50.0F);
                     String uuid = player.getStringUUID();
                     moonQueen.getKilledDuelistUUID().add(uuid);
                     moonQueen.selectDuelistFromNearestTarget();
+                    moonQueen.heal((moonQueen.getMaxHealth() * 0.1F));
                 }
-            } else if (moonQueen.hasEffect(TAMobEffects.FALL_OF_MOON.get())) {
-                moonQueen.setBossHealth(Math.max(100.0F, moonQueen.getHealth()));
             }
         }
 
         if (sourceEntity instanceof ServerPlayer serverPlayer) {
             if (event.getEntity() instanceof MoonQueen) {
                 LazyOptional<MiscNBT> capability = serverPlayer.getCapability(TACapability.MISC_CAP);
-                capability.ifPresent(miscNBT -> miscNBT.setShouldAffectByPressure(false));
+                capability.ifPresent(miscNBT -> miscNBT.setImmuneToPressure(true));
             }
 
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);

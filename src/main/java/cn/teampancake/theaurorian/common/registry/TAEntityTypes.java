@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.model.entity.*;
-import cn.teampancake.theaurorian.client.model.entity.abiotic.LunaCircleModel;
 import cn.teampancake.theaurorian.client.model.entity.armor.*;
 import cn.teampancake.theaurorian.client.renderer.entity.*;
 import cn.teampancake.theaurorian.client.renderer.entity.abiotic.*;
@@ -211,7 +210,6 @@ public class TAEntityTypes {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(TAModelLayers.LUNA_CIRCLE, LunaCircleModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.BREAD_BEAST, BreadBeastModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.ICEFIELD_DEER, IcefieldDeerModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.MOON_FISH, MoonFishModel::createBodyLayer);

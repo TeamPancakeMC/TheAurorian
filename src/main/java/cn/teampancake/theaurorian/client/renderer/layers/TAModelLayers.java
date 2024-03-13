@@ -5,7 +5,6 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 
 public class TAModelLayers {
 
-    public static final ModelLayerLocation LUNA_CIRCLE = register("luna_circle");
     public static final ModelLayerLocation BREAD_BEAST = register("bread_beast");
     public static final ModelLayerLocation ICEFIELD_DEER = register("icefield_deer");
     public static final ModelLayerLocation MOON_FISH = register("moon_fish");

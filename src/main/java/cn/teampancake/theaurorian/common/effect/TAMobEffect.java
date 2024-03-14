@@ -1,8 +1,6 @@
 package cn.teampancake.theaurorian.common.effect;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAMobEffectTags;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.DamageTypeTags;
@@ -13,23 +11,12 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
-@SuppressWarnings("deprecation")
 public class TAMobEffect extends MobEffect {
 
     public TAMobEffect(MobEffectCategory category, int color) {
         super(category, color);
-    }
-
-    public static Set<MobEffect> getMoonQueenOnlyEffects() {
-        Set<MobEffect> effects = new HashSet<>();
-        BuiltInRegistries.MOB_EFFECT
-                .getTagOrEmpty(TAMobEffectTags.MOON_QUEEN_ONLY)
-                .forEach(holder -> effects.add(holder.get()));
-        return effects;
     }
 
     public static float getDamageAfterMagicAbsorb(LivingEntity livingEntity, DamageSource damageSource, float damageAmount) {

@@ -19,6 +19,8 @@ public class CorruptionEffect extends IncurableEffect {
         entity.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
             entity.hurt(source, miscNBT.getDamageAccumulation());
             miscNBT.setDamageAccumulation(0.0F);
+            miscNBT.setCorruptionTime(0);
+            miscNBT.setValidCorruptionTime(0);
         });
 
         if (entity instanceof Player player) {

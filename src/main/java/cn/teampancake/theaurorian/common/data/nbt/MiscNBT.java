@@ -5,6 +5,8 @@ import net.minecraft.nbt.CompoundTag;
 public class MiscNBT {
 
     private int ticksFrostbite;
+    private int corruptionTime;
+    private int validCorruptionTime;
     private float damageAccumulation;
     private float exhaustionAccumulation;
     private float armorHurtAccumulation;
@@ -12,6 +14,7 @@ public class MiscNBT {
 
     public void saveNBTData(CompoundTag compound) {
         compound.putInt("TicksFrostbite", this.ticksFrostbite);
+        compound.putInt("ValidCorruptionTime", this.validCorruptionTime);
         compound.putFloat("DamageAccumulation", this.damageAccumulation);
         compound.putFloat("ExhaustionAccumulation", this.exhaustionAccumulation);
         compound.putFloat("ArmorHurtAccumulation", this.armorHurtAccumulation);
@@ -20,18 +23,12 @@ public class MiscNBT {
 
     public void loadNBTData(CompoundTag compound) {
         this.ticksFrostbite = compound.getInt("TicksFrostbite");
+        this.corruptionTime = compound.getInt("CorruptionTime");
+        this.validCorruptionTime = compound.getInt("MaxCorruptionTime");
         this.damageAccumulation = compound.getInt("DamageAccumulation");
         this.exhaustionAccumulation = compound.getInt("ExhaustionAccumulation");
         this.armorHurtAccumulation = compound.getInt("ArmorHurtAccumulation");
         this.immuneToPressure = compound.getBoolean("ShouldAffectByPressure");
-    }
-
-    public void copyFrom(MiscNBT source) {
-        this.ticksFrostbite = source.ticksFrostbite;
-        this.damageAccumulation = source.damageAccumulation;
-        this.exhaustionAccumulation = source.exhaustionAccumulation;
-        this.armorHurtAccumulation = source.armorHurtAccumulation;
-        this.immuneToPressure = source.immuneToPressure;
     }
 
     public int getTicksFrostbite() {
@@ -40,6 +37,22 @@ public class MiscNBT {
 
     public void setTicksFrostbite(int value) {
         this.ticksFrostbite = value;
+    }
+
+    public int getCorruptionTime() {
+        return this.corruptionTime;
+    }
+
+    public void setCorruptionTime(int value) {
+        this.corruptionTime = value;
+    }
+
+    public int getValidCorruptionTime() {
+        return this.validCorruptionTime;
+    }
+
+    public void setValidCorruptionTime(int value) {
+        this.validCorruptionTime =  value;
     }
 
     public float getDamageAccumulation() {

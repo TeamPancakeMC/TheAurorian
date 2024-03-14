@@ -98,9 +98,6 @@ public class EntityEventSubscriber {
         Player newPlayer = event.getEntity();
         Collection<MobEffectInstance> activeEffects = originalPlayer.getActiveEffects();
         boolean flag = originalPlayer.hasEffect(TAMobEffects.POTION_REMAIN.get());
-        originalPlayer.getCapability(TACapability.MISC_CAP).ifPresent(oldStore ->
-                newPlayer.getCapability(TACapability.MISC_CAP).ifPresent(newStore ->
-                        newStore.setImmuneToPressure(oldStore.isImmuneToPressure())));
         if (event.isWasDeath() && !activeEffects.isEmpty() && flag) {
             originalPlayer.getActiveEffects().forEach(newPlayer::addEffect);
         }
@@ -127,10 +124,11 @@ public class EntityEventSubscriber {
             if (!level.isClientSide) {
                 if (entity.hasEffect(effect)) {
                     float chance = j / (validTime + 20.0F);
+                    boolean shouldRemove = level.random.nextFloat() < chance;
                     if (entity.tickCount % 20 == 0) {
                         miscNBT.setCorruptionTime(j + 1);
                     }
-                    if (j >= validTime || level.random.nextFloat() < chance) {
+                    if (j >= validTime || shouldRemove) {
                         entity.removeEffect(effect);
                     }
                 }
@@ -198,6 +196,22 @@ public class EntityEventSubscriber {
         boolean flag3 = effect == TAMobEffects.PARALYSIS.get() && !(entity instanceof Player);
         if (flag1 || flag2 || flag3 || effects.contains(effect) && !(entity instanceof MoonQueen)) {
             event.setResult(Event.Result.DENY);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMobEffectAdded(MobEffectEvent.Added event) {
+        MobEffect effect = TAMobEffects.CORRUPTION.get();
+        MobEffectInstance instance = event.getEffectInstance();
+        LivingEntity entity = event.getEntity();
+        if (instance.getEffect() == effect) {
+            int duration = instance.getDuration();
+            entity.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
+                int oldValidTime = miscNBT.getValidCorruptionTime();
+                if (!entity.hasEffect(effect) || duration > oldValidTime) {
+                    miscNBT.setValidCorruptionTime(duration);
+                }
+            });
         }
     }
 

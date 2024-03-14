@@ -724,7 +724,6 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add("tooltips.block.theaurorian.moonlight_forge.gui.has_moonlight","Blessed By Moonlight!");
 
         //MOD MESSAGES
-        this.add("messages.effect.theaurorian.moon_queen_only", "These effects are exclusive to the Moon Queen, and it's invalid for other entity!");
         this.add("messages." + TAItems.AURORIAN_STEEL_SWORD.get().getDescriptionId() + ".holiness", "All evil has been dispelled!");
         this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".selected", "Selected Block: %s");
         this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".fail", "The remaining durability is less than 60 so select fail!");

@@ -674,7 +674,6 @@
   "item.theaurorian.world_scroll_fragment": "世界残卷",
   "itemGroup.theaurorian.building": "极光幽境（建材）",
   "itemGroup.theaurorian.normal": "极光幽境",
-  "messages.effect.theaurorian.moon_queen_only": "这是皎月女王专属的效果，对于其它实体是无效的！",
   "messages.item.theaurorian.aurorian_steel_sword.holiness": "所有的罪恶已被驱散！",
   "messages.item.theaurorian.umbra_pickaxe.fail": "选择失败，因为剩余耐久已不足60！",
   "messages.item.theaurorian.umbra_pickaxe.selected": "已选择方块：%s",

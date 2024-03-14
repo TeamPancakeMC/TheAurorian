@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.entities.boss;
 import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.phase.*;
 import cn.teampancake.theaurorian.common.registry.TAAttributes;
-import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -16,14 +15,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -38,6 +37,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -56,9 +56,8 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     private static final RawAnimation SHRUG = RawAnimation.begin().thenPlay("misc.shrug");
     private static final RawAnimation LUNA_BEFALL = RawAnimation.begin().thenPlay("skill.luna_befall");
     private static final RawAnimation LUNA_BEFALL_END = RawAnimation.begin().thenPlay("skill.luna_befall_end");
-    private static final UUID SPEED_ENHANCE_UUID = UUID.fromString("b215d775-85f4-49d8-96c3-30fec59f99a8");
-    private static final UUID ARMOR_ENHANCE_UUID = UUID.fromString("b15bdb0b-0ae6-430a-b879-4d0db50e1268");
-    private static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> ATTACK_Y_ROT =
+            SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
     private static final List<MobEffectInstance> BUFF_LIST = List.of(
             new MobEffectInstance(TAMobEffects.CRESCENT.get(), 200),
             new MobEffectInstance(TAMobEffects.BLESS_OF_MOON.get(), 200),
@@ -96,13 +95,21 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
         builder.add(TAAttributes.MAX_BOSS_HEALTH.get(), 500.0D);
-        builder.add(Attributes.ATTACK_DAMAGE, 4.0D);
-        builder.add(Attributes.ATTACK_KNOCKBACK, 0.5D);
         builder.add(Attributes.KNOCKBACK_RESISTANCE, 0.85D);
+        builder.add(Attributes.ARMOR_TOUGHNESS, 10.0D);
+        builder.add(Attributes.ATTACK_KNOCKBACK, 0.5D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.25D);
         builder.add(Attributes.FOLLOW_RANGE, 40.0F);
+        builder.add(Attributes.ATTACK_DAMAGE, 4.0D);
         builder.add(Attributes.ARMOR, 8.0F);
         return builder;
+    }
+
+    public static List<MobEffect> getExclusiveEffects() {
+        List<MobEffect> list = new ArrayList<>();
+        list.add(TAMobEffects.FALL_OF_MOON.get());
+        BUFF_LIST.forEach(instance -> list.add(instance.getEffect()));
+        return list;
     }
 
     @Override
@@ -167,47 +174,53 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         return listTag;
     }
 
-    private void randomTeleportBehindTarget() {
+    private void teleportToLowestHealthOrOutermostTarget() {
         boolean flag = this.random.nextBoolean();
         List<String> uuidList = Lists.newArrayList();
         List<Integer> integerList = Lists.newArrayList();
         TreeMap<String, Integer> treeMap = new TreeMap<>();
-        AABB aabb = this.getBoundingBox().inflate((24.0D));
+        AABB aabb = this.getBoundingBox().inflate(40.0F);
         List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
-        playerList.stream().filter(this::hasLineOfSight).forEach(player -> {
-            float d = (float) this.distanceToSqr(player);
-            float f = flag ? player.getHealth() : d;
-            treeMap.put(player.getStringUUID(), (int) f);
-        });
+        if (!playerList.isEmpty()) {
+            playerList.stream().filter(this::hasLineOfSight).forEach(player -> {
+                float d = (float) this.distanceToSqr(player);
+                float f = flag ? player.getHealth() : d;
+                treeMap.put(player.getStringUUID(), (int) f);
+            });
 
-        treeMap.forEach((key, value) -> integerList.add(value));
-        Collections.sort(integerList);
-        treeMap.forEach((key, value) -> {
-            int index = flag ? 0 : integerList.size();
-            if (Objects.equals(treeMap.get(key), integerList.get(index))) {
-                uuidList.add(key);
-            }
-        });
+            treeMap.forEach((key, value) -> integerList.add(value));
+            Collections.sort(integerList);
+            treeMap.forEach((key, value) -> {
+                int index = flag ? 0 : integerList.size();
+                if (Objects.equals(treeMap.get(key), integerList.get(index))) {
+                    uuidList.add(key);
+                }
+            });
 
-        if (!uuidList.isEmpty()) {
-            String uuid = uuidList.get(this.random.nextInt(uuidList.size()));
-            for (Player player : playerList) {
-                if (player.getStringUUID().equals(uuid)) {
-                    this.teleportToTheBackOfTheTarget(player);
-                    break;
+            if (!uuidList.isEmpty()) {
+                String uuid = uuidList.get(this.random.nextInt(uuidList.size()));
+                for (Player player : playerList) {
+                    if (player.getStringUUID().equals(uuid)) {
+                        this.teleportToTheBackOfTheTarget(player);
+                        break;
+                    }
                 }
             }
         }
     }
 
     private void teleportToTheBackOfTheTarget(LivingEntity target) {
-        double deltaX = this.getX() - target.getX();
-        double deltaZ = this.getZ() - target.getZ();
-        double x = target.getX() - (deltaX * 2.0D);
-        double z = this.getZ() - (deltaZ * 2.0D);
-        this.randomTeleport(x, target.getY(), z, Boolean.TRUE);
-        this.getLookControl().setLookAt(target);
-        this.setTarget(target);
+        Vec3 eyePos = target.getEyePosition();
+        Vec3 lookAngle = target.getLookAngle();
+        double tx = eyePos.x - lookAngle.x * 2.0D;
+        double tz = eyePos.z - lookAngle.z * 2.0D;
+        this.teleportTo(tx, eyePos.y, tz);
+        if (target.isAlive()) {
+            double dx = target.getX();
+            double dy = target.getEyeY();
+            double dz = target.getZ();
+            this.getLookControl().setLookAt(dx, dy, dz);
+        }
     }
 
     public void selectDuelistFromNearestTarget() {
@@ -227,11 +240,9 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         super.customServerAiStep();
         if (this.level() instanceof ServerLevel serverLevel) {
             String uuid = this.currentDuelistUUID;
-            AABB aabb16 = this.getBoundingBox().inflate(16.0D);
-            AABB aabb24 = this.getBoundingBox().inflate(24.0D);
+            AABB aabb = this.getBoundingBox().inflate(24.0D);
             List<ServerPlayer> serverPlayerList = serverLevel.players();
-            List<Player> playerList16 = this.level().getEntitiesOfClass(Player.class, aabb16);
-            List<Player> playerList24 = this.level().getEntitiesOfClass(Player.class, aabb24);
+            List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
             AttributeInstance health = this.getAttribute(TAAttributes.MAX_BOSS_HEALTH.get());
             serverPlayerList.forEach(player -> this.currentSavedUUID.add(player.getStringUUID()));
             int size = this.currentSavedUUID.size() - this.alreadyHealForUUID.size() - 1;
@@ -242,7 +253,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 this.duelingMoment = true;
             }
 
-            if (!uuid.isEmpty() && playerList24.isEmpty() && this.duelingMoment) {
+            if (!uuid.isEmpty() && playerList.isEmpty() && this.duelingMoment) {
                 this.selectDuelistFromNearestTarget();
                 this.heal(50.0F);
             }
@@ -251,7 +262,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 health.setBaseValue(this.getMaxHealth() + size * 200.0F);
             }
 
-            if (playerList24.isEmpty()) {
+            if (playerList.isEmpty()) {
                 ++this.safeTime;
             } else {
                 this.safeTime = 0;
@@ -421,10 +432,9 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
             if (source.getEntity() instanceof Player player) {
                 this.safeTime = 0;
-                if (this.duelingMoment) {
-                    if (!this.currentDuelistUUID.equals(player.getStringUUID())) {
-                        return false;
-                    }
+                String uuid = player.getStringUUID();
+                if (this.duelingMoment && !this.currentDuelistUUID.equals(uuid)) {
+                    return false;
                 }
             }
 
@@ -436,30 +446,16 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     @Override
     public boolean checkTotemDeathProtection(DamageSource damageSource) {
-        if (this.ticksCanOneHitMustKill == 24000L) {
-            this.setBossHealth(1.0F);
-            AttributeInstance armor = this.getAttribute(Attributes.ARMOR);
-            AttributeInstance speed = this.getAttribute(Attributes.MOVEMENT_SPEED);
-            this.ticksCanOneHitMustKill = this.level().getDayTime() % 24000L;
-            this.addEffect(new MobEffectInstance(TAMobEffects.FALL_OF_MOON.get(), 200));
-            AttributeModifier.Operation operation = AttributeModifier.Operation.MULTIPLY_TOTAL;
-            if (armor != null && speed != null && armor.getModifier(ARMOR_ENHANCE_UUID) == null && speed.getModifier(SPEED_ENHANCE_UUID) == null) {
-                armor.addPermanentModifier(new AttributeModifier(ARMOR_ENHANCE_UUID, "Final Armor Enhance", 2.0D, operation));
-                speed.addPermanentModifier(new AttributeModifier(SPEED_ENHANCE_UUID, "Final Speed Enhance", 0.2D, operation));
-            }
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(TAItems.MOONSTONE_SWORD.get()));
-        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(TAItems.KNIGHT_CHESTPLATE.get()));
-        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(TAItems.KNIGHT_LEGGINGS.get()));
-        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(TAItems.KNIGHT_BOOTS.get()));
+        this.setBossHealth(1.0F);
+        this.ticksCanOneHitMustKill = this.level().getDayTime() % 24000L;
+        Map<AttributeInstance, Double> adMap = new HashMap<>();
+        adMap.put(this.getAttribute(Attributes.ARMOR), 30.0D);
+        adMap.put(this.getAttribute(Attributes.MOVEMENT_SPEED), 0.35D);
+        adMap.put(this.getAttribute(Attributes.ARMOR_TOUGHNESS), 20.0D);
+        adMap.put(this.getAttribute(Attributes.KNOCKBACK_RESISTANCE), 1.0D);
+        adMap.forEach(AttributeInstance::setBaseValue);
+        this.addEffect(new MobEffectInstance(TAMobEffects.FALL_OF_MOON.get(), 200));
+        return this.ticksCanOneHitMustKill == 24000L;
     }
 
     private class MoonQueenBodyRotationControl extends BodyRotationControl {

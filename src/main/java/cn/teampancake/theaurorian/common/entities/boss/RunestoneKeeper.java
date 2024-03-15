@@ -26,6 +26,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -33,16 +34,21 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class RunestoneKeeper extends AbstractAurorianBoss implements RangedAttackMob {
+public class RunestoneKeeper extends AbstractAurorianBoss implements RangedAttackMob, GeoEntity {
 
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState attackAnimationState1 = new AnimationState();
-    public final AnimationState attackAnimationState2 = new AnimationState();
-    public final AnimationState attackAnimationState3 = new AnimationState();
-    public final AnimationState deathAnimationState = new AnimationState();
-
-    private static final EntityDataAccessor<Integer> HURT_BY_MELEE_ATTACK_COUNT = SynchedEntityData.defineId(RunestoneKeeper.class, EntityDataSerializers.INT);
+    private static final RawAnimation DEATH = RawAnimation.begin().thenPlay("misc.death");
+    private static final EntityDataAccessor<Integer> HURT_BY_MELEE_ATTACK_COUNT =
+            SynchedEntityData.defineId(RunestoneKeeper.class, EntityDataSerializers.INT);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public RunestoneKeeper(EntityType<? extends RunestoneKeeper> type, Level level) {
         super(type, level);
@@ -78,6 +84,20 @@ public class RunestoneKeeper extends AbstractAurorianBoss implements RangedAttac
         this.entityData.define(HURT_BY_MELEE_ATTACK_COUNT, 0);
     }
 
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericWalkRunIdleController(this));
+        controllers.add(new AnimationController<>(this, "strike_controller", state -> PlayState.STOP)
+                .triggerableAnim("strike_animation", DefaultAnimations.ATTACK_STRIKE).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "death_controller", state -> PlayState.STOP)
+                .triggerableAnim("death_animation", DEATH).transitionLength(5));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
     public int getHurtByMeleeAttackCount() {
         return this.entityData.get(HURT_BY_MELEE_ATTACK_COUNT);
     }
@@ -110,7 +130,6 @@ public class RunestoneKeeper extends AbstractAurorianBoss implements RangedAttac
     public void aiStep() {
         super.aiStep();
         if (this.level().isClientSide()) {
-            this.idleAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.walkAnimation.isMoving(), this.tickCount);
             if (this.tickCount % 2 == 0 && this.getHealth() < this.getMaxHealth() * 0.3F) {
                 double x = this.getX() + this.random.nextFloat();
                 double z = this.getZ() + this.random.nextFloat();
@@ -123,15 +142,6 @@ public class RunestoneKeeper extends AbstractAurorianBoss implements RangedAttac
     }
 
     @Override
-    public void handleEntityEvent(byte id) {
-        if (id == 4) {
-            this.attackAnimationState1.startIfStopped(this.tickCount);
-        } else {
-            super.handleEntityEvent(id);
-        }
-    }
-
-    @Override
     public void performRangedAttack(LivingEntity target, float velocity) {
         Arrow arrow = new Arrow(this.level(), this);
         double d0 = target.getX() - this.getX();
@@ -139,9 +149,10 @@ public class RunestoneKeeper extends AbstractAurorianBoss implements RangedAttac
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
         double d1 = target.getBoundingBox().minY + target.getBbHeight() / 3.0F - arrow.getY();
         float pitch = 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F);
+        this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, pitch);
         arrow.shoot(d0, d1 + d3 * 0.20000000298023224D, d2, 1.6F, 9F);
         arrow.addEffect(new MobEffectInstance(MobEffects.POISON, 200));
-        this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, pitch);
+        arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
         this.level().addFreshEntity(arrow);
     }
 
@@ -161,13 +172,14 @@ public class RunestoneKeeper extends AbstractAurorianBoss implements RangedAttac
     @Override
     protected void tickDeath() {
         ++this.deathTime;
-        if (this.deathTime > 60) {
-            if (!this.level().isClientSide() && !this.isRemoved()) {
-                this.level().broadcastEntityEvent(this, (byte)60);
-                this.remove(Entity.RemovalReason.KILLED);
+        if (!this.level().isClientSide()) {
+            if (this.deathTime == 1) {
+                this.triggerAnim(("death_controller"), ("death_animation"));
             }
-        } else if (this.level().isClientSide()) {
-            this.deathAnimationState.startIfStopped(this.tickCount);
+            if (this.deathTime > 60 && !this.isRemoved()) {
+                this.level().broadcastEntityEvent(this, (byte) 60);
+                this.remove(RemovalReason.KILLED);
+            }
         }
     }
 

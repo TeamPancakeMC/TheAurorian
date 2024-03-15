@@ -230,8 +230,6 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.FLOWER_LEECH, FlowerLeechModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.FORGOTTEN_MAGIC_BOOK, ForgottenMagicBookModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.HYPHA_WALKING_MUSHROOM, HyphaWalkingMushroomModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.RUNESTONE_KEEPER, RunestoneKeeperModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.RUNESTONE_BOOKS, RunestoneBookModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDER_MOTHER, SpiderMotherModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIKED_CHESTPLATE, SpikedChestplateModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME_BOOTS, AurorianSlimeBootsModel::createBodyLayer);

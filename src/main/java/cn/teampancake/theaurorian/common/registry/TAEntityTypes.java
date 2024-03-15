@@ -203,8 +203,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(HYPHA_WALKING_MUSHROOM.get(), HyphaWalkingMushroomRenderer::new);
         event.registerEntityRenderer(RUNESTONE_KEEPER.get(), RunestoneKeeperRenderer::new);
         event.registerEntityRenderer(SPIDER_MOTHER.get(), SpiderMotherRenderer::new);
-        event.registerEntityRenderer(MOON_QUEEN.get(), context -> new GeoEntityRenderer<>(
-                context, new DefaultedEntityGeoModel<>(MOON_QUEEN.getId(), Boolean.TRUE)));
+        event.registerEntityRenderer(MOON_QUEEN.get(), MoonQueenRenderer::new);
     }
 
     @OnlyIn(Dist.CLIENT)

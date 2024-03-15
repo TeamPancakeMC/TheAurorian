@@ -1,8 +1,11 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
+import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.data.nbt.MiscNBT;
 import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.phase.*;
 import cn.teampancake.theaurorian.common.registry.TAAttributes;
+import cn.teampancake.theaurorian.common.registry.TACapability;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -10,11 +13,15 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,6 +30,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
@@ -36,8 +44,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -50,12 +62,18 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
-    private static final RawAnimation SHRUG = RawAnimation.begin().thenPlay("misc.shrug");
-    private static final RawAnimation LUNA_BEFALL = RawAnimation.begin().thenPlay("skill.luna_befall");
-    private static final RawAnimation LUNA_BEFALL_END = RawAnimation.begin().thenPlay("skill.luna_befall_end");
+    private static final RawAnimation DEFEAT = RawAnimation.begin().thenPlay("misc.defeat");
+    private static final RawAnimation DEFEAT_LOOP = RawAnimation.begin().thenPlay("misc.defeat_loop");
+    private static final RawAnimation ATTACK_SWING_2 = RawAnimation.begin().thenPlay("attack.swing_2");
+    private static final RawAnimation ATTACK_BURST = RawAnimation.begin().thenPlay("attack.burst");
+    private static final RawAnimation ATTACK_BUFF = RawAnimation.begin().thenPlay("attack.buff");
+    private static final RawAnimation ATTACK_DUEL = RawAnimation.begin().thenPlay("attack.duel");
+    private static final RawAnimation ATTACK_MOON_BEFALL = RawAnimation.begin().thenPlay("attack.moon_befall");
+    private static final UUID SPEED_MODIFIER_FOUND_TARGET = UUID.fromString("3c64caed-3cb0-487e-a1b2-ee4c8364e352");
     private static final EntityDataAccessor<Float> ATTACK_Y_ROT =
             SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
     private static final List<MobEffectInstance> BUFF_LIST = List.of(
@@ -68,7 +86,9 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     private final HashSet<String> alreadyHealForUUID = new HashSet<>();
     private long ticksCanOneHitMustKill = 24000L;
     private int ticksDueling = 2400;
+    private int preparationTime;
     private int safeTime;
+    private boolean isNeutral;
     private boolean duelingMoment;
     private String currentDuelistUUID = "";
 
@@ -76,8 +96,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         super(type, level);
         this.xpReward = 500;
         this.attackManager = new AttackManager<>(this, List.of(
-                new MoonQueenSwingPhase(), new MoonQueenBlockPhase(), new MoonQueenShrugPhase(),
-                new MoonQueenLunaBefallPhase(), new MoonQueenLunaBefallEndPhase()));
+                new MoonQueenMeleePhase(), new MoonQueenBlockPhase()));
     }
 
     @Override
@@ -89,7 +108,11 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, (8.0F)));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.TRUE));
+        this.targetSelector.addGoal(2, new MoonQueenNearestAttackableTargetGoal<>(this, Player.class, Boolean.FALSE));
+        this.targetSelector.addGoal(3, new MoonQueenNearestAttackableTargetGoal<>(this, LivingEntity.class, Boolean.TRUE, entity -> {
+            ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
+            return key != null && !key.getNamespace().equals(AurorianMod.MOD_ID) && this.hasLineOfSight(entity);
+        }));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -107,7 +130,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     public static List<MobEffect> getExclusiveEffects() {
         List<MobEffect> list = new ArrayList<>();
-        list.add(TAMobEffects.FALL_OF_MOON.get());
+        list.add(TAMobEffects.MOON_BEFALL.get());
         BUFF_LIST.forEach(instance -> list.add(instance.getEffect()));
         return list;
     }
@@ -125,17 +148,25 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(DefaultAnimations.genericWalkIdleController(this));
-        controllers.add(new AnimationController<>(this, "swing_controller", state -> PlayState.STOP)
-                .triggerableAnim("swing_animation", DefaultAnimations.ATTACK_SWING).transitionLength(5));
+        controllers.add(DefaultAnimations.genericWalkRunIdleController(this));
         controllers.add(new AnimationController<>(this, "block_controller", state -> PlayState.STOP)
                 .triggerableAnim("block_animation", DefaultAnimations.ATTACK_BLOCK).transitionLength(5));
-        controllers.add(new AnimationController<>(this, "shrug_controller", state -> PlayState.STOP)
-                .triggerableAnim("shrug_animation", SHRUG).transitionLength(5));
-        controllers.add(new AnimationController<>(this, "luna_befall_controller", state -> PlayState.STOP)
-                .triggerableAnim("luna_befall_animation", LUNA_BEFALL).transitionLength(5));
-        controllers.add(new AnimationController<>(this, "luna_befall_end_controller", state -> PlayState.STOP)
-                .triggerableAnim("luna_befall_end_animation", LUNA_BEFALL_END).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "swing_controller", state -> PlayState.STOP)
+                .triggerableAnim("swing_animation", DefaultAnimations.ATTACK_SWING).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "swing_2_controller", state -> PlayState.STOP)
+                .triggerableAnim("swing_2_animation", ATTACK_SWING_2).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "burst_controller", state -> PlayState.STOP)
+                .triggerableAnim("burst_animation", ATTACK_BURST).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "buff_controller", state -> PlayState.STOP)
+                .triggerableAnim("buff_animation", ATTACK_BUFF).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "duel_controller", state -> PlayState.STOP)
+                .triggerableAnim("duel_animation", ATTACK_DUEL).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "moon_befall_controller", state -> PlayState.STOP)
+                .triggerableAnim("moon_befall_animation", ATTACK_MOON_BEFALL).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "defeat_controller", state -> PlayState.STOP)
+                .triggerableAnim("defeat_animation", DEFEAT).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "defeat_loop_controller", state -> PlayState.STOP)
+                .triggerableAnim("defeat_loop_animation", DEFEAT_LOOP).transitionLength(5));
     }
 
     @Override
@@ -149,6 +180,10 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     public void setAttackYRot(float attackYRot) {
         this.entityData.set(ATTACK_Y_ROT, attackYRot);
+    }
+
+    public int getPreparationTime() {
+        return this.preparationTime;
     }
 
     public void setSafeTime(int safeTime) {
@@ -214,7 +249,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         Vec3 lookAngle = target.getLookAngle();
         double tx = eyePos.x - lookAngle.x * 2.0D;
         double tz = eyePos.z - lookAngle.z * 2.0D;
-        this.teleportTo(tx, eyePos.y, tz);
+        this.teleportTo(tx, target.getY(), tz);
         if (target.isAlive()) {
             double dx = target.getX();
             double dy = target.getEyeY();
@@ -240,39 +275,75 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         super.customServerAiStep();
         if (this.level() instanceof ServerLevel serverLevel) {
             String uuid = this.currentDuelistUUID;
-            AABB aabb = this.getBoundingBox().inflate(24.0D);
+            float maxHealth = this.getMaxHealth();
+            LivingEntity target = this.getTarget();
+            AABB aabb16 = this.getBoundingBox().inflate(16.0D);
+            AABB aabb24 = this.getBoundingBox().inflate(24.0D);
             List<ServerPlayer> serverPlayerList = serverLevel.players();
-            List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
+            List<Player> playerList16 = this.level().getEntitiesOfClass(Player.class, aabb16);
+            List<Player> playerList24 = this.level().getEntitiesOfClass(Player.class, aabb24);
             AttributeInstance health = this.getAttribute(TAAttributes.MAX_BOSS_HEALTH.get());
             serverPlayerList.forEach(player -> this.currentSavedUUID.add(player.getStringUUID()));
             int size = this.currentSavedUUID.size() - this.alreadyHealForUUID.size() - 1;
             boolean isHalfHealth = this.getHealth() < this.getMaxHealth() * 0.5F;
             if (isHalfHealth && !this.duelingMoment && this.ticksDueling == 2400) {
                 this.addEffect(BUFF_LIST.get(this.random.nextInt(BUFF_LIST.size())));
+                this.triggerAnim(("duel_controller"), ("duel_animation"));
                 this.selectDuelistFromNearestTarget();
+                this.preparationTime = 20;
                 this.duelingMoment = true;
             }
 
-            if (!uuid.isEmpty() && playerList.isEmpty() && this.duelingMoment) {
+            if (!uuid.isEmpty() && playerList24.isEmpty() && this.duelingMoment) {
+                float amount = this.getMaxHealth() * 0.1F / 20.0F;
                 this.selectDuelistFromNearestTarget();
-                this.heal(50.0F);
+                this.heal(amount);
+            }
+
+            if (target != null) {
+                this.addSpeedWhenFoundTarget();
+                if (!(target instanceof Player)) {
+                    this.teleportToTheBackOfTheTarget(target);
+                }
+            } else {
+                this.removeSpeedWhenNoTarget();
             }
 
             if (health != null && size > 0) {
-                health.setBaseValue(this.getMaxHealth() + size * 200.0F);
+                health.setBaseValue(maxHealth + size * 200.0F);
+                if (this.lastHurtByPlayer == null) {
+                    this.setBossHealth(this.getMaxHealth());
+                } else {
+                    this.heal(size * 200.0F);
+                }
             }
 
-            if (playerList.isEmpty()) {
+            if (playerList16.isEmpty() || target == null) {
                 ++this.safeTime;
             } else {
                 this.safeTime = 0;
             }
 
-            if (this.safeTime > 60) {
-                this.heal(2.5F);
+            if (this.safeTime > 100 && this.tickCount % 20 == 0) {
+                this.heal(maxHealth * 0.05F);
             }
 
             this.alreadyHealForUUID.addAll(this.currentSavedUUID);
+        }
+    }
+
+    private void removeSpeedWhenNoTarget() {
+        AttributeInstance instance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (instance != null && instance.getModifier(SPEED_MODIFIER_FOUND_TARGET) != null) {
+            instance.removeModifier(SPEED_MODIFIER_FOUND_TARGET);
+        }
+    }
+
+    private void addSpeedWhenFoundTarget() {
+        AttributeInstance instance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+        AttributeModifier.Operation operation = AttributeModifier.Operation.ADDITION;
+        if (instance != null && instance.getModifier(SPEED_MODIFIER_FOUND_TARGET) == null) {
+            instance.addTransientModifier(new AttributeModifier(SPEED_MODIFIER_FOUND_TARGET, "Found Target", 0.2F, operation));
         }
     }
 
@@ -284,6 +355,27 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             this.ticksCanOneHitMustKill = Math.min(l, 24000L);
             if (this.duelingMoment && --this.ticksDueling == 0) {
                 this.duelingMoment = false;
+            }
+
+            if (this.preparationTime > 0) {
+                --this.preparationTime;
+            }
+        }
+    }
+
+    @Override
+    protected void tickDeath() {
+        ++this.deathTime;
+        if (!this.level().isClientSide) {
+            if (this.deathTime == 1) {
+                this.triggerAnim("defeat_controller", "defeat_animation");
+            } else if (this.deathTime == 11) {
+                this.triggerAnim("defeat_loop_controller", "defeat_loop_animation");
+            }
+
+            if (this.deathTime > 50 && !this.isRemoved()) {
+                this.level().broadcastEntityEvent(this, (byte) 60);
+                this.remove(RemovalReason.KILLED);
             }
         }
     }
@@ -313,6 +405,8 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         super.addAdditionalSaveData(compound);
         compound.putInt("SafeTime", this.safeTime);
         compound.putInt("TicksDueling", this.ticksDueling);
+        compound.putInt("PreparationTime", this.preparationTime);
+        compound.putBoolean("IsNeutral", this.isNeutral);
         compound.putBoolean("DuelingMoment", this.duelingMoment);
         compound.putString("CurrentDuelistUUID", this.currentDuelistUUID);
         compound.putLong("TicksCanOneHitMustKill", this.ticksCanOneHitMustKill);
@@ -326,6 +420,8 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         super.readAdditionalSaveData(compound);
         this.safeTime = compound.getInt("SafeTime");
         this.ticksDueling = compound.getInt("TicksDueling");
+        this.preparationTime = compound.getInt("PreparationTime");
+        this.isNeutral = compound.getBoolean("IsNeutral");
         this.duelingMoment = compound.getBoolean("DuelingMoment");
         this.currentDuelistUUID = compound.getString("CurrentDuelistUUID");
         this.ticksCanOneHitMustKill = compound.getLong("TicksCanOneHitMustKill");
@@ -368,6 +464,11 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     }
 
     @Override
+    public boolean isInWall() {
+        return false;
+    }
+
+    @Override
     public boolean canBeAffected(MobEffectInstance effectInstance) {
         if (this.duelingMoment && !effectInstance.getEffect().isBeneficial()) {
             return false;
@@ -377,13 +478,28 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     }
 
     @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack itemInHand = player.getItemInHand(hand);
+        boolean noLastHurt = this.lastHurtByPlayer == null && this.getLastHurtByMob() == null;
+        if (itemInHand.is(Tags.Items.NETHER_STARS) && noLastHurt && !this.isNeutral) {
+            this.isNeutral = true;
+            if (!player.getAbilities().instabuild) {
+                itemInHand.shrink(1);
+            }
+            return InteractionResult.SUCCESS;
+        } else {
+            return InteractionResult.PASS;
+        }
+    }
+
+    @Override
     public boolean doHurtTarget(Entity entity) {
         float f = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float f1 = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
         if (entity instanceof LivingEntity livingEntity) {
             f += EnchantmentHelper.getDamageBonus(this.getMainHandItem(), livingEntity.getMobType());
             f1 += (float)EnchantmentHelper.getKnockbackBonus(this);
-            if (this.hasEffect(TAMobEffects.FALL_OF_MOON.get())) {
+            if (this.hasEffect(TAMobEffects.MOON_BEFALL.get()) || !(livingEntity instanceof Player)) {
                 this.heal(this.getMaxHealth() * 0.2F);
                 livingEntity.kill();
                 return true;
@@ -401,7 +517,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
         boolean flag = entity.hurt(this.damageSources().mobAttack(this), f);
         if (flag) {
-            this.level().broadcastEntityEvent(this, (byte) 4);
             if (f1 > 0.0F && entity instanceof LivingEntity livingEntity) {
                 float value = this.getYRot() * ((float)Math.PI / 180.0F);
                 livingEntity.knockback(f1 * 0.5F, Mth.sin(value), -Mth.cos(value));
@@ -425,13 +540,16 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     public boolean hurt(DamageSource source, float amount) {
         boolean flag = this.hasEffect(TAMobEffects.BLESS_OF_MOON.get());
+        boolean shouldImmuneRangedAttack = this.duelingMoment && source.getDirectEntity() instanceof Projectile;
+        boolean isPreparingAnimation = this.preparationTime > 0 && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
         if (!this.isInvulnerableTo(source)) {
-            if (this.duelingMoment && source.getDirectEntity() instanceof Projectile) {
+            this.isNeutral = false;
+            this.safeTime = 0;
+            if (shouldImmuneRangedAttack || isPreparingAnimation) {
                 return false;
             }
 
             if (source.getEntity() instanceof Player player) {
-                this.safeTime = 0;
                 String uuid = player.getStringUUID();
                 if (this.duelingMoment && !this.currentDuelistUUID.equals(uuid)) {
                     return false;
@@ -445,17 +563,87 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     }
 
     @Override
+    public void die(DamageSource damageSource) {
+        if (!this.isRemoved() && !this.dead) {
+            Entity entity = damageSource.getEntity();
+            LivingEntity livingEntity = this.getKillCredit();
+            if (this.deathScore >= 0 && livingEntity != null) {
+                livingEntity.awardKillScore(this, this.deathScore, damageSource);
+            }
+
+            this.dead = true;
+            Level level = this.level();
+            this.getCombatTracker().recheckStatus();
+            if (level instanceof ServerLevel serverlevel) {
+                if (entity instanceof ServerPlayer serverPlayer) {
+                    LazyOptional<MiscNBT> capability = serverPlayer.getCapability(TACapability.MISC_CAP);
+                    capability.ifPresent(miscNBT -> miscNBT.setImmuneToPressure(true));
+                }
+
+                if (entity == null || entity.killedEntity(serverlevel, this)) {
+                    this.gameEvent(GameEvent.ENTITY_DIE);
+                    this.dropAllDeathLoot(damageSource);
+                    this.createWitherRose(livingEntity);
+                }
+
+                this.level().broadcastEntityEvent(this, (byte)3);
+            }
+        }
+    }
+
+    @Override
     public boolean checkTotemDeathProtection(DamageSource damageSource) {
-        this.setBossHealth(1.0F);
-        this.ticksCanOneHitMustKill = this.level().getDayTime() % 24000L;
-        Map<AttributeInstance, Double> adMap = new HashMap<>();
-        adMap.put(this.getAttribute(Attributes.ARMOR), 30.0D);
-        adMap.put(this.getAttribute(Attributes.MOVEMENT_SPEED), 0.35D);
-        adMap.put(this.getAttribute(Attributes.ARMOR_TOUGHNESS), 20.0D);
-        adMap.put(this.getAttribute(Attributes.KNOCKBACK_RESISTANCE), 1.0D);
-        adMap.forEach(AttributeInstance::setBaseValue);
-        this.addEffect(new MobEffectInstance(TAMobEffects.FALL_OF_MOON.get(), 200));
-        return this.ticksCanOneHitMustKill == 24000L;
+         if (this.ticksCanOneHitMustKill == 24000L) {
+             this.addEffect(new MobEffectInstance(TAMobEffects.MOON_BEFALL.get(), 200));
+             this.triggerAnim(("moon_befall_controller"), ("moon_befall_animation"));
+             this.ticksCanOneHitMustKill = this.level().getDayTime() % 24000L;
+             Map<AttributeInstance, Double> map = new HashMap<>();
+             map.put(this.getAttribute(Attributes.ARMOR), 30.0D);
+             map.put(this.getAttribute(Attributes.ARMOR_TOUGHNESS), 20.0D);
+             map.put(this.getAttribute(Attributes.KNOCKBACK_RESISTANCE), 1.0D);
+             map.forEach(AttributeInstance::setBaseValue);
+             this.duelingMoment = false;
+             this.preparationTime = 26;
+             this.setBossHealth(1.0F);
+             return true;
+        } else {
+             return false;
+         }
+    }
+
+    private class MoonQueenNearestAttackableTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
+
+        public MoonQueenNearestAttackableTargetGoal(Mob mob, Class<T> targetType, boolean mustSee) {
+            super(mob, targetType, mustSee);
+        }
+
+        public MoonQueenNearestAttackableTargetGoal(Mob mob, Class<T> targetType, boolean mustSee, Predicate<LivingEntity> targetPredicate) {
+            super(mob, targetType, mustSee, targetPredicate);
+        }
+
+        @Override
+        public boolean canUse() {
+            AABB aabb = getBoundingBox().inflate(24.0D);
+            List<Player> playerList = level().getEntitiesOfClass(Player.class, aabb);
+            if (!currentDuelistUUID.isEmpty() && ticksDueling > 0) {
+                for (Player player : playerList) {
+                    String uuid = player.getStringUUID();
+                    if (uuid.equals(currentDuelistUUID)) {
+                        this.target = player;
+                        return true;
+                    }
+                }
+            }
+
+            int r = this.mob.getRandom().nextInt(this.randomInterval);
+            if (this.randomInterval > 0 && r != 0 || isNeutral) {
+                return false;
+            } else {
+                this.findTarget();
+                return this.target != null;
+            }
+        }
+
     }
 
     private class MoonQueenBodyRotationControl extends BodyRotationControl {

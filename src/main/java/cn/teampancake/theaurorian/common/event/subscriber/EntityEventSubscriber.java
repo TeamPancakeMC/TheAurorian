@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.data.nbt.MiscNBT;
 import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
 import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
@@ -51,7 +50,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
@@ -326,9 +324,15 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
         Entity sourceEntity = event.getSource().getEntity();
+        boolean flag = event.getEntity() instanceof ServerPlayer;
         if (sourceEntity instanceof MoonQueen moonQueen) {
             moonQueen.setSafeTime(0);
-            if (moonQueen.isDuelingMoment()) {
+            MobEffect effect = TAMobEffects.MOON_BEFALL.get();
+            if (moonQueen.hasEffect(effect) && flag) {
+                moonQueen.removeEffect(effect);
+            }
+
+            if (moonQueen.isDuelingMoment() && flag) {
                 if (event.getEntity() instanceof ServerPlayer player) {
                     String uuid = player.getStringUUID();
                     moonQueen.getKilledDuelistUUID().add(uuid);
@@ -339,16 +343,19 @@ public class EntityEventSubscriber {
         }
 
         if (sourceEntity instanceof ServerPlayer serverPlayer) {
-            if (event.getEntity() instanceof MoonQueen) {
-                LazyOptional<MiscNBT> capability = serverPlayer.getCapability(TACapability.MISC_CAP);
-                capability.ifPresent(miscNBT -> miscNBT.setImmuneToPressure(true));
-            }
-
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(TAItems.TSLAT_SWORD.get())) {
                 int count = stack.getOrCreateTag().getInt("KillCount");
                 stack.getOrCreateTag().putInt("KillCount", count + 1);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingDrops(LivingDropsEvent event) {
+        Entity entity = event.getSource().getEntity();
+        if (!(event.getEntity() instanceof Player) && entity instanceof MoonQueen) {
+            event.setCanceled(true);
         }
     }
 

@@ -49,7 +49,6 @@ public class MoonQueenLunaBefallPhase extends AttackPhase<MoonQueen> {
 
     @Override
     public void onStop(MoonQueen entity) {
-        entity.resetFallDistance();
         entity.setNoGravity(false);
     }
 

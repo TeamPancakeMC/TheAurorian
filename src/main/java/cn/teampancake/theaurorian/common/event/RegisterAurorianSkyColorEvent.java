@@ -11,7 +11,7 @@ public class RegisterAurorianSkyColorEvent extends Event {
     private final Map<ResourceLocation, Integer> daySkyColors;
 
     /**
-     * See {@link TASkyRenderer#getDaySkyColors()} to know
+     * See {@link TASkyRenderer#DaySkyColors} to know
      * about how to register new SkyColors
      * @param daySkyColors use RBG format, for example 0x80e3ec.
      */

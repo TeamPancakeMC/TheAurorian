@@ -23,10 +23,8 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"ConstantConditions", "SameParameterValue"})
@@ -92,8 +90,10 @@ public class TASkyRenderer {
         return true;
     }
 
-    public static Map<ResourceLocation, Integer> getDaySkyColors() {
-        Map<ResourceLocation, Integer> map = new HashMap<>();
+    public static final Map<ResourceLocation,Integer> DaySkyColors = getDaySkyColors();
+
+    private static Map<ResourceLocation, Integer> getDaySkyColors() {
+        Map<ResourceLocation, Integer> map = new LinkedHashMap<>();
         map.put(AurorianMod.prefix("ta_purple"), 0x8d60d7);
         map.put(AurorianMod.prefix("ta_pink"), 0xf49cae);
         map.put(AurorianMod.prefix("ta_cyan"), 0x80e3ec);
@@ -115,8 +115,8 @@ public class TASkyRenderer {
 
     public static int smoothColorTransition(float t) {
         Color currentColor = new Color(0x010e34);
-        Color targetColor = new Color(getDaySkyColors().get(currentPhase));
-        double d = Math.sin(2.0F * Math.PI * t + 0.25F * Math.PI);
+        Color targetColor = new Color(DaySkyColors.get(currentPhase));
+        double d = Math.sin(2.0F * Math.PI * t + 0.5F * Math.PI);
         d = (d + 1.0D) / 2.0D;
         int r = currentColor.getRed() + (int) ((targetColor.getRed() - currentColor.getRed()) * d);
         int g = currentColor.getGreen() + (int) ((targetColor.getGreen() - currentColor.getGreen()) * d);
@@ -130,7 +130,7 @@ public class TASkyRenderer {
      * @param stateCode Received from NightSyncMessage
      */
     public static void setCurrentPhase(int stateCode) {
-        List<ResourceLocation> colorNames = new ArrayList<>(getDaySkyColors().keySet());
+        List<ResourceLocation> colorNames = new ArrayList<>(DaySkyColors.keySet());
         currentPhase = colorNames.get(stateCode);
     }
 

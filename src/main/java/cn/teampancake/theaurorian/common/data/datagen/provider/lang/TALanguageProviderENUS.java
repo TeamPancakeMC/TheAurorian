@@ -828,7 +828,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.addTooltips(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT, "青春猪头尘不会梦到幼幼紫学姐.");
         this.addTooltips(TAItems.RED_BOOK, "A book full of various causes of death in the world. But in reality, it is a specious chief signal officer");
         this.addTooltips(TAItems.RED_BOOK_RING, "I didn't expect that person to make an specious item!");
-        this.addTooltips(TAItems.STAR_OCEAN_CROSSBOW, "What the hell? Why are you know the crossbow is my dad? ——StarOcean1266.");
+        this.addTooltips(TAItems.STAR_OCEAN_CROSSBOW, "What the hell? Why are you know the crossbow is my dad? --StarOcean1266.");
         this.addTooltips(TAItems.CAT_BELL, "It won't change you into a cat girl, but it can make you fast like a cat!");
         this.addTooltips(TAItems.TSLAT_SWORD, "Nobody know how to make muti-dims mod better than Tslat XD.");
     }

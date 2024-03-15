@@ -21,10 +21,7 @@ import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class LevelEventSubscriber {
@@ -50,7 +47,8 @@ public class LevelEventSubscriber {
                 if (dayCounter != dayCount) {
                     dayCount = (int) Math.floor(dayCounter);
                     if (futurePhase.size() < 4) {
-                        futurePhase.add((int) (Math.random() * TASkyRenderer.getDaySkyColors().size()));
+                        Random random = new Random();
+                        futurePhase.add(random.nextInt(TASkyRenderer.DaySkyColors.size()));
                     }
 
                     phaseCode = futurePhase.remove();

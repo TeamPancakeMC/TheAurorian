@@ -8,11 +8,13 @@ import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -151,6 +153,13 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         for (Block block : TACommonUtils.getKnownBlocks()) {
             float f1 = Blocks.BEDROCK.defaultDestroyTime();
             float f2 = Blocks.BEDROCK.getExplosionResistance();
+            ResourceLocation key = ForgeRegistries.BLOCKS.getKey(block);
+            if (key != null && key.getNamespace().equals(AurorianMod.MOD_ID)) {
+                if (key.getPath().contains("moon_temple")) {
+                    this.tag(TABlockTags.MOON_TEMPLE_BLOCK).add(block);
+                }
+            }
+
             if (!block.defaultBlockState().ignitedByLava()) {
                 if (block instanceof StairBlock) {
                     this.tag(BlockTags.STAIRS).add(block);

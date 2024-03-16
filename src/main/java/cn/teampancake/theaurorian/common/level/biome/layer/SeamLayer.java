@@ -8,10 +8,11 @@ import cn.teampancake.theaurorian.common.level.legacy.layer.BiomeLayerType;
 import cn.teampancake.theaurorian.common.level.legacy.layer.traits.CastleTransformer;
 import cn.teampancake.theaurorian.common.registry.TABiomeLayerStack;
 import cn.teampancake.theaurorian.common.registry.TABiomeLayers;
-import cn.teampancake.theaurorian.common.utils.Codecs;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -65,7 +66,7 @@ public record SeamLayer(ResourceKey<Biome> partitioningBiome, List<ResourceKey<B
                 Codec.LONG.fieldOf("salt").forGetter(Factory::salt),
                 ResourceKey.codec(Registries.BIOME).fieldOf("dividing_biome").forGetter(Factory::partitioningBiome),
                 ResourceKey.codec(Registries.BIOME).listOf().fieldOf("excluded_neighbor_biomes").forGetter(Factory::excludedBiomeNeighbors),
-                ResourceKey.codec(Registries.BIOME).listOf().comapFlatMap(Codecs::arrayToPair, p -> List.of(p.getFirst(), p.getSecond())).listOf().fieldOf("excluded_biome_intersections").forGetter(Factory::excludedBiomeIntersections),
+                ResourceKey.codec(Registries.BIOME).listOf().comapFlatMap(Factory::arrayToPair, p -> List.of(p.getFirst(), p.getSecond())).listOf().fieldOf("excluded_biome_intersections").forGetter(Factory::excludedBiomeIntersections),
                 TABiomeLayerStack.HOLDER_CODEC.fieldOf("parent").forGetter(Factory::parent)
         ).apply(inst, Factory::new));
 
@@ -83,6 +84,10 @@ public record SeamLayer(ResourceKey<Biome> partitioningBiome, List<ResourceKey<B
             this.excludedBiomeIntersections = excludedBiomeIntersections;
             this.instance = new SeamLayer(partitioningBiome, excludedBiomeNeighbors, excludedBiomeIntersections);
             this.parent = parent;
+        }
+
+        private static <E> DataResult<Pair<E, E>> arrayToPair(List<E> list) {
+            return Util.fixedSize(list, 2).map(l -> Pair.of(l.get(0), l.get(1)));
         }
 
         @Override
@@ -114,6 +119,7 @@ public record SeamLayer(ResourceKey<Biome> partitioningBiome, List<ResourceKey<B
         public Holder<BiomeLayerFactory> parent() {
             return this.parent;
         }
+
     }
 
 }

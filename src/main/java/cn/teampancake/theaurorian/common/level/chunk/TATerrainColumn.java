@@ -1,7 +1,8 @@
 package cn.teampancake.theaurorian.common.level.chunk;
 
-import cn.teampancake.theaurorian.common.utils.Codecs;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.floats.Float2ObjectAVLTreeMap;
 import it.unimi.dsi.fastutil.floats.Float2ObjectMap;
@@ -17,12 +18,13 @@ import java.util.Map;
 import java.util.function.BinaryOperator;
 import java.util.stream.Stream;
 
+@SuppressWarnings("deprecation")
 public final class TATerrainColumn implements Comparable<TATerrainColumn> {
 
     public static final Codec<TATerrainColumn> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     RegistryFixedCodec.create(Registries.BIOME).fieldOf("key_biome").forGetter(o -> o.keyBiome),
-                    Codecs.floatTreeCodec(Biome.CODEC).fieldOf("biome_layers").forGetter(o -> o.biomes),
+                    TATerrainColumn.floatTreeCodec(Biome.CODEC).fieldOf("biome_layers").forGetter(o -> o.biomes),
                     Codec.FLOAT.fieldOf("depth").forGetter(o -> o.noiseDepth),
                     Codec.FLOAT.fieldOf("scale").forGetter(o -> o.noiseScale)
             ).apply(instance, TATerrainColumn::new));
@@ -40,6 +42,21 @@ public final class TATerrainColumn implements Comparable<TATerrainColumn> {
         this.noiseScale = noiseScale;
         if (biomes instanceof Float2ObjectAVLTreeMap<Holder<Biome>> treeMap) {
             treeMap.defaultReturnValue(this.keyBiome);
+        }
+    }
+
+    public static <T> Codec<Float2ObjectSortedMap<T>> floatTreeCodec(Codec<T> elementCodec) {
+        return Codec.compoundList(Codec.STRING.comapFlatMap(TATerrainColumn::parseString2Float, f -> Float.toString(f)), elementCodec)
+                .xmap(floatEList -> floatEList.stream().collect(Float2ObjectAVLTreeMap::new,
+                                (map, pair) -> map.put(pair.getFirst(), pair.getSecond()), Float2ObjectAVLTreeMap::putAll),
+                        map -> map.entrySet().stream().map(entry -> new Pair<>(entry.getKey(), entry.getValue())).toList());
+    }
+
+    private static DataResult<Float> parseString2Float(String string) {
+        try {
+            return DataResult.success(Float.valueOf(string));
+        } catch (Throwable e) {
+            return DataResult.error(e::getMessage);
         }
     }
 

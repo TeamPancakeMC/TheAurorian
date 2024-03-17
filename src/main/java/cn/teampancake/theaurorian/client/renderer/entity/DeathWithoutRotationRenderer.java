@@ -10,7 +10,7 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class DeathWithoutRotationRenderer<T extends LivingEntity & GeoAnimatable> extends GeoEntityRenderer<T> {
+public class DeathWithoutRotationRenderer<T extends LivingEntity & GeoAnimatable> extends GeoEntityRenderer<T> {
 
     public DeathWithoutRotationRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> model) {
         super(renderManager, model);

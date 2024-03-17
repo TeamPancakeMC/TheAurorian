@@ -545,6 +545,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.LOCK_PICKS.get(),"Lock Picks");
         this.add(TAItems.DEVELOPER_GIFT.get(), "Developer Gift");
         this.add(TAItems.RAW_MOONSTONE.get(), "Raw Moonstone");
+        this.add(TAItems.MOONLIGHT_KNIGHT_SPAWN_EGG.get(), "Moonlight Knight Spawn Egg");
         this.add(TAItems.MOON_ACOLYTE_SPAWN_EGG.get(),"Moon Acolyte Spawn Egg");
         this.add(TAItems.MOON_QUEEN_SPAWN_EGG.get(),"Moon Queen Spawn Egg");
         this.add(TAItems.MOONSTONE_INGOT.get(),"Moonstone Ingot");
@@ -670,6 +671,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.FLOWER_LEECH.get(), "Flower Leech");
         this.add(TAEntityTypes.FORGOTTEN_MAGIC_BOOK.get(), "Forgotten Magic Book");
         this.add(TAEntityTypes.HYPHA_WALKING_MUSHROOM.get(), "Hypha Walking Mushroom");
+        this.add(TAEntityTypes.MOONLIGHT_KNIGHT.get(), "Moonlight Knight");
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), "Runestone Keeper");
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), "Spider Mother");
         this.add(TAEntityTypes.MOON_QUEEN.get(), "Moon Queen");

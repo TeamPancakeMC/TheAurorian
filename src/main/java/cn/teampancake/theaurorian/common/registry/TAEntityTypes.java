@@ -9,6 +9,7 @@ import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.TASpawnRules;
 import cn.teampancake.theaurorian.common.entities.animal.*;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
+import cn.teampancake.theaurorian.common.entities.boss.MoonlightKnight;
 import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.*;
@@ -147,6 +148,9 @@ public class TAEntityTypes {
             () -> EntityType.Builder.of(HyphaWalkingMushroom::new, MobCategory.MONSTER).sized(1.0F, 1.5F)
                     .clientTrackingRange((8)).build("hypha_walking_mushroom"));
     //Boss
+    public static final RegistryObject<EntityType<MoonlightKnight>> MOONLIGHT_KNIGHT = ENTITY_TYPES.register("moonlight_knight",
+            () -> EntityType.Builder.of(MoonlightKnight::new, MobCategory.MONSTER).sized(3.0F, 5.0F)
+                    .clientTrackingRange((8)).fireImmune().build("moonlight_knight"));
     public static final RegistryObject<EntityType<RunestoneKeeper>> RUNESTONE_KEEPER = ENTITY_TYPES.register("runestone_keeper",
             () -> EntityType.Builder.of(RunestoneKeeper::new, MobCategory.MONSTER).sized(1.4F, 4.2F)
                     .clientTrackingRange((8)).fireImmune().build("runestone_keeper"));
@@ -201,6 +205,8 @@ public class TAEntityTypes {
         event.registerEntityRenderer(FLOWER_LEECH.get(), FlowerLeechRenderer::new);
         event.registerEntityRenderer(FORGOTTEN_MAGIC_BOOK.get(), ForgottenMagicBookRenderer::new);
         event.registerEntityRenderer(HYPHA_WALKING_MUSHROOM.get(), HyphaWalkingMushroomRenderer::new);
+        event.registerEntityRenderer(MOONLIGHT_KNIGHT.get(), context -> new DeathWithoutRotationRenderer<>(
+                context, new DefaultedEntityGeoModel<>(MOONLIGHT_KNIGHT.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(RUNESTONE_KEEPER.get(), RunestoneKeeperRenderer::new);
         event.registerEntityRenderer(SPIDER_MOTHER.get(), SpiderMotherRenderer::new);
         event.registerEntityRenderer(MOON_QUEEN.get(), MoonQueenRenderer::new);
@@ -293,6 +299,7 @@ public class TAEntityTypes {
         event.put(FLOWER_LEECH.get(), FlowerLeech.createAttributes().build());
         event.put(FORGOTTEN_MAGIC_BOOK.get(), ForgottenMagicBook.createAttributes().build());
         event.put(HYPHA_WALKING_MUSHROOM.get(), HyphaWalkingMushroom.createAttributes().build());
+        event.put(MOONLIGHT_KNIGHT.get(), MoonlightKnight.createAttributes().build());
         event.put(RUNESTONE_KEEPER.get(), RunestoneKeeper.createAttributes().build());
         event.put(SPIDER_MOTHER.get(), SpiderMother.createAttributes().build());
         event.put(MOON_QUEEN.get(), MoonQueen.createAttributes().build());

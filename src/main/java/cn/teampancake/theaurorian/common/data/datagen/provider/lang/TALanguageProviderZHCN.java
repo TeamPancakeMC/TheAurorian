@@ -545,6 +545,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.LOCK_PICKS.get(), "开锁器");
         this.add(TAItems.DEVELOPER_GIFT.get(), "开发者礼物");
         this.add(TAItems.RAW_MOONSTONE.get(), "粗皎月石");
+        this.add(TAItems.MOONLIGHT_KNIGHT_SPAWN_EGG.get(), "月光骑士刷怪蛋");
         this.add(TAItems.MOON_ACOLYTE_SPAWN_EGG.get(), "皎月侍从刷怪蛋");
         this.add(TAItems.MOON_QUEEN_SPAWN_EGG.get(), "皎月女王刷怪蛋");
         this.add(TAItems.MOONSTONE_INGOT.get(), "皎月石锭");
@@ -670,6 +671,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.FLOWER_LEECH.get(), "花蛭");
         this.add(TAEntityTypes.FORGOTTEN_MAGIC_BOOK.get(), "遗落魔书");
         this.add(TAEntityTypes.HYPHA_WALKING_MUSHROOM.get(), "挂丝走路菇");
+        this.add(TAEntityTypes.MOONLIGHT_KNIGHT.get(), "月光骑士");
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), "符石守卫");
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), "蛛母");
         this.add(TAEntityTypes.MOON_QUEEN.get(), "皎月女王");

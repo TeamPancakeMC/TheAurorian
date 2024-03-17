@@ -100,6 +100,7 @@ public class TAEntityLoot extends VanillaEntityLoot {
         this.add(TAEntityTypes.FORGOTTEN_MAGIC_BOOK.get(), LootTable.lootTable());
         this.add(TAEntityTypes.HYPHA_WALKING_MUSHROOM.get(), LootTable.lootTable());
         //Boss
+        this.add(TAEntityTypes.MOONLIGHT_KNIGHT.get(), LootTable.lootTable());
         this.add(TAEntityTypes.RUNESTONE_KEEPER.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(TAItems.RUNE_STONE_LOOT_KEY.get())

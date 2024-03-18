@@ -264,14 +264,14 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     public void selectDuelistFromNearestTarget() {
         AABB aabb = this.getBoundingBox().inflate(24.0D);
-        List<String> uuidList = Lists.newArrayList();
+        List<String> uuidList = new ArrayList<>();
         List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
         playerList.stream().filter(this::isTruePlayer).forEach(
                 player -> uuidList.add(player.getStringUUID()));
         boolean flag = this.currentDuelistUUID.isEmpty();
         if (!playerList.isEmpty() && flag && this.ticksDueling > 0) {
             int index = this.random.nextInt(playerList.size());
-            this.currentDuelistUUID = playerList.get(index).getStringUUID();
+            this.currentDuelistUUID = uuidList.get(index);
         }
     }
 

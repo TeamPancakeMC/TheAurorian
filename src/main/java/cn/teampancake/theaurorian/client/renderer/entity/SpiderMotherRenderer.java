@@ -1,37 +1,32 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.model.entity.SpiderMotherModel;
-import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
+import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @OnlyIn(Dist.CLIENT)
-public class SpiderMotherRenderer extends MobRenderer<SpiderMother, SpiderMotherModel<SpiderMother>> {
+public class SpiderMotherRenderer<T extends SpiderMother> extends GeoEntityRenderer<T> {
 
     public SpiderMotherRenderer(EntityRendererProvider.Context context) {
-        super(context, new SpiderMotherModel<>(context.bakeLayer(TAModelLayers.SPIDER_MOTHER)), 2.0F);
+        super(context, new DefaultedEntityGeoModel<>(TAEntityTypes.SPIDER_MOTHER.getId()));
     }
 
     @Override
-    public void render(SpiderMother entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        if (entity.isHanging()) {
+    public void renderFinal(PoseStack poseStack, T animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        if (animatable.isHanging()) {
             poseStack.translate(0.0F, 0.0F, 0.5F);
             poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
         }
-        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
-    }
-
-    @Override
-    public ResourceLocation getTextureLocation(SpiderMother entity) {
-        return AurorianMod.prefix("textures/entity/spider_mother.png");
+        super.renderFinal(poseStack, animatable, model, bufferSource, buffer, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
 }

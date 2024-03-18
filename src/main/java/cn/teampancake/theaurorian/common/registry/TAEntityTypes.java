@@ -196,7 +196,8 @@ public class TAEntityTypes {
                 context, new DefaultedEntityGeoModel<>(MOON_ACOLYTE.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(SPIDERLING.get(), SpiderlingRenderer::new);
         event.registerEntityRenderer(CRYSTALLINE_SPRITE.get(), CrystallineSpriteRenderer::new);
-        event.registerEntityRenderer(CAVE_DWELLER.get(), CaveDwellerRenderer::new);
+        event.registerEntityRenderer(CAVE_DWELLER.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(CAVE_DWELLER.getId())));
         event.registerEntityRenderer(ROCK_HAMMER.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(ROCK_HAMMER.getId())));
         event.registerEntityRenderer(TONG_SCORPION.get(), TongScorpionRenderer::new);
@@ -230,12 +231,10 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME_OUTER, SlimeModel::createOuterBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIDERLING, SpiderlingModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CRYSTALLINE_SPRITE, CrystallineSpriteModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.CAVE_DWELLER, CaveDwellerModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.TONG_SCORPION, TongScorpionModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.FLOWER_LEECH, FlowerLeechModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.FORGOTTEN_MAGIC_BOOK, ForgottenMagicBookModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.HYPHA_WALKING_MUSHROOM, HyphaWalkingMushroomModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.SPIDER_MOTHER, SpiderMotherModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIKED_CHESTPLATE, SpikedChestplateModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME_BOOTS, AurorianSlimeBootsModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_STEEL_ARMOR, AurorianSteelArmorModel::createBodyLayer);

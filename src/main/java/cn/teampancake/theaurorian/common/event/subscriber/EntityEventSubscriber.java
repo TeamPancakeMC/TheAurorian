@@ -326,16 +326,16 @@ public class EntityEventSubscriber {
         Entity sourceEntity = event.getSource().getEntity();
         boolean flag = event.getEntity() instanceof ServerPlayer;
         if (sourceEntity instanceof MoonQueen moonQueen) {
-            moonQueen.setSafeTime(0);
+            moonQueen.safeTime = 0;
             MobEffect effect = TAMobEffects.MOON_BEFALL.get();
             if (moonQueen.hasEffect(effect) && flag) {
                 moonQueen.removeEffect(effect);
             }
 
-            if (moonQueen.isDuelingMoment() && flag) {
+            if (moonQueen.duelingMoment && flag) {
                 if (event.getEntity() instanceof ServerPlayer player) {
                     String uuid = player.getStringUUID();
-                    moonQueen.getKilledDuelistUUID().add(uuid);
+                    moonQueen.killedDuelistUUID.add(uuid);
                     moonQueen.selectDuelistFromNearestTarget();
                     moonQueen.heal((moonQueen.getMaxHealth() * 0.1F));
                 }

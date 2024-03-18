@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.client.particle.WickParticle;
+import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,7 +26,7 @@ public class TAParticleTypes {
     @SubscribeEvent
     public static void registerProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(WICK.get(), WickParticle.Provider::new);
-        event.registerSpriteSet(MAGIC_PURPLE.get(), WickParticle.Provider::new);
+        event.registerSpriteSet(MAGIC_PURPLE.get(), FlameParticle.Provider::new);
     }
 
 }

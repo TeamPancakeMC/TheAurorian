@@ -2,13 +2,15 @@ package cn.teampancake.theaurorian.client.renderer.entity;
 
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
+import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 
 @OnlyIn(Dist.CLIENT)
@@ -20,8 +22,12 @@ public class MoonQueenRenderer<T extends MoonQueen> extends DeathWithoutRotation
     }
 
     @Override
-    public void renderFinal(PoseStack poseStack, T animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        super.renderFinal(poseStack, animatable, model, bufferSource, buffer, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+    public void render(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+        boolean flag = entity.hasEffect(TAMobEffects.MOON_BEFALL.get());
+        RenderType renderType = this.getRenderType(entity, this.getTextureLocation(entity), bufferSource, partialTick);
+        VertexConsumer foilBufferDirect = ItemRenderer.getFoilBufferDirect(bufferSource, renderType, Boolean.FALSE, flag);
+        this.defaultRender(poseStack, entity, bufferSource, renderType, foilBufferDirect, entityYaw, partialTick, packedLight);
+        this.animatable = entity;
     }
 
 }

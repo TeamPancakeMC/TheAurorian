@@ -35,7 +35,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
     private static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> BOSS_HEALTH = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.FLOAT);
     private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(),
-            BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+            BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false);
     protected AttackManager<?> attackManager = new AttackManager<>(this, List.of());
 
     protected AbstractAurorianBoss(EntityType<? extends Monster> type, Level level) {

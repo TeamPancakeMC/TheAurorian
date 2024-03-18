@@ -21,7 +21,7 @@ public class MoonQueenMeleePhase extends AttackPhase<MoonQueen> {
 
     @Override
     public boolean canStart(MoonQueen entity, boolean coolDownOver) {
-        return entity.getPreparationTime() <= 0 && entity.isAlive() && TAEntityUtils.canReachTarget(entity, 2.0D);
+        return entity.preparationTime <= 0 && entity.isAlive() && TAEntityUtils.canReachTarget(entity, 2.0D);
     }
 
     @Override
@@ -45,20 +45,24 @@ public class MoonQueenMeleePhase extends AttackPhase<MoonQueen> {
         Level level = entity.level();
         LivingEntity target = entity.getTarget();
         if (i >= 0 && target != null && entity.getAttackTicks() == this.hurtTargetTime[i]) {
-            AABB bodyInflate = entity.getBoundingBox().inflate(2.0D);
-            AABB targetInflate = target.getBoundingBox().inflate(1.0D);
+            AABB selfInflate = entity.getBoundingBox().inflate(2.0D);
+            AABB targetInflate = target.getBoundingBox().inflate(1.5D);
+            float value = entity.getYRot() * ((float) Math.PI / 180F);
             for (LivingEntity livingEntity : level.getNearbyEntities(LivingEntity.class,
-                    TargetingConditions.DEFAULT, entity, bodyInflate)) {
+                    TargetingConditions.DEFAULT, entity, selfInflate)) {
                 if (livingEntity.getUUID().equals(target.getUUID())) {
                     livingEntity.invulnerableTime = 0;
                     entity.doHurtTarget(livingEntity);
+                    if (i == 2) {
+                        livingEntity.hurt(entity.damageSources().mobAttack(entity), 6.0F);
+                        livingEntity.knockback(1.0F, Mth.sin(value), -Mth.cos(value));
+                    }
                 }
             }
 
             if (i == 0 || i == 1) {
                 for (LivingEntity livingEntity : level.getEntitiesOfClass(LivingEntity.class, targetInflate)) {
                     double distance = entity.distanceToSqr(livingEntity);
-                    float value = entity.getYRot() * ((float) Math.PI / 180F);
                     if (livingEntity != entity && livingEntity != target && distance < 8.0D) {
                         livingEntity.knockback(0.4F, Mth.sin(value), -Mth.cos(value));
                         entity.doHurtTarget(livingEntity);

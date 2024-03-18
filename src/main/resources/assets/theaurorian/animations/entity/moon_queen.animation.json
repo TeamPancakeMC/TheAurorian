@@ -63,6 +63,46 @@
 					"rotation": {
 						"vector": ["math.cos(query.anim_time*60)*-3+3", 0, 0]
 					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
@@ -72,7 +112,7 @@
 			"bones": {
 				"all": {
 					"position": {
-						"vector": [0, "math.cos(query.anim_time*180)*-0.1", 0]
+						"vector": [0, "math.cos(query.anim_time*360)*-0.1", 0]
 					}
 				},
 				"body_higher": {
@@ -181,6 +221,46 @@
 						"2.0": {
 							"vector": [0, -5, 0]
 						}
+					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
 					}
 				}
 			}
@@ -522,6 +602,46 @@
 						"0.5": {
 							"vector": [0, 0, 17.5]
 						}
+					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
 					}
 				}
 			}
@@ -958,6 +1078,85 @@
 							"vector": [0, 0, 0]
 						}
 					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.4167": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [1, 1, 1]
+						},
+						"0.5417": {
+							"vector": [1, 1, 1]
+						},
+						"0.625": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.4167": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [1, 1, 1]
+						},
+						"0.5417": {
+							"vector": [1, 1, 1]
+						},
+						"0.625": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"sword_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.4167": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [1, 1, 1]
+						},
+						"0.625": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
@@ -998,44 +1197,6 @@
 							"vector": [0, 12.5, 0]
 						},
 						"1.0": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"breast_right": {
-					"rotation": {
-						"0.25": {
-							"vector": [0, 0, 0]
-						},
-						"0.4167": {
-							"vector": [-15, 0, 0]
-						},
-						"0.5": {
-							"vector": [0, 0, 0]
-						},
-						"0.5833": {
-							"vector": [-7.5, 0, 0]
-						},
-						"0.6667": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"breast_left": {
-					"rotation": {
-						"0.25": {
-							"vector": [0, 0, 0]
-						},
-						"0.4167": {
-							"vector": [-15, 0, 0]
-						},
-						"0.5": {
-							"vector": [0, 0, 0]
-						},
-						"0.5833": {
-							"vector": [-7.5, 0, 0]
-						},
-						"0.6667": {
 							"vector": [0, 0, 0]
 						}
 					}
@@ -1283,6 +1444,104 @@
 						"1.0": {
 							"vector": [0, 0, 0]
 						}
+					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.3333": {
+							"vector": [1, 1, 1]
+						},
+						"0.4167": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_3": {
+					"rotation": {
+						"0.375": {
+							"vector": [0, 0, 0]
+						},
+						"0.4167": {
+							"vector": [22.5, 0, 0]
+						}
+					},
+					"position": {
+						"0.375": {
+							"vector": [0, 0, 0]
+						},
+						"0.4167": {
+							"vector": [-6, -3, -7]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2917": {
+							"vector": [0, 0, 0]
+						},
+						"0.375": {
+							"vector": [1, 1, 1]
+						},
+						"0.4167": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.375": {
+							"vector": [1, 1, 1]
+						},
+						"0.4167": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
 					}
 				}
 			}
@@ -1793,6 +2052,90 @@
 							"vector": [0, 0, 0]
 						}
 					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.375": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [1, 0, 0]
+						}
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.375": {
+							"vector": [0, 0, 0]
+						},
+						"0.4167": {
+							"vector": [1, 1, 1]
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.4167": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [1, 1, 1]
+						},
+						"0.5833": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						},
+						"0.5833": {
+							"vector": [1, 1, 1]
+						},
+						"0.6667": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
@@ -2071,6 +2414,46 @@
 						"1.0": {
 							"vector": [0, 0, 0]
 						}
+					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
 					}
 				}
 			}
@@ -2411,6 +2794,46 @@
 							"vector": [0, 0, 0]
 						}
 					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
@@ -2743,6 +3166,46 @@
 						"0.5417": {
 							"vector": [0, 0, 0]
 						}
+					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
 					}
 				}
 			}
@@ -3212,6 +3675,57 @@
 							"vector": [14.78217, 2.57594, -9.6658]
 						},
 						"1.2083": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.625": {
+							"vector": [0, 0, 0]
+						},
+						"0.75": {
+							"vector": [3, 3, 3]
+						},
+						"0.7917": {
 							"vector": [0, 0, 0]
 						}
 					}
@@ -3696,6 +4210,46 @@
 							"vector": [0, 0, 0]
 						}
 					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
@@ -3870,6 +4424,46 @@
 						"vector": [62.5, 0, 0]
 					},
 					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_3": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"sword_wave_4": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"circle_wave_4": {
+					"scale": {
 						"vector": [0, 0, 0]
 					}
 				}

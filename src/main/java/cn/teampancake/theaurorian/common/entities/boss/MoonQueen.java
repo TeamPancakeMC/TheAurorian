@@ -43,7 +43,7 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -119,7 +119,9 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         this.targetSelector.addGoal(2, new MoonQueenNearestAttackableTargetGoal<>(this, Player.class, Boolean.FALSE));
         this.targetSelector.addGoal(3, new MoonQueenNearestAttackableTargetGoal<>(this, LivingEntity.class, Boolean.FALSE, entity -> {
             ResourceLocation key = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
-            return key != null && !key.getNamespace().equals(AurorianMod.MOD_ID) && !(entity instanceof ArmorStand);
+            boolean flag1 = key != null && !key.getNamespace().equals(AurorianMod.MOD_ID);
+            boolean flag2 = entity.attackable() && !(entity instanceof Animal);
+            return !(entity instanceof MoonQueen) && !(entity instanceof MoonlightKnight) && flag1 && flag2;
         }));
     }
 
@@ -675,26 +677,22 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     public boolean checkTotemDeathProtection(DamageSource damageSource) {
         if (this.ticksCanOneHitMustKill == 24000L) {
-            this.shouldTriggerMoonBefall();
+            this.triggerAnim(("moon_befall_controller"), ("moon_befall_animation"));
+            this.addEffect(new MobEffectInstance(TAMobEffects.MOON_BEFALL.get(), 200));
+            this.ticksCanOneHitMustKill = this.level().getDayTime() % 24000L;
+            Map<AttributeInstance, Double> map = new HashMap<>();
+            map.put(this.getAttribute(Attributes.ARMOR), 30.0D);
+            map.put(this.getAttribute(Attributes.ARMOR_TOUGHNESS), 20.0D);
+            map.put(this.getAttribute(Attributes.KNOCKBACK_RESISTANCE), 1.0D);
+            map.forEach(AttributeInstance::setBaseValue);
+            this.duelingMoment = false;
+            this.preparationTime = 26;
+            this.setBossHealth(1.0F);
             this.setAttackState(3);
             return true;
         } else {
             return false;
         }
-    }
-
-    private void shouldTriggerMoonBefall() {
-        this.triggerAnim(("moon_befall_controller"), ("moon_befall_animation"));
-        this.addEffect(new MobEffectInstance(TAMobEffects.MOON_BEFALL.get(), 200));
-        this.ticksCanOneHitMustKill = this.level().getDayTime() % 24000L;
-        Map<AttributeInstance, Double> map = new HashMap<>();
-        map.put(this.getAttribute(Attributes.ARMOR), 30.0D);
-        map.put(this.getAttribute(Attributes.ARMOR_TOUGHNESS), 20.0D);
-        map.put(this.getAttribute(Attributes.KNOCKBACK_RESISTANCE), 1.0D);
-        map.forEach(AttributeInstance::setBaseValue);
-        this.duelingMoment = false;
-        this.preparationTime = 26;
-        this.setBossHealth(1.0F);
     }
 
     private class MoonQueenNearestAttackableTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {

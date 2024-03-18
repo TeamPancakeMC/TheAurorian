@@ -10,4 +10,4 @@ public class RedBookRing extends Item implements IDeveloperItem, ITooltipsItem {
     }
 
 }
-//he should get the respect he deserved
+//st

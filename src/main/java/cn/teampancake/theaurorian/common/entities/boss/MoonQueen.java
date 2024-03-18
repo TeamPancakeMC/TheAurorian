@@ -272,7 +272,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 player -> uuidList.add(player.getStringUUID()));
         boolean flag = this.currentDuelistUUID.isEmpty();
         if (!playerList.isEmpty() && flag && this.ticksDueling > 0) {
-            int index = this.random.nextInt(playerList.size());
+            int index = this.random.nextInt(uuidList.size());
             this.currentDuelistUUID = uuidList.get(index);
         }
     }

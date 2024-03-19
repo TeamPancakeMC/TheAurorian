@@ -17,19 +17,19 @@ public class CorruptionEffect extends IncurableEffect {
     public void doHurtTarget(LivingEntity entity) {
         DamageSource source = entity.damageSources().source(TADamageTypes.CORRUPTION);
         entity.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
-            entity.hurt(source, miscNBT.getDamageAccumulation());
-            miscNBT.setDamageAccumulation(0.0F);
-            miscNBT.setCorruptionTime(0);
-            miscNBT.setValidCorruptionTime(0);
+            entity.hurt(source, miscNBT.damageAccumulation);
+            miscNBT.damageAccumulation = 0.0F;
+            miscNBT.corruptionTime = 0;
+            miscNBT.validCorruptionTime = 0;
         });
 
         if (entity instanceof Player player) {
             player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
-                float armorHurt = miscNBT.getArmorHurtAccumulation();
+                float armorHurt = miscNBT.armorHurtAccumulation;
                 player.getInventory().hurtArmor(source, armorHurt, Inventory.ALL_ARMOR_SLOTS);
-                player.causeFoodExhaustion(miscNBT.getExhaustionAccumulation());
-                miscNBT.setExhaustionAccumulation(0.0F);
-                miscNBT.setArmorHurtAccumulation(0.0F);
+                player.causeFoodExhaustion(miscNBT.exhaustionAccumulation);
+                miscNBT.exhaustionAccumulation = 0.0F;
+                miscNBT.armorHurtAccumulation = 0.0F;
             });
         }
     }

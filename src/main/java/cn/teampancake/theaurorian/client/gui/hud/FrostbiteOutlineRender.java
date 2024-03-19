@@ -19,7 +19,7 @@ public class FrostbiteOutlineRender {
         RenderSystem.enableBlend();
         if (forgeGui.getMinecraft().getCameraEntity() instanceof Player player) {
             player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
-                int i = miscNBT.getTicksFrostbite();
+                int i = miscNBT.ticksFrostbite;
                 int j = player.getTicksRequiredToFreeze();
                 if (player.getTicksFrozen() <= 0) {
                     float percentFrozen = (float) Math.min(i, j) / (float) j;

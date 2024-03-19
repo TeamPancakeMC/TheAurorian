@@ -73,7 +73,7 @@ public class LevelEventSubscriber {
 
                     if (dayTime > 6000 && dayTime <= 18000) {
                         serverPlayer.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
-                            if (!miscNBT.isImmuneToPressure()) {
+                            if (!miscNBT.immuneToPressure) {
                                 serverPlayer.addEffect(blessEffect(TAMobEffects.PRESSURE.get()));
                             }
                         });

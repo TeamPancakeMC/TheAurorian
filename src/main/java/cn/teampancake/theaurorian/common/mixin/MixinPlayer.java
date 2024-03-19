@@ -32,8 +32,8 @@ public abstract class MixinPlayer extends LivingEntity {
         if (this.hasEffect(TAMobEffects.CORRUPTION.get()) || this.hasEffect(TAMobEffects.TOUGH.get())) {
             if (this.hasEffect(TAMobEffects.CORRUPTION.get())) {
                 this.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
-                    float i = miscNBT.getArmorHurtAccumulation();
-                    miscNBT.setArmorHurtAccumulation(i + damage);
+                    float i = miscNBT.armorHurtAccumulation;
+                    miscNBT.armorHurtAccumulation = i + damage;
                 });
             }
 

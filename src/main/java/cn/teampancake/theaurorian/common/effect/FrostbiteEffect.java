@@ -27,7 +27,7 @@ public class FrostbiteEffect extends IncurableEffect {
         if (!level.isClientSide) {
             livingEntity.setSharedFlagOnFire(false);
             livingEntity.getCapability(TACapability.MISC_CAP)
-                    .ifPresent(miscNBT -> miscNBT.setTicksFrostbite(140));
+                    .ifPresent(miscNBT -> miscNBT.ticksFrostbite = 140);
             if (!MysteriumWoolArmor.isWearFullArmor(livingEntity)) {
                 livingEntity.hurt(livingEntity.damageSources().freeze(), (amplifier + 1.0F));
             }

@@ -45,7 +45,7 @@ class ClientFrostbiteSync {
     public static void handlePacket(FrostbiteSyncMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         Player player = Minecraft.getInstance().player;
         if (player != null) {
-            player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> miscNBT.setTicksFrostbite(message.ticksFrostbite));
+            player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> miscNBT.ticksFrostbite = message.ticksFrostbite);
         }
     }
 

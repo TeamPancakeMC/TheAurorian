@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.entities.phase.queen;
+package cn.teampancake.theaurorian.common.entities.phase.moonqueen;
 
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;

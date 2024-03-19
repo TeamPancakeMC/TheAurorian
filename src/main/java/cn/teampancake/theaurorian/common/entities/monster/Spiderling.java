@@ -18,15 +18,21 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class Spiderling extends Spider implements NeutralMob, IAffectedByNightmareMode {
+public class Spiderling extends Spider implements NeutralMob, GeoEntity, IAffectedByNightmareMode {
 
     private static final UniformInt ALERT_INTERVAL = TimeUtil.rangeOfSeconds(4, 6);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState attackAnimationState = new AnimationState();
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int ticksUntilNextAlert;
     private int remainingPersistentAngerTime;
     @Nullable
@@ -46,16 +52,20 @@ public class Spiderling extends Spider implements NeutralMob, IAffectedByNightma
         return Spider.createAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.ATTACK_DAMAGE, 1.0D);
     }
 
-    public static boolean checkSpawnRules(EntityType<Spiderling> spiderling, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(TABlocks.DARK_STONE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(spiderling, level, spawnType, pos, random);
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericWalkIdleController(this));
+        controllers.add(new AnimationController<>(this, "bite_controller", state -> PlayState.STOP)
+                .triggerableAnim("bite_animation", DefaultAnimations.ATTACK_BITE).transitionLength(5));
     }
 
     @Override
-    public void aiStep() {
-        super.aiStep();
-        if (this.level().isClientSide && !this.isInWaterOrBubble() && !this.walkAnimation.isMoving()) {
-            this.idleAnimationState.animateWhen(Boolean.TRUE, this.tickCount);
-        }
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    public static boolean checkSpawnRules(EntityType<Spiderling> spiderling, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return level.getBlockState(pos.below()).is(TABlocks.DARK_STONE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(spiderling, level, spawnType, pos, random);
     }
 
     @Override
@@ -75,15 +85,6 @@ public class Spiderling extends Spider implements NeutralMob, IAffectedByNightma
 
                 this.ticksUntilNextAlert = ALERT_INTERVAL.sample(this.random);
             }
-        }
-    }
-
-    @Override
-    public void handleEntityEvent(byte id) {
-        if (id == 4) {
-            this.attackAnimationState.startIfStopped(this.tickCount);
-        } else {
-            super.handleEntityEvent(id);
         }
     }
 

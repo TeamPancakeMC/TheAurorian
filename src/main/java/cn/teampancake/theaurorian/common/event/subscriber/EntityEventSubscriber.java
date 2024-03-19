@@ -6,7 +6,9 @@ import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
 import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
+import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
+import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
@@ -37,6 +39,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.Snowball;
@@ -63,6 +68,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class EntityEventSubscriber {
@@ -103,6 +109,7 @@ public class EntityEventSubscriber {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();
@@ -123,12 +130,13 @@ public class EntityEventSubscriber {
             int j = miscNBT.corruptionTime;
             if (!level.isClientSide) {
                 if (entity.hasEffect(effect)) {
-                    float chance = j / (validTime + 20.0F);
+                    float chance = j / (validTime + 40.0F);
                     boolean shouldRemove = level.random.nextFloat() < chance;
                     if (entity.tickCount % 20 == 0) {
                         ++miscNBT.corruptionTime;
                     }
                     if (j >= validTime || shouldRemove) {
+                        entity.getEffect(effect).duration = 0;
                         entity.removeEffect(effect);
                     }
                 }
@@ -178,13 +186,6 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onMobEffectRemove(MobEffectEvent.Remove event) {
-        if (event.getEffect() instanceof CorruptionEffect corruption) {
-            corruption.doHurtTarget(event.getEntity());
-        }
-    }
-
-    @SubscribeEvent
     public static void onMobEffectApplicable(MobEffectEvent.Applicable event) {
         LivingEntity entity = event.getEntity();
         MobEffect effect = event.getEffectInstance().getEffect();
@@ -229,6 +230,26 @@ public class EntityEventSubscriber {
                     sitEntity.ejectPassengers();
                     sitEntity.discard();
                 }
+            }
+
+            if (effect == TAMobEffects.CRYSTALLIZATION.get() && entity instanceof ServerPlayer player) {
+                player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
+                    AttributeInstance attribute = player.getAttribute(Attributes.MAX_HEALTH);
+                    List<UUID> list = miscNBT.maxHealthSubtractUuids;
+                    System.out.println(list);
+                    if (attribute != null && !list.isEmpty()) {
+                        miscNBT.maxHealthSubtractUuids.clear();
+                        list.forEach(uuid -> {
+                            if (attribute.getModifier(uuid) != null) {
+                                attribute.removeModifier(uuid);
+                            }
+                        });
+                    }
+                });
+            }
+
+            if (effect instanceof CorruptionEffect corruption) {
+                corruption.doHurtTarget(entity);
             }
 
             if (effect instanceof ForbiddenCurseEffect forbiddenCurse && entity instanceof Player player) {
@@ -301,6 +322,20 @@ public class EntityEventSubscriber {
                 }
             }
 
+            if (target.hasEffect(TAMobEffects.CRYSTALLIZATION.get()) && target instanceof ServerPlayer player) {
+                event.setAmount(event.getAmount() * 1.5F);
+                player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
+                    AttributeInstance attribute = player.getAttribute(Attributes.MAX_HEALTH);
+                    AttributeModifier.Operation operation = AttributeModifier.Operation.MULTIPLY_TOTAL;
+                    if (attribute != null && player.getRandom().nextFloat() <= 0.25F) {
+                        AttributeModifier modifier = new AttributeModifier("Crystallization", -0.1D, operation);
+                        miscNBT.maxHealthSubtractUuids.add(modifier.getId());
+                        System.out.println(modifier.getId());
+                        attribute.addTransientModifier(modifier);
+                    }
+                });
+            }
+
             if (target.hasEffect(effect)) {
                 target.getCapability(TACapability.MISC_CAP).ifPresent(
                         miscNBT -> miscNBT.damageAccumulation += event.getAmount());
@@ -369,6 +404,13 @@ public class EntityEventSubscriber {
         }
 
         if (sourceEntity instanceof ServerPlayer serverPlayer) {
+            AttributeInstance instance = serverPlayer.getAttribute(Attributes.MAX_HEALTH);
+            if (entity instanceof SpiderMother && instance != null) {
+                if (instance.getModifier(WebbingEntity.MAX_HEALTH_SUBTRACT_WEBBING) != null) {
+                    instance.removeModifier(WebbingEntity.MAX_HEALTH_SUBTRACT_WEBBING);
+                }
+            }
+
             if (entity instanceof MoonQueen) {
                 serverPlayer.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> miscNBT.immuneToPressure = true);
             }

@@ -1,6 +1,11 @@
 package cn.teampancake.theaurorian.common.data.nbt;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class MiscNBT {
 
@@ -12,6 +17,7 @@ public class MiscNBT {
     public float exhaustionAccumulation;
     public float armorHurtAccumulation;
     public boolean immuneToPressure;
+    public List<UUID> maxHealthSubtractUuids = new ArrayList<>();
 
     public void saveNBTData(CompoundTag compound) {
         compound.putInt("TicksFrostbite", this.ticksFrostbite);
@@ -22,6 +28,7 @@ public class MiscNBT {
         compound.putFloat("ExhaustionAccumulation", this.exhaustionAccumulation);
         compound.putFloat("ArmorHurtAccumulation", this.armorHurtAccumulation);
         compound.putBoolean("ImmuneToPressure", this.immuneToPressure);
+        compound.put("MaxHealthSubtractUuids", this.saveListTag(this.maxHealthSubtractUuids));
     }
 
     public void loadNBTData(CompoundTag compound) {
@@ -34,6 +41,22 @@ public class MiscNBT {
         this.exhaustionAccumulation = compound.getFloat("ExhaustionAccumulation");
         this.armorHurtAccumulation = compound.getFloat("ArmorHurtAccumulation");
         this.immuneToPressure = compound.getBoolean("ShouldAffectByPressure");
+        ListTag listTag = compound.getList("LevelThatFirstTimeLefts", 10);
+        for (int i = 0; i < listTag.size(); i++) {
+            CompoundTag tag = listTag.getCompound(i);
+            this.maxHealthSubtractUuids.add(tag.getUUID("UUID"));
+        }
+    }
+
+    private ListTag saveListTag(List<UUID> list) {
+        ListTag listTag = new ListTag();
+        list.forEach(s -> {
+            CompoundTag compound = new CompoundTag();
+            compound.putUUID("UUID", s);
+            listTag.add(compound);
+        });
+
+        return listTag;
     }
 
 }

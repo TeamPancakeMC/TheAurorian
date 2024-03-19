@@ -11,10 +11,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @OnlyIn(Dist.CLIENT)
-public class SpiderMotherRenderer<T extends SpiderMother> extends GeoEntityRenderer<T> {
+public class SpiderMotherRenderer<T extends SpiderMother> extends DeathWithoutRotationRenderer<T> {
 
     public SpiderMotherRenderer(EntityRendererProvider.Context context) {
         super(context, new DefaultedEntityGeoModel<>(TAEntityTypes.SPIDER_MOTHER.getId()));

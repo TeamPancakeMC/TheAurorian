@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.common.entities.boss;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.data.nbt.MiscNBT;
 import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.MoonQueenBlockPhase;
@@ -52,11 +51,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
@@ -540,12 +537,13 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     public boolean doHurtTarget(Entity entity) {
         float f = (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float f1 = (float)this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        DamageSource source = this.damageSources().mobAttack(this);
         if (entity instanceof LivingEntity livingEntity) {
             f += EnchantmentHelper.getDamageBonus(this.getMainHandItem(), livingEntity.getMobType());
             f1 += (float)EnchantmentHelper.getKnockbackBonus(this);
             if (this.hasEffect(TAMobEffects.MOON_BEFALL.get()) || !(livingEntity instanceof Player)) {
                 this.heal(this.getMaxHealth() * 0.2F);
-                livingEntity.kill();
+                livingEntity.hurt(source, Float.MAX_VALUE);
                 return true;
             }
         }
@@ -554,7 +552,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             f *= 2.0F;
         }
 
-        boolean flag = entity.hurt(this.damageSources().mobAttack(this), f);
+        boolean flag = entity.hurt(source, f);
         if (flag) {
             if (f1 > 0.0F && entity instanceof LivingEntity livingEntity) {
                 float value = this.getYRot() * ((float)Math.PI / 180.0F);
@@ -595,7 +593,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        boolean flag = this.hasEffect(TAMobEffects.BLESS_OF_MOON.get());
+        Entity entity = source.getEntity();
         boolean shouldImmuneRangedAttack = this.duelingMoment && source.getDirectEntity() instanceof Projectile;
         boolean isPreparingAnimation = this.preparationTime > 0 && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
         if (!this.isInvulnerableTo(source)) {
@@ -610,38 +608,23 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 return false;
             }
 
-            if (source.getEntity() instanceof Player player) {
+            if (entity instanceof Player player) {
                 String uuid = player.getStringUUID();
                 if (this.duelingMoment && !this.currentDuelistUUID.equals(uuid)) {
                     return false;
                 }
             }
 
-            return super.hurt(source, flag ? amount / 2.0F : amount);
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public void die(DamageSource damageSource) {
-        if (!this.isRemoved()) {
-            Entity entity = damageSource.getEntity();
-            this.getCombatTracker().recheckStatus();
-            if (this.level() instanceof ServerLevel serverlevel) {
-                if (entity == null || entity.killedEntity(serverlevel, this)) {
-                    this.gameEvent(GameEvent.ENTITY_DIE);
-                    this.dropAllDeathLoot(damageSource);
+            if (super.hurt(source, this.hasEffect(TAMobEffects.BLESS_OF_MOON.get()) ? amount / 2.0F : amount)) {
+                if (entity instanceof ServerPlayer player) {
+                    player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> miscNBT.uninterruptedHurtByMoonQueenCount = 0);
                 }
 
-                if (entity instanceof ServerPlayer serverPlayer) {
-                    LazyOptional<MiscNBT> capability = serverPlayer.getCapability(TACapability.MISC_CAP);
-                    capability.ifPresent(miscNBT -> miscNBT.setImmuneToPressure(true));
-                }
-
-                this.level().broadcastEntityEvent(this, (byte)3);
+                return true;
             }
         }
+
+        return false;
     }
 
     public void createParticleBall(double speed, int size) {

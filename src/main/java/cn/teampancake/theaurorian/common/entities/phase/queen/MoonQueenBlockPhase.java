@@ -1,11 +1,12 @@
-package cn.teampancake.theaurorian.common.entities.phase;
+package cn.teampancake.theaurorian.common.entities.phase.queen;
 
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
+import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
 
-public class MoonQueenShrugPhase extends AttackPhase<MoonQueen> {
+public class MoonQueenBlockPhase extends AttackPhase<MoonQueen> {
 
-    public MoonQueenShrugPhase() {
-        super(3, 1, 15, 10);
+    public MoonQueenBlockPhase() {
+        super(2, 1, 25, 10);
     }
 
     @Override
@@ -15,7 +16,7 @@ public class MoonQueenShrugPhase extends AttackPhase<MoonQueen> {
 
     @Override
     public void onStart(MoonQueen entity) {
-        entity.triggerAnim("shrug_controller", "shrug_animation");
+        entity.triggerAnim("block_controller", "block_animation");
     }
 
     @Override

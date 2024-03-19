@@ -1,6 +1,7 @@
-package cn.teampancake.theaurorian.common.entities.phase;
+package cn.teampancake.theaurorian.common.entities.phase.queen;
 
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
+import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
 
 public class MoonQueenLunaBefallEndPhase extends AttackPhase<MoonQueen> {
 

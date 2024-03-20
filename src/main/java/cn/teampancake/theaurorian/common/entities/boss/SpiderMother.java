@@ -5,9 +5,12 @@ import cn.teampancake.theaurorian.common.entities.phase.spidermother.*;
 import cn.teampancake.theaurorian.common.registry.TAAttributes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -15,6 +18,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -23,6 +27,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -56,6 +61,7 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     private static final EntityDataAccessor<Boolean> HANGING = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BYTE);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private int safeTime;
 
     public SpiderMother(EntityType<? extends SpiderMother> type, Level level) {
         super(type, level);
@@ -76,17 +82,19 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.FALSE));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class,
+                Boolean.FALSE, entity -> !(entity instanceof SpiderMother) && !(entity instanceof Spider)));
     }
 
     @NotNull
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(TAAttributes.MAX_BOSS_HEALTH.get(), 300.0D);
+        builder.add(TAAttributes.MAX_BOSS_HEALTH.get(), 400.0D);
         builder.add(Attributes.ATTACK_DAMAGE, 10.0D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.3D);
         builder.add(Attributes.FOLLOW_RANGE, 50.0F);
-        builder.add(Attributes.ARMOR, 2.0F);
+        builder.add(Attributes.ARMOR, 8.0F);
         return builder;
     }
 
@@ -118,6 +126,20 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        super.customServerAiStep();
+        if (this.level() instanceof ServerLevel serverLevel) {
+            float maxHealth = this.getMaxHealth();
+            LivingEntity target = this.getTarget();
+            List<ServerPlayer> serverPlayerList = serverLevel.players();
+            AttributeInstance health = this.getAttribute(TAAttributes.MAX_BOSS_HEALTH.get());
+            if (++this.safeTime > 160 && this.tickCount % 20 == 0) {
+                this.heal(maxHealth * 0.05F);
+            }
+        }
     }
 
     @Override
@@ -189,6 +211,18 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("SafeTime", this.safeTime);
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.safeTime = compound.getInt("SafeTime");
+    }
+
+    @Override
     public boolean onClimbable() {
         return (this.entityData.get(DATA_FLAGS_ID) & 1) != 0;
     }
@@ -207,7 +241,20 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     @Override
     public boolean canBeAffected(MobEffectInstance potionEffect) {
         MobEffect effect = potionEffect.getEffect();
-        return effect == MobEffects.POISON || effect == TAMobEffects.CRYSTALLIZATION.get() || super.canBeAffected(potionEffect);
+        boolean flag1 = effect == MobEffects.POISON;
+        boolean flag2 = effect == MobEffects.WITHER;
+        boolean flag3 = effect == TAMobEffects.CRYSTALLIZATION.get();
+        return flag1 || flag2 || flag3 || super.canBeAffected(potionEffect);
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (super.hurt(source, amount)) {
+            this.safeTime = 0;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

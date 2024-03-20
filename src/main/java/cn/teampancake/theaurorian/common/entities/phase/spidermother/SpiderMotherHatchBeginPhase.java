@@ -6,7 +6,7 @@ import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
 public class SpiderMotherHatchBeginPhase extends AttackPhase<SpiderMother> {
 
     public SpiderMotherHatchBeginPhase() {
-        super(5, 1, 6, 10, 6);
+        super(5, 1, 6, 1200, 6);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class SpiderMotherHatchBeginPhase extends AttackPhase<SpiderMother> {
 
     @Override
     public boolean canContinue(SpiderMother entity) {
-        return false;
+        return true;
     }
 
     @Override

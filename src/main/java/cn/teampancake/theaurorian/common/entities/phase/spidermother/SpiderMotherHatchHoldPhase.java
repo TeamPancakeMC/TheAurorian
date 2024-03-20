@@ -37,7 +37,7 @@ public class SpiderMotherHatchHoldPhase extends AttackPhase<SpiderMother> {
 
     @Override
     public boolean canContinue(SpiderMother entity) {
-        return false;
+        return true;
     }
 
     @Override

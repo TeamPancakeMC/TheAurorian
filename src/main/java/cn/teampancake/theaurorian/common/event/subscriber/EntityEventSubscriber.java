@@ -281,7 +281,8 @@ public class EntityEventSubscriber {
         event.setAmount(TAMobEffect.getDamageAfterMagicAbsorb(entity, source, event.getAmount()));
         event.setCanceled(isHarmfulEffect && entity.hasEffect(TAMobEffects.HOLINESS.get()));
         if (entity instanceof ServerPlayer player) {
-            player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> miscNBT.exhaustionAccumulation += source.getFoodExhaustion());
+            player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT ->
+                    miscNBT.exhaustionAccumulation += source.getFoodExhaustion());
         }
 
         if (source.getEntity() instanceof LivingEntity livingEntity) {
@@ -345,6 +346,12 @@ public class EntityEventSubscriber {
         }
 
         if (sourceEntity instanceof LivingEntity livingEntity) {
+            if (livingEntity instanceof SpiderMother spiderMother) {
+                if (spiderMother.getHealth() < spiderMother.getMaxHealth() * 0.5F) {
+                    spiderMother.heal(event.getAmount());
+                }
+            }
+
             float chance = 0.00F;
             for (ItemStack piece : livingEntity.getArmorSlots()) {
                 if (piece.getItem() instanceof ArmorItem armorItem) {
@@ -399,6 +406,10 @@ public class EntityEventSubscriber {
                 entity.setPose(Pose.DYING);
                 event.setCanceled(true);
             }
+        }
+
+        if (sourceEntity instanceof SpiderMother spiderMother) {
+            spiderMother.heal(entity.getMaxHealth());
         }
 
         if (sourceEntity instanceof ServerPlayer serverPlayer) {

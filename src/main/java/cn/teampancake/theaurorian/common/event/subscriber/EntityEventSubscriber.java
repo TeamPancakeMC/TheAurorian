@@ -236,7 +236,6 @@ public class EntityEventSubscriber {
                 player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
                     AttributeInstance attribute = player.getAttribute(Attributes.MAX_HEALTH);
                     List<UUID> list = miscNBT.maxHealthSubtractUuids;
-                    System.out.println(list);
                     if (attribute != null && !list.isEmpty()) {
                         miscNBT.maxHealthSubtractUuids.clear();
                         list.forEach(uuid -> {
@@ -330,7 +329,6 @@ public class EntityEventSubscriber {
                     if (attribute != null && player.getRandom().nextFloat() <= 0.25F) {
                         AttributeModifier modifier = new AttributeModifier("Crystallization", -0.1D, operation);
                         miscNBT.maxHealthSubtractUuids.add(modifier.getId());
-                        System.out.println(modifier.getId());
                         attribute.addTransientModifier(modifier);
                     }
                 });

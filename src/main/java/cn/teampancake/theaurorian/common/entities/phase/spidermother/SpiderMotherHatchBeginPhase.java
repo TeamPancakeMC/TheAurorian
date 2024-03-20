@@ -6,12 +6,12 @@ import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
 public class SpiderMotherHatchBeginPhase extends AttackPhase<SpiderMother> {
 
     public SpiderMotherHatchBeginPhase() {
-        super(5, 1, 6, 0, 6);
+        super(5, 1, 6, 10, 6);
     }
 
     @Override
     public boolean canStart(SpiderMother entity, boolean coolDownOver) {
-        return entity.getHealth() < entity.getMaxHealth() * 0.5F;
+        return coolDownOver && entity.getHealth() < entity.getMaxHealth() * 0.5F;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SpiderMotherHatchBeginPhase extends AttackPhase<SpiderMother> {
 
     @Override
     public void onStop(SpiderMother entity) {
-
+        entity.setAttackState(6);
     }
 
 }

@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 public class SpiderMotherHatchHoldPhase extends AttackPhase<SpiderMother> {
 
     public SpiderMotherHatchHoldPhase() {
-        super(6, 5, 65, 0, 7);
+        super(6, 1, 65, 0, 7);
     }
 
     @Override

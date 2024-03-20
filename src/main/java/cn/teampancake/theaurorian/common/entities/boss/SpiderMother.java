@@ -5,13 +5,11 @@ import cn.teampancake.theaurorian.common.entities.phase.spidermother.*;
 import cn.teampancake.theaurorian.common.registry.TAAttributes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,7 +22,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
-import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -46,19 +43,16 @@ import java.util.EnumSet;
 import java.util.List;
 
 @ParametersAreNonnullByDefault
-@SuppressWarnings("deprecation")
 public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
 
-    private static final RawAnimation HATCH_BEGIN = RawAnimation.begin().thenPlay("attack.hatch_begin");
-    private static final RawAnimation HATCH_HOLD = RawAnimation.begin().thenLoop("attack.hatch_hold");
-    private static final RawAnimation HATCH_END = RawAnimation.begin().thenPlay("attack.hatch_end");
+    private static final RawAnimation HATCH_BEGIN = RawAnimation.begin().thenPlay("misc.hatch_begin");
+    private static final RawAnimation HATCH_HOLD = RawAnimation.begin().thenLoop("misc.hatch_hold");
+    private static final RawAnimation HATCH_END = RawAnimation.begin().thenPlay("misc.hatch_end");
     private static final RawAnimation EIDOLON = RawAnimation.begin().thenPlay("attack.eidolon");
     private static final RawAnimation SLASH = RawAnimation.begin().thenPlay("attack.slash");
     private static final RawAnimation SMASH = RawAnimation.begin().thenPlay("attack.smash");
     private static final RawAnimation SPIT = RawAnimation.begin().thenPlay("attack.spit");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlay("misc.death");
-    private static final EntityDataAccessor<Boolean> WINDING_UP_SPIT = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> SPITTING = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HANGING = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BYTE);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -82,8 +76,7 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new SpiderTargetGoal<>(this, Player.class));
-        this.targetSelector.addGoal(2, new SpiderTargetGoal<>(this, Cow.class));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     @NotNull
@@ -100,8 +93,6 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(WINDING_UP_SPIT, Boolean.FALSE);
-        this.entityData.define(SPITTING, Boolean.FALSE);
         this.entityData.define(HANGING, Boolean.FALSE);
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
     }
@@ -174,21 +165,6 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
                 this.level().broadcastEntityEvent(this, (byte) 60);
                 this.remove(RemovalReason.KILLED);
             }
-        }
-    }
-
-    @Override
-    public void aiStep() {
-        super.aiStep();
-        if (this.level().isClientSide && this.tickCount % 2 == 0 && this.entityData.get(WINDING_UP_SPIT)) {
-            double d0 = Mth.cos(this.xRotO / 180.0F * (float) Math.PI) * 1.6F;
-            double d1 = Mth.sin(-this.yHeadRot / 180.0F * (float) Math.PI) * d0;
-            double d2 = Mth.cos(this.yHeadRot / 180.0F * (float) Math.PI) * d0;
-            double y = this.getY() + this.getEyeY() - 0.2F;
-            double xSpeed = this.random.nextGaussian() * 0.02D;
-            double ySpeed = this.random.nextGaussian() * 0.02D;
-            double zSpeed = this.random.nextGaussian() * 0.02D;
-            this.level().addParticle(ParticleTypes.CLOUD, this.getX() * d1, y, this.getZ() + d2, xSpeed, ySpeed, zSpeed);
         }
     }
 
@@ -311,20 +287,6 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
             }
 
             this.hangTime--;
-        }
-
-    }
-
-    private static class SpiderTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-
-        public SpiderTargetGoal(Mob mob, Class<T> entityTypeToTarget) {
-            super(mob, entityTypeToTarget, true);
-        }
-
-        @Override
-        public boolean canUse() {
-            float f = this.mob.getLightLevelDependentMagicValue();
-            return !(f >= 0.5F) && super.canUse();
         }
 
     }

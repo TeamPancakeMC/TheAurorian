@@ -168,6 +168,11 @@
 					"scale": {
 						"vector": [0, 0, 0]
 					}
+				},
+				"wave_circle": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
@@ -724,6 +729,11 @@
 					"scale": {
 						"vector": [0, 0, 0]
 					}
+				},
+				"wave_circle": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
@@ -1209,6 +1219,11 @@
 					}
 				},
 				"pillar_left": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"wave_circle": {
 					"scale": {
 						"vector": [0, 0, 0]
 					}
@@ -1737,13 +1752,13 @@
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
-						"0.4583": {
+						"0.5": {
 							"vector": [1, 0, 1]
 						},
-						"0.5833": {
+						"0.625": {
 							"vector": [1, 2.5, 1]
 						},
-						"0.6667": {
+						"0.7083": {
 							"vector": [1, 0, 1]
 						}
 					}
@@ -1753,15 +1768,20 @@
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
-						"0.4583": {
+						"0.5": {
 							"vector": [1, 0, 1]
 						},
-						"0.5833": {
+						"0.625": {
 							"vector": [1, 2.5, 1]
 						},
-						"0.6667": {
+						"0.7083": {
 							"vector": [1, 0, 1]
 						}
+					}
+				},
+				"wave_circle": {
+					"scale": {
+						"vector": [0, 0, 0]
 					}
 				}
 			}
@@ -1918,10 +1938,15 @@
 					"scale": {
 						"vector": [0, 0, 0]
 					}
+				},
+				"wave_circle": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
-		"attack.hatch_begin": {
+		"misc.hatch_begin": {
 			"animation_length": 0.29167,
 			"bones": {
 				"body_2": {
@@ -2199,11 +2224,16 @@
 					"scale": {
 						"vector": [0, 0, 0]
 					}
+				},
+				"wave_circle": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
-		"attack.hatch_hold": {
-			"animation_length": 3.25,
+		"misc.hatch_hold": {
+			"loop": true,
 			"bones": {
 				"body_2": {
 					"rotation": {
@@ -2400,10 +2430,15 @@
 					"scale": {
 						"vector": [0, 0, 0]
 					}
+				},
+				"wave_circle": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
-		"attack.hatch_end": {
+		"misc.hatch_end": {
 			"animation_length": 0.83333,
 			"bones": {
 				"body_2": {
@@ -2822,6 +2857,11 @@
 					}
 				},
 				"pillar_left": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"wave_circle": {
 					"scale": {
 						"vector": [0, 0, 0]
 					}
@@ -3358,6 +3398,22 @@
 					"scale": {
 						"vector": [0, 0, 0]
 					}
+				},
+				"wave_circle": {
+					"scale": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.4583": {
+							"vector": [0, 0, 0]
+						},
+						"0.5417": {
+							"vector": [3.5, 1, 3.5]
+						},
+						"0.625": {
+							"vector": [0, 0, 0]
+						}
+					}
 				}
 			}
 		},
@@ -3754,6 +3810,11 @@
 					}
 				},
 				"pillar_left": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"wave_circle": {
 					"scale": {
 						"vector": [0, 0, 0]
 					}

@@ -361,6 +361,26 @@
 					"pivot": [0, 0, 0]
 				},
 				{
+					"name": "wave_circle",
+					"parent": "waves",
+					"pivot": [0, 51, 13],
+					"cubes": [
+						{
+							"origin": [-16, 51.1, -3],
+							"size": [32, 0, 32],
+							"inflate": 0.01,
+							"uv": {
+								"north": {"uv": [18, 2], "uv_size": [-16, 0]},
+								"east": {"uv": [34, 2], "uv_size": [-16, 0]},
+								"south": {"uv": [50, 2], "uv_size": [-16, 0]},
+								"west": {"uv": [2, 2], "uv_size": [-16, 0]},
+								"up": {"uv": [144, 96], "uv_size": [-32, 32]},
+								"down": {"uv": [144, 128], "uv_size": [-32, -32]}
+							}
+						}
+					]
+				},
+				{
 					"name": "slash_wave_1",
 					"parent": "waves",
 					"pivot": [-9, 11, -37],

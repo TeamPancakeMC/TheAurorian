@@ -14,7 +14,7 @@ import net.minecraft.world.phys.Vec3;
 public class SpiderMotherSmashPhase extends AttackPhase<SpiderMother> {
 
     public SpiderMotherSmashPhase() {
-        super(2, 2, 20, 200);
+        super(2, 1, 20, 200);
     }
 
     @Override
@@ -37,9 +37,10 @@ public class SpiderMotherSmashPhase extends AttackPhase<SpiderMother> {
             int px = pos.getX();
             int py = pos.getY();
             int pz = pos.getZ();
-            if (level.canSeeSky(pos)) {
+            int j = target.jumping ? 3 : 2;
+            if (level.canSeeSky(pos.above())) {
                 for (int x = -2; x <= 2; x++) {
-                    for (int y = -2; y <= 0; y++) {
+                    for (int y = -j; y <= 0; y++) {
                         for (int z = -2; z <= 2; z++) {
                             BlockPos tempPos = new BlockPos(px + x, py + y, pz + z);
                             level.destroyBlock(tempPos, Boolean.FALSE);
@@ -57,7 +58,6 @@ public class SpiderMotherSmashPhase extends AttackPhase<SpiderMother> {
                     if (tempState.isSolid() && underState.isAir()) {
                         targetPos = tempPos;
                         state = tempState;
-                        level.destroyBlock(tempPos, Boolean.FALSE);
                         break;
                     }
                 }

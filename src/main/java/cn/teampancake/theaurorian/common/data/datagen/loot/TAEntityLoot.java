@@ -116,11 +116,16 @@ public class TAEntityLoot extends VanillaEntityLoot {
                                 .when(LootItemRandomChanceCondition.randomChance(0.1F)))));
         this.add(TAEntityTypes.SPIDER_MOTHER.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(TAItems.TROPHY_SPIDER_MOTHER.get())
+                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(TAItems.DARK_AMULET.get())
                                 .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))))
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-                        .add(LootItem.lootTableItem(TAItems.TROPHY_SPIDER_MOTHER.get())
-                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))));
+                        .add(LootItem.lootTableItem(TAItems.UMBRA_INGOT.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(10.0F, 15.0F)))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.STRING)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(20.0F, 25.0F))))));
         this.add(TAEntityTypes.MOON_QUEEN.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(TAItems.TROPHY_MOON_QUEEN.get())

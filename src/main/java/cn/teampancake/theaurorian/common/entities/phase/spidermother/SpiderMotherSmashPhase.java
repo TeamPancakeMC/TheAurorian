@@ -42,9 +42,9 @@ public class SpiderMotherSmashPhase extends AttackPhase<SpiderMother> {
             int pz = pos.getZ();
             int j = target.jumping ? 3 : 2;
             if (level.canSeeSky(pos.above())) {
-                for (int x = -2; x <= 2; x++) {
+                for (int x = -1; x <= 1; x++) {
                     for (int y = -j; y <= 2; y++) {
-                        for (int z = -2; z <= 2; z++) {
+                        for (int z = -1; z <= 1; z++) {
                             Block block = TABlocks.TRAP_HOLE_RESTORER.get();
                             BlockPos tempPos = new BlockPos(px + x, py + y, pz + z);
                             BlockState originalState = level.getBlockState(tempPos);

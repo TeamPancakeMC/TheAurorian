@@ -1,11 +1,14 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
+import cn.teampancake.theaurorian.common.entities.monster.Spiderling;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.spidermother.*;
 import cn.teampancake.theaurorian.common.registry.TAAttributes;
+import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -13,6 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -30,10 +34,12 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -44,9 +50,9 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
+@SuppressWarnings("deprecation")
 @ParametersAreNonnullByDefault
 public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
 
@@ -61,6 +67,9 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     private static final EntityDataAccessor<Boolean> HANGING = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(SpiderMother.class, EntityDataSerializers.BYTE);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private final HashSet<String> currentSavedUUID = new HashSet<>();
+    private final HashSet<String> alreadyHealForUUID = new HashSet<>();
+    private boolean canBeInvisible = true;
     private int safeTime;
 
     public SpiderMother(EntityType<? extends SpiderMother> type, Level level) {
@@ -72,6 +81,22 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
                 new SpiderMotherHatchBeginPhase(),
                 new SpiderMotherHatchHoldPhase(),
                 new SpiderMotherHatchEndPhase()));
+    }
+
+    @Nullable @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+        for (int i = 0; i < 4; i++) {
+            Spiderling spiderling = new Spiderling(TAEntityTypes.SPIDERLING.get(), this.level());
+            LivingEntity target = this.getTarget();
+            spiderling.setPos(this.position());
+            if (target != null) {
+                spiderling.setTarget(target);
+            }
+
+            level.addFreshEntity(spiderling);
+        }
+
+        return spawnData;
     }
 
     @Override
@@ -128,17 +153,48 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
         return this.cache;
     }
 
+    private ListTag saveListTag(HashSet<String> list) {
+        ListTag listTag = new ListTag();
+        list.forEach(s -> {
+            CompoundTag compound = new CompoundTag();
+            compound.putString("UUID", s);
+            listTag.add(compound);
+        });
+
+        return listTag;
+    }
+
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
         if (this.level() instanceof ServerLevel serverLevel) {
             float maxHealth = this.getMaxHealth();
-            LivingEntity target = this.getTarget();
             List<ServerPlayer> serverPlayerList = serverLevel.players();
             AttributeInstance health = this.getAttribute(TAAttributes.MAX_BOSS_HEALTH.get());
+            serverPlayerList.forEach(player -> this.currentSavedUUID.add(player.getStringUUID()));
+            int size = this.currentSavedUUID.size() - this.alreadyHealForUUID.size() - 1;
+            if (this.getHealth() < maxHealth * 0.25F && this.canBeInvisible) {
+                MobEffectInstance instance = new MobEffectInstance(MobEffects.INVISIBILITY);
+                instance.duration = 400;
+                this.addEffect(instance);
+                this.canBeInvisible = false;
+            }
+
+            if (health != null && size > 0) {
+                float extraValue = size * 100.0F;
+                health.setBaseValue(maxHealth + extraValue);
+                if (this.lastHurtByPlayer == null) {
+                    this.setBossHealth((float) health.getBaseValue());
+                } else {
+                    this.heal(extraValue);
+                }
+            }
+
             if (++this.safeTime > 160 && this.tickCount % 20 == 0) {
                 this.heal(maxHealth * 0.05F);
             }
+
+            this.alreadyHealForUUID.addAll(this.currentSavedUUID);
         }
     }
 
@@ -211,15 +267,48 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     }
 
     @Override
+    protected void tickEffects() {
+        Iterator<MobEffect> iterator = this.getActiveEffectsMap().keySet().iterator();
+        try {
+            while(iterator.hasNext()) {
+                MobEffect mobEffect = iterator.next();
+                MobEffectInstance instance = this.getActiveEffectsMap().get(mobEffect);
+                if (!instance.tick(this, () -> this.onEffectUpdated(instance, true, null))) {
+                    if (!this.level().isClientSide) {
+                        iterator.remove();
+                        this.onEffectRemoved(instance);
+                    }
+                } else if (instance.getDuration() % 600 == 0) {
+                    this.onEffectUpdated(instance, false, null);
+                }
+            }
+        } catch (ConcurrentModificationException ignored) {
+        }
+    }
+
+    @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putBoolean("CanBeInvisible", this.canBeInvisible);
         compound.putInt("SafeTime", this.safeTime);
+        compound.put("CurrentSavedUUID", this.saveListTag(this.currentSavedUUID));
+        compound.put("AlreadyHealForUUID", this.saveListTag(this.alreadyHealForUUID));
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.canBeInvisible = compound.getBoolean("CanBeInvisible");
         this.safeTime = compound.getInt("SafeTime");
+        ListTag listTagC = compound.getList("CurrentSavedUUID", 10);
+        for (int i = 0; i < listTagC.size(); i++) {
+            this.currentSavedUUID.add(listTagC.getCompound(i).getString("UUID"));
+        }
+
+        ListTag listTagT = compound.getList("AlreadyHealForUUID", 10);
+        for (int i = 0; i < listTagT.size(); i++) {
+            this.alreadyHealForUUID.add(listTagT.getCompound(i).getString("UUID"));
+        }
     }
 
     @Override

@@ -155,7 +155,7 @@ public class TAEntityTypes {
             () -> EntityType.Builder.of(RunestoneKeeper::new, MobCategory.MONSTER).sized(1.4F, 4.2F)
                     .clientTrackingRange((8)).fireImmune().build("runestone_keeper"));
     public static final RegistryObject<EntityType<SpiderMother>> SPIDER_MOTHER = ENTITY_TYPES.register("spider_mother",
-            () -> EntityType.Builder.of(SpiderMother::new, MobCategory.MONSTER).sized(2.8F, 1.8F)
+            () -> EntityType.Builder.of(SpiderMother::new, MobCategory.MONSTER).sized(4.5F, 3.0F)
                     .clientTrackingRange((8)).fireImmune().build("spider_mother"));
     public static final RegistryObject<EntityType<MoonQueen>> MOON_QUEEN = ENTITY_TYPES.register("moon_queen",
             () -> EntityType.Builder.of(MoonQueen::new, MobCategory.MONSTER).sized(0.54F, 1.755F)

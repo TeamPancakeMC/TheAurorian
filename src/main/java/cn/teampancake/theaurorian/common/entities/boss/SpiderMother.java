@@ -87,12 +87,8 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         for (int i = 0; i < 4; i++) {
             Spiderling spiderling = new Spiderling(TAEntityTypes.SPIDERLING.get(), this.level());
-            LivingEntity target = this.getTarget();
             spiderling.setPos(this.position());
-            if (target != null) {
-                spiderling.setTarget(target);
-            }
-
+            spiderling.setTarget(this.getTarget());
             level.addFreshEntity(spiderling);
         }
 
@@ -212,9 +208,9 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
         return this.getEntityData().get(HANGING);
     }
 
-    public void setClimbing(boolean pClimbing) {
+    public void setClimbing(boolean climbing) {
         byte b0 = this.entityData.get(DATA_FLAGS_ID);
-        if (pClimbing) {
+        if (climbing) {
             b0 = (byte)(b0 | 1);
         } else {
             b0 = (byte)(b0 & -2);

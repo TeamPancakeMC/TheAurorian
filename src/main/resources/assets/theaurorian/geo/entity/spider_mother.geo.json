@@ -423,6 +423,26 @@
 					]
 				},
 				{
+					"name": "slash_wave_3",
+					"parent": "waves",
+					"pivot": [0, 19, -54],
+					"cubes": [
+						{
+							"origin": [-48, 19, -59],
+							"size": [96, 0, 16],
+							"inflate": 0.01,
+							"uv": {
+								"north": {"uv": [0, 97], "uv_size": [96, 0]},
+								"east": {"uv": [-14, 2], "uv_size": [16, 0]},
+								"south": {"uv": [112, 113], "uv_size": [96, 0]},
+								"west": {"uv": [96, 113], "uv_size": [16, 0]},
+								"up": {"uv": [0, 113], "uv_size": [96, -16]},
+								"down": {"uv": [0, 97], "uv_size": [96, 16]}
+							}
+						}
+					]
+				},
+				{
 					"name": "wave_circle_1_right",
 					"parent": "waves",
 					"pivot": [-25, 0.1, -41],

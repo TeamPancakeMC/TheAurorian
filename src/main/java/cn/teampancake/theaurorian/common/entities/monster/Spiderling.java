@@ -92,8 +92,12 @@ public class Spiderling extends Spider implements NeutralMob, GeoEntity, IAffect
     public boolean doHurtTarget(Entity entity) {
         this.level().broadcastEntityEvent(this, (byte) 4);
         if (super.doHurtTarget(entity)) {
+            Level level = this.level();
             if (entity instanceof LivingEntity livingEntity && this.random.nextInt(4) == 0) {
-                this.level().setBlockAndUpdate(livingEntity.blockPosition(), Blocks.COBWEB.defaultBlockState());
+                BlockPos pos = livingEntity.blockPosition();
+                if (level.getBlockState(pos).canBeReplaced()) {
+                    level.setBlockAndUpdate(pos, Blocks.COBWEB.defaultBlockState());
+                }
             }
             return true;
         } else {

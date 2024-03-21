@@ -50,6 +50,8 @@ public class TABlockEntityTypes {
                     TABlocks.CURSED_FROST_WOOD_WALL_HANGING_SIGN.get()).build(null));
     public static final RegistryObject<BlockEntityType<TempBarrierBlockEntity>> TEMP_BARRIER = BLOCK_ENTITY_TYPES.register("temp_barrier",
             () -> BlockEntityType.Builder.of(TempBarrierBlockEntity::new, TABlocks.TEMP_BARRIER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TrapHoleRestorerBlockEntity>> TRAP_HOLE_RESTORER = BLOCK_ENTITY_TYPES.register("trap_hole_restorer",
+            () -> BlockEntityType.Builder.of(TrapHoleRestorerBlockEntity::new, TABlocks.TRAP_HOLE_RESTORER.get()).build(null));
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {

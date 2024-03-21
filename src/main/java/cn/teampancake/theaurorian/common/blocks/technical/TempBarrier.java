@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.blocks;
+package cn.teampancake.theaurorian.common.blocks.technical;
 
 import cn.teampancake.theaurorian.common.blocks.entity.TempBarrierBlockEntity;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
@@ -24,13 +24,13 @@ public class TempBarrier extends BaseEntityBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return Shapes.empty();
+    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+        return true;
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
-        return true;
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return Shapes.empty();
     }
 
     @Nullable @Override

@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.entities.projectile;
 
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -36,12 +37,16 @@ public class WebbingEntity extends ThrowableItemProjectile {
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        if (!this.level().isClientSide) {
-            if (result.getEntity() instanceof LivingEntity livingEntity && livingEntity != this.getOwner() && livingEntity.isAlive()) {
-                livingEntity.hurt(this.damageSources().thrown(this, this.getOwner()), 2.5F);
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
-                this.level().setBlockAndUpdate(livingEntity.blockPosition(), Blocks.COBWEB.defaultBlockState());
-                this.subtractMaxHealthWebbing(livingEntity);
+        Level level = this.level();
+        if (!level.isClientSide) {
+            if (result.getEntity() instanceof LivingEntity entity && entity != this.getOwner() && entity.isAlive()) {
+                entity.hurt(this.damageSources().thrown(this, this.getOwner()), 2.5F);
+                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
+                this.subtractMaxHealthWebbing(entity);
+                BlockPos pos = entity.blockPosition();
+                if (level.getBlockState(pos).canBeReplaced()) {
+                    level.setBlockAndUpdate(pos, Blocks.COBWEB.defaultBlockState());
+                }
             }
 
             this.level().broadcastEntityEvent(this, (byte) 3);

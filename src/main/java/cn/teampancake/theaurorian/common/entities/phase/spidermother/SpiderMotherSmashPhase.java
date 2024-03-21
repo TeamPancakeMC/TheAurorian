@@ -1,11 +1,14 @@
 package cn.teampancake.theaurorian.common.entities.phase.spidermother;
 
+import cn.teampancake.theaurorian.common.blocks.entity.TrapHoleRestorerBlockEntity;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
+import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -40,10 +43,20 @@ public class SpiderMotherSmashPhase extends AttackPhase<SpiderMother> {
             int j = target.jumping ? 3 : 2;
             if (level.canSeeSky(pos.above())) {
                 for (int x = -2; x <= 2; x++) {
-                    for (int y = -j; y <= 0; y++) {
+                    for (int y = -j; y <= 2; y++) {
                         for (int z = -2; z <= 2; z++) {
+                            Block block = TABlocks.TRAP_HOLE_RESTORER.get();
                             BlockPos tempPos = new BlockPos(px + x, py + y, pz + z);
-                            level.destroyBlock(tempPos, Boolean.FALSE);
+                            BlockState originalState = level.getBlockState(tempPos);
+                            if (originalState.isSolid() && !originalState.is(block)) {
+                                level.destroyBlock(tempPos, Boolean.FALSE);
+                                level.setBlockAndUpdate(tempPos, block.defaultBlockState());
+                                if (level.getBlockEntity(tempPos) instanceof TrapHoleRestorerBlockEntity blockEntity) {
+                                    blockEntity.restoreCountdown = level.random.nextInt(100) + 100;
+                                    blockEntity.transferCountdown = j * 10;
+                                    blockEntity.storedState = originalState;
+                                }
+                            }
                         }
                     }
                 }

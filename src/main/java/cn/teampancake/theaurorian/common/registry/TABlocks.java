@@ -11,6 +11,8 @@ import cn.teampancake.theaurorian.common.blocks.sign.TAWallHangingSignBlock;
 import cn.teampancake.theaurorian.common.blocks.sign.TAWallSignBlock;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockSetType;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
+import cn.teampancake.theaurorian.common.blocks.technical.TempBarrier;
+import cn.teampancake.theaurorian.common.blocks.technical.TrapHoleRestorer;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -508,6 +510,7 @@ public class TABlocks {
      * Misc
      */
     public static final RegistryObject<Block> TEMP_BARRIER = BLOCKS.register("temp_barrier", TempBarrier::new);
+    public static final RegistryObject<Block> TRAP_HOLE_RESTORER = BLOCKS.register("trap_hole_restorer", TrapHoleRestorer::new);
     public static final RegistryObject<Block> MYSTERIUM_WOOL_BED = register("mysterium_wool_bed", MysteriumWoolBed::new);
     public static final RegistryObject<Block> SILENT_CAMPFIRE = register("silent_campfire", SilentCampfireBlock::new);
     public static final RegistryObject<Block> ALCHEMY_TABLE = register("alchemy_table", AlchemyTable::new);

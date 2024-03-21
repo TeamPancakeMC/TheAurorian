@@ -1,5 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
+import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
+import cn.teampancake.theaurorian.common.entities.phase.TongScorpionMeleePhase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -18,11 +20,24 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class TongScorpion extends Monster {
+import java.util.List;
+
+public class TongScorpion extends TAMonster implements GeoEntity {
+
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public TongScorpion(EntityType<? extends TongScorpion> type, Level level) {
         super(type, level);
+        this.attackManager = new AttackManager<>(this, List.of(new TongScorpionMeleePhase()));
     }
 
     @Override
@@ -48,6 +63,20 @@ public class TongScorpion extends Monster {
 
     public static boolean checkSpawnRules(EntityType<TongScorpion> breadBeast, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return level.getDifficulty() != Difficulty.PEACEFUL && checkMobSpawnRules(breadBeast, level, spawnType, pos, random);
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericWalkIdleController(this));
+        controllers.add(new AnimationController<>(this, "swing_controller", state -> PlayState.STOP)
+                .triggerableAnim("swing_animation", DefaultAnimations.ATTACK_SWING).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "inject_controller", state -> PlayState.STOP)
+                .triggerableAnim("inject_animation", RawAnimation.begin().thenPlay("attack.inject")).transitionLength(5));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
     @Override

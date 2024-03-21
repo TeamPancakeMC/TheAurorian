@@ -38,17 +38,15 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class Spirit extends Monster implements GeoEntity, MultiPhaseAttacker {
+public class Spirit extends TAMonster implements GeoEntity {
 
-    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(Spirit.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(Spirit.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Spirit.class, EntityDataSerializers.BYTE);
-    private final AttackManager<Spirit> attackManager = new AttackManager<>(this, List.of(new SpiritMeleePhase()));
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public Spirit(EntityType<? extends Spirit> type, Level level) {
         super(type, level);
         this.moveControl = new SpiritMoveControl(this);
+        this.attackManager = new AttackManager<>(this, List.of(new SpiritMeleePhase()));
     }
 
     @Override
@@ -78,8 +76,6 @@ public class Spirit extends Monster implements GeoEntity, MultiPhaseAttacker {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(ATTACK_STATE, 0);
-        this.entityData.define(ATTACK_TICKS, 0);
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
     }
 
@@ -96,11 +92,6 @@ public class Spirit extends Monster implements GeoEntity, MultiPhaseAttacker {
         }
 
         this.entityData.set(DATA_FLAGS_ID, (byte)(i & 255));
-    }
-
-    @Override
-    protected void customServerAiStep() {
-        this.attackManager.tick();
     }
 
     public void tick() {
@@ -120,22 +111,6 @@ public class Spirit extends Monster implements GeoEntity, MultiPhaseAttacker {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
-    }
-
-    public int getAttackState() {
-        return this.entityData.get(ATTACK_STATE);
-    }
-
-    public void setAttackState(int attackState) {
-        this.entityData.set(ATTACK_STATE, attackState);
-    }
-
-    public int getAttackTicks() {
-        return this.entityData.get(ATTACK_TICKS);
-    }
-
-    public void setAttackTicks(int attackTicks) {
-        this.entityData.set(ATTACK_TICKS, attackTicks);
     }
 
     @Override

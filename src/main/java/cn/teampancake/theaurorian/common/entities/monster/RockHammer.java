@@ -5,9 +5,6 @@ import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.RockHammerMeleePhase;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -36,12 +33,9 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.List;
 import java.util.UUID;
 
-public class RockHammer extends Monster implements NeutralMob, GeoEntity, MultiPhaseAttacker {
+public class RockHammer extends TAMonster implements NeutralMob, GeoEntity {
 
-    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(RockHammer.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(RockHammer.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    private final AttackManager<RockHammer> attackManager = new AttackManager<>(this, List.of(new RockHammerMeleePhase()));
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int remainingPersistentAngerTime;
     @Nullable
@@ -49,6 +43,7 @@ public class RockHammer extends Monster implements NeutralMob, GeoEntity, MultiP
 
     public RockHammer(EntityType<? extends RockHammer> type, Level level) {
         super(type, level);
+        this.attackManager = new AttackManager<>(this, List.of(new RockHammerMeleePhase()));
     }
 
     @Override
@@ -79,18 +74,6 @@ public class RockHammer extends Monster implements NeutralMob, GeoEntity, MultiP
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(ATTACK_STATE, 0);
-        this.entityData.define(ATTACK_TICKS, 0);
-    }
-
-    @Override
-    protected void customServerAiStep() {
-        this.attackManager.tick();
-    }
-
-    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(DefaultAnimations.genericWalkIdleController(this));
         controllers.add(new AnimationController<>(this, "smash_controller", state -> PlayState.STOP)
@@ -102,22 +85,6 @@ public class RockHammer extends Monster implements NeutralMob, GeoEntity, MultiP
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
-    }
-
-    public int getAttackState() {
-        return this.entityData.get(ATTACK_STATE);
-    }
-
-    public void setAttackState(int attackState) {
-        this.entityData.set(ATTACK_STATE, attackState);
-    }
-
-    public int getAttackTicks() {
-        return this.entityData.get(ATTACK_TICKS);
-    }
-
-    public void setAttackTicks(int attackTicks) {
-        this.entityData.set(ATTACK_TICKS, attackTicks);
     }
 
     @Override

@@ -6,7 +6,6 @@ import cn.teampancake.theaurorian.common.entities.ai.goal.LookAtTargetGoal;
 import cn.teampancake.theaurorian.common.entities.ai.goal.MoveToTargetGoal;
 import cn.teampancake.theaurorian.common.entities.phase.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -44,25 +43,23 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.List;
 import java.util.UUID;
 
-public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMob, MultiPhaseAttacker {
+public class SnowTundraGiantCrab extends TAMonster implements GeoEntity, NeutralMob {
 
-    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(SnowTundraGiantCrab.class, EntityDataSerializers.FLOAT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int remainingPersistentAngerTime;
     @Nullable
     private UUID persistentAngerTarget;
-    private final AttackManager<SnowTundraGiantCrab> attackManager = new AttackManager<>(this, List.of(
-            new SnowTundraGiantCrabMeleePhase(),
-            new SnowTundraGiantCrabStartHidePhase(),
-            new SnowTundraGiantCrabHidePhase(),
-            new SnowTundraGiantCrabStopHidePhase()
-    ));
 
     public SnowTundraGiantCrab(EntityType<? extends SnowTundraGiantCrab> type, Level level) {
         super(type, level);
+        this.attackManager = new AttackManager<>(this, List.of(
+                new SnowTundraGiantCrabMeleePhase(),
+                new SnowTundraGiantCrabStartHidePhase(),
+                new SnowTundraGiantCrabHidePhase(),
+                new SnowTundraGiantCrabStopHidePhase()
+        ));
     }
 
     @Override
@@ -87,8 +84,6 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(ATTACK_STATE, 0);
-        this.entityData.define(ATTACK_TICKS, 0);
         this.entityData.define(ATTACK_Y_ROT, 0f);
     }
 
@@ -136,24 +131,10 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
         return this.cache;
     }
 
-    public int getAttackState() {
-        return this.entityData.get(ATTACK_STATE);
-    }
-
-    public void setAttackState(int attackState) {
-        this.entityData.set(ATTACK_STATE, attackState);
-    }
-
-    public int getAttackTicks() {
-        return this.entityData.get(ATTACK_TICKS);
-    }
-    public void setAttackTicks(int attackTicks) {
-        this.entityData.set(ATTACK_TICKS, attackTicks);
-    }
-
     public float getAttackYRot() {
         return this.entityData.get(ATTACK_Y_ROT);
     }
+
     public void setAttackYRot(float attackYRot) {
         this.entityData.set(ATTACK_Y_ROT, attackYRot);
     }
@@ -174,11 +155,6 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     }
 
     @Override
-    protected void customServerAiStep() {
-        this.attackManager.tick();
-    }
-
-    @Override
     protected int decreaseAirSupply(int currentAir) {
         return currentAir;
     }
@@ -191,16 +167,6 @@ public class SnowTundraGiantCrab extends Monster implements GeoEntity, NeutralMo
     @Override
     public void knockback(double strength, double x, double z) {
         super.knockback(this.random.nextBoolean() ? 0.0D : strength, x, z);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
     }
 
     @Override

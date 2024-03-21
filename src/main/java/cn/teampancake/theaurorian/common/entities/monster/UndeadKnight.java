@@ -7,9 +7,6 @@ import cn.teampancake.theaurorian.common.entities.phase.UndeadKnightMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -43,16 +40,14 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class UndeadKnight extends Monster implements GeoEntity, MultiPhaseAttacker, IAffectedByNightmareMode {
+public class UndeadKnight extends TAMonster implements GeoEntity, IAffectedByNightmareMode {
 
-    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(UndeadKnight.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(UndeadKnight.class, EntityDataSerializers.INT);
-    private final AttackManager<UndeadKnight> attackManager = new AttackManager<>(this, List.of(new UndeadKnightMeleePhase()));
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public UndeadKnight(EntityType<? extends UndeadKnight> type, Level level) {
         super(type, level);
         this.xpReward = 20;
+        this.attackManager = new AttackManager<>(this, List.of(new UndeadKnightMeleePhase()));
     }
 
     @Override
@@ -86,18 +81,6 @@ public class UndeadKnight extends Monster implements GeoEntity, MultiPhaseAttack
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(ATTACK_STATE, 0);
-        this.entityData.define(ATTACK_TICKS, 0);
-    }
-
-    @Override
-    protected void customServerAiStep() {
-        this.attackManager.tick();
-    }
-
-    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(DefaultAnimations.genericWalkIdleController(this));
         controllers.add(new AnimationController<>(this, "stab_controller", state -> PlayState.STOP)
@@ -107,20 +90,6 @@ public class UndeadKnight extends Monster implements GeoEntity, MultiPhaseAttack
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
-    }
-
-    public int getAttackState() {
-        return this.entityData.get(ATTACK_STATE);
-    }
-    public void setAttackState(int attackState) {
-        this.entityData.set(ATTACK_STATE, attackState);
-    }
-
-    public int getAttackTicks() {
-        return this.entityData.get(ATTACK_TICKS);
-    }
-    public void setAttackTicks(int attackTicks) {
-        this.entityData.set(ATTACK_TICKS, attackTicks);
     }
 
     @Override

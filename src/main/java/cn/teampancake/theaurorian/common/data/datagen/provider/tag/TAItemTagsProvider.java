@@ -39,7 +39,6 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.copy(TABlockTags.AURORIAN_CARVER_REPLACEABLES, TAItemTags.AURORIAN_CARVER_REPLACEABLES);
         this.copy(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, TAItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
         this.tag(Tags.Items.RODS_WOODEN).add(TAItems.SILENT_WOOD_STICK.get());
-        this.tag(Tags.Items.TOOLS_CROSSBOWS).add(TAItems.STAR_OCEAN_CROSSBOW.get());
         this.tag(Tags.Items.TOOLS_BOWS).add(TAItems.SILENT_WOOD_BOW.get()).add(TAItems.KEEPERS_BOW.get());
         this.tag(Tags.Items.TOOLS_SHIELDS).add(TAItems.CERULEAN_SHIELD.get(), TAItems.CRYSTALLINE_SHIELD.get(),
                 TAItems.MOON_SHIELD.get(), TAItems.UMBRA_SHIELD.get(), TAItems.MOONSTONE_SHIELD.get());
@@ -54,8 +53,7 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.tag(TAItemTags.HAS_CUSTOM_TOOLTIPS).addTag(TAItemTags.BUILDING_BLOCK).addTag(TAItemTags.IS_RARE)
                 .addTag(TAItemTags.IS_EPIC).addTag(TAItemTags.IS_LEGENDARY).addTag(TAItemTags.IS_MYTHICAL)
                 .add(TAItems.WHITE_CHOCOLATE.get(), TAItems.RED_BOOK.get(), TAItems.RED_BOOK_RING.get(),
-                        TAItems.STAR_OCEAN_CROSSBOW.get(), TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(),
-                        TAItems.CAT_BELL.get(), TAItems.TSLAT_SWORD.get());
+                        TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(), TAItems.CAT_BELL.get(), TAItems.TSLAT_SWORD.get());
         this.tag(TAItemTags.IS_RARE).addTag(TAItemTags.DUNGEON_KEY).add(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get(),
                 TAItems.TEA_CUP.get(), TAItems.AURORIAN_COAL.get(), TAItems.AURORIANITE_INGOT.get(),
                 TAItems.CERULEAN_INGOT.get(), TAItems.CRYSTALLINE_INGOT.get(), TAItems.MOONSTONE_INGOT.get(),

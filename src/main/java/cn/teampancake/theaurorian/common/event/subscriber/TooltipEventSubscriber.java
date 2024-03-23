@@ -26,7 +26,6 @@ public class TooltipEventSubscriber {
     private static final ResourceLocation SLEEPING_BLACK_TEA = AurorianMod.prefix("textures/gui/tooltips/sleeping_black_tea.png");
     private static final ResourceLocation WHITE_CHOCOLATE = AurorianMod.prefix("textures/gui/tooltips/white_chocolate.png");
     private static final ResourceLocation RED_BOOK = AurorianMod.prefix("textures/gui/tooltips/red_book.png");
-    private static final ResourceLocation STAR_OCEAN_CROSSBOW = AurorianMod.prefix("textures/gui/tooltips/star_ocean_crossbow.png");
     private static final ResourceLocation DREAM_DYEING_CRYSTAL_FRAGMENT = AurorianMod.prefix("textures/gui/tooltips/dream_dyeing_crystal_fragment.png");
     private static final ResourceLocation CAT_BELL = AurorianMod.prefix("textures/gui/tooltips/cat_bell.png");
     private static final ResourceLocation TSLAT_SWORD = AurorianMod.prefix("textures/gui/tooltips/tslat_sword.png");
@@ -49,8 +48,6 @@ public class TooltipEventSubscriber {
             if (itemStack.is(TAItems.WHITE_CHOCOLATE.get())) TooltipData.WHITE_CHOCOLATE_ITEM.renderTooltips(event);
             if (itemStack.is(TAItems.RED_BOOK.get()) || itemStack.is(TAItems.RED_BOOK_RING.get()))
                 TooltipData.RED_BOOK_ITEM.renderTooltips(event);
-            if (itemStack.is(TAItems.STAR_OCEAN_CROSSBOW.get()))
-                TooltipData.STAR_OCEAN_CROSSBOW_ITEM.renderTooltips(event);
             if (itemStack.is(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get()))
                 TooltipData.DREAM_DYEING_CRYSTAL_FRAGMENT_ITEM.renderTooltips(event);
             if (itemStack.is(TAItems.CAT_BELL.get())) TooltipData.CAT_BELL_ITEM.renderTooltips(event);
@@ -108,22 +105,6 @@ public class TooltipEventSubscriber {
                 new int[] {0, 9, 0, 9, 0, 9},
                 new int[] {9, 9, 9, 9, 14, 14},
                 new int[] {9, 9, 9, 9, 9, 5}
-        );
-
-        public static final TooltipData STAR_OCEAN_CROSSBOW_ITEM = new TooltipData(
-                STAR_OCEAN_CROSSBOW,
-                -267386864,
-                0xff217279,
-                -267386864,
-                64,
-                64,
-                0,
-                new int[] {-4, -4, -3, -4},
-                new int[] {-16, -18, -18, -16},
-                new int[] {0, 0, 8, 12},
-                new int[] {0, 9, 0, 11},
-                new int[] {8, 12, 9, 8},
-                new int[] {8, 10, 9, 8}
         );
 
         public static final TooltipData RED_BOOK_ITEM = new TooltipData(

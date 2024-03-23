@@ -103,18 +103,6 @@ public class VanillaItemCompat {
                     entity == null || entity.getUseItem() != stack ? 0.0F : (stack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F));
             ItemProperties.register(TAItems.KEEPERS_BOW.get(), AurorianMod.prefix("pulling"), ((stack, level, entity, seed) ->
                     entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
-            ItemProperties.register(TAItems.STAR_OCEAN_CROSSBOW.get(), AurorianMod.prefix("pull"), (stack, level, entity, seed) ->
-                    entity == null || CrossbowItem.isCharged(stack) ? 0.0F :
-                            (float)(stack.getUseDuration() - entity.getUseItemRemainingTicks()) / (float)CrossbowItem.getChargeDuration(stack));
-            ItemProperties.register(TAItems.STAR_OCEAN_CROSSBOW.get(), AurorianMod.prefix("arrow_pulling"), (stack, level, entity, seed) ->
-                    entity != null && entity.isUsingItem() && entity.getUseItem() == stack && !CrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-            ItemProperties.register(TAItems.STAR_OCEAN_CROSSBOW.get(), AurorianMod.prefix("arrow_charged"), (stack, level, entity, seed) ->
-                    CrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-            ItemProperties.register(TAItems.STAR_OCEAN_CROSSBOW.get(), AurorianMod.prefix("firework_pulling"), (stack, level, entity, seed) ->
-                    entity != null && entity.isUsingItem() && entity.getUseItem() == stack && !CrossbowItem.isCharged(stack)
-                            && CrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
-            ItemProperties.register(TAItems.STAR_OCEAN_CROSSBOW.get(), AurorianMod.prefix("firework_charged"), (stack, level, entity, seed) ->
-                    CrossbowItem.isCharged(stack) && CrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
             ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), AurorianMod.prefix("shoot"), ((stack, level, entity, seed) ->
                     entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
             for (Item item : TACommonUtils.getKnownItems()) {

@@ -281,9 +281,11 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             String uuid = this.currentDuelistUUID;
             float maxHealth = this.getMaxHealth();
             LivingEntity target = this.getTarget();
-            AABB aabb = this.getBoundingBox().inflate(24.0D);
+            AABB aabb16 = this.getBoundingBox().inflate(24.0D);
+            AABB aabb24 = this.getBoundingBox().inflate(24.0D);
             List<ServerPlayer> serverPlayerList = serverLevel.players();
-            List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
+            List<Player> playerList16 = this.level().getEntitiesOfClass(Player.class, aabb16);
+            List<Player> playerList24 = this.level().getEntitiesOfClass(Player.class, aabb24);
             AttributeInstance health = this.getAttribute(TAAttributes.MAX_BOSS_HEALTH.get());
             serverPlayerList.forEach(player -> this.currentSavedUUID.add(player.getStringUUID()));
             int size = this.currentSavedUUID.size() - this.alreadyHealForUUID.size() - 1;
@@ -306,14 +308,12 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             if (this.duelingMoment) {
                 for (MobEffectInstance instance : this.getActiveEffects()) {
                     if (BUFF_LIST.contains(instance) && instance.getDuration() == 1) {
-                        this.removeEffect(instance.getEffect());
                         this.addEffect(BUFF_LIST.get(this.random.nextInt(BUFF_LIST.size())));
-                        this.triggerAnim(("buff_controller"), ("buff_animation"));
-                        break;
+                        this.triggerAnim(("buff_controller"), ("buff_animation")); break;
                     }
                 }
 
-                if (!uuid.isEmpty() && playerList.isEmpty()) {
+                if (!uuid.isEmpty() && playerList24.isEmpty()) {
                     float amount = this.getMaxHealth() * 0.1F / 20.0F;
                     this.currentDuelistUUID = "";
                     this.selectDuelistFromNearestTarget();
@@ -326,21 +326,21 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 this.setSprinting(distance > 8.0D);
                 this.addSpeedWhenFoundTarget();
                 this.destroyHorizontalBlock();
-                this.safeTime = 0;
             } else {
                 this.removeSpeedWhenNoTarget();
-                ++this.safeTime;
             }
 
             if (health != null && size > 0) {
-                health.setBaseValue(maxHealth + size * 200.0F);
+                float extraValue = size * 200.0F;
+                health.setBaseValue(maxHealth + extraValue);
                 if (this.lastHurtByPlayer == null) {
                     this.setBossHealth((float) health.getBaseValue());
                 } else {
-                    this.heal(size * 200.0F);
+                    this.heal(extraValue);
                 }
             }
 
+            this.safeTime = playerList16.isEmpty() ? this.safeTime + 1 : 0;
             if (this.safeTime > 100 && this.tickCount % 20 == 0) {
                 this.heal(maxHealth * 0.05F);
             }

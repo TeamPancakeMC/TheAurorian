@@ -22,7 +22,7 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SpiderlingWallClimber extends TASpiderling implements RangedAttackMob {
+public class SpiderlingWallClimber extends TASpider implements RangedAttackMob {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 

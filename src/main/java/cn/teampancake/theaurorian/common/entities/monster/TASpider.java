@@ -21,13 +21,13 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public abstract class TASpiderling extends Spider implements GeoEntity, MultiPhaseAttacker {
+public abstract class TASpider extends Spider implements GeoEntity, MultiPhaseAttacker {
 
-    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(TASpiderling.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(TASpiderling.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(TASpider.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(TASpider.class, EntityDataSerializers.INT);
     protected AttackManager<?> attackManager = new AttackManager<>(this, List.of());
 
-    public TASpiderling(EntityType<? extends TASpiderling> type, Level level) {
+    public TASpider(EntityType<? extends TASpider> type, Level level) {
         super(type, level);
     }
 

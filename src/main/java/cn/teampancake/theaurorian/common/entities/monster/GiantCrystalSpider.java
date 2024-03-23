@@ -25,7 +25,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class GiantCrystalSpider extends TASpiderling {
+public class GiantCrystalSpider extends TASpider {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 

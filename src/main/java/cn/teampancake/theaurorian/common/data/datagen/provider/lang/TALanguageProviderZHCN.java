@@ -599,11 +599,16 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.MYSTERIUM_WOOL_CHESTPLATE.get(),"秘境羊毛外套");
         this.add(TAItems.MYSTERIUM_WOOL_LEGGINGS.get(),"秘境羊毛裤子");
         this.add(TAItems.MYSTERIUM_WOOL_BOOTS.get(),"秘境羊毛靴子");
+        this.add(TAItems.CRYSTAL_RUNE_HELMET.get(),"水晶符石头盔");
+        this.add(TAItems.CRYSTAL_RUNE_CHESTPLATE.get(),"水晶符石胸甲");
+        this.add(TAItems.CRYSTAL_RUNE_LEGGINGS.get(),"水晶符石护腿");
+        this.add(TAItems.CRYSTAL_RUNE_BOOTS.get(),"水晶符石靴子");
         this.add(TAItems.SPIDER_MOTHER_SPAWN_EGG.get(), "蛛母刷怪蛋");
         this.add(TAItems.SPIDERLING_SPAWN_EGG.get(), "幼蛛刷怪蛋");
         this.add(TAItems.SPIDERLING_CRYSTAL_SHELL_SPAWN_EGG.get(),"水晶壳幼蛛刷怪蛋");
         this.add(TAItems.SPIDERLING_WALL_CLIMBER_SPAWN_EGG.get(),"爬墙幼蛛刷怪蛋");
         this.add(TAItems.GIANT_CRYSTAL_SPIDER_SPAWN_EGG.get(),"巨型水晶幼蛛刷怪蛋");
+        this.add(TAItems.RUNE_SPIDER_SPAWN_EGG.get(),"符石蜘蛛刷怪蛋");
         this.add(TAItems.SPIRIT_SPAWN_EGG.get(), "魂灵刷怪蛋");
         this.add(TAItems.SPIKED_CHESTPLATE.get(), "尖钉胸甲");
         this.add(TAItems.STICKY_SPIKER.get(), "粘性尖钉");
@@ -668,6 +673,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.SPIDERLING_CRYSTAL_SHELL.get(),"水晶壳幼蛛");
         this.add(TAEntityTypes.SPIDERLING_WALL_CLIMBER.get(),"爬墙幼蛛");
         this.add(TAEntityTypes.GIANT_CRYSTAL_SPIDER.get(),"巨型水晶幼蛛");
+        this.add(TAEntityTypes.RUNE_SPIDER.get(), "符石蜘蛛");
         this.add(TAEntityTypes.CRYSTALLINE_SPRITE.get(), "月凝晶魂");
         this.add(TAEntityTypes.CAVE_DWELLER.get(), "晶洞居者");
         this.add(TAEntityTypes.ROCK_HAMMER.get(), "岩锤兽");
@@ -711,7 +717,8 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         //MOD ENCHANTMENT
         this.add(TAEnchantments.OVERLOAD.get(), "过载");
         this.add(TAEnchantments.FREEZE_ASPECT.get(), "冰霜附加");
-        this.add(TAEnchantments.LIGHTNING_DAMAGE.get(), "雷电");
+        this.add(TAEnchantments.COBWEB_CROSSING.get(), "蛛网穿行");
+        this.add(TAEnchantments.LIGHTNING_DAMAGE.get(), "雷电伤害");
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "雷电抵御");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId() + ".desc", "根据对方穿戴的护甲数量造成额外伤害");
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId() + ".desc", "降低“雷电”魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");

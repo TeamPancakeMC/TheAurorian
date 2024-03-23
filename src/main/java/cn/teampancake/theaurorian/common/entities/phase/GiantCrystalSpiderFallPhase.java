@@ -36,7 +36,7 @@ public class GiantCrystalSpiderFallPhase extends AttackPhase<GiantCrystalSpider>
     @Override
     public void tick(GiantCrystalSpider entity) {
         if (entity.getAttackTicks() == 12) {
-            TAEntityUtils.performMeleeAttack(entity, 1.0D);
+            TAEntityUtils.performMeleeAttack(entity, 3.0D);
         }
     }
 

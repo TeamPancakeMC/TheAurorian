@@ -132,6 +132,9 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<GiantCrystalSpider>> GIANT_CRYSTAL_SPIDER = ENTITY_TYPES.register("giant_crystal_spider",
             () -> EntityType.Builder.of(GiantCrystalSpider::new, MobCategory.MONSTER).sized(1.5F, 3.5F)
                     .clientTrackingRange((8)).build("giant_crystal_spider"));
+    public static final RegistryObject<EntityType<RuneSpider>> RUNE_SPIDER = ENTITY_TYPES.register("rune_spider",
+            () -> EntityType.Builder.of(RuneSpider::new, MobCategory.MONSTER).sized(1.5F, 3.5F)
+                    .clientTrackingRange((8)).build("rune_spider"));
     public static final RegistryObject<EntityType<CrystallineSprite>> CRYSTALLINE_SPRITE = ENTITY_TYPES.register("crystalline_sprite",
             () -> EntityType.Builder.of(CrystallineSprite::new, MobCategory.MONSTER).sized(1.0F, 1.5F)
                     .clientTrackingRange((8)).build("crystalline_sprite"));
@@ -211,6 +214,8 @@ public class TAEntityTypes {
                 context, new DefaultedEntityGeoModel<>(SPIDERLING_WALL_CLIMBER.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(GIANT_CRYSTAL_SPIDER.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(GIANT_CRYSTAL_SPIDER.getId(), Boolean.TRUE)));
+        event.registerEntityRenderer(RUNE_SPIDER.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(RUNE_SPIDER.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(CRYSTALLINE_SPRITE.get(), CrystallineSpriteRenderer::new);
         event.registerEntityRenderer(CAVE_DWELLER.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(CAVE_DWELLER.getId())));
@@ -257,6 +262,7 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.KNIGHT_ARMOR, KnightArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPECTRAL_ARMOR, SpectralArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.MYSTERIUM_ARMOR, MysteriumWoolArmorModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.CRYSTAL_RUNE_ARMOR, CrystalRuneArmorModel::createBodyLayer);
     }
 
     @SubscribeEvent
@@ -308,6 +314,7 @@ public class TAEntityTypes {
         event.put(SPIDERLING_CRYSTAL_SHELL.get(), SpiderlingCrystalShell.createAttributes().build());
         event.put(SPIDERLING_WALL_CLIMBER.get(), SpiderlingWallClimber.createAttributes().build());
         event.put(GIANT_CRYSTAL_SPIDER.get(), GiantCrystalSpider.createAttributes().build());
+        event.put(RUNE_SPIDER.get(), RuneSpider.createAttributes().build());
         event.put(CRYSTALLINE_SPRITE.get(), CrystallineSprite.createAttributes().build());
         event.put(CAVE_DWELLER.get(), CaveDweller.createAttributes().build());
         event.put(ROCK_HAMMER.get(), RockHammer.createAttributes().build());

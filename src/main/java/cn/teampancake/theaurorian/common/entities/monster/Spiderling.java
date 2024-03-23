@@ -27,7 +27,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.UUID;
 
-public class Spiderling extends TASpiderling implements NeutralMob, IAffectedByNightmareMode {
+public class Spiderling extends TASpider implements NeutralMob, IAffectedByNightmareMode {
 
     private static final UniformInt ALERT_INTERVAL = TimeUtil.rangeOfSeconds(4, 6);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);

@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.projectile;
 
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
@@ -39,7 +40,7 @@ public class WebbingEntity extends ThrowableItemProjectile {
     protected void onHitEntity(EntityHitResult result) {
         Level level = this.level();
         if (!level.isClientSide) {
-            if (result.getEntity() instanceof LivingEntity entity && entity != this.getOwner() && entity.isAlive()) {
+            if (result.getEntity() instanceof LivingEntity entity && !entity.getType().is(TAEntityTags.SPIDERLING)) {
                 entity.hurt(this.damageSources().thrown(this, this.getOwner()), 2.5F);
                 entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
                 this.subtractMaxHealthWebbing(entity);

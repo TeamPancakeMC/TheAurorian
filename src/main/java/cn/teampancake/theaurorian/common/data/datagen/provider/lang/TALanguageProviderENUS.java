@@ -599,11 +599,16 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.MYSTERIUM_WOOL_CHESTPLATE.get(),"Mysterium Wool Chestplate");
         this.add(TAItems.MYSTERIUM_WOOL_LEGGINGS.get(),"Mysterium Wool Leggings");
         this.add(TAItems.MYSTERIUM_WOOL_BOOTS.get(),"Mysterium Wool Boots");
+        this.add(TAItems.CRYSTAL_RUNE_HELMET.get(),"Crystal Rune Helmet");
+        this.add(TAItems.CRYSTAL_RUNE_CHESTPLATE.get(),"Crystal Rune Chestplate");
+        this.add(TAItems.CRYSTAL_RUNE_LEGGINGS.get(),"Crystal Rune Leggings");
+        this.add(TAItems.CRYSTAL_RUNE_BOOTS.get(),"Crystal Rune Boots");
         this.add(TAItems.SPIDER_MOTHER_SPAWN_EGG.get(),"Spider Mother Spawn Egg");
         this.add(TAItems.SPIDERLING_SPAWN_EGG.get(),"Spiderling Spawn Egg");
         this.add(TAItems.SPIDERLING_CRYSTAL_SHELL_SPAWN_EGG.get(),"Crystal Shell Spiderling Spawn Egg");
         this.add(TAItems.SPIDERLING_WALL_CLIMBER_SPAWN_EGG.get(),"Wall Climbing Spiderling Spawn Egg");
         this.add(TAItems.GIANT_CRYSTAL_SPIDER_SPAWN_EGG.get(),"Giant Crystal Spiderling Spawn Egg");
+        this.add(TAItems.RUNE_SPIDER_SPAWN_EGG.get(), "Rune Spider Spawn Egg");
         this.add(TAItems.SPIRIT_SPAWN_EGG.get(),"Spirit Spawn Egg");
         this.add(TAItems.SPIKED_CHESTPLATE.get(),"Spiked Chestplate");
         this.add(TAItems.STICKY_SPIKER.get(),"Sticky Spiker");
@@ -668,6 +673,7 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.SPIDERLING_CRYSTAL_SHELL.get(),"Crystal Shell Spiderling");
         this.add(TAEntityTypes.SPIDERLING_WALL_CLIMBER.get(),"Wall Climbing Spiderling");
         this.add(TAEntityTypes.GIANT_CRYSTAL_SPIDER.get(),"Giant Crystal Spiderling");
+        this.add(TAEntityTypes.RUNE_SPIDER.get(), "Rune Spider");
         this.add(TAEntityTypes.CRYSTALLINE_SPRITE.get(), "Crystalline Sprite");
         this.add(TAEntityTypes.CAVE_DWELLER.get(), "Cave Dweller");
         this.add(TAEntityTypes.ROCK_HAMMER.get(), "Rock Hammer");
@@ -711,9 +717,10 @@ public class TALanguageProviderENUS extends LanguageProvider {
         //MOD ENCHANTMENT
         this.add(TAEnchantments.OVERLOAD.get(), "Overload");
         this.add(TAEnchantments.FREEZE_ASPECT.get(), "Freeze Aspect");
-        this.add(TAEnchantments.LIGHTNING_DAMAGE.get(), "Lightning");
+        this.add(TAEnchantments.COBWEB_CROSSING.get(), "Cobweb Crossing");
+        this.add(TAEnchantments.LIGHTNING_DAMAGE.get(), "Lightning Damage");
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get(), "Lightning Resistance");
-        this.add(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId()+ ".desc", "Does extra damage depending on how much armor the target is wearing");
+        this.add(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId() + ".desc", "Does extra damage depending on how much armor the target is wearing");
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId() + ".desc", "Negates damage that would have been done by lightning enchantment");
 
         //MOD PAINTING

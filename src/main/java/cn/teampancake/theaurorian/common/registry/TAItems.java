@@ -76,6 +76,10 @@ public class TAItems {
     public static final RegistryObject<Item> MYSTERIUM_WOOL_CHESTPLATE = ITEMS.register("mysterium_wool_chestplate", () -> new MysteriumWoolArmor(CHESTPLATE));
     public static final RegistryObject<Item> MYSTERIUM_WOOL_LEGGINGS = ITEMS.register("mysterium_wool_leggings", () -> new MysteriumWoolArmor(LEGGINGS));
     public static final RegistryObject<Item> MYSTERIUM_WOOL_BOOTS = ITEMS.register("mysterium_wool_boots", () -> new MysteriumWoolArmor(BOOTS));
+    public static final RegistryObject<Item> CRYSTAL_RUNE_HELMET = ITEMS.register("crystal_rune_helmet", () -> new CrystalRuneArmor(HELMET));
+    public static final RegistryObject<Item> CRYSTAL_RUNE_CHESTPLATE = ITEMS.register("crystal_rune_chestplate", () -> new CrystalRuneArmor(CHESTPLATE));
+    public static final RegistryObject<Item> CRYSTAL_RUNE_LEGGINGS = ITEMS.register("crystal_rune_leggings", () -> new CrystalRuneArmor(LEGGINGS));
+    public static final RegistryObject<Item> CRYSTAL_RUNE_BOOTS = ITEMS.register("crystal_rune_boots", () -> new CrystalRuneArmor(BOOTS));
     public static final RegistryObject<Item> SPIKED_CHESTPLATE = ITEMS.register("spiked_chestplate", SpikedChestplate::new);
     public static final RegistryObject<Item> AURORIAN_SLIME_BOOTS = ITEMS.register("aurorian_slime_boots", AurorianSlimeBoots::new);
 
@@ -342,6 +346,7 @@ public class TAItems {
     public static final RegistryObject<Item> SPIDERLING_CRYSTAL_SHELL_SPAWN_EGG = spawnEgg("spiderling_crystal_shell", TAEntityTypes.SPIDERLING_CRYSTAL_SHELL, 0xd1ffdf, 0x363675);
     public static final RegistryObject<Item> SPIDERLING_WALL_CLIMBER_SPAWN_EGG = spawnEgg("spiderling_wall_climber", TAEntityTypes.SPIDERLING_WALL_CLIMBER, 0xd1ffdf, 0x363675);
     public static final RegistryObject<Item> GIANT_CRYSTAL_SPIDER_SPAWN_EGG = spawnEgg("giant_crystal_spider", TAEntityTypes.GIANT_CRYSTAL_SPIDER, 0xd1ffdf, 0x363675);
+    public static final RegistryObject<Item> RUNE_SPIDER_SPAWN_EGG = spawnEgg("rune_spider", TAEntityTypes.RUNE_SPIDER, 0xffc7f0, 0x8e69cf);
     public static final RegistryObject<Item> CRYSTALLINE_SPRITE_SPAWN_EGG = spawnEgg("crystalline_sprite", TAEntityTypes.CRYSTALLINE_SPRITE, 0xf5e2fc, 0xf0c9fd);
     public static final RegistryObject<Item> CAVE_DWELLER_SPAWN_EGG = spawnEgg("cave_dweller", TAEntityTypes.CAVE_DWELLER, 0x5e6b7d, 0xdc54f7);
     public static final RegistryObject<Item> ROCK_HAMMER_SPAWN_EGG = spawnEgg("rock_hammer", TAEntityTypes.ROCK_HAMMER, 0xe3e0d1, 0x45332e);

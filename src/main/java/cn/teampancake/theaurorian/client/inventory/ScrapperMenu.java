@@ -33,7 +33,7 @@ public class ScrapperMenu extends AbstractSimpleMenu {
         this.scrapper.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             this.addSlot(new FirstSlot(itemHandler, 0, 80, 17));
             this.addSlot(new SecondSlot(itemHandler, 1, 40, 37));
-            this.addSlot(new ResultSlot(itemHandler, 2, 80, 58));
+            this.addSlot(new TAResultSlot(itemHandler, 2, 80, 58));
         });
         this.addDataSlots(containerData);
     }

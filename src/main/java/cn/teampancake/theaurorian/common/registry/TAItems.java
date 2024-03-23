@@ -316,7 +316,6 @@ public class TAItems {
     public static final RegistryObject<Item> WHITE_CHOCOLATE = ITEMS.register("white_chocolate", WhiteChocolate::new);
     public static final RegistryObject<Item> RED_BOOK = ITEMS.register("red_book", RedBook::new);
     public static final RegistryObject<Item> RED_BOOK_RING = ITEMS.register("red_book_ring", RedBookRing::new);
-    public static final RegistryObject<Item> STAR_OCEAN_CROSSBOW = ITEMS.register("star_ocean_crossbow", StarOceanCrossbow::new);
     public static final RegistryObject<Item> CAT_BELL = ITEMS.register("cat_bell", CatBell::new);
     public static final RegistryObject<Item> TSLAT_SWORD = ITEMS.register("tslat_sword", TslatSword::new);
 
@@ -340,6 +339,9 @@ public class TAItems {
     public static final RegistryObject<Item> SPIRIT_SPAWN_EGG = spawnEgg("spirit", TAEntityTypes.SPIRIT, 0xb0b6bc, 0x303131);
     public static final RegistryObject<Item> MOON_ACOLYTE_SPAWN_EGG = spawnEgg("moon_acolyte", TAEntityTypes.MOON_ACOLYTE, 0x0270af, 0x191919);
     public static final RegistryObject<Item> SPIDERLING_SPAWN_EGG = spawnEgg("spiderling", TAEntityTypes.SPIDERLING, 0x1efefe, 0x0f1018);
+    public static final RegistryObject<Item> SPIDERLING_CRYSTAL_SHELL_SPAWN_EGG = spawnEgg("spiderling_crystal_shell", TAEntityTypes.SPIDERLING_CRYSTAL_SHELL, 0xd1ffdf, 0x363675);
+    public static final RegistryObject<Item> SPIDERLING_WALL_CLIMBER_SPAWN_EGG = spawnEgg("spiderling_wall_climber", TAEntityTypes.SPIDERLING_WALL_CLIMBER, 0xd1ffdf, 0x363675);
+    public static final RegistryObject<Item> GIANT_CRYSTAL_SPIDER_SPAWN_EGG = spawnEgg("giant_crystal_spider", TAEntityTypes.GIANT_CRYSTAL_SPIDER, 0xd1ffdf, 0x363675);
     public static final RegistryObject<Item> CRYSTALLINE_SPRITE_SPAWN_EGG = spawnEgg("crystalline_sprite", TAEntityTypes.CRYSTALLINE_SPRITE, 0xf5e2fc, 0xf0c9fd);
     public static final RegistryObject<Item> CAVE_DWELLER_SPAWN_EGG = spawnEgg("cave_dweller", TAEntityTypes.CAVE_DWELLER, 0x5e6b7d, 0xdc54f7);
     public static final RegistryObject<Item> ROCK_HAMMER_SPAWN_EGG = spawnEgg("rock_hammer", TAEntityTypes.ROCK_HAMMER, 0xe3e0d1, 0x45332e);

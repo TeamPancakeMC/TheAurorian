@@ -1,0 +1,4 @@
+{
+  "type": "minecraft:entity",
+  "random_sequence": "theaurorian:entities/spiderling_wall_climber"
+}

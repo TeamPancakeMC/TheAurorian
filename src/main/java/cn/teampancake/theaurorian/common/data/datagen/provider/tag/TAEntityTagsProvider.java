@@ -22,8 +22,10 @@ public class TAEntityTagsProvider extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(TAEntityTypes.AURORIAN_PIXIE.get(),
-                TAEntityTypes.CRYSTALLINE_SPRITE.get(), TAEntityTypes.MOON_QUEEN.get());
+        this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(TAEntityTypes.AURORIAN_PIXIE.get(), TAEntityTypes.MOON_QUEEN.get(),
+                TAEntityTypes.CRYSTALLINE_SPRITE.get()).addTag(TAEntityTags.SPIDERLING);
+        this.tag(TAEntityTags.SPIDERLING).add(TAEntityTypes.SPIDERLING.get(), TAEntityTypes.GIANT_CRYSTAL_SPIDER.get(),
+                TAEntityTypes.SPIDERLING_CRYSTAL_SHELL.get(), TAEntityTypes.SPIDERLING_WALL_CLIMBER.get());
         this.tag(TAEntityTags.WOLF_NON_TAME_ATTACK_TARGET).add(EntityType.SHEEP, EntityType.RABBIT, EntityType.FOX,
                 TAEntityTypes.AURORIAN_SHEEP.get(), TAEntityTypes.AURORIAN_RABBIT.get(), TAEntityTypes.ICEFIELD_DEER.get());
         this.tag(TAEntityTags.ALERTED_BY_BLUE_TAIL_WOLF).add(EntityType.WOLF, TAEntityTypes.BLUE_TAIL_WOLF.get());

@@ -109,7 +109,6 @@ public class EntityEventSubscriber {
         }
     }
 
-    @SuppressWarnings("ConstantConditions")
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();
@@ -129,14 +128,13 @@ public class EntityEventSubscriber {
             int i = miscNBT.ticksFrostbite;
             int j = miscNBT.corruptionTime;
             if (!level.isClientSide) {
-                if (entity.hasEffect(effect)) {
-                    float chance = j / (validTime + 40.0F);
-                    boolean shouldRemove = level.random.nextFloat() < chance;
+                if (effect instanceof CorruptionEffect corruption && entity.hasEffect(corruption)) {
+                    boolean shouldRemove = level.random.nextFloat() < (j / (validTime + 40.0F));
                     if (entity.tickCount % 20 == 0) {
                         ++miscNBT.corruptionTime;
                     }
                     if (j >= validTime || shouldRemove) {
-                        entity.getEffect(effect).duration = 0;
+                        corruption.doHurtTarget(entity);
                         entity.removeEffect(effect);
                     }
                 }

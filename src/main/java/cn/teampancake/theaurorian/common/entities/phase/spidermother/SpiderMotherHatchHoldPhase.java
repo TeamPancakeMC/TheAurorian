@@ -1,10 +1,9 @@
 package cn.teampancake.theaurorian.common.entities.phase.spidermother;
 
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
-import cn.teampancake.theaurorian.common.entities.monster.Spiderling;
 import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
-import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 
 public class SpiderMotherHatchHoldPhase extends AttackPhase<SpiderMother> {
@@ -26,12 +25,12 @@ public class SpiderMotherHatchHoldPhase extends AttackPhase<SpiderMother> {
     @Override
     public void tick(SpiderMother entity) {
         Level level = entity.level();
-        LivingEntity target = entity.getTarget();
-        if (entity.getAttackTicks() % 20 == 0 && target != null) {
-            Spiderling spiderling = new Spiderling(TAEntityTypes.SPIDERLING.get(), level);
-            spiderling.setPos(entity.position());
-            spiderling.setTarget(target);
-            level.addFreshEntity(spiderling);
+        if (entity.getAttackTicks() % 20 == 0) {
+            if (entity.getRandomSpiderlings() instanceof Mob mob) {
+                mob.setPos(entity.position());
+                mob.setTarget(entity.getTarget());
+                level.addFreshEntity(mob);
+            }
         }
     }
 

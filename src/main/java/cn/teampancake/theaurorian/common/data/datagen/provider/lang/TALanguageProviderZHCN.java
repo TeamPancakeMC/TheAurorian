@@ -601,6 +601,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.MYSTERIUM_WOOL_BOOTS.get(),"秘境羊毛靴子");
         this.add(TAItems.SPIDER_MOTHER_SPAWN_EGG.get(), "蛛母刷怪蛋");
         this.add(TAItems.SPIDERLING_SPAWN_EGG.get(), "幼蛛刷怪蛋");
+        this.add(TAItems.SPIDERLING_CRYSTAL_SHELL_SPAWN_EGG.get(),"水晶壳幼蛛刷怪蛋");
+        this.add(TAItems.SPIDERLING_WALL_CLIMBER_SPAWN_EGG.get(),"爬墙幼蛛刷怪蛋");
+        this.add(TAItems.GIANT_CRYSTAL_SPIDER_SPAWN_EGG.get(),"巨型水晶幼蛛刷怪蛋");
         this.add(TAItems.SPIRIT_SPAWN_EGG.get(), "魂灵刷怪蛋");
         this.add(TAItems.SPIKED_CHESTPLATE.get(), "尖钉胸甲");
         this.add(TAItems.STICKY_SPIKER.get(), "粘性尖钉");
@@ -631,7 +634,6 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAItems.LUCKY_RABBIT_EAR.get(), "幸运兔耳");
         this.add(TAItems.RED_BOOK.get(), "红皮书");
         this.add(TAItems.RED_BOOK_RING.get(), "红皮书戒指");
-        this.add(TAItems.STAR_OCEAN_CROSSBOW.get(), "星弩");
         this.add(TAItems.CAT_BELL.get(), "猫猫的铃铛");
         this.add(TAItems.TSLAT_SWORD.get(), "Tslat的剑");
         this.add(TAItems.WORLD_SCROLL_FRAGMENT.get(),"世界残卷");
@@ -663,6 +665,9 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAEntityTypes.SPIRIT.get(), "魂灵");
         this.add(TAEntityTypes.MOON_ACOLYTE.get(), "皎月侍从");
         this.add(TAEntityTypes.SPIDERLING.get(), "幼蛛");
+        this.add(TAEntityTypes.SPIDERLING_CRYSTAL_SHELL.get(),"水晶壳幼蛛");
+        this.add(TAEntityTypes.SPIDERLING_WALL_CLIMBER.get(),"爬墙幼蛛");
+        this.add(TAEntityTypes.GIANT_CRYSTAL_SPIDER.get(),"巨型水晶幼蛛");
         this.add(TAEntityTypes.CRYSTALLINE_SPRITE.get(), "月凝晶魂");
         this.add(TAEntityTypes.CAVE_DWELLER.get(), "晶洞居者");
         this.add(TAEntityTypes.ROCK_HAMMER.get(), "岩锤兽");
@@ -831,7 +836,6 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.addTooltips(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT, "青春猪头尘不会梦到幼幼紫学姐.");
         this.addTooltips(TAItems.RED_BOOK, "写满世间各种死因的书，却是个徒有其表的通讯装置？！");
         this.addTooltips(TAItems.RED_BOOK_RING, "没想到那个人会制作一个徒有其表的东西啊！");
-        this.addTooltips(TAItems.STAR_OCEAN_CROSSBOW, "我去，你怎么知道弩是我爹——StarOcean1266.");
         this.addTooltips(TAItems.CAT_BELL, "虽然不会把你变猫娘，但是可以让你像猫一样快！");
         this.addTooltips(TAItems.TSLAT_SWORD, "没有人比tslat更懂该怎么做muti-dims mod XD");
     }

@@ -123,6 +123,15 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<Spiderling>> SPIDERLING = ENTITY_TYPES.register("spiderling",
             () -> EntityType.Builder.of(Spiderling::new, MobCategory.MONSTER).sized(0.7F, 0.45F)
                     .clientTrackingRange((8)).build("spiderling"));
+    public static final RegistryObject<EntityType<SpiderlingCrystalShell>> SPIDERLING_CRYSTAL_SHELL = ENTITY_TYPES.register("spiderling_crystal_shell",
+            () -> EntityType.Builder.of(SpiderlingCrystalShell::new, MobCategory.MONSTER).sized(1.5F, 1.5F)
+                    .clientTrackingRange((8)).build("spiderling_crystal_shell"));
+    public static final RegistryObject<EntityType<SpiderlingWallClimber>> SPIDERLING_WALL_CLIMBER = ENTITY_TYPES.register("spiderling_wall_climber",
+            () -> EntityType.Builder.of(SpiderlingWallClimber::new, MobCategory.MONSTER).sized(1.6F, 0.5F)
+                    .clientTrackingRange((8)).build("spiderling_wall_climber"));
+    public static final RegistryObject<EntityType<GiantCrystalSpider>> GIANT_CRYSTAL_SPIDER = ENTITY_TYPES.register("giant_crystal_spider",
+            () -> EntityType.Builder.of(GiantCrystalSpider::new, MobCategory.MONSTER).sized(1.5F, 3.5F)
+                    .clientTrackingRange((8)).build("giant_crystal_spider"));
     public static final RegistryObject<EntityType<CrystallineSprite>> CRYSTALLINE_SPRITE = ENTITY_TYPES.register("crystalline_sprite",
             () -> EntityType.Builder.of(CrystallineSprite::new, MobCategory.MONSTER).sized(1.0F, 1.5F)
                     .clientTrackingRange((8)).build("crystalline_sprite"));
@@ -195,7 +204,13 @@ public class TAEntityTypes {
         event.registerEntityRenderer(MOON_ACOLYTE.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(MOON_ACOLYTE.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(SPIDERLING.get(), context -> new GeoEntityRenderer<>(
-                context, new DefaultedEntityGeoModel<>(SPIDERLING.getId())));
+                context, new DefaultedEntityGeoModel<>(SPIDERLING.getId(), Boolean.TRUE)));
+        event.registerEntityRenderer(SPIDERLING_CRYSTAL_SHELL.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(SPIDERLING_CRYSTAL_SHELL.getId(), Boolean.TRUE)));
+        event.registerEntityRenderer(SPIDERLING_WALL_CLIMBER.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(SPIDERLING_WALL_CLIMBER.getId(), Boolean.TRUE)));
+        event.registerEntityRenderer(GIANT_CRYSTAL_SPIDER.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(GIANT_CRYSTAL_SPIDER.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(CRYSTALLINE_SPRITE.get(), CrystallineSpriteRenderer::new);
         event.registerEntityRenderer(CAVE_DWELLER.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(CAVE_DWELLER.getId())));
@@ -290,6 +305,9 @@ public class TAEntityTypes {
         event.put(SPIRIT.get(), Spirit.createAttributes().build());
         event.put(MOON_ACOLYTE.get(), MoonAcolyte.createAttributes().build());
         event.put(SPIDERLING.get(), Spiderling.createAttributes().build());
+        event.put(SPIDERLING_CRYSTAL_SHELL.get(), SpiderlingCrystalShell.createAttributes().build());
+        event.put(SPIDERLING_WALL_CLIMBER.get(), SpiderlingWallClimber.createAttributes().build());
+        event.put(GIANT_CRYSTAL_SPIDER.get(), GiantCrystalSpider.createAttributes().build());
         event.put(CRYSTALLINE_SPRITE.get(), CrystallineSprite.createAttributes().build());
         event.put(CAVE_DWELLER.get(), CaveDweller.createAttributes().build());
         event.put(ROCK_HAMMER.get(), RockHammer.createAttributes().build());

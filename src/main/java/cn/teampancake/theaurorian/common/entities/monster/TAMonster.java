@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
-import cn.teampancake.theaurorian.common.entities.phase.RockHammerMeleePhase;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;

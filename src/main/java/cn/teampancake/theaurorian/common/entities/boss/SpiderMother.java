@@ -1,12 +1,13 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
-import cn.teampancake.theaurorian.common.entities.monster.Spiderling;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.spidermother.*;
 import cn.teampancake.theaurorian.common.registry.TAAttributes;
-import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -31,7 +32,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -86,10 +86,11 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     @Nullable @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         for (int i = 0; i < 4; i++) {
-            Spiderling spiderling = new Spiderling(TAEntityTypes.SPIDERLING.get(), this.level());
-            spiderling.setPos(this.position());
-            spiderling.setTarget(this.getTarget());
-            level.addFreshEntity(spiderling);
+            if (this.getRandomSpiderlings() instanceof Mob mob) {
+                mob.setPos(this.position());
+                mob.setTarget(this.getTarget());
+                level.addFreshEntity(mob);
+            }
         }
 
         return spawnData;
@@ -105,7 +106,7 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.FALSE));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class,
-                Boolean.FALSE, entity -> !(entity instanceof SpiderMother) && !(entity instanceof Spider)));
+                Boolean.FALSE, entity -> !(entity instanceof SpiderMother) && !entity.getType().is(TAEntityTags.SPIDERLING)));
     }
 
     @NotNull
@@ -117,6 +118,13 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
         builder.add(Attributes.FOLLOW_RANGE, 50.0F);
         builder.add(Attributes.ARMOR, 8.0F);
         return builder;
+    }
+
+    @Nullable
+    public Entity getRandomSpiderlings() {
+        List<Holder<EntityType<?>>> list = new ArrayList<>();
+        BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(TAEntityTags.SPIDERLING).forEach(list::add);
+        return list.get(this.level().random.nextInt(list.size())).get().create(this.level());
     }
 
     @Override
@@ -170,8 +178,7 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
             serverPlayerList.forEach(player -> this.currentSavedUUID.add(player.getStringUUID()));
             int size = this.currentSavedUUID.size() - this.alreadyHealForUUID.size() - 1;
             if (this.getHealth() < maxHealth * 0.25F && this.canBeInvisible) {
-                MobEffectInstance instance = new MobEffectInstance(MobEffects.INVISIBILITY);
-                instance.duration = 400;
+                MobEffectInstance instance = new MobEffectInstance(MobEffects.INVISIBILITY, 400);
                 this.addEffect(instance);
                 this.canBeInvisible = false;
             }
@@ -285,8 +292,8 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("CanBeInvisible", this.canBeInvisible);
         compound.putInt("SafeTime", this.safeTime);
+        compound.putBoolean("CanBeInvisible", this.canBeInvisible);
         compound.put("CurrentSavedUUID", this.saveListTag(this.currentSavedUUID));
         compound.put("AlreadyHealForUUID", this.saveListTag(this.alreadyHealForUUID));
     }
@@ -294,8 +301,8 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.canBeInvisible = compound.getBoolean("CanBeInvisible");
         this.safeTime = compound.getInt("SafeTime");
+        this.canBeInvisible = compound.getBoolean("CanBeInvisible");
         ListTag listTagC = compound.getList("CurrentSavedUUID", 10);
         for (int i = 0; i < listTagC.size(); i++) {
             this.currentSavedUUID.add(listTagC.getCompound(i).getString("UUID"));
@@ -312,6 +319,7 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
         return (this.entityData.get(DATA_FLAGS_ID) & 1) != 0;
     }
 
+    @Override
     public void makeStuckInBlock(BlockState state, Vec3 motionMultiplier) {
         if (!state.is(Blocks.COBWEB)) {
             super.makeStuckInBlock(state, motionMultiplier);

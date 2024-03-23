@@ -92,6 +92,9 @@ public class TAEntityLoot extends VanillaEntityLoot {
         this.addMonsterLoot(TAEntityTypes.CRYSTALLINE_SPRITE.get(), TAItems.CRYSTAL.get(), 1.0F);
         this.addMonsterLoot(TAEntityTypes.SPIRIT.get(), TAItems.SPECTRAL_SILK.get(), 2.0F);
         this.addMonsterLoot(TAEntityTypes.SPIDERLING.get(), Items.SPIDER_EYE, 1.0F);
+        this.add(TAEntityTypes.SPIDERLING_CRYSTAL_SHELL.get(), LootTable.lootTable());
+        this.add(TAEntityTypes.SPIDERLING_WALL_CLIMBER.get(), LootTable.lootTable());
+        this.add(TAEntityTypes.GIANT_CRYSTAL_SPIDER.get(), LootTable.lootTable());
         this.add(TAEntityTypes.CAVE_DWELLER.get(), LootTable.lootTable());
         this.add(TAEntityTypes.ROCK_HAMMER.get(), LootTable.lootTable());
         this.add(TAEntityTypes.TONG_SCORPION.get(), LootTable.lootTable());

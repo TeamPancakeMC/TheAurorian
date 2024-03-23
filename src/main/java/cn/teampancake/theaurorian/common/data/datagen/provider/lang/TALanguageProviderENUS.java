@@ -601,6 +601,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.MYSTERIUM_WOOL_BOOTS.get(),"Mysterium Wool Boots");
         this.add(TAItems.SPIDER_MOTHER_SPAWN_EGG.get(),"Spider Mother Spawn Egg");
         this.add(TAItems.SPIDERLING_SPAWN_EGG.get(),"Spiderling Spawn Egg");
+        this.add(TAItems.SPIDERLING_CRYSTAL_SHELL_SPAWN_EGG.get(),"Crystal Shell Spiderling Spawn Egg");
+        this.add(TAItems.SPIDERLING_WALL_CLIMBER_SPAWN_EGG.get(),"Wall Climbing Spiderling Spawn Egg");
+        this.add(TAItems.GIANT_CRYSTAL_SPIDER_SPAWN_EGG.get(),"Giant Crystal Spiderling Spawn Egg");
         this.add(TAItems.SPIRIT_SPAWN_EGG.get(),"Spirit Spawn Egg");
         this.add(TAItems.SPIKED_CHESTPLATE.get(),"Spiked Chestplate");
         this.add(TAItems.STICKY_SPIKER.get(),"Sticky Spiker");
@@ -631,7 +634,6 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.get(),"Dream Dyeing Crystal Fragment");
         this.add(TAItems.RED_BOOK.get(), "Red Book");
         this.add(TAItems.RED_BOOK_RING.get(), "Red Book Ring");
-        this.add(TAItems.STAR_OCEAN_CROSSBOW.get(), "Star Ocean Crossbow");
         this.add(TAItems.CAT_BELL.get(), "Cat Bell");
         this.add(TAItems.TSLAT_SWORD.get(), "Tslat's Sword");
         this.add(TAItems.WORLD_SCROLL_FRAGMENT.get(),"World Scroll Fragment");
@@ -663,6 +665,9 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add(TAEntityTypes.SPIRIT.get(), "Spirit");
         this.add(TAEntityTypes.MOON_ACOLYTE.get(), "Moon Acolyte");
         this.add(TAEntityTypes.SPIDERLING.get(), "Spiderling");
+        this.add(TAEntityTypes.SPIDERLING_CRYSTAL_SHELL.get(),"Crystal Shell Spiderling");
+        this.add(TAEntityTypes.SPIDERLING_WALL_CLIMBER.get(),"Wall Climbing Spiderling");
+        this.add(TAEntityTypes.GIANT_CRYSTAL_SPIDER.get(),"Giant Crystal Spiderling");
         this.add(TAEntityTypes.CRYSTALLINE_SPRITE.get(), "Crystalline Sprite");
         this.add(TAEntityTypes.CAVE_DWELLER.get(), "Cave Dweller");
         this.add(TAEntityTypes.ROCK_HAMMER.get(), "Rock Hammer");
@@ -831,7 +836,6 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.addTooltips(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT, "青春猪头尘不会梦到幼幼紫学姐.");
         this.addTooltips(TAItems.RED_BOOK, "A book full of various causes of death in the world. But in reality, it is a specious chief signal officer");
         this.addTooltips(TAItems.RED_BOOK_RING, "I didn't expect that person to make an specious item!");
-        this.addTooltips(TAItems.STAR_OCEAN_CROSSBOW, "What the hell? Why are you know the crossbow is my dad? --StarOcean1266.");
         this.addTooltips(TAItems.CAT_BELL, "It won't change you into a cat girl, but it can make you fast like a cat!");
         this.addTooltips(TAItems.TSLAT_SWORD, "Nobody know how to make muti-dims mod better than Tslat XD.");
     }

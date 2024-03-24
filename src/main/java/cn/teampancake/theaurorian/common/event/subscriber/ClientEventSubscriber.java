@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.client.renderer.level.TAFogRenderer;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
@@ -9,15 +8,19 @@ import cn.teampancake.theaurorian.common.effect.TremorEffect;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import com.mojang.blaze3d.shaders.FogShape;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.minecraftforge.client.event.MovementInputUpdateEvent;
@@ -25,6 +28,8 @@ import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.awt.*;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, value = Dist.CLIENT)
 public class ClientEventSubscriber {
@@ -87,17 +92,37 @@ public class ClientEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onSetupFogColor(ViewportEvent.ComputeFogColor event) {
+    public static void onComputeFogColor(ViewportEvent.ComputeFogColor event) {
         Minecraft mc = Minecraft.getInstance();
-        float partialTick = (float) event.getPartialTick();
-        int renderDistanceChunks = mc.options.getEffectiveRenderDistance();
-        float darkenWorldAmount = mc.gameRenderer.getDarkenWorldAmount(partialTick);
-        if (mc.level != null && mc.level.dimension() == TADimensions.AURORIAN_DIMENSION) {
-            float[] colors = TAFogRenderer.setupColor(event.getCamera(), partialTick,
-                    mc.level, renderDistanceChunks, darkenWorldAmount);
-            event.setRed(colors[0]);
-            event.setGreen(colors[1]);
-            event.setBlue(colors[2]);
+        Camera camera = event.getCamera();
+        ClientLevel level = mc.level;
+        if (camera.getEntity() instanceof LocalPlayer localPlayer) {
+            boolean flag = localPlayer.hasEffect(TAMobEffects.EIDOLON_POISON.get());
+            if (level != null && level.dimension() == TADimensions.AURORIAN_DIMENSION && !flag) {
+                Vec3 vec3 = TASkyRenderer.getSkyColor(level, camera.getPosition());
+                event.setRed((float) vec3.x);
+                event.setGreen((float) vec3.y);
+                event.setBlue((float) vec3.z);
+            }
+
+            if (flag) {
+                event.setRed(Color.WHITE.getRed());
+                event.setGreen(Color.WHITE.getGreen());
+                event.setBlue(Color.WHITE.getBlue());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRenderFog(ViewportEvent.RenderFog event) {
+        if (event.getCamera().getEntity() instanceof LocalPlayer localPlayer) {
+            float renderDistance = Minecraft.getInstance().gameRenderer.getRenderDistance();
+            if (localPlayer.hasEffect(TAMobEffects.EIDOLON_POISON.get())) {
+                event.setNearPlaneDistance(0.0F);
+                event.setFarPlaneDistance(renderDistance);
+                event.setFogShape(FogShape.CYLINDER);
+                event.setCanceled(true);
+            }
         }
     }
 

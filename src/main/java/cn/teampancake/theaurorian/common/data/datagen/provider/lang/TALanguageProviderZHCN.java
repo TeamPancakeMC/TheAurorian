@@ -710,6 +710,7 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add(TAMobEffects.MOON_BEFALL.get(), "月临");
         this.add(TAMobEffects.BLESS_OF_MOON.get(), "护月");
         this.add(TAMobEffects.POTION_REMAIN.get(), "药水残留");
+        this.add(TAMobEffects.EIDOLON_POISON.get(), "幻光毒");
         this.add(TAMobEffects.CRYSTALLIZATION.get(), "晶化");
         this.add(TAMobEffects.FORBIDDEN_CURSE.get(), "禁咒");
         this.add(TAMobEffects.MOON_OF_VENGEANCE.get(), "仇月");

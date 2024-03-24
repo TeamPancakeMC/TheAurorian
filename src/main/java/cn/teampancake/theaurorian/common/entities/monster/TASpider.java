@@ -67,7 +67,7 @@ public abstract class TASpider extends Spider implements GeoEntity, MultiPhaseAt
                 }
             }
 
-            if (!this.isCrystalShell() && crystalShell != null && crystalShell.getHealth() >= f1) {
+            if (!this.isCrystalShell() && crystalShell != null) {
                 crystalShell.getCombatTracker().recordDamage(damageSource, f1);
                 crystalShell.setHealth(crystalShell.getHealth() - f1);
                 crystalShell.setAbsorptionAmount(crystalShell.getAbsorptionAmount() - f1);

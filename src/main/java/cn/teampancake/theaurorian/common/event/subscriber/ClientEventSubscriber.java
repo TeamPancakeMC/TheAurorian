@@ -18,8 +18,10 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
@@ -69,12 +71,12 @@ public class ClientEventSubscriber {
         player.getActiveEffectsMap().forEach((effect, mobEffectInstance) -> {
             if (effect instanceof ConfusionEffect) {
                 if (mobEffectInstance.getAmplifier() == 1) {
-                    double rotation = Math.sin(player.tickCount / 10.0) * 45;
-                    event.setRoll((float)rotation);
+                    float rotation = Mth.sin(player.tickCount / 10.0F) * 45.0F;
+                    event.setRoll(rotation);
                 }
 
                 if (mobEffectInstance.getAmplifier() == 2) {
-                    event.setRoll(180);
+                    event.setRoll(180.0F);
                 }
             }
 
@@ -93,16 +95,17 @@ public class ClientEventSubscriber {
 
     @SubscribeEvent
     public static void onComputeFogColor(ViewportEvent.ComputeFogColor event) {
-        Minecraft mc = Minecraft.getInstance();
         Camera camera = event.getCamera();
-        ClientLevel level = mc.level;
+        ClientLevel level = Minecraft.getInstance().level;
         if (camera.getEntity() instanceof LocalPlayer localPlayer) {
             boolean flag = localPlayer.hasEffect(TAMobEffects.EIDOLON_POISON.get());
-            if (level != null && level.dimension() == TADimensions.AURORIAN_DIMENSION && !flag) {
+            if (level != null && level.dimension() == TADimensions.AURORIAN_DIMENSION) {
                 Vec3 vec3 = TASkyRenderer.getSkyColor(level, camera.getPosition());
-                event.setRed((float) vec3.x);
-                event.setGreen((float) vec3.y);
-                event.setBlue((float) vec3.z);
+                if (camera.getFluidInCamera() == FogType.NONE && !flag) {
+                    event.setRed((float) vec3.x);
+                    event.setGreen((float) vec3.y);
+                    event.setBlue((float) vec3.z);
+                }
             }
 
             if (flag) {

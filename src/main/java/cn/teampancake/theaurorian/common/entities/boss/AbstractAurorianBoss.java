@@ -18,6 +18,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Monster;
@@ -27,6 +29,8 @@ import net.minecraft.world.level.block.HoneyBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 import java.util.List;
 
 abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacker {
@@ -162,6 +166,34 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
 
         if (compound.contains("Health", 99)) {
             compound.remove("Health");
+        }
+    }
+
+    @Override
+    protected void tickEffects() {
+        Iterator<MobEffect> iterator = this.getActiveEffectsMap().keySet().iterator();
+        try {
+            while(iterator.hasNext()) {
+                MobEffect mobEffect = iterator.next();
+                MobEffectInstance instance = this.getActiveEffectsMap().get(mobEffect);
+                if (!instance.tick(this, () -> this.onEffectUpdated(instance, true, null))) {
+                    if (!this.level().isClientSide) {
+                        iterator.remove();
+                        this.onEffectRemoved(instance);
+                    }
+                } else if (instance.getDuration() % 600 == 0) {
+                    this.onEffectUpdated(instance, false, null);
+                }
+            }
+        } catch (ConcurrentModificationException ignored) {
+        }
+
+        if (this.effectsDirty) {
+            if (!this.level().isClientSide) {
+                this.updateInvisibilityStatus();
+            }
+
+            this.effectsDirty = false;
         }
     }
 

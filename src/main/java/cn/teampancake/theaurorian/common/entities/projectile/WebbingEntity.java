@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -22,6 +23,7 @@ import java.util.UUID;
 public class WebbingEntity extends ThrowableItemProjectile {
 
     public static final UUID MAX_HEALTH_SUBTRACT_WEBBING = UUID.fromString("c25109f6-62d9-41d4-bb3a-3d7a0852de7b");
+    private int time;
 
     public WebbingEntity(EntityType<? extends ThrowableItemProjectile> type, Level level) {
         super(type, level);
@@ -34,6 +36,29 @@ public class WebbingEntity extends ThrowableItemProjectile {
     @Override
     protected Item getDefaultItem() {
         return TAItems.WEBBING.get();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.level().isClientSide) {
+            ++this.time;
+            if (this.time > 100) {
+                this.discard();
+            }
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Time", this.time);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.time = compound.getInt("Time");
     }
 
     @Override

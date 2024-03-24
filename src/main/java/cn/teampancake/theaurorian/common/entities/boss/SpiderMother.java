@@ -49,11 +49,9 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 
 @SuppressWarnings("deprecation")
-@ParametersAreNonnullByDefault
 public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
 
     private static final RawAnimation HATCH_BEGIN = RawAnimation.begin().thenPlay("misc.hatch_begin");
@@ -105,8 +103,8 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.FALSE));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class,
-                Boolean.FALSE, entity -> !(entity instanceof SpiderMother) && !entity.getType().is(TAEntityTags.SPIDERLING)));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, Boolean.FALSE,
+                entity -> !(entity instanceof SpiderMother) && !entity.getType().is(TAEntityTags.SPIDERLING)));
     }
 
     @NotNull
@@ -267,26 +265,6 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     @Override
     protected void playStepSound(BlockPos pos, BlockState block) {
         this.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
-    }
-
-    @Override
-    protected void tickEffects() {
-        Iterator<MobEffect> iterator = this.getActiveEffectsMap().keySet().iterator();
-        try {
-            while(iterator.hasNext()) {
-                MobEffect mobEffect = iterator.next();
-                MobEffectInstance instance = this.getActiveEffectsMap().get(mobEffect);
-                if (!instance.tick(this, () -> this.onEffectUpdated(instance, true, null))) {
-                    if (!this.level().isClientSide) {
-                        iterator.remove();
-                        this.onEffectRemoved(instance);
-                    }
-                } else if (instance.getDuration() % 600 == 0) {
-                    this.onEffectUpdated(instance, false, null);
-                }
-            }
-        } catch (ConcurrentModificationException ignored) {
-        }
     }
 
     @Override

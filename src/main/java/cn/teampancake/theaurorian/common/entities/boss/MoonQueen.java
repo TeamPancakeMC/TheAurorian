@@ -433,26 +433,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     }
 
     @Override
-    protected void tickEffects() {
-        Iterator<MobEffect> iterator = this.getActiveEffectsMap().keySet().iterator();
-        try {
-            while(iterator.hasNext()) {
-                MobEffect mobEffect = iterator.next();
-                MobEffectInstance instance = this.getActiveEffectsMap().get(mobEffect);
-                if (!instance.tick(this, () -> this.onEffectUpdated(instance, true, null))) {
-                    if (!this.level().isClientSide) {
-                        iterator.remove();
-                        this.onEffectRemoved(instance);
-                    }
-                } else if (instance.getDuration() % 600 == 0) {
-                    this.onEffectUpdated(instance, false, null);
-                }
-            }
-        } catch (ConcurrentModificationException ignored) {
-        }
-    }
-
-    @Override
     public void handleEntityEvent(byte id) {
         if (id == 77) {
             for (int i = 0; i < 150; i++) {

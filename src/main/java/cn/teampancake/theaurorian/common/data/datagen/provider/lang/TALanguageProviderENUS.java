@@ -744,10 +744,6 @@ public class TALanguageProviderENUS extends LanguageProvider {
         this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".selected", "Selected Block: %s");
         this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".fail", "The remaining durability is less than 60 so select fail!");
 
-        //MOD COMMANDS
-        this.add(NightmareModeSettings.ERROR_NOT_AURORIAN_DIMENSION.toString(), "Current dimension is not the Aurorian!");
-        this.add(NightmareModeSettings.ERROR_NOT_NIGHTMARE_MODE.toString(), "The nightmare mode is not enabled!");
-
         //MOD TOOLTIPS
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");
         this.addTooltips(TAItems.AURORIAN_STEEL_CHESTPLATE, "The truth blessing of the aurora! The enchantment in this armors will upgrade slowly as time goes on until the max level!");

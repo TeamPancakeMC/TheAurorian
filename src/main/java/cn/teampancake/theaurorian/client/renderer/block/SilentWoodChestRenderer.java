@@ -23,7 +23,8 @@ public class SilentWoodChestRenderer extends ChestRenderer<SilentWoodChestBlockE
 
     @Override
     protected Material getMaterial(SilentWoodChestBlockEntity blockEntity, ChestType chestType) {
-        return Sheets.chooseMaterial(chestType, CHEST_SILENT_WOOD_LOCATION, CHEST_SILENT_WOOD_LOCATION_LEFT, CHEST_SILENT_WOOD_LOCATION_RIGHT);
+        Material material = chestType == ChestType.RIGHT ? CHEST_SILENT_WOOD_LOCATION_RIGHT : CHEST_SILENT_WOOD_LOCATION;
+        return chestType == ChestType.LEFT ? CHEST_SILENT_WOOD_LOCATION_LEFT : material;
     }
 
     private static Material chestMaterial(String chestName) {

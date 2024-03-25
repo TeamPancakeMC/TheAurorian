@@ -744,10 +744,6 @@ public class TALanguageProviderZHCN extends LanguageProvider {
         this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".selected", "已选择方块：%s");
         this.add("messages." + TAItems.UMBRA_PICKAXE.get().getDescriptionId() + ".fail", "选择失败，因为剩余耐久已不足60！");
 
-        //MOD COMMANDS
-        this.add(NightmareModeSettings.ERROR_NOT_AURORIAN_DIMENSION.toString(), "当前的维度不是极光维度！");
-        this.add(NightmareModeSettings.ERROR_NOT_NIGHTMARE_MODE.toString(), "噩梦模式未开启！");
-
         //MOD TOOLTIPS
         this.addTooltips(TAItems.AURORIAN_STEEL_HELMET, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");
         this.addTooltips(TAItems.AURORIAN_STEEL_CHESTPLATE, "真正的极光赐福！盔甲上的附魔会随时间推移而缓慢升级，直到达到对应附魔的等级上限！");

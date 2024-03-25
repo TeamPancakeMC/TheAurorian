@@ -2,8 +2,6 @@ package cn.teampancake.theaurorian.common.data.datagen;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.data.datagen.provider.*;
-import cn.teampancake.theaurorian.common.data.datagen.provider.lang.TALanguageProviderENUS;
-import cn.teampancake.theaurorian.common.data.datagen.provider.lang.TALanguageProviderZHCN;
 import cn.teampancake.theaurorian.common.data.datagen.provider.tag.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -39,8 +37,8 @@ public class TADataGenerator {
         generator.addProvider(event.includeClient(), new TABlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new TAItemModelProvider(output, existingFileHelper));
         generator.addProvider(event.includeServer(), new TASoundProvider(output, existingFileHelper));
-        generator.addProvider(event.includeClient(), new TALanguageProviderENUS(output));
-        generator.addProvider(event.includeClient(), new TALanguageProviderZHCN(output));
+        generator.addProvider(event.includeServer(), new TALanguageProvider(output, "en_us"));
+        generator.addProvider(event.includeServer(), new TALanguageProvider(output, "zh_cn"));
         generator.addProvider(event.includeServer(), new TALootTableProvider(output));
         generator.addProvider(event.includeServer(), new TARecipeProvider(output));
     }

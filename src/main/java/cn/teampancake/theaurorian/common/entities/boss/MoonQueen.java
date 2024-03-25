@@ -523,7 +523,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             f1 += (float)EnchantmentHelper.getKnockbackBonus(this);
             if (this.hasEffect(TAMobEffects.MOON_BEFALL.get()) || !(livingEntity instanceof Player)) {
                 this.heal(this.getMaxHealth() * 0.2F);
-                livingEntity.hurt(source, Float.MAX_VALUE);
+                livingEntity.kill();
                 return true;
             }
         }

@@ -1,9 +1,0 @@
-{
-  "asset_name": "aurorian",
-  "description": {
-    "color": "#6605C9",
-    "translate": "trim_material.theaurorian.aurorian"
-  },
-  "ingredient": "theaurorian:aurorianite_ingot",
-  "item_model_index": 0.3
-}

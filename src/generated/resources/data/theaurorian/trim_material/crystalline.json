@@ -1,9 +1,0 @@
-{
-  "asset_name": "crystalline",
-  "description": {
-    "color": "#4C376C",
-    "translate": "trim_material.theaurorian.crystalline"
-  },
-  "ingredient": "theaurorian:aurorianite_ingot",
-  "item_model_index": 0.6
-}

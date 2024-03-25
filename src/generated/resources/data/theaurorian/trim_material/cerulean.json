@@ -1,9 +1,0 @@
-{
-  "asset_name": "cerulean",
-  "description": {
-    "color": "#04439C",
-    "translate": "trim_material.theaurorian.cerulean"
-  },
-  "ingredient": "theaurorian:aurorianite_ingot",
-  "item_model_index": 0.45
-}

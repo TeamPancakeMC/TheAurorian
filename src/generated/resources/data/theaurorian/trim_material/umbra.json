@@ -1,9 +1,0 @@
-{
-  "asset_name": "umbra",
-  "description": {
-    "color": "#1F3953",
-    "translate": "trim_material.theaurorian.umbra"
-  },
-  "ingredient": "theaurorian:aurorianite_ingot",
-  "item_model_index": 0.9
-}

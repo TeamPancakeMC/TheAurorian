@@ -69,6 +69,9 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<LunaCircleEntity>> LUNA_CIRCLE = ENTITY_TYPES.register("luna_circle",
             () -> EntityType.Builder.of(LunaCircleEntity::new, MobCategory.MISC).sized(5.0F, 0.1F)
                     .clientTrackingRange((4)).updateInterval((10)).build("luna_circle"));
+    public static final RegistryObject<EntityType<FallingFireball>> FALLING_FIREBALL = ENTITY_TYPES.register("falling_fireball",
+            () -> EntityType.Builder.<FallingFireball>of(FallingFireball::new, MobCategory.MISC).sized(0.5F, 0.5F)
+                    .clientTrackingRange((4)).updateInterval((10)).build("falling_fireball"));
     //NPC
     public static final RegistryObject<EntityType<AurorianVillager>> AURORIAN_VILLAGER = ENTITY_TYPES.register("aurorian_villager",
             () -> EntityType.Builder.of(AurorianVillager::new, MobCategory.CREATURE).sized(0.6F, 1.85F)
@@ -184,6 +187,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(WEBBING.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(SIT.get(), SitRenderer::new);
         event.registerEntityRenderer(LUNA_CIRCLE.get(), LunaCircleRenderer::new);
+        event.registerEntityRenderer(FALLING_FIREBALL.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(BREAD_BEAST.get(), BreadBeastRenderer::new);
         event.registerEntityRenderer(ICEFIELD_DEER.get(), IcefieldDeerRenderer::new);
         event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), context -> new GeoEntityRenderer<>(

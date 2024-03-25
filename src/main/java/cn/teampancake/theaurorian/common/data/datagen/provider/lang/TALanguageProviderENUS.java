@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.lang;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.commands.server.NightmareModeSettings;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;

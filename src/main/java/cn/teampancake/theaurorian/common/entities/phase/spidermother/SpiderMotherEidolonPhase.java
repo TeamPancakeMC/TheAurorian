@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.entities.phase.spidermother;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -31,12 +30,18 @@ public class SpiderMotherEidolonPhase extends AttackPhase<SpiderMother> {
     public void tick(SpiderMother entity) {
         if (entity.getAttackTicks() == 10) {
             Level level = entity.level();
-            AABB aabb = entity.getBoundingBox().inflate(4.0D);
-            MobEffect effect = TAMobEffects.CRYSTALLIZATION.get();
+            AABB aabb = entity.getBoundingBox();
             for (LivingEntity livingEntity : level.getNearbyEntities(LivingEntity.class,
-                    TargetingConditions.DEFAULT, entity, aabb)) {
+                    TargetingConditions.DEFAULT, entity, aabb.inflate(8.0D))) {
                 if (livingEntity instanceof Player player) {
-                    player.addEffect(new MobEffectInstance(effect, 200));
+                    player.addEffect(new MobEffectInstance(TAMobEffects.EIDOLON_POISON.get(), 100));
+                }
+            }
+
+            for (LivingEntity livingEntity : level.getNearbyEntities(LivingEntity.class,
+                    TargetingConditions.DEFAULT, entity, aabb.inflate(4.0D))) {
+                if (livingEntity instanceof Player player) {
+                    player.addEffect(new MobEffectInstance(TAMobEffects.CRYSTALLIZATION.get(), 200));
                 }
             }
         }

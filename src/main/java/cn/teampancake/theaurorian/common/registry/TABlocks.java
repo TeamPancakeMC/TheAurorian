@@ -41,7 +41,6 @@ public class TABlocks {
     public static final RegistryObject<Block> AURORIAN_DIORITE = normal("aurorian_diorite", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_ANDESITE = normal("aurorian_andesite", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_BARRIER_STONE = normal("aurorian_barrier_stone", copy(Blocks.BEDROCK));
-    public static final RegistryObject<Block> AURORIAN_COAL_ORE = ore("aurorian_coal_ore", defaultStoneProperties(3.0F));
     public static final RegistryObject<Block> AURORIAN_GRASS_BLOCK = register("aurorian_grass_block", () -> new AurorianGrassBlock(copy(Blocks.GRASS_BLOCK)));
     public static final RegistryObject<Block> LIGHT_AURORIAN_GRASS_BLOCK = register("light_aurorian_grass_block", () -> new AurorianGrassBlock(copy(Blocks.GRASS_BLOCK).lightLevel(s -> 2)));
     public static final RegistryObject<Block> SNOW_AURORIAN_GRASS_BLOCK = register("snow_aurorian_grass_block", () -> new AurorianGrassBlock(copy(Blocks.GRASS_BLOCK)));
@@ -101,6 +100,7 @@ public class TABlocks {
     public static final RegistryObject<Block> GEODE_ORE = ore("geode_ore", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> EROSIVE_GEODE_ORE = ore("erosive_geode_ore", defaultStoneProperties(2.0F));
     public static final RegistryObject<Block> AURORIAN_EMERALD_ORE = ore("aurorian_emerald_ore", copy(Blocks.EMERALD_ORE));
+    public static final RegistryObject<Block> AURORIAN_COAL_ORE = ore("aurorian_coal_ore", copy(Blocks.COAL_ORE));
     public static final RegistryObject<Block> AURORIAN_GOLD_ORE =  ore("aurorian_gold_ore",copy(Blocks.GOLD_ORE));
     public static final RegistryObject<Block> AURORIAN_IRON_ORE =  ore("aurorian_iron_ore", copy(Blocks.IRON_ORE));
     public static final RegistryObject<Block> AURORIAN_LAPIS_ORE =  ore("aurorian_lapis_ore", copy(Blocks.LAPIS_ORE));

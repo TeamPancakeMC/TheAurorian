@@ -66,7 +66,6 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.AURORIAN_STONE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_EROSIVE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_COAL_ORE.get());
-        this.simpleBlockItem(TABlocks.AURORIAN_FARM_TILE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_STONE_BRICKS.get());
         this.simpleBlockItem(TABlocks.AURORIAN_COBBLESTONE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_GRANITE.get());
@@ -78,7 +77,6 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItem(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get());
         this.simpleBlockItem(TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
         this.simpleBlockItem(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
-        this.simpleBlockItem(TABlocks.AURORIAN_FURNACE.get());
         this.simpleBlockItem(TABlocks.AURORIAN_PERIDOTITE.get());
         this.simpleBlockItem(TABlocks.MYSTERIUM_WOOL.get());
         this.simpleBlockItem(TABlocks.MOON_SAND.get());
@@ -188,10 +186,6 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItemWithParent(TABlocks.RUNE_STONE_BARS.get());
         this.simpleBlockItemWithParent(TABlocks.DARK_STOME_BARS.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_TEMPLE_BARS.get());
-        this.withExistingParent(TABlocks.INDIGO_MUSHROOM_BLOCK.getId().getPath(),
-                this.modLoc("block/indigo_mushroom_block_inventory"));
-        this.withExistingParent(TABlocks.INDIGO_MUSHROOM_STEM.getId().getPath(),
-                this.modLoc("block/indigo_mushroom_stem_inventory"));
         this.withExistingParent(this.name(TABlocks.SILENT_WOOD_CHEST.get()), this.mcLoc("item/chest"))
                 .texture("particle", this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_PLANKS.get())));
         this.withExistingParent(this.name(TABlocks.MOON_GLASS_PANE.get()), this.mcLoc("item/generated"))

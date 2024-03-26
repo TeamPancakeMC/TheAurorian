@@ -37,38 +37,12 @@ public class TABlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         this.registerLiquidStates();
-        this.registerScrapperState();
-        this.registerCraftingTableState();
         this.registerMysticalBarrierState();
         this.registerLargeFilthyIceSpike();
-        this.registerAurorianPortalState();
-        this.registerAurorianFurnaceState();
-        this.registerAurorianFarmlandState();
         this.registerSilentWoodLadderState();
-        this.simpleBlock(TABlocks.GEODE_ORE.get());
-        this.simpleBlock(TABlocks.EROSIVE_GEODE_ORE.get());
-        this.simpleBlock(TABlocks.CERULEAN_ORE.get());
-        this.simpleBlock(TABlocks.EROSIVE_CERULEAN_ORE.get());
-        this.simpleBlock(TABlocks.MOONSTONE_ORE.get());
-        this.simpleBlock(TABlocks.EROSIVE_MOONSTONE_ORE.get());
-        this.simpleBlock(TABlocks.AURORIAN_EMERALD_ORE.get());
-        this.simpleBlock(TABlocks.AURORIAN_IRON_ORE.get());
-        this.simpleBlock(TABlocks.AURORIAN_GOLD_ORE.get());
-        this.simpleBlock(TABlocks.AURORIAN_REDSTONE_ORE.get());
-        this.simpleBlock(TABlocks.AURORIAN_LAPIS_ORE.get());
-        this.simpleBlock(TABlocks.AURORIAN_COPPER_ORE.get());
-        this.simpleBlock(TABlocks.AURORIAN_DIAMOND_ORE.get());
-        this.simpleBlock(TABlocks.EROSIVE_AURORIAN_EMERALD_ORE.get());
-        this.simpleBlock(TABlocks.EROSIVE_AURORIAN_IRON_ORE.get());
-        this.simpleBlock(TABlocks.EROSIVE_AURORIAN_GOLD_ORE.get());
-        this.simpleBlock(TABlocks.EROSIVE_AURORIAN_REDSTONE_ORE.get());
-        this.simpleBlock(TABlocks.EROSIVE_AURORIAN_LAPIS_ORE.get());
-        this.simpleBlock(TABlocks.EROSIVE_AURORIAN_COPPER_ORE.get());
-        this.simpleBlock(TABlocks.EROSIVE_AURORIAN_DIAMOND_ORE.get());
         this.simpleBlock(TABlocks.AURORIAN_DIRT.get());
         this.simpleBlock(TABlocks.AURORIAN_STONE.get());
         this.simpleBlock(TABlocks.AURORIAN_EROSIVE.get());
-        this.simpleBlock(TABlocks.AURORIAN_COAL_ORE.get());
         this.simpleBlock(TABlocks.AURORIAN_STONE_BRICKS.get());
         this.simpleBlock(TABlocks.AURORIAN_COBBLESTONE.get());
         this.simpleBlock(TABlocks.AURORIAN_GRANITE.get());
@@ -257,8 +231,6 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerPlantStates(TABlocks.AURORIAN_GRASS.get());
         this.registerPlantStates(TABlocks.AURORIAN_GRASS_LIGHT.get());
         this.registerPlantStates(TABlocks.AURORIAN_WINTER_ROOT.get());
-        this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_BLOCK.get());
-        this.registerMushroomStates(TABlocks.INDIGO_MUSHROOM_STEM.get());
         this.registerLuminousStates(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE.get(), TABlocks.AURORIAN_CASTLE_RUNE_STONE.get());
         this.registerLuminousStates(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE.get(), TABlocks.AURORIAN_STEEL_CASTLE_RUNE_STONE.get());
         this.registerLuminousStates(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE.get(), TABlocks.CERULEAN_CASTLE_RUNE_STONE.get());
@@ -277,7 +249,9 @@ public class TABlockStateProvider extends BlockStateProvider {
                 TABlocks.CURSED_FROST_WOOD_WALL_HANGING_SIGN.get(),
                 this.blockTexture(TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get()));
         for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block instanceof PressurePlateBlockWithBase pressurePlateBlock) {
+            if (block instanceof DropExperienceBlock) {
+                this.simpleBlock(block);
+            } else if (block instanceof PressurePlateBlockWithBase pressurePlateBlock) {
                 this.pressurePlateBlock(pressurePlateBlock, this.blockTexture(pressurePlateBlock.getBase()));
             } else if (block instanceof FenceGateBlockWithBase fenceGateBlock) {
                 this.fenceGateBlockWithRenderType(fenceGateBlock, this.blockTexture(fenceGateBlock.getBase()), CUTOUT);
@@ -571,28 +545,6 @@ public class TABlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerMushroomStates(Block block) {
-        ResourceLocation parent = this.mcLoc("block/template_single_face");
-        ResourceLocation outside = this.modLoc("block/" + this.name(block) + "_side");
-        ResourceLocation inside = this.modLoc("block/" + this.name(block) + "_inside");
-        ModelFile outsideModel = this.models().singleTexture(this.name(block), parent, outside).renderType(TRANSLUCENT);
-        ModelFile insideModel = this.models().singleTexture(this.name(block) + "_inside", parent, inside).renderType(TRANSLUCENT);
-        this.models().withExistingParent(this.name(block) + "_inventory", this.mcLoc("block/cube_all")).texture("all", outside);
-        this.getMultipartBuilder(block).part().modelFile(outsideModel).addModel().condition(BlockStateProperties.NORTH, true).end()
-                .part().modelFile(outsideModel).addModel().condition(BlockStateProperties.EAST, true).end()
-                .part().modelFile(outsideModel).rotationY(90).uvLock(true).addModel().condition(BlockStateProperties.SOUTH, true).end()
-                .part().modelFile(outsideModel).rotationY(180).uvLock(true).addModel().condition(BlockStateProperties.WEST, true).end()
-                .part().modelFile(outsideModel).rotationY(270).uvLock(true).addModel().condition(BlockStateProperties.UP, true).end()
-                .part().modelFile(outsideModel).rotationX(270).uvLock(true).addModel().condition(BlockStateProperties.DOWN, true).end()
-                .part().modelFile(outsideModel).rotationX(90).uvLock(true).addModel().condition(BlockStateProperties.NORTH, false).end()
-                .part().modelFile(insideModel).addModel().condition(BlockStateProperties.EAST, false).end()
-                .part().modelFile(insideModel).rotationY(90).uvLock(false).addModel().condition(BlockStateProperties.SOUTH, false).end()
-                .part().modelFile(insideModel).rotationY(180).uvLock(false).addModel().condition(BlockStateProperties.WEST, false).end()
-                .part().modelFile(insideModel).rotationY(270).uvLock(false).addModel().condition(BlockStateProperties.UP, false).end()
-                .part().modelFile(insideModel).rotationX(270).uvLock(false).addModel().condition(BlockStateProperties.DOWN, false).end()
-                .part().modelFile(insideModel).rotationX(90).uvLock(false).addModel().end();
-    }
-
     private void registerLuminousStates(Block newBlock, Block originalBlock) {
         VariantBlockStateBuilder builder = this.getVariantBuilder(newBlock);
         ModelFile modelFile = this.models().getBuilder(this.name(newBlock))
@@ -617,37 +569,6 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.simpleBlock(TABlocks.MOON_WATER.get(), this.models()
                 .getBuilder(TABlocks.MOON_WATER.getId().getPath())
                 .texture("particle", this.modLoc("block/moon_water")));
-    }
-
-    private void registerScrapperState() {
-        Block block = TABlocks.SCRAPPER.get();
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
-        ModelFile modelFile = this.models().withExistingParent(this.name(block), this.mcLoc("block/cube"))
-                .texture("particle", this.modLoc("block/scrapper_front"))
-                .texture("down", this.modLoc("block/aurorian_furnace_on"))
-                .texture("up", this.modLoc("block/scrapper_top"))
-                .texture("north", this.modLoc("block/scrapper_front"))
-                .texture("east", this.modLoc("block/scrapper_side"))
-                .texture("south", this.modLoc("block/scrapper_side"))
-                .texture("west", this.modLoc("block/scrapper_side"));
-        for (Direction direction : HorizontalDirectionalBlock.FACING.getPossibleValues()) {
-            builder.partialState().with(HorizontalDirectionalBlock.FACING, direction).modelForState()
-                    .modelFile(modelFile).rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
-        }
-    }
-
-    private void registerCraftingTableState() {
-        Block block = TABlocks.AURORIAN_CRAFTING_TABLE.get();
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
-        ResourceLocation front = this.modLoc("block/" + this.name(block) + "_front");
-        ResourceLocation side = this.modLoc("block/" + this.name(block) + "_side");
-        ResourceLocation top = this.modLoc("block/" + this.name(block) + "_top");
-        ResourceLocation down = this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_PLANKS.get()));
-        ModelFile modelFile = this.models().cube(this.name(block), down, top, front, front, side, side).texture("particle", front);
-        for (Direction direction : HorizontalDirectionalBlock.FACING.getPossibleValues()) {
-            builder.partialState().with(HorizontalDirectionalBlock.FACING, direction).modelForState()
-                    .modelFile(modelFile).rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
-        }
     }
 
     private void registerMysticalBarrierState() {
@@ -686,56 +607,6 @@ public class TABlockStateProvider extends BlockStateProvider {
                 builder.partialState().with(property1, direction).with(property2, half)
                         .modelForState().modelFile(modelFile).addModel();
             }
-        }
-    }
-
-    private void registerAurorianPortalState() {
-        Block block = TABlocks.AURORIAN_PORTAL.get();
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
-        for (Direction.Axis axis : AurorianPortal.AXIS.getPossibleValues()) {
-            boolean flag = axis == Direction.Axis.X;
-            float x = flag ? 0.0F : 6.0F, z = flag ? 6.0F : 0.0F;
-            String name = this.name(block) + (flag ? "_ns" : "_ew");
-            ConfiguredModel.Builder<VariantBlockStateBuilder> builder1 = builder.partialState().with(AurorianPortal.AXIS, axis).modelForState();
-            ModelBuilder<BlockModelBuilder>.ElementBuilder elementBuilder = this.models().getBuilder(name)
-                    .texture("particle", this.blockTexture(block)).texture("portal", this.blockTexture(block))
-                    .element().from(x, 0.0F, z).to(10.0F + z, 16.0F, 10.0F + x);
-            if (axis == Direction.Axis.X) {
-                builder1.modelFile(elementBuilder.face(Direction.NORTH).uvs(0.0F, 0.0F, 16.0F, 16.0F).texture("#portal").end()
-                        .face(Direction.SOUTH).uvs(0.0F, 0.0F, 16.0F, 16.0F).texture("#portal").end().end()).addModel();
-            } else if (axis == Direction.Axis.Z) {
-                builder1.modelFile(elementBuilder.face(Direction.EAST).uvs(0.0F, 0.0F, 16.0F, 16.0F).texture("#portal").end()
-                        .face(Direction.WEST).uvs(0.0F, 0.0F, 16.0F, 16.0F).texture("#portal").end().end()).addModel();
-            }
-        }
-    }
-
-    private void registerAurorianFurnaceState() {
-        String name = this.name(TABlocks.AURORIAN_FURNACE.get());
-        VariantBlockStateBuilder builder = this.getVariantBuilder(TABlocks.AURORIAN_FURNACE.get());
-        for (Direction direction : AurorianFurnace.FACING.getPossibleValues()) {
-            for (Boolean lit : AurorianFurnace.LIT.getPossibleValues()) {
-                String front = name + (lit ? "_on" : "");
-                ModelFile modelFile = new ConfiguredModel(this.models()
-                        .orientable(front, this.modLoc("block/" + name + "_side"),
-                                this.modLoc("block/" + front),
-                                this.modLoc("block/" + name + "_top"))).model;
-                builder.partialState().with(AurorianFurnace.FACING, direction)
-                        .with(AurorianFurnace.LIT, lit).modelForState().modelFile(modelFile)
-                        .rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
-            }
-        }
-    }
-
-    private void registerAurorianFarmlandState() {
-        VariantBlockStateBuilder builder = this.getVariantBuilder(TABlocks.AURORIAN_FARM_TILE.get());
-        for (int i = 0; i <= AurorianFarmTile.MAX_MOISTURE; i++) {
-            String name = "aurorian_farm_tile" + (i == AurorianFarmTile.MAX_MOISTURE ? "_moist" : "");
-            ConfiguredModel configuredModel = new ConfiguredModel(this.models()
-                    .withExistingParent(name, this.mcLoc("block/template_farmland"))
-                    .texture("dirt", this.modLoc("block/aurorian_dirt"))
-                    .texture("top", this.modLoc("block/" + name)));
-            builder.partialState().with(AurorianFarmTile.MOISTURE, i).addModels(configuredModel);
         }
     }
 

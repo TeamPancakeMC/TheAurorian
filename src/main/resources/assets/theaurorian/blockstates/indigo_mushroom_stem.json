@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem"
+        "model": "theaurorian:block/indigo_mushroom_stem_side"
       },
       "when": {
         "north": "true"
@@ -10,7 +10,9 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem"
+        "model": "theaurorian:block/indigo_mushroom_stem_side",
+        "uvlock": true,
+        "y": 90
       },
       "when": {
         "east": "true"
@@ -18,9 +20,9 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem",
+        "model": "theaurorian:block/indigo_mushroom_stem_side",
         "uvlock": true,
-        "y": 90
+        "y": 180
       },
       "when": {
         "south": "true"
@@ -28,9 +30,9 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem",
+        "model": "theaurorian:block/indigo_mushroom_stem_side",
         "uvlock": true,
-        "y": 180
+        "y": 270
       },
       "when": {
         "west": "true"
@@ -38,9 +40,9 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem",
+        "model": "theaurorian:block/indigo_mushroom_stem_side",
         "uvlock": true,
-        "y": 270
+        "x": 270
       },
       "when": {
         "up": "true"
@@ -48,9 +50,9 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem",
+        "model": "theaurorian:block/indigo_mushroom_stem_side",
         "uvlock": true,
-        "x": 270
+        "x": 90
       },
       "when": {
         "down": "true"
@@ -58,9 +60,7 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem",
-        "uvlock": true,
-        "x": 90
+        "model": "theaurorian:block/indigo_mushroom_block_inside"
       },
       "when": {
         "north": "false"
@@ -68,7 +68,9 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem_inside"
+        "model": "theaurorian:block/indigo_mushroom_block_inside",
+        "uvlock": false,
+        "y": 90
       },
       "when": {
         "east": "false"
@@ -76,8 +78,9 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem_inside",
-        "y": 90
+        "model": "theaurorian:block/indigo_mushroom_block_inside",
+        "uvlock": false,
+        "y": 180
       },
       "when": {
         "south": "false"
@@ -85,8 +88,9 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem_inside",
-        "y": 180
+        "model": "theaurorian:block/indigo_mushroom_block_inside",
+        "uvlock": false,
+        "y": 270
       },
       "when": {
         "west": "false"
@@ -94,8 +98,9 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem_inside",
-        "y": 270
+        "model": "theaurorian:block/indigo_mushroom_block_inside",
+        "uvlock": false,
+        "x": 270
       },
       "when": {
         "up": "false"
@@ -103,17 +108,12 @@
     },
     {
       "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem_inside",
-        "x": 270
+        "model": "theaurorian:block/indigo_mushroom_block_inside",
+        "uvlock": false,
+        "x": 90
       },
       "when": {
         "down": "false"
-      }
-    },
-    {
-      "apply": {
-        "model": "theaurorian:block/indigo_mushroom_stem_inside",
-        "x": 90
       }
     }
   ]

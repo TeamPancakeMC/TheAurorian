@@ -128,9 +128,11 @@ repositories {
         url = "https://minecraft.curseforge.com/api/maven/"
     }
 
-     flatDir {
-         dir 'libs'
-     }
+    maven {
+        name = "TeamPancake"
+        url = "http://rm.fubuki.vip:8081/repository/maven-releases/"
+        allowInsecureProtocol = true
+    }
 
 }
 
@@ -151,7 +153,7 @@ dependencies {
     implementation fg.deobf("curse.maven:thirst-was-taken-679270:4871261")
     implementation fg.deobf("curse.maven:jade-324717:4986594")
 
-    implementation fg.deobf("com.pancake.pancake_lib:PancakeLib-1.20.1:0.0.1")
+    implementation fg.deobf("cn.teampancake.pancakelib:pancake_lib:1.20.1-0.0.1@jar")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 

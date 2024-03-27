@@ -2,8 +2,8 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.equipment_set.KnightArmorSet;
-import com.pancake.pancake_lib.api.IEquipmentSet;
-import com.pancake.pancake_lib.common.init.ModEquipmentSet;
+import cn.teampancake.pancakelib.api.IEquipmentSet;
+import cn.teampancake.pancakelib.common.init.ModEquipmentSet;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 

@@ -816,5 +816,6 @@
   "tooltips.item.theaurorian.umbra_shield": "The cursed shield! Lights whoever is in front of you on fire when blocking! Blocking for too long will cause it to overheat.",
   "tooltips.item.theaurorian.umbra_sword": "The cursed sword! Costs 20 durability amount to get Absorption, Weakness, Slowness II, Resistance III for 6s. The cool down time is 45s.",
   "tooltips.item.theaurorian.weeping_willow_sap": "A nice antidote, which will cleanse poison but gives you slowness. The duration depends on the remaining duration before the poison effect is removed.",
-  "tooltips.item.theaurorian.white_chocolate": "This the Matara's relic? Oh, is it developer item. She died on the chair, so this chocolate grows legs and walks away. Now it's your chocolate, what a coincidence! This chocolate has the magic of Matara due to regarded by Matara as a treasure all year round. If you eat it recklessly, something terrible may happen!"
+  "tooltips.item.theaurorian.white_chocolate": "This the Matara's relic? Oh, is it developer item. She died on the chair, so this chocolate grows legs and walks away. Now it's your chocolate, what a coincidence! This chocolate has the magic of Matara due to regarded by Matara as a treasure all year round. If you eat it recklessly, something terrible may happen!",
+  "equipment_set.theaurorian.knight_armor_set": "Knight Armor Set"
 }

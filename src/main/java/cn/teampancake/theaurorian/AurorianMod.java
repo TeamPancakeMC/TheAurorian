@@ -74,6 +74,7 @@ public class AurorianMod {
         TABiomeLayers.BIOME_LAYER_TYPES.register(modEventBus);
         TAMobEffects.MOB_EFFECTS.register(modEventBus);
         TAShields.SHIELD.register(modEventBus);
+        TAEquipmentSet.EQUIPMENT_SET.register(modEventBus);
         modEventBus.addListener(this::registerExtraStuff);
         modEventBus.addListener(this::setRegistriesForDatapack);
         modEventBus.addListener(this::onCommonSetup);

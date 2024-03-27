@@ -895,6 +895,8 @@ public class TALanguageProvider extends LanguageProvider {
         this.addTooltips(TAItems.CAT_BELL, "It won't change you into a cat girl, but it can make you fast like a cat!", "虽然不会把你变猫娘，但是可以让你像猫一样快！");
         this.addTooltips(TAItems.TSLAT_SWORD, "Nobody know how to make muti-dims mod better than Tslat XD.", "没有人比tslat更懂该怎么做muti-dims mod XD");
 
+
+        this.add("equipment_set.theaurorian.knight_armor_set", "Knight Armor Set", "骑士套装");
     }
 
     @Override

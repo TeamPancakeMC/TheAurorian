@@ -80,13 +80,7 @@ public class EntityEventSubscriber {
     public static void onPlayerTicking(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         Level level = player.level();
-        boolean hasKnightHelmet = player.getItemBySlot(EquipmentSlot.HEAD).is(TAItems.KNIGHT_HELMET.get());
-        boolean hasKnightChestplate = player.getItemBySlot(EquipmentSlot.CHEST).is(TAItems.KNIGHT_CHESTPLATE.get());
-        boolean hasKnightLeggings = player.getItemBySlot(EquipmentSlot.LEGS).is(TAItems.KNIGHT_LEGGINGS.get());
-        boolean hasKnightBoots = player.getItemBySlot(EquipmentSlot.FEET).is(TAItems.KNIGHT_BOOTS.get());
-        if (hasKnightHelmet && hasKnightChestplate && hasKnightLeggings && hasKnightBoots) {
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100));
-        }
+
 
         if (player instanceof ServerPlayer serverPlayer) {
             Enchantment enchantment = TAEnchantments.SPRING_OF_LIFE.get();

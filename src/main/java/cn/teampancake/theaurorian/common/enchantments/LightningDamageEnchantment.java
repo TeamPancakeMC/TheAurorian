@@ -7,10 +7,10 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import org.jetbrains.annotations.NotNull;
 
-public class LightningDamage extends Enchantment {
+public class LightningDamageEnchantment extends Enchantment {
 
-	public LightningDamage() {
-		super(Enchantment.Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+	public LightningDamageEnchantment() {
+		super(Enchantment.Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
 	}
 
 	@Override
@@ -19,18 +19,18 @@ public class LightningDamage extends Enchantment {
 	}
 
 	@Override
-	public int getMinCost(int enchantmentLevel) {
-		return 5 + (enchantmentLevel - 1) * 15;
+	public int getMinCost(int level) {
+		return 5 + (level - 1) * 15;
 	}
 
 	@Override
-	public int getMaxCost(int enchantmentLevel) {
-		return this.getMinCost(enchantmentLevel) + 20;
+	public int getMaxCost(int level) {
+		return this.getMinCost(level) + 20;
 	}
 
 	@Override
 	protected boolean checkCompatibility(@NotNull Enchantment enchantment) {
-		return !(enchantment instanceof LightningDamage);
+		return !(enchantment instanceof LightningDamageEnchantment);
 	}
 
 	public boolean canEnchant(ItemStack stack) {

@@ -4,22 +4,18 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
-public class CobwebCrossing extends Enchantment {
+public class CobwebCrossingEnchantment extends Enchantment {
 
-    public CobwebCrossing() {
+    public CobwebCrossingEnchantment() {
         super(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_FEET, new EquipmentSlot[] {EquipmentSlot.FEET});
     }
 
-    public int getMinCost(int enchantmentLevel) {
+    public int getMinCost(int level) {
         return 20;
     }
 
-    public int getMaxCost(int enchantmentLevel) {
+    public int getMaxCost(int level) {
         return 50;
-    }
-
-    public int getMaxLevel() {
-        return 1;
     }
 
 }

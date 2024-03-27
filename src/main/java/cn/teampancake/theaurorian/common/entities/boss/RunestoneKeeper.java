@@ -69,11 +69,6 @@ public class RunestoneKeeper extends AbstractAurorianBoss implements GeoEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-    }
-
-    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(DefaultAnimations.genericWalkRunIdleController(this));
         controllers.add(new AnimationController<>(this, "spell_common_controller", state -> PlayState.STOP)

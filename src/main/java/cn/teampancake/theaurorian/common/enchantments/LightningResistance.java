@@ -19,13 +19,13 @@ public class LightningResistance extends Enchantment {
 	}
 
 	@Override
-	public int getMinCost(int enchantmentLevel) {
-		return 10 + (enchantmentLevel - 1) * 15;
+	public int getMinCost(int level) {
+		return 10 + (level - 1) * 15;
 	}
 
 	@Override
-	public int getMaxCost(int enchantmentLevel) {
-		return this.getMinCost(enchantmentLevel) + 30;
+	public int getMaxCost(int level) {
+		return this.getMinCost(level) + 30;
 	}
 
 	@Override

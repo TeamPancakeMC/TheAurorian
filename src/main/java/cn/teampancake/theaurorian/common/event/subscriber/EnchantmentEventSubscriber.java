@@ -6,17 +6,32 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterials;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class EnchantmentEventSubscriber {
+
+    @SubscribeEvent
+    public static void onArrowCreated(EntityJoinLevelEvent event) {
+        if (event.getEntity() instanceof AbstractArrow arrow && arrow.getOwner() instanceof Player player) {
+            ItemStack itemStack = player.getItemInHand(player.getUsedItemHand());
+            if (itemStack.getItem() instanceof BowItem) {
+                Enchantment enchantment = TAEnchantments.IMPALE.get();
+                int i = itemStack.getEnchantmentLevel(enchantment);
+                if (i > 0) {
+                    arrow.setPierceLevel((byte) i);
+                }
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void LightningDamage(LivingDamageEvent event) {
@@ -32,25 +47,28 @@ public class EnchantmentEventSubscriber {
             return;
         }
 
+        int vLevel = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.VIRTUALIZATION.get(), attacker);
+        event.setCanceled(vLevel > 0 && attacker.getRandom().nextFloat() < vLevel / 100.0F);
         int damageLevel = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.LIGHTNING_DAMAGE.get(), attacker);
-        float extradamage = 0;
+        float extraDamage = 0;
         for (ItemStack stack : target.getArmorSlots()) {
-            boolean hasresist = false;
+            boolean hasResist = false;
             int resistanceLevel = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.LIGHTNING_RESISTANCE.get(), attacker);
             if (resistanceLevel > 0) {
-                hasresist = true;
+                hasResist = true;
             }
+
             Item item = stack.getItem();
             if (item instanceof ArmorItem armorItem) {
-                if (armorItem.getMaterial() != ArmorMaterials.LEATHER && !hasresist) {
-                    if (extradamage <= damageLevel) {
-                        extradamage++;
+                if (armorItem.getMaterial() != ArmorMaterials.LEATHER && !hasResist) {
+                    if (extraDamage <= damageLevel) {
+                        extraDamage++;
                     }
                 }
             }
         }
 
-        event.setAmount(event.getAmount() + extradamage * 0.2F);
+        event.setAmount(event.getAmount() + extraDamage * 0.2F);
     }
 
     @SubscribeEvent

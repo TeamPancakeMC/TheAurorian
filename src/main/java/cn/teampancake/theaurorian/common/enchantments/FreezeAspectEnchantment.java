@@ -9,25 +9,25 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
-public class FreezeAspect extends Enchantment {
+public class FreezeAspectEnchantment extends Enchantment {
 
-    public FreezeAspect() {
-        super(Enchantment.Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
-    }
-
-    @Override
-    public int getMinCost(int enchantmentLevel) {
-        return 10 + 20 * (enchantmentLevel - 1);
-    }
-
-    @Override
-    public int getMaxCost(int enchantmentLevel) {
-        return super.getMinCost(enchantmentLevel) + 50;
+    public FreezeAspectEnchantment() {
+        super(Enchantment.Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
     }
 
     @Override
     public int getMaxLevel() {
         return 2;
+    }
+
+    @Override
+    public int getMinCost(int level) {
+        return 10 + 20 * (level - 1);
+    }
+
+    @Override
+    public int getMaxCost(int level) {
+        return super.getMinCost(level) + 50;
     }
 
     @Override

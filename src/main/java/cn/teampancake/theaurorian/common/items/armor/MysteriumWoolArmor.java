@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.items.armor;
 
 import cn.teampancake.theaurorian.client.model.entity.armor.MysteriumWoolArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
+import cn.teampancake.theaurorian.common.registry.TAEquipmentSet;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -24,8 +25,8 @@ public class MysteriumWoolArmor extends BaseArmor<MysteriumWoolArmorModel> {
     }
 
     @Override
-    public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
-        return isWearFullArmor(wearer);
+    public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity livingEntity) {
+        return TAEquipmentSet.KNIGHT_ARMOR_SET.get().checkEquippable(livingEntity);
     }
 
     @Override
@@ -39,14 +40,6 @@ public class MysteriumWoolArmor extends BaseArmor<MysteriumWoolArmorModel> {
     @Override
     public @Nullable String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         return ARMOR_ID + "mysterium_armor.png";
-    }
-
-    public static boolean isWearFullArmor(LivingEntity wearer) {
-        boolean hasThisHelmet = wearer.getItemBySlot(EquipmentSlot.HEAD).is(TAItems.MYSTERIUM_WOOL_HELMET.get());
-        boolean hasThisChestplate = wearer.getItemBySlot(EquipmentSlot.CHEST).is(TAItems.MYSTERIUM_WOOL_CHESTPLATE.get());
-        boolean hasThisLeggings = wearer.getItemBySlot(EquipmentSlot.LEGS).is(TAItems.MYSTERIUM_WOOL_LEGGINGS.get());
-        boolean hasThisBoots = wearer.getItemBySlot(EquipmentSlot.FEET).is(TAItems.MYSTERIUM_WOOL_BOOTS.get());
-        return hasThisHelmet && hasThisChestplate && hasThisLeggings && hasThisBoots;
     }
 
 }

@@ -1,7 +1,9 @@
 package cn.teampancake.theaurorian.common.effect;
 
+import cn.teampancake.theaurorian.common.equipment_set.MysteriumWoolArmorSet;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.registry.TACapability;
+import cn.teampancake.theaurorian.common.registry.TAEquipmentSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -24,14 +26,7 @@ public class FrostbiteEffect extends IncurableEffect {
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         Level level = livingEntity.level();
-        if (!level.isClientSide) {
-            livingEntity.setSharedFlagOnFire(false);
-            livingEntity.getCapability(TACapability.MISC_CAP)
-                    .ifPresent(miscNBT -> miscNBT.ticksFrostbite = 140);
-            if (!MysteriumWoolArmor.isWearFullArmor(livingEntity)) {
-                livingEntity.hurt(livingEntity.damageSources().freeze(), (amplifier + 1.0F));
-            }
-        } else {
+        if (level.isClientSide) {
             RandomSource random = level.getRandom();
             if ((livingEntity.xOld != livingEntity.getX() || livingEntity.zOld != livingEntity.getZ())) {
                 double y = livingEntity.getY() + 1.0D;

@@ -116,18 +116,6 @@ public class EntityEventSubscriber {
                 }
             }
         }
-
-        if (event.phase == TickEvent.Phase.END && level instanceof ServerLevel serverLevel && !serverLevel.isClientSide) {
-            Holder<Biome> biomeHolder = serverLevel.getBiome(player.blockPosition());
-            boolean isSnowField = biomeHolder.is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD);
-            if (isSnowField && !player.hasEffect(TAMobEffects.WARM.get()) && player.tickCount % 60 == 0) {
-                if (!MysteriumWoolArmor.isWearFullArmor(player) && !player.isCreative() && !player.isSpectator()) {
-                    player.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> miscNBT.ticksFrostbite = 140);
-                    player.hurt(player.damageSources().freeze(), 1.0F);
-                    player.setSharedFlagOnFire(false);
-                }
-            }
-        }
     }
 
     @SubscribeEvent

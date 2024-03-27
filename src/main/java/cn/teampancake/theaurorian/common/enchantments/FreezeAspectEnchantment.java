@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.enchantments;
 
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
+import cn.teampancake.theaurorian.common.registry.TAEquipmentSet;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -32,7 +33,7 @@ public class FreezeAspectEnchantment extends Enchantment {
 
     @Override
     public void doPostAttack(LivingEntity attacker, Entity target, int level) {
-        if (target instanceof LivingEntity livingEntity && !MysteriumWoolArmor.isWearFullArmor(livingEntity)) {
+        if (target instanceof LivingEntity livingEntity && !TAEquipmentSet.KNIGHT_ARMOR_SET.get().checkEquippable(livingEntity)) {
             livingEntity.addEffect(new MobEffectInstance(TAMobEffects.FROSTBITE.get(), (100 + level * 20), level));
         }
     }

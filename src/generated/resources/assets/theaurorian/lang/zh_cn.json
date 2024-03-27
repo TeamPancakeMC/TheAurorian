@@ -496,6 +496,7 @@
   "entity.theaurorian.tong_scorpion": "钳蝎",
   "entity.theaurorian.undead_knight": "不死骑士",
   "entity.theaurorian.webbing": "蛛母之网",
+  "equipment_set.theaurorian.knight_armor_set": "骑士套装",
   "gamerule.enableAurorianBless": "启用极光赐福",
   "gamerule.enableAurorianBless.description": "控制玩家是否能在极光夜获得增益效果。",
   "gamerule.enableNightmareMode": "开启噩梦模式",
@@ -816,6 +817,5 @@
   "tooltips.item.theaurorian.umbra_shield": "诅咒之盾！在抵挡攻击状态下时会点燃正前方的实体。抵挡时间过长会过载！.",
   "tooltips.item.theaurorian.umbra_sword": "诅咒之剑！右击消耗 20 点耐久度，立即获得伤害吸收、虚弱、缓慢 II、抗性提升 III 各 6 秒，冷却时间 45 秒.",
   "tooltips.item.theaurorian.weeping_willow_sap": "不错的解毒剂！它能去除你的中毒效果，但却会使你获得缓慢效果，持续时间取决于中毒效果被移除之前的剩余持续时间.",
-  "tooltips.item.theaurorian.white_chocolate": "摩多罗的遗物（不是）开发者物品，她在椅子上死掉了所以这个巧克力长腿跑了。现在它是你的巧克力了，真巧。因为常年被摩多罗视作珍宝，所以这块巧克力上有摩多罗的魔力。妄然吃掉的话可能会发生不得了的事情……！",
-  "equipment_set.theaurorian.knight_armor_set": "骑士套装"
+  "tooltips.item.theaurorian.white_chocolate": "摩多罗的遗物（不是）开发者物品，她在椅子上死掉了所以这个巧克力长腿跑了。现在它是你的巧克力了，真巧。因为常年被摩多罗视作珍宝，所以这块巧克力上有摩多罗的魔力。妄然吃掉的话可能会发生不得了的事情……！"
 }

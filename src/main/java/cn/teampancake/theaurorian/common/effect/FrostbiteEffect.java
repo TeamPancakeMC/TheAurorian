@@ -1,9 +1,5 @@
 package cn.teampancake.theaurorian.common.effect;
 
-import cn.teampancake.theaurorian.common.equipment_set.MysteriumWoolArmorSet;
-import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
-import cn.teampancake.theaurorian.common.registry.TACapability;
-import cn.teampancake.theaurorian.common.registry.TAEquipmentSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;

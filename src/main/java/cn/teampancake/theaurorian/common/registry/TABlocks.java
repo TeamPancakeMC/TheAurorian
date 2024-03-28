@@ -82,7 +82,7 @@ public class TABlocks {
     public static final RegistryObject<Block> CRISPED_MALLOW = register("crisped_mallow", () -> new DeadBushBlock(copy(Blocks.GRASS)));
     public static final RegistryObject<Block> FROST_SNOW_GRASS = register("frost_snow_grass", () -> new DeadBushBlock(copy(Blocks.GRASS)));
     public static final RegistryObject<Block> ICE_CALENDULA = register("ice_calendula", () -> new DeadBushBlock(copy(Blocks.GRASS)));
-    public static final RegistryObject<Block> AURORIAN_WINTER_ROOT = register("aurorian_winter_root", () -> new DeadBushBlock(copy(Blocks.GRASS)));
+    public static final RegistryObject<Block> WINTER_ROOT = register("winter_root", () -> new DeadBushBlock(copy(Blocks.GRASS)));
     public static final RegistryObject<Block> TALL_AURORIAN_GRASS = register("tall_aurorian_grass", () -> new DoublePlantBlock(copy(Blocks.TALL_GRASS)));
     public static final RegistryObject<Block> TALL_LAVENDER_PLANT = register("tall_lavender_plant", () -> new DoublePlantBlock(copy(Blocks.TALL_GRASS)));
     public static final RegistryObject<Block> TALL_AURORIAN_WATER_GRASS = register("tall_aurorian_water_grass", () -> new TALightDoublePlantBlock(copy(Blocks.TALL_GRASS)));

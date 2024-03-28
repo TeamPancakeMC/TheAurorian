@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "theaurorian:item/fake_algal_pit_fish"
+  }
+}

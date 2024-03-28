@@ -169,7 +169,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_GRASS.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_GRASS_LIGHT.get());
         this.simpleBlockItemWithParent(TABlocks.AURORIAN_WATER_GRASS.get());
-        this.simpleBlockItemWithParent(TABlocks.AURORIAN_WINTER_ROOT.get());
+        this.simpleBlockItemWithParent(TABlocks.WINTER_ROOT.get());
         this.simpleBlockItemWithParent(TABlocks.NEBULA_BLOSSOM_CLUSTER.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_FROST_FLOWER.get());
         this.simpleBlockItemWithParent(TABlocks.VOID_CANDLE_FLOWER.get());

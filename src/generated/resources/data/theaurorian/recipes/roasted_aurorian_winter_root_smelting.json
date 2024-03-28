@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "theaurorian:aurorian_winter_root"
+  },
+  "result": "theaurorian:roasted_aurorian_winter_root"
+}

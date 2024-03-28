@@ -29,9 +29,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -43,6 +41,9 @@ import java.util.function.BiConsumer;
 @SuppressWarnings("deprecation")
 @ParametersAreNonnullByDefault
 public class TABlockLoot extends VanillaBlockLoot {
+
+    private static final LootItemCondition.Builder HAS_SICKLES = MatchTool.toolMatches(ItemPredicate.Builder.item()
+            .of(TAItems.AURORIAN_STONE_SICKLE.get(), TAItems.SILENT_WOOD_SICKLE.get(), TAItems.MOONSTONE_SICKLE.get()));
 
     @Override
     protected void generate() {
@@ -183,9 +184,21 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.add(TABlocks.CRISPED_MALLOW.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.CRISPED_MALLOW.get()));
         this.add(TABlocks.FROST_SNOW_GRASS.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.FROST_SNOW_GRASS.get()));
         this.add(TABlocks.ICE_CALENDULA.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.ICE_CALENDULA.get()));
-        this.add(TABlocks.AURORIAN_WINTER_ROOT.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.AURORIAN_WINTER_ROOT.get()));
         this.add(TABlocks.DREAMSCAPE_PISTIL.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.DREAMSCAPE_PISTIL.get()));
         this.add(TABlocks.FROST_TEARS_FLOWER.get(), block -> this.createSilkTouchOrSicklesDispatchTable(TABlocks.FROST_TEARS_FLOWER.get()));
+        this.add(TABlocks.SILENT_TREE_LEAVES.get(), block -> this.createLeavesDrops(block, TABlocks.SILENT_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when((HAS_SHEARS.or(HAS_SILK_TOUCH)).invert())
+                        .add(this.applyExplosionCondition(block, LootItem.lootTableItem(TAItems.SILENT_WOOD_FRUIT.get()))
+                                .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE,
+                                        0.05F, 0.055555557F, 0.0625F, 0.08333334F, 0.25F)))));
+        this.add(TABlocks.WINTER_ROOT.get(), block -> LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                .add(LootItem.lootTableItem(TABlocks.WINTER_ROOT.get()).when(HAS_SHEARS.or(HAS_SILK_TOUCH)))
+                .add(LootItem.lootTableItem(TAItems.PLANT_FIBER.get()).when(HAS_SICKLES))
+                        .add(LootItem.lootTableItem(TAItems.AURORIAN_WINTER_ROOT.get())
+                                .when(LootItemRandomChanceCondition.randomChance(0.25F))))
+                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 2)));
         this.add(TABlocks.LAVENDER_CROP.get(), this.createCropDrops(TABlocks.LAVENDER_CROP.get(), TAItems.LAVENDER.get(), TAItems.LAVENDER_SEEDS.get(),
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(TABlocks.LAVENDER_CROP.get())
                         .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TACropBlock.AGE, 3))));
@@ -249,11 +262,10 @@ public class TABlockLoot extends VanillaBlockLoot {
     }
 
     private LootTable.Builder createSilkTouchOrSicklesDispatchTable(ItemLike itemLike) {
-        final LootItemCondition.Builder hasSickles = MatchTool.toolMatches(ItemPredicate.Builder.item()
-                .of(TAItems.AURORIAN_STONE_SICKLE.get(), TAItems.SILENT_WOOD_SICKLE.get(), TAItems.MOONSTONE_SICKLE.get()));
         return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                 .add(LootItem.lootTableItem(itemLike).when(HAS_SHEARS.or(HAS_SILK_TOUCH)))
-                .add(LootItem.lootTableItem(TAItems.PLANT_FIBER.get()).when(hasSickles)));
+                .add(LootItem.lootTableItem(TAItems.PLANT_FIBER.get()).when(HAS_SICKLES)));
     }
 
     @Override

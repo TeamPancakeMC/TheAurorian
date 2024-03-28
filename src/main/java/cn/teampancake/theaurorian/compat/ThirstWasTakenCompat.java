@@ -27,6 +27,8 @@ public class ThirstWasTakenCompat {
         ThirstHelper.addDrink(TAItems.AURORIAN_SPECIALTY_DRINK.get(), 8, 14);
         ThirstHelper.addDrink(TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK.get(), 10, 14);
         ThirstHelper.addFood(TAItems.SILK_SHROOM_STEW.get(), 4, 4);
+        ThirstHelper.addFood(TAItems.LAVENDER_SALAD.get(), 4, 4);
+        ThirstHelper.addFood(TAItems.SILENT_WOOD_FRUIT.get(), 1, 4);
     }
 
     @SubscribeEvent

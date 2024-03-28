@@ -1,5 +1,15 @@
 {
   "type": "minecraft:block",
+  "functions": [
+    {
+      "enchantment": "minecraft:fortune",
+      "formula": "minecraft:uniform_bonus_count",
+      "function": "minecraft:apply_bonus",
+      "parameters": {
+        "bonusMultiplier": 2
+      }
+    }
+  ],
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -34,7 +44,7 @@
               ]
             }
           ],
-          "name": "theaurorian:aurorian_winter_root"
+          "name": "theaurorian:winter_root"
         },
         {
           "type": "minecraft:item",
@@ -51,10 +61,27 @@
             }
           ],
           "name": "theaurorian:plant_fiber"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "chance": 0.25,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "name": "theaurorian:aurorian_winter_root"
+        }
+      ],
+      "functions": [
+        {
+          "enchantment": "minecraft:fortune",
+          "formula": "minecraft:ore_drops",
+          "function": "minecraft:apply_bonus"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "theaurorian:blocks/aurorian_winter_root"
+  "random_sequence": "theaurorian:blocks/winter_root"
 }

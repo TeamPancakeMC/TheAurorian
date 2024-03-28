@@ -54,10 +54,10 @@
     "theaurorian:silk_shroom_stew",
     "theaurorian:lavender_bread",
     "theaurorian:soulless_flesh",
-    "theaurorian:aurorian_winged_fish",
     "theaurorian:moon_fish",
-    "theaurorian:cooked_aurorian_winged_fish",
+    "theaurorian:aurorian_winged_fish",
     "theaurorian:cooked_moon_fish",
+    "theaurorian:cooked_aurorian_winged_fish",
     "theaurorian:silk_berry",
     "theaurorian:blueberry",
     "theaurorian:candy",
@@ -65,6 +65,15 @@
     "theaurorian:gingerbread_man",
     "theaurorian:aurorian_specialty_drink",
     "theaurorian:moonlit_blueberry_specialty_drink",
-    "theaurorian:aurorian_bacon"
+    "theaurorian:aurorian_bacon",
+    "theaurorian:lavender_salad",
+    "theaurorian:fake_algal_pit_fish",
+    "theaurorian:sashimi",
+    "theaurorian:silent_wood_fruit",
+    "theaurorian:golden_silent_wood_fruit",
+    "theaurorian:kebab_with_mushroom",
+    "theaurorian:aurorian_winter_root",
+    "theaurorian:roasted_aurorian_winter_root",
+    "theaurorian:dark_stone_shrimp"
   ]
 }

@@ -74,7 +74,7 @@ public class VanillaItemCompat {
             ComposterBlock.add(0.65F, TABlocks.LAVENDER_PLANT.get());
             ComposterBlock.add(0.65F, TABlocks.PETUNIA_PLANT.get());
             ComposterBlock.add(0.65F, TABlocks.ICE_CALENDULA.get());
-            ComposterBlock.add(0.65F, TABlocks.AURORIAN_WINTER_ROOT.get());
+            ComposterBlock.add(0.65F, TABlocks.WINTER_ROOT.get());
             ComposterBlock.add(0.3F, TAItems.WEEPING_WILLOW_SAP.get());
             ComposterBlock.add(0.3F, TAItems.LAVENDER_SEEDS.get());
             ComposterBlock.add(0.3F, TAItems.SILK_BERRY.get());

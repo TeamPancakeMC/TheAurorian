@@ -13,6 +13,7 @@ public class TAItemTags {
     public static final TagKey<Item> IS_LEGENDARY = create("is_legendary");
     public static final TagKey<Item> IS_MYTHICAL = create("is_mythical");
     public static final TagKey<Item> RUNESTONE = create("runestone");
+    public static final TagKey<Item> COOKED_MEAT = create("cooked_meat");
     public static final TagKey<Item> DUNGEON_KEY = create("dungeon_key");
     public static final TagKey<Item> SPECTRAL_ARMOR = create("spectral_armor");
     public static final TagKey<Item> VERTICAL_STAIRS = create("vertical_stairs");

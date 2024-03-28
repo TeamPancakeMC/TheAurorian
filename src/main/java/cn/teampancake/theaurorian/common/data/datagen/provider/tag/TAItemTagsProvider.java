@@ -46,6 +46,9 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.tag(TAItemTags.RUNESTONE).add(TAItems.RUNESTONE_ICE.get(), TAItems.RUNESTONE_LIFE.get(),
                 TAItems.RUNESTONE_LIGHT.get(), TAItems.RUNESTONE_WATER.get(), TAItems.RUNESTONE_BLAZE.get(),
                 TAItems.RUNESTONE_THUNDER.get(), TAItems.RUNESTONE_DARKNESS.get());
+        this.tag(TAItemTags.COOKED_MEAT).add(TAItems.COOKED_AURORIAN_PORK.get(), TAItems.COOKED_AURORIAN_BEEF.get(),
+                TAItems.COOKED_AURORIAN_MUTTON.get(), TAItems.COOKED_AURORIAN_RABBIT.get(),
+                TAItems.COOKED_MOON_FISH.get(), TAItems.COOKED_AURORIAN_WINGED_FISH.get());
         this.tag(TAItemTags.DUNGEON_KEY).add(TAItems.RUNE_STONE_KEY.get()).add(TAItems.RUNE_STONE_LOOT_KEY.get())
                 .add(TAItems.MOON_TEMPLE_KEY.get()).add(TAItems.MOON_TEMPLE_CELL_KEY.get()).add(TAItems.DARK_STONE_KEY.get());
         this.tag(TAItemTags.SPECTRAL_ARMOR).add(TAItems.SPECTRAL_HELMET.get(), TAItems.SPECTRAL_CHESTPLATE.get(),

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "theaurorian:cooked_meat"
+    },
+    "B": {
+      "tag": "theaurorian:cooked_meat"
+    },
+    "C": {
+      "item": "theaurorian:indigo_mushroom"
+    }
+  },
+  "pattern": [
+    "A",
+    "B",
+    "C"
+  ],
+  "result": {
+    "item": "theaurorian:kebab_with_mushroom"
+  },
+  "show_notification": true
+}

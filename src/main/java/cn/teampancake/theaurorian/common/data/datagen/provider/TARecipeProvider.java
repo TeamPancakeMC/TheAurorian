@@ -22,7 +22,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
@@ -134,6 +133,16 @@ public class TARecipeProvider extends RecipeProvider {
                 .unlockedBy("has_lots_of_items", new InventoryChangeTrigger.TriggerInstance(
                         ContextAwarePredicate.ANY, MinMaxBounds.Ints.atLeast(10),
                         MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, new ItemPredicate[0])).save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, TAItems.GOLDEN_SILENT_WOOD_FRUIT.get())
+                .define('#', Items.GOLD_INGOT).define('X', TAItems.SILENT_WOOD_FRUIT.get())
+                .pattern("###").pattern("#X#").pattern("###")
+                .unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT)).save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, TAItems.KEBAB_WITH_MUSHROOM.get())
+                .define('A', TAItemTags.COOKED_MEAT)
+                .define('B', TAItemTags.COOKED_MEAT)
+                .define('C', TABlocks.INDIGO_MUSHROOM.get())
+                .pattern("A").pattern("B").pattern("C")
+                .unlockedBy("has_cooked_meat", has(TAItemTags.COOKED_MEAT)).save(consumer);
         //Vanilla Shaped Recipes
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STRING).define('#', TAItems.PLANT_FIBER.get())
                 .pattern("###").pattern("###").pattern("###")
@@ -169,7 +178,15 @@ public class TARecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(TAItems.DARK_AMULET.get()), has(TAItems.DARK_AMULET.get())).save(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, TAItems.MOON_TEMPLE_CELL_KEY.get())
                 .requires(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get(), (2)).requires(TABlocks.MOON_GEM.get())
-                .unlockedBy(getHasName(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get()), has(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get())).save(consumer);
+                .unlockedBy(getHasName(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get()),
+                        has(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.LAVENDER_SALAD.get())
+                .requires(TAItems.LAVENDER.get()).requires(TAItems.BLUEBERRY.get())
+                .requires(TAItems.SILK_BERRY_JAM.get()).requires(TABlocks.INDIGO_MUSHROOM.get()).requires(Items.BOWL)
+                .unlockedBy(getHasName(TAItems.LAVENDER.get()), has(TAItems.LAVENDER.get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.SASHIMI.get())
+                .requires(TAItems.FAKE_ALGAL_PIT_FISH.get()).requires(TAItems.SILK_BERRY_JAM.get())
+                .unlockedBy(getHasName(TAItems.LAVENDER.get()), has(TAItems.LAVENDER.get())).save(consumer);
         //Vanilla Shapeless Recipes
         oneToOneConversionRecipe(consumer, Items.ROTTEN_FLESH, TAItems.SOULLESS_FLESH.get(), null);
         oneToOneConversionRecipe(consumer, Items.PINK_DYE, TABlocks.PETUNIA_PLANT.get(), null);
@@ -193,9 +210,11 @@ public class TARecipeProvider extends RecipeProvider {
                         RecipeCategory.BUILDING_BLOCKS, TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get(), (0.1F), (200))
                 .unlockedBy(getHasName(TABlocks.MOON_TEMPLE_BRICKS.get()), has(TABlocks.MOON_TEMPLE_BRICKS.get())).save(consumer);
         //food
-        buildFoodProcessRecipes(consumer,TAItems.AURORIAN_PORK.get(), TAItems.COOKED_AURORIAN_PORK.get(), 0.3F);
-        buildFoodProcessRecipes(consumer,TAItems.MOON_FISH.get(), TAItems.COOKED_MOON_FISH.get(),0.3F);
-        buildFoodProcessRecipes(consumer,TAItems.AURORIAN_WINGED_FISH.get(), TAItems.COOKED_AURORIAN_WINGED_FISH.get(),0.3F);
+        buildFoodProcessRecipes(consumer, TAItems.AURORIAN_PORK.get(), TAItems.COOKED_AURORIAN_PORK.get(), 0.3F);
+        buildFoodProcessRecipes(consumer, TAItems.MOON_FISH.get(), TAItems.COOKED_MOON_FISH.get(),0.3F);
+        buildFoodProcessRecipes(consumer, TAItems.AURORIAN_WINGED_FISH.get(), TAItems.COOKED_AURORIAN_WINGED_FISH.get(),0.3F);
+        buildFoodProcessRecipes(consumer, TAItems.AURORIAN_WINTER_ROOT.get(), TAItems.ROASTED_AURORIAN_WINTER_ROOT.get(), 0.3F);
+
         //Moonlight Forge Recipes
         forging(consumer, TAItems.MOONSTONE_SWORD.get(), TAItems.UMBRA_INGOT.get(), TAItems.UMBRA_SWORD.get());
         forging(consumer, TAItems.MOONSTONE_PICKAXE.get(), TAItems.UMBRA_INGOT.get(), TAItems.UMBRA_PICKAXE.get());
@@ -475,18 +494,13 @@ public class TARecipeProvider extends RecipeProvider {
                 .pattern("##I").pattern("# I").pattern("  I").unlockedBy(getHasName(material), has(material)).save(consumer);
     }
 
-    protected void buildFoodProcessRecipes(Consumer<FinishedRecipe> consumer, Item input, Item output, float xp) {
+    protected static void buildFoodProcessRecipes(Consumer<FinishedRecipe> consumer, Item input, Item output, float xp) {
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 200)
-                .unlockedBy(getHasName(input), has(input))
-                .save(consumer,AurorianMod.MOD_ID+":"+ ForgeRegistries.ITEMS.getKey(output).getPath() + "_smelting");
-
+                .unlockedBy(getHasName(input), has(input)).save(consumer, AurorianMod.prefix(getItemName(output) + "_smelting"));
         SimpleCookingRecipeBuilder.smoking(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 100)
-                .unlockedBy(getHasName(input), has(input))
-                .save(consumer,AurorianMod.MOD_ID+":"+ ForgeRegistries.ITEMS.getKey(output).getPath() + "_smoking");
-
+                .unlockedBy(getHasName(input), has(input)).save(consumer, AurorianMod.prefix(getItemName(output) + "_smoking"));
         SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 600)
-                .unlockedBy(getHasName(input), has(input))
-                .save(consumer,AurorianMod.MOD_ID+":"+ ForgeRegistries.ITEMS.getKey(output).getPath() + "_campfire_cooking");
+                .unlockedBy(getHasName(input), has(input)).save(consumer, AurorianMod.prefix(getItemName(output) + "_campfire_cooking"));
     }
 
 }

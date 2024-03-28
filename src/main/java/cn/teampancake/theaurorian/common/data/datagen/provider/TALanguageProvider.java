@@ -119,7 +119,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addBlock(TABlocks.CRISPED_MALLOW, "Crisped Mallow", "冬葵");
         this.addBlock(TABlocks.FROST_SNOW_GRASS, "Frost Snow Grass", "霜雪草");
         this.addBlock(TABlocks.ICE_CALENDULA, "Ice Calendula", "冰金盏");
-        this.addBlock(TABlocks.AURORIAN_WINTER_ROOT, "Aurorian Winter Root", "极光冬根");
+        this.addBlock(TABlocks.WINTER_ROOT, "Winter Root", "冬根草");
         this.addBlock(TABlocks.TALL_LAVENDER_PLANT, "Tall Lavender Plant", "高薰衣草");
         this.addBlock(TABlocks.TALL_AURORIAN_GRASS, "Tall Aurorian Grass", "高极光草");
         this.addBlock(TABlocks.TALL_AURORIAN_WATER_GRASS, "Tall Aurorian Water Grass", "高极光水草");
@@ -613,9 +613,20 @@ public class TALanguageProvider extends LanguageProvider {
         this.addItem(TAItems.CANDY, "Candy", "糖果");
         this.addItem(TAItems.CANDY_CANE, "Candy Cane", "拐杖糖");
         this.addItem(TAItems.GINGERBREAD_MAN, "Gingerbread Man", "姜饼人");
-        this.addItem(TAItems.AURORIAN_SPECIALTY_DRINK, "Aurorian Specialty Drink", "极光特饮");
-        this.addItem(TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK, "Moonlit Blueberry Specialty Drink", "皎月蓝莓特饮");
+        this.addItem(TAItems.AURORIAN_SPECIALTY_DRINK,
+                "Aurorian Specialty Drink", "极光特饮");
+        this.addItem(TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK,
+                "Moonlit Blueberry Specialty Drink", "皎月蓝莓特饮");
         this.addItem(TAItems.STRANGE_MEAT, "Strange Meat", "奇怪的肉");
+        this.addItem(TAItems.LAVENDER_SALAD, "Lavender Salad", "薰衣草沙拉");
+        this.addItem(TAItems.FAKE_ALGAL_PIT_FISH, "Fake Algal Pit Fish", "伪藻渊鱼");
+        this.addItem(TAItems.SASHIMI, "Sashimi", "生鱼片");
+        this.addItem(TAItems.SILENT_WOOD_FRUIT, "Silent Wood Fruit", "谧木果");
+        this.addItem(TAItems.GOLDEN_SILENT_WOOD_FRUIT, "Golden Silent Wood Fruit", "金谧木果");
+        this.addItem(TAItems.KEBAB_WITH_MUSHROOM, "Kebab with Mushroom", "菇肉串");
+        this.addItem(TAItems.AURORIAN_WINTER_ROOT, "Aurorian Winter Root", "极光冬根");
+        this.addItem(TAItems.ROASTED_AURORIAN_WINTER_ROOT, "Roasted Aurorian Winter Root", "烤极光冬根");
+        this.addItem(TAItems.DARK_STONE_SHRIMP, "Dark Stone Shrimp", "暗石虾");
         this.addItem(TAItems.SPECTRAL_SILK, "Spectral Silk", "幽冥丝绸");
         this.addItem(TAItems.SPECTRAL_HELMET, "Spectral Helmet", "幽冥头盔");
         this.addItem(TAItems.SPECTRAL_CHESTPLATE, "Spectral Chestplate", "幽冥胸甲");
@@ -759,6 +770,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.add(TAEnchantments.EXPERIENCE_ORE.get().getDescriptionId(), "Experience Ore", "经验矿石");
         this.add(TAEnchantments.LEGENDARY_HERO.get().getDescriptionId(), "Legendary Hero", "传说的勇者");
         this.add(TAEnchantments.VIRTUALIZATION.get().getDescriptionId(), "Virtualization", "虚化");
+        this.add(TAEnchantments.SOURCE_OF_TERRA.get().getDescriptionId(), "Source of Terra", "大地之源");
         this.add(TAEnchantments.COBWEB_CROSSING.get().getDescriptionId(), "Cobweb Crossing", "蛛网穿行");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId(), "Lightning Damage", "雷电伤害");
         this.add(TAEnchantments.SUNDER_ARMOR_SLASH.get().getDescriptionId(), "Sunder Armor Slash", "破甲斩击");
@@ -848,19 +860,28 @@ public class TALanguageProvider extends LanguageProvider {
         this.addTooltips(TAItems.CRYSTALLINE_SHIELD, "Praise the moonlight! Will repair items in your mainhand when blocking attacks!", "赞美月光！完成抵挡后，修复你的主手物品！");
         this.addTooltips(TAItems.MOONSTONE_SHIELD, "The queen's scorn! There is a chance that it will not costs durability in bright moon night, but there is a chance to costs 2 durability amount in aurora night.", "女王的蔑视！在皎月夜晚有几率不会消耗耐久，但在极光夜有几率消耗 2 点耐久.");
         this.addTooltips(TAItems.MOON_SHIELD, "Eulogize the queen! Hold block to Charge at foes and knock them up in the air!", "赞颂女王！右击蓄能，然后将敌人狠狠地击飞到空中！");
-        this.addTooltips(TAItems.SILENT_WOOD_BOW, "Ordinary long-range weapons.", "普通的远程武器.");
+        this.addTooltips(TAItems.SILENT_WOOD_BOW, "Ordinary long-range weapons.", "普通的远程武器。");
         this.addTooltips(TAItems.KEEPERS_BOW, "Fires 3 arrows when fully drawn!", "完全充能后自动一次性射出三支箭矢！");
-        this.addTooltips(TAItems.LAVENDER_TEA, "Leisure time. Drink and got Resistance I in 15s.", "悠闲时光.饮用后获得持续15秒的抗性提升I效果.");
-        this.addTooltips(TAItems.SILK_BERRY_TEA, "Leisure time. Drink and got Regeneration I in 5s.", "悠闲时光.饮用后获得持续5秒的生命恢复I效果.");
-        this.addTooltips(TAItems.LAVENDER_SEEDY_TEA, "Leisure time. Drink and got Speed I in 5s.", "悠闲时光.饮用后获得持续10秒的速度I效果.");
-        this.addTooltips(TAItems.PETUNIA_TEA, "Leisure time. Drink and got strength I in 15s.", "悠闲时光.饮用后获得持续15秒的力量I效果.");
+        this.addTooltips(TAItems.LAVENDER_TEA, "Leisure time. Drink and got Resistance I in 15s.", "悠闲时光：饮用后获得持续15秒的抗性提升I效果。");
+        this.addTooltips(TAItems.SILK_BERRY_TEA, "Leisure time. Drink and got Regeneration I in 5s.", "悠闲时光：饮用后获得持续5秒的生命恢复I效果。");
+        this.addTooltips(TAItems.LAVENDER_SEEDY_TEA, "Leisure time. Drink and got Speed I in 5s.", "悠闲时光：饮用后获得持续10秒的速度I效果。");
+        this.addTooltips(TAItems.PETUNIA_TEA, "Leisure time. Drink and got strength I in 15s.", "悠闲时光：饮用后获得持续15秒的力量I效果。");
         this.addTooltips(TAItems.BEPSI, "How'd this get here??", "哪来的山寨货？？");
         this.addTooltips(TAItems.WEEPING_WILLOW_SAP, "A nice antidote, which will cleanse poison but gives you slowness. The duration depends on the remaining duration before the poison effect is removed.",
-                "不错的解毒剂！它能去除你的中毒效果，但却会使你获得缓慢效果，持续时间取决于中毒效果被移除之前的剩余持续时间.");
-        this.addTooltips(TAItems.AURORIAN_COAL, "A fuel that better than coal.", "比普通煤炭更持久一点.");
+                "不错的解毒剂！它能去除你的中毒效果，但却会使你获得缓慢效果，持续时间取决于中毒效果被移除之前的剩余持续时间。");
+        this.addTooltips(TAItems.LAVENDER_SALAD, "The charm of nature!", "自然的魅力！");
+        this.addTooltips(TAItems.FAKE_ALGAL_PIT_FISH, "I heard that this rare fish can only be eaten raw and will accelerate decay when exposed to heat.", "听说这个稀有的鱼只能生吃，遇热会加速腐败。");
+        this.addTooltips(TAItems.SASHIMI, "Sweet food eaten raw is even more delicious.", "甜食生吃，更加可口。");
+        this.addTooltips(TAItems.SILENT_WOOD_FRUIT, "Can it be considered the apple of this world?", "它算得上是这个世界的苹果吗？");
+        this.addTooltips(TAItems.GOLDEN_SILENT_WOOD_FRUIT, "After eating it, my body feels more relaxed.", "感觉吃下去之后，身体变得更加轻松了。");
+        this.addTooltips(TAItems.KEBAB_WITH_MUSHROOM, "What is more satisfying than skewering large meat skewers?", "有什么比来串大肉串更加饱肚子的呢？");
+        this.addTooltips(TAItems.AURORIAN_WINTER_ROOT, "Rare ingredients in Frosty Land.", "寒霜之地少见的食材。");
+        this.addTooltips(TAItems.ROASTED_AURORIAN_WINTER_ROOT, "I feel my body warm.", "感觉身子暖暖的。");
+        this.addTooltips(TAItems.DARK_STONE_SHRIMP, "The shell seems incredibly hard.", "外壳似乎坚硬无比。");
+        this.addTooltips(TAItems.AURORIAN_COAL, "A fuel that better than coal.", "比普通煤炭更持久一点。");
         this.addTooltips(TAItems.AURORIANITE_INGOT, "Aurorian Blessing!", "极光加护！");
         this.addTooltips(TAItems.AURORIAN_STEEL, "The truth blessing of the aurora! The enchantment will upgrade slowly as time goes on until the max level!", "真正的极光赐福！随着时间的推移，此物品上的附魔会升级！");
-        this.addTooltips(TAItems.CERULEAN_INGOT, "A nice armor material.", "不错的装备材料.");
+        this.addTooltips(TAItems.CERULEAN_INGOT, "A nice armor material.", "不错的装备材料。");
         this.addTooltips(TAItems.CRYSTALLINE_INGOT, "It's the cream of the bright moon! Praise the queen!", "皎月的精华！赞美女王！");
         this.addTooltips(TAItems.MOONSTONE_INGOT, "The queen's scorn! Moon Queen? Exile!", "女王的蔑视！极光女王？放逐！");
         this.addTooltips(TAItems.UMBRA_INGOT, "Has a faint dreadful aura...", "有一种不详的气息...");

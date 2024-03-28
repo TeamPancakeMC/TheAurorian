@@ -232,7 +232,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerPlantStates(TABlocks.ICE_CALENDULA.get());
         this.registerPlantStates(TABlocks.AURORIAN_GRASS.get());
         this.registerPlantStates(TABlocks.AURORIAN_GRASS_LIGHT.get());
-        this.registerPlantStates(TABlocks.AURORIAN_WINTER_ROOT.get());
+        this.registerPlantStates(TABlocks.WINTER_ROOT.get());
         this.registerLuminousStates(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE.get(), TABlocks.AURORIAN_CASTLE_RUNE_STONE.get());
         this.registerLuminousStates(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE.get(), TABlocks.AURORIAN_STEEL_CASTLE_RUNE_STONE.get());
         this.registerLuminousStates(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE.get(), TABlocks.CERULEAN_CASTLE_RUNE_STONE.get());

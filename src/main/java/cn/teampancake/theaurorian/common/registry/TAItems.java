@@ -27,7 +27,7 @@ import java.util.Random;
 import static cn.teampancake.theaurorian.common.utils.TAItemRegUtils.*;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
-@SuppressWarnings({"SpellCheckingInspection", "unused"})
+@SuppressWarnings({"unused", "SpellCheckingInspection"})
 public class TAItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AurorianMod.MOD_ID);
@@ -216,10 +216,10 @@ public class TAItems {
     public static final RegistryObject<Item> SILK_SHROOM_STEW = food("silk_shroom_stew", 6, 1F, false);
     public static final RegistryObject<Item> LAVENDER_BREAD = food("lavender_bread", 4, 0.4F, false);
     public static final RegistryObject<Item> SOULLESS_FLESH = food("soulless_flesh", 2, 0.1F, false);
-    public static final RegistryObject<Item> AURORIAN_WINGED_FISH = food("aurorian_winged_fish",2,0.4F,false);
     public static final RegistryObject<Item> MOON_FISH = food("moon_fish", 2, 0.4F, false);
-    public static final RegistryObject<Item> COOKED_AURORIAN_WINGED_FISH = food("cooked_aurorian_winged_fish",5,6,false);
+    public static final RegistryObject<Item> AURORIAN_WINGED_FISH = food("aurorian_winged_fish",2,0.4F,false);
     public static final RegistryObject<Item> COOKED_MOON_FISH = food("cooked_moon_fish",5,6,false);
+    public static final RegistryObject<Item> COOKED_AURORIAN_WINGED_FISH = food("cooked_aurorian_winged_fish",5,6,false);
     public static final RegistryObject<Item> LAVENDER_SEEDS = alias("lavender_seeds", TABlocks.LAVENDER_CROP, new Item.Properties());
     public static final RegistryObject<Item> SILK_BERRY = alias("silk_berry", TABlocks.SILK_BERRY_CROP,
             new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod((0.1F)).build()));
@@ -235,10 +235,32 @@ public class TAItems {
             .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600), 1.0F).build())));
     public static final RegistryObject<Item> MOONLIT_BLUEBERRY_SPECIALTY_DRINK = ITEMS.register("moonlit_blueberry_specialty_drink", () -> new Item(new Item.Properties()
             .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 1), 1.0F).build())));
-    public static final RegistryObject<Item> AURORIAN_BACON = ITEMS.register("aurorian_bacon", () -> new TASpecialItem(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(2).saturationMod((0.8F))
+    public static final RegistryObject<Item> AURORIAN_BACON = ITEMS.register("aurorian_bacon", () -> new TASpecialItem(
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod((0.8F))
                     .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 60), 1.0F).build()), true));
     public static final RegistryObject<Item> STRANGE_MEAT = ITEMS.register("strange_meat", StrangeMeat::new);
+    public static final RegistryObject<Item> LAVENDER_SALAD = ITEMS.register("lavender_salad", () -> new TASpecialItem(
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod((5.0F))
+                    .effect(() -> new MobEffectInstance(TAMobEffects.NATURE.get(), 600), 1.0F).build()), true));
+    public static final RegistryObject<Item> FAKE_ALGAL_PIT_FISH = ITEMS.register("fake_algal_pit_fish", () -> new TASpecialItem(
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod((5.0F)).meat().build()), true));
+    public static final RegistryObject<Item> SASHIMI = ITEMS.register("sashimi", () -> new TASpecialItem(
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationMod((2.0F)).meat()
+                    .effect(() -> new MobEffectInstance(MobEffects.LUCK, 400), 1.0F).build()), true));
+    public static final RegistryObject<Item> SILENT_WOOD_FRUIT = ITEMS.register("silent_wood_fruit", () -> new TASpecialItem(
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationMod((2.5F)).build()), true));
+    public static final RegistryObject<Item> GOLDEN_SILENT_WOOD_FRUIT = ITEMS.register("golden_silent_wood_fruit", () -> new TASpecialItem(
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod((5.0F)).build()), true));
+    public static final RegistryObject<Item> KEBAB_WITH_MUSHROOM = ITEMS.register("kebab_with_mushroom", () -> new TASpecialItem(
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod((15.0F))
+                    .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1200), 1.0F).build()), true));
+    public static final RegistryObject<Item> AURORIAN_WINTER_ROOT = ITEMS.register("aurorian_winter_root", () -> new TASpecialItem(
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod((0.8F)).build()), true));
+    public static final RegistryObject<Item> ROASTED_AURORIAN_WINTER_ROOT = ITEMS.register("roasted_aurorian_winter_root", () -> new TASpecialItem(
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod((6.0F))
+                    .effect(() -> new MobEffectInstance(TAMobEffects.WARM.get(), 400), 1.0F).build()), true));
+    public static final RegistryObject<Item> DARK_STONE_SHRIMP = ITEMS.register("dark_stone_shrimp", () -> new TASpecialItem(
+            new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationMod((0.8F)).build()), true));
 
     /**
      * Key

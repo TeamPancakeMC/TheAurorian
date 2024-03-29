@@ -8,28 +8,33 @@ import cn.teampancake.theaurorian.common.effect.TAMobEffect;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
+import cn.teampancake.theaurorian.common.entities.projectile.ThrownAxe;
 import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
-import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.network.TAMessages;
 import cn.teampancake.theaurorian.common.network.message.FrostbiteSyncMessage;
-import cn.teampancake.theaurorian.common.registry.*;
+import cn.teampancake.theaurorian.common.registry.TACapability;
+import cn.teampancake.theaurorian.common.registry.TAEnchantments;
+import cn.teampancake.theaurorian.common.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Container;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -37,7 +42,6 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -49,12 +53,13 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.entity.projectile.ThrownEgg;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -66,52 +71,63 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onPlayerTicking(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
-        Level level = player.level();
-
-
-        if (player instanceof ServerPlayer serverPlayer) {
+        if (event.player instanceof ServerPlayer serverPlayer && serverPlayer.isAlive()) {
             Enchantment enchantment = TAEnchantments.SPRING_OF_LIFE.get();
+            ResourceLocation enchantmentId = EnchantmentHelper.getEnchantmentId(enchantment);
             ItemStack chestItem = serverPlayer.getItemBySlot(EquipmentSlot.CHEST);
             CompoundTag compoundTag = chestItem.getOrCreateTag();
             Inventory inventory = serverPlayer.getInventory();
             float maxHealth = serverPlayer.getMaxHealth();
             int count = compoundTag.getInt("EnchantArmorHealCount");
-            int enchantmentLevel = chestItem.getEnchantmentLevel(enchantment);
+            int level = chestItem.getEnchantmentLevel(enchantment);
             boolean flag = serverPlayer.getHealth() < maxHealth * 0.1F;
             boolean shouldHealPlayer = compoundTag.getBoolean("ShouldHealPlayer");
             List<NonNullList<ItemStack>> compartments = ImmutableList.of(
                     inventory.items, inventory.armor, inventory.offhand);
-            if (flag && enchantmentLevel > 0 && !shouldHealPlayer) {
+            if (flag && level > 0 && !shouldHealPlayer) {
                 compoundTag.putBoolean("ShouldHealPlayer", true);
             }
 
-            if (shouldHealPlayer && serverPlayer.tickCount % 20 == 0 && enchantmentLevel > 0) {
+            if (shouldHealPlayer && level > 0) {
                 compoundTag.putInt("EnchantArmorHealCount", count + 1);
-                serverPlayer.heal((maxHealth * 0.2F));
+                serverPlayer.heal((maxHealth * 0.01F));
             }
 
             for (NonNullList<ItemStack> nonNullList : compartments) {
                 for (ItemStack stack : nonNullList) {
-                    CompoundTag tag = stack.getOrCreateTag();
-                    int i = tag.getInt("EnchantArmorHealCount");
-                    boolean b = tag.getBoolean("ShouldHealPlayer");
-                    if (!stack.isEmpty() && i > 5 && b) {
-                        stack.getAllEnchantments().remove(enchantment);
-                        tag.putBoolean("ShouldHealPlayer", false);
-                        tag.putInt("EnchantArmorHealCount", 0);
+                    if (stack.getEnchantmentLevel(enchantment) > 0) {
+                        CompoundTag tag = stack.getOrCreateTag();
+                        boolean flag1 = tag.getInt("EnchantArmorHealCount") > 100;
+                        boolean flag2 = tag.getBoolean("ShouldHealPlayer");
+                        if (flag1 && flag2) {
+                            ListTag listTag = stack.getEnchantmentTags();
+                            for (int i = 0; i < listTag.size(); i++) {
+                                CompoundTag tempTag = listTag.getCompound(i);
+                                String id = tempTag.getString("id");
+                                if (id.equals(String.valueOf(enchantmentId))) {
+                                    listTag.remove(tempTag);
+                                }
+                            }
+
+                            tag.putBoolean("ShouldHealPlayer", false);
+                            tag.putInt("EnchantArmorHealCount", 0);
+                        }
                     }
                 }
             }
@@ -146,6 +162,53 @@ public class EntityEventSubscriber {
         int i = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.CLEAR_MIND.get(), player);
         if (amount > 0 && i > 0 && player.experienceLevel < 30) {
             event.setAmount(amount + Mth.ceil(amount * i * 0.1F));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        BlockPos pos = event.getPos();
+        Level level = event.getLevel();
+        Player player = event.getEntity();
+        BlockState state = level.getBlockState(pos);
+        ItemStack itemInHand = player.getItemInHand(event.getHand());
+        if (itemInHand.getEnchantmentLevel(TAEnchantments.SOURCE_OF_TERRA.get()) > 0) {
+            Container container = HopperBlockEntity.getContainerAt(level, pos);
+            CompoundTag compoundTag = itemInHand.getOrCreateTag();
+            if (container != null && player.isShiftKeyDown()) {
+                compoundTag.putInt("SOT_SelectedX", pos.getX());
+                compoundTag.putInt("SOT_SelectedY", pos.getY());
+                compoundTag.putInt("SOT_SelectedZ", pos.getZ());
+                compoundTag.put("SOT_SelectedContainer", NbtUtils.writeBlockState(state));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
+        Player player = event.getEntity();
+        ItemStack stack = event.getItemStack();
+        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.ROUNDABOUT_THROW.get(), player);
+        if (stack.getItem() instanceof AxeItem && enchantmentLevel > 0) {
+            Level level = player.level();
+            if (!level.isClientSide) {
+                Inventory inventory = player.getInventory();
+                player.setItemInHand(event.getHand(), ItemStack.EMPTY);
+                double baseDamage = player.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
+                double damage = 1.0F + baseDamage * 1.2F;
+                int containerSize = inventory.getContainerSize();
+                int slot = event.getHand() == InteractionHand.OFF_HAND ? containerSize - 1 : inventory.selected;
+                ThrownAxe entity = new ThrownAxe(level, player);
+                double y = player.position().y + player.getBbHeight() / 2.0F;
+                entity.setPos(player.position().x, y, player.position().z);
+                entity.setData((float) damage, player.getUUID(), slot);
+                entity.setNoGravity(true);
+                entity.setItem(stack);
+                entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 0.0F);
+                level.addFreshEntity(entity);
+            }
+
+            player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
         }
     }
 
@@ -337,6 +400,7 @@ public class EntityEventSubscriber {
         if (source.getEntity() instanceof LivingEntity livingEntity) {
             ItemStack itemInHand = livingEntity.getItemInHand(livingEntity.getUsedItemHand());
             int heroLevel = itemInHand.getEnchantmentLevel(TAEnchantments.LEGENDARY_HERO.get());
+            int savageLevel = itemInHand.getEnchantmentLevel(TAEnchantments.SAVAGE.get());
             int overloadLevel = itemInHand.getEnchantmentLevel(TAEnchantments.OVERLOAD.get());
             int soulSlashLevel = itemInHand.getEnchantmentLevel(TAEnchantments.SOUL_SLASH.get());
             int nightWalkerLevel = itemInHand.getEnchantmentLevel(TAEnchantments.NIGHT_WALKER.get());
@@ -368,6 +432,11 @@ public class EntityEventSubscriber {
                     if (level.getRawBrightness(pos, 0) < 5) {
                         event.setAmount(event.getAmount() + nightWalkerLevel);
                     }
+                }
+
+                if (savageLevel > 0 && (entity instanceof AgeableMob || entity instanceof NeutralMob)) {
+                    amount = event.getAmount();
+                    event.setAmount(amount + savageLevel * 2.0F);
                 }
 
                 if (overloadLevel > 0) {
@@ -541,6 +610,18 @@ public class EntityEventSubscriber {
             if (stack.is(TAItems.TSLAT_SWORD.get())) {
                 int count = stack.getOrCreateTag().getInt("KillCount");
                 stack.getOrCreateTag().putInt("KillCount", count + 1);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingDrops(LivingDropsEvent event) {
+        LivingEntity entity = event.getEntity();
+        Entity sourceEntity = event.getSource().getEntity();
+        if ((entity instanceof AgeableMob || entity instanceof NeutralMob) && sourceEntity instanceof ServerPlayer player) {
+            int level = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.SAVAGE.get(), player);
+            if (level > 0 && player.getRandom().nextFloat() <= level * 0.1F) {
+                event.getDrops().forEach(itemEntity -> entity.level().addFreshEntity(itemEntity));
             }
         }
     }

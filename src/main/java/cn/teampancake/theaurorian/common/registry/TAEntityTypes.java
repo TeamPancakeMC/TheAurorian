@@ -39,7 +39,6 @@ import net.minecraftforge.registries.RegistryObject;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-@SuppressWarnings("SpellCheckingInspection")
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TAEntityTypes {
 
@@ -72,6 +71,9 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<FallingFireball>> FALLING_FIREBALL = ENTITY_TYPES.register("falling_fireball",
             () -> EntityType.Builder.<FallingFireball>of(FallingFireball::new, MobCategory.MISC).sized(0.5F, 0.5F)
                     .clientTrackingRange((4)).updateInterval((10)).build("falling_fireball"));
+    public static final RegistryObject<EntityType<ThrownAxe>> THROWN_AXE = ENTITY_TYPES.register("thrown_axe",
+            () -> EntityType.Builder.<ThrownAxe>of(ThrownAxe::new, MobCategory.MISC).sized(0.5F, 0.5F)
+                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("thrown_axe"));
     //NPC
     public static final RegistryObject<EntityType<AurorianVillager>> AURORIAN_VILLAGER = ENTITY_TYPES.register("aurorian_villager",
             () -> EntityType.Builder.of(AurorianVillager::new, MobCategory.CREATURE).sized(0.6F, 1.85F)
@@ -188,6 +190,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(SIT.get(), SitRenderer::new);
         event.registerEntityRenderer(LUNA_CIRCLE.get(), LunaCircleRenderer::new);
         event.registerEntityRenderer(FALLING_FIREBALL.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(THROWN_AXE.get(), ThrownAxeRenderer::new);
         event.registerEntityRenderer(BREAD_BEAST.get(), BreadBeastRenderer::new);
         event.registerEntityRenderer(ICEFIELD_DEER.get(), IcefieldDeerRenderer::new);
         event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), context -> new GeoEntityRenderer<>(

@@ -27,7 +27,9 @@ public class TAEnchantments {
     public static final RegistryObject<Enchantment> EXPERIENCE_ORE = ENCHANTMENTS.register("experience_ore", ExperienceOreEnchantment::new);
     public static final RegistryObject<Enchantment> LEGENDARY_HERO = ENCHANTMENTS.register("legendary_hero", LegendaryHeroEnchantment::new);
     public static final RegistryObject<Enchantment> VIRTUALIZATION = ENCHANTMENTS.register("virtualization", VirtualizationEnchantment::new);
+    public static final RegistryObject<Enchantment> SOURCE_OF_TERRA = ENCHANTMENTS.register("source_of_terra", SourceOfTerraEnchantment::new);
     public static final RegistryObject<Enchantment> COBWEB_CROSSING = ENCHANTMENTS.register("cobweb_crossing", CobwebCrossingEnchantment::new);
+    public static final RegistryObject<Enchantment> ROUNDABOUT_THROW = ENCHANTMENTS.register("roundabout_throw", RoundaboutThrowEnchantment::new);
     public static final RegistryObject<Enchantment> LIGHTNING_DAMAGE = ENCHANTMENTS.register("lightning_damage", LightningDamageEnchantment::new);
     public static final RegistryObject<Enchantment> SUNDER_ARMOR_SLASH = ENCHANTMENTS.register("sunder_armor_slash", SunderArmorSlashEnchantment::new);
     public static final RegistryObject<Enchantment> LIGHTNING_RESISTANCE = ENCHANTMENTS.register("lightning_resistance", LightningResistance::new);

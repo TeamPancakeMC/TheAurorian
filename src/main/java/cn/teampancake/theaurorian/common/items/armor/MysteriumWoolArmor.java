@@ -26,7 +26,7 @@ public class MysteriumWoolArmor extends BaseArmor<MysteriumWoolArmorModel> {
 
     @Override
     public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity livingEntity) {
-        return TAEquipmentSet.KNIGHT_ARMOR_SET.get().checkEquippable(livingEntity);
+        return TAEquipmentSet.MYSTERIUM_WOOL_ARMOR_SET.get().checkEquippable(livingEntity);
     }
 
     @Override

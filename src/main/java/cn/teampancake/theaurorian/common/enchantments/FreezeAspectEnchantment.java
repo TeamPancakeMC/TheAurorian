@@ -33,7 +33,7 @@ public class FreezeAspectEnchantment extends Enchantment {
 
     @Override
     public void doPostAttack(LivingEntity attacker, Entity target, int level) {
-        if (target instanceof LivingEntity livingEntity && !TAEquipmentSet.KNIGHT_ARMOR_SET.get().checkEquippable(livingEntity)) {
+        if (target instanceof LivingEntity livingEntity && !TAEquipmentSet.MYSTERIUM_WOOL_ARMOR_SET.get().checkEquippable(livingEntity)) {
             livingEntity.addEffect(new MobEffectInstance(TAMobEffects.FROSTBITE.get(), (100 + level * 20), level));
         }
     }

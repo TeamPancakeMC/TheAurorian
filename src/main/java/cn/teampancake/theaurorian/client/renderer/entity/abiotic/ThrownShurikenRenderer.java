@@ -1,6 +1,6 @@
-package cn.teampancake.theaurorian.client.renderer.entity;
+package cn.teampancake.theaurorian.client.renderer.entity.abiotic;
 
-import cn.teampancake.theaurorian.common.entities.projectile.ThrownAxe;
+import cn.teampancake.theaurorian.common.entities.projectile.ThrownShuriken;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -17,32 +17,30 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ThrownAxeRenderer extends EntityRenderer<ThrownAxe> {
+public class ThrownShurikenRenderer extends EntityRenderer<ThrownShuriken> {
 
     private final ItemRenderer itemRenderer;
 
-    public ThrownAxeRenderer(EntityRendererProvider.Context context) {
+    public ThrownShurikenRenderer(EntityRendererProvider.Context context) {
         super(context);
         this.itemRenderer = context.getItemRenderer();
-        this.shadowRadius = 2F;
-        this.shadowStrength = 0.5F;
     }
 
     @Override
-    public void render(ThrownAxe entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+    public void render(ThrownShuriken entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         poseStack.pushPose();
         ItemStack itemStack = entity.getItem();
         BakedModel model = this.itemRenderer.getModel(itemStack, entity.level(), null, 1);
         poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
         poseStack.scale(2.0F, 2.0F, 2.0F);
-        poseStack.mulPose(Axis.ZP.rotation((entity.getAge() + partialTicks) * 0.9F));
-        this.itemRenderer.render(itemStack, ItemDisplayContext.NONE, false, poseStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, model);
+        poseStack.mulPose(Axis.ZP.rotation(partialTicks));
+        this.itemRenderer.render(itemStack, ItemDisplayContext.NONE, false,
+                poseStack, buffer, packedLight, OverlayTexture.NO_OVERLAY, model);
         poseStack.popPose();
-        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ThrownAxe entity) {
+    public ResourceLocation getTextureLocation(ThrownShuriken entity) {
         return InventoryMenu.BLOCK_ATLAS;
     }
 

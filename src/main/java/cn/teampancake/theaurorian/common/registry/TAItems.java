@@ -22,8 +22,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Random;
-
 import static cn.teampancake.theaurorian.common.utils.TAItemRegUtils.*;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
@@ -172,6 +170,15 @@ public class TAItems {
     public static final RegistryObject<Item> SILENT_WOOD_BOW = ITEMS.register("silent_wood_bow",
             () -> new BowItem(new Item.Properties().durability(384)));
     public static final RegistryObject<Item> KEEPERS_BOW = ITEMS.register("keepers_bow", KeepersBow::new);
+
+    /**
+     * Throwable Weapons
+     */
+    public static final RegistryObject<Item> MOON_SHURIKEN = ITEMS.register("moon_shuriken", () -> new SimpleThrowProjectProjectile(
+            new Item.Properties(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.THROWN_SHURIKEN::get, 1.5F));
+    public static final RegistryObject<Item> UNSTABLE_CRYSTAL = ITEMS.register("unstable_crystal", () -> new SimpleThrowProjectProjectile(
+            new Item.Properties().stacksTo(16), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.UNSTABLE_CRYSTAL::get, 1.5F));
+    public static final RegistryObject<Item> AURORIAN_SLATE_BRICK = ITEMS.register("aurorian_slate_brick", AurorianSlateBrick::new);
 
     /**
      * Tea
@@ -324,8 +331,8 @@ public class TAItems {
     public static final RegistryObject<Item> WORLD_SCROLL_FRAGMENT = normal("world_scroll_fragment", false);
     public static final RegistryObject<Item> WORLD_SCROLL = ITEMS.register("world_scroll", WorldScroll::new);
     public static final RegistryObject<Item> DUNGEON_LOCATOR = ITEMS.register("dungeon_locator", DungeonLocatorItem::new);
-    public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(new Item.Properties(),
-            SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.WEBBING::get, 0.5F, (0.4F / (new Random().nextFloat() * 0.4F + 0.8F))));
+    public static final RegistryObject<Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(
+            new Item.Properties(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.WEBBING::get, 0.5F));
     public static final RegistryObject<Item> LIVING_DIVINING_ROD = ITEMS.register("living_divining_rod", LivingDiviningRod::new);
     public static final RegistryObject<Item> LOCK_PICKS = ITEMS.register("lock_picks", () -> new Item(new Item.Properties().durability(10)));
     public static final RegistryObject<Item> MOON_WATER_BUCKET = ITEMS.register("moon_water_bucket", () -> new BucketItem(TAFluids.MOON_WATER_STILL, new Item.Properties()));

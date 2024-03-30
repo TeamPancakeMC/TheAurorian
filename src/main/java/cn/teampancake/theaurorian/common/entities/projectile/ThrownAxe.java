@@ -19,7 +19,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -34,8 +33,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.UUID;
 
-@SuppressWarnings("NotNullFieldNotInitialized")
-public class ThrownAxe extends ThrowableItemProjectile {
+@SuppressWarnings({"NotNullFieldNotInitialized", "ConstantConditions"})
+public class ThrownAxe extends LinearMotionProjectile {
 
     private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(ThrownAxe.class, EntityDataSerializers.INT);
     private UUID ownerUUID;
@@ -61,7 +60,7 @@ public class ThrownAxe extends ThrowableItemProjectile {
                 this.owner = (Player) serverLevel.getEntity(this.ownerUUID);
             }
         }
-        
+
         return this.owner;
     }
 
@@ -69,15 +68,6 @@ public class ThrownAxe extends ThrowableItemProjectile {
         this.damage = damage;
         this.ownerUUID = ownerUUID;
         this.slot = slot;
-    }
-
-    public void shootFromRotation(Entity shooter, float rotationPitch, float rotationYaw, float pitchOffset, float velocity, float innacuracy) {
-        float f = -Mth.sin(rotationYaw * ((float) Math.PI / 180F)) * Mth.cos(rotationPitch * ((float) Math.PI / 180F));
-        float f1 = -Mth.sin((rotationPitch + pitchOffset) * ((float) Math.PI / 180F));
-        float f2 = Mth.cos(rotationYaw * ((float) Math.PI / 180F)) * Mth.cos(rotationPitch * ((float) Math.PI / 180F));
-        this.shoot(f, f1, f2, velocity, innacuracy);
-        Vec3 vec3 = shooter.getDeltaMovement();
-        this.setDeltaMovement(this.getDeltaMovement().add(vec3.x, 0, vec3.z));
     }
 
     @Override
@@ -165,6 +155,7 @@ public class ThrownAxe extends ThrowableItemProjectile {
         }
 
         if (!level.isClientSide) {
+            int i = this.getItem().getEnchantmentLevel(TAEnchantments.ROUNDABOUT_THROW.get());
             Player playerEntity = this.getAxeOwner();
             if (playerEntity == null || !playerEntity.isAlive()) {
                 ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY() + 0.5, this.getZ(), this.getItem());
@@ -186,7 +177,7 @@ public class ThrownAxe extends ThrowableItemProjectile {
                 xRotO = getXRot();
             }
 
-            if (this.getAge() > this.returnAge) {
+            if (this.getAge() > this.returnAge * i) {
                 this.returning = true;
             }
 
@@ -197,10 +188,10 @@ public class ThrownAxe extends ThrowableItemProjectile {
                 this.setDeltaMovement(motion.normalize().scale(0.75f));
             }
 
-            if (this.getAge() > 8 && this.distanceTo(playerEntity) < 3.0F && this.isAlive()) {
+            if (this.returning && this.distanceTo(playerEntity) < 3.0F && this.isAlive()) {
                 ItemHandlerHelper.giveItemToPlayer(playerEntity, this.getItem(), this.slot);
-                if (!playerEntity.isCreative()) {
-                    int cooldown = 100 - 25 * (this.getItem().getEnchantmentLevel(TAEnchantments.ROUNDABOUT_THROW.get()) - 1);
+                if (!playerEntity.getAbilities().instabuild) {
+                    int cooldown = 100 - 25 * (i - 1);
                     playerEntity.getCooldowns().addCooldown(this.getItem().getItem(), cooldown);
                 }
 

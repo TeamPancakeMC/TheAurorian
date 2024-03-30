@@ -51,6 +51,8 @@ public class TAItemTagsProvider extends ItemTagsProvider {
                 TAItems.COOKED_MOON_FISH.get(), TAItems.COOKED_AURORIAN_WINGED_FISH.get());
         this.tag(TAItemTags.DUNGEON_KEY).add(TAItems.RUNE_STONE_KEY.get()).add(TAItems.RUNE_STONE_LOOT_KEY.get())
                 .add(TAItems.MOON_TEMPLE_KEY.get()).add(TAItems.MOON_TEMPLE_CELL_KEY.get()).add(TAItems.DARK_STONE_KEY.get());
+        this.tag(TAItemTags.THROWABLE_WEAPONS).add(TAItems.MOON_SHURIKEN.get(),
+                TAItems.UNSTABLE_CRYSTAL.get(), TAItems.AURORIAN_SLATE_BRICK.get());
         this.tag(TAItemTags.SPECTRAL_ARMOR).add(TAItems.SPECTRAL_HELMET.get(), TAItems.SPECTRAL_CHESTPLATE.get(),
                 TAItems.SPECTRAL_LEGGINGS.get(), TAItems.SPECTRAL_BOOTS.get());
         this.tag(TAItemTags.HAS_CUSTOM_TOOLTIPS).addTag(TAItemTags.BUILDING_BLOCK).addTag(TAItemTags.IS_RARE)

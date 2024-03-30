@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.Random;
 import java.util.function.Supplier;
 
 public class SimpleThrowProjectProjectile extends Item implements ITooltipsItem {
@@ -29,6 +30,10 @@ public class SimpleThrowProjectProjectile extends Item implements ITooltipsItem 
         this.projectile = projectile;
         this.velocity = velocity;
         this.inaccuracy = inaccuracy;
+    }
+
+    public SimpleThrowProjectProjectile(Properties properties, SoundEvent soundEvent, SoundSource soundSource, Supplier<EntityType<?>> projectile, float velocity) {
+        this(properties, soundEvent, soundSource, projectile, velocity, 0.4F / (new Random().nextFloat() * 0.4F + 0.8F));
     }
 
     @Override

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "theaurorian:aurorian_cobblestone"
+    },
+    {
+      "item": "theaurorian:aurorian_cobblestone"
+    }
+  ],
+  "result": {
+    "item": "theaurorian:aurorian_slate_brick"
+  }
+}

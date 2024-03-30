@@ -43,9 +43,11 @@ public class TARecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get(), 4)
                 .define('#', TABlocks.AURORIAN_STONE.get()).pattern("##").pattern("##")
                 .unlockedBy(getHasName(TABlocks.AURORIAN_STONE.get()), has(ItemTags.STONE_TOOL_MATERIALS)).save(consumer);
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.AURORIAN_FURNACE.get()).define('#', TABlocks.AURORIAN_COBBLESTONE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.AURORIAN_FURNACE.get())
+                .define('#', TABlocks.AURORIAN_COBBLESTONE.get())
                 .pattern("###").pattern("# #").pattern("###")
-                .unlockedBy(getHasName(TABlocks.AURORIAN_COBBLESTONE.get()), has(TABlocks.AURORIAN_COBBLESTONE.get())).save(consumer);
+                .unlockedBy(getHasName(TABlocks.AURORIAN_COBBLESTONE.get()),
+                        has(TABlocks.AURORIAN_COBBLESTONE.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.RUNE_STONE_BARS.get(), 16).define('#', TABlocks.RUNE_STONE.get())
                 .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.RUNE_STONE.get()), has(TABlocks.RUNE_STONE.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.DARK_STOME_BARS.get(), 16).define('#', TABlocks.DARK_STONE_BRICKS.get())
@@ -143,6 +145,16 @@ public class TARecipeProvider extends RecipeProvider {
                 .define('C', TABlocks.INDIGO_MUSHROOM.get())
                 .pattern("A").pattern("B").pattern("C")
                 .unlockedBy("has_cooked_meat", has(TAItemTags.COOKED_MEAT)).save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TAItems.MOON_SHURIKEN.get())
+                .define('#', TAItems.MOONSTONE_NUGGET.get())
+                .pattern(" # ").pattern("# #").pattern(" # ")
+                .unlockedBy(getHasName(TAItems.MOONSTONE_NUGGET.get()),
+                        has(TAItems.MOONSTONE_NUGGET.get())).save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TAItems.UNSTABLE_CRYSTAL.get())
+                .define('#', TAItems.CERULEAN_NUGGET.get()).define('X', Items.GUNPOWDER)
+                .pattern("###").pattern("#X#").pattern("###")
+                .unlockedBy(getHasName(TAItems.CERULEAN_NUGGET.get()),
+                        has(TAItems.CERULEAN_NUGGET.get())).save(consumer);
         //Vanilla Shaped Recipes
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STRING).define('#', TAItems.PLANT_FIBER.get())
                 .pattern("###").pattern("###").pattern("###")
@@ -187,6 +199,10 @@ public class TARecipeProvider extends RecipeProvider {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.SASHIMI.get())
                 .requires(TAItems.FAKE_ALGAL_PIT_FISH.get()).requires(TAItems.SILK_BERRY_JAM.get())
                 .unlockedBy(getHasName(TAItems.LAVENDER.get()), has(TAItems.LAVENDER.get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT, TAItems.AURORIAN_SLATE_BRICK.get())
+                .requires(TABlocks.AURORIAN_COBBLESTONE.get(), 2)
+                .unlockedBy(getHasName(TABlocks.AURORIAN_COBBLESTONE.get()),
+                        has(TABlocks.AURORIAN_COBBLESTONE.get())).save(consumer);
         //Vanilla Shapeless Recipes
         oneToOneConversionRecipe(consumer, Items.ROTTEN_FLESH, TAItems.SOULLESS_FLESH.get(), null);
         oneToOneConversionRecipe(consumer, Items.PINK_DYE, TABlocks.PETUNIA_PLANT.get(), null);

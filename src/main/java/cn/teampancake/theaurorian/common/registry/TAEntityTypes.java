@@ -74,6 +74,15 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<ThrownAxe>> THROWN_AXE = ENTITY_TYPES.register("thrown_axe",
             () -> EntityType.Builder.<ThrownAxe>of(ThrownAxe::new, MobCategory.MISC).sized(0.5F, 0.5F)
                     .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("thrown_axe"));
+    public static final RegistryObject<EntityType<ThrownShuriken>> THROWN_SHURIKEN = ENTITY_TYPES.register("thrown_shuriken",
+            () -> EntityType.Builder.<ThrownShuriken>of(ThrownShuriken::new, MobCategory.MISC).sized(0.3F, 0.3F)
+                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("thrown_shuriken"));
+    public static final RegistryObject<EntityType<ThrownSlateBrick>> THROWN_SLATE_BRICK = ENTITY_TYPES.register("thrown_slate_brick",
+            () -> EntityType.Builder.<ThrownSlateBrick>of(ThrownSlateBrick::new, MobCategory.MISC).sized(0.25F, 0.25F)
+                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("thrown_slate_brick"));
+    public static final RegistryObject<EntityType<UnstableCrystal>> UNSTABLE_CRYSTAL = ENTITY_TYPES.register("unstable_crystal",
+            () -> EntityType.Builder.<UnstableCrystal>of(UnstableCrystal::new, MobCategory.MISC).sized(0.25F, 0.25F)
+                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("unstable_crystal"));
     //NPC
     public static final RegistryObject<EntityType<AurorianVillager>> AURORIAN_VILLAGER = ENTITY_TYPES.register("aurorian_villager",
             () -> EntityType.Builder.of(AurorianVillager::new, MobCategory.CREATURE).sized(0.6F, 1.85F)
@@ -191,6 +200,9 @@ public class TAEntityTypes {
         event.registerEntityRenderer(LUNA_CIRCLE.get(), LunaCircleRenderer::new);
         event.registerEntityRenderer(FALLING_FIREBALL.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(THROWN_AXE.get(), ThrownAxeRenderer::new);
+        event.registerEntityRenderer(THROWN_SHURIKEN.get(), ThrownShurikenRenderer::new);
+        event.registerEntityRenderer(THROWN_SLATE_BRICK.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(UNSTABLE_CRYSTAL.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(BREAD_BEAST.get(), BreadBeastRenderer::new);
         event.registerEntityRenderer(ICEFIELD_DEER.get(), IcefieldDeerRenderer::new);
         event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), context -> new GeoEntityRenderer<>(

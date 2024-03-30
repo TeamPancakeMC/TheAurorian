@@ -535,6 +535,9 @@ public class TALanguageProvider extends LanguageProvider {
         this.addItem(TAItems.COOKED_AURORIAN_BEEF, "Cooked Aurorian Beef", "熟极光牛肉");
         this.addItem(TAItems.COOKED_AURORIAN_MUTTON, "Cooked Aurorian Mutton", "熟极光羊肉");
         this.addItem(TAItems.COOKED_AURORIAN_RABBIT, "Cooked Aurorian Rabbit", "熟极光兔肉");
+        this.addItem(TAItems.MOON_SHURIKEN, "Moon Shuriken", "皎月手里剑");
+        this.addItem(TAItems.AURORIAN_SLATE_BRICK, "Aurorian Slate Brick", "极光石板砖");
+        this.addItem(TAItems.UNSTABLE_CRYSTAL, "Unstable Crystal", "失稳晶体");
         this.addItem(TAItems.CRYSTAL, "Crystal", "水晶");
         this.addItem(TAItems.CRYSTAL_ARROW, "Crystal Arrow", "水晶箭");
         this.addItem(TAItems.CRYSTALLINE_INGOT, "Crystalline Ingot", "月凝晶锭");
@@ -772,6 +775,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.add(TAEnchantments.VIRTUALIZATION.get().getDescriptionId(), "Virtualization", "虚化");
         this.add(TAEnchantments.SOURCE_OF_TERRA.get().getDescriptionId(), "Source of Terra", "大地之源");
         this.add(TAEnchantments.COBWEB_CROSSING.get().getDescriptionId(), "Cobweb Crossing", "蛛网穿行");
+        this.add(TAEnchantments.ROUNDABOUT_THROW.get().getDescriptionId(), "Roundabout Throw", "回旋投掷");
         this.add(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId(), "Lightning Damage", "雷电伤害");
         this.add(TAEnchantments.SUNDER_ARMOR_SLASH.get().getDescriptionId(), "Sunder Armor Slash", "破甲斩击");
         this.add(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId(), "Lightning Resistance", "雷电抵御");

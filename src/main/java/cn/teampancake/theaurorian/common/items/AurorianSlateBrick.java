@@ -60,7 +60,7 @@ public class AurorianSlateBrick extends SimpleThrowProjectProjectile {
         AttributeModifier.Operation operation = AttributeModifier.Operation.ADDITION;
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", 4.0D, operation));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", 1.5D, operation));
-        return builder.build();
+        return slot.getType() == EquipmentSlot.Type.HAND ? builder.build() : ImmutableMultimap.of();
     }
 
 }

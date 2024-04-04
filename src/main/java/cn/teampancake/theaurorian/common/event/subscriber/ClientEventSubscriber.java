@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
 import cn.teampancake.theaurorian.common.effect.TremorEffect;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
+import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import com.mojang.blaze3d.shaders.FogShape;
@@ -21,6 +22,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -57,6 +60,17 @@ public class ClientEventSubscriber {
         Minecraft minecraft = Minecraft.getInstance();
         Entity cameraEntity = minecraft.getCameraEntity();
         if (cameraEntity instanceof LocalPlayer player) {
+            ClientLevel level = minecraft.level;
+            int i = EnchantmentHelper.getEnchantmentLevel(TAEnchantments.MOONLIGHT.get(), player);
+            if (level != null) {
+                level.entitiesForRendering().forEach(entity -> {
+                    if (entity instanceof LivingEntity livingEntity) {
+                        double distance = player.distanceToSqr(livingEntity);
+                        livingEntity.setSharedFlag(6, i > 0 && distance <= Math.pow(i * 20.0D, 2.0D));
+                    }
+                });
+            }
+
             if (player.hasEffect(TAMobEffects.CORRUPTION.get())) {
                 player.hurtTime = 0;
             }

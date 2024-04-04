@@ -10,8 +10,9 @@ import net.minecraftforge.registries.RegistryObject;
 public class TAEnchantments {
 
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, AurorianMod.MOD_ID);
-    public static final RegistryObject<Enchantment> SAVAGE = ENCHANTMENTS.register("savage", SavageEnchantment::new);
     public static final RegistryObject<Enchantment> IMPALE = ENCHANTMENTS.register("impale", ImpaleEnchantment::new);
+    public static final RegistryObject<Enchantment> AURORA = ENCHANTMENTS.register("aurora", AuroraEnchantment::new);
+    public static final RegistryObject<Enchantment> SAVAGE = ENCHANTMENTS.register("savage", SavageEnchantment::new);
     public static final RegistryObject<Enchantment> OVERLOAD = ENCHANTMENTS.register("overload", OverloadEnchantment::new);
     public static final RegistryObject<Enchantment> GUARDIAN = ENCHANTMENTS.register("guardian", GuardianEnchantment::new);
     public static final RegistryObject<Enchantment> MOONLIGHT = ENCHANTMENTS.register("moonlight", MoonlightEnchantment::new);

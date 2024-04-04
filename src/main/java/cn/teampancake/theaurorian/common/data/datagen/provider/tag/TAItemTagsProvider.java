@@ -66,7 +66,7 @@ public class TAItemTagsProvider extends ItemTagsProvider {
                 TAItems.AURORIANITE_SCRAP.get(), TAItems.CRYSTALLINE_SCRAP.get(), TAItems.UMBRA_SCRAP.get(),
                 TAItems.SPECTRAL_SILK.get(), TAItems.DARK_AMULET.get(), TAItems.DUNGEON_KEEPER_AMULET.get(),
                 TAItems.CERULEAN_ARROW.get(), TAItems.CRYSTAL_ARROW.get(), TAItems.ABSORPTION_ORB.get(),
-                TAItems.SILENT_WOOD_STICK.get(), TAItems.STICKY_SPIKER.get(), TAItems.CRYSTALLINE_SPRITE.get(), TAItems.CRYSTAL.get(),
+                TAItems.SILENT_WOOD_STICK.get(), TAItems.STICKY_SPIKER.get(), TAItems.CRYSTAL.get(),
                 TAItems.AURORIAN_CHAIN.get(), TAItems.AURORIAN_BERRY.get(), TAItems.EQUINOX_MUSHROOM.get(),
                 TAItems.WORLD_SCROLL_FRAGMENT.get(), TAItems.WORLD_SCROLL.get(), TAItems.WEBBING.get(),
                 TAItems.LIVING_DIVINING_ROD.get(), TAItems.MOON_WATER_BUCKET.get(), TAItems.MOON_FISH_BUCKET.get(),

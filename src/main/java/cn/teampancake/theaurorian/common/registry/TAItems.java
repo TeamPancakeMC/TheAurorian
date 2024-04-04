@@ -299,7 +299,6 @@ public class TAItems {
     public static final RegistryObject<Item> TROPHY_KEEPER = normal("trophy_keeper", true);
     public static final RegistryObject<Item> TROPHY_SPIDER_MOTHER = normal("trophy_spider_mother", true);
     public static final RegistryObject<Item> TROPHY_MOON_QUEEN = normal("trophy_moon_queen", true);
-    public static final RegistryObject<Item> CRYSTALLINE_SPRITE = normal("crystalline_sprite", false);
     public static final RegistryObject<Item> RUNE_KNOWLEDGE_FRAGMENT = normal("rune_knowledge_fragment", false);
 
     /**

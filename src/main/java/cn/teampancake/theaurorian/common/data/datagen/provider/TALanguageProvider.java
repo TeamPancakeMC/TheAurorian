@@ -545,7 +545,6 @@ public class TALanguageProvider extends LanguageProvider {
         this.addItem(TAItems.CRYSTALLINE_PICKAXE, "Crystalline Pickaxe", "月凝晶镐");
         this.addItem(TAItems.CRYSTALLINE_SHIELD, "Crystalline Shield", "月凝晶盾牌");
         this.addItem(TAItems.CRYSTALLINE_SWORD, "Crystalline Sword", "月凝晶剑");
-        this.addItem(TAItems.CRYSTALLINE_SPRITE, "Crystalline Sprite", "月凝晶魂");
         this.addItem(TAItems.CRYSTALLINE_SPRITE_SPAWN_EGG, "Crystalline Sprite Spawn Egg", "月凝晶魂刷怪蛋");
         this.addItem(TAItems.DARK_AMULET, "Dark Amulet", "暗黑护符");
         this.addItem(TAItems.DUNGEON_KEEPER_AMULET, "Dungeon Keeper Amulet", "地牢守卫护身符");
@@ -757,6 +756,7 @@ public class TALanguageProvider extends LanguageProvider {
 
         //MOD ENCHANTMENT
         this.add(TAEnchantments.IMPALE.get().getDescriptionId(), "Impale", "刺穿");
+        this.add(TAEnchantments.AURORA.get().getDescriptionId(), "Aurora", "极光");
         this.add(TAEnchantments.SAVAGE.get().getDescriptionId(), "Savage", "野蛮人");
         this.add(TAEnchantments.OVERLOAD.get().getDescriptionId(), "Overload", "过载");
         this.add(TAEnchantments.GUARDIAN.get().getDescriptionId(), "Guardian", "守护者");

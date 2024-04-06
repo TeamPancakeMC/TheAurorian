@@ -16,6 +16,7 @@ import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -28,6 +29,30 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = AurorianMod.MOD_ID)
 public class ItemEventSubscriber {
+
+    @SubscribeEvent
+    public static void onAnvilUpdate(AnvilUpdateEvent event) {
+        ItemStack leftStack = event.getLeft();
+        ItemStack rightStack = event.getRight();
+        ItemStack copyOfLeftStack = leftStack.copy();
+        if (copyOfLeftStack.isDamageableItem() && rightStack.is(TAItems.BROKEN_OX_HORN.get())) {
+            int l = Math.min(copyOfLeftStack.getDamageValue(), 30);
+            int i;
+            if (l <= 0) {
+                event.setOutput(ItemStack.EMPTY);
+                event.setCost(0);
+                event.setCanceled(true);
+            }
+
+            for (i = 0; l > 0 && i < rightStack.getCount(); ++i) {
+                int j = copyOfLeftStack.getDamageValue() - l;
+                copyOfLeftStack.setDamageValue(j);
+                l = Math.min(copyOfLeftStack.getDamageValue(), copyOfLeftStack.getMaxDamage() / 4);
+            }
+
+            event.setOutput(copyOfLeftStack);
+        }
+    }
 
     @SubscribeEvent
     public static void onRenderItemTooltips(ItemTooltipEvent event) {
@@ -74,7 +99,7 @@ public class ItemEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void SlimeBootsJump(LivingEvent.LivingJumpEvent event) {
+    public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
         if (event.getEntity() instanceof Player player) {
             if (!player.isShiftKeyDown() && !player.onGround()) return;
             player.getArmorSlots().forEach(stack -> {
@@ -87,7 +112,7 @@ public class ItemEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void SlimeBootsFall(LivingFallEvent event) {
+    public static void onLivingFall(LivingFallEvent event) {
         if (event.getEntity() instanceof Player player) {
             player.getArmorSlots().forEach(stack -> {
                 if (stack.is(TAItems.AURORIAN_SLIME_BOOTS.get()) && event.getDistance() > 3f) {
@@ -99,7 +124,7 @@ public class ItemEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void OnStartItem(LivingEntityUseItemEvent.Start event){
+    public static void onStartUseItem(LivingEntityUseItemEvent.Start event){
         Level level = event.getEntity().level();
         if (event.getEntity() instanceof Player player) {
             if (event.getItem().is(TAItems.CRYSTALLINE_SWORD.get())) {
@@ -121,7 +146,7 @@ public class ItemEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void OnUsingItem(LivingEntityUseItemEvent.Tick event){
+    public static void onUsingItem(LivingEntityUseItemEvent.Tick event){
         if (event.getEntity() instanceof Player player) {
             if (event.getItem().is(TAItems.CRYSTALLINE_SWORD.get())) {
                 if (player.getTicksUsingItem() >= 60) {

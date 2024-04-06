@@ -20,10 +20,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Consumer;
 
-@ParametersAreNonnullByDefault
 public class MoonlightForgeRecipeBuilder implements RecipeBuilder {
 
     private final Ingredient equipment;

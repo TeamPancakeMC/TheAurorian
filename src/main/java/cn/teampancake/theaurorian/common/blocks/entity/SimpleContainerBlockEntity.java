@@ -28,7 +28,7 @@ import java.util.Objects;
 public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntity{
 
     protected LazyOptional<IItemHandler> lazyOptional = LazyOptional.empty();
-    protected final SimpleContainerBlockEntity.Handler handler = new SimpleContainerBlockEntity.Handler();
+    protected SimpleContainerBlockEntity.Handler handler;
 
     protected SimpleContainerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
@@ -124,8 +124,8 @@ public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntit
 
     protected class Handler extends ItemStackHandler {
 
-        public Handler() {
-            super(3);
+        public Handler(int size) {
+            super(size);
         }
 
         @Override

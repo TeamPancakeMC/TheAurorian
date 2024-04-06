@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 
-public record ScrapperSerializer<T extends ScrapperRecipe>(ScrapperSerializer.Factory<T> factory) implements RecipeSerializer<T> {
+public record ScrapperSerializer<T extends ScrapperRecipe>(Factory<T> factory) implements RecipeSerializer<T> {
 
     @Override
     public T fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {

@@ -1,18 +1,15 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
-import cn.teampancake.theaurorian.client.inventory.ScrapperMenu;
-import cn.teampancake.theaurorian.common.items.crafting.ScrapperRecipe;
+import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
+import cn.teampancake.theaurorian.common.items.crafting.AlchemyTableRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
-import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TARecipes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
-import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
@@ -24,64 +21,69 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public class ScrapperBlockEntity extends SimpleContainerBlockEntity implements WorldlyContainer {
+public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
 
-    public int scrapTime;
+    private int alchemyTime;
     private final ContainerData containerData = new Data();
-    private final RecipeManager.CachedCheck<Container, ? extends ScrapperRecipe> quickCheck;
-    private static final int[] SLOTS_FOR_UP = new int[]{0};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{2, 1};
-    private static final int[] SLOTS_FOR_SIDES = new int[]{1};
+    private final RecipeManager.CachedCheck<Container, ? extends AlchemyTableRecipe> quickCheck;
 
-    public ScrapperBlockEntity(BlockPos pos, BlockState blockState) {
-        super(TABlockEntityTypes.SCRAPPER.get(), pos, blockState);
-        this.quickCheck = RecipeManager.createCheck(TARecipes.SCRAPPER_RECIPE.get());
-        this.handler = new SimpleContainerBlockEntity.Handler(3);
+    public AlchemyTableBlockEntity(BlockPos pos, BlockState blockState) {
+        super(TABlockEntityTypes.ALCHEMY_TABLE.get(), pos, blockState);
+        this.quickCheck = RecipeManager.createCheck(TARecipes.ALCHEMY_TABLE_RECIPE.get());
+        this.handler = new SimpleContainerBlockEntity.Handler(5);
     }
 
-    public static void serverTick(Level level, BlockPos pos, BlockState state, ScrapperBlockEntity blockEntity) {
+    public static void serverTick(Level level, BlockPos pos, BlockState state, AlchemyTableBlockEntity blockEntity) {
         if (!level.isClientSide()) {
-            ItemStack ingredient = blockEntity.handler.getStackInSlot(0);
-            ItemStack consumables = blockEntity.handler.getStackInSlot(1);
+            int t = 0;
+            for (int i = 0; i < 4; i++) {
+                t += blockEntity.handler.getStackInSlot(i).isEmpty() ? 0 : 1;
+            }
+
             NonNullList<ItemStack> inventory = blockEntity.handler.getStacks();
-            ScrapperRecipe recipe = !ingredient.isEmpty() ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
-            if (blockEntity.canWork(level.registryAccess(), recipe, inventory, blockEntity.getMaxStackSize()) && consumables.getCount() > 0) {
-                blockEntity.scrapTime++;
+            AlchemyTableRecipe recipe = t == 4 ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
+            if (blockEntity.canWork(level.registryAccess(), recipe, inventory, blockEntity.getMaxStackSize()) && recipe != null) {
+                blockEntity.alchemyTime++;
                 setChanged(level, pos, state);
-                if (blockEntity.scrapTime > 100) {
+                if (blockEntity.alchemyTime > recipe.alchemyTime) {
                     blockEntity.startWork(level.registryAccess(), recipe, inventory, blockEntity.getMaxStackSize());
-                    blockEntity.scrapTime = 0;
-                    consumables.shrink(1);
+                    blockEntity.alchemyTime = 0;
+                    recipe.getInputAndAmount().forEach(ItemStack::shrink);
                     setChanged(level, pos, state);
                 }
             } else {
-                blockEntity.scrapTime = 0;
+                blockEntity.alchemyTime = 0;
                 setChanged(level, pos, state);
             }
         }
     }
 
     protected void startWork(RegistryAccess registryAccess, @Nullable Recipe<Container> recipe, NonNullList<ItemStack> inventory, int maxStackSize) {
-        if (recipe != null && this.canWork(registryAccess, recipe, inventory, maxStackSize)) {
-            ItemStack copyOfResultStack = recipe.assemble(this, registryAccess);
-            ItemStack itemStack = inventory.get(0), resultStack = inventory.get(2);
+        if (recipe instanceof AlchemyTableRecipe alchemyRecipe && this.canWork(registryAccess, alchemyRecipe, inventory, maxStackSize)) {
+            ItemStack copyOfResultStack = alchemyRecipe.assemble(this, registryAccess);
+            ItemStack resultStack = inventory.get(4);
             if (resultStack.isEmpty()) {
-                inventory.set(2, copyOfResultStack.copy());
+                inventory.set(4, copyOfResultStack.copy());
             } else if (resultStack.is(copyOfResultStack.getItem())) {
                 resultStack.grow(copyOfResultStack.getCount());
             }
 
-            itemStack.shrink(1);
+            alchemyRecipe.getInputAndAmount().forEach(ItemStack::shrink);
         }
     }
 
     protected boolean canWork(RegistryAccess registryAccess, @Nullable Recipe<Container> recipe, NonNullList<ItemStack> inventory, int maxStackSize) {
-        if (!inventory.get(0).isEmpty() && recipe != null) {
+        int t = 0;
+        for (int i = 0; i < 4; i++) {
+            t += inventory.get(i).isEmpty() ? 0 : 1;
+        }
+
+        if (t == 4 && recipe != null) {
             ItemStack copyOfResultStack = recipe.assemble(this, registryAccess);
             if (copyOfResultStack.isEmpty()) {
                 return false;
             } else {
-                ItemStack resultStack = inventory.get(2);
+                ItemStack resultStack = inventory.get(4);
                 int stackCount = resultStack.getCount() + copyOfResultStack.getCount();
                 if (resultStack.isEmpty()) {
                     return true;
@@ -106,63 +108,35 @@ public class ScrapperBlockEntity extends SimpleContainerBlockEntity implements W
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        this.scrapTime = tag.getInt("ScrapTime");
+        this.alchemyTime = tag.getInt("AlchemyTime");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        tag.putInt("ScrapTime", this.scrapTime);
-    }
-
-    @Override
-    public boolean canPlaceItem(int index, ItemStack stack) {
-        if (index == 2) {
-            return false;
-        } else if (index == 1) {
-            return stack.is(TAItems.CRYSTAL.get());
-        } else if (index == 0) {
-            return stack.isDamageableItem();
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public int[] getSlotsForFace(Direction side) {
-        if (side == Direction.DOWN) {
-            return SLOTS_FOR_DOWN;
-        } else {
-            return side == Direction.UP ? SLOTS_FOR_UP : SLOTS_FOR_SIDES;
-        }
-    }
-
-    @Override
-    public boolean canPlaceItemThroughFace(int index, ItemStack itemStack, @Nullable Direction direction) {
-        return this.canPlaceItem(index, itemStack);
-    }
-
-    @Override
-    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
-        return index == 2;
+        tag.putInt("AlchemyTime", this.alchemyTime);
     }
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new ScrapperMenu(containerId, inventory, this, this.containerData);
+        return new AlchemyTableMenu(containerId, inventory, this, this.containerData);
     }
 
     private class Data implements ContainerData {
 
         @Override
         public int get(int index) {
-            return scrapTime;
+            if (index == 0) {
+                return alchemyTime;
+            } else {
+                return 0;
+            }
         }
 
         @Override
         public void set(int index, int value) {
             if (index == 0) {
-                scrapTime = value;
+                alchemyTime = value;
             }
         }
 

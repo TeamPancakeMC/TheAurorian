@@ -33,6 +33,8 @@ public class TABlockEntityTypes {
             () -> BlockEntityType.Builder.of(SilentWoodCraftingBlockEntity::new, TABlocks.AURORIAN_CRAFTING_TABLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<SilentCampfireBlockEntity>> SILENT_CAMPFIRE =  BLOCK_ENTITY_TYPES.register("silent_campfire",
             () -> BlockEntityType.Builder.of(SilentCampfireBlockEntity::new, TABlocks.SILENT_CAMPFIRE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<AlchemyTableBlockEntity>> ALCHEMY_TABLE =  BLOCK_ENTITY_TYPES.register("alchemy_table",
+            () -> BlockEntityType.Builder.of(AlchemyTableBlockEntity::new, TABlocks.ALCHEMY_TABLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<DungeonStoneGateBlockEntity>> DUNGEON_STONE_GATE = BLOCK_ENTITY_TYPES.register("dungeon_stone_gate",
             () -> BlockEntityType.Builder.of(DungeonStoneGateBlockEntity::new, TABlocks.RUNE_STONE_GATE.get(), TABlocks.MOON_TEMPLE_GATE.get(),
                     TABlocks.DARK_STONE_GATE.get(), TABlocks.RUNE_STONE_LOOT_GATE.get(), TABlocks.MOON_TEMPLE_CELL_GATE.get(),
@@ -41,8 +43,7 @@ public class TABlockEntityTypes {
     public static final RegistryObject<BlockEntityType<TASignBlockEntity>> TA_SIGN = BLOCK_ENTITY_TYPES.register("ta_sign",
             () -> BlockEntityType.Builder.of(TASignBlockEntity::new, TABlocks.SILENT_WOOD_SIGN.get(), TABlocks.WEEPING_WILLOW_WOOD_SIGN.get(),
                     TABlocks.CURTAIN_WOOD_SIGN.get(), TABlocks.CURSED_FROST_WOOD_SIGN.get(), TABlocks.SILENT_WOOD_WALL_SIGN.get(),
-                    TABlocks.WEEPING_WILLOW_WOOD_WALL_SIGN.get(), TABlocks.CURTAIN_WOOD_WALL_SIGN.get(),
-                    TABlocks.CURSED_FROST_WOOD_WALL_SIGN.get()).build(null));
+                    TABlocks.WEEPING_WILLOW_WOOD_WALL_SIGN.get(), TABlocks.CURTAIN_WOOD_WALL_SIGN.get(), TABlocks.CURSED_FROST_WOOD_WALL_SIGN.get()).build(null));
     public static final RegistryObject<BlockEntityType<TAHangingSignBlockEntity>> TA_HANGING_SIGN = BLOCK_ENTITY_TYPES.register("ta_hanging_sign",
             () -> BlockEntityType.Builder.of(TAHangingSignBlockEntity::new, TABlocks.SILENT_WOOD_HANGING_SIGN.get(), TABlocks.WEEPING_WILLOW_WOOD_HANGING_SIGN.get(),
                     TABlocks.CURTAIN_WOOD_HANGING_SIGN.get(), TABlocks.CURSED_FROST_WOOD_HANGING_SIGN.get(), TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(),

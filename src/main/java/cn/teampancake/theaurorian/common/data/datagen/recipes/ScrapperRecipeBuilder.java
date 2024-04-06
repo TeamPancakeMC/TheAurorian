@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.data.datagen.recipes;
 import cn.teampancake.theaurorian.common.items.crafting.ScrapperRecipe;
 import cn.teampancake.theaurorian.common.registry.TARecipes;
 import com.google.gson.JsonObject;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -20,10 +19,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Consumer;
 
-@ParametersAreNonnullByDefault
 public class ScrapperRecipeBuilder implements RecipeBuilder {
 
     private final Ingredient ingredient;
@@ -65,8 +62,8 @@ public class ScrapperRecipeBuilder implements RecipeBuilder {
         this.ensureValid(recipeId);
         this.advancement.parent(ROOT_RECIPE_ADVANCEMENT).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))
                 .rewards(AdvancementRewards.Builder.recipe(recipeId)).requirements(RequirementsStrategy.OR);
-        finishedRecipeConsumer.accept(new ScrapperRecipeBuilder.Result(recipeId.withPrefix("scrapper/"),
-                this.ingredient, this.result, this.amount, this.advancement, recipeId.withPrefix("recipes/scrapper/"), this.serializer));
+        finishedRecipeConsumer.accept(new Result(recipeId.withPrefix("scrapper/"), this.ingredient, this.result,
+                this.amount, this.advancement, recipeId.withPrefix("recipes/scrapper/"), this.serializer));
     }
 
     private void ensureValid(ResourceLocation id) {
@@ -76,7 +73,6 @@ public class ScrapperRecipeBuilder implements RecipeBuilder {
     }
 
     @SuppressWarnings("ClassCanBeRecord")
-    @MethodsReturnNonnullByDefault
     public static class Result implements FinishedRecipe {
 
         private final ResourceLocation id;

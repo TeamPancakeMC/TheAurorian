@@ -1,8 +1,10 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.client.gui.AlchemyTableScreen;
 import cn.teampancake.theaurorian.client.gui.MoonlightForgeScreen;
 import cn.teampancake.theaurorian.client.gui.ScrapperScreen;
+import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import cn.teampancake.theaurorian.client.inventory.MoonlightForgeMenu;
 import cn.teampancake.theaurorian.client.inventory.ScrapperMenu;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -24,6 +26,7 @@ public class TAMenuTypes {
 
     public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, AurorianMod.MOD_ID);
     public static final RegistryObject<MenuType<MoonlightForgeMenu>> MOONLIGHT_FORGE_MENU = register(MoonlightForgeMenu::new, "moonlight_forge");
+    public static final RegistryObject<MenuType<AlchemyTableMenu>> ALCHEMY_TABLE_MENU = register(AlchemyTableMenu::new, "alchemy_table");
     public static final RegistryObject<MenuType<ScrapperMenu>> SCRAPPER_MENU = register(ScrapperMenu::new, "scrapper");
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(IContainerFactory<T> factory, String name) {
@@ -34,6 +37,7 @@ public class TAMenuTypes {
     @SubscribeEvent
     public static void registerScreen(FMLClientSetupEvent event) {
         MenuScreens.register(MOONLIGHT_FORGE_MENU.get(), MoonlightForgeScreen::new);
+        MenuScreens.register(ALCHEMY_TABLE_MENU.get(), AlchemyTableScreen::new);
         MenuScreens.register(SCRAPPER_MENU.get(), ScrapperScreen::new);
     }
 

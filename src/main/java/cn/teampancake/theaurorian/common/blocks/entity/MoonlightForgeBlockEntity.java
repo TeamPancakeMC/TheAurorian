@@ -39,6 +39,7 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
     public MoonlightForgeBlockEntity(BlockPos pos, BlockState blockState) {
         super(TABlockEntityTypes.MOONLIGHT_FORGE.get(), pos, blockState);
         this.quickCheck = RecipeManager.createCheck(TARecipes.MOONLIGHT_FORGE_RECIPE.get());
+        this.handler = new SimpleContainerBlockEntity.Handler(3);
     }
 
     @SuppressWarnings("unused")

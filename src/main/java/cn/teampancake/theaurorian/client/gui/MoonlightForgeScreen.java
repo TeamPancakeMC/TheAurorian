@@ -13,11 +13,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-@ParametersAreNonnullByDefault
 public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForgeMenu> {
 
     private static final ResourceLocation CONTAINER_LOCATION = AurorianMod.prefix("textures/gui/moonlight_forge.png");
@@ -47,7 +45,7 @@ public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForge
                 s += "redstone";
             } else if (!blockEntity.hasMoonLight) {
                 s += "no_moonlight";
-            }else {
+            } else {
                 s += "has_moonlight";
             }
 

@@ -12,10 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 @OnlyIn(Dist.CLIENT)
-@ParametersAreNonnullByDefault
 public class ScrapperScreen extends AbstractContainerScreen<ScrapperMenu> {
 
     private static final ResourceLocation CONTAINER_LOCATION = AurorianMod.prefix("textures/gui/scrapper.png");

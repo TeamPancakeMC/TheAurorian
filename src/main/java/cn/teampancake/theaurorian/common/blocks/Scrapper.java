@@ -44,6 +44,7 @@ public class Scrapper extends BaseEntityBlockWithState {
                 NetworkHooks.openScreen(serverPlayer, blockEntity, pos);
             }
         }
+
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
 

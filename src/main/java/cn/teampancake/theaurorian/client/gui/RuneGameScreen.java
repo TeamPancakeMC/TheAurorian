@@ -10,9 +10,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Arrays;
 
+@OnlyIn(Dist.CLIENT)
 public class RuneGameScreen extends Screen {
     private static final ResourceLocation BACKGROUND = AurorianMod.prefix("textures/gui/rune/card_slots_bg.png");
     private static final ResourceLocation SLOTS = AurorianMod.prefix("textures/gui/rune/card_slots.png");

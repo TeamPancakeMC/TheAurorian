@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.data.datagen.provider;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.blocks.base.*;
+import cn.teampancake.theaurorian.common.data.datagen.recipes.AlchemyTableRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.recipes.MoonlightForgeRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.recipes.ScrapperRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
@@ -244,6 +245,11 @@ public class TARecipeProvider extends RecipeProvider {
         forging(consumer, TAItems.AURORIAN_STEEL_PICKAXE.get(), TAItems.TROPHY_MOON_QUEEN.get(), TAItems.QUEENS_CHIPPER.get());
         forging(consumer, TAItems.MOONSTONE_SHIELD.get(), TAItems.TROPHY_MOON_QUEEN.get(), TAItems.MOON_SHIELD.get());
         forging(consumer, TAItems.SILENT_WOOD_BOW.get(), TAItems.TROPHY_KEEPER.get(), TAItems.KEEPERS_BOW.get());
+        //Alchemy Recipes
+        alchemy(consumer, TAItems.LAVENDER.get(), TABlocks.PETUNIA_PLANT.get(), TABlocks.ICE_CALENDULA.get(), Items.POTION,
+                TAItems.AURORIAN_SPECIALTY_DRINK.get(), 1, 1, 1, 1, 140);
+        alchemy(consumer, TAItems.LAVENDER.get(), TAItems.BLUEBERRY.get(), TABlocks.ICE_CALENDULA.get(), Items.POTION,
+                TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK.get(), 1, 1, 1, 1, 140);
         //Scrapper Recipes For Mod
         scrapping(consumer, TAItems.UMBRA_SWORD.get(), TAItems.UMBRA_SCRAP.get(), 4);
         scrapping(consumer, TAItems.UMBRA_PICKAXE.get(), TAItems.UMBRA_SCRAP.get(), 6);
@@ -433,12 +439,19 @@ public class TARecipeProvider extends RecipeProvider {
         }
     }
 
-    private static void forging(Consumer<FinishedRecipe> consumer, ItemLike equipment, ItemLike upgradeMaterial, ItemLike result) {
+    public static void forging(Consumer<FinishedRecipe> consumer, ItemLike equipment, ItemLike upgradeMaterial, ItemLike result) {
         MoonlightForgeRecipeBuilder.addRecipe(equipment, upgradeMaterial, result).unlockedBy(getHasName(upgradeMaterial), has(upgradeMaterial))
                 .save(consumer, AurorianMod.prefix("forge_" + getItemName(equipment) + "_to_" + getItemName(result)));
     }
-    
-    private static void scrapping(Consumer<FinishedRecipe> consumer, ItemLike ingredient, ItemLike result, int amount) {
+
+    public static void alchemy(
+            Consumer<FinishedRecipe> consumer, ItemLike input1, ItemLike input2, ItemLike input3, ItemLike material,
+            Item result, int input1Amount, int input2Amount, int input3Amount, int resultAmount, int alchemyTime) {
+        AlchemyTableRecipeBuilder.addRecipe(input1, input2, input3, material, result, input1Amount, input2Amount, input3Amount, resultAmount, alchemyTime)
+                .unlockedBy(getHasName(input1), has(input1)).save(consumer, AurorianMod.prefix("alchemy_" + getItemName(result)));
+    }
+
+    public static void scrapping(Consumer<FinishedRecipe> consumer, ItemLike ingredient, ItemLike result, int amount) {
         ScrapperRecipeBuilder.addRecipe(ingredient, result, amount).unlockedBy(getHasName(ingredient), has(ingredient))
                 .save(consumer, AurorianMod.prefix("scrap_" + getItemName(ingredient) + "_to_" + getItemName(result)));
     }

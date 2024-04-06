@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -31,10 +32,14 @@ public class AlchemyTableScreen extends AbstractContainerScreen<AlchemyTableMenu
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
-        int k = this.menu.getAlchemyProgress();
+        float k1 = this.menu.getAlchemyTime();
+        float k2 = this.menu.getMaxAlchemyTime();
         PoseStack poseStack = guiGraphics.pose();
         guiGraphics.blit(CONTAINER_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
-        guiGraphics.blit(CONTAINER_LOCATION, i + 109, j + 34, 176, 0, 30, 42);
+        poseStack.pushPose();
+        int v = Mth.floor(42 * (k1 / k2));
+        guiGraphics.blit(CONTAINER_LOCATION, i + 109, j + 34, 176, 42 - v, 30, v);
+        poseStack.popPose();
     }
 
 }

@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
 
     private int alchemyTime;
+    private int maxAlchemyTime;
     private final ContainerData containerData = new Data();
     private final RecipeManager.CachedCheck<Container, ? extends AlchemyTableRecipe> quickCheck;
 
@@ -43,15 +44,19 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
             NonNullList<ItemStack> inventory = blockEntity.handler.getStacks();
             AlchemyTableRecipe recipe = t == 4 ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
             if (blockEntity.canWork(level.registryAccess(), recipe, inventory, blockEntity.getMaxStackSize()) && recipe != null) {
+                blockEntity.maxAlchemyTime = recipe.alchemyTime;
                 blockEntity.alchemyTime++;
                 setChanged(level, pos, state);
                 if (blockEntity.alchemyTime > recipe.alchemyTime) {
-                    blockEntity.startWork(level.registryAccess(), recipe, inventory, blockEntity.getMaxStackSize());
+                    blockEntity.startWork(level.registryAccess(), recipe,
+                            inventory, blockEntity.getMaxStackSize());
+                    blockEntity.maxAlchemyTime = 0;
                     blockEntity.alchemyTime = 0;
                     recipe.getInputAndAmount().forEach(ItemStack::shrink);
                     setChanged(level, pos, state);
                 }
             } else {
+                blockEntity.maxAlchemyTime = 0;
                 blockEntity.alchemyTime = 0;
                 setChanged(level, pos, state);
             }
@@ -109,12 +114,14 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
     public void load(CompoundTag tag) {
         super.load(tag);
         this.alchemyTime = tag.getInt("AlchemyTime");
+        this.maxAlchemyTime = tag.getInt("MaxAlchemyTime");
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.putInt("AlchemyTime", this.alchemyTime);
+        tag.putInt("MaxAlchemyTime", this.maxAlchemyTime);
     }
 
     @Override
@@ -128,6 +135,8 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
         public int get(int index) {
             if (index == 0) {
                 return alchemyTime;
+            } else if (index == 1) {
+                return maxAlchemyTime;
             } else {
                 return 0;
             }
@@ -137,12 +146,14 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
         public void set(int index, int value) {
             if (index == 0) {
                 alchemyTime = value;
+            } else if (index == 1) {
+                maxAlchemyTime = value;
             }
         }
 
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
 
     }

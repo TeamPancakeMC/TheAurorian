@@ -36,8 +36,12 @@ public class AlchemyTableMenu extends AbstractSimpleMenu {
         this.addDataSlots(containerData);
     }
 
-    public int getAlchemyProgress() {
+    public int getAlchemyTime() {
         return this.containerData.get(0);
+    }
+
+    public int getMaxAlchemyTime() {
+        return this.containerData.get(1);
     }
 
     @Override

@@ -10,7 +10,9 @@
   "input3": {
     "item": "theaurorian:ice_calendula"
   },
-  "material": "minecraft:potion",
+  "material": {
+    "item": "minecraft:potion"
+  },
   "result": {
     "item": "theaurorian:aurorian_specialty_drink"
   }

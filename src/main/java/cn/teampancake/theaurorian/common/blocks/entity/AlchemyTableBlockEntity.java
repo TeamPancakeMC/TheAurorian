@@ -18,15 +18,15 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
 
     private int alchemyTime;
     private int maxAlchemyTime;
     private final ContainerData containerData = new Data();
-    private final RecipeManager.CachedCheck<Container, ? extends AlchemyTableRecipe> quickCheck;
+    private final RecipeManager.CachedCheck<AlchemyTableBlockEntity, ? extends AlchemyTableRecipe> quickCheck;
 
     public AlchemyTableBlockEntity(BlockPos pos, BlockState blockState) {
         super(TABlockEntityTypes.ALCHEMY_TABLE.get(), pos, blockState);
@@ -36,25 +36,9 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, AlchemyTableBlockEntity blockEntity) {
         if (!level.isClientSide()) {
-            int t = 0;
-            for (int i = 0; i < 4; i++) {
-                t += blockEntity.handler.getStackInSlot(i).isEmpty() ? 0 : 1;
-            }
-
-            NonNullList<ItemStack> inventory = blockEntity.handler.getStacks();
-            AlchemyTableRecipe recipe = t == 4 ? blockEntity.quickCheck.getRecipeFor(blockEntity, level).orElse(null) : null;
-            if (blockEntity.canWork(level.registryAccess(), recipe, inventory, blockEntity.getMaxStackSize()) && recipe != null) {
-                blockEntity.maxAlchemyTime = recipe.alchemyTime;
-                blockEntity.alchemyTime++;
-                setChanged(level, pos, state);
-                if (blockEntity.alchemyTime > recipe.alchemyTime) {
-                    blockEntity.startWork(level.registryAccess(), recipe,
-                            inventory, blockEntity.getMaxStackSize());
-                    blockEntity.maxAlchemyTime = 0;
-                    blockEntity.alchemyTime = 0;
-                    recipe.getInputAndAmount().forEach(ItemStack::shrink);
-                    setChanged(level, pos, state);
-                }
+            var recipe = blockEntity.checkBrewRecipe();
+            if (recipe!=null) {
+                blockEntity.brew(recipe,pos,state);
             } else {
                 blockEntity.maxAlchemyTime = 0;
                 blockEntity.alchemyTime = 0;
@@ -63,46 +47,21 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
         }
     }
 
-    protected void startWork(RegistryAccess registryAccess, @Nullable Recipe<Container> recipe, NonNullList<ItemStack> inventory, int maxStackSize) {
-        if (recipe instanceof AlchemyTableRecipe alchemyRecipe && this.canWork(registryAccess, alchemyRecipe, inventory, maxStackSize)) {
-            ItemStack copyOfResultStack = alchemyRecipe.assemble(this, registryAccess);
-            ItemStack resultStack = inventory.get(4);
-            if (resultStack.isEmpty()) {
-                inventory.set(4, copyOfResultStack.copy());
-            } else if (resultStack.is(copyOfResultStack.getItem())) {
-                resultStack.grow(copyOfResultStack.getCount());
-            }
-
-            alchemyRecipe.getInputAndAmount().forEach(ItemStack::shrink);
+    protected void brew(AlchemyTableRecipe recipe, BlockPos pos, BlockState state) {
+        this.maxAlchemyTime = recipe.alchemyTime;
+        this.alchemyTime++;
+        if (this.alchemyTime > recipe.alchemyTime) {
+            this.handler.insertItem(4,recipe.assemble(this, level.registryAccess()),false);
+            recipe.consumeIngredients(this);
+            this.maxAlchemyTime = 0;
+            this.alchemyTime = 0;
         }
+        setChanged(level, pos, state);
     }
 
-    protected boolean canWork(RegistryAccess registryAccess, @Nullable Recipe<Container> recipe, NonNullList<ItemStack> inventory, int maxStackSize) {
-        int t = 0;
-        for (int i = 0; i < 4; i++) {
-            t += inventory.get(i).isEmpty() ? 0 : 1;
-        }
-
-        if (t == 4 && recipe != null) {
-            ItemStack copyOfResultStack = recipe.assemble(this, registryAccess);
-            if (copyOfResultStack.isEmpty()) {
-                return false;
-            } else {
-                ItemStack resultStack = inventory.get(4);
-                int stackCount = resultStack.getCount() + copyOfResultStack.getCount();
-                if (resultStack.isEmpty()) {
-                    return true;
-                } else if (!ItemStack.isSameItem(resultStack, copyOfResultStack)) {
-                    return false;
-                } else if (stackCount < maxStackSize && stackCount <= resultStack.getMaxStackSize()) {
-                    return true;
-                } else {
-                    return stackCount <= copyOfResultStack.getMaxStackSize();
-                }
-            }
-        } else {
-            return false;
-        }
+    @Nullable
+    protected AlchemyTableRecipe checkBrewRecipe() {
+        return this.quickCheck.getRecipeFor(this,this.level).orElse(null);
     }
 
     @Override

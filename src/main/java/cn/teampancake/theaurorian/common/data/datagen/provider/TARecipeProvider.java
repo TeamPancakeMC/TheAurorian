@@ -17,6 +17,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -247,9 +248,9 @@ public class TARecipeProvider extends RecipeProvider {
         forging(consumer, TAItems.SILENT_WOOD_BOW.get(), TAItems.TROPHY_KEEPER.get(), TAItems.KEEPERS_BOW.get());
         //Alchemy Recipes
         alchemy(consumer, TAItems.LAVENDER.get(), TABlocks.PETUNIA_PLANT.get(), TABlocks.ICE_CALENDULA.get(), Items.POTION,
-                TAItems.AURORIAN_SPECIALTY_DRINK.get(), 1, 1, 1, 1, 140);
+                TAItems.AURORIAN_SPECIALTY_DRINK.get().getDefaultInstance(), 140);
         alchemy(consumer, TAItems.LAVENDER.get(), TAItems.BLUEBERRY.get(), TABlocks.ICE_CALENDULA.get(), Items.POTION,
-                TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK.get(), 1, 1, 1, 1, 140);
+                TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK.get().getDefaultInstance(), 140);
         //Scrapper Recipes For Mod
         scrapping(consumer, TAItems.UMBRA_SWORD.get(), TAItems.UMBRA_SCRAP.get(), 4);
         scrapping(consumer, TAItems.UMBRA_PICKAXE.get(), TAItems.UMBRA_SCRAP.get(), 6);
@@ -446,9 +447,9 @@ public class TARecipeProvider extends RecipeProvider {
 
     public static void alchemy(
             Consumer<FinishedRecipe> consumer, ItemLike input1, ItemLike input2, ItemLike input3, ItemLike material,
-            Item result, int input1Amount, int input2Amount, int input3Amount, int resultAmount, int alchemyTime) {
-        AlchemyTableRecipeBuilder.addRecipe(input1, input2, input3, material, result, input1Amount, input2Amount, input3Amount, resultAmount, alchemyTime)
-                .unlockedBy(getHasName(input1), has(input1)).save(consumer, AurorianMod.prefix("alchemy_" + getItemName(result)));
+            ItemStack result, int alchemyTime) {
+        AlchemyTableRecipeBuilder.addRecipe(Ingredient.of(input1), Ingredient.of(input2), Ingredient.of(input3), Ingredient.of(material), result, alchemyTime)
+                .unlockedBy(getHasName(input1), has(input1)).save(consumer, AurorianMod.prefix("alchemy_" + getItemName(result.getItem())));
     }
 
     public static void scrapping(Consumer<FinishedRecipe> consumer, ItemLike ingredient, ItemLike result, int amount) {

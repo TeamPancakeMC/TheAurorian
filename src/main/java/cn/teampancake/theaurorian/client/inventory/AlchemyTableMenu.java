@@ -30,8 +30,8 @@ public class AlchemyTableMenu extends AbstractSimpleMenu {
             this.addSlot(new SlotItemHandler(itemHandler, 0, 20, 16));
             this.addSlot(new SlotItemHandler(itemHandler, 1, 44, 16));
             this.addSlot(new SlotItemHandler(itemHandler, 2, 69, 16));
-            this.addSlot(new SlotItemHandler(itemHandler, 3, 89, 42));
-            this.addSlot(new TAResultSlot(itemHandler, 4, 137, 16));
+            this.addSlot(new SlotItemHandler(itemHandler, 3, 137, 16));
+            this.addSlot(new TAResultSlot(itemHandler, 4, 89, 42));
         });
         this.addDataSlots(containerData);
     }

@@ -1,14 +1,18 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
 import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
+import cn.teampancake.theaurorian.common.blocks.AlchemyTable;
+import cn.teampancake.theaurorian.common.blocks.state.properties.AlchemyTablePart;
 import cn.teampancake.theaurorian.common.items.crafting.AlchemyTableRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TARecipes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -18,6 +22,10 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -115,6 +123,23 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
             return 2;
         }
 
+    }
+
+    @NotNull @Override
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        var state = level.getBlockState(getBlockPos());
+        AlchemyTablePart part = state.getValue(AlchemyTable.PART);
+        if (part == AlchemyTablePart.LEFT) {
+            BlockPos relative = getBlockPos().relative(AlchemyTable.getNeighbourDirection(part, state.getValue(AlchemyTable.FACING)));
+            BlockState relativeState = level.getBlockState(relative);
+            if (relativeState.is(state.getBlock()) && relativeState.getValue(AlchemyTable.PART) == AlchemyTablePart.RIGHT && level.getBlockEntity(relative) instanceof AlchemyTableBlockEntity blockEntity2) {
+                return blockEntity2.getCapability(cap,side);
+            }
+        }
+        if (side != null && cap == ForgeCapabilities.ITEM_HANDLER) {
+            return this.lazyOptional.cast();
+        }
+        return super.getCapability(cap, side);
     }
 
 }

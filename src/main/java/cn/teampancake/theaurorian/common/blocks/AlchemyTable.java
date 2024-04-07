@@ -6,9 +6,7 @@ import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -19,6 +17,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -27,6 +26,8 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 @SuppressWarnings("deprecation")
 public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBlock {
@@ -46,9 +47,21 @@ public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBl
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof AlchemyTableBlockEntity blockEntity) {
-            if (player instanceof ServerPlayer serverPlayer) {
-                NetworkHooks.openScreen(serverPlayer, blockEntity, pos);
+            AlchemyTablePart part = state.getValue(PART);
+            if (part == AlchemyTablePart.LEFT) {
+                BlockPos relative = pos.relative(getNeighbourDirection(part, state.getValue(FACING)));
+                BlockState relativeState = level.getBlockState(relative);
+                if (relativeState.is(this) && relativeState.getValue(PART) == AlchemyTablePart.RIGHT && level.getBlockEntity(relative) instanceof AlchemyTableBlockEntity blockEntity2) {
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        NetworkHooks.openScreen(serverPlayer, blockEntity2, relative);
+                    }
+                }
+            } else {
+                if (player instanceof ServerPlayer serverPlayer) {
+                    NetworkHooks.openScreen(serverPlayer, blockEntity, pos);
+                }
             }
+
         }
 
         return InteractionResult.sidedSuccess(level.isClientSide());
@@ -75,7 +88,7 @@ public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBl
         }
     }
 
-    private static Direction getNeighbourDirection(AlchemyTablePart part, Direction direction) {
+    public static Direction getNeighbourDirection(AlchemyTablePart part, Direction direction) {
         return part == AlchemyTablePart.LEFT ? direction.getClockWise() : direction.getCounterClockWise();
     }
 
@@ -142,7 +155,9 @@ public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBl
 
     @Nullable @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return BaseEntityBlock.createTickerHelper(blockEntityType, TABlockEntityTypes.ALCHEMY_TABLE.get(), AlchemyTableBlockEntity::serverTick);
+        AlchemyTablePart part = state.getValue(PART);
+        if (part == AlchemyTablePart.LEFT) return null;
+        return level.isClientSide() ? null: BaseEntityBlock.createTickerHelper(blockEntityType, TABlockEntityTypes.ALCHEMY_TABLE.get(), AlchemyTableBlockEntity::serverTick);
     }
 
 }

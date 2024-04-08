@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -132,6 +133,11 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
 	public Packet<ClientGamePacketListener> getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
+
+    @Override
+    protected Component getDefaultName() {
+        return Component.empty();
+    }
 
 	@Override
 	public void load(CompoundTag tag) {

@@ -38,7 +38,8 @@ public class AlchemyTableScreen extends AbstractContainerScreen<AlchemyTableMenu
         guiGraphics.blit(CONTAINER_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
         poseStack.pushPose();
         int v = Mth.floor(42 * (k1 / k2));
-        guiGraphics.blit(CONTAINER_LOCATION, i + 109, j + 34, 176, 42 - v, 30, v);
+        int y = this.height - j - 90 - v;
+        guiGraphics.blit(CONTAINER_LOCATION, i + 109, y, 176, 42 - v, 30, v);
         poseStack.popPose();
     }
 

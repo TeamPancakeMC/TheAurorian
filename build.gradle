@@ -191,14 +191,13 @@ tasks.named('jar', Jar).configure {
     // This is the preferred method to reobfuscate your jar file
     finalizedBy 'reobfJar'
 }
-def commitHash = 'git rev-parse HEAD'.execute().text.trim()
 
 publishing {
     publications {
         register("mavenJava", MavenPublication.class) {
             groupId = group
             artifactId = mod_id
-            version = "${mod_version}-" + commitHash?.substring(0, 8)+"-SNAPSHOT"
+            version = "${mod_version}-SNAPSHOT"
             from components.java
         }
     }

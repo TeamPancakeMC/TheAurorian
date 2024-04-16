@@ -46,7 +46,7 @@ public class TADimensions {
     public static void bootstrapType(BootstapContext<DimensionType> context) {
         DimensionType dimensionType = new DimensionType(OptionalLong.empty(), Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, 1.0D,
                 Boolean.TRUE, Boolean.FALSE, -64, 384, 384, BlockTags.INFINIBURN_OVERWORLD, AurorianMod.prefix("aurorian"), 0.0F,
-                new DimensionType.MonsterSettings(Boolean.FALSE, Boolean.TRUE, UniformInt.of(ConstantInt.ZERO.getValue(), 7), ConstantInt.ZERO.getValue()));
+                new DimensionType.MonsterSettings(Boolean.FALSE, Boolean.FALSE, UniformInt.of(ConstantInt.ZERO.getValue(), 7), ConstantInt.ZERO.getValue()));
         context.register(AURORIAN_DIMENSION_TYPE, dimensionType);
     }
 

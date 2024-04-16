@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "theaurorian:aurorian_village",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 1145141919,
+    "spacing": 20,
+    "separation": 6,
+    "type": "minecraft:random_spread"
+  }
+}

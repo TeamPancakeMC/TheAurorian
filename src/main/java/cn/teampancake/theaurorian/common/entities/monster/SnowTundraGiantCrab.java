@@ -189,6 +189,11 @@ public class SnowTundraGiantCrab extends TAMonster implements GeoEntity, Neutral
         this.persistentAngerTarget = target;
     }
 
+    @Override
+    public int getMaxSpawnClusterSize() {
+        return 1;
+    }
+
     @Nullable @Override
     public UUID getPersistentAngerTarget() {
         return this.persistentAngerTarget;

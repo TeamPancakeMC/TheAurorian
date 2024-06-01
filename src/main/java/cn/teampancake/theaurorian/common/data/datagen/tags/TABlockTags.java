@@ -19,8 +19,11 @@ public class TABlockTags {
     public static final TagKey<Block> CURSED_FROST_TREE_LOGS = create("cursed_frost_tree_logs");
     public static final TagKey<Block> AURORIAN_PLANKS = create("aurorian_planks");
     public static final TagKey<Block> AURORIAN_GRASS_BLOCK = create("aurorian_grass_block");
+    public static final TagKey<Block> AURORIAN_SAND_BLOCK = create("aurorian_sand_block");
     public static final TagKey<Block> AURORIAN_CARVER_REPLACEABLES = create("aurorian_carver_replaceables");
     public static final TagKey<Block> AUROTIAN_ANIMAL_UNSPAWNABLE_ON = create("aurotian_animal_unspawnable_on");
+    public static final TagKey<Block> AURORIAN_LIGHT_PLANT_MAY_PLACE_ON = create("aurorian_light_plant_may_place_on");
+
 
     private static TagKey<Block> create(String name) {
         return BlockTags.create(AurorianMod.prefix(name));

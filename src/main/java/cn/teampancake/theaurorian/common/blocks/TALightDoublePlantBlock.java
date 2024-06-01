@@ -1,5 +1,8 @@
 package cn.teampancake.theaurorian.common.blocks;
 
+import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,6 +23,11 @@ public class TALightDoublePlantBlock extends DoublePlantBlock implements IRivers
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HALF, LEVEL);
+    }
+
+    @Override
+    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+        return pState.is(TABlockTags.AURORIAN_LIGHT_PLANT_MAY_PLACE_ON);
     }
 
 }

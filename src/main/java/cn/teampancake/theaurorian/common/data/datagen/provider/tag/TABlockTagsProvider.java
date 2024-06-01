@@ -67,6 +67,8 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(TABlockTags.AURORIAN_GRASS_BLOCK).add(TABlocks.AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(), TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get(),
                 TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
+        this.tag(TABlockTags.AURORIAN_SAND_BLOCK).add(TABlocks.MOON_SAND.get());
+        this.tag(TABlockTags.AURORIAN_LIGHT_PLANT_MAY_PLACE_ON).add(TABlocks.MOON_SAND.get());
         this.tag(BlockTags.PLANKS).addTag(TABlockTags.AURORIAN_PLANKS);
         this.tag(BlockTags.LEAVES).add(TABlocks.SILENT_TREE_LEAVES.get(), TABlocks.WEEPING_WILLOW_LEAVES.get(),
                 TABlocks.CURTAIN_TREE_LEAVES.get(), TABlocks.CURSED_FROST_TREE_LEAVES.get());

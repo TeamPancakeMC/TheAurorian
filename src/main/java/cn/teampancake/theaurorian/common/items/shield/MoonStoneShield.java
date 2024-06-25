@@ -1,5 +1,7 @@
 package cn.teampancake.theaurorian.common.items.shield;
 
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
@@ -15,10 +17,14 @@ public class MoonStoneShield extends ShieldItem {
     public static void onShieldBlock(ShieldBlockEvent event) {
         Level level = event.getEntity().level();
         boolean bool = level.random.nextInt(100) < 50;
-        if (level.isNight() && bool) {
-            event.setCanceled(true);
+        LivingEntity entity = event.getEntity();
+        ItemStack offhandItem = entity.getOffhandItem();
+        if (offhandItem.getItem() instanceof MoonStoneShield) {
+            if (level.isNight() && bool) {
+                event.setCanceled(true);
+            }
+            event.setBlockedDamage(event.getBlockedDamage() * 0.5f);
         }
-        event.setBlockedDamage(event.getBlockedDamage() * 0.5f);
     }
 
 }

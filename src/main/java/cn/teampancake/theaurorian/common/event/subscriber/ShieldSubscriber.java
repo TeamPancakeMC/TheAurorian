@@ -51,7 +51,7 @@ public class ShieldSubscriber {
         }
     }
 
-    //进入维度添加护盾上限
+    //Raise the upper limit when enter the dimension.
     @SubscribeEvent
     public static void onEntityTravelToDimension(EntityTravelToDimensionEvent event) {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
@@ -88,7 +88,7 @@ public class ShieldSubscriber {
         }
     }
 
-    //穿戴装备时更改护盾上限
+    //Update when change equipment
     @SubscribeEvent
     public static void onLivingEquipmentChange(LivingEquipmentChangeEvent event) {
         ResourceLocation keyFrom = ForgeRegistries.ITEMS.getKey(event.getFrom().getItem());
@@ -97,7 +97,7 @@ public class ShieldSubscriber {
         addMaxShield(MaxShieldLoader.Armor,event.getEntity(),keyTO,"armor");
     }
 
-    //根据Buff修改护盾上限
+    //Update based on effect
     @SubscribeEvent
     public static void onMobEffect(MobEffectEvent.Added event) {
         ResourceLocation key = ForgeRegistries.MOB_EFFECTS.getKey(event.getEffectInstance().getEffect());
@@ -112,7 +112,6 @@ public class ShieldSubscriber {
         }
     }
 
-    //增加护盾上限
     private static boolean addMaxShield(Map<ResourceLocation, Map<ResourceLocation,Integer>> map, LivingEntity livingEntity, ResourceLocation location, String type) {
         final boolean[] flag = {false};
         map.forEach((shieldLocation, maxShieldMap) -> ShieldCap.getCapability(livingEntity).ifPresent(cap -> {
@@ -129,7 +128,6 @@ public class ShieldSubscriber {
         return flag[0];
     }
 
-    //减少护盾上限
     private static void reduceMaxShield(Map<ResourceLocation, Map<ResourceLocation,Integer>> map, LivingEntity livingEntity, ResourceLocation location, String type) {
         final boolean[] flag = {false};
         map.forEach((shieldLocation, maxShieldMap) -> ShieldCap.getCapability(livingEntity).ifPresent(cap -> {
@@ -145,7 +143,7 @@ public class ShieldSubscriber {
         }));
     }
 
-    //护盾抵消伤害
+    //reduce damage through shield
     @SubscribeEvent
     public static void onLivingDamage(LivingDamageEvent event) {
         LivingEntity entity = event.getEntity();
@@ -160,7 +158,7 @@ public class ShieldSubscriber {
         });
     }
 
-    //临时护盾Buff结束时移除临时护盾
+    //remove temp shield after time over
     @SubscribeEvent
     public static void onTempShieldEffectExpired(MobEffectEvent.Expired event) {
         MobEffect effect = event.getEffectInstance().getEffect();
@@ -176,7 +174,7 @@ public class ShieldSubscriber {
         }
     }
 
-    //极光护盾免疫眩晕
+    //immune to stun if having aurorian shield
     @SubscribeEvent
     public static void onMobEffect(MobEffectEvent.Applicable event) {
         LivingEntity entity = event.getEntity();

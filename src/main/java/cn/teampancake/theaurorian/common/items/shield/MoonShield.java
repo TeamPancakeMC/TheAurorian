@@ -16,8 +16,6 @@ public class MoonShield extends ShieldItem implements ITooltipsItem {
                 .rarity(Rarity.EPIC)
                 .defaultDurability(512));
     }
-
-
     @SubscribeEvent
     public static void onShieldBlock(ShieldBlockEvent event) {
         LivingEntity livingEntity = event.getEntity();

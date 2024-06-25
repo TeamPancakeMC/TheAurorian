@@ -21,7 +21,7 @@ public class MoonStoneShield extends ShieldItem {
         ItemStack offhandItem = entity.getOffhandItem();
         if (offhandItem.getItem() instanceof MoonStoneShield) {
             if (level.isNight() && bool) {
-                event.setCanceled(true);
+                return;
             }
             event.setBlockedDamage(event.getBlockedDamage() * 0.5f);
         }

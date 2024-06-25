@@ -755,36 +755,54 @@ public class TALanguageProvider extends LanguageProvider {
         this.addEffect(TAMobEffects.MOON_OF_VENGEANCE, "Moon of Vengeance", "仇月");
 
         //MOD ENCHANTMENT
-        this.add(TAEnchantments.IMPALE.get().getDescriptionId(), "Impale", "刺穿");
-        this.add(TAEnchantments.AURORA.get().getDescriptionId(), "Aurora", "极光");
-        this.add(TAEnchantments.SAVAGE.get().getDescriptionId(), "Savage", "野蛮人");
-        this.add(TAEnchantments.OVERLOAD.get().getDescriptionId(), "Overload", "过载");
-        this.add(TAEnchantments.GUARDIAN.get().getDescriptionId(), "Guardian", "守护者");
-        this.add(TAEnchantments.MOONLIGHT.get().getDescriptionId(), "Moonlight", "月光");
-        this.add(TAEnchantments.SOUL_SLASH.get().getDescriptionId(), "Soul Slash", "灵魂斩击");
-        this.add(TAEnchantments.CLEAR_MIND.get().getDescriptionId(), "Clear Mind", "清晰头脑");
-        this.add(TAEnchantments.WIND_RUNNER.get().getDescriptionId(), "Wind Runner", "风行者");
-        this.add(TAEnchantments.MOLTEN_CORE.get().getDescriptionId(), "Molten Core", "熔火之心");
-        this.add(TAEnchantments.NIGHT_WALKER.get().getDescriptionId(), "Night Walker", "夜行者");
-        this.add(TAEnchantments.REFLECT_AURA.get().getDescriptionId(), "Reflect Aura", "反射光环");
-        this.add(TAEnchantments.AMNESIA_CURSE.get().getDescriptionId(), "Amnesia Curse", "遗忘诅咒");
-        this.add(TAEnchantments.FREEZE_ASPECT.get().getDescriptionId(), "Freeze Aspect", "冰霜附加");
-        this.add(TAEnchantments.SPRING_OF_LIFE.get().getDescriptionId(), "Spring of Life", "生命之泉");
-        this.add(TAEnchantments.EXPERIENCE_ORE.get().getDescriptionId(), "Experience Ore", "经验矿石");
-        this.add(TAEnchantments.LEGENDARY_HERO.get().getDescriptionId(), "Legendary Hero", "传说的勇者");
-        this.add(TAEnchantments.VIRTUALIZATION.get().getDescriptionId(), "Virtualization", "虚化");
-        this.add(TAEnchantments.SOURCE_OF_TERRA.get().getDescriptionId(), "Source of Terra", "大地之源");
-        this.add(TAEnchantments.COBWEB_CROSSING.get().getDescriptionId(), "Cobweb Crossing", "蛛网穿行");
-        this.add(TAEnchantments.ROUNDABOUT_THROW.get().getDescriptionId(), "Roundabout Throw", "回旋投掷");
-        this.add(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId(), "Lightning Damage", "雷电伤害");
-        this.add(TAEnchantments.SUNDER_ARMOR_SLASH.get().getDescriptionId(), "Sunder Armor Slash", "破甲斩击");
-        this.add(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId(), "Lightning Resistance", "雷电抵御");
-        this.add(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId() + ".desc",
-                "Does extra damage depending on how much armor the target is wearing",
-                "根据对方穿戴的护甲数量造成额外伤害");
-        this.add(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId() + ".desc",
-                "Negates damage that would have been done by lightning enchantment",
-                "降低“雷电”魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");
+        this.addEnchantmentDescription(TAEnchantments.IMPALE.get().getDescriptionId(), "Impale", "刺穿",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.AURORA.get().getDescriptionId(), "Aurora", "极光",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.SAVAGE.get().getDescriptionId(), "Savage", "野蛮人",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.OVERLOAD.get().getDescriptionId(), "Overload", "过载",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.GUARDIAN.get().getDescriptionId(), "Guardian", "守护者",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.MOONLIGHT.get().getDescriptionId(), "Moonlight", "月光",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.SOUL_SLASH.get().getDescriptionId(), "Soul Slash", "灵魂斩击",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.CLEAR_MIND.get().getDescriptionId(), "Clear Mind", "清晰头脑",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.WIND_RUNNER.get().getDescriptionId(), "Wind Runner", "风行者",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.MOLTEN_CORE.get().getDescriptionId(), "Molten Core", "熔火之心",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.NIGHT_WALKER.get().getDescriptionId(), "Night Walker", "夜行者",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.REFLECT_AURA.get().getDescriptionId(), "Reflect Aura", "反射光环",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.AMNESIA_CURSE.get().getDescriptionId(), "Amnesia Curse", "遗忘诅咒",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.FREEZE_ASPECT.get().getDescriptionId(), "Freeze Aspect", "冰霜附加",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.SPRING_OF_LIFE.get().getDescriptionId(), "Spring of Life", "生命之泉",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.EXPERIENCE_ORE.get().getDescriptionId(), "Experience Ore", "经验矿石",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.LEGENDARY_HERO.get().getDescriptionId(), "Legendary Hero", "传说的勇者",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.VIRTUALIZATION.get().getDescriptionId(), "Virtualization", "虚化",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.SOURCE_OF_TERRA.get().getDescriptionId(), "Source of Terra", "大地之源",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.COBWEB_CROSSING.get().getDescriptionId(), "Cobweb Crossing", "蛛网穿行",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.ROUNDABOUT_THROW.get().getDescriptionId(), "Roundabout Throw", "回旋投掷",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId(), "Lightning Damage", "雷电伤害",
+                "\"Does extra damage depending on how much armor the target is wearing","根据对方穿戴的护甲数量造成额外伤害");
+        this.addEnchantmentDescription(TAEnchantments.SUNDER_ARMOR_SLASH.get().getDescriptionId(), "Sunder Armor Slash", "破甲斩击",
+                "","");
+        this.addEnchantmentDescription(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId(), "Lightning Resistance", "雷电抵御",
+                "Negates damage that would have been done by lightning enchantment","降低“雷电”魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");
 
         //MOD PAINTING
         this.add(TAPaintingVariants.createDescriptionId(TAPaintingVariants.AURORIAN_STEEL.get()), "Aurorian Steel", "极光钢");
@@ -968,6 +986,11 @@ public class TALanguageProvider extends LanguageProvider {
 
     private void addTooltips(Supplier<Item> key, String en, String cn) {
         this.add("tooltips." + key.get().getDescriptionId(), en, cn);
+    }
+
+    private void addEnchantmentDescription(String key, String en, String cn, String description_en, String description_cn) {
+       this.add(key,en,cn);
+       this.add(key+".desc",description_en,description_cn);
     }
 
     private void add(String key, String en, String cn) {

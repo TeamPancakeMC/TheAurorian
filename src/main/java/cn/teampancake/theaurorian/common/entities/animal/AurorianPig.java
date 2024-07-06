@@ -28,9 +28,11 @@ public class AurorianPig extends Pig {
     }
 
     @Nullable @Override
-    public Pig getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+    public AurorianPig getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         return TAEntityTypes.AURORIAN_PIG.get().create(level);
     }
+
+
 
     @Override
     public boolean isFood(ItemStack stack) {
@@ -47,21 +49,6 @@ public class AurorianPig extends Pig {
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-    }
-
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
-        if (pSpawnData == null) {
-            pSpawnData = new AgeableMobGroupData(true);
-        }
-
-        AgeableMobGroupData $$5 = (AgeableMobGroupData)pSpawnData;
-        if ($$5.isShouldSpawnBaby() && $$5.getGroupSize() > 0 && pLevel.getRandom().nextFloat() <= $$5.getBabySpawnChance()) {
-            this.setAge(-24000);
-        }
-
-        $$5.increaseGroupSizeByOne();
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
     @Override

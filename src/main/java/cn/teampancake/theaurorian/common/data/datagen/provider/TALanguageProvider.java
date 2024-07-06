@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -726,6 +727,11 @@ public class TALanguageProvider extends LanguageProvider {
         this.addEntityType(TAEntityTypes.SPIDER_MOTHER, "Spider Mother", "蛛母");
         this.addEntityType(TAEntityTypes.MOON_QUEEN, "Moon Queen", "皎月女王");
 
+        //MOD FLUID
+        this.addFluidType(TAFluidTypes.MOLTEN_AURORIAN_STEEL,"Molten Aurorian Steel","熔融极光钢");
+        this.addFluidType(TAFluidTypes.MOLTEN_CERULEAN,"Molten Cerulean","熔融晶蓝");
+        this.addFluidType(TAFluidTypes.MOLTEN_MOONSTONE,"Molten Moonstone","熔融极光石");
+        this.addFluidType(TAFluidTypes.MOON_WATER,"Moon Water","皎月水");
         //MOB EFFECT
         this.addEffect(TAMobEffects.WARM, "Warm", "温暖");
         this.addEffect(TAMobEffects.STUN, "Stun", "眩晕");
@@ -755,53 +761,53 @@ public class TALanguageProvider extends LanguageProvider {
         this.addEffect(TAMobEffects.MOON_OF_VENGEANCE, "Moon of Vengeance", "仇月");
 
         //MOD ENCHANTMENT
-        this.addEnchantmentDescription(TAEnchantments.IMPALE.get().getDescriptionId(), "Impale", "刺穿",
+        this.addEnchantment(TAEnchantments.IMPALE.get().getDescriptionId(), "Impale", "刺穿",
                 "The arrow will have a penetrating effect on the target","箭矢会对目标造成穿透效果");
-        this.addEnchantmentDescription(TAEnchantments.AURORA.get().getDescriptionId(), "Aurora", "极光",
+        this.addEnchantment(TAEnchantments.AURORA.get().getDescriptionId(), "Aurora", "极光",
                 "Enchanting the helmet will highlight ores within an eight-block radius","附魔在头盔上，会将八格范围内的矿物进行高亮显示");
-        this.addEnchantmentDescription(TAEnchantments.SAVAGE.get().getDescriptionId(), "Savage", "野蛮人",
+        this.addEnchantment(TAEnchantments.SAVAGE.get().getDescriptionId(), "Savage", "野蛮人",
                 "It deals extra damage to neutral animals and has a chance to drop additional loot","对中立动物额外造成伤害，并一定概率额外掉落战利品");
-        this.addEnchantmentDescription(TAEnchantments.OVERLOAD.get().getDescriptionId(), "Overload", "过载",
-                "","消耗额外的耐久，造成额外的伤害");
-        this.addEnchantmentDescription(TAEnchantments.GUARDIAN.get().getDescriptionId(), "Guardian", "守护者",
+        this.addEnchantment(TAEnchantments.OVERLOAD.get().getDescriptionId(), "Overload", "过载",
+                "Consume additional durability to cause extra damage","消耗额外的耐久，造成额外的伤害");
+        this.addEnchantment(TAEnchantments.GUARDIAN.get().getDescriptionId(), "Guardian", "守护者",
                 "It grants the wearer one chance to resurrect, but the enchanted equipment will disappear","给予佩戴者一次复活的机会，但附魔的装备会消失");
-        this.addEnchantmentDescription(TAEnchantments.MOONLIGHT.get().getDescriptionId(), "Moonlight", "月光",
+        this.addEnchantment(TAEnchantments.MOONLIGHT.get().getDescriptionId(), "Moonlight", "月光",
                 "It will highlight creatures within a 20-block radius of the wearer","会将佩戴者的20格范围内的生物进行高亮显示");
-        this.addEnchantmentDescription(TAEnchantments.SOUL_SLASH.get().getDescriptionId(), "Soul Slash", "灵魂斩击",
+        this.addEnchantment(TAEnchantments.SOUL_SLASH.get().getDescriptionId(), "Soul Slash", "灵魂斩击",
                 "Each attack has a chance to ignore enemy armor","每次攻击，概率无视敌方护甲");
-        this.addEnchantmentDescription(TAEnchantments.CLEAR_MIND.get().getDescriptionId(), "Clear Mind", "清晰头脑",
+        this.addEnchantment(TAEnchantments.CLEAR_MIND.get().getDescriptionId(), "Clear Mind", "清晰头脑",
                 "Players below level 30 will gain additional experience.","玩家等级低于30级，会获得额外经验");
-        this.addEnchantmentDescription(TAEnchantments.WIND_RUNNER.get().getDescriptionId(), "Wind Runner", "风行者",
+        this.addEnchantment(TAEnchantments.WIND_RUNNER.get().getDescriptionId(), "Wind Runner", "风行者",
                 "The wearer's hunger level decreases by half when moving, swimming, jumping, or sprinting.","佩戴者移动，游泳，跳跃，饥饿，疾跑时跳跃，饥饿等级减半");
-        this.addEnchantmentDescription(TAEnchantments.MOLTEN_CORE.get().getDescriptionId(), "Molten Core", "熔火之心",
+        this.addEnchantment(TAEnchantments.MOLTEN_CORE.get().getDescriptionId(), "Molten Core", "熔火之心",
                 "When taking fire or lava damage, it deals additional damage.","受到火焰伤害或熔岩伤害时，会造成额外伤害");
-        this.addEnchantmentDescription(TAEnchantments.NIGHT_WALKER.get().getDescriptionId(), "Night Walker", "夜行者",
+        this.addEnchantment(TAEnchantments.NIGHT_WALKER.get().getDescriptionId(), "Night Walker", "夜行者",
                 "When the light level around the wearer is too low, it deals additional damage.","佩戴者周围光源等级过低时，会造成额外伤害");
-        this.addEnchantmentDescription(TAEnchantments.REFLECT_AURA.get().getDescriptionId(), "Reflect Aura", "反射光环",
+        this.addEnchantment(TAEnchantments.REFLECT_AURA.get().getDescriptionId(), "Reflect Aura", "反射光环",
                 "When the light level around the wearer is too low, it deals additional damage.","佩戴者受到伤害时，会有较低概率将伤害进行返还");
-        this.addEnchantmentDescription(TAEnchantments.AMNESIA_CURSE.get().getDescriptionId(), "Amnesia Curse", "遗忘诅咒",
+        this.addEnchantment(TAEnchantments.AMNESIA_CURSE.get().getDescriptionId(), "Amnesia Curse", "遗忘诅咒",
                 "When the wearer's armor is destroyed, nearby creatures will be inflicted with blindness and weakness effects.","佩戴者的盔甲被摧毁时，周围的生物会被施加失明和虚弱效果");
-        this.addEnchantmentDescription(TAEnchantments.FREEZE_ASPECT.get().getDescriptionId(), "Freeze Aspect", "冰霜附加",
+        this.addEnchantment(TAEnchantments.FREEZE_ASPECT.get().getDescriptionId(), "Freeze Aspect", "冰霜附加",
                 "When dealing damage, it inflicts a continuous armor-piercing freezing effect.","造成伤害时，会造成持续的无视盔甲的冰冻效果");
-        this.addEnchantmentDescription(TAEnchantments.SPRING_OF_LIFE.get().getDescriptionId(), "Spring of Life", "生命之泉",
+        this.addEnchantment(TAEnchantments.SPRING_OF_LIFE.get().getDescriptionId(), "Spring of Life", "生命之泉",
                 "When the wearer's health is low, they will continuously regenerate health for a period of time.","佩戴者生命值过低时，会一定时间内持续恢复生命值");
-        this.addEnchantmentDescription(TAEnchantments.EXPERIENCE_ORE.get().getDescriptionId(), "Experience Ore", "经验矿石",
+        this.addEnchantment(TAEnchantments.EXPERIENCE_ORE.get().getDescriptionId(), "Experience Ore", "经验矿石",
                 "When mining ores, there is a chance to gain additional experience.","挖掘矿物时，有一定概率获得额外经验");
-        this.addEnchantmentDescription(TAEnchantments.LEGENDARY_HERO.get().getDescriptionId(), "Legendary Hero", "传说的勇者",
+        this.addEnchantment(TAEnchantments.LEGENDARY_HERO.get().getDescriptionId(), "Legendary Hero", "传说的勇者",
                 "The more villagers and players near the wearer, the higher the increased attack.","佩戴者附近的村民及玩家越多，提升的攻击越高");
-        this.addEnchantmentDescription(TAEnchantments.VIRTUALIZATION.get().getDescriptionId(), "Virtualization", "虚化",
+        this.addEnchantment(TAEnchantments.VIRTUALIZATION.get().getDescriptionId(), "Virtualization", "虚化",
                 "When the wearer takes damage, there is a low chance to be immune to that damage.","佩戴者受到伤害时，较低概率免疫该次伤害");
-        this.addEnchantmentDescription(TAEnchantments.SOURCE_OF_TERRA.get().getDescriptionId(), "Source of Terra", "大地之源",
-                "","将挖掘的掉落物，传送至所绑定的箱子");
-        this.addEnchantmentDescription(TAEnchantments.COBWEB_CROSSING.get().getDescriptionId(), "Cobweb Crossing", "蛛网穿行",
-                "","佩戴者不再受到蛛网的减速效果");
-        this.addEnchantmentDescription(TAEnchantments.ROUNDABOUT_THROW.get().getDescriptionId(), "Roundabout Throw", "回旋投掷",
-                "","允许将该附魔的斧头像回旋镖一样进行投掷");
-        this.addEnchantmentDescription(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId(), "Lightning Damage", "雷电伤害",
-                "\"Does extra damage depending on how much armor the target is wearing","根据对方穿戴的护甲数量造成额外伤害");
-        this.addEnchantmentDescription(TAEnchantments.SUNDER_ARMOR_SLASH.get().getDescriptionId(), "Sunder Armor Slash", "破甲斩击",
-                "","");
-        this.addEnchantmentDescription(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId(), "Lightning Resistance", "雷电抵御",
+        this.addEnchantment(TAEnchantments.SOURCE_OF_TERRA.get().getDescriptionId(), "Source of Terra", "大地之源",
+                "Teleport drop items to the binding chest","将挖掘的掉落物，传送至所绑定的箱子");
+        this.addEnchantment(TAEnchantments.COBWEB_CROSSING.get().getDescriptionId(), "Cobweb Crossing", "蛛网穿行",
+                "Crossing cobweb freely","佩戴者不再受到蛛网的减速效果");
+        this.addEnchantment(TAEnchantments.ROUNDABOUT_THROW.get().getDescriptionId(), "Roundabout Throw", "回旋投掷",
+                "Allow the axe to be throw as boomerang","允许将该附魔的斧头像回旋镖一样进行投掷");
+        this.addEnchantment(TAEnchantments.LIGHTNING_DAMAGE.get().getDescriptionId(), "Lightning Damage", "雷电伤害",
+                "Does extra damage depending on how much armor the target is wearing","根据对方穿戴的护甲数量造成额外伤害");
+        this.addEnchantment(TAEnchantments.SUNDER_ARMOR_SLASH.get().getDescriptionId(), "Sunder Armor Slash", "破甲斩击",
+                "Does extra damage to target wearing armor","对穿戴盔甲的对象造成额外伤害");
+        this.addEnchantment(TAEnchantments.LIGHTNING_RESISTANCE.get().getDescriptionId(), "Lightning Resistance", "雷电抵御",
                 "Negates damage that would have been done by lightning enchantment","降低“雷电”魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");
 
         //MOD PAINTING
@@ -976,6 +982,10 @@ public class TALanguageProvider extends LanguageProvider {
         this.add(key.get().getDescriptionId(), en, cn);
     }
 
+    private void addFluidType(Supplier<? extends FluidType> key, String en, String cn) {
+        this.add(key.get().getDescriptionId(), en, cn);
+    }
+
     private void addEffect(Supplier<? extends MobEffect> key, String en, String cn) {
         this.add(key.get().getDescriptionId(), en, cn);
     }
@@ -988,7 +998,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.add("tooltips." + key.get().getDescriptionId(), en, cn);
     }
 
-    private void addEnchantmentDescription(String key, String en, String cn, String description_en, String description_cn) {
+    private void addEnchantment(String key, String en, String cn, String description_en, String description_cn) {
        this.add(key,en,cn);
        this.add(key+".desc",description_en,description_cn);
     }

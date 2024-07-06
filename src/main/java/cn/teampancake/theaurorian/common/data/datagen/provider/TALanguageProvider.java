@@ -944,7 +944,9 @@ public class TALanguageProvider extends LanguageProvider {
         this.addTooltips(TAItems.CAT_BELL, "It won't change you into a cat girl, but it can make you fast like a cat!", "虽然不会把你变猫娘，但是可以让你像猫一样快！");
         this.addTooltips(TAItems.TSLAT_SWORD, "Nobody know how to make muti-dims mod better than Tslat XD.", "没有人比tslat更懂该怎么做muti-dims mod XD");
 
-
+        this.add("theaurorian.item.locator1","Set to searching RuneStone Dungeon","设置为寻找符石地牢");
+        this.add("theaurorian.item.locator2","Set to searching DarkStone Dungeon","设置为寻找黑石地牢");
+        this.add("theaurorian.item.locator3","Set to searching MoonTemple","设置为寻找月宫");
         this.add("equipment_set.theaurorian.knight_armor_set", "Knight Armor Set", "骑士套装");
     }
 

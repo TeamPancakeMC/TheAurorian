@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.AurorianMod;
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -19,7 +18,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -29,6 +27,8 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.Structure;
+
+import javax.annotation.Nullable;
 
 public class DungeonLocatorItem extends Item implements ITooltipsItem {
 
@@ -41,17 +41,17 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
         ItemStack itemstack = player.getUseItem();
         if (player.isCrouching()) {
             switch (this.getSelectedDungeon(itemstack)) {
-                case "Moontemple" -> {
-                    this.setSelectedDungeon(itemstack, "Runestone");
-                    player.displayClientMessage(Component.translatable("string.theaurorian.item.locator1"), true);
+                case "moontemple" -> {
+                    this.setSelectedDungeon(itemstack, "runestone");
+                    player.displayClientMessage(Component.translatable("theaurorian.item.locator1"), true);
                 }
                 default -> {
-                    this.setSelectedDungeon(itemstack, "Darkstone");
-                    player.displayClientMessage(Component.translatable("string.theaurorian.item.locator2"), true);
+                    this.setSelectedDungeon(itemstack, "darkstone");
+                    player.displayClientMessage(Component.translatable("theaurorian.item.locator2"), true);
                 }
-                case "Darkstone" -> {
-                    this.setSelectedDungeon(itemstack, "Moontemple");
-                    player.displayClientMessage(Component.translatable("string.theaurorian.item.locator3"), true);
+                case "darkstone" -> {
+                    this.setSelectedDungeon(itemstack, "moontemple");
+                    player.displayClientMessage(Component.translatable("theaurorian.item.locator3"), true);
                 }
             }
         } else {
@@ -60,9 +60,15 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
                 String boundStructure = AurorianMod.MOD_ID+":"+getSelectedDungeon(itemstack);
                 ResourceLocation structureLocation = ResourceLocation.tryParse(boundStructure);
                 Registry<Structure> registry = level.registryAccess().registryOrThrow(Registries.STRUCTURE);
-                ResourceKey<Structure> structureKey = ResourceKey.create(Registries.STRUCTURE, structureLocation);
-                HolderSet<Structure> featureHolderSet = registry.getHolder(structureKey).map((holders) -> HolderSet.direct(holders)).orElse(null);
-                dungeon = this.findNearestMapStructure(serverLevel,featureHolderSet, player.getOnPos(), 600, false).getFirst();
+                ResourceKey<Structure> structureKey;
+                if (structureLocation != null) {
+                    structureKey = ResourceKey.create(Registries.STRUCTURE, structureLocation);
+                    HolderSet<Structure> featureHolderSet = registry.getHolder(structureKey).map(HolderSet::direct).orElse(null);
+                    if (featureHolderSet != null) {
+                        Pair<BlockPos, Holder<Structure>> result = this.findNearestMapStructure(serverLevel,featureHolderSet, player.getOnPos(), 600, false);
+                        dungeon = result==null?null:result.getFirst();
+                    }
+                }
             }
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
             if (dungeon != null) {
@@ -108,6 +114,7 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
         return InteractionResultHolder.pass(itemstack);
     }
 
+    @Nullable
     public Pair<BlockPos, Holder<Structure>> findNearestMapStructure(ServerLevel serverLevel, HolderSet<Structure> structureHolderSet, BlockPos pos, int range, boolean findUnexplored) {
         ChunkGenerator generator = serverLevel.getChunkSource().getGenerator();
         Pair<BlockPos, Holder<Structure>> nearest = generator.findNearestMapStructure(serverLevel, structureHolderSet, pos, range, findUnexplored);
@@ -115,16 +122,8 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
         return nearest.getFirst().distManhattan(pos) <= 600 ? nearest : null;
     }
 
-    private CompoundTag getNBT(ItemStack stack) {
-        CompoundTag nbt = new CompoundTag();
-        if (stack.hasTag()) {
-            nbt = stack.getTag();
-        }
-        return nbt;
-    }
-
     private String getSelectedDungeon(ItemStack stack) {
-        String blockname = this.getNBT(stack).getString("dungeon");
+        String blockname = stack.getOrCreateTag().getString("dungeon");
         if (blockname.isEmpty()) {
             return "runestone";
         } else {
@@ -133,7 +132,7 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
     }
 
     private void setSelectedDungeon(ItemStack stack, String dungeon) {
-        CompoundTag nbt = this.getNBT(stack);
+        CompoundTag nbt = stack.getOrCreateTag();
         if (dungeon.isEmpty()) {
             nbt.putString("dungeon", "runestone");
             return;
@@ -142,5 +141,4 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
             nbt.putString("dungeon", dungeon);
         }
     }
-
 }

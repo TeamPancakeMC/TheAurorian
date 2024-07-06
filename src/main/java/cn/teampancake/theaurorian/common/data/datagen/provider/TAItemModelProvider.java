@@ -36,7 +36,6 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleItem(TAItems.CURTAIN_WOOD_SIGN.get());
         this.simpleItem(TAItems.CURSED_FROST_WOOD_SIGN.get());
         this.simpleItem(TAItems.SILENT_WOOD_HANGING_SIGN.get());
-        this.simpleItem(TAItems.SILENT_WOOD_HANGING_SIGN.get());
         this.simpleItem(TAItems.WEEPING_WILLOW_WOOD_HANGING_SIGN.get());
         this.simpleItem(TAItems.CURTAIN_WOOD_HANGING_SIGN.get());
         this.simpleItem(TAItems.CURSED_FROST_WOOD_HANGING_SIGN.get());

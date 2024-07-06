@@ -49,6 +49,7 @@ public class CrystallinePickaxe extends PickaxeItem implements ITooltipsItem {
                     return true;
                 }
             }
+
             stack.hurtAndBreak(1, entityLiving,(player) -> player.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
         return true;

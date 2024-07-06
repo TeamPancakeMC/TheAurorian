@@ -176,10 +176,10 @@ public class EntityEventSubscriber {
             Container container = HopperBlockEntity.getContainerAt(level, pos);
             CompoundTag compoundTag = itemInHand.getOrCreateTag();
             if (container != null && player.isShiftKeyDown()) {
-                compoundTag.putInt("SOT_SelectedX", pos.getX());
-                compoundTag.putInt("SOT_SelectedY", pos.getY());
-                compoundTag.putInt("SOT_SelectedZ", pos.getZ());
-                compoundTag.put("SOT_SelectedContainer", NbtUtils.writeBlockState(state));
+                compoundTag.putInt("SelectedX", pos.getX());
+                compoundTag.putInt("SelectedY", pos.getY());
+                compoundTag.putInt("SelectedZ", pos.getZ());
+                compoundTag.put("SelectedContainer", NbtUtils.writeBlockState(state));
             }
         }
     }

@@ -22,7 +22,7 @@ public class TAMessages {
         INSTANCE.registerMessage(id(), ShieldSyncS2CMessage.class, ShieldSyncS2CMessage::encode, ShieldSyncS2CMessage::decode, ShieldSyncS2CMessage::handle);
         INSTANCE.registerMessage(id(), NightSyncMessage.class, NightSyncMessage::encode, NightSyncMessage::decode, NightSyncMessage::handle);
         INSTANCE.registerMessage(id(), FrostbiteSyncMessage.class, FrostbiteSyncMessage::encode, FrostbiteSyncMessage::decode, FrostbiteSyncMessage::handle);
-        INSTANCE.registerMessage(id(), FutureNightMessage.class,FutureNightMessage::encode,FutureNightMessage::decode,FutureNightMessage::handle);
+        INSTANCE.registerMessage(id(), FutureNightMessage.class, FutureNightMessage::encode,FutureNightMessage::decode,FutureNightMessage::handle);
         INSTANCE.registerMessage(id(), CrystalRuneSetC2SMessage.class, CrystalRuneSetC2SMessage::encode, CrystalRuneSetC2SMessage::decode, CrystalRuneSetC2SMessage::handle);
     }
 

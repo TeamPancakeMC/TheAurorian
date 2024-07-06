@@ -1,14 +1,25 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -16,6 +27,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.structure.Structure;
 
 public class DungeonLocatorItem extends Item implements ITooltipsItem {
 
@@ -43,14 +56,14 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
             }
         } else {
             BlockPos dungeon = null;
-//            if (level instanceof ServerLevel serverLevel) {
-//                //TODO Tagkey<Strucure>
-//                dungeon = switch (this.getSelectedDungeon(itemstack)) {
-//                    case "Moontemple" -> serverLevel.findNearestMapStructure(, player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 4, false);
-//                    default -> serverLevel.findNearestMapStructure(new TagKey<>(), player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 2);
-//                    case "Darkstone" -> serverLevel.findNearestMapStructure(new TagKey<>(), player.getOnPos(), AurorianConfig.CONFIG_DUNGEON_DENSITY.get() * 6);
-//                };
-//            }
+            if (level instanceof ServerLevel serverLevel) {
+                String boundStructure = AurorianMod.MOD_ID+":"+getSelectedDungeon(itemstack);
+                ResourceLocation structureLocation = ResourceLocation.tryParse(boundStructure);
+                Registry<Structure> registry = level.registryAccess().registryOrThrow(Registries.STRUCTURE);
+                ResourceKey<Structure> structureKey = ResourceKey.create(Registries.STRUCTURE, structureLocation);
+                HolderSet<Structure> featureHolderSet = registry.getHolder(structureKey).map((holders) -> HolderSet.direct(holders)).orElse(null);
+                dungeon = this.findNearestMapStructure(serverLevel,featureHolderSet, player.getOnPos(), 600, false).getFirst();
+            }
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
             if (dungeon != null) {
                 double lookx = 0.25D + -Math.sin((float) Math.toRadians(player.yHeadRot)) * Math.cos((float) Math.toRadians(player.getXRot()));
@@ -95,6 +108,13 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
         return InteractionResultHolder.pass(itemstack);
     }
 
+    public Pair<BlockPos, Holder<Structure>> findNearestMapStructure(ServerLevel serverLevel, HolderSet<Structure> structureHolderSet, BlockPos pos, int range, boolean findUnexplored) {
+        ChunkGenerator generator = serverLevel.getChunkSource().getGenerator();
+        Pair<BlockPos, Holder<Structure>> nearest = generator.findNearestMapStructure(serverLevel, structureHolderSet, pos, range, findUnexplored);
+        if (nearest == null) return null;
+        return nearest.getFirst().distManhattan(pos) <= 600 ? nearest : null;
+    }
+
     private CompoundTag getNBT(ItemStack stack) {
         CompoundTag nbt = new CompoundTag();
         if (stack.hasTag()) {
@@ -106,7 +126,7 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
     private String getSelectedDungeon(ItemStack stack) {
         String blockname = this.getNBT(stack).getString("dungeon");
         if (blockname.isEmpty()) {
-            return "Runestone";
+            return "runestone";
         } else {
             return blockname;
         }
@@ -115,7 +135,7 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
     private void setSelectedDungeon(ItemStack stack, String dungeon) {
         CompoundTag nbt = this.getNBT(stack);
         if (dungeon.isEmpty()) {
-            nbt.putString("dungeon", "Runestone");
+            nbt.putString("dungeon", "runestone");
             return;
         }
         if (!dungeon.equals(this.getSelectedDungeon(stack))) {

@@ -22,14 +22,6 @@ public class TAStructures {
 
     public static final ResourceKey<Structure> RUINS_ALTAR = createKey("ruins_altar");
 
-    //Village
-    public static final ResourceKey<Structure> VILLAGE_FOUNTAIN = createKey("village_fountain");
-    public static final ResourceKey<Structure> VILLAGE_HOUSE = createKey("village_house");
-    public static final ResourceKey<Structure> VILLAGE_STALL = createKey("village_stall");
-    public static final ResourceKey<Structure> VILLAGE_STREET_LIGHT = createKey("village_street_light");
-    public static final ResourceKey<Structure> VILLAGE_STREET_SIGN = createKey("village_street_sign");
-    public static final ResourceKey<Structure> WINDMILL = createKey("windmill");
-
     private static ResourceKey<Structure> createKey(String name) {
         return ResourceKey.create(Registries.STRUCTURE, AurorianMod.prefix(name));
     }

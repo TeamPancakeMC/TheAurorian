@@ -35,8 +35,9 @@ public class ItemEventSubscriber {
         ItemStack leftStack = event.getLeft();
         ItemStack rightStack = event.getRight();
         ItemStack copyOfLeftStack = leftStack.copy();
+        int maxDamage = copyOfLeftStack.getMaxDamage();
         if (copyOfLeftStack.isDamageableItem() && rightStack.is(TAItems.BROKEN_OX_HORN.get())) {
-            int l = Math.min(copyOfLeftStack.getDamageValue(), 30);
+            int l = Math.min(copyOfLeftStack.getDamageValue(), maxDamage / 5);
             int i;
             if (l <= 0) {
                 event.setOutput(ItemStack.EMPTY);
@@ -47,9 +48,11 @@ public class ItemEventSubscriber {
             for (i = 0; l > 0 && i < rightStack.getCount(); ++i) {
                 int j = copyOfLeftStack.getDamageValue() - l;
                 copyOfLeftStack.setDamageValue(j);
-                l = Math.min(copyOfLeftStack.getDamageValue(), copyOfLeftStack.getMaxDamage() / 4);
+                l = Math.min(copyOfLeftStack.getDamageValue(), maxDamage / 5);
             }
 
+            event.setCost(10);
+            event.setMaterialCost(1);
             event.setOutput(copyOfLeftStack);
         }
     }
@@ -104,7 +107,7 @@ public class ItemEventSubscriber {
             if (!player.isShiftKeyDown() && !player.onGround()) return;
             player.getArmorSlots().forEach(stack -> {
                 if (stack.is(TAItems.AURORIAN_SLIME_BOOTS.get()) && player.getCooldowns().isOnCooldown(stack.getItem())) {
-                    player.setDeltaMovement(player.getDeltaMovement().x, 0.5, player.getDeltaMovement().z);
+                    player.setDeltaMovement(player.getDeltaMovement().x, 0.5F, player.getDeltaMovement().z);
                     player.getCooldowns().addCooldown(stack.getItem(), 100);
                 }
             });
@@ -115,8 +118,8 @@ public class ItemEventSubscriber {
     public static void onLivingFall(LivingFallEvent event) {
         if (event.getEntity() instanceof Player player) {
             player.getArmorSlots().forEach(stack -> {
-                if (stack.is(TAItems.AURORIAN_SLIME_BOOTS.get()) && event.getDistance() > 3f) {
-                    player.setDeltaMovement(player.getDeltaMovement().x, 0.75, player.getDeltaMovement().z);
+                if (stack.is(TAItems.AURORIAN_SLIME_BOOTS.get()) && event.getDistance() > 3.0F) {
+                    player.setDeltaMovement(player.getDeltaMovement().x, 0.75F, player.getDeltaMovement().z);
                     event.setCanceled(true);
                 }
             });

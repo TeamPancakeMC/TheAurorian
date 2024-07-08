@@ -9,6 +9,9 @@ import net.minecraftforge.registries.RegistryObject;
 public class TASoundEvents {
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, AurorianMod.MOD_ID);
+    public static final RegistryObject<SoundEvent> CRYSTALLINE_SWORD_USE = register("crystalline_sword_use");
+    public static final RegistryObject<SoundEvent> CRYSTALLINE_SWORD_CHARGING = register("crystalline_sword_charging");
+    public static final RegistryObject<SoundEvent> CRYSTALLINE_SWORD_SHOOT = register("crystalline_sword_shoot");
     public static final RegistryObject<SoundEvent> WEEPING_WILLOW_BELL = register("weeping_willow_bell");
     public static final RegistryObject<SoundEvent> BACKGROUND_MUSIC = register("music");
 

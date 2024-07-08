@@ -1,4 +1,19 @@
 {
+  "crystalline_sword_charging": {
+    "sounds": [
+      "theaurorian:crystalline_sword_charging"
+    ]
+  },
+  "crystalline_sword_shoot": {
+    "sounds": [
+      "theaurorian:crystalline_sword_shoot"
+    ]
+  },
+  "crystalline_sword_use": {
+    "sounds": [
+      "theaurorian:crystalline_sword_use"
+    ]
+  },
   "music": {
     "sounds": [
       {

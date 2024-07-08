@@ -15,8 +15,10 @@ public class TASoundProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
-        this.add(TASoundEvents.WEEPING_WILLOW_BELL, definition().with(
-                sound(TASoundEvents.WEEPING_WILLOW_BELL.get().getLocation())));
+        this.add(TASoundEvents.CRYSTALLINE_SWORD_USE, definition().with(sound(TASoundEvents.CRYSTALLINE_SWORD_USE.getId())));
+        this.add(TASoundEvents.CRYSTALLINE_SWORD_CHARGING, definition().with(sound(TASoundEvents.CRYSTALLINE_SWORD_CHARGING.getId())));
+        this.add(TASoundEvents.CRYSTALLINE_SWORD_SHOOT, definition().with(sound(TASoundEvents.CRYSTALLINE_SWORD_SHOOT.getId())));
+        this.add(TASoundEvents.WEEPING_WILLOW_BELL, definition().with(sound(TASoundEvents.WEEPING_WILLOW_BELL.getId())));
         this.add(TASoundEvents.BACKGROUND_MUSIC, definition().with(
                 sound(AurorianMod.prefix("music/aurorian_1"), SoundDefinition.SoundType.SOUND).stream(),
                 sound(AurorianMod.prefix("music/aurorian_2"), SoundDefinition.SoundType.SOUND).stream(),

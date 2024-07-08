@@ -5,11 +5,14 @@ import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import cn.teampancake.theaurorian.common.registry.TASoundEvents;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -38,9 +41,24 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        ItemStack itemstack = player.getItemInHand(usedHand);
+        player.playSound(TASoundEvents.CRYSTALLINE_SWORD_USE.get());
+        ItemStack itemInHand = player.getItemInHand(usedHand);
         player.startUsingItem(usedHand);
-        return InteractionResultHolder.consume(itemstack);
+        return InteractionResultHolder.consume(itemInHand);
+    }
+
+    @Override
+    public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
+        if (remainingUseDuration >= 0 && livingEntity instanceof Player player) {
+            int i = player.getTicksUsingItem();
+            if (i > 60 && player.tickCount % 100 == 0) {
+                player.playSound(TASoundEvents.CRYSTALLINE_SWORD_CHARGING.get());
+            }
+
+            if (!level.isClientSide && i > 120 && player.tickCount % 20 == 0) {
+                player.hurt(level.damageSources().magic(), 3.0F);
+            }
+        }
     }
 
     @Override
@@ -49,17 +67,21 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
             int i = this.getUseDuration(stack) - timeLeft;
             if (i < 10) return;
             Vec3 lookAngle = player.getLookAngle();
-            float pitch = 1.0F / (level.random.nextFloat() * 0.4F + 1.2F) + 0.5F;
-            level.playSound(null, player.getOnPos(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, pitch);
+            if (player instanceof ServerPlayer serverPlayer) {
+                ResourceLocation id = TASoundEvents.CRYSTALLINE_SWORD_CHARGING.getId();
+                serverPlayer.connection.send(new ClientboundStopSoundPacket(id, SoundSource.PLAYERS));
+            }
+
+            player.playSound(TASoundEvents.CRYSTALLINE_SWORD_SHOOT.get());
             stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(player.getUsedItemHand()));
             Arrow arrow = TAEntityTypes.CRYSTALLINE_BEAM.get().create(level);
             if (!level.isClientSide && arrow != null) {
+                arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
                 arrow.setPos(player.getX(), player.getY() + 1.5F, player.getZ());
                 arrow.shoot(lookAngle.x, lookAngle.y, lookAngle.z, 3.0F, 1.0F);
-                arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
+                arrow.addEffect(new MobEffectInstance(TAMobEffects.STUN.get(), 40));
+                arrow.setBaseDamage(8.0D + 5.0D * player.getTicksUsingItem() / 20.0D);
                 arrow.setNoGravity(true);
-                arrow.addEffect(new MobEffectInstance(TAMobEffects.STUN.get(),20 * 2));
-                arrow.setBaseDamage(8 + (double) 7 / 60 * i);
                 level.addFreshEntity(arrow);
             }
 
@@ -76,7 +98,7 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        return 60;
+        return 72000;
     }
 
     @Override
@@ -87,11 +109,11 @@ public class CrystallineSword extends SwordItem implements ITooltipsItem {
     private static class CrystallineSwordUseAnim implements IClientItemExtensions {
         
         private static final HumanoidModel.ArmPose CRYSTALLINE_SWORD_SHOOT =
-                HumanoidModel.ArmPose.create("crystalline_sword_shoot", true, ((model, entity, arm) -> {
+                HumanoidModel.ArmPose.create("crystalline_sword_shoot", Boolean.TRUE, ((model, entity, arm) -> {
                     model.rightArm.yRot = -0.1F + model.head.yRot - 0.4F;
                     model.leftArm.yRot = 0.1F + model.head.yRot + 0.4F;
-                    model.rightArm.xRot = (-(float)Math.PI / 2F) + model.head.xRot;
-                    model.leftArm.xRot = (-(float)Math.PI / 2F) + model.head.xRot;
+                    model.rightArm.xRot = (-(float)Math.PI / 2.0F) + model.head.xRot;
+                    model.leftArm.xRot = (-(float)Math.PI / 2.0F) + model.head.xRot;
                 }));
 
         @Override

@@ -1,11 +1,13 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
+import cn.teampancake.theaurorian.common.entities.ai.goal.AurorianAnimalMeleeAttackGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.AurorianAnimalPanicGoal;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -14,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
 public class AurorianPig extends Pig {
@@ -24,15 +25,17 @@ public class AurorianPig extends Pig {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
+        AttributeSupplier.Builder builder = Mob.createMobAttributes();
+        builder.add(Attributes.MAX_HEALTH, 20.0D);
+        builder.add(Attributes.MOVEMENT_SPEED, 0.25D);
+        builder.add(Attributes.ATTACK_DAMAGE);
+        return builder;
     }
 
     @Nullable @Override
     public AurorianPig getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         return TAEntityTypes.AURORIAN_PIG.get().create(level);
     }
-
-
 
     @Override
     public boolean isFood(ItemStack stack) {
@@ -42,11 +45,13 @@ public class AurorianPig extends Pig {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25));
-        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2, Ingredient.of(TAItems.SILK_BERRY.get()), false));
-        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(1, new AurorianAnimalPanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D,
+                Ingredient.of(TAItems.SILK_BERRY.get()), false));
+        this.goalSelector.addGoal(4, new AurorianAnimalMeleeAttackGoal(this));
+        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
@@ -55,4 +60,5 @@ public class AurorianPig extends Pig {
     public boolean isSaddleable() {
         return false;
     }
+
 }

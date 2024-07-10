@@ -18,6 +18,7 @@ public class MiscNBT {
     public float exhaustionAccumulation;
     public float armorHurtAccumulation;
     public boolean immuneToPressure;
+    public boolean completelyInvisible;
     public List<UUID> maxHealthSubtractUuids = new ArrayList<>();
 
     public void saveNBTData(CompoundTag compound) {
@@ -30,6 +31,7 @@ public class MiscNBT {
         compound.putFloat("ExhaustionAccumulation", this.exhaustionAccumulation);
         compound.putFloat("ArmorHurtAccumulation", this.armorHurtAccumulation);
         compound.putBoolean("ImmuneToPressure", this.immuneToPressure);
+        compound.putBoolean("CompletelyInvisible", this.completelyInvisible);
         compound.put("MaxHealthSubtractUuids", this.saveListTag(this.maxHealthSubtractUuids));
     }
 
@@ -44,6 +46,7 @@ public class MiscNBT {
         this.exhaustionAccumulation = compound.getFloat("ExhaustionAccumulation");
         this.armorHurtAccumulation = compound.getFloat("ArmorHurtAccumulation");
         this.immuneToPressure = compound.getBoolean("ImmuneToPressure");
+        this.completelyInvisible = compound.getBoolean("CompletelyInvisible");
         ListTag listTag = compound.getList("LevelThatFirstTimeLefts", 10);
         for (int i = 0; i < listTag.size(); i++) {
             CompoundTag tag = listTag.getCompound(i);

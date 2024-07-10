@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.mixin;
 
+import cn.teampancake.theaurorian.common.registry.TACapability;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -22,6 +23,12 @@ public class MixinLevelRenderer {
         if (Minecraft.getInstance().getCameraEntity() instanceof LocalPlayer player && player.hasEffect(TAMobEffects.CONCEALMENT.get()) && entity != player) {
             ci.cancel();
         }
+
+        entity.getCapability(TACapability.MISC_CAP).ifPresent(miscNBT -> {
+            if (miscNBT.completelyInvisible) {
+                ci.cancel();
+            }
+        });
     }
 
     @Inject(method = "addParticle(Lnet/minecraft/core/particles/ParticleOptions;ZDDDDDD)V", at = @At(value = "HEAD"), cancellable = true)

@@ -27,6 +27,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
@@ -60,7 +61,9 @@ public class Spirit extends TAMonster implements GeoEntity {
     }
 
     public static boolean checkSpawnRules(EntityType<Spirit> spirit, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(TABlocks.AURORIAN_GRASS.get()) && checkAnyLightMonsterSpawnRules(spirit, level, spawnType, pos, random);
+        BlockState state = level.getBlockState(pos.below());
+        boolean flag = state.is(Blocks.GRASS_BLOCK) && level.getLevel().dimension() == Level.OVERWORLD && level.getMoonBrightness() == 1.0F;
+        return (state.is(TABlocks.AURORIAN_GRASS.get()) || flag) && checkAnyLightMonsterSpawnRules(spirit, level, spawnType, pos, random);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

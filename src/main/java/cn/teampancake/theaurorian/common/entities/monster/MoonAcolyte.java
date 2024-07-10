@@ -24,6 +24,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -65,7 +67,9 @@ public class MoonAcolyte extends TAMonster implements GeoEntity, IAffectedByNigh
     }
 
     public static boolean checkSpawnRules(EntityType<MoonAcolyte> moonAcolyte, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(TABlocks.MOON_TEMPLE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(moonAcolyte, level, spawnType, pos, random);
+        BlockState state = level.getBlockState(pos.below());
+        boolean flag = state.is(Blocks.GRASS_BLOCK) && level.getLevel().dimension() == Level.OVERWORLD && level.getMoonBrightness() == 1.0F;
+        return (state.is(TABlocks.MOON_TEMPLE_BRICKS.get()) || flag) && checkAnyLightMonsterSpawnRules(moonAcolyte, level, spawnType, pos, random);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

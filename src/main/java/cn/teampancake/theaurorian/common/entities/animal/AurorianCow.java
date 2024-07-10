@@ -1,5 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
+import cn.teampancake.theaurorian.common.entities.ai.goal.AurorianAnimalMeleeAttackGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.AurorianAnimalPanicGoal;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.server.level.ServerLevel;
@@ -23,7 +25,11 @@ public class AurorianCow extends Cow {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 40.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
+        AttributeSupplier.Builder builder = Mob.createMobAttributes();
+        builder.add(Attributes.MAX_HEALTH, 40.0D);
+        builder.add(Attributes.MOVEMENT_SPEED, 0.25D);
+        builder.add(Attributes.ATTACK_DAMAGE);
+        return builder;
     }
 
     @Nullable @Override
@@ -39,12 +45,15 @@ public class AurorianCow extends Cow {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, Ingredient.of(TAItems.LAVENDER.get()), false));
+        this.goalSelector.addGoal(1, new AurorianAnimalPanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25,
+                Ingredient.of(TAItems.LAVENDER.get()), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(4, new AurorianAnimalMeleeAttackGoal(this));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
+
 }

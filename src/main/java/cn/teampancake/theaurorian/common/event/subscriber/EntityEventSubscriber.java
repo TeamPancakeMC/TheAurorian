@@ -5,20 +5,21 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
 import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
+import cn.teampancake.theaurorian.common.entities.animal.IOverworldAurorianAnimal;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
+import cn.teampancake.theaurorian.common.entities.monster.MoonAcolyte;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
+import cn.teampancake.theaurorian.common.entities.monster.Spirit;
 import cn.teampancake.theaurorian.common.entities.projectile.ThrownAxe;
 import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.network.TAMessages;
 import cn.teampancake.theaurorian.common.network.message.FrostbiteSyncMessage;
-import cn.teampancake.theaurorian.common.registry.TACapability;
-import cn.teampancake.theaurorian.common.registry.TAEnchantments;
-import cn.teampancake.theaurorian.common.registry.TAItems;
-import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
+import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -46,6 +47,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -68,6 +70,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -213,6 +216,32 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
+    public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
+        Level level = event.getLevel();
+        if (!level.isClientSide && level.isNight()) {
+            boolean isFullMoon = level.getMoonBrightness() == 1.0F;
+            if (level.dimension() == Level.OVERWORLD && isFullMoon) {
+                Entity entity = event.getEntity();
+                if (entity instanceof Pig pig) {
+                    TAEntityUtils.convertWithExtraData(TAEntityTypes.AURORIAN_PIG.get(), pig);
+                } else if (entity instanceof Cow cow) {
+                    TAEntityUtils.convertWithExtraData(TAEntityTypes.AURORIAN_COW.get(), cow);
+                } else if (entity instanceof Sheep sheep) {
+                    TAEntityUtils.convertWithExtraData(TAEntityTypes.AURORIAN_SHEEP.get(), sheep);
+                } else if (entity instanceof Rabbit rabbit) {
+                    TAEntityUtils.convertWithExtraData(TAEntityTypes.AURORIAN_RABBIT.get(), rabbit);
+                } else if (entity instanceof Chicken) {
+                    event.setCanceled(true);
+                } else if (entity instanceof MoonAcolyte || entity instanceof Spirit) {
+                    if (entity instanceof IOverworldAurorianAnimal animal) {
+                        animal.setSpawnInOverworld(true);
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();
         Level level = entity.level();
@@ -222,6 +251,12 @@ public class EntityEventSubscriber {
                 SitEntity sitEntity = new SitEntity(level, entity.getOnPos(), 0.7D);
                 level.addFreshEntity(sitEntity);
                 entity.startRiding(sitEntity);
+            }
+
+            if (entity instanceof IOverworldAurorianAnimal animal) {
+                if (animal.isSpawnInOverworld() && level.isDay()) {
+                    entity.kill();
+                }
             }
         }
 
@@ -623,6 +658,10 @@ public class EntityEventSubscriber {
             if (level > 0 && player.getRandom().nextFloat() <= level * 0.1F) {
                 event.getDrops().forEach(itemEntity -> entity.level().addFreshEntity(itemEntity));
             }
+        }
+
+        if (entity instanceof IOverworldAurorianAnimal animal && animal.isSpawnInOverworld() && sourceEntity == null) {
+            event.setCanceled(true);
         }
     }
 

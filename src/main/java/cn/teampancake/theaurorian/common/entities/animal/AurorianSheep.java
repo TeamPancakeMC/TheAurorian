@@ -1,5 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
+import cn.teampancake.theaurorian.common.entities.ai.goal.AurorianAnimalMeleeAttackGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.AurorianAnimalPanicGoal;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -8,6 +10,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
@@ -28,6 +32,10 @@ public class AurorianSheep extends Sheep {
         super(type, level);
     }
 
+    public static AttributeSupplier.Builder createAttributes() {
+        return Sheep.createAttributes().add(Attributes.ATTACK_DAMAGE);
+    }
+
     @Nullable @Override
     public Sheep getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         return TAEntityTypes.AURORIAN_SHEEP.get().create(level);
@@ -37,12 +45,14 @@ public class AurorianSheep extends Sheep {
     protected void registerGoals() {
         this.eatBlockGoal = new EatAurorianBlockGoal(this);
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, Ingredient.of(TAItems.LAVENDER.get()), false));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
+        this.goalSelector.addGoal(1, new AurorianAnimalPanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D,
+                Ingredient.of(TAItems.LAVENDER.get()), false));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
+        this.goalSelector.addGoal(4, new AurorianAnimalMeleeAttackGoal(this));
         this.goalSelector.addGoal(5, this.eatBlockGoal);
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }

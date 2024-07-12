@@ -13,6 +13,7 @@ public class FenceGateBlockWithBase extends FenceGateBlock implements IHasBaseBl
         this.base = base;
     }
 
+    @Override
     public Block getBase() {
         return this.base;
     }

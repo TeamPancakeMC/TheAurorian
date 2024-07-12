@@ -13,6 +13,7 @@ public class ButtonBlockWithBase extends ButtonBlock implements IHasBaseBlock {
         this.base = base;
     }
 
+    @Override
     public Block getBase() {
         return this.base;
     }

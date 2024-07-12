@@ -83,6 +83,7 @@ public class VerticalStairBlockWithBase extends Block implements SimpleWaterlogg
         return true;
     }
 
+    @Override
     public Block getBase() {
         return this.base;
     }

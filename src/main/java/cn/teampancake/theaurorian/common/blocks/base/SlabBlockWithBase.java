@@ -12,6 +12,7 @@ public class SlabBlockWithBase extends SlabBlock implements IHasBaseBlock, ISimp
         this.base = base;
     }
 
+    @Override
     public Block getBase() {
         return this.base;
     }

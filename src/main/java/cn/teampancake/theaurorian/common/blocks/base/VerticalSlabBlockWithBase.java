@@ -139,6 +139,7 @@ public class VerticalSlabBlockWithBase extends Block implements SimpleWaterlogge
         return type == PathComputationType.WATER && level.getFluidState(pos).is(FluidTags.WATER);
     }
 
+    @Override
     public Block getBase() {
         return this.base;
     }

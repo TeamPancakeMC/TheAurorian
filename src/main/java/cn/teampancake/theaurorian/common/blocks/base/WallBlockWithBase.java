@@ -3,7 +3,7 @@ package cn.teampancake.theaurorian.common.blocks.base;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallBlock;
 
-public class WallBlockWithBase extends WallBlock {
+public class WallBlockWithBase extends WallBlock implements IHasBaseBlock {
 
     private final Block base;
 
@@ -12,6 +12,7 @@ public class WallBlockWithBase extends WallBlock {
         this.base = base;
     }
 
+    @Override
     public Block getBase() {
         return this.base;
     }

@@ -13,6 +13,7 @@ public class PressurePlateBlockWithBase extends PressurePlateBlock implements IH
         this.base = base;
     }
 
+    @Override
     public Block getBase() {
         return this.base;
     }

@@ -13,6 +13,7 @@ public class TrapDoorBlockWithBase extends TrapDoorBlock implements IHasBaseBloc
         this.base = base;
     }
 
+    @Override
     public Block getBase() {
         return this.base;
     }

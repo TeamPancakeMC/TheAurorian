@@ -17,7 +17,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("deprecation")
 public class TABlockRegUtils {
 
     public static RegistryObject<Block> register(String name, Supplier<Block> block) {
@@ -46,8 +45,8 @@ public class TABlockRegUtils {
                 .strength(strength).sound(SoundType.WOOD).ignitedByLava()));
     }
 
-    public static RegistryObject<Block> flowerPot(String name, Supplier<Block> block) {
-        return TABlocks.BLOCKS.register("potted_" + name, () -> Blocks.flowerPot(block.get()));
+    public static RegistryObject<Block> flowerPot(RegistryObject<Block> block) {
+        return TABlocks.BLOCKS.register("potted_" + block.getId().getPath(), () -> Blocks.flowerPot(block.get()));
     }
 
     public static <T extends Block> RegistryObject<Block> verticalStair(String name, Supplier<T> base, BlockBehaviour.Properties properties) {
@@ -76,7 +75,7 @@ public class TABlockRegUtils {
     }
 
     public static <T extends Block> RegistryObject<Block> stair(String name, Supplier<T> block, BlockBehaviour.Properties properties) {
-        return register(name, () -> new StairBlock(block.get().defaultBlockState(), properties));
+        return register(name, () -> new StairBlockWithBase(block.get().defaultBlockState(), properties));
     }
 
     public static <T extends Block> RegistryObject<Block> fence(String name, Supplier<T> base, BlockBehaviour.Properties properties) {

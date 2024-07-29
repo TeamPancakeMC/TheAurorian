@@ -148,7 +148,7 @@ public class TABlocks {
     public static final RegistryObject<Block> RUNE_CRYSTAL = normal("rune_crystal", breakWithQueenPickaxe().lightLevel(s -> 3));
     public static final RegistryObject<Block> MYSTICAL_BARRIER = BLOCKS.register("mystical_barrier", () -> new MysticalBarrier(copy(Blocks.BEDROCK)));
     public static final RegistryObject<Block> RUNE_STONE_BARS = register("rune_stone_bars", () -> new IronBarsBlock(breakWithQueenPickaxe().mapColor(MapColor.METAL)));
-    public static final RegistryObject<Block> DARK_STOME_BARS = register("dark_stone_bars", () -> new IronBarsBlock(breakWithQueenPickaxe().mapColor(MapColor.METAL)));
+    public static final RegistryObject<Block> DARK_STONE_BARS = register("dark_stone_bars", () -> new IronBarsBlock(breakWithQueenPickaxe().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> MOON_TEMPLE_BARS = register("moon_temple_bars", () -> new IronBarsBlock(breakWithQueenPickaxe().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> RUNE_STONE_GATE = register("rune_stone_gate", () -> new DungeonStoneGate(breakWithQueenPickaxe()));
     public static final RegistryObject<Block> MOON_TEMPLE_GATE = register("moon_temple_gate", () -> new DungeonStoneGate(breakWithQueenPickaxe()));
@@ -249,18 +249,18 @@ public class TABlocks {
     /**
      * Potted Flower Blocks
      */
-    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_1 = flowerPot(NEBULA_BLOSSOM_CLUSTER.getId().getPath(), NEBULA_BLOSSOM_CLUSTER);
-    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_2 = flowerPot(MOON_FROST_FLOWER.getId().getPath(), MOON_FROST_FLOWER);
-    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_3 = flowerPot(VOID_CANDLE_FLOWER.getId().getPath(), VOID_CANDLE_FLOWER);
-    public static final RegistryObject<Block> POTTED_EQUINOX_FLOWER = flowerPot(EQUINOX_FLOWER.getId().getPath(), EQUINOX_FLOWER);
-    public static final RegistryObject<Block> POTTED_WICK_GRASS = flowerPot(WICK_GRASS.getId().getPath(), WICK_GRASS);
-    public static final RegistryObject<Block> POTTED_LAVENDER_PLANT = flowerPot(LAVENDER_PLANT.getId().getPath(), LAVENDER_PLANT);
-    public static final RegistryObject<Block> POTTED_PETUNIA_PLANT = flowerPot(PETUNIA_PLANT.getId().getPath(), PETUNIA_PLANT);
-    public static final RegistryObject<Block> POTTED_AURORIAN_GRASS = flowerPot(AURORIAN_GRASS.getId().getPath(), AURORIAN_GRASS);
-    public static final RegistryObject<Block> POTTED_SILENT_TREE_SAPLING = flowerPot(SILENT_TREE_SAPLING.getId().getPath(), SILENT_TREE_SAPLING);
-    public static final RegistryObject<Block> POTTED_AURORIAN_GRASS_LIGHT = flowerPot(AURORIAN_GRASS_LIGHT.getId().getPath(), AURORIAN_GRASS_LIGHT);
-    public static final RegistryObject<Block> POTTED_CURTAIN_TREE_SAPLING = flowerPot(CURTAIN_TREE_SAPLING.getId().getPath(), CURTAIN_TREE_SAPLING);
-    public static final RegistryObject<Block> POTTED_CURSED_FROST_TREE_SAPLING = flowerPot(CURSED_FROST_TREE_SAPLING.getId().getPath(), CURSED_FROST_TREE_SAPLING);
+    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_1 = flowerPot(NEBULA_BLOSSOM_CLUSTER);
+    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_2 = flowerPot(MOON_FROST_FLOWER);
+    public static final RegistryObject<Block> POTTED_AURORIAN_FLOWER_3 = flowerPot(VOID_CANDLE_FLOWER);
+    public static final RegistryObject<Block> POTTED_EQUINOX_FLOWER = flowerPot(EQUINOX_FLOWER);
+    public static final RegistryObject<Block> POTTED_WICK_GRASS = flowerPot(WICK_GRASS);
+    public static final RegistryObject<Block> POTTED_LAVENDER_PLANT = flowerPot(LAVENDER_PLANT);
+    public static final RegistryObject<Block> POTTED_PETUNIA_PLANT = flowerPot(PETUNIA_PLANT);
+    public static final RegistryObject<Block> POTTED_AURORIAN_GRASS = flowerPot(AURORIAN_GRASS);
+    public static final RegistryObject<Block> POTTED_SILENT_TREE_SAPLING = flowerPot(SILENT_TREE_SAPLING);
+    public static final RegistryObject<Block> POTTED_AURORIAN_GRASS_LIGHT = flowerPot(AURORIAN_GRASS_LIGHT);
+    public static final RegistryObject<Block> POTTED_CURTAIN_TREE_SAPLING = flowerPot(CURTAIN_TREE_SAPLING);
+    public static final RegistryObject<Block> POTTED_CURSED_FROST_TREE_SAPLING = flowerPot(CURSED_FROST_TREE_SAPLING);
 
     /**
      * Vertical Stair Blocks

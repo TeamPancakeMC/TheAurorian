@@ -52,7 +52,7 @@ public class TARecipeProvider extends RecipeProvider {
                         has(TABlocks.AURORIAN_COBBLESTONE.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.RUNE_STONE_BARS.get(), 16).define('#', TABlocks.RUNE_STONE.get())
                 .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.RUNE_STONE.get()), has(TABlocks.RUNE_STONE.get())).save(consumer);
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.DARK_STOME_BARS.get(), 16).define('#', TABlocks.DARK_STONE_BRICKS.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.DARK_STONE_BARS.get(), 16).define('#', TABlocks.DARK_STONE_BRICKS.get())
                 .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.DARK_STONE_BRICKS.get()), has(TABlocks.DARK_STONE_BRICKS.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.MOON_TEMPLE_BARS.get(), 16).define('#', TABlocks.MOON_TEMPLE_BRICKS.get())
                 .pattern("###").pattern("###").unlockedBy(getHasName(TABlocks.MOON_TEMPLE_BRICKS.get()), has(TABlocks.MOON_TEMPLE_BRICKS.get())).save(consumer);

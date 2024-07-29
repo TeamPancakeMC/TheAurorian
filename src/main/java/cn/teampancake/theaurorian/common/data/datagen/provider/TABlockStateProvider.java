@@ -213,7 +213,7 @@ public class TABlockStateProvider extends BlockStateProvider {
                 this.blockTexture(TABlocks.DARK_STONE_GLASS.get()),
                 this.blockTexture(TABlocks.DARK_STONE_GLASS_PANE.get()), TRANSLUCENT);
         this.registerBarStates(TABlocks.RUNE_STONE_BARS.get());
-        this.registerBarStates(TABlocks.DARK_STOME_BARS.get());
+        this.registerBarStates(TABlocks.DARK_STONE_BARS.get());
         this.registerBarStates(TABlocks.MOON_TEMPLE_BARS.get());
         this.registerWallTorchStates(TABlocks.MOON_WALL_TORCH.get());
         this.registerWallTorchStates(TABlocks.SILENT_WOOD_WALL_TORCH.get());

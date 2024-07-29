@@ -183,7 +183,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItemWithParent(TABlocks.SILENT_WOOD_TORCH.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_TORCH.get());
         this.simpleBlockItemWithParent(TABlocks.RUNE_STONE_BARS.get());
-        this.simpleBlockItemWithParent(TABlocks.DARK_STOME_BARS.get());
+        this.simpleBlockItemWithParent(TABlocks.DARK_STONE_BARS.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_TEMPLE_BARS.get());
         this.withExistingParent(this.name(TABlocks.SILENT_WOOD_CHEST.get()), this.mcLoc("item/chest"))
                 .texture("particle", this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_PLANKS.get())));
@@ -247,8 +247,8 @@ public class TAItemModelProvider extends ItemModelProvider {
             if (item instanceof ForgeSpawnEggItem) {
                 this.withExistingParent(key.getPath(), this.mcLoc("item/template_spawn_egg"));
             } else if (item instanceof TieredItem) {
-                ResourceLocation texture = this.modLoc("item/" + key.getPath());
-                this.withExistingParent(key.getPath(), this.mcLoc("item/handheld")).texture("layer0", texture);
+                this.withExistingParent(key.getPath(), this.mcLoc("item/handheld"))
+                        .texture("layer0", this.modLoc("item/" + key.getPath()));
             } else if (item instanceof BowItem) {
                 this.bowItem(item);
             } else if (item instanceof ShieldItem) {

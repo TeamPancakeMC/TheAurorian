@@ -195,7 +195,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addBlock(TABlocks.SMALL_MOONSTONE_BUD, "Small Moonstone Bud", "小型皎月石芽");
         this.addBlock(TABlocks.MYSTICAL_BARRIER, "Mystical Barrier", "神秘屏障");
         this.addBlock(TABlocks.RUNE_STONE_BARS, "Rune stone Bars", "符石栏杆");
-        this.addBlock(TABlocks.DARK_STOME_BARS, "Dark stone Bars", "暗石栏杆");
+        this.addBlock(TABlocks.DARK_STONE_BARS, "Dark stone Bars", "暗石栏杆");
         this.addBlock(TABlocks.MOON_TEMPLE_BARS, "Moon Temple Bars", "月宫栏杆");
         this.addBlock(TABlocks.RUNE_STONE_GATE, "Runestone Gate", "符石门");
         this.addBlock(TABlocks.DARK_STONE_GATE, "Dark Stone Gate", "暗石门");

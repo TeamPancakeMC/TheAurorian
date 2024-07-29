@@ -240,11 +240,9 @@ public class TABlockLoot extends VanillaBlockLoot {
                 .add(LootItem.lootTableItem(Items.BOOK).apply(EnchantRandomlyFunction.randomApplicableEnchantment()).setWeight(15))));
         for (Block block : TACommonUtils.getKnownBlocks()) {
             float f = Blocks.BEDROCK.getExplosionResistance();
-            boolean isStair = block instanceof StairBlock;
-            boolean isWall = block instanceof WallBlock;
             boolean hardLikeBedrock = block.getExplosionResistance() == f;
             boolean notHardLikeBedrock = block.getExplosionResistance() != f;
-            if ((hardLikeBedrock || ((isStair || isWall || block instanceof IHasBaseBlock) && notHardLikeBedrock))) {
+            if ((hardLikeBedrock || (block instanceof IHasBaseBlock && notHardLikeBedrock))) {
                 this.dropSelf(block);
             } else if (block instanceof DoorBlockWithBase doorBlock) {
                 this.add(doorBlock, block1 -> this.createDoorTable(doorBlock));

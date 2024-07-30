@@ -1,14 +1,14 @@
 {
   "structures": [
     {
-      "structure": "theaurorian:aurorian_village",
+      "structure": "theaurorian:runestone_dungeon",
       "weight": 1
     }
   ],
   "placement": {
-    "salt": 1145141919,
+    "salt": 1919810,
     "frequency": 0.5,
-    "spacing": 20,
+    "spacing": 25,
     "separation": 10,
     "type": "minecraft:random_spread"
   }

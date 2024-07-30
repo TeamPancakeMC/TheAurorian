@@ -104,7 +104,8 @@ public class SnowTundraGiantCrab extends TAMonster implements GeoEntity, Neutral
     }
 
     public static boolean checkSpawnRules(EntityType<SnowTundraGiantCrab> giantCrab, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkAnyLightMonsterSpawnRules(giantCrab, level, spawnType, pos, random);
+        return random.nextInt(110) == 0 && pos.getY() > 70 &&
+                !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkAnyLightMonsterSpawnRules(giantCrab, level, spawnType, pos, random);
     }
 
     public static <T extends SnowTundraGiantCrab> AnimationController<T> hideController(T animatable) {

@@ -1,9 +1,9 @@
 {
   "type": "minecraft:jigsaw",
-  "start_pool": "theaurorian:aurorian_village/set",
+  "start_pool": "theaurorian:runestone_dungeon/main",
   "size": 6,
   "max_distance_from_center": 100,
-  "biomes": "theaurorian:aurorian_plains",
+  "biomes": "theaurorian:filthy_ice_crystal_snowfield",
   "step": "surface_structures",
   "terrain_adaptation": "beard_thin",
   "start_height": {

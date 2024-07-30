@@ -20,6 +20,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.PiecesContainer;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class RuinsAltarStructure extends Structure {
     }
 
     @Override
-    protected Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
+    protected @NotNull Optional<GenerationStub> findGenerationPoint(@NotNull GenerationContext context) {
         return onTopOfChunkCenter(context, Heightmap.Types.WORLD_SURFACE_WG, builder -> {
             StructureTemplateManager manager = context.structureTemplateManager();
             ChunkPos chunkPos = context.chunkPos();

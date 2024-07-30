@@ -41,8 +41,6 @@ public class DeveloperGift extends Item {
                 items.add(item);
             }
         }
-
         return new ArrayList<>(items);
     }
-
 }

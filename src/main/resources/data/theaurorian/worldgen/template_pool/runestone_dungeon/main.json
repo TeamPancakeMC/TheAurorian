@@ -1,5 +1,5 @@
 {
-  "name": "theaurorian:aurorian_village/fountain",
+  "name": "theaurorian:runestone_dungeon/main",
   "fallback": "minecraft:empty",
   "elements": [
     {
@@ -7,7 +7,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "theaurorian:village/fountain/fountain",
+        "location": "theaurorian:runestone_dungeon/main",
         "processors": "minecraft:empty"
       }
     }

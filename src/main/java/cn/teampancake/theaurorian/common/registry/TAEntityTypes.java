@@ -118,6 +118,9 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<AurorianPixie>> AURORIAN_PIXIE = ENTITY_TYPES.register("aurorian_pixie",
             () -> EntityType.Builder.of(AurorianPixie::new, MobCategory.CREATURE).sized(0.6F, 0.375F)
                     .clientTrackingRange((8)).build("aurorian_pixie"));
+    public static final RegistryObject<EntityType<SnowTundraGiantCrab>> SNOW_TUNDRA_GIANT_CRAB = ENTITY_TYPES.register("snow_tundra_giant_crab",
+            () -> EntityType.Builder.of(SnowTundraGiantCrab::new, MobCategory.CREATURE).sized(4.0F, 3.5F)
+                    .clientTrackingRange((8)).build("snow_tundra_giant_crab"));
     //Monster
     public static final RegistryObject<EntityType<AurorianSlime>> AURORIAN_SLIME = ENTITY_TYPES.register("aurorian_slime",
             () -> EntityType.Builder.of(AurorianSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F)
@@ -161,9 +164,6 @@ public class TAEntityTypes {
     public static final RegistryObject<EntityType<TongScorpion>> TONG_SCORPION = ENTITY_TYPES.register("tong_scorpion",
             () -> EntityType.Builder.of(TongScorpion::new, MobCategory.MONSTER).sized(2.5F, 1.5F)
                     .clientTrackingRange((8)).build("tong_scorpion"));
-    public static final RegistryObject<EntityType<SnowTundraGiantCrab>> SNOW_TUNDRA_GIANT_CRAB = ENTITY_TYPES.register("snow_tundra_giant_crab",
-            () -> EntityType.Builder.of(SnowTundraGiantCrab::new, MobCategory.MONSTER).sized(4.0F, 3.5F)
-                    .clientTrackingRange((8)).build("snow_tundra_giant_crab"));
     public static final RegistryObject<EntityType<FlowerLeech>> FLOWER_LEECH = ENTITY_TYPES.register("flower_leech",
             () -> EntityType.Builder.of(FlowerLeech::new, MobCategory.MONSTER).sized(1.0F, 2.0F)
                     .clientTrackingRange((8)).build("flower_leech"));

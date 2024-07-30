@@ -17,8 +17,4 @@ public class AurorianVillager extends Villager {
     public static AttributeSupplier.@NotNull Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.5).add(Attributes.FOLLOW_RANGE, 48.0);
     }
-
-//    public AurorianVillager(EntityType<? extends AurorianVillager> entityType, Level level) {
-//        super(entityType, level, VillagerType.PLAINS);
-//    }
 }

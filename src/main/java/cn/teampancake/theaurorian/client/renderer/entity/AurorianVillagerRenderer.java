@@ -2,11 +2,13 @@ package cn.teampancake.theaurorian.client.renderer.entity;
 
 import cn.teampancake.theaurorian.AurorianMod;
 import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
+import cn.teampancake.theaurorian.common.registry.TAVillagerProfession;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.npc.VillagerData;
 
 public class AurorianVillagerRenderer extends LivingEntityRenderer<AurorianVillager, PlayerModel<AurorianVillager>> {
 
@@ -19,6 +21,12 @@ public class AurorianVillagerRenderer extends LivingEntityRenderer<AurorianVilla
 
     @Override
     public ResourceLocation getTextureLocation(AurorianVillager aurorianVillager) {
+        VillagerData data = aurorianVillager.getVillagerData();
+        if(data.getProfession().equals(TAVillagerProfession.PROF_ASTROLOGER.get())){
+            return ASTROLOGER;
+        }
+
+        //Default Villager
         return ASTROLOGER;
     }
 }

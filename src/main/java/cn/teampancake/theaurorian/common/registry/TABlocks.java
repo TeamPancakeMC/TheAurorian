@@ -515,7 +515,7 @@ public class TABlocks {
     public static final RegistryObject<Block> SILENT_CAMPFIRE = register("silent_campfire", SilentCampfireBlock::new);
     public static final RegistryObject<Block> ALCHEMY_TABLE = register("alchemy_table", AlchemyTable::new);
     public static final RegistryObject<Block> RELIC_TABLE = register("relic_table", RelicTable::new);
-    public static final RegistryObject<Block> ASTROLOGER = register("astrologer", Astrologer::new);
+    public static final RegistryObject<Block> ASTROLOGY_TABLE = register("astrology_table", AstrologyTable::new);
 
     public static BlockBehaviour.Properties defaultStoneProperties(float destroyTime) {
         return of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE)

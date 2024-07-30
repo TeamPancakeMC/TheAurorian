@@ -75,6 +75,8 @@ public class AurorianMod {
         TAMobEffects.MOB_EFFECTS.register(modEventBus);
         TAShields.SHIELD.register(modEventBus);
         TAEquipmentSet.EQUIPMENT_SET.register(modEventBus);
+        TAVillagerProfession.PROFESSIONS.register(modEventBus);
+        TAVillagerType.TA_VILLAGER_TYPES.register(modEventBus);
         modEventBus.addListener(this::registerExtraStuff);
         modEventBus.addListener(this::setRegistriesForDatapack);
         modEventBus.addListener(this::onCommonSetup);

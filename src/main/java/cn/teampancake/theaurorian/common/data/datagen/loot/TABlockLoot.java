@@ -79,7 +79,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropSelf(TABlocks.SILENT_WOOD_TORCH.get());
         this.dropSelf(TABlocks.SILENT_WOOD_CHEST.get());
         this.dropSelf(TABlocks.SILENT_WOOD_LADDER.get());
-        this.dropSelf(TABlocks.ASTROLOGER.get());
+        this.dropSelf(TABlocks.ASTROLOGY_TABLE.get());
         this.dropSelf(TABlocks.AURORIAN_CRAFTING_TABLE.get());
         this.dropSelf(TABlocks.WEEPING_WILLOW_LOG.get());
         this.dropSelf(TABlocks.WEEPING_WILLOW_PLANKS.get());

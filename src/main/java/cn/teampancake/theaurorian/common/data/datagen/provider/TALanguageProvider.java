@@ -467,7 +467,7 @@ public class TALanguageProvider extends LanguageProvider {
         //MISC
         this.addBlock(TABlocks.ALCHEMY_TABLE, "Alchemy Table", "炼药桌");
         this.addBlock(TABlocks.RELIC_TABLE, "Relic Table", "圣物台");
-        this.addBlock(TABlocks.ASTROLOGER, "Astrologer", "占星仪");
+        this.addBlock(TABlocks.ASTROLOGY_TABLE, "Astrology Table", "占星仪");
         this.addBlock(TABlocks.MYSTERIUM_WOOL_BED,"Mysterium Wool Bed","秘境羊毛床");
         this.addBlock(TABlocks.SILENT_CAMPFIRE,"Slient Campfire","静谧营火");
 
@@ -726,7 +726,22 @@ public class TALanguageProvider extends LanguageProvider {
         this.addEntityType(TAEntityTypes.RUNESTONE_KEEPER, "Runestone Keeper", "符石守卫");
         this.addEntityType(TAEntityTypes.SPIDER_MOTHER, "Spider Mother", "蛛母");
         this.addEntityType(TAEntityTypes.MOON_QUEEN, "Moon Queen", "皎月女王");
-
+        //VILLAGER WITH PROFESSION
+        this.add("entity.theaurorian.aurorian_villager.none","Villager","村民");
+        this.add("entity.theaurorian.aurorian_villager.nitwit","Nitwit","傻子");
+        this.add("entity.theaurorian.aurorian_villager.farmer","Farmer","农民");
+        this.add("entity.theaurorian.aurorian_villager.armorer","Armorer","盔甲匠");
+        this.add("entity.theaurorian.aurorian_villager.butcher","Butcher","屠夫");
+        this.add("entity.theaurorian.aurorian_villager.cartographer","Cartographer","制图师");
+        this.add("entity.theaurorian.aurorian_villager.cleric","Cleric","牧师");
+        this.add("entity.theaurorian.aurorian_villager.fishman","Fishman","渔夫");
+        this.add("entity.theaurorian.aurorian_villager.fletcher","Fletcher","制箭师");
+        this.add("entity.theaurorian.aurorian_villager.leatherworker","Leather Worker","皮匠");
+        this.add("entity.theaurorian.aurorian_villager.librarian","Librarian","图书管理员");
+        this.add("entity.theaurorian.aurorian_villager.mason","Mason","石匠");
+        this.add("entity.theaurorian.aurorian_villager.shepherd","Shepherd","牧羊人");
+        this.add("entity.theaurorian.aurorian_villager.toolsmith","Tool Smith","工具匠");
+        this.add("entity.theaurorian.aurorian_villager.weaponsmith","Weapon Smith","武器匠");
         //MOD FLUID
         this.addFluidType(TAFluidTypes.MOLTEN_AURORIAN_STEEL,"Molten Aurorian Steel","熔融极光钢");
         this.addFluidType(TAFluidTypes.MOLTEN_CERULEAN,"Molten Cerulean","熔融晶蓝");

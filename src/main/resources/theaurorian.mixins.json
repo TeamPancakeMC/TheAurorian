@@ -1,24 +1,25 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "cn.teampancake.theaurorian.common.mixin",
-    "compatibilityLevel": "JAVA_17",
-    "refmap": "theaurorian.refmap.json",
-    "mixins": [
-        "MixinDamageSource",
-        "MixinLevel",
-        "MixinLivingEntity",
-        "MixinPlayer",
-        "MixinServerLevel",
-        "MixinTemptGoal",
-        "PlayerListMixin"
-    ],
-    "client": [
-        "MixinClientLevel",
-        "MixinClientPacketListener",
-        "MixinLevelRenderer"
-    ],
-    "injectors": {
-        "defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cn.teampancake.theaurorian.common.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "theaurorian.refmap.json",
+  "mixins": [
+    "MixinDamageSource",
+    "MixinEmeraldsForVillagerTypeItem",
+    "MixinLevel",
+    "MixinLivingEntity",
+    "MixinPlayer",
+    "MixinServerLevel",
+    "MixinTemptGoal",
+    "PlayerListMixin"
+  ],
+  "client": [
+    "MixinClientLevel",
+    "MixinClientPacketListener",
+    "MixinLevelRenderer"
+  ],
+  "injectors": {
+    "defaultRequire": 1
   }
 }

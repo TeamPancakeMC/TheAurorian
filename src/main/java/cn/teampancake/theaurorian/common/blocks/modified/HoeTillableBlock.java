@@ -20,11 +20,7 @@ public class HoeTillableBlock extends Block {
 
     @Override
     public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
-        if (toolAction == ToolActions.HOE_TILL) {
-            return this.block.get().defaultBlockState();
-        } else {
-            return null;
-        }
+        return toolAction == ToolActions.HOE_TILL ? this.block.get().defaultBlockState() : null;
     }
 
 }

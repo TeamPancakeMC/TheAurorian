@@ -157,6 +157,7 @@ public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBl
     }
 
     @Nullable
+    @SuppressWarnings("unchecked")
     private static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker) {
         return clientType == serverType ? (BlockEntityTicker<A>)ticker : null;
     }

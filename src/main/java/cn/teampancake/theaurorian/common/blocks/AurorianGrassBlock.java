@@ -21,11 +21,7 @@ public class AurorianGrassBlock extends GrassBlock {
 
     @Override
     public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
-        if (toolAction == ToolActions.HOE_TILL) {
-            return TABlocks.AURORIAN_FARM_TILE.get().defaultBlockState();
-        } else {
-            return null;
-        }
+        return toolAction == ToolActions.HOE_TILL ? TABlocks.AURORIAN_FARM_TILE.get().defaultBlockState() : null;
     }
 
     @Override

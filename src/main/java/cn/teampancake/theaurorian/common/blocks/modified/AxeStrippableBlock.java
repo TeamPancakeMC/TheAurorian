@@ -22,11 +22,7 @@ public class AxeStrippableBlock extends RotatedPillarBlock {
 
     @Override
     public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
-        if (toolAction == ToolActions.AXE_STRIP) {
-            return transferAllBlockStates(state, this.block.get().defaultBlockState());
-        } else {
-            return null;
-        }
+        return toolAction == ToolActions.AXE_STRIP ? transferAllBlockStates(state, this.block.get().defaultBlockState()) : null;
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -37,6 +33,7 @@ public class AxeStrippableBlock extends RotatedPillarBlock {
                 block = block.setValue(property, initial.getValue(property));
             }
         }
+
         return block;
     }
 

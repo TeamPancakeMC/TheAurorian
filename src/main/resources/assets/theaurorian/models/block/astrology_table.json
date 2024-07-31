@@ -3,8 +3,8 @@
 	"texture_size": [48, 48],
 	"render_type": "cutout",
 	"textures": {
-		"0": "theaurorian:block/astrologer",
-		"particle": "theaurorian:block/astrologer"
+		"0": "theaurorian:block/astrology_table",
+		"particle": "theaurorian:block/astrology_table"
 	},
 	"elements": [
 		{

@@ -229,6 +229,9 @@ public class TARecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(TABlocks.MOON_TEMPLE_BRICKS.get()), has(TABlocks.MOON_TEMPLE_BRICKS.get())).save(consumer);
         //food
         buildFoodProcessRecipes(consumer, TAItems.AURORIAN_PORK.get(), TAItems.COOKED_AURORIAN_PORK.get(), 0.3F);
+        buildFoodProcessRecipes(consumer, TAItems.AURORIAN_BEEF.get(), TAItems.COOKED_AURORIAN_BEEF.get(), 0.3F);
+        buildFoodProcessRecipes(consumer, TAItems.AURORIAN_RABBIT.get(), TAItems.COOKED_AURORIAN_RABBIT.get(), 0.3F);
+        buildFoodProcessRecipes(consumer, TAItems.AURORIAN_MUTTON.get() ,TAItems.COOKED_AURORIAN_MUTTON.get(), 0.3F);
         buildFoodProcessRecipes(consumer, TAItems.MOON_FISH.get(), TAItems.COOKED_MOON_FISH.get(),0.3F);
         buildFoodProcessRecipes(consumer, TAItems.AURORIAN_WINGED_FISH.get(), TAItems.COOKED_AURORIAN_WINGED_FISH.get(),0.3F);
         buildFoodProcessRecipes(consumer, TAItems.AURORIAN_WINTER_ROOT.get(), TAItems.ROASTED_AURORIAN_WINTER_ROOT.get(), 0.3F);

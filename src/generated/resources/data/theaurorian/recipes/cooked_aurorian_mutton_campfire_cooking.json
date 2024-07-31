@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "theaurorian:aurorian_mutton"
+  },
+  "result": "theaurorian:cooked_aurorian_mutton"
+}

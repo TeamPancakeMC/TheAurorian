@@ -6,7 +6,6 @@ import cn.teampancake.theaurorian.common.registry.TAVillagerType;
 import cn.teampancake.theaurorian.common.utils.TATradeUtils;
 import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.item.Item;
@@ -14,7 +13,6 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
@@ -40,8 +38,7 @@ public class VillageTradeSubscriber {
     public static void registerTrades(VillagerTradesEvent event) {
         Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
 
-        ResourceLocation currentVillagerProfession = ForgeRegistries.VILLAGER_PROFESSIONS.getKey(event.getType());
-        if(TAVillagerProfession.ASTROLOGER.equals(currentVillagerProfession)) {
+        if(event.getType().equals(TAVillagerProfession.PROF_ASTROLOGER.get())) {
             trades.get(1).add(new TATradeUtils.EmeraldForItems(Items.STICK, 32, 1,16,XP_LEVEL_1_BUY));
             trades.get(1).add(new VillagerTrades.EmeraldsForVillagerTypeItem(8, 1, XP_LEVEL_1_SELL,
                     ImmutableMap.<VillagerType, Item>builder()

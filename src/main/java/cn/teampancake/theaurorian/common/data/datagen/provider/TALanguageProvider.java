@@ -734,7 +734,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.add("entity.theaurorian.aurorian_villager.butcher","Butcher","屠夫");
         this.add("entity.theaurorian.aurorian_villager.cartographer","Cartographer","制图师");
         this.add("entity.theaurorian.aurorian_villager.cleric","Cleric","牧师");
-        this.add("entity.theaurorian.aurorian_villager.fishman","Fishman","渔夫");
+        this.add("entity.theaurorian.aurorian_villager.fisherman","Fisherman","渔夫");
         this.add("entity.theaurorian.aurorian_villager.fletcher","Fletcher","制箭师");
         this.add("entity.theaurorian.aurorian_villager.leatherworker","Leather Worker","皮匠");
         this.add("entity.theaurorian.aurorian_villager.librarian","Librarian","图书管理员");
@@ -742,6 +742,8 @@ public class TALanguageProvider extends LanguageProvider {
         this.add("entity.theaurorian.aurorian_villager.shepherd","Shepherd","牧羊人");
         this.add("entity.theaurorian.aurorian_villager.toolsmith","Tool Smith","工具匠");
         this.add("entity.theaurorian.aurorian_villager.weaponsmith","Weapon Smith","武器匠");
+        this.add("entity.theaurorian.aurorian_villager.theaurorian.astrologer", "Astrologer", "占星师");
+        this.add("entity.minecraft.villager.theaurorian.astrologer", "Astrologer", "占星师");
         //MOD FLUID
         this.addFluidType(TAFluidTypes.MOLTEN_AURORIAN_STEEL,"Molten Aurorian Steel","熔融极光钢");
         this.addFluidType(TAFluidTypes.MOLTEN_CERULEAN,"Molten Cerulean","熔融晶蓝");

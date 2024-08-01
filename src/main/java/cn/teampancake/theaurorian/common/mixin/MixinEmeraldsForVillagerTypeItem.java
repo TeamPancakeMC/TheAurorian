@@ -14,9 +14,13 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 @Mixin(VillagerTrades.EmeraldsForVillagerTypeItem.class)
 public class MixinEmeraldsForVillagerTypeItem {
@@ -26,16 +30,10 @@ public class MixinEmeraldsForVillagerTypeItem {
     @Shadow @Final private int maxUses;
     @Shadow @Final private int villagerXp;
 
-    /**
-     * @author mlus
-     * @reason cancel crash and deal it later.
-     * Don't remove it, it works well although there is error
-     */
-    @Overwrite
-    private static boolean lambda$new$0(Map<VillagerType, Item> trades, VillagerType villagerType) {
-        return false;
+    @Redirect(method = "<init>",at = @At(value = "INVOKE", target = "Ljava/util/Optional;ifPresent(Ljava/util/function/Consumer;)V"))
+    private void cancel(Optional instance, Consumer action){
+        //Do nothing here to cancel
     }
-
     /**
      * @author mlus
      * @reason using plains villager if fall back

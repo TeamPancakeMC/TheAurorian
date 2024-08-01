@@ -1,18 +1,18 @@
 {
     "variants": {
         "facing=east": {
-            "model": "theaurorian:block/astrologer",
+            "model": "theaurorian:block/astrology_table",
             "y": 270
         },
         "facing=north": {
-            "model": "theaurorian:block/astrologer",
+            "model": "theaurorian:block/astrology_table",
             "y": 180
         },
         "facing=south": {
-            "model": "theaurorian:block/astrologer"
+            "model": "theaurorian:block/astrology_table"
         },
         "facing=west": {
-            "model": "theaurorian:block/astrologer",
+            "model": "theaurorian:block/astrology_table",
             "y": 90
         }
     }

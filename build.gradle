@@ -207,7 +207,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifactId = archivesBaseName
-
+            version = "${mod_version}-SNAPSHOT"
             from components.java
             fg.component(it)
             jarJar.component(it)

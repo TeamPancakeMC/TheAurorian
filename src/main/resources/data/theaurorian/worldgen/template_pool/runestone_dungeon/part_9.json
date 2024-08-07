@@ -1,0 +1,15 @@
+{
+  "name": "theaurorian:runestone_dungeon/part_9",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 50,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "theaurorian:runestone_dungeon/part_9",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

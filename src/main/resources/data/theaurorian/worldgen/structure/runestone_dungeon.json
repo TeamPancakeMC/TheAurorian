@@ -1,8 +1,8 @@
 {
-  "type": "minecraft:jigsaw",
-  "start_pool": "theaurorian:runestone_dungeon/main",
-  "size": 6,
-  "max_distance_from_center": 100,
+  "type": "theaurorian:large_jigsaw",
+  "start_pool": "theaurorian:runestone_dungeon/part_5",
+  "size": 7,
+  "max_distance_from_center": 348,
   "biomes": "theaurorian:filthy_ice_crystal_snowfield",
   "step": "surface_structures",
   "terrain_adaptation": "beard_thin",

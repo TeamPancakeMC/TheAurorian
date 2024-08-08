@@ -7,6 +7,8 @@ import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
 import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +24,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -146,6 +149,25 @@ public class ItemEventSubscriber {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onFinishUseItem(PlayerInteractEvent.RightClickItem event){
+        Level level = event.getEntity().level();
+        Player player = event.getEntity();
+            if(event.getItemStack().is(TAItems.DUNGEON_LOCATOR.get())){
+                double y = player.getY() + 1;
+                double targetx = event.getItemStack().getOrCreateTag().getInt("BlockPosX") > player.getX()?0.5D:-0.5D;
+                double targetz = event.getItemStack().getOrCreateTag().getInt("BlockPosZ") > player.getZ()?0.5D:-0.5D;
+                double originx = player.getX();
+                double originz = player.getZ();
+
+                for (int i = 0; i < 4; i++) {
+                    level.addParticle(ParticleTypes.CLOUD, originx, y, originz, targetx, 0.25D, targetz);
+                    level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, event.getItemStack()), originx, y, originz, targetx, 0.25D, targetz);
+                }
+            }
+
     }
 
     @SubscribeEvent

@@ -1,23 +1,19 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAStructureTags;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -29,6 +25,7 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class DungeonLocatorItem extends Item implements ITooltipsItem {
 
@@ -38,76 +35,36 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand pUsedHand) {
-        ItemStack itemstack = player.getUseItem();
+        ItemStack itemstack = player.getItemInHand(pUsedHand);
         if (player.isCrouching()) {
-            switch (this.getSelectedDungeon(itemstack)) {
-                case "moontemple" -> {
-                    this.setSelectedDungeon(itemstack, "runestone");
+            switch (itemstack.getOrCreateTag().getString("dungeon")) {
+                case "moon_temple" -> {
+                    this.setSelectedDungeon(itemstack, "runestone_dungeon");
                     player.displayClientMessage(Component.translatable("theaurorian.item.locator1"), true);
                 }
                 default -> {
-                    this.setSelectedDungeon(itemstack, "darkstone");
+                    this.setSelectedDungeon(itemstack, "darkstone_dungeon");
                     player.displayClientMessage(Component.translatable("theaurorian.item.locator2"), true);
                 }
-                case "darkstone" -> {
-                    this.setSelectedDungeon(itemstack, "moontemple");
+                case "darkstone_dungeon" -> {
+                    this.setSelectedDungeon(itemstack, "moon_temple");
                     player.displayClientMessage(Component.translatable("theaurorian.item.locator3"), true);
                 }
             }
         } else {
-            BlockPos dungeon = null;
+            BlockPos dungeon;
             if (level instanceof ServerLevel serverLevel) {
-                String boundStructure = AurorianMod.MOD_ID+":"+getSelectedDungeon(itemstack);
-                ResourceLocation structureLocation = ResourceLocation.tryParse(boundStructure);
-                Registry<Structure> registry = level.registryAccess().registryOrThrow(Registries.STRUCTURE);
-                ResourceKey<Structure> structureKey;
-                if (structureLocation != null) {
-                    structureKey = ResourceKey.create(Registries.STRUCTURE, structureLocation);
-                    HolderSet<Structure> featureHolderSet = registry.getHolder(structureKey).map(HolderSet::direct).orElse(null);
-                    if (featureHolderSet != null) {
-                        Pair<BlockPos, Holder<Structure>> result = this.findNearestMapStructure(serverLevel,featureHolderSet, player.getOnPos(), 600, false);
-                        dungeon = result==null?null:result.getFirst();
-                    }
+                Optional<HolderSet.Named<Structure>> optional = level.registryAccess().registryOrThrow(Registries.STRUCTURE).getTag(getSelectedDungeon(itemstack));
+                Pair<BlockPos, Holder<Structure>> result = this.findNearestMapStructure(serverLevel, optional.get(), player.blockPosition(), 600, false);
+                dungeon = result==null?null:result.getFirst();
+                if (dungeon != null) {
+                    itemstack.getOrCreateTag().putInt("BlockPosX", dungeon.getX());
+                    itemstack.getOrCreateTag().putInt("BlockPosZ", dungeon.getZ());
+                    itemstack.hurt(1, serverLevel.random, (ServerPlayer) player);
                 }
             }
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.random.nextFloat() * 0.4F + 0.8F));
-            if (dungeon != null) {
-                double lookx = 0.25D + -Math.sin((float) Math.toRadians(player.yHeadRot)) * Math.cos((float) Math.toRadians(player.getXRot()));
-                double looky = 0.25D - Math.sin((float) Math.toRadians(player.getXRot()));
-                double lookz = 0.25D + Math.cos((float) Math.toRadians(player.yHeadRot)) * Math.cos((float) Math.toRadians(player.getXRot()));
 
-                double y = player.getY() + 1 + level.random.nextDouble() * 6.0D / 16.0D;
-                double speed = 0.01D;
-                double targetx = player.getX() - dungeon.getX() * 16;
-                double targetz = player.getZ() - dungeon.getZ() * 16;
-                double originx = player.getX();
-                double originz = player.getZ();
-
-                double partx = targetx * -speed;
-                double partz = targetz * -speed;
-
-                if (partx < -0.5) {
-                    partx = -0.5;
-                }
-                if (partx > 0.5) {
-                    partx = 0.5;
-                }
-                if (partz < -0.5) {
-                    partz = -0.5;
-                }
-                if (partz > 0.5) {
-                    partz = 0.5;
-                }
-
-                double randx = level.random.nextDouble() / 8;
-                double randz = level.random.nextDouble() / 8;
-
-                for (int i = 0; i < 2; i++) {
-                    level.addParticle(ParticleTypes.CLOUD, originx + lookx, y + looky, originz + lookz, partx + randx, 0.25D, partz + randz);
-                    level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), originx + lookx, y + looky, originz + lookz, partx + randx, 0.25D, partz + randz);
-                }
-                itemstack.hurt(1, level.random, (ServerPlayer) player);
-            }
             player.awardStat(Stats.ITEM_USED.get(this));
             return InteractionResultHolder.success(itemstack);
         }
@@ -122,23 +79,19 @@ public class DungeonLocatorItem extends Item implements ITooltipsItem {
         return nearest.getFirst().distManhattan(pos) <= 600 ? nearest : null;
     }
 
-    private String getSelectedDungeon(ItemStack stack) {
+    private TagKey<Structure> getSelectedDungeon(ItemStack stack) {
         String blockname = stack.getOrCreateTag().getString("dungeon");
-        if (blockname.isEmpty()) {
-            return "runestone";
-        } else {
-            return blockname;
+        if (blockname.equals("darkstone_dungeon")) {
+            return TAStructureTags.DARKSTONE_DUNGEON;
+        } else if(blockname.equals("moon_temple")){
+            return TAStructureTags.MOON_TEMPLE;
+        }else {
+            return TAStructureTags.RUNESTONE_DUNGEON;
         }
     }
 
     private void setSelectedDungeon(ItemStack stack, String dungeon) {
         CompoundTag nbt = stack.getOrCreateTag();
-        if (dungeon.isEmpty()) {
-            nbt.putString("dungeon", "runestone");
-            return;
-        }
-        if (!dungeon.equals(this.getSelectedDungeon(stack))) {
-            nbt.putString("dungeon", dungeon);
-        }
+        nbt.putString("dungeon", dungeon);
     }
 }

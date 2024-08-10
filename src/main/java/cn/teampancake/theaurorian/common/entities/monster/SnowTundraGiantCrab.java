@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -200,6 +201,22 @@ public class SnowTundraGiantCrab extends TAMonster implements GeoEntity, Neutral
     @Nullable @Override
     public UUID getPersistentAngerTarget() {
         return this.persistentAngerTarget;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_DEATH.get();
     }
 
     @Override

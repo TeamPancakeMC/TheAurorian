@@ -38,9 +38,29 @@
       }
     ]
   },
-  "snow_tundra_giant_crab_step": {
+  "snow_tundra_giant_crab/ambient": {
     "sounds": [
-      "theaurorian:snow_tundra_giant_crab_step"
+      "theaurorian:snow_tundra_giant_crab/ambient_1",
+      "theaurorian:snow_tundra_giant_crab/ambient_2"
+    ]
+  },
+  "snow_tundra_giant_crab/death": {
+    "sounds": [
+      "theaurorian:snow_tundra_giant_crab/death_1",
+      "theaurorian:snow_tundra_giant_crab/death_2"
+    ]
+  },
+  "snow_tundra_giant_crab/hurt": {
+    "sounds": [
+      "theaurorian:snow_tundra_giant_crab/hurt_1",
+      "theaurorian:snow_tundra_giant_crab/hurt_2",
+      "theaurorian:snow_tundra_giant_crab/hurt_3"
+    ]
+  },
+  "snow_tundra_giant_crab/step": {
+    "sounds": [
+      "theaurorian:snow_tundra_giant_crab/step_1",
+      "theaurorian:snow_tundra_giant_crab/step_2"
     ]
   },
   "weeping_willow_bell": {

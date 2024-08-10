@@ -13,6 +13,7 @@ public class TASoundEvents {
     public static final RegistryObject<SoundEvent> CRYSTALLINE_SWORD_CHARGING = register("crystalline_sword_charging");
     public static final RegistryObject<SoundEvent> CRYSTALLINE_SWORD_SHOOT = register("crystalline_sword_shoot");
     public static final RegistryObject<SoundEvent> WEEPING_WILLOW_BELL = register("weeping_willow_bell");
+    public static final RegistryObject<SoundEvent> SNOW_TUNDRA_GIANT_CRAB_STEP = register("snow_tundra_giant_crab_step");
     public static final RegistryObject<SoundEvent> BACKGROUND_MUSIC = register("music");
 
     private static RegistryObject<SoundEvent> register(String sound) {

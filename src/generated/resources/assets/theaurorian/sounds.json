@@ -38,6 +38,11 @@
       }
     ]
   },
+  "snow_tundra_giant_crab_step": {
+    "sounds": [
+      "theaurorian:snow_tundra_giant_crab_step"
+    ]
+  },
   "weeping_willow_bell": {
     "sounds": [
       "theaurorian:weeping_willow_bell"

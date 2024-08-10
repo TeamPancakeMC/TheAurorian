@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.common.entities.ai.goal.GiantCrabDoNothingGoal
 import cn.teampancake.theaurorian.common.entities.ai.goal.LookAtTargetGoal;
 import cn.teampancake.theaurorian.common.entities.ai.goal.MoveToTargetGoal;
 import cn.teampancake.theaurorian.common.entities.phase.*;
+import cn.teampancake.theaurorian.common.registry.TASoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -198,6 +200,11 @@ public class SnowTundraGiantCrab extends TAMonster implements GeoEntity, Neutral
     @Nullable @Override
     public UUID getPersistentAngerTarget() {
         return this.persistentAngerTarget;
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pPos, BlockState pState) {
+        this.playSound(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_STEP.get(), 0.15F, 1.0F);
     }
 
     private class GiantCrabBodyRotationControl extends BodyRotationControl {

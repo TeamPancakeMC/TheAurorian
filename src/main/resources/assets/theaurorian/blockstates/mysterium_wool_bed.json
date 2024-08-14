@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "theaurorian:block/mysterium_wool_bed",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "theaurorian:block/mysterium_wool_bed"
+    },
+    "facing=south": {
+      "model": "theaurorian:block/mysterium_wool_bed",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "theaurorian:block/mysterium_wool_bed",
+      "y": 270
+    }
+  }
+}

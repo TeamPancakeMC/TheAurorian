@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "theaurorian:block/aurorian_portal_ns"
+    },
+    "axis=z": {
+      "model": "theaurorian:block/aurorian_portal_ew"
+    }
+  }
+}

@@ -1,0 +1,163 @@
+{
+	"parent": "minecraft:block/block",
+	"render_type": "minecraft:translucent",
+	"textures": {
+		"bottom": "theaurorian:block/aurorian_furnace_top",
+		"front": "theaurorian:block/aurorian_furnace",
+		"gem": "theaurorian:block/moon_gem_overlay",
+		"legs": "theaurorian:block/moon_gem",
+		"particle": "theaurorian:block/aurorian_furnace_top",
+		"sides": "theaurorian:block/aurorian_furnace_side",
+		"top": "theaurorian:block/aurorian_crafting_table_top"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 10, 16],
+			"faces": {
+				"north": {
+					"uv": [0, 0, 16, 10],
+					"texture": "#front"
+				},
+				"east": {
+					"uv": [0, 0, 16, 10],
+					"texture": "#sides"
+				},
+				"south": {
+					"uv": [0, 0, 16, 10],
+					"texture": "#sides"
+				},
+				"west": {
+					"uv": [0, 0, 16, 10],
+					"texture": "#sides"
+				},
+				"up": {
+					"uv": [0, 0, 16, 16],
+					"texture": "#top"
+				},
+				"down": {
+					"uv": [0, 0, 16, 16],
+					"texture": "#bottom"
+				}
+			}
+		},
+		{
+			"from": [2, 14, 2],
+			"to": [14, 16, 14],
+			"faces": {
+				"north": {
+					"uv": [2, 0, 14, 2],
+					"texture": "#legs"
+				},
+				"east": {
+					"uv": [2, 0, 14, 2],
+					"texture": "#legs"
+				},
+				"south": {
+					"uv": [2, 0, 14, 2],
+					"texture": "#legs"
+				},
+				"west": {
+					"uv": [2, 0, 14, 2],
+					"texture": "#legs"
+				},
+				"up": {
+					"uv": [0, 0, 16, 16],
+					"texture": "#gem"
+				},
+				"down": {
+					"uv": [2, 2, 14, 14],
+					"texture": "#gem"
+				}
+			}
+		},
+		{
+			"from": [2, 10, 2],
+			"to": [3, 14, 3],
+			"faces": {
+				"north": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"east": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"south": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"west": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				}
+			}
+		},
+		{
+			"from": [2, 10, 13],
+			"to": [3, 14, 14],
+			"faces": {
+				"north": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"east": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"south": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"west": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				}
+			}
+		},
+		{
+			"from": [13, 10, 13],
+			"to": [14, 14, 14],
+			"faces": {
+				"north": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"east": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"south": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"west": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				}
+			}
+		},
+		{
+			"from": [13, 10, 2],
+			"to": [14, 14, 3],
+			"faces": {
+				"north": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"east": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"south": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				},
+				"west": {
+					"uv": [0, 0, 1, 4],
+					"texture": "#legs"
+				}
+			}
+		}
+	]
+}

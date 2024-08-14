@@ -1,0 +1,71 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "east": {
+          "uv": [1, 1, 15, 15],
+          "texture": "#texture"
+        },
+        "north": {
+          "uv": [1, 1, 15, 15],
+          "texture": "#texture"
+        },
+        "south": {
+          "uv": [1, 1, 15, 15],
+          "texture": "#texture"
+        },
+        "west": {
+          "uv": [1, 1, 15, 15],
+          "texture": "#texture"
+        },
+        "up": {
+          "uv": [1, 1, 15, 15],
+          "texture": "#texture"
+        },
+        "down": {
+          "uv": [1, 1, 15, 15],
+          "texture": "#texture"
+        }
+      },
+      "from": [1, 1, 1],
+      "to": [15, 15, 15]
+    },
+    {
+      "faces": {
+        "east": {
+          "uv": [0, 0, 16, 16],
+          "texture": "#overlay"
+        },
+        "north": {
+          "uv": [0, 0, 16, 16],
+          "texture": "#overlay"
+        },
+        "south": {
+          "uv": [0, 0, 16, 16],
+          "texture": "#overlay"
+        },
+        "west": {
+          "uv": [0, 0, 16, 16],
+          "texture": "#overlay"
+        },
+        "up": {
+          "uv": [0, 0, 16, 16],
+          "texture": "#overlay"
+        },
+        "down": {
+          "uv": [0, 0, 16, 16],
+          "texture": "#overlay"
+        }
+      },
+      "from": [0, 0, 0],
+      "to": [16, 16, 16]
+    }
+  ],
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "overlay": "theaurorian:block/moon_gem_overlay",
+    "particle": "theaurorian:block/moon_gem_overlay",
+    "texture": "theaurorian:block/moon_gem"
+  }
+}

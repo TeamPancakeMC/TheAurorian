@@ -1,0 +1,68 @@
+{
+    "gui_light": "side",
+    "textures": {
+        "particle": "#all"
+    },
+    "elements": [
+        {
+            "from": [0, 0, 0],
+            "to": [16, 16, 8],
+            "faces": {
+                "north": {"texture": "#all", "cullface": "north"},
+                "east": {"texture": "#all", "cullface": "east"},
+                "south": {"texture": "#all"},
+                "west": {"texture": "#all", "cullface": "west"},
+                "up": {"texture": "#all", "cullface": "up"},
+                "down": {"texture": "#all", "cullface": "down"}
+            }
+        },
+        {
+            "from": [8, 0, 8],
+            "to": [16, 16, 16],
+            "faces": {
+                "east": {"texture": "#all", "cullface": "east"},
+                "south": {"texture": "#all", "cullface": "south"},
+                "west": {"texture": "#all"},
+                "up": {"texture": "#all", "cullface": "up"},
+                "down": {"texture": "#all", "cullface": "down"}
+            }
+        }
+    ],
+    "display": {
+        "gui": {
+            "rotation": [30, 45, 0],
+            "translation": [0, -0.75, 0],
+            "scale": [0.625, 0.625, 0.625]
+        },
+        "ground": {
+            "translation": [0, 3, 0],
+            "scale": [0.25, 0.25, 0.25]
+        },
+        "head": {
+            "rotation": [0, -180, 0]
+        },
+        "fixed": {
+            "rotation": [0, -135, 0],
+            "translation": [0, 0, -1],
+            "scale": [0.5, 0.5, 0.5]
+        },
+        "thirdperson_righthand": {
+            "rotation": [75, -135, 0],
+            "translation": [0, 2.5, 0],
+            "scale": [0.375, 0.375, 0.375]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [75, 135, 0],
+            "translation": [0, 2.5, 0],
+            "scale": [0.375, 0.375, 0.375]
+        },
+        "firstperson_righthand": {
+            "rotation": [0, -135, 0],
+            "scale": [0.4, 0.4, 0.4]
+        },
+        "firstperson_lefthand": {
+            "rotation": [0, 135, 0],
+            "scale": [0.4, 0.4, 0.4]
+        }
+    }
+}

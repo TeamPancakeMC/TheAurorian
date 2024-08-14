@@ -1,0 +1,8 @@
+[
+  {
+    "id": "dimension",
+    "type": "shield:aurorian",
+    "location": "theaurorian:the_aurorian",
+    "max_shield": 5
+  }
+]

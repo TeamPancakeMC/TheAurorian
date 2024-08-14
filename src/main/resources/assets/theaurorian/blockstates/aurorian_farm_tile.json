@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "moisture=0": {
+      "model": "theaurorian:block/aurorian_farm_tile"
+    },
+    "moisture=1": {
+      "model": "theaurorian:block/aurorian_farm_tile"
+    },
+    "moisture=2": {
+      "model": "theaurorian:block/aurorian_farm_tile"
+    },
+    "moisture=3": {
+      "model": "theaurorian:block/aurorian_farm_tile"
+    },
+    "moisture=4": {
+      "model": "theaurorian:block/aurorian_farm_tile"
+    },
+    "moisture=5": {
+      "model": "theaurorian:block/aurorian_farm_tile"
+    },
+    "moisture=6": {
+      "model": "theaurorian:block/aurorian_farm_tile"
+    },
+    "moisture=7": {
+      "model": "theaurorian:block/aurorian_farm_tile_moist"
+    }
+  }
+}

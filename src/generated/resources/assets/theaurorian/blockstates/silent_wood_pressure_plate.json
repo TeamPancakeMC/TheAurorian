@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "theaurorian:block/silent_wood_pressure_plate"
+    },
+    "powered=true": {
+      "model": "theaurorian:block/silent_wood_pressure_plate_down"
+    }
+  }
+}

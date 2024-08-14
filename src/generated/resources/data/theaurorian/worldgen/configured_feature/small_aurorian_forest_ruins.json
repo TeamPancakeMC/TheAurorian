@@ -1,0 +1,96 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "theaurorian:small_ruins_1",
+    "features": [
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_1"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_2"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_3"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_4"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_5"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_6"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_7"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_8"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_9"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_10"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_11"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_12"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_13"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_14"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_15"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_16"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_17"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_18"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_19"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_20"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_21"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:small_ruins_22"
+      }
+    ]
+  }
+}

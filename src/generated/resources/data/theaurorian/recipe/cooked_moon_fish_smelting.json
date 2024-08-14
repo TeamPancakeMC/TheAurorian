@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "theaurorian:moon_fish"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:cooked_moon_fish"
+  }
+}

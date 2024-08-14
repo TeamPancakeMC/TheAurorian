@@ -1,0 +1,54 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.0,
+    "size": 64,
+    "targets": [
+      {
+        "state": {
+          "Name": "theaurorian:moon_sand"
+        },
+        "target": {
+          "block": "theaurorian:aurorian_grass_block",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "theaurorian:moon_sand"
+        },
+        "target": {
+          "block": "theaurorian:light_aurorian_grass_block",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "theaurorian:moon_sand"
+        },
+        "target": {
+          "block": "theaurorian:snow_aurorian_grass_block",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "theaurorian:moon_sand"
+        },
+        "target": {
+          "block": "theaurorian:red_aurorian_grass_block",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "theaurorian:moon_sandstone"
+        },
+        "target": {
+          "block": "theaurorian:aurorian_dirt",
+          "predicate_type": "minecraft:block_match"
+        }
+      }
+    ]
+  }
+}

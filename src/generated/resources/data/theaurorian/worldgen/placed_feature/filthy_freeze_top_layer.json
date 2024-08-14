@@ -1,0 +1,8 @@
+{
+  "feature": "theaurorian:filthy_freeze_top_layer",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

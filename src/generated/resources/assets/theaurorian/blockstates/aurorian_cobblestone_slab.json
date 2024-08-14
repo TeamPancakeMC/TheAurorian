@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "theaurorian:block/aurorian_cobblestone_slab"
+    },
+    "type=double": {
+      "model": "theaurorian:block/aurorian_cobblestone"
+    },
+    "type=top": {
+      "model": "theaurorian:block/aurorian_cobblestone_slab_top"
+    }
+  }
+}

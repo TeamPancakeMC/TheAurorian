@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/door_bottom_left_open",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "bottom": "theaurorian:block/weeping_willow_door_bottom",
+    "top": "theaurorian:block/weeping_willow_door_top"
+  }
+}

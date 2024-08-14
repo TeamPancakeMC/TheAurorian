@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/chest",
+  "textures": {
+    "particle": "theaurorian:block/silent_tree_planks"
+  }
+}

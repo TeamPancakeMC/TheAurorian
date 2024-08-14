@@ -1,0 +1,11 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 6,
+  "ingredient": {
+    "item": "theaurorian:aurorianite_axe"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:umbra_scrap"
+  }
+}

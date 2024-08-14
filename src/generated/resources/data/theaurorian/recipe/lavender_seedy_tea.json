@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:tea_cup"
+    },
+    {
+      "item": "theaurorian:lavender_seeds"
+    },
+    {
+      "item": "theaurorian:lavender_seeds"
+    },
+    {
+      "item": "theaurorian:lavender_seeds"
+    },
+    {
+      "item": "theaurorian:lavender_seeds"
+    },
+    {
+      "item": "theaurorian:lavender_seeds"
+    },
+    {
+      "item": "theaurorian:lavender_seeds"
+    },
+    {
+      "item": "theaurorian:lavender_seeds"
+    },
+    {
+      "item": "theaurorian:lavender_seeds"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:lavender_seedy_tea"
+  }
+}

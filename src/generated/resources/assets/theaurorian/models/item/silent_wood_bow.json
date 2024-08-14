@@ -1,0 +1,28 @@
+{
+  "parent": "theaurorian:item/ta_bow",
+  "overrides": [
+    {
+      "model": "theaurorian:item/silent_wood_bow_pulling_0",
+      "predicate": {
+        "theaurorian:pulling": 1.0
+      }
+    },
+    {
+      "model": "theaurorian:item/silent_wood_bow_pulling_1",
+      "predicate": {
+        "theaurorian:pull": 0.65,
+        "theaurorian:pulling": 1.0
+      }
+    },
+    {
+      "model": "theaurorian:item/silent_wood_bow_pulling_2",
+      "predicate": {
+        "theaurorian:pull": 0.9,
+        "theaurorian:pulling": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "theaurorian:item/silent_wood_bow"
+  }
+}

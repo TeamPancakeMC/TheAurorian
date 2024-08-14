@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_crystalline_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:crystalline_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:forge_moonstone_shield_to_crystalline_shield"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_crystalline_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:forge_moonstone_shield_to_crystalline_shield"
+    ]
+  }
+}

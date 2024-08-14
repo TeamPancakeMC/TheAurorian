@@ -1,0 +1,15 @@
+{
+  "type": "theaurorian:random_fallen_logs",
+  "config": {
+    "logState": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "theaurorian:silent_tree_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "mushroomChance": 0.1
+  }
+}

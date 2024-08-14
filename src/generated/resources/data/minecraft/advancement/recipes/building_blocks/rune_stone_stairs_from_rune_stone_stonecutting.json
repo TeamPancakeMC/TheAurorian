@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_rune_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:rune_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:rune_stone_stairs_from_rune_stone_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_rune_stone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:rune_stone_stairs_from_rune_stone_stonecutting"
+    ]
+  }
+}

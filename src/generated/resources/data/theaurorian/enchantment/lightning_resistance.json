@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.theaurorian.lightning_resistance"
+  },
+  "exclusive_set": "theaurorian:lightning_damage",
+  "max_cost": {
+    "base": 40,
+    "per_level_above_first": 15
+  },
+  "max_level": 4,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 15
+  },
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#minecraft:enchantable/armor",
+  "weight": 2
+}

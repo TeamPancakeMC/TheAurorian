@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "theaurorian:block/smooth_aurorian_peridotite",
+    "side": "theaurorian:block/smooth_aurorian_peridotite",
+    "top": "theaurorian:block/smooth_aurorian_peridotite"
+  }
+}

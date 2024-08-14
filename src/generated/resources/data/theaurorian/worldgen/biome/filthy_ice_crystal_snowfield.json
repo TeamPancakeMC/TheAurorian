@@ -1,0 +1,118 @@
+{
+  "carvers": {
+    "air": [
+      "theaurorian:ta_cave",
+      "theaurorian:ta_cave_extra_underground"
+    ]
+  },
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 12648408,
+    "music": {
+      "max_delay": 12000,
+      "min_delay": 600,
+      "replace_current_music": false,
+      "sound": "theaurorian:music"
+    },
+    "sky_color": 8233727,
+    "water_color": -1,
+    "water_fog_color": -1
+  },
+  "features": [
+    [],
+    [
+      "theaurorian:filthy_water_lake"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      "theaurorian:ore_aurorian_granite",
+      "theaurorian:ore_aurorian_diorite",
+      "theaurorian:ore_aurorian_andesite",
+      "theaurorian:ore_aurorian_peridotite",
+      "theaurorian:ore_aurorian_dirt",
+      "theaurorian:ore_aurorian_coal",
+      "theaurorian:ore_moonstone",
+      "theaurorian:ore_cerulean",
+      "theaurorian:ore_geode",
+      "theaurorian:ore_copper",
+      "theaurorian:ore_iron_middle",
+      "theaurorian:ore_iron_small",
+      "theaurorian:ore_iron_upper",
+      "theaurorian:ore_gold",
+      "theaurorian:ore_gold_extra",
+      "theaurorian:ore_gold_lower",
+      "theaurorian:ore_emerald",
+      "theaurorian:ore_lapis",
+      "theaurorian:ore_lapis_buried",
+      "theaurorian:ore_diamond",
+      "theaurorian:ore_diamond_large",
+      "theaurorian:ore_diamond_buried",
+      "theaurorian:ore_redstone",
+      "theaurorian:ore_redstone_lower"
+    ],
+    [],
+    [],
+    [
+      "theaurorian:patch_flower_snowfield",
+      "theaurorian:random_riverside_plant",
+      "theaurorian:riverside_moon_sand"
+    ],
+    [
+      "theaurorian:filthy_freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "theaurorian:icefield_deer",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 20
+      },
+      {
+        "type": "theaurorian:blue_tail_wolf",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 20
+      }
+    ],
+    "misc": [],
+    "monster": [
+      {
+        "type": "theaurorian:crystalline_sprite",
+        "maxCount": 2,
+        "minCount": 2,
+        "weight": 100
+      },
+      {
+        "type": "theaurorian:disturbed_hollow",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 100
+      },
+      {
+        "type": "theaurorian:moon_acolyte",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 100
+      },
+      {
+        "type": "theaurorian:snow_tundra_giant_crab",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 10
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": -0.7
+}

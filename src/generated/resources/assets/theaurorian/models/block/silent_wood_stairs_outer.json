@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "theaurorian:block/silent_tree_planks",
+    "side": "theaurorian:block/silent_tree_planks",
+    "top": "theaurorian:block/silent_tree_planks"
+  }
+}

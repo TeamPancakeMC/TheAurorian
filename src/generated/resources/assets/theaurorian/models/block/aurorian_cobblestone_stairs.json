@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "theaurorian:block/aurorian_cobblestone",
+    "side": "theaurorian:block/aurorian_cobblestone",
+    "top": "theaurorian:block/aurorian_cobblestone"
+  }
+}

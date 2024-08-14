@@ -1,0 +1,46 @@
+{
+  "crystalline_sword_charging": {
+    "sounds": [
+      "theaurorian:crystalline_sword_charging"
+    ]
+  },
+  "crystalline_sword_shoot": {
+    "sounds": [
+      "theaurorian:crystalline_sword_shoot"
+    ]
+  },
+  "crystalline_sword_use": {
+    "sounds": [
+      "theaurorian:crystalline_sword_use"
+    ]
+  },
+  "music": {
+    "sounds": [
+      {
+        "name": "theaurorian:music/aurorian_1",
+        "stream": true
+      },
+      {
+        "name": "theaurorian:music/aurorian_2",
+        "stream": true
+      },
+      {
+        "name": "theaurorian:music/aurorian_3",
+        "stream": true
+      },
+      {
+        "name": "theaurorian:music/aurorian_4",
+        "stream": true
+      },
+      {
+        "name": "theaurorian:music/aurorian_5",
+        "stream": true
+      }
+    ]
+  },
+  "weeping_willow_bell": {
+    "sounds": [
+      "theaurorian:weeping_willow_bell"
+    ]
+  }
+}

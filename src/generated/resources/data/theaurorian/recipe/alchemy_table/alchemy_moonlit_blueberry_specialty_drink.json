@@ -1,0 +1,20 @@
+{
+  "type": "theaurorian:alchemy_table",
+  "alchemy_time": 140,
+  "input1": {
+    "item": "theaurorian:lavender"
+  },
+  "input2": {
+    "item": "theaurorian:blueberry"
+  },
+  "input3": {
+    "item": "theaurorian:ice_calendula"
+  },
+  "material": {
+    "item": "minecraft:potion"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:moonlit_blueberry_specialty_drink"
+  }
+}

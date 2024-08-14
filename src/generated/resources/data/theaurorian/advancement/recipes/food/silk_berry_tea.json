@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_silk_berry": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:silk_berry"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:silk_berry_tea"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_silk_berry"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:silk_berry_tea"
+    ]
+  }
+}

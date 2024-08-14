@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "theaurorian:block/crystalline_castle_rune_stone",
+    "side": "theaurorian:block/crystalline_castle_rune_stone",
+    "top": "theaurorian:block/crystalline_castle_rune_stone"
+  }
+}

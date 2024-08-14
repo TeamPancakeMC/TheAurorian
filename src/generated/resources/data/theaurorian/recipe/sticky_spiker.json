@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "theaurorian:aurorian_slimeball"
+    },
+    {
+      "item": "theaurorian:crystal"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:sticky_spiker"
+  }
+}

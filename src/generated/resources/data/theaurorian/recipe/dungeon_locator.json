@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "theaurorian:cerulean_nugget"
+    },
+    "O": {
+      "item": "theaurorian:moonstone_nugget"
+    },
+    "X": {
+      "item": "theaurorian:aurorian_glass"
+    }
+  },
+  "pattern": [
+    "IOI",
+    "OXO",
+    "IOI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:dungeon_locator"
+  }
+}

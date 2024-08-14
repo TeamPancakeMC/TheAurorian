@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_smooth_aurorian_peridotite": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:smooth_aurorian_peridotite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:vertical_smooth_aurorian_peridotite_slab_from_smooth_aurorian_peridotite_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_smooth_aurorian_peridotite"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:vertical_smooth_aurorian_peridotite_slab_from_smooth_aurorian_peridotite_stonecutting"
+    ]
+  }
+}

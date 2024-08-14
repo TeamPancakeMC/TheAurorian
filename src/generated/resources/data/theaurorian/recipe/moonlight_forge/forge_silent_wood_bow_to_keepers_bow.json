@@ -1,0 +1,13 @@
+{
+  "type": "theaurorian:moonlight_forge",
+  "equipment": {
+    "item": "theaurorian:silent_wood_bow"
+  },
+  "ingredient": {
+    "item": "theaurorian:trophy_keeper"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:keepers_bow"
+  }
+}

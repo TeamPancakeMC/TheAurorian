@@ -1,0 +1,11 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 12,
+  "ingredient": {
+    "item": "theaurorian:moonstone_sword"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:moonstone_nugget"
+  }
+}

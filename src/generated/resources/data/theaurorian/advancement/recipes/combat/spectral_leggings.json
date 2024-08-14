@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_spectral_silk": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:spectral_silk"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:spectral_leggings"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_spectral_silk"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:spectral_leggings"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:dark_amulet"
+    },
+    {
+      "item": "theaurorian:crystal"
+    },
+    {
+      "item": "theaurorian:moon_gem"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:moon_temple_key"
+  }
+}

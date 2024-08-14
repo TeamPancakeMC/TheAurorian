@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "theaurorian:aurorian_diorite"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:aurorian_diorite_stairs"
+  }
+}

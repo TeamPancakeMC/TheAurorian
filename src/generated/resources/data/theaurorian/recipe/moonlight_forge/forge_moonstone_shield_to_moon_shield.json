@@ -1,0 +1,13 @@
+{
+  "type": "theaurorian:moonlight_forge",
+  "equipment": {
+    "item": "theaurorian:moonstone_shield"
+  },
+  "ingredient": {
+    "item": "theaurorian:trophy_moon_queen"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:moon_shield"
+  }
+}

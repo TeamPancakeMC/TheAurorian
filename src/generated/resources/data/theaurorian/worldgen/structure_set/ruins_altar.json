@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1664313299,
+    "separation": 40,
+    "spacing": 80
+  },
+  "structures": [
+    {
+      "structure": "theaurorian:ruins_altar",
+      "weight": 1
+    }
+  ]
+}

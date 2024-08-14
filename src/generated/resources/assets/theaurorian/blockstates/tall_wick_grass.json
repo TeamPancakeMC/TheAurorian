@@ -1,0 +1,100 @@
+{
+  "variants": {
+    "half=lower,level=0": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=1": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=10": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=11": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=12": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=13": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=14": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=15": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=2": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=3": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=4": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=5": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=6": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=7": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=8": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=lower,level=9": {
+      "model": "theaurorian:block/tall_wick_grass_lower"
+    },
+    "half=upper,level=0": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=1": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=10": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=11": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=12": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=13": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=14": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=15": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=2": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=3": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=4": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=5": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=6": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=7": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=8": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    },
+    "half=upper,level=9": {
+      "model": "theaurorian:block/tall_wick_grass_upper"
+    }
+  }
+}

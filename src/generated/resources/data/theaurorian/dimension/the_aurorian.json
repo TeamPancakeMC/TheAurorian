@@ -1,0 +1,109 @@
+{
+  "type": "theaurorian:the_aurorian_type",
+  "generator": {
+    "type": "theaurorian:structure_locating_wrapper",
+    "noise_generation_settings": "theaurorian:the_aurorian_noise",
+    "wrapped_generator": {
+      "type": "minecraft:noise",
+      "biome_source": {
+        "type": "theaurorian:aurorian_biomes",
+        "base_factor": 2.5,
+        "base_offset": -1.25,
+        "biome_landscape": [
+          {
+            "biome_layers": {
+              "-1.0": "theaurorian:aurorian_forest",
+              "-3.0": "theaurorian:underground"
+            },
+            "depth": 9.3,
+            "key_biome": "theaurorian:aurorian_forest",
+            "scale": 0.3
+          },
+          {
+            "biome_layers": {
+              "-1.0": "theaurorian:aurorian_forest_hill",
+              "-3.0": "theaurorian:underground"
+            },
+            "depth": 9.4,
+            "key_biome": "theaurorian:aurorian_forest_hill",
+            "scale": 0.4
+          },
+          {
+            "biome_layers": {
+              "-6.0": "theaurorian:aurorian_lake",
+              "-8.0": "theaurorian:underwater"
+            },
+            "depth": 7.35,
+            "key_biome": "theaurorian:aurorian_lake",
+            "scale": 0.0
+          },
+          {
+            "biome_layers": {
+              "-1.0": "theaurorian:aurorian_plains",
+              "-3.0": "theaurorian:underground"
+            },
+            "depth": 9.3,
+            "key_biome": "theaurorian:aurorian_plains",
+            "scale": 0.3
+          },
+          {
+            "biome_layers": {
+              "-6.0": "theaurorian:aurorian_river",
+              "-8.0": "theaurorian:underwater"
+            },
+            "depth": 7.35,
+            "key_biome": "theaurorian:aurorian_river",
+            "scale": 0.0
+          },
+          {
+            "biome_layers": {
+              "-1.0": "theaurorian:bright_moon_desert",
+              "-3.0": "theaurorian:underground"
+            },
+            "depth": 9.3,
+            "key_biome": "theaurorian:bright_moon_desert",
+            "scale": 0.4
+          },
+          {
+            "biome_layers": {
+              "-1.0": "theaurorian:equinox_flower_plains",
+              "-3.0": "theaurorian:underground"
+            },
+            "depth": 9.25,
+            "key_biome": "theaurorian:equinox_flower_plains",
+            "scale": 0.3
+          },
+          {
+            "biome_layers": {
+              "-1.0": "theaurorian:filthy_ice_crystal_snowfield",
+              "-3.0": "theaurorian:under_snowfield"
+            },
+            "depth": 9.36,
+            "key_biome": "theaurorian:filthy_ice_crystal_snowfield",
+            "scale": 0.5
+          },
+          {
+            "biome_layers": {
+              "-1.0": "theaurorian:lavender_plains",
+              "-3.0": "theaurorian:underground"
+            },
+            "depth": 9.35,
+            "key_biome": "theaurorian:lavender_plains",
+            "scale": 0.4
+          },
+          {
+            "biome_layers": {
+              "-1.0": "theaurorian:weeping_willow_forest",
+              "-3.0": "theaurorian:underground"
+            },
+            "depth": 9.3,
+            "key_biome": "theaurorian:weeping_willow_forest",
+            "scale": 0.4
+          }
+        ],
+        "biome_layer_config": "theaurorian:biomes_along_streams"
+      },
+      "settings": "theaurorian:the_aurorian_noise"
+    }
+  }
+}

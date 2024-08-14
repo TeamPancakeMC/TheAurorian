@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "cookingtime": 100,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "theaurorian:aurorian_pork"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:cooked_aurorian_pork"
+  }
+}

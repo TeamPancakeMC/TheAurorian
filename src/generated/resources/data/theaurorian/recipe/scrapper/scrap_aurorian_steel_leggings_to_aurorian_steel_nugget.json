@@ -1,0 +1,11 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 42,
+  "ingredient": {
+    "item": "theaurorian:aurorian_steel_leggings"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:aurorian_steel_nugget"
+  }
+}

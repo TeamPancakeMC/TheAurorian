@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "theaurorian:block/cursed_frost_wood_slab"
+    },
+    "type=double": {
+      "model": "theaurorian:block/cursed_frost_tree_planks"
+    },
+    "type=top": {
+      "model": "theaurorian:block/cursed_frost_wood_slab_top"
+    }
+  }
+}

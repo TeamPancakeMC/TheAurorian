@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "theaurorian:aurorian_forest_spring",
+    "features": [
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:aurorian_forest_spring"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:aurorian_forest_remains"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:aurorian_forest_memory_loop"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:aurorian_forest_ruined_portal"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:aurorian_forest_shattered_wreath"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:aurorian_forest_shattered_pillar"
+      },
+      {
+        "chance": 0.125,
+        "feature": "theaurorian:aurorian_forest_shattered_forest_pillar"
+      }
+    ]
+  }
+}

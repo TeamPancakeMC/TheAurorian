@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "theaurorian:silent_tree_planks"
+    },
+    "X": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:aurorian_crafting_table"
+  }
+}

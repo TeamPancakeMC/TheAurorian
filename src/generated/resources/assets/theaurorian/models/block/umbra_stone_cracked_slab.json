@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "theaurorian:block/umbra_stone_cracked",
+    "side": "theaurorian:block/umbra_stone_cracked",
+    "top": "theaurorian:block/umbra_stone_cracked"
+  }
+}

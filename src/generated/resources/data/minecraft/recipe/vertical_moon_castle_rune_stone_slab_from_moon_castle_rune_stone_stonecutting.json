@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "theaurorian:moon_castle_rune_stone"
+  },
+  "result": {
+    "count": 2,
+    "id": "theaurorian:vertical_moon_castle_rune_stone_slab"
+  }
+}

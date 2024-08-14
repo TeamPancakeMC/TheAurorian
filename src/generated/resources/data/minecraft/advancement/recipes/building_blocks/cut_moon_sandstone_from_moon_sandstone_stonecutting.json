@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_moon_sandstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:moon_sandstone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:cut_moon_sandstone_from_moon_sandstone_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_moon_sandstone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:cut_moon_sandstone_from_moon_sandstone_stonecutting"
+    ]
+  }
+}

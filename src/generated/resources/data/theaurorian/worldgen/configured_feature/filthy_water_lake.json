@@ -1,0 +1,29 @@
+{
+  "type": "theaurorian:filthy_water_lake",
+  "config": {
+    "barrier": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "theaurorian:aurorian_dirt"
+      }
+    },
+    "barrier_top": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "theaurorian:snow_aurorian_grass_block",
+        "Properties": {
+          "snowy": "false"
+        }
+      }
+    },
+    "fluid": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:water",
+        "Properties": {
+          "level": "0"
+        }
+      }
+    }
+  }
+}

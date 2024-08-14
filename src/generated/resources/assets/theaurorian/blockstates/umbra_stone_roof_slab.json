@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "theaurorian:block/umbra_stone_roof_slab"
+    },
+    "type=double": {
+      "model": "theaurorian:block/umbra_stone_roof_tiles"
+    },
+    "type=top": {
+      "model": "theaurorian:block/umbra_stone_roof_slab_top"
+    }
+  }
+}

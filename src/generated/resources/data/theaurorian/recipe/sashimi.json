@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:fake_algal_pit_fish"
+    },
+    {
+      "item": "theaurorian:silk_berry_jam"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:sashimi"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "texture": "theaurorian:block/weeping_willow_planks"
+  }
+}

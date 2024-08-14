@@ -1,0 +1,11 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 8,
+  "ingredient": {
+    "item": "theaurorian:absorption_orb"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:umbra_scrap"
+  }
+}

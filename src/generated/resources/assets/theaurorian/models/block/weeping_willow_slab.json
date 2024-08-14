@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "theaurorian:block/weeping_willow_planks",
+    "side": "theaurorian:block/weeping_willow_planks",
+    "top": "theaurorian:block/weeping_willow_planks"
+  }
+}

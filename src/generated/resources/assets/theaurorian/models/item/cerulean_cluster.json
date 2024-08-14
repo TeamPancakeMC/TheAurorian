@@ -1,0 +1,6 @@
+{
+  "parent": "theaurorian:item/ta_cluster",
+  "textures": {
+    "layer0": "theaurorian:block/cerulean_cluster"
+  }
+}

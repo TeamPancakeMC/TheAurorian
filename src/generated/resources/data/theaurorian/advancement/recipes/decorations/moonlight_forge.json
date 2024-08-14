@@ -1,0 +1,65 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aurorian_cobblestone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:aurorian_cobblestone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_aurorian_crafting_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:aurorian_crafting_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_aurorian_furnace": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:aurorian_furnace"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_moon_gem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:moon_gem"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:moonlight_forge"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_aurorian_cobblestone",
+      "has_moon_gem",
+      "has_aurorian_crafting_table",
+      "has_aurorian_furnace"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:moonlight_forge"
+    ]
+  }
+}

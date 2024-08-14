@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "theaurorian:block/silent_tree_planks"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "feature": "theaurorian:small_ruins_10",
+  "placement": [
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "theaurorian:aurorian_beef"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:cooked_aurorian_beef"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "theaurorian:cerulean_ingot"
+    },
+    "O": {
+      "item": "theaurorian:silent_wood_stick"
+    }
+  },
+  "pattern": [
+    "I I",
+    "OO ",
+    "OOI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:lock_picks"
+  }
+}

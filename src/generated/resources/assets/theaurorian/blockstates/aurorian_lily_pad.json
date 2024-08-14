@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "level=0": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=1": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=10": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=11": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=12": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=13": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=14": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=15": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=2": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=3": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=4": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=5": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=6": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=7": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=8": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    },
+    "level=9": {
+      "model": "theaurorian:block/aurorian_lily_pad"
+    }
+  }
+}

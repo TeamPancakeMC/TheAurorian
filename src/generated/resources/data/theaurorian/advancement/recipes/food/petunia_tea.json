@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_petunia_plant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:petunia_plant"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:petunia_tea"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_petunia_plant"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:petunia_tea"
+    ]
+  }
+}

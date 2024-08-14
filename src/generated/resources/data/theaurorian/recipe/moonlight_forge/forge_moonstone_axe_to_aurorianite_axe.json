@@ -1,0 +1,13 @@
+{
+  "type": "theaurorian:moonlight_forge",
+  "equipment": {
+    "item": "theaurorian:moonstone_axe"
+  },
+  "ingredient": {
+    "item": "theaurorian:aurorianite_ingot"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:aurorianite_axe"
+  }
+}

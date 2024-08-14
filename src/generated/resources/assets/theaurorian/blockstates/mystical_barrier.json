@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "theaurorian:block/mystical_barrier",
+      "y": -90
+    },
+    "facing=east": {
+      "model": "theaurorian:block/mystical_barrier",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "theaurorian:block/mystical_barrier",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "theaurorian:block/mystical_barrier"
+    },
+    "facing=up": {
+      "model": "theaurorian:block/mystical_barrier",
+      "y": -90
+    },
+    "facing=west": {
+      "model": "theaurorian:block/mystical_barrier",
+      "y": 90
+    }
+  }
+}

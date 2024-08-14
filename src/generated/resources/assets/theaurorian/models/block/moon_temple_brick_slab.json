@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "theaurorian:block/moon_temple_bricks",
+    "side": "theaurorian:block/moon_temple_bricks",
+    "top": "theaurorian:block/moon_temple_bricks"
+  }
+}

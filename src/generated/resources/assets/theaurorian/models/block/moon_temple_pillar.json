@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "theaurorian:block/moon_temple_pillar_top",
+    "side": "theaurorian:block/moon_temple_pillar"
+  }
+}

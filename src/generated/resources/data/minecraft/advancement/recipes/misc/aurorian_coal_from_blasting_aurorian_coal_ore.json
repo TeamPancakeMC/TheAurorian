@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aurorian_coal_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:aurorian_coal_ore"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:aurorian_coal_from_blasting_aurorian_coal_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_aurorian_coal_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:aurorian_coal_from_blasting_aurorian_coal_ore"
+    ]
+  }
+}

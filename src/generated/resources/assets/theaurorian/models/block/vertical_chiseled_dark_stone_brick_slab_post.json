@@ -1,0 +1,6 @@
+{
+  "parent": "theaurorian:block/vertical_slab_post",
+  "textures": {
+    "all": "theaurorian:block/chiseled_dark_stone_bricks"
+  }
+}

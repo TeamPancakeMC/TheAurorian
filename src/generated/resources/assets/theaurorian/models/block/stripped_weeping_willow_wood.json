@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "theaurorian:block/stripped_weeping_willow_log",
+    "side": "theaurorian:block/stripped_weeping_willow_log"
+  }
+}

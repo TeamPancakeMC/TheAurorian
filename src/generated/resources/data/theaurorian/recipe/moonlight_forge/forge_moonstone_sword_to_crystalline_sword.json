@@ -1,0 +1,13 @@
+{
+  "type": "theaurorian:moonlight_forge",
+  "equipment": {
+    "item": "theaurorian:moonstone_sword"
+  },
+  "ingredient": {
+    "item": "theaurorian:crystalline_ingot"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:crystalline_sword"
+  }
+}

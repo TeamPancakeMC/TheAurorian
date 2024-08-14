@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:forge_aurorian_steel_pickaxe_to_queens_chipper"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_trophy_moon_queen": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:trophy_moon_queen"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_trophy_moon_queen"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:forge_aurorian_steel_pickaxe_to_queens_chipper"
+    ]
+  }
+}

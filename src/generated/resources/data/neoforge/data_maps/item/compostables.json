@@ -1,0 +1,76 @@
+{
+  "values": {
+    "minecraft:air": {
+      "chance": 0.65
+    },
+    "theaurorian:aurorian_grass": {
+      "chance": 0.3
+    },
+    "theaurorian:aurorian_grass_light": {
+      "chance": 0.3
+    },
+    "theaurorian:blueberry": {
+      "chance": 0.3
+    },
+    "theaurorian:cursed_frost_tree_leaves": {
+      "chance": 0.3
+    },
+    "theaurorian:curtain_tree_leaves": {
+      "chance": 0.3
+    },
+    "theaurorian:dreamscape_pistil": {
+      "chance": 0.65
+    },
+    "theaurorian:equinox_flower": {
+      "chance": 0.65
+    },
+    "theaurorian:frost_tears_flower": {
+      "chance": 0.65
+    },
+    "theaurorian:ice_calendula": {
+      "chance": 0.65
+    },
+    "theaurorian:lavender_bread": {
+      "chance": 0.85
+    },
+    "theaurorian:lavender_plant": {
+      "chance": 0.65
+    },
+    "theaurorian:lavender_seeds": {
+      "chance": 0.3
+    },
+    "theaurorian:moon_frost_flower": {
+      "chance": 0.65
+    },
+    "theaurorian:nebula_blossom_cluster": {
+      "chance": 0.65
+    },
+    "theaurorian:petunia_plant": {
+      "chance": 0.65
+    },
+    "theaurorian:silent_tree_leaves": {
+      "chance": 0.3
+    },
+    "theaurorian:silent_tree_sapling": {
+      "chance": 0.3
+    },
+    "theaurorian:silk_berry": {
+      "chance": 0.3
+    },
+    "theaurorian:tall_wick_grass": {
+      "chance": 0.65
+    },
+    "theaurorian:void_candle_flower": {
+      "chance": 0.65
+    },
+    "theaurorian:weeping_willow_leaves": {
+      "chance": 0.3
+    },
+    "theaurorian:weeping_willow_sap": {
+      "chance": 0.3
+    },
+    "theaurorian:winter_root": {
+      "chance": 0.65
+    }
+  }
+}

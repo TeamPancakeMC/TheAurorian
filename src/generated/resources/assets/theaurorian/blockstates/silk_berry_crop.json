@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "theaurorian:block/silk_berry_crop_stage0"
+    },
+    "age=1": {
+      "model": "theaurorian:block/silk_berry_crop_stage1"
+    },
+    "age=2": {
+      "model": "theaurorian:block/silk_berry_crop_stage2"
+    },
+    "age=3": {
+      "model": "theaurorian:block/silk_berry_crop_stage3"
+    }
+  }
+}

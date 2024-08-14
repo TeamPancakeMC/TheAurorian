@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aurorian_stone_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:aurorian_stone_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:vertical_aurorian_stone_brick_stairs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_aurorian_stone_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:vertical_aurorian_stone_brick_stairs"
+    ]
+  }
+}

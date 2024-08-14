@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "unlocked=false": {
+      "model": "theaurorian:block/rune_stone_loot_gate_keyhole"
+    },
+    "unlocked=true": {
+      "model": "theaurorian:block/rune_stone_loot_gate_keyhole_unlocked"
+    }
+  }
+}

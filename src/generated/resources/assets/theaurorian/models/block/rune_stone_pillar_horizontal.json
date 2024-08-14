@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "theaurorian:block/rune_stone_pillar_top",
+    "side": "theaurorian:block/rune_stone_pillar"
+  }
+}

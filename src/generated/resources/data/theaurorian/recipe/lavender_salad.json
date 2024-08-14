@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:lavender"
+    },
+    {
+      "item": "theaurorian:blueberry"
+    },
+    {
+      "item": "theaurorian:silk_berry_jam"
+    },
+    {
+      "item": "theaurorian:indigo_mushroom"
+    },
+    {
+      "item": "minecraft:bowl"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:lavender_salad"
+  }
+}

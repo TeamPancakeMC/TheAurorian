@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:lavender"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:lavender_seeds"
+  }
+}

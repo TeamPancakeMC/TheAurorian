@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_moon_temple_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:moon_temple_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:moon_temple_brick_wall_from_moon_temple_bricks_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_moon_temple_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:moon_temple_brick_wall_from_moon_temple_bricks_stonecutting"
+    ]
+  }
+}

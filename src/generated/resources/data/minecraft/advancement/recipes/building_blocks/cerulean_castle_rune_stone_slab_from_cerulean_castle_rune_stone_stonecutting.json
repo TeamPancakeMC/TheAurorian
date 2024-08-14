@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cerulean_castle_rune_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:cerulean_castle_rune_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:cerulean_castle_rune_stone_slab_from_cerulean_castle_rune_stone_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cerulean_castle_rune_stone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:cerulean_castle_rune_stone_slab_from_cerulean_castle_rune_stone_stonecutting"
+    ]
+  }
+}

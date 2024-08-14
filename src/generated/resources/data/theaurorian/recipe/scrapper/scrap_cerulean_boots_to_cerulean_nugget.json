@@ -1,0 +1,11 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 24,
+  "ingredient": {
+    "item": "theaurorian:cerulean_boots"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:cerulean_nugget"
+  }
+}

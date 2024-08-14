@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "W": {
+      "item": "theaurorian:moonstone_ingot"
+    },
+    "o": {
+      "item": "theaurorian:plant_fiber"
+    }
+  },
+  "pattern": [
+    "WoW",
+    "WWW",
+    " W "
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:moonstone_shield"
+  }
+}

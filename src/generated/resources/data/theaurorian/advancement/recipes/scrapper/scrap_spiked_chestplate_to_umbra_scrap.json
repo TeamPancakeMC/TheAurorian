@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_spiked_chestplate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:spiked_chestplate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:scrap_spiked_chestplate_to_umbra_scrap"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_spiked_chestplate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:scrap_spiked_chestplate_to_umbra_scrap"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:dungeon_keeper_amulet"
+    },
+    {
+      "item": "theaurorian:crystal"
+    },
+    {
+      "item": "theaurorian:cerulean_nugget"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:dark_stone_key"
+  }
+}

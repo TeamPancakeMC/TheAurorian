@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "theaurorian:crystalline_castle_rune_stone"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:luminous_crystalline_castle_rune_stone_wall"
+  }
+}

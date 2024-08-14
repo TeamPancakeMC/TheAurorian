@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crystalline_ingot",
+  "key": {
+    "#": {
+      "item": "theaurorian:crystalline_scrap"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:crystalline_ingot"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "theaurorian:block/tall_lavender_plant_lower"
+    },
+    "half=upper": {
+      "model": "theaurorian:block/tall_lavender_plant_upper"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "moonstone_ingot",
+  "key": {
+    "#": {
+      "item": "theaurorian:moonstone_nugget"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:moonstone_ingot"
+  }
+}

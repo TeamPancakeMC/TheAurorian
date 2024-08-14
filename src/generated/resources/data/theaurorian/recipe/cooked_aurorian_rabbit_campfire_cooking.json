@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "theaurorian:aurorian_rabbit"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:cooked_aurorian_rabbit"
+  }
+}

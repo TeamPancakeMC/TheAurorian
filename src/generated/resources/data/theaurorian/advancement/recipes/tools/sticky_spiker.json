@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aurorian_slimeball": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:aurorian_slimeball"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_crystal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:crystal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:sticky_spiker"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_aurorian_slimeball",
+      "has_crystal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:sticky_spiker"
+    ]
+  }
+}

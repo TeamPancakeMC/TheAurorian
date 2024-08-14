@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "theaurorian:block/cursed_frost_tree_wood_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "theaurorian:block/cursed_frost_tree_wood"
+    },
+    "axis=z": {
+      "model": "theaurorian:block/cursed_frost_tree_wood_horizontal",
+      "x": 90
+    }
+  }
+}

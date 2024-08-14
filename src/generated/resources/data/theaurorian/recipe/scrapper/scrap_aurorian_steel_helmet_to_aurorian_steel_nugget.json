@@ -1,0 +1,11 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 30,
+  "ingredient": {
+    "item": "theaurorian:aurorian_steel_helmet"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:aurorian_steel_nugget"
+  }
+}

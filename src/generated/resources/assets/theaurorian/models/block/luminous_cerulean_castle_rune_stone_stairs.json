@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "theaurorian:block/cerulean_castle_rune_stone",
+    "side": "theaurorian:block/cerulean_castle_rune_stone",
+    "top": "theaurorian:block/cerulean_castle_rune_stone"
+  }
+}

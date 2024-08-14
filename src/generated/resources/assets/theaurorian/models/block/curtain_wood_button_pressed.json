@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "theaurorian:block/curtain_tree_planks"
+  }
+}

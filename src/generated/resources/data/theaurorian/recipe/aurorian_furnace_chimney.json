@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "theaurorian:aurorian_cobblestone"
+    },
+    "I": {
+      "item": "theaurorian:cerulean_ingot"
+    }
+  },
+  "pattern": [
+    "#I#",
+    "#I#",
+    "#I#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:aurorian_furnace_chimney"
+  }
+}

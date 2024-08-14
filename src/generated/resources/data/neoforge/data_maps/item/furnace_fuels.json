@@ -1,0 +1,19 @@
+{
+  "values": {
+    "theaurorian:aurorian_coal": {
+      "burn_time": 1500
+    },
+    "theaurorian:aurorian_crafting_table": {
+      "burn_time": 300
+    },
+    "theaurorian:silent_wood_bow": {
+      "burn_time": 300
+    },
+    "theaurorian:silent_wood_ladder": {
+      "burn_time": 300
+    },
+    "theaurorian:silent_wood_stick": {
+      "burn_time": 100
+    }
+  }
+}

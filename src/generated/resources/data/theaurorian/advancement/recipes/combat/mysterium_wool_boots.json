@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mysterium_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:mysterium_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:mysterium_wool_boots"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mysterium_wool"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:mysterium_wool_boots"
+    ]
+  }
+}

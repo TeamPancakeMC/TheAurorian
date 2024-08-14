@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_inventory",
+  "textures": {
+    "texture": "theaurorian:block/cursed_frost_tree_planks"
+  }
+}

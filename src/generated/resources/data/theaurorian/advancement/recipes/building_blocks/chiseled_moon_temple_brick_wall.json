@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_chiseled_moon_temple_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:chiseled_moon_temple_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:chiseled_moon_temple_brick_wall"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_chiseled_moon_temple_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:chiseled_moon_temple_brick_wall"
+    ]
+  }
+}

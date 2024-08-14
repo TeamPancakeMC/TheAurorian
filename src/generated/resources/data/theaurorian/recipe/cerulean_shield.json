@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "W": {
+      "item": "theaurorian:cerulean_ingot"
+    },
+    "o": {
+      "item": "theaurorian:plant_fiber"
+    }
+  },
+  "pattern": [
+    "WoW",
+    "WWW",
+    " W "
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:cerulean_shield"
+  }
+}

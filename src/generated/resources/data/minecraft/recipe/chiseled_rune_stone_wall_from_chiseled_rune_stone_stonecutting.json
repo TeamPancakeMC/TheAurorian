@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "theaurorian:chiseled_rune_stone"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:chiseled_rune_stone_wall"
+  }
+}

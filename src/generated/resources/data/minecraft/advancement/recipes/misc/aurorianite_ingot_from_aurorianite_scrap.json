@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aurorianite_scrap": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:aurorianite_scrap"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:aurorianite_ingot_from_aurorianite_scrap"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_aurorianite_scrap"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:aurorianite_ingot_from_aurorianite_scrap"
+    ]
+  }
+}

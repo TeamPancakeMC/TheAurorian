@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "theaurorian:plant_fiber"
+    },
+    "I": {
+      "item": "theaurorian:silent_wood_stick"
+    }
+  },
+  "pattern": [
+    " I#",
+    "I #",
+    " I#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:silent_wood_bow"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "theaurorian:umbra_stone"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:umbra_stone_wall"
+  }
+}

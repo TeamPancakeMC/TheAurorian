@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aurorian_diorite": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:aurorian_diorite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:aurorian_diorite_wall_from_aurorian_diorite_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_aurorian_diorite"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:aurorian_diorite_wall_from_aurorian_diorite_stonecutting"
+    ]
+  }
+}

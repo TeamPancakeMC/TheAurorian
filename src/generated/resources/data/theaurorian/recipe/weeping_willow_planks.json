@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "theaurorian:weeping_willow_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "theaurorian:weeping_willow_planks"
+  }
+}

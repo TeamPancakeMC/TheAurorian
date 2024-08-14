@@ -1,0 +1,17 @@
+{
+  "feature": "theaurorian:weeping_willow_tree",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:all_of",
+        "predicates": [
+          {
+            "type": "minecraft:matching_blocks",
+            "blocks": "theaurorian:light_aurorian_grass_block"
+          }
+        ]
+      }
+    }
+  ]
+}

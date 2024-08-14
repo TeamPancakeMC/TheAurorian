@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "theaurorian:block/curtain_wood_slab"
+    },
+    "type=double": {
+      "model": "theaurorian:block/curtain_tree_planks"
+    },
+    "type=top": {
+      "model": "theaurorian:block/curtain_wood_slab_top"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+package cn.teampancake.theaurorian.common.level.chunk;
+
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.floats.Float2ObjectAVLTreeMap;
+import it.unimi.dsi.fastutil.floats.Float2ObjectMap;
+import it.unimi.dsi.fastutil.floats.Float2ObjectSortedMap;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
+import java.util.function.BinaryOperator;
+import java.util.stream.Stream;
+
+@SuppressWarnings("deprecation")
+public final class TATerrainColumn implements Comparable<TATerrainColumn> {
+
+    public static final Codec<TATerrainColumn> CODEC = RecordCodecBuilder.create(instance ->
+            instance.group(
+                    RegistryFixedCodec.create(Registries.BIOME).fieldOf("key_biome").forGetter(o -> o.keyBiome),
+                    TATerrainColumn.floatTreeCodec(Biome.CODEC).fieldOf("biome_layers").forGetter(o -> o.biomes),
+                    Codec.FLOAT.fieldOf("depth").forGetter(o -> o.noiseDepth),
+                    Codec.FLOAT.fieldOf("scale").forGetter(o -> o.noiseScale)
+            ).apply(instance, TATerrainColumn::new));
+    private final ResourceKey<Biome> resourceKey;
+    private final Holder<Biome> keyBiome;
+    private final Float2ObjectSortedMap<Holder<Biome>> biomes;
+    private final float noiseDepth;
+    private final float noiseScale;
+
+    public TATerrainColumn(Holder<Biome> keyBiome, Float2ObjectSortedMap<Holder<Biome>> biomes, float noiseDepth, float noiseScale) {
+        this.keyBiome = keyBiome;
+        this.resourceKey = this.keyBiome.unwrapKey().orElseThrow();
+        this.biomes = biomes;
+        this.noiseDepth = noiseDepth;
+        this.noiseScale = noiseScale;
+        if (biomes instanceof Float2ObjectAVLTreeMap<Holder<Biome>> treeMap) {
+            treeMap.defaultReturnValue(this.keyBiome);
+        }
+    }
+
+    public static <T> Codec<Float2ObjectSortedMap<T>> floatTreeCodec(Codec<T> elementCodec) {
+        return Codec.compoundList(Codec.STRING.comapFlatMap(TATerrainColumn::parseString2Float, f -> Float.toString(f)), elementCodec)
+                .xmap(floatEList -> floatEList.stream().collect(Float2ObjectAVLTreeMap::new,
+                                (map, pair) -> map.put(pair.getFirst(), pair.getSecond()), Float2ObjectAVLTreeMap::putAll),
+                        map -> map.entrySet().stream().map(entry -> new Pair<>(entry.getKey(), entry.getValue())).toList());
+    }
+
+    private static DataResult<Float> parseString2Float(String string) {
+        try {
+            return DataResult.success(Float.valueOf(string));
+        } catch (Throwable e) {
+            return DataResult.error(e::getMessage);
+        }
+    }
+
+    public Stream<Holder<Biome>> getBiomes() {
+        return this.biomes.float2ObjectEntrySet().stream().map(Map.Entry::getValue);
+    }
+
+    public boolean is(Holder<Biome> biome) {
+        return this.keyBiome.value().equals(biome.value());
+    }
+
+    public boolean is(ResourceKey<Biome> biome) {
+        return this.keyBiome.is(biome);
+    }
+
+    public Holder<Biome> getBiome(int biomeElevation) {
+        return this.reduce((a, b) -> {
+            float aDelta = a.getFloatKey() - biomeElevation;
+            float bDelta = b.getFloatKey() - biomeElevation;
+            return Math.abs(aDelta) <= Math.abs(bDelta) ? a : b;
+        }, this.keyBiome);
+    }
+
+    private Holder<Biome> reduce(BinaryOperator<Float2ObjectMap.Entry<Holder<Biome>>> reducer, Holder<Biome> other) {
+        return this.biomes.float2ObjectEntrySet().stream().reduce(reducer).map(Map.Entry::getValue).orElse(other);
+    }
+
+    public float depth() {
+        return this.noiseDepth;
+    }
+
+    public float scale() {
+        return this.noiseScale;
+    }
+
+    public ResourceKey<Biome> getResourceKey() {
+        return this.resourceKey;
+    }
+
+    @Override
+    public int compareTo(@NotNull TATerrainColumn o) {
+        return (int) (this.noiseDepth - o.noiseDepth);
+    }
+
+}

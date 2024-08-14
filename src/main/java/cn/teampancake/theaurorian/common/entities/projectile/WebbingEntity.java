@@ -1,0 +1,91 @@
+package cn.teampancake.theaurorian.common.entities.projectile;
+
+import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
+import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
+import cn.teampancake.theaurorian.common.registry.TAItems;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.EntityHitResult;
+
+public class WebbingEntity extends ThrowableItemProjectile {
+
+    public static final ResourceLocation WEBBING_MODIFIER = AurorianMod.prefix("webbing");
+    private int time;
+
+    public WebbingEntity(EntityType<? extends ThrowableItemProjectile> type, Level level) {
+        super(type, level);
+    }
+
+    public WebbingEntity(LivingEntity shooter, Level level) {
+        super(TAEntityTypes.WEBBING.get(), shooter, level);
+    }
+
+    @Override
+    protected Item getDefaultItem() {
+        return TAItems.WEBBING.get();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.level().isClientSide) {
+            ++this.time;
+            if (this.time > 100) {
+                this.discard();
+            }
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("Time", this.time);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.time = compound.getInt("Time");
+    }
+
+    @Override
+    protected void onHitEntity(EntityHitResult result) {
+        Level level = this.level();
+        if (!level.isClientSide) {
+            if (result.getEntity() instanceof LivingEntity entity && !entity.getType().is(TAEntityTags.SPIDERLING)) {
+                entity.hurt(this.damageSources().thrown(this, this.getOwner()), 2.5F);
+                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
+                this.subtractMaxHealthWebbing(entity);
+                BlockPos pos = entity.blockPosition();
+                if (level.getBlockState(pos).canBeReplaced()) {
+                    level.setBlockAndUpdate(pos, Blocks.COBWEB.defaultBlockState());
+                }
+            }
+
+            this.level().broadcastEntityEvent(this, (byte) 3);
+            this.discard();
+        }
+    }
+
+    private void subtractMaxHealthWebbing(LivingEntity livingEntity) {
+        AttributeInstance instance = livingEntity.getAttribute(Attributes.MAX_HEALTH);
+        AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL;
+        if (instance != null && instance.getModifier(WEBBING_MODIFIER) == null) {
+            instance.addTransientModifier(new AttributeModifier(WEBBING_MODIFIER, -0.25F, operation));
+        }
+    }
+
+}

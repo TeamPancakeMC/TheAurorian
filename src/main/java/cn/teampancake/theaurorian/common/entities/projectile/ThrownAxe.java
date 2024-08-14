@@ -1,0 +1,226 @@
+package cn.teampancake.theaurorian.common.entities.projectile;
+
+import cn.teampancake.theaurorian.common.registry.TAEnchantments;
+import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+
+import java.util.UUID;
+
+//TODO: 附魔机制改了，此处需要进行调整。
+@SuppressWarnings({"NotNullFieldNotInitialized", "ConstantConditions"})
+public class ThrownAxe extends LinearMotionProjectile {
+
+    private static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(ThrownAxe.class, EntityDataSerializers.INT);
+    private UUID ownerUUID;
+    private Player owner;
+    private int slot;
+    private float damage;
+    private int returnAge = 8;
+    private boolean returning;
+
+    public ThrownAxe(EntityType<? extends ThrownAxe> type, Level level) {
+        super(type, level);
+        this.noPhysics = false;
+    }
+
+    public ThrownAxe(Level level, LivingEntity shooter) {
+        super(TAEntityTypes.THROWN_AXE.get(), shooter, level);
+    }
+
+    public Player getAxeOwner() {
+        if (this.owner == null) {
+            Level level = this.level();
+            if (level instanceof ServerLevel serverLevel && !serverLevel.isClientSide) {
+                this.owner = (Player) serverLevel.getEntity(this.ownerUUID);
+            }
+        }
+
+        return this.owner;
+    }
+
+    public void setData(float damage, UUID ownerUUID, int slot) {
+        this.damage = damage;
+        this.ownerUUID = ownerUUID;
+        this.slot = slot;
+    }
+
+    @Override
+    protected void onHitBlock(BlockHitResult result) {
+        this.returning = true;
+    }
+
+    @Override
+    protected void onHitEntity(EntityHitResult result) {
+        Entity entity = result.getEntity();
+        DamageSource source = this.damageSources().mobAttack(this.getAxeOwner());
+        if (!this.level().isClientSide && !entity.equals(this.owner)) {
+            if (entity instanceof LivingEntity livingEntity && entity.hurt(source, this.damage)) {
+                this.getItem().hurtAndBreak(1, this.getAxeOwner(), EquipmentSlot.MAINHAND);
+                HolderLookup.RegistryLookup<Enchantment> registryLookup = this.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+//                EnchantmentHelper.EnchantmentVisitor visitor = (enchantment, level) -> enchantment.doPostAttack(this.owner, livingEntity, level);
+//                EnchantmentHelper.runIterationOnInventory(visitor, this.owner.getAllSlots());
+//                EnchantmentHelper.runIterationOnItem(visitor, this.getItem());
+                int i = this.getItem().getEnchantmentLevel(registryLookup.getOrThrow(Enchantments.FIRE_ASPECT));
+                if (i > 0) {
+                    livingEntity.setRemainingFireTicks(i * 4 * 20);
+                }
+            }
+
+            this.returnAge += 4;
+        }
+    }
+
+    public int getAge() {
+        return this.entityData.get(AGE);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(AGE, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        if (this.ownerUUID != null) {
+            compound.putUUID("ownerUUID", this.ownerUUID);
+        }
+
+        compound.putInt("slot", this.slot);
+        compound.putFloat("damage", this.damage);
+        compound.putBoolean("returning", this.returning);
+        compound.putInt("returnAge", this.returnAge);
+        compound.putInt("age", this.getAge());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("ownerUUID")) {
+            this.ownerUUID = compound.getUUID("ownerUUID");
+            this.owner = this.getAxeOwner();
+        }
+
+        this.slot = compound.getInt("slot");
+        this.damage = compound.getFloat("damage");
+        this.returning = compound.getBoolean("returning");
+        this.returnAge = compound.getInt("returnAge");
+        this.entityData.set(AGE, compound.getInt("age"));
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.entityData.set(AGE, this.getAge() + 1);
+        Level level = this.level();
+        HolderLookup.RegistryLookup<Enchantment> registryLookup = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+        if (level.isClientSide && !this.isInWaterRainOrBubble()) {
+            if (this.getItem().getEnchantmentLevel(registryLookup.getOrThrow(Enchantments.FIRE_ASPECT)) > 0) {
+                Vec3 vector = new Vec3(getRandomX(0.7), this.getRandomY(), this.getRandomZ(0.7));
+                if (this.getItem().getItem() instanceof AxeItem) {
+                    float rotation = this.random.nextFloat();
+                    double x = Math.cos(this.getAge() + rotation * 2 - 1) * 0.8F;
+                    double z = Math.sin(this.getAge() + rotation * 2 - 1) * 0.8F;
+                    vector = new Vec3(Math.cos(this.getAge()) * 0.8f + this.getX(), this.getY(0.1), Math.sin(this.getAge()) * 0.8f + this.getZ());
+                    level.addParticle(ParticleTypes.FLAME, x + this.getX(), vector.y, z + this.getZ(), 0, 0, 0);
+                    level.addParticle(ParticleTypes.FLAME, x + this.getX(), vector.y, z + this.getZ(), 0, 0, 0);
+                }
+
+                level.addParticle(ParticleTypes.FLAME, vector.x, vector.y, vector.z, 0, 0, 0);
+            }
+        }
+
+        if (!level.isClientSide) {
+            Holder<Enchantment> enchantment = TAEnchantments.get(this.level(), TAEnchantments.ROUNDABOUT_THROW);
+            int i = this.getItem().getEnchantmentLevel(enchantment);
+            Player playerEntity = this.getAxeOwner();
+            if (playerEntity == null || !playerEntity.isAlive()) {
+                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY() + 0.5, this.getZ(), this.getItem());
+                itemEntity.setPickUpDelay(40);
+                itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().multiply(0, 1, 0));
+                level.addFreshEntity(itemEntity);
+                this.discard();
+                return;
+            }
+
+            if (this.getAge() % 3 == 0) {
+                level.playSound(null, blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 1, 1.25f);
+            }
+
+            if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
+                Vec3 vector3d = this.getDeltaMovement();
+                setYRot((float) (Mth.atan2(vector3d.x, vector3d.z) * (double) (180F / (float) Math.PI)));
+                yRotO = getYRot();
+                xRotO = getXRot();
+            }
+
+            if (this.getAge() > this.returnAge * i) {
+                this.returning = true;
+            }
+
+            if (this.returning) {
+                this.noPhysics = true;
+                Vec3 ownerPos = playerEntity.position().add(0, 1, 0);
+                Vec3 motion = ownerPos.subtract(position());
+                this.setDeltaMovement(motion.normalize().scale(0.75f));
+            }
+
+            if (this.returning && this.distanceTo(playerEntity) < 3.0F && this.isAlive()) {
+                ItemHandlerHelper.giveItemToPlayer(playerEntity, this.getItem(), this.slot);
+                if (!playerEntity.getAbilities().instabuild) {
+                    int cooldown = 100 - 25 * (i - 1);
+                    playerEntity.getCooldowns().addCooldown(this.getItem().getItem(), cooldown);
+                }
+
+                this.discard();
+            }
+        }
+    }
+
+    @Override
+    public float getPickRadius() {
+        return 4.0f;
+    }
+
+    @Override
+    protected Item getDefaultItem() {
+        return Items.IRON_AXE;
+    }
+
+    @Override
+    public boolean ignoreExplosion(Explosion explosion) {
+        return true;
+    }
+
+}

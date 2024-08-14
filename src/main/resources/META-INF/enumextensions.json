@@ -1,0 +1,13 @@
+{
+    "entries": [
+        {
+            "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+            "name": "THEAURORIAN_CRYSTALLINE_SWORD_SHOOT",
+            "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+            "parameters": {
+                "class": "cn/teampancake/theaurorian/common/items/tool/CrystallineSword$CrystallineSwordUseAnim",
+                "field": "CRYSTALLINE_SWORD_SHOOT"
+            }
+        }
+    ]
+}

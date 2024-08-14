@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.utils;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.entities.animal.IOverworldAurorianMob;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -47,7 +47,7 @@ public class TAEntityUtils {
     }
 
     public static<T extends Mob> void convertWithExtraData(EntityType<T> entityType, Mob mob) {
-        if (!BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).getNamespace().equals(AurorianMod.MOD_ID)) {
+        if (!BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).getNamespace().equals(TheAurorian.MOD_ID)) {
             mob.setData(TAAttachmentTypes.COMPLETELY_INVISIBLE, true);
             if (convertTo(entityType, mob) instanceof IOverworldAurorianMob animal) {
                 animal.setSpawnInOverworld(true);

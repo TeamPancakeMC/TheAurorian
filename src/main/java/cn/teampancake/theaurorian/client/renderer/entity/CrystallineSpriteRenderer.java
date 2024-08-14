@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.CrystallineSpriteModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.monster.CrystallineSprite;
@@ -19,7 +19,7 @@ public class CrystallineSpriteRenderer extends MobRenderer<CrystallineSprite, Cr
 
     @Override
     public ResourceLocation getTextureLocation(CrystallineSprite entity) {
-        return AurorianMod.prefix("textures/entity/crystalline_sprite.png");
+        return TheAurorian.prefix("textures/entity/crystalline_sprite.png");
     }
 
 }

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.blocks.base.*;
 import cn.teampancake.theaurorian.common.blocks.state.properties.VerticalSlabShape;
@@ -30,7 +30,7 @@ public class TABlockStateProvider extends BlockStateProvider {
             Direction.SOUTH, 180, Direction.WEST, 270);
 
     public TABlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
-        super(output, AurorianMod.MOD_ID, exFileHelper);
+        super(output, TheAurorian.MOD_ID, exFileHelper);
     }
 
     @Override

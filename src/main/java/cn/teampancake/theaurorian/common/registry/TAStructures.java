@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.level.structure.structures.RuinsAltarStructure;
 import net.minecraft.core.registries.Registries;
@@ -21,7 +21,7 @@ public class TAStructures {
     public static final ResourceKey<Structure> RUINS_ALTAR = createKey("ruins_altar");
 
     private static ResourceKey<Structure> createKey(String name) {
-        return ResourceKey.create(Registries.STRUCTURE, AurorianMod.prefix(name));
+        return ResourceKey.create(Registries.STRUCTURE, TheAurorian.prefix(name));
     }
 
     public static void bootstrap(BootstrapContext<Structure> context) {

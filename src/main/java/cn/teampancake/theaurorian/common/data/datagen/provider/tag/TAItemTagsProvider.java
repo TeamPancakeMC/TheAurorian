@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.tag;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.items.developer.IDeveloperItem;
@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
 public class TAItemTagsProvider extends ItemTagsProvider {
 
     public TAItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, blockTags, AurorianMod.MOD_ID, existingFileHelper);
+        super(output, lookupProvider, blockTags, TheAurorian.MOD_ID, existingFileHelper);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.block;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.entity.SilentWoodChestBlockEntity;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -28,7 +28,7 @@ public class SilentWoodChestRenderer extends ChestRenderer<SilentWoodChestBlockE
     }
 
     private static Material chestMaterial(String chestName) {
-        return new Material(Sheets.CHEST_SHEET, AurorianMod.prefix("entity/chest/" + chestName));
+        return new Material(Sheets.CHEST_SHEET, TheAurorian.prefix("entity/chest/" + chestName));
     }
 
 }

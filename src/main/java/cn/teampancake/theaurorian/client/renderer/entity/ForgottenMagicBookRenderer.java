@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.ForgottenMagicBookModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.monster.ForgottenMagicBook;
@@ -19,7 +19,7 @@ public class ForgottenMagicBookRenderer extends MobRenderer<ForgottenMagicBook, 
 
     @Override
     public ResourceLocation getTextureLocation(ForgottenMagicBook entity) {
-        return AurorianMod.prefix("textures/entity/forgotten_magic_book.png");
+        return TheAurorian.prefix("textures/entity/forgotten_magic_book.png");
     }
 
 }

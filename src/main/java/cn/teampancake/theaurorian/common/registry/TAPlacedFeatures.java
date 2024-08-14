@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
@@ -85,7 +85,7 @@ public class TAPlacedFeatures {
     public static final List<ResourceKey<PlacedFeature>> AURORIAN_FOREST_SMALL_RUINS = new ArrayList<>();
 
     private static ResourceKey<PlacedFeature> createKey(String key) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, AurorianMod.prefix(key));
+        return ResourceKey.create(Registries.PLACED_FEATURE, TheAurorian.prefix(key));
     }
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {

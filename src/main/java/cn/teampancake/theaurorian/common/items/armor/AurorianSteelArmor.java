@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.armor;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.armor.AurorianSteelArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
@@ -33,7 +33,7 @@ public class AurorianSteelArmor extends BaseArmor<AurorianSteelArmorModel> {
 
     @Override
     public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        return AurorianMod.prefix("aurorian_steel_armor.png");
+        return TheAurorian.prefix("aurorian_steel_armor.png");
     }
 
 }

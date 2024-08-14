@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.tag;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import net.minecraft.core.HolderLookup;
@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 public class TAEntityTagsProvider extends EntityTypeTagsProvider {
 
     public TAEntityTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(packOutput, lookupProvider, AurorianMod.MOD_ID, existingFileHelper);
+        super(packOutput, lookupProvider, TheAurorian.MOD_ID, existingFileHelper);
     }
 
     @Override

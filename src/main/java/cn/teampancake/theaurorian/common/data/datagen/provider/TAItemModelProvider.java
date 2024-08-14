@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.base.DoorBlockWithBase;
 import cn.teampancake.theaurorian.common.blocks.base.ISimpleBlockItem;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
@@ -21,7 +21,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 public class TAItemModelProvider extends ItemModelProvider {
 
     public TAItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-        super(output, AurorianMod.MOD_ID, existingFileHelper);
+        super(output, TheAurorian.MOD_ID, existingFileHelper);
     }
 
     @Override
@@ -287,7 +287,7 @@ public class TAItemModelProvider extends ItemModelProvider {
     private void simpleItem(Item item) {
         String path = BuiltInRegistries.ITEM.getKey(item).getPath();
         this.withExistingParent(path, ResourceLocation.withDefaultNamespace("item/generated"))
-                .texture("layer0", AurorianMod.prefix("item/" + path));
+                .texture("layer0", TheAurorian.prefix("item/" + path));
     }
 
     private void simpleBlockItem(Block block) {

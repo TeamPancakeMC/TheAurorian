@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.base.VerticalSlabBlockWithBase;
 import cn.teampancake.theaurorian.common.blocks.base.VerticalStairBlockWithBase;
 import net.minecraft.core.registries.Registries;
@@ -17,10 +17,10 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class TACreativeModeTabs {
 
-    public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, AurorianMod.MOD_ID);
+    public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TheAurorian.MOD_ID);
 
     static final DeferredHolder<CreativeModeTab, CreativeModeTab> NORMAL = TABS.register("normal_tab", () -> CreativeModeTab
-            .builder().title(Component.translatable("itemGroup." + AurorianMod.MOD_ID + ".normal"))
+            .builder().title(Component.translatable("itemGroup." + TheAurorian.MOD_ID + ".normal"))
             .icon(() -> new ItemStack(TAItems.AURORIAN_STEEL.get()))
             .displayItems((params, output) -> TAItems.ITEMS.getEntries().forEach(item -> {
                 if (!isOnlyUseForBuilding(item.get())) {
@@ -29,7 +29,7 @@ public class TACreativeModeTabs {
             })).build());
 
     static final DeferredHolder<CreativeModeTab, CreativeModeTab> BUILDING = TABS.register("building_tab", () -> CreativeModeTab
-            .builder().title(Component.translatable("itemGroup." + AurorianMod.MOD_ID + ".building"))
+            .builder().title(Component.translatable("itemGroup." + TheAurorian.MOD_ID + ".building"))
             .icon(() -> new ItemStack(TABlocks.AURORIAN_STONE.get()))
             .displayItems(((params, output) -> TAItems.ITEMS.getEntries().forEach(item -> {
                 if (isOnlyUseForBuilding(item.get())) {

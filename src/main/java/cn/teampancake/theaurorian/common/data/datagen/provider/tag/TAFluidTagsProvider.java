@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.tag;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TAFluids;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 public class TAFluidTagsProvider extends FluidTagsProvider {
 
     public TAFluidTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, provider, AurorianMod.MOD_ID, existingFileHelper);
+        super(output, provider, TheAurorian.MOD_ID, existingFileHelper);
     }
 
     @Override

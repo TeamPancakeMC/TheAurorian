@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.base.*;
 import cn.teampancake.theaurorian.common.data.datagen.recipes.AlchemyTableRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.recipes.MoonlightForgeRecipeBuilder;
@@ -163,7 +163,7 @@ public class TARecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.STRING).define('#', TAItems.PLANT_FIBER.get())
                 .pattern("###").pattern("###").pattern("###")
                 .unlockedBy(getHasName(TAItems.PLANT_FIBER.get()), has(TAItems.PLANT_FIBER.get()))
-                .save(recipeOutput, AurorianMod.prefix("string_from_plant_fiber"));
+                .save(recipeOutput, TheAurorian.prefix("string_from_plant_fiber"));
         //Mod Shapeless Recipes
         oneToOneConversionRecipe(recipeOutput, TAItems.LAVENDER_SEEDS.get(), TAItems.LAVENDER.get(), null);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_GLASS.get())
@@ -447,18 +447,18 @@ public class TARecipeProvider extends RecipeProvider {
 
     public static void forging(RecipeOutput recipeOutput, ItemLike equipment, ItemLike upgradeMaterial, ItemLike result) {
         MoonlightForgeRecipeBuilder.addRecipe(equipment, upgradeMaterial, result.asItem().getDefaultInstance()).unlockedBy(getHasName(upgradeMaterial), has(upgradeMaterial))
-                .save(recipeOutput, AurorianMod.prefix("forge_" + getItemName(equipment) + "_to_" + getItemName(result)));
+                .save(recipeOutput, TheAurorian.prefix("forge_" + getItemName(equipment) + "_to_" + getItemName(result)));
     }
 
     public static void alchemy(
             RecipeOutput recipeOutput, ItemLike input1, ItemLike input2, ItemLike input3, ItemLike material, ItemStack result, int alchemyTime) {
         AlchemyTableRecipeBuilder.addRecipe(Ingredient.of(input1), Ingredient.of(input2), Ingredient.of(input3), Ingredient.of(material), result, alchemyTime)
-                .unlockedBy(getHasName(input1), has(input1)).save(recipeOutput, AurorianMod.prefix("alchemy_" + getItemName(result.getItem())));
+                .unlockedBy(getHasName(input1), has(input1)).save(recipeOutput, TheAurorian.prefix("alchemy_" + getItemName(result.getItem())));
     }
 
     public static void scrapping(RecipeOutput recipeOutput, ItemLike ingredient, ItemLike result, int amount) {
         ScrapperRecipeBuilder.addRecipe(ingredient, result.asItem().getDefaultInstance(), amount).unlockedBy(getHasName(ingredient), has(ingredient))
-                .save(recipeOutput, AurorianMod.prefix("scrap_" + getItemName(ingredient) + "_to_" + getItemName(result)));
+                .save(recipeOutput, TheAurorian.prefix("scrap_" + getItemName(ingredient) + "_to_" + getItemName(result)));
     }
 
     private static void verticalStairs(RecipeOutput recipeOutput, VerticalStairBlockWithBase slab) {
@@ -530,11 +530,11 @@ public class TARecipeProvider extends RecipeProvider {
 
     protected static void buildFoodProcessRecipes(RecipeOutput recipeOutput, Item input, Item output, float xp) {
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 200)
-                .unlockedBy(getHasName(input), has(input)).save(recipeOutput, AurorianMod.prefix(getItemName(output) + "_smelting"));
+                .unlockedBy(getHasName(input), has(input)).save(recipeOutput, TheAurorian.prefix(getItemName(output) + "_smelting"));
         SimpleCookingRecipeBuilder.smoking(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 100)
-                .unlockedBy(getHasName(input), has(input)).save(recipeOutput, AurorianMod.prefix(getItemName(output) + "_smoking"));
+                .unlockedBy(getHasName(input), has(input)).save(recipeOutput, TheAurorian.prefix(getItemName(output) + "_smoking"));
         SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 600)
-                .unlockedBy(getHasName(input), has(input)).save(recipeOutput, AurorianMod.prefix(getItemName(output) + "_campfire_cooking"));
+                .unlockedBy(getHasName(input), has(input)).save(recipeOutput, TheAurorian.prefix(getItemName(output) + "_campfire_cooking"));
     }
 
 }

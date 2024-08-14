@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.MoonFishModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.MoonFish;
@@ -19,7 +19,7 @@ public class MoonFishRenderer extends MobRenderer<MoonFish, MoonFishModel<MoonFi
 
     @Override
     public ResourceLocation getTextureLocation(MoonFish pEntity) {
-        return AurorianMod.prefix("textures/entity/moon_fish.png");
+        return TheAurorian.prefix("textures/entity/moon_fish.png");
     }
 
 }

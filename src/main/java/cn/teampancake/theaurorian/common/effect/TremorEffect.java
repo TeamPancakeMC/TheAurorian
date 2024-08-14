@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.effect;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -13,7 +13,7 @@ public class TremorEffect extends TAMobEffect {
 
     public TremorEffect() {
         super(MobEffectCategory.HARMFUL, 0x81663b);
-        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, AurorianMod.prefix("tremor_ms"), -0.15F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("tremor_ms"), -0.15F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     }
 
     public void mainOffhandDrop(LivingEntity livingEntity) {

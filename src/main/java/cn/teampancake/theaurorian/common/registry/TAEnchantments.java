@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.enchantments.MoltenCoreEffect;
 import cn.teampancake.theaurorian.common.level.storage.predicate.MoltenCoreEnchantmentCondition;
 import cn.teampancake.theaurorian.common.level.storage.predicate.NightWalkerEnchantmentCondition;
@@ -13,7 +13,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -21,7 +20,6 @@ import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.AddValue;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 
 public class TAEnchantments {
 
@@ -51,14 +49,12 @@ public class TAEnchantments {
     public static final ResourceKey<Enchantment> LIGHTNING_RESISTANCE = createKey("lightning_resistance");
 
     private static ResourceKey<Enchantment> createKey(String name) {
-        return ResourceKey.create(Registries.ENCHANTMENT, AurorianMod.prefix(name));
+        return ResourceKey.create(Registries.ENCHANTMENT, TheAurorian.prefix(name));
     }
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
-        HolderGetter<DamageType> damageTypeLookup = context.lookup(Registries.DAMAGE_TYPE);
         HolderGetter<Enchantment> enchantmentLookup = context.lookup(Registries.ENCHANTMENT);
         HolderGetter<Item> itemLookup = context.lookup(Registries.ITEM);
-        HolderGetter<Block> blockLookup = context.lookup(Registries.BLOCK);
         register(context, IMPALE, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.BOW_ENCHANTABLE),
                 10, 4, Enchantment.dynamicCost(1, 10),
@@ -75,7 +71,7 @@ public class TAEnchantments {
                 Enchantment.dynamicCost(41, 8), 4, EquipmentSlotGroup.HAND))
                 .withEffect(EnchantmentEffectComponents.DAMAGE,
                         new AddValue(LevelBasedValue.perLevel(4.0F)),
-                        SavageEnchantmentCondition.build()));
+                        SavageEnchantmentCondition.get()));
         register(context, OVERLOAD, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                 5, 4, Enchantment.dynamicCost(11, 10),
@@ -106,17 +102,17 @@ public class TAEnchantments {
                 itemLookup.getOrThrow(ItemTags.CHEST_ARMOR_ENCHANTABLE),
                 2, 3, Enchantment.dynamicCost(15, 20),
                 Enchantment.dynamicCost(75, 20), 4, EquipmentSlotGroup.CHEST))
-                .withEffect(EnchantmentEffectComponents.TICK, new MoltenCoreEffect())
+                .withEffect(EnchantmentEffectComponents.TICK, new MoltenCoreEffect(0))
                 .withEffect(EnchantmentEffectComponents.DAMAGE,
                         new AddValue(LevelBasedValue.perLevel(3.0F)),
-                        MoltenCoreEnchantmentCondition.build()));
+                        MoltenCoreEnchantmentCondition.get()));
         register(context, NIGHT_WALKER, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
                 5, 5, Enchantment.dynamicCost(0, 10),
                 Enchantment.dynamicCost(15, 10), 4, EquipmentSlotGroup.HAND))
                 .withEffect(EnchantmentEffectComponents.DAMAGE,
                         new AddValue(LevelBasedValue.perLevel(1.0F)),
-                        NightWalkerEnchantmentCondition.build()));
+                        NightWalkerEnchantmentCondition.get()));
         register(context, REFLECT_AURA, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
                 2, 4, Enchantment.dynamicCost(10, 20),

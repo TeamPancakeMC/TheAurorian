@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.level.biome;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.chunk.TATerrainColumn;
 import cn.teampancake.theaurorian.common.level.legacy.area.LazyArea;
 import cn.teampancake.theaurorian.common.level.legacy.context.LazyAreaContext;
@@ -33,7 +33,7 @@ public class TABiomeSource extends BiomeSource {
                     m -> m.values().stream().sorted(Comparator.comparing(TATerrainColumn::getResourceKey)).toList()).forGetter(o -> o.biomeList),
             Codec.FLOAT.fieldOf("base_offset").forGetter(o -> o.baseOffset),
             Codec.FLOAT.fieldOf("base_factor").forGetter(o -> o.baseFactor),
-            TABiomeLayerStack.HOLDER_CODEC.fieldOf("biome_layer_config").orElseGet((String s) -> AurorianMod.LOGGER.warn(s),
+            TABiomeLayerStack.HOLDER_CODEC.fieldOf("biome_layer_config").orElseGet((String s) -> TheAurorian.LOGGER.warn(s),
                     TABiomeLayerStack::getDefaultLayer).forGetter(TABiomeSource::getBiomeConfig)
     ).apply(instance, instance.stable(TABiomeSource::new)));
 

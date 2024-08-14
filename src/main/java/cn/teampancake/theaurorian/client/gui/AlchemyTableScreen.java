@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.gui;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,7 +15,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class AlchemyTableScreen extends AbstractContainerScreen<AlchemyTableMenu> {
 
-    private static final ResourceLocation CONTAINER_LOCATION = AurorianMod.prefix("textures/gui/alchemy_table.png");
+    private static final ResourceLocation CONTAINER_LOCATION = TheAurorian.prefix("textures/gui/alchemy_table.png");
 
     public AlchemyTableScreen(AlchemyTableMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);

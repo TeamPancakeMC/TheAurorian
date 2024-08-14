@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.armor;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.armor.MysteriumWoolArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import net.minecraft.client.Minecraft;
@@ -38,7 +38,7 @@ public class MysteriumWoolArmor extends BaseArmor<MysteriumWoolArmorModel> {
     }
 
     public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        return AurorianMod.prefix("mysterium_armor.png");
+        return TheAurorian.prefix("mysterium_armor.png");
     }
 
 }

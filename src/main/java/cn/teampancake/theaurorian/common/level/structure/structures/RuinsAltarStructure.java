@@ -1,10 +1,9 @@
 package cn.teampancake.theaurorian.common.level.structure.structures;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.structure.pieces.RuinsAltarPiece;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAStructureTypes;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -46,7 +45,7 @@ public class RuinsAltarStructure extends Structure {
                     context.heightAccessor(), context.randomState());
             Rotation rotation = Rotation.getRandom(random);
             BlockPos pos = new BlockPos(x, y, z);
-            ResourceLocation location = AurorianMod.prefix("ruins/ruins_altar/ruins_altar");
+            ResourceLocation location = TheAurorian.prefix("ruins/ruins_altar/ruins_altar");
             builder.addPiece(new RuinsAltarPiece(manager, location, pos.above(), rotation));
         });
     }

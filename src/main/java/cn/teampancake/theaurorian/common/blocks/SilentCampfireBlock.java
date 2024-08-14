@@ -4,19 +4,25 @@ import cn.teampancake.theaurorian.common.blocks.entity.SilentCampfireBlockEntity
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Nullable;
 
 public class SilentCampfireBlock extends CampfireBlock {
 
     public SilentCampfireBlock() {
-        super(Boolean.TRUE, 1, Properties.ofFullCopy(Blocks.CAMPFIRE));
+        super(Boolean.TRUE, 1, Properties.of().mapColor(MapColor.PODZOL)
+                .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)
+                .lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 15 : 0)
+                .noOcclusion().ignitedByLava());
     }
 
     @Override

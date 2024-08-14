@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.AurorianPixieModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.AurorianPixie;
@@ -19,7 +19,7 @@ public class AurorianPixieRenderer extends MobRenderer<AurorianPixie, AurorianPi
 
     @Override
     public ResourceLocation getTextureLocation(AurorianPixie entity) {
-        return AurorianMod.prefix("textures/entity/aurorian_pixie_" + entity.getColorId() + ".png");
+        return TheAurorian.prefix("textures/entity/aurorian_pixie_" + entity.getColorId() + ".png");
     }
 
 }

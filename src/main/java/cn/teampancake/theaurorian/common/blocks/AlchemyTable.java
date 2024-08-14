@@ -21,7 +21,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.border.WorldBorder;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +34,8 @@ public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBl
     public static final EnumProperty<AlchemyTablePart> PART = EnumProperty.create("part", AlchemyTablePart.class);
 
     public AlchemyTable() {
-        super(Properties.ofFullCopy(Blocks.CRAFTING_TABLE).noOcclusion().pushReaction(PushReaction.DESTROY));
+        super(Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F)
+                .sound(SoundType.WOOD).ignitedByLava().noOcclusion().pushReaction(PushReaction.DESTROY));
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, AlchemyTablePart.LEFT));
     }
 

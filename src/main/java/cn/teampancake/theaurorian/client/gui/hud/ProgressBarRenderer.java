@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.gui.hud;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 public class ProgressBarRenderer {
 
-    public static ResourceLocation STAMINA = AurorianMod.prefix("textures/gui/stamina.png");
+    public static ResourceLocation STAMINA = TheAurorian.prefix("textures/gui/stamina.png");
     public static final int TEXTURE_WIDTH = 32;
     public static final int TEXTURE_HEIGHT = 16;
     public static final int STAMINA_WIDTH = 32;
@@ -65,7 +65,7 @@ public class ProgressBarRenderer {
     }
 
     public static void registerProgressBarOverlay(RegisterGuiLayersEvent event) {
-        event.registerAbove(VanillaGuiLayers.FOOD_LEVEL, AurorianMod.prefix("progress_bar"), ProgressBarRenderer::render);
+        event.registerAbove(VanillaGuiLayers.FOOD_LEVEL, TheAurorian.prefix("progress_bar"), ProgressBarRenderer::render);
     }
 
 }

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.network;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record FrostbiteS2CPacket(int ticksFrostbite) implements CustomPacketPayload {
 
-    public static final Type<FrostbiteS2CPacket> TYPE = new Type<>(AurorianMod.prefix("frostbite"));
+    public static final Type<FrostbiteS2CPacket> TYPE = new Type<>(TheAurorian.prefix("frostbite"));
     public static final StreamCodec<RegistryFriendlyByteBuf, FrostbiteS2CPacket> STREAM_CODEC =
             CustomPacketPayload.codec(FrostbiteS2CPacket::write, FrostbiteS2CPacket::new);
 

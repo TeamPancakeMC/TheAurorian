@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.gui.hud;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
@@ -32,7 +32,7 @@ public class FrostbiteOutlineRender {
     }
 
     public static void registerFrostbiteOverlay(RegisterGuiLayersEvent event) {
-        ResourceLocation id = AurorianMod.prefix("snowfield_frostbite");
+        ResourceLocation id = TheAurorian.prefix("snowfield_frostbite");
         event.registerBelow(VanillaGuiLayers.HOTBAR, id, FrostbiteOutlineRender::render);
     }
 

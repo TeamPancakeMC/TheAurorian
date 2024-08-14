@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
@@ -34,7 +34,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = AurorianMod.MOD_ID)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class ItemEventSubscriber {
 
     @SubscribeEvent

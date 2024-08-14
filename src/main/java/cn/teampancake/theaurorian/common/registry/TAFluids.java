@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,10 +15,10 @@ import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-@EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class TAFluids {
 
-    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(BuiltInRegistries.FLUID, AurorianMod.MOD_ID);
+    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(BuiltInRegistries.FLUID, TheAurorian.MOD_ID);
     public static final DeferredHolder<Fluid, FlowingFluid> MOLTEN_AURORIAN_STEEL_STILL = FLUIDS.register("molten_aurorian_steel_still",
             () -> new BaseFlowingFluid.Source(TAFluids.MOLTEN_AURORIAN_STEEL_PROPERTIES));
     public static final DeferredHolder<Fluid, FlowingFluid> MOLTEN_AURORIAN_STEEL_FLOWING = FLUIDS.register("molten_aurorian_steel_flowing",

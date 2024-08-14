@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -42,7 +42,7 @@ public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntit
     protected Component getDefaultName() {
         Block block = this.getBlockState().getBlock();
         String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
-        return Component.translatable(AurorianMod.MOD_ID + ".container." + path);
+        return Component.translatable(TheAurorian.MOD_ID + ".container." + path);
     }
 
     @Override

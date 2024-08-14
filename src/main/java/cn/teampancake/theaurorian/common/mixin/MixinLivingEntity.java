@@ -40,7 +40,7 @@ public abstract class MixinLivingEntity extends Entity implements IOverworldAuro
         super(type, level);
     }
 
-    @Inject(method = "*defineSynchedData", at = @At(value = "TAIL"))
+    @Inject(method = "defineSynchedData", at = @At(value = "TAIL"))
     protected void defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
         builder.define(SPAWN_IN_OVERWORLD, false);
     }

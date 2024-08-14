@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.biome.layer.FilteredBiomeLayer;
 import cn.teampancake.theaurorian.common.level.biome.layer.RandomBiomeLayer;
 import cn.teampancake.theaurorian.common.level.biome.layer.SeamLayer;
@@ -18,8 +18,8 @@ import java.util.function.Supplier;
 
 public class TABiomeLayers {
 
-    public static final ResourceKey<Registry<BiomeLayerType>> BIOME_LAYER_TYPE_KEY = ResourceKey.createRegistryKey(AurorianMod.namedRegistry("biome_layer_type"));
-    public static final DeferredRegister<BiomeLayerType> BIOME_LAYER_TYPES = DeferredRegister.create(BIOME_LAYER_TYPE_KEY, AurorianMod.MOD_ID);
+    public static final ResourceKey<Registry<BiomeLayerType>> BIOME_LAYER_TYPE_KEY = ResourceKey.createRegistryKey(TheAurorian.namedRegistry("biome_layer_type"));
+    public static final DeferredRegister<BiomeLayerType> BIOME_LAYER_TYPES = DeferredRegister.create(BIOME_LAYER_TYPE_KEY, TheAurorian.MOD_ID);
     public static final Registry<BiomeLayerType> REGISTRY = new RegistryBuilder<>(BIOME_LAYER_TYPE_KEY).create();
     public static final Codec<BiomeLayerType> CODEC = Codec.lazyInitialized(REGISTRY::byNameCodec);
 

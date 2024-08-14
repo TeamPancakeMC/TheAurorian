@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -18,7 +18,7 @@ public class TAPaintingVariants {
     public static final ResourceKey<PaintingVariant> SLIME = createKey("slime");
 
     private static ResourceKey<PaintingVariant> createKey(String key) {
-        return ResourceKey.create(Registries.PAINTING_VARIANT, AurorianMod.prefix(key));
+        return ResourceKey.create(Registries.PAINTING_VARIANT, TheAurorian.prefix(key));
     }
 
     public static void bootstrap(BootstrapContext<PaintingVariant> context) {

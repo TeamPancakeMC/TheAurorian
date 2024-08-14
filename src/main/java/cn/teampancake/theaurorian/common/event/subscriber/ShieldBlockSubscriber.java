@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.items.shield.CrystallineShield;
 import cn.teampancake.theaurorian.common.items.shield.MoonShield;
 import cn.teampancake.theaurorian.common.items.shield.MoonStoneShield;
@@ -17,7 +17,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
 
-@EventBusSubscriber(modid = AurorianMod.MOD_ID)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class ShieldBlockSubscriber {
 
     @SubscribeEvent

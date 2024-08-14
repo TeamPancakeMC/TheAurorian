@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.tag;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 public class TAEnchantmentTagsProvider extends EnchantmentTagsProvider {
 
     public TAEnchantmentTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, AurorianMod.MOD_ID, existingFileHelper);
+        super(output, lookupProvider, TheAurorian.MOD_ID, existingFileHelper);
     }
 
     @Override

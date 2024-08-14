@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -37,7 +37,7 @@ public class TABiomes {
     public static final ResourceKey<Biome> UNDERWATER = createKey("underwater");
 
     private static ResourceKey<Biome> createKey(String name) {
-        return ResourceKey.create(Registries.BIOME, AurorianMod.prefix(name));
+        return ResourceKey.create(Registries.BIOME, TheAurorian.prefix(name));
     }
 
     public static void bootstrap(BootstrapContext<Biome> context) {

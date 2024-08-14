@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.tag;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.base.VerticalSlabBlockWithBase;
 import cn.teampancake.theaurorian.common.blocks.base.VerticalStairBlockWithBase;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
 public class TABlockTagsProvider extends BlockTagsProvider {
 
     public TABlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, AurorianMod.MOD_ID, existingFileHelper);
+        super(output, lookupProvider, TheAurorian.MOD_ID, existingFileHelper);
     }
 
     @Override
@@ -156,7 +156,7 @@ public class TABlockTagsProvider extends BlockTagsProvider {
             float f1 = Blocks.BEDROCK.defaultDestroyTime();
             float f2 = Blocks.BEDROCK.getExplosionResistance();
             ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block);
-            if (key.getNamespace().equals(AurorianMod.MOD_ID)) {
+            if (key.getNamespace().equals(TheAurorian.MOD_ID)) {
                 if (key.getPath().contains("moon_temple")) {
                     this.tag(TABlockTags.MOON_TEMPLE_BLOCK).add(block);
                 }

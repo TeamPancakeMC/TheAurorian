@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -18,8 +18,8 @@ import java.util.Collection;
 
 public class TAVillagerProfession {
 
-    public static final DeferredRegister<PoiType> POINTS_OF_INTEREST = DeferredRegister.create(Registries.POINT_OF_INTEREST_TYPE, AurorianMod.MOD_ID);
-    public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(Registries.VILLAGER_PROFESSION, AurorianMod.MOD_ID);
+    public static final DeferredRegister<PoiType> POINTS_OF_INTEREST = DeferredRegister.create(Registries.POINT_OF_INTEREST_TYPE, TheAurorian.MOD_ID);
+    public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(Registries.VILLAGER_PROFESSION, TheAurorian.MOD_ID);
 
     public static final DeferredHolder<PoiType, PoiType> POI_ASTROLOGY_TABLE = POINTS_OF_INTEREST.register(
             "astrology_table", () -> createPOI(assembleStates(TABlocks.ASTROLOGY_TABLE.get())));

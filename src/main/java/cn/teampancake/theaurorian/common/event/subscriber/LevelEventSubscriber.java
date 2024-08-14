@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.common.event.TAEventFactory;
 import cn.teampancake.theaurorian.common.network.FutureNightS2CPacket;
@@ -24,7 +24,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 
-@EventBusSubscriber(modid = AurorianMod.MOD_ID)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class LevelEventSubscriber {
 
     private static int dayCount;
@@ -40,7 +40,7 @@ public class LevelEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onLevelTick(LevelTickEvent event) {
+    public static void onLevelTick(LevelTickEvent.Pre event) {
         if (event.getLevel() instanceof ServerLevel serverLevel) {
             List<ServerPlayer> playerList = serverLevel.players();
             if (serverLevel.dimension() == TADimensions.AURORIAN_DIMENSION) {

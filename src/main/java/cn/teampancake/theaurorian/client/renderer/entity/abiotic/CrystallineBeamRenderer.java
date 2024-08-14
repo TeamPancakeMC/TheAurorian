@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity.abiotic;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +17,7 @@ public class CrystallineBeamRenderer<T extends Arrow> extends ArrowRenderer<T> {
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
-        return AurorianMod.prefix("textures/entity/crystalline_beam.png");
+        return TheAurorian.prefix("textures/entity/crystalline_beam.png");
     }
 
 }

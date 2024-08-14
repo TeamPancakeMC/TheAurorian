@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -31,7 +31,7 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(TABiomeLayerStack.BIOME_STACK_KEY, TABiomeLayerStack::bootstrap);
 
     public RegistryDataGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries, BUILDER, Set.of(AurorianMod.MOD_ID));
+        super(output, registries, BUILDER, Set.of(TheAurorian.MOD_ID));
     }
 
 }

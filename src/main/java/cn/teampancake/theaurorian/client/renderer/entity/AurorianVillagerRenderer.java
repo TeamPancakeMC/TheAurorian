@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
 import cn.teampancake.theaurorian.common.registry.TAVillagerProfession;
 import net.minecraft.client.model.PlayerModel;
@@ -15,8 +15,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class AurorianVillagerRenderer extends LivingEntityRenderer<AurorianVillager, PlayerModel<AurorianVillager>> {
 
-    private static final ResourceLocation ASTROLOGER  = AurorianMod.prefix("textures/entity/astrologer.png");
-    private static final ResourceLocation ASTROLOGER_2  = AurorianMod.prefix("textures/entity/astrologer_2.png");
+    private static final ResourceLocation ASTROLOGER  = TheAurorian.prefix("textures/entity/astrologer.png");
+    private static final ResourceLocation ASTROLOGER_2  = TheAurorian.prefix("textures/entity/astrologer_2.png");
 
     public AurorianVillagerRenderer(EntityRendererProvider.Context context) {
         super(context, new PlayerModel<>(context.bakeLayer(ModelLayers.PLAYER_SLIM), true), 0.5f);

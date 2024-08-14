@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 public class TAArmorMaterials {
 
-    public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(Registries.ARMOR_MATERIAL, AurorianMod.MOD_ID);
+    public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(Registries.ARMOR_MATERIAL, TheAurorian.MOD_ID);
 
     public static final DeferredHolder<ArmorMaterial, ArmorMaterial> CERULEAN = register(
             "cerulean", 3, 5, 6, 3, 20, 15,
@@ -63,7 +63,7 @@ public class TAArmorMaterials {
             map.put(ArmorItem.Type.BODY, body);
         });
 
-        List<ArmorMaterial.Layer> layers = List.of(new ArmorMaterial.Layer(AurorianMod.prefix(name)));
+        List<ArmorMaterial.Layer> layers = List.of(new ArmorMaterial.Layer(TheAurorian.prefix(name)));
         return ARMOR_MATERIALS.register(name, () -> new ArmorMaterial(
                 defense, enchantmentValue, equipSound, repairIngredient, layers, toughness, (0.0F)));
     }

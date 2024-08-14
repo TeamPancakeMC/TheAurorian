@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class TAProcessorList {
 
-    public static final ResourceKey<StructureProcessorList> STREET_CAVE = ResourceKey.create(Registries.PROCESSOR_LIST, AurorianMod.prefix("street_cave"));
+    public static final ResourceKey<StructureProcessorList> STREET_CAVE = ResourceKey.create(Registries.PROCESSOR_LIST, TheAurorian.prefix("street_cave"));
 
     public static void bootstrap(BootstrapContext<StructureProcessorList> context) {
         register(context, STREET_CAVE, ImmutableList.of(new RuleProcessor(ImmutableList.of(new ProcessorRule(new BlockMatchTest(Blocks.CALCITE),

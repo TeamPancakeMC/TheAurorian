@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.particle.WickParticle;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.core.particles.ParticleType;
@@ -14,10 +14,10 @@ import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-@EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class TAParticleTypes {
 
-    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, AurorianMod.MOD_ID);
+    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, TheAurorian.MOD_ID);
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> WICK = PARTICLE_TYPES.register("wick", () -> new SimpleParticleType(Boolean.FALSE));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> STICK_SPIKER = PARTICLE_TYPES.register("stick_spiker", () -> new SimpleParticleType(Boolean.FALSE));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> MAGIC_PURPLE = PARTICLE_TYPES.register("magic_purple", () -> new SimpleParticleType(Boolean.FALSE));

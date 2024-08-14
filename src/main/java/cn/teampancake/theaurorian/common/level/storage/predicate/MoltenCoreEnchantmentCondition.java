@@ -27,7 +27,7 @@ public record MoltenCoreEnchantmentCondition(LootContext.EntityTarget attacker) 
         return entity instanceof LivingEntity && entity.getData(TAAttachmentTypes.TICKS_THERMAL_ENHANCEMENT) > 0;
     }
 
-    public static LootItemCondition.Builder build() {
+    public static LootItemCondition.Builder get() {
         return () -> new MoltenCoreEnchantmentCondition(LootContext.EntityTarget.ATTACKER);
     }
 

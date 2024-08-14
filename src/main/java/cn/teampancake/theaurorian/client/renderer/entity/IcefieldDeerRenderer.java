@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.IcefieldDeerModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.IcefieldDeer;
@@ -19,7 +19,7 @@ public class IcefieldDeerRenderer extends MobRenderer<IcefieldDeer, IcefieldDeer
 
     @Override
     public ResourceLocation getTextureLocation(IcefieldDeer entity) {
-        return AurorianMod.prefix("textures/entity/icefield_deer.png");
+        return TheAurorian.prefix("textures/entity/icefield_deer.png");
     }
 
 }

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.monster.AurorianSlime;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -39,7 +39,7 @@ public class AurorianSlimeRenderer extends MobRenderer<AurorianSlime, SlimeModel
 
     @Override
     public ResourceLocation getTextureLocation(AurorianSlime entity) {
-        return AurorianMod.prefix("textures/entity/aurorian_slime.png");
+        return TheAurorian.prefix("textures/entity/aurorian_slime.png");
     }
 
 }

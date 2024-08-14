@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity.abiotic;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.entities.projectile.EyeOfDisturbedEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -29,7 +29,7 @@ public class EyeOfDisturbedRenderer extends EntityRenderer<EyeOfDisturbedEntity>
 
     @Override
     public ResourceLocation getTextureLocation(EyeOfDisturbedEntity pEntity) {
-        return AurorianMod.prefix("textures/entity/eye_of_disturbed.png");
+        return TheAurorian.prefix("textures/entity/eye_of_disturbed.png");
     }
 
 }

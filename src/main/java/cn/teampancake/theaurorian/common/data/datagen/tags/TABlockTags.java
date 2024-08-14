@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.tags;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +25,7 @@ public class TABlockTags {
     public static final TagKey<Block> AURORIAN_LIGHT_PLANT_MAY_PLACE_ON = create("aurorian_light_plant_may_place_on");
 
     private static TagKey<Block> create(String name) {
-        return BlockTags.create(AurorianMod.prefix(name));
+        return BlockTags.create(TheAurorian.prefix(name));
     }
 
 }

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.effect;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -15,7 +15,7 @@ public class FrostbiteEffect extends IncurableEffect {
     public FrostbiteEffect() {
         super(MobEffectCategory.HARMFUL, 0xa7c6ff);
         this.addAttributeModifier(Attributes.MOVEMENT_SPEED,
-                AurorianMod.prefix("frostbite_speed"), (-1),
+                TheAurorian.prefix("frostbite_speed"), (-1),
                 AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     }
 

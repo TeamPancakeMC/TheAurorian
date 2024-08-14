@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.BreadBeastModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.BreadBeast;
@@ -19,7 +19,7 @@ public class BreadBeastRenderer extends MobRenderer<BreadBeast, BreadBeastModel<
 
     @Override
     public ResourceLocation getTextureLocation(BreadBeast entity) {
-        return AurorianMod.prefix("textures/entity/bread_beast.png");
+        return TheAurorian.prefix("textures/entity/bread_beast.png");
     }
 
 }

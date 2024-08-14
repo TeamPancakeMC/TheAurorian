@@ -10,9 +10,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 public record NightWalkerEnchantmentCondition(LootContext.EntityTarget attacker) implements LootItemCondition {
 
-    public static final MapCodec<LegendaryHeroEnchantmentCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            LootContext.EntityTarget.CODEC.fieldOf("attacker").forGetter(LegendaryHeroEnchantmentCondition::attacker)
-    ).apply(instance, LegendaryHeroEnchantmentCondition::new));
+    public static final MapCodec<NightWalkerEnchantmentCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            LootContext.EntityTarget.CODEC.fieldOf("attacker").forGetter(NightWalkerEnchantmentCondition::attacker)
+    ).apply(instance, NightWalkerEnchantmentCondition::new));
 
     @Override
     public LootItemConditionType getType() {
@@ -28,7 +28,7 @@ public record NightWalkerEnchantmentCondition(LootContext.EntityTarget attacker)
         return false;
     }
 
-    public static LootItemCondition.Builder build() {
+    public static LootItemCondition.Builder get() {
         return () -> new NightWalkerEnchantmentCondition(LootContext.EntityTarget.ATTACKER);
     }
 

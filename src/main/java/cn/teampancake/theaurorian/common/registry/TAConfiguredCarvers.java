@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.level.carver.AurorianCarver;
 import net.minecraft.core.HolderGetter;
@@ -19,13 +19,13 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class TAConfiguredCarvers {
 
-    public static final DeferredRegister<WorldCarver<?>> CARVERS = DeferredRegister.create(Registries.CARVER, AurorianMod.MOD_ID);
+    public static final DeferredRegister<WorldCarver<?>> CARVERS = DeferredRegister.create(Registries.CARVER, TheAurorian.MOD_ID);
     public static final DeferredHolder<WorldCarver<?>, AurorianCarver> TA_CAVE = CARVERS.register("ta_cave", AurorianCarver::new);
     public static final ResourceKey<ConfiguredWorldCarver<?>> TA_CAVE_CONFIGURED = createKey("ta_cave");
     public static final ResourceKey<ConfiguredWorldCarver<?>> TA_CAVE_EXTRA_UNDERGROUND_CONFIGURED = createKey("ta_cave_extra_underground");
 
     private static ResourceKey<ConfiguredWorldCarver<?>> createKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_CARVER, AurorianMod.prefix(name));
+        return ResourceKey.create(Registries.CONFIGURED_CARVER, TheAurorian.prefix(name));
     }
 
     public static void bootstrap(BootstrapContext<ConfiguredWorldCarver<?>> context) {

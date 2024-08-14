@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.*;
 import com.google.gson.JsonObject;
 import net.minecraft.data.CachedOutput;
@@ -34,7 +34,7 @@ public class TALanguageProvider extends LanguageProvider {
     private final String locale;
 
     public TALanguageProvider(PackOutput output, String locale) {
-        super(output, AurorianMod.MOD_ID, locale);
+        super(output, TheAurorian.MOD_ID, locale);
         this.output = output;
         this.locale = locale;
     }
@@ -44,8 +44,8 @@ public class TALanguageProvider extends LanguageProvider {
         this.add("death.attack.corruption_1", "When %1$s gaze long into an abyss, the abyss also gazes into %1$s", "当%1$s在凝视深渊的时候，深渊也在凝视着%1$s");
         this.add("death.attack.corruption_2", "It seems that Saigyouji Yuyuko doesn't like %1$s", "西行寺幽幽子似乎并不喜欢%1$s");
         this.add("death.attack.corruption_3", "%1$s died under the cherry blossom tree", "%1$s死在了樱花树下");
-        this.add("itemGroup." + AurorianMod.MOD_ID + ".normal", "The Aurorian", "极光幽境");
-        this.add("itemGroup." + AurorianMod.MOD_ID + ".building", "The Aurorian (Building Materials)", "极光幽境（建材）");
+        this.add("itemGroup." + TheAurorian.MOD_ID + ".normal", "The Aurorian", "极光幽境");
+        this.add("itemGroup." + TheAurorian.MOD_ID + ".building", "The Aurorian (Building Materials)", "极光幽境（建材）");
         this.add("theaurorian.container.moonlight_forge", "Moonlight Forge", "月光融锻台");
         this.add("theaurorian.container.aurorian_furnace", "Aurorian Furnace", "极光熔炉");
         this.add("gamerule.enableAurorianBless", "Enable Aurorian Bless", "启用极光赐福");
@@ -972,7 +972,7 @@ public class TALanguageProvider extends LanguageProvider {
     public @NotNull CompletableFuture<?> run(CachedOutput cache) {
         this.addTranslations();
         Path path = this.output.getOutputFolder(PackOutput.Target.RESOURCE_PACK)
-                .resolve(AurorianMod.MOD_ID).resolve("lang");
+                .resolve(TheAurorian.MOD_ID).resolve("lang");
         if (this.locale.equals("en_us") && !this.enData.isEmpty()) {
             return this.save(this.enData, cache, path.resolve("en_us.json"));
         }
@@ -1019,12 +1019,12 @@ public class TALanguageProvider extends LanguageProvider {
     }
 
     private void addEnchantment(ResourceKey<Enchantment> key, String en, String cn, String description_en, String description_cn) {
-       this.add("enchantment." + AurorianMod.MOD_ID + "." + key, en, cn);
+       this.add("enchantment." + TheAurorian.MOD_ID + "." + key, en, cn);
        this.add(key+".desc", description_en, description_cn);
     }
 
     private void addPainting(ResourceKey<PaintingVariant> key, String en, String cn) {
-        this.add("painting." + AurorianMod.MOD_ID + "." + key, en, cn);
+        this.add("painting." + TheAurorian.MOD_ID + "." + key, en, cn);
     }
 
     private void add(String key, String en, String cn) {

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.AurorianWaterSurfacePlant;
 import cn.teampancake.theaurorian.common.blocks.BlueberryBush;
 import cn.teampancake.theaurorian.common.blocks.IRiversidePlant;
@@ -117,7 +117,7 @@ public class TAConfiguredFeatures {
     public static final List<ResourceKey<ConfiguredFeature<?, ?>>> AURORIAN_FOREST_SMALL_RUINS = new ArrayList<>();
 
     private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, AurorianMod.prefix(name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, TheAurorian.prefix(name));
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder silentTree() {

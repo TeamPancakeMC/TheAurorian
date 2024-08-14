@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -20,7 +20,7 @@ public class TABiomeModifiers {
     public static final ResourceKey<BiomeModifier> SPIRIT_SPAWN = createKey("spirit_spawn");
 
     private static ResourceKey<BiomeModifier> createKey(String name) {
-        return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, AurorianMod.prefix(name));
+        return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, TheAurorian.prefix(name));
     }
 
     public static void bootstrap(BootstrapContext<BiomeModifier> context) {

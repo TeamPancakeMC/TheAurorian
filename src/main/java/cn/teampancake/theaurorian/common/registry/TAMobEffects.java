@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.effect.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
@@ -12,21 +12,21 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class TAMobEffects {
 
-    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, AurorianMod.MOD_ID);
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, TheAurorian.MOD_ID);
     public static final DeferredHolder<MobEffect, MobEffect> STUN = MOB_EFFECTS.register("stun", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0x8b0000)
-            .addAttributeModifier(Attributes.MOVEMENT_SPEED, AurorianMod.prefix("stun_ms"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.ATTACK_DAMAGE, AurorianMod.prefix("stun_ad"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.JUMP_STRENGTH, AurorianMod.prefix("stun_js"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.BLOCK_BREAK_SPEED, AurorianMod.prefix("stun_bbs"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.BLOCK_INTERACTION_RANGE, AurorianMod.prefix("stun_bir"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.ENTITY_INTERACTION_RANGE, AurorianMod.prefix("stun_eir"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.MINING_EFFICIENCY, AurorianMod.prefix("stun_me"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+            .addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("stun_ms"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.ATTACK_DAMAGE, TheAurorian.prefix("stun_ad"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.JUMP_STRENGTH, TheAurorian.prefix("stun_js"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.BLOCK_BREAK_SPEED, TheAurorian.prefix("stun_bbs"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.BLOCK_INTERACTION_RANGE, TheAurorian.prefix("stun_bir"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.ENTITY_INTERACTION_RANGE, TheAurorian.prefix("stun_eir"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.MINING_EFFICIENCY, TheAurorian.prefix("stun_me"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
     public static final DeferredHolder<MobEffect, MobEffect> PARALYSIS = MOB_EFFECTS.register("paralysis", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0xc09c72)
-            .addAttributeModifier(Attributes.MOVEMENT_SPEED, AurorianMod.prefix("paralysis_ms"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.JUMP_STRENGTH, AurorianMod.prefix("paralysis_js"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+            .addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("paralysis_ms"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.JUMP_STRENGTH, TheAurorian.prefix("paralysis_js"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
     public static final DeferredHolder<MobEffect, MobEffect> OVERHEATING = MOB_EFFECTS.register("overheating", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0xdb5f39)
-            .addAttributeModifier(Attributes.MOVEMENT_SPEED, AurorianMod.prefix("overheating_ms"), -0.1D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.ATTACK_SPEED, AurorianMod.prefix("overheating_as"), -0.2D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+            .addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("overheating_ms"), -0.1D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.ATTACK_SPEED, TheAurorian.prefix("overheating_as"), -0.2D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
     public static final DeferredHolder<MobEffect, MobEffect> TOUGH = MOB_EFFECTS.register("tough", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xf49cae));
     public static final DeferredHolder<MobEffect, MobEffect> BROKEN = MOB_EFFECTS.register("broken", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0x808080));
     public static final DeferredHolder<MobEffect, MobEffect> CRESCENT = MOB_EFFECTS.register("crescent", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xd1b9a1));

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TAGameRules;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -24,8 +24,8 @@ public interface IAffectedByNightmareMode {
         if (gameRules.getRule(TAGameRules.RULE_ENABLE_NIGHTMARE_MODE).get()) {
             double multiplier = Math.max(1.0D, rule.get()) * 2.0D;
             if (health != null && attack != null) {
-                health.addPermanentModifier(new AttributeModifier(AurorianMod.prefix("nightmare_health_enhance"), multiplier, operation));
-                attack.addPermanentModifier(new AttributeModifier(AurorianMod.prefix("nightmare_attack_enhance"), multiplier, operation));
+                health.addPermanentModifier(new AttributeModifier(TheAurorian.prefix("nightmare_health_enhance"), multiplier, operation));
+                attack.addPermanentModifier(new AttributeModifier(TheAurorian.prefix("nightmare_attack_enhance"), multiplier, operation));
             }
 
             if (monster.getLastDamageSource() == null) {

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.items.*;
 import cn.teampancake.theaurorian.common.items.armor.*;
 import cn.teampancake.theaurorian.common.items.developer.*;
@@ -26,7 +26,7 @@ import static net.minecraft.world.item.ArmorItem.Type.*;
 
 public class TAItems {
 
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.createItems(AurorianMod.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.createItems(TheAurorian.MOD_ID);
 
     /**
      * Materials

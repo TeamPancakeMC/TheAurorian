@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.structure.structures.LargeJigsawStructure;
 import cn.teampancake.theaurorian.common.level.structure.structures.RuinsAltarStructure;
 import net.minecraft.core.registries.Registries;
@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 public class TAStructureTypes {
 
-    public static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Registries.STRUCTURE_TYPE, AurorianMod.MOD_ID);
+    public static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(Registries.STRUCTURE_TYPE, TheAurorian.MOD_ID);
     public static final DeferredHolder<StructureType<?>, StructureType<RuinsAltarStructure>> RUINS_ALTAR = register("ruins_altar", RuinsAltarStructure::new);
     public static final DeferredHolder<StructureType<?>, StructureType<LargeJigsawStructure>> LARGE_JIGSAW = STRUCTURE_TYPES.register("large_jigsaw", () -> () -> LargeJigsawStructure.CODEC);
 

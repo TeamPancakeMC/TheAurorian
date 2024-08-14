@@ -27,7 +27,7 @@ public record SavageEnchantmentCondition(LootContext.EntityTarget entityTarget) 
         return (entity instanceof Animal || entity instanceof NeutralMob) && entity.isAlive();
     }
 
-    public static LootItemCondition.Builder build() {
+    public static LootItemCondition.Builder get() {
         return () -> new SavageEnchantmentCondition(LootContext.EntityTarget.THIS);
     }
 

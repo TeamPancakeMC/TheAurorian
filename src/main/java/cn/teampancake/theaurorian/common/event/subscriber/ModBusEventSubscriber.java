@@ -1,19 +1,17 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.gui.AlchemyTableScreen;
 import cn.teampancake.theaurorian.client.gui.MoonlightForgeScreen;
 import cn.teampancake.theaurorian.client.gui.ScrapperScreen;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.items.SilentWoodChestItem;
 import cn.teampancake.theaurorian.common.items.tool.CrystallineSword;
 import cn.teampancake.theaurorian.common.network.*;
-import cn.teampancake.theaurorian.common.registry.TABlocks;
-import cn.teampancake.theaurorian.common.registry.TAItems;
-import cn.teampancake.theaurorian.common.registry.TAKeyMappings;
-import cn.teampancake.theaurorian.common.registry.TAMenus;
+import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.Sheets;
@@ -36,10 +34,11 @@ import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-@EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class ModBusEventSubscriber {
 
     @OnlyIn(Dist.CLIENT)
@@ -77,7 +76,12 @@ public class ModBusEventSubscriber {
     @SubscribeEvent
     public static void registerDimensionEffects(RegisterDimensionSpecialEffectsEvent event) {
         new TASkyRenderer();
-        event.register(AurorianMod.prefix("aurorian"), new TASpecialEffects());
+        event.register(TheAurorian.prefix("aurorian"), new TASpecialEffects());
+    }
+
+    @SubscribeEvent
+    public static void registerEntityAttributes(EntityAttributeModificationEvent event) {
+        event.getTypes().stream().filter(type -> type.is(TAEntityTags.AURORIAN_BOSS)).forEach(type -> event.add(type, TAAttributes.MAX_BOSS_HEALTH));
     }
 
     @SubscribeEvent
@@ -149,19 +153,19 @@ public class ModBusEventSubscriber {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public static void registerItemProperties(FMLClientSetupEvent event) {
-        ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), AurorianMod.prefix("pull"), ((stack, level, entity, seed) ->
+        ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), TheAurorian.prefix("pull"), ((stack, level, entity, seed) ->
                 entity == null || entity.getUseItem() != stack ? 0.0F : (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 20.0F));
-        ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), AurorianMod.prefix("pulling"), ((stack, level, entity, seed) ->
+        ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), TheAurorian.prefix("pulling"), ((stack, level, entity, seed) ->
                 entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
-        ItemProperties.register(TAItems.KEEPERS_BOW.get(), AurorianMod.prefix("pull"), ((stack, level, entity, seed) ->
+        ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pull"), ((stack, level, entity, seed) ->
                 entity == null || entity.getUseItem() != stack ? 0.0F : (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 20.0F));
-        ItemProperties.register(TAItems.KEEPERS_BOW.get(), AurorianMod.prefix("pulling"), ((stack, level, entity, seed) ->
+        ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pulling"), ((stack, level, entity, seed) ->
                 entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
-        ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), AurorianMod.prefix("shoot"), ((stack, level, entity, seed) ->
+        ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), TheAurorian.prefix("shoot"), ((stack, level, entity, seed) ->
                 entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
         for (Item item : TACommonUtils.getKnownItems()) {
             if (item instanceof ShieldItem) {
-                ItemProperties.register(item, AurorianMod.prefix("blocking"), ((stack, level, entity, seed) ->
+                ItemProperties.register(item, TheAurorian.prefix("blocking"), ((stack, level, entity, seed) ->
                         entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
             }
         }

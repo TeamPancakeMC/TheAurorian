@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
 import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
@@ -82,13 +82,13 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 
-@EventBusSubscriber(modid = AurorianMod.MOD_ID)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class EntityEventSubscriber {
 
     private static final DataComponentType<CustomData> CUSTOM_DATA = DataComponents.CUSTOM_DATA;
 
     @SubscribeEvent
-    public static void onPlayerTicking(PlayerTickEvent event) {
+    public static void onPlayerTicking(PlayerTickEvent.Pre event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer && serverPlayer.isAlive()) {
             ResourceKey<Enchantment> enchantment = TAEnchantments.SPRING_OF_LIFE;
             Holder<Enchantment> holder = TAEnchantments.get(serverPlayer.level(), enchantment);
@@ -439,7 +439,7 @@ public class EntityEventSubscriber {
             AttributeInstance attribute = player.getAttribute(Attributes.MAX_HEALTH);
             AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL;
             if (attribute != null && player.getRandom().nextFloat() <= 0.25F) {
-                ResourceLocation id = AurorianMod.prefix("crystallization");
+                ResourceLocation id = TheAurorian.prefix("crystallization");
                 AttributeModifier modifier = new AttributeModifier(id, -0.1D, operation);
                 player.getData(TAAttachmentTypes.MAX_HEALTH_SUBTRACT_IDS).add(modifier.id());
                 attribute.addTransientModifier(modifier);

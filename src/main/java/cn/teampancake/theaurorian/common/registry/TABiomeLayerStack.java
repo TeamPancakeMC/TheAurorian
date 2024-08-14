@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.biome.layer.FilteredBiomeLayer;
 import cn.teampancake.theaurorian.common.level.biome.layer.RandomBiomeLayer;
 import cn.teampancake.theaurorian.common.level.biome.layer.SeamLayer;
@@ -23,14 +23,14 @@ import java.util.List;
 @SuppressWarnings("SpellCheckingInspection")
 public class TABiomeLayerStack {
 
-    public static final ResourceKey<Registry<BiomeLayerFactory>> BIOME_STACK_KEY = ResourceKey.createRegistryKey(AurorianMod.namedRegistry("biome_layer_stack"));
+    public static final ResourceKey<Registry<BiomeLayerFactory>> BIOME_STACK_KEY = ResourceKey.createRegistryKey(TheAurorian.namedRegistry("biome_layer_stack"));
     public static final Codec<BiomeLayerFactory> DISPATCH_CODEC = TABiomeLayers.CODEC.dispatch("layer_type", BiomeLayerFactory::getType, BiomeLayerType::getCodec);
     public static final Codec<Holder<BiomeLayerFactory>> HOLDER_CODEC = RegistryFileCodec.create(BIOME_STACK_KEY, DISPATCH_CODEC, true);
     public static final ResourceKey<BiomeLayerFactory> RANDOM_FOREST_BIOMES = registerKey("random_forest_biomes");
     public static final ResourceKey<BiomeLayerFactory> BIOMES_ALONG_STREAMS = registerKey("biomes_along_streams");
 
     private static ResourceKey<BiomeLayerFactory> registerKey(String name) {
-        return ResourceKey.create(BIOME_STACK_KEY, AurorianMod.prefix(name));
+        return ResourceKey.create(BIOME_STACK_KEY, TheAurorian.prefix(name));
     }
 
     public static void bootstrap(BootstrapContext<BiomeLayerFactory> context) {

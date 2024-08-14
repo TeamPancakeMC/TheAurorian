@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.gui.hud;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
@@ -13,7 +13,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 public class NightBarRender {
 
-    protected static final ResourceLocation NightRender = AurorianMod.prefix("textures/misc/bless_render.png");
+    protected static final ResourceLocation NightRender = TheAurorian.prefix("textures/misc/bless_render.png");
     public static int nightType;
     public static final int TEXTURE_WIDTH = 135;
     public static final int TEXTURE_HEIGHT = 128;
@@ -47,7 +47,7 @@ public class NightBarRender {
     }
 
     public static void registerNightOverlay(RegisterGuiLayersEvent event) {
-        event.registerAbove(VanillaGuiLayers.ARMOR_LEVEL, AurorianMod.prefix("night_bar"), NightBarRender::render);
+        event.registerAbove(VanillaGuiLayers.ARMOR_LEVEL, TheAurorian.prefix("night_bar"), NightBarRender::render);
     }
 
 }

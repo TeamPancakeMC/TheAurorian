@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.armor;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.armor.AurorianSlimeBootsModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
@@ -33,7 +33,7 @@ public class AurorianSlimeBoots extends BaseArmor<AurorianSlimeBootsModel> {
 
     @Override
     public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        return AurorianMod.prefix(ARMOR_ID + "aurorian_slime_boots.png");
+        return TheAurorian.prefix(ARMOR_ID + "aurorian_slime_boots.png");
     }
 
 }

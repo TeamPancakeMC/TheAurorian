@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.storage.predicate.*;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class TALootItemConditions {
 
     public static final DeferredRegister<LootItemConditionType> LOOT_CONDITION_TYPES =
-            DeferredRegister.create(BuiltInRegistries.LOOT_CONDITION_TYPE, AurorianMod.MOD_ID);
+            DeferredRegister.create(BuiltInRegistries.LOOT_CONDITION_TYPE, TheAurorian.MOD_ID);
     public static final DeferredHolder<LootItemConditionType, LootItemConditionType> SAVAGE_ENCHANTMENT =
             register("savage_enchantment", SavageEnchantmentCondition.CODEC);
     public static final DeferredHolder<LootItemConditionType, LootItemConditionType> LEGENDARY_HERO_ENCHANTMENT =

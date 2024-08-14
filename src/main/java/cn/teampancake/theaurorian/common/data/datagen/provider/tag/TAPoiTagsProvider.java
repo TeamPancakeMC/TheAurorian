@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.tag;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TAVillagerProfession;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 public class TAPoiTagsProvider extends PoiTypeTagsProvider {
 
     public TAPoiTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> providerCompletableFuture, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, providerCompletableFuture, AurorianMod.MOD_ID, existingFileHelper);
+        super(output, providerCompletableFuture, TheAurorian.MOD_ID, existingFileHelper);
     }
 
     @Override

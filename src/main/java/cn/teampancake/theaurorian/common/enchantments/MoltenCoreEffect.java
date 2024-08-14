@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.enchantments;
 
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.level.ServerLevel;
@@ -12,9 +13,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.attachment.AttachmentType;
 
-public class MoltenCoreEffect implements EnchantmentEntityEffect {
+public record MoltenCoreEffect(int placeholder) implements EnchantmentEntityEffect {
 
-    public static final MapCodec<MoltenCoreEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> null);
+    public static final MapCodec<MoltenCoreEffect> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Codec.INT.fieldOf("placeholder").forGetter(MoltenCoreEffect::placeholder)).apply(instance, MoltenCoreEffect::new));
 
     @Override
     public void apply(ServerLevel level, int enchantmentLevel, EnchantedItemInUse item, Entity entity, Vec3 origin) {

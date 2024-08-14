@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.layers;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -39,7 +39,7 @@ public class TAModelLayers {
     }
 
     private static ModelLayerLocation register(String path, String layer) {
-        return new ModelLayerLocation(AurorianMod.prefix(path), layer);
+        return new ModelLayerLocation(TheAurorian.prefix(path), layer);
     }
 
 }

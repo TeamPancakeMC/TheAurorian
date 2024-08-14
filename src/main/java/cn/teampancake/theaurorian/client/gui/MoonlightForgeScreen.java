@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.gui;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.inventory.MoonlightForgeMenu;
 import cn.teampancake.theaurorian.common.blocks.entity.MoonlightForgeBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -18,7 +18,7 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForgeMenu> {
 
-    private static final ResourceLocation CONTAINER_LOCATION = AurorianMod.prefix("textures/gui/moonlight_forge.png");
+    private static final ResourceLocation CONTAINER_LOCATION = TheAurorian.prefix("textures/gui/moonlight_forge.png");
     private float craftRotation = 0.0F;
 
     public MoonlightForgeScreen(MoonlightForgeMenu menu, Inventory playerInventory, Component title) {

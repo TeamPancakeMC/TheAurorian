@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.feature.tree.foliage.HemisphereFoliagePlacer;
 import cn.teampancake.theaurorian.common.level.feature.tree.foliage.TaperFoliagePlacer;
 import com.mojang.serialization.MapCodec;
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class TAFoliagePlacerTypes {
 
-    public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPES = DeferredRegister.create(BuiltInRegistries.FOLIAGE_PLACER_TYPE, AurorianMod.MOD_ID);
+    public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPES = DeferredRegister.create(BuiltInRegistries.FOLIAGE_PLACER_TYPE, TheAurorian.MOD_ID);
     public static final DeferredHolder<FoliagePlacerType<?>, FoliagePlacerType<HemisphereFoliagePlacer>> HEMISPHERE = register("hemisphere", HemisphereFoliagePlacer.CODEC);
     public static final DeferredHolder<FoliagePlacerType<?>, FoliagePlacerType<TaperFoliagePlacer>> TAPER = register("taper", TaperFoliagePlacer.CODEC);
 

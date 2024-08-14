@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
 import cn.teampancake.theaurorian.common.effect.TremorEffect;
@@ -36,13 +36,13 @@ import net.neoforged.neoforge.client.event.ViewportEvent;
 
 import java.awt.*;
 
-@EventBusSubscriber(modid = AurorianMod.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID, value = Dist.CLIENT)
 public class ClientEventSubscriber {
 
-    private static final ResourceLocation MOONLIGHT_KNIGHT_BARS = AurorianMod.prefix("textures/gui/moonlight_knight_bars.png");
-    private static final ResourceLocation RUNESTONE_KEEPER_BARS = AurorianMod.prefix("textures/gui/runestone_keeper_bars.png");
-    private static final ResourceLocation SPIDER_MOTHER_BARS = AurorianMod.prefix("textures/gui/spider_mother_bars.png");
-    private static final ResourceLocation MOON_QUEEN_BARS = AurorianMod.prefix("textures/gui/moon_queen_bars.png");
+    private static final ResourceLocation MOONLIGHT_KNIGHT_BARS = TheAurorian.prefix("textures/gui/moonlight_knight_bars.png");
+    private static final ResourceLocation RUNESTONE_KEEPER_BARS = TheAurorian.prefix("textures/gui/runestone_keeper_bars.png");
+    private static final ResourceLocation SPIDER_MOTHER_BARS = TheAurorian.prefix("textures/gui/spider_mother_bars.png");
+    private static final ResourceLocation MOON_QUEEN_BARS = TheAurorian.prefix("textures/gui/moon_queen_bars.png");
 
     @SubscribeEvent
     public static void onMovementInputUpdate(MovementInputUpdateEvent event) {
@@ -56,7 +56,7 @@ public class ClientEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onViewpoint(ViewportEvent event) {
+    public static void onViewpoint(ViewportEvent.ComputeFov event) {
         Minecraft minecraft = Minecraft.getInstance();
         Entity cameraEntity = minecraft.getCameraEntity();
         if (cameraEntity instanceof LocalPlayer player) {

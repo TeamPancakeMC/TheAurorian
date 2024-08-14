@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.FlowerLeechModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.monster.FlowerLeech;
@@ -19,7 +19,7 @@ public class FlowerLeechRenderer extends MobRenderer<FlowerLeech, FlowerLeechMod
 
     @Override
     public ResourceLocation getTextureLocation(FlowerLeech entity) {
-        return AurorianMod.prefix("textures/entity/flower_leech.png");
+        return TheAurorian.prefix("textures/entity/flower_leech.png");
     }
 
 }

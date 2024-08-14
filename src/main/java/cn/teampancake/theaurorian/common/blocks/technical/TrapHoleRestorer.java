@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -25,7 +26,9 @@ public class TrapHoleRestorer extends BaseEntityBlock {
     public static final BooleanProperty EMPTY = BooleanProperty.create("empty");
 
     public TrapHoleRestorer() {
-        super(Properties.ofFullCopy(Blocks.BARRIER));
+        super(Properties.of().strength((-1.0F), (3600000.8F))
+                .noLootTable().noOcclusion().isValidSpawn(Blocks::never)
+                .noTerrainParticles().pushReaction(PushReaction.BLOCK));
         this.registerDefaultState(this.defaultBlockState().setValue(EMPTY, Boolean.TRUE));
     }
 

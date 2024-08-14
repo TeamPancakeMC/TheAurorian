@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.entities.ai.goal.BlueTailWolfDoNothingGoal;
 import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
@@ -152,7 +152,7 @@ public class BlueTailWolf extends TamableAnimal implements GeoEntity, NeutralMob
         for (Mob mob : level().getEntitiesOfClass(Mob.class, getBoundingBox().inflate(50))) {
             if (mob.getType().is(TAEntityTags.ALERTED_BY_BLUE_TAIL_WOLF)) {
                 if (mob.getAttributes().hasAttribute(Attributes.FOLLOW_RANGE)) {
-                    ResourceLocation id = AurorianMod.prefix("follow_range_bonus");
+                    ResourceLocation id = TheAurorian.prefix("follow_range_bonus");
                     AttributeModifier modifier = new AttributeModifier(id, 100, AttributeModifier.Operation.ADD_VALUE);
                     AttributeInstance instance = mob.getAttributes().getInstance(Attributes.FOLLOW_RANGE);
                     if (instance != null && !instance.hasModifier(id)) {

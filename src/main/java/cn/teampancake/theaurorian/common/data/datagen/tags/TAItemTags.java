@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.tags;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -32,7 +32,7 @@ public class TAItemTags {
     public static final TagKey<Item> AUROTIAN_ANIMAL_UNSPAWNABLE_ON = create("aurotian_animal_unspawnable_on");
 
     private static TagKey<Item> create(String name) {
-        return ItemTags.create(AurorianMod.prefix(name));
+        return ItemTags.create(TheAurorian.prefix(name));
     }
 
 }

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.network;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,7 +11,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record NightTypeS2CPacket(int nightType) implements CustomPacketPayload {
 
-    public static final Type<NightTypeS2CPacket> TYPE = new Type<>(AurorianMod.prefix("frostbite"));
+    public static final Type<NightTypeS2CPacket> TYPE = new Type<>(TheAurorian.prefix("frostbite"));
     public static final StreamCodec<RegistryFriendlyByteBuf, NightTypeS2CPacket> STREAM_CODEC =
             CustomPacketPayload.codec(NightTypeS2CPacket::write, NightTypeS2CPacket::new);
 

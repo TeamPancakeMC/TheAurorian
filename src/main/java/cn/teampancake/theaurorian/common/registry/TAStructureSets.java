@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -15,7 +15,7 @@ public class TAStructureSets {
     public static final ResourceKey<StructureSet> RUINS_ALTAR = createKey("ruins_altar");
 
     private static ResourceKey<StructureSet> createKey(String name) {
-        return ResourceKey.create(Registries.STRUCTURE_SET, AurorianMod.prefix(name));
+        return ResourceKey.create(Registries.STRUCTURE_SET, TheAurorian.prefix(name));
     }
 
     public static void bootstrap(BootstrapContext<StructureSet> context) {

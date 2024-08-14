@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.AurorianRabbitModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.animal.AurorianRabbit;
@@ -28,7 +28,7 @@ public class AurorianRabbitRenderer extends MobRenderer<AurorianRabbit, Aurorian
 
     @Override
     public ResourceLocation getTextureLocation(AurorianRabbit rabbit) {
-        return AurorianMod.prefix("textures/entity/aurorian_rabbit.png");
+        return TheAurorian.prefix("textures/entity/aurorian_rabbit.png");
     }
 
 }

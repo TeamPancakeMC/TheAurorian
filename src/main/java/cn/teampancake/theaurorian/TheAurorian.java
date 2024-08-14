@@ -4,7 +4,6 @@ import cn.teampancake.theaurorian.client.gui.hud.FrostbiteOutlineRender;
 import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.client.gui.hud.ProgressBarRenderer;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
-import cn.teampancake.theaurorian.common.event.subscriber.ItemSubscriber;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
@@ -20,7 +19,6 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -30,14 +28,13 @@ import org.apache.logging.log4j.Logger;
 import java.util.Locale;
 import java.util.Objects;
 
-@SuppressWarnings("InstantiationOfUtilityClass")
-@Mod(AurorianMod.MOD_ID)
-public class AurorianMod {
+@Mod(TheAurorian.MOD_ID)
+public class TheAurorian {
 
     public static final String MOD_ID = "theaurorian";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
-    public AurorianMod(IEventBus modEventBus, ModContainer modContainer) {
+    public TheAurorian(IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.COMMON, AurorianConfig.SPEC, "theaurorian/TheAurorian.toml");
         TACreativeModeTabs.TABS.register(modEventBus);
         TAItems.ITEMS.register(modEventBus);
@@ -70,11 +67,9 @@ public class AurorianMod {
         TABiomeLayers.BIOME_LAYER_TYPES.register(modEventBus);
         TAMobEffects.MOB_EFFECTS.register(modEventBus);
         TAVillagerProfession.register(modEventBus);
-        NeoForge.EVENT_BUS.register(new TAGameRules());
         modEventBus.addListener(this::createNewRegistries);
         modEventBus.addListener(this::registerExtraStuff);
         modEventBus.addListener(this::setRegistriesForDatapack);
-        ItemSubscriber.register();
         if (ModList.get().isLoaded("thirst")) {
             ThirstWasTakenCompat.init();
         }

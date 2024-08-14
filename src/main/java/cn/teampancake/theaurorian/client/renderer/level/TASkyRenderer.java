@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.level;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.event.TAEventFactory;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -32,7 +32,7 @@ import java.util.Map;
 @SuppressWarnings({"ConstantConditions", "SameParameterValue"})
 public class TASkyRenderer {
 
-    private static ResourceLocation currentPhase = AurorianMod.prefix("ta_cyan");
+    private static ResourceLocation currentPhase = TheAurorian.prefix("ta_cyan");
     private static VertexBuffer starBuffer;
 
     public TASkyRenderer() {
@@ -98,11 +98,11 @@ public class TASkyRenderer {
 
     private static Map<ResourceLocation, Integer> getDaySkyColors() {
         Map<ResourceLocation, Integer> map = new LinkedHashMap<>();
-        map.put(AurorianMod.prefix("ta_purple"), 0x8d60d7);
-        map.put(AurorianMod.prefix("ta_pink"), 0xf49cae);
-        map.put(AurorianMod.prefix("ta_cyan"), 0x80e3ec);
-        map.put(AurorianMod.prefix("ta_orange"), 0xfff089);
-        map.put(AurorianMod.prefix("ta_lime"), 0x69c941);
+        map.put(TheAurorian.prefix("ta_purple"), 0x8d60d7);
+        map.put(TheAurorian.prefix("ta_pink"), 0xf49cae);
+        map.put(TheAurorian.prefix("ta_cyan"), 0x80e3ec);
+        map.put(TheAurorian.prefix("ta_orange"), 0xfff089);
+        map.put(TheAurorian.prefix("ta_lime"), 0x69c941);
 
         TAEventFactory.onRegisterAurorianSkyColor(map);
         return ImmutableMap.copyOf(map);

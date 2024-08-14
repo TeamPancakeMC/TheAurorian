@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
@@ -80,7 +80,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     private static final RawAnimation ATTACK_BUFF = RawAnimation.begin().thenPlay("attack.buff");
     private static final RawAnimation ATTACK_DUEL = RawAnimation.begin().thenPlay("attack.duel");
     private static final RawAnimation ATTACK_MOON_BEFALL = RawAnimation.begin().thenPlay("attack.moon_befall");
-    private static final ResourceLocation SPEED_MODIFIER_FOUND_TARGET = AurorianMod.prefix("found_target");
+    private static final ResourceLocation SPEED_MODIFIER_FOUND_TARGET = TheAurorian.prefix("found_target");
     private static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
     private static final List<MobEffectInstance> BUFF_LIST = List.of(
             new MobEffectInstance(TAMobEffects.CRESCENT, 200),
@@ -118,7 +118,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         this.targetSelector.addGoal(2, new MoonQueenNearestAttackableTargetGoal<>(this, Player.class, Boolean.FALSE));
         this.targetSelector.addGoal(3, new MoonQueenNearestAttackableTargetGoal<>(this, LivingEntity.class, Boolean.FALSE, entity -> {
             ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
-            boolean flag1 = !key.getNamespace().equals(AurorianMod.MOD_ID);
+            boolean flag1 = !key.getNamespace().equals(TheAurorian.MOD_ID);
             boolean flag2 = entity.attackable() && !(entity instanceof Animal);
             return !(entity instanceof MoonQueen) && !(entity instanceof MoonlightKnight) && flag1 && flag2;
         }));

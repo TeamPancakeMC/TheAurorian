@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.HyphaWalkingMushroomModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.monster.HyphaWalkingMushroom;
@@ -19,7 +19,7 @@ public class HyphaWalkingMushroomRenderer extends MobRenderer<HyphaWalkingMushro
 
     @Override
     public ResourceLocation getTextureLocation(HyphaWalkingMushroom entity) {
-        return AurorianMod.prefix("textures/entity/hypha_walking_mushroom.png");
+        return TheAurorian.prefix("textures/entity/hypha_walking_mushroom.png");
     }
 
 }

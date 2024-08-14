@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.projectile;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -22,7 +22,7 @@ import net.minecraft.world.phys.EntityHitResult;
 
 public class WebbingEntity extends ThrowableItemProjectile {
 
-    public static final ResourceLocation WEBBING_MODIFIER = AurorianMod.prefix("webbing");
+    public static final ResourceLocation WEBBING_MODIFIER = TheAurorian.prefix("webbing");
     private int time;
 
     public WebbingEntity(EntityType<? extends ThrowableItemProjectile> type, Level level) {

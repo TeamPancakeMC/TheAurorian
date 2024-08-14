@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -20,7 +21,9 @@ import org.jetbrains.annotations.Nullable;
 public class TempBarrier extends BaseEntityBlock {
 
     public TempBarrier() {
-        super(Properties.ofFullCopy(Blocks.BARRIER));
+        super(Properties.of().strength((-1.0F), (3600000.8F))
+                .noLootTable().noOcclusion().isValidSpawn(Blocks::never)
+                .noTerrainParticles().pushReaction(PushReaction.BLOCK));
     }
 
     @Override

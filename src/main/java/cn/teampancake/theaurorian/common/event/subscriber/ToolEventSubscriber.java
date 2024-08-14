@@ -26,7 +26,7 @@ public class ToolEventSubscriber {
     private static final DataComponentType<CustomData> CUSTOM_DATA = DataComponents.CUSTOM_DATA;
 
     @SubscribeEvent
-    public static void onTickPlayerTick(PlayerTickEvent event) {
+    public static void onTickPlayerTick(PlayerTickEvent.Pre event) {
         Player player = event.getEntity();
         if (player.level().isClientSide()) return;
         List<ItemStack> inventoryItems = InventoryUtils.getInventoryItems(player.getInventory(), stack -> {

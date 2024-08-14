@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.provider.*;
 import cn.teampancake.theaurorian.common.data.datagen.provider.tag.*;
 import net.minecraft.core.HolderLookup;
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = AurorianMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class TADataGenerator {
 
     @SubscribeEvent
@@ -31,7 +31,7 @@ public class TADataGenerator {
                 output, provider, blockTagsProvider.contentsGetter(), existingFileHelper));
         generator.addProvider(event.includeServer(), dataPackProvider);
         generator.addProvider(event.includeServer(), new TAPaintingVariantTagsProvider(output, provider, existingFileHelper));
-        generator.addProvider(event.includeServer(), new TAEnchantmentTagsProvider(output, provider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new TAEnchantmentTagsProvider(output, registryProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new TAEntityTagsProvider(output, provider, existingFileHelper));
         generator.addProvider(event.includeServer(), new TAFluidTagsProvider(output, provider, existingFileHelper));
         generator.addProvider(event.includeServer(), new TABiomeTagsProvider(output, registryProvider, existingFileHelper));

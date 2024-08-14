@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.level.feature.ruin;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.feature.TemplateFeature;
 import cn.teampancake.theaurorian.common.level.processors.DecorationProcessor;
 import net.minecraft.util.RandomSource;
@@ -21,7 +21,7 @@ public class SmallRuinFeature extends TemplateFeature<NoneFeatureConfiguration> 
 
     @Override
     protected @Nullable StructureTemplate getTemplate(StructureTemplateManager templateManager, RandomSource random) {
-        return templateManager.getOrCreate(AurorianMod.prefix("ruins/small_ruins/" + this.nbtFilename));
+        return templateManager.getOrCreate(TheAurorian.prefix("ruins/small_ruins/" + this.nbtFilename));
     }
 
     @Override

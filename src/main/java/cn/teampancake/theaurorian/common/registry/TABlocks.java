@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.registry;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.AurorianFurnace;
 import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.blocks.modified.HoeTillableBlock;
@@ -27,7 +27,7 @@ import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.of
 
 public class TABlocks {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, AurorianMod.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, TheAurorian.MOD_ID);
     public static final DeferredHolder<Block, LiquidBlock> MOLTEN_AURORIAN_STEEL = BLOCKS.register("molten_aurorian_steel", () -> new LiquidBlock(TAFluids.MOLTEN_AURORIAN_STEEL_STILL.get(), ofFullCopy(Blocks.LAVA)));
     public static final DeferredHolder<Block, LiquidBlock> MOLTEN_CERULEAN = BLOCKS.register("molten_cerulean", () -> new LiquidBlock(TAFluids.MOLTEN_CERULEAN_STILL.get(), ofFullCopy(Blocks.LAVA)));
     public static final DeferredHolder<Block, LiquidBlock> MOLTEN_MOONSTONE = BLOCKS.register("molten_moonstone", () -> new LiquidBlock(TAFluids.MOLTEN_MOONSTONE_STILL.get(), ofFullCopy(Blocks.LAVA)));

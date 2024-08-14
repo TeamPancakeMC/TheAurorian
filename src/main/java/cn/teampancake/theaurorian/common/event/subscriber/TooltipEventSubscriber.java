@@ -1,10 +1,9 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TATooltipRenderUtils;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -14,20 +13,20 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 
-@EventBusSubscriber(modid = AurorianMod.MOD_ID)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class TooltipEventSubscriber {
 
-    private static final ResourceLocation UNCOMMON = AurorianMod.prefix("textures/gui/tooltips/uncommon.png");
-    private static final ResourceLocation RARE = AurorianMod.prefix("textures/gui/tooltips/rare.png");
-    private static final ResourceLocation EPIC = AurorianMod.prefix("textures/gui/tooltips/epic.png");
-    private static final ResourceLocation LEGENDARY = AurorianMod.prefix("textures/gui/tooltips/legendary.png");
-    private static final ResourceLocation MYTHICAL = AurorianMod.prefix("textures/gui/tooltips/mythical.png");
-    private static final ResourceLocation SLEEPING_BLACK_TEA = AurorianMod.prefix("textures/gui/tooltips/sleeping_black_tea.png");
-    private static final ResourceLocation WHITE_CHOCOLATE = AurorianMod.prefix("textures/gui/tooltips/white_chocolate.png");
-    private static final ResourceLocation RED_BOOK = AurorianMod.prefix("textures/gui/tooltips/red_book.png");
-    private static final ResourceLocation DREAM_DYEING_CRYSTAL_FRAGMENT = AurorianMod.prefix("textures/gui/tooltips/dream_dyeing_crystal_fragment.png");
-    private static final ResourceLocation CAT_BELL = AurorianMod.prefix("textures/gui/tooltips/cat_bell.png");
-    private static final ResourceLocation TSLAT_SWORD = AurorianMod.prefix("textures/gui/tooltips/tslat_sword.png");
+    private static final ResourceLocation UNCOMMON = TheAurorian.prefix("textures/gui/tooltips/uncommon.png");
+    private static final ResourceLocation RARE = TheAurorian.prefix("textures/gui/tooltips/rare.png");
+    private static final ResourceLocation EPIC = TheAurorian.prefix("textures/gui/tooltips/epic.png");
+    private static final ResourceLocation LEGENDARY = TheAurorian.prefix("textures/gui/tooltips/legendary.png");
+    private static final ResourceLocation MYTHICAL = TheAurorian.prefix("textures/gui/tooltips/mythical.png");
+    private static final ResourceLocation SLEEPING_BLACK_TEA = TheAurorian.prefix("textures/gui/tooltips/sleeping_black_tea.png");
+    private static final ResourceLocation WHITE_CHOCOLATE = TheAurorian.prefix("textures/gui/tooltips/white_chocolate.png");
+    private static final ResourceLocation RED_BOOK = TheAurorian.prefix("textures/gui/tooltips/red_book.png");
+    private static final ResourceLocation DREAM_DYEING_CRYSTAL_FRAGMENT = TheAurorian.prefix("textures/gui/tooltips/dream_dyeing_crystal_fragment.png");
+    private static final ResourceLocation CAT_BELL = TheAurorian.prefix("textures/gui/tooltips/cat_bell.png");
+    private static final ResourceLocation TSLAT_SWORD = TheAurorian.prefix("textures/gui/tooltips/tslat_sword.png");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     @OnlyIn(Dist.CLIENT)

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
-import cn.teampancake.theaurorian.AurorianMod;
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.AurorianSheepBabyModel;
 import cn.teampancake.theaurorian.client.model.entity.AurorianSheepModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
@@ -17,8 +17,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class AurorianSheepRenderer extends MobRenderer<AurorianSheep, EntityModel<AurorianSheep>> {
 
-    private static final ResourceLocation BABY = AurorianMod.prefix("textures/entity/aurorian_sheep_baby.png");
-    private static final ResourceLocation ADULT = AurorianMod.prefix("textures/entity/aurorian_sheep.png");
+    private static final ResourceLocation BABY = TheAurorian.prefix("textures/entity/aurorian_sheep_baby.png");
+    private static final ResourceLocation ADULT = TheAurorian.prefix("textures/entity/aurorian_sheep.png");
 
     private final EntityModel<AurorianSheep> baby;
     private final EntityModel<AurorianSheep> adult = this.getModel();

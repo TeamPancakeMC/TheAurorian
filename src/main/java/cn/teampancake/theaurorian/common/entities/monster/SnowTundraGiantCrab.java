@@ -144,10 +144,13 @@ public class SnowTundraGiantCrab extends TAMonster implements GeoEntity, Neutral
         return this.isAlive();
     }
 
-    @Override
-    public EntityDimensions getDefaultDimensions(Pose pose) {
-        return this.getAttackState() == SnowTundraGiantCrabHidePhase.ID ? super.getDimensions(pose).scale(1, 0.28f) : super.getDimensions(pose);
-    }
+/*
+* TODO: 这个地方的代码好像会爆栈，需要进行修复。
+* */
+//    @Override
+//    public EntityDimensions getDefaultDimensions(Pose pose) {
+//        return this.getAttackState() == SnowTundraGiantCrabHidePhase.ID ? super.getDimensions(pose).scale(1, 0.28f) : super.getDimensions(pose);
+//    }
 
     @Override
     public void tick() {

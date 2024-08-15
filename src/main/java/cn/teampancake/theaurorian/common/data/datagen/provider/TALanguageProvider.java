@@ -1019,8 +1019,9 @@ public class TALanguageProvider extends LanguageProvider {
     }
 
     private void addEnchantment(ResourceKey<Enchantment> key, String en, String cn, String description_en, String description_cn) {
-       this.add("enchantment." + TheAurorian.MOD_ID + "." + key, en, cn);
-       this.add(key+".desc", description_en, description_cn);
+        String languageKey = key.location().toLanguageKey();
+        this.add("enchantment." + languageKey, en, cn);
+        this.add("enchantment." + languageKey + ".desc", description_en, description_cn);
     }
 
     private void addPainting(ResourceKey<PaintingVariant> key, String en, String cn) {

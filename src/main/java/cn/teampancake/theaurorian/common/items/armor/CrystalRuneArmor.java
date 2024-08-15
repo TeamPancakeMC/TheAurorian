@@ -33,7 +33,7 @@ public class CrystalRuneArmor extends BaseArmor<CrystalRuneArmorModel> {
 
     @Override
     public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        return TheAurorian.prefix("crystal_rune_armor.png");
+        return TheAurorian.prefix(ARMOR_ID + "crystal_rune_armor.png");
     }
 
 }

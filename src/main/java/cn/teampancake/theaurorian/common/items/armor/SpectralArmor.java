@@ -33,7 +33,7 @@ public class SpectralArmor extends BaseArmor<SpectralArmorModel> {
 
     @Override
     public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        return TheAurorian.prefix("spectral_armor.png");
+        return TheAurorian.prefix(ARMOR_ID + "spectral_armor.png");
     }
 
 }

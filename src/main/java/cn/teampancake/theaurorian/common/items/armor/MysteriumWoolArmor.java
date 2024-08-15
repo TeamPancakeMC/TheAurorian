@@ -38,7 +38,7 @@ public class MysteriumWoolArmor extends BaseArmor<MysteriumWoolArmorModel> {
     }
 
     public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        return TheAurorian.prefix("mysterium_armor.png");
+        return TheAurorian.prefix(ARMOR_ID + "mysterium_armor.png");
     }
 
 }

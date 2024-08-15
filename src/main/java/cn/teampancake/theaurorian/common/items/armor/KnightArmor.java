@@ -33,7 +33,7 @@ public class KnightArmor extends BaseArmor<KnightArmorModel> {
 
     @Override
     public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        return TheAurorian.prefix("knight_armor.png");
+        return TheAurorian.prefix(ARMOR_ID + "knight_armor.png");
     }
 
 }

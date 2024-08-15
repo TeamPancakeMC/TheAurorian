@@ -33,7 +33,7 @@ public class AurorianSteelArmor extends BaseArmor<AurorianSteelArmorModel> {
 
     @Override
     public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        return TheAurorian.prefix("aurorian_steel_armor.png");
+        return TheAurorian.prefix(ARMOR_ID + "aurorian_steel_armor.png");
     }
 
 }

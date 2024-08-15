@@ -23,6 +23,7 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> ARMOR_HURT_ACCUMULATION = registerFloat("armor_hurt_accumulation");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IMMUNE_TO_PRESSURE = registerBoolean("immune_yo_pressure");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> COMPLETELY_INVISIBLE = registerBoolean("completely_invisible");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SPAWN_IN_OVERWORLD = registerBoolean("spawn_in_overworld");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<List<ResourceLocation>>> MAX_HEALTH_SUBTRACT_IDS =
             ATTACHMENT_TYPES.register("max_health_subtract_id", () -> AttachmentType.<List<ResourceLocation>>builder(() -> List.of()).build());
 

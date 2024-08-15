@@ -4,7 +4,6 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
 import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
-import cn.teampancake.theaurorian.common.entities.animal.IOverworldAurorianMob;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.MoonAcolyte;
@@ -228,9 +227,7 @@ public class EntityEventSubscriber {
                 } else if (entity instanceof Chicken) {
                     event.setCanceled(true);
                 } else if (entity instanceof MoonAcolyte || entity instanceof Spirit) {
-                    if (entity instanceof IOverworldAurorianMob animal) {
-                        animal.setSpawnInOverworld(true);
-                    }
+                    entity.setData(TAAttachmentTypes.SPAWN_IN_OVERWORLD, true);
                 }
             }
         }
@@ -247,10 +244,8 @@ public class EntityEventSubscriber {
                     entity.startRiding(sitEntity);
                 }
 
-                if (entity instanceof IOverworldAurorianMob animal) {
-                    if (animal.isSpawnInOverworld() && level.isDay()) {
-                        entity.kill();
-                    }
+                if (entity.getData(TAAttachmentTypes.SPAWN_IN_OVERWORLD) && level.isDay()) {
+                    entity.kill();
                 }
             }
 

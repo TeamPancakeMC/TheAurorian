@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.ai.goal;
 
-import cn.teampancake.theaurorian.common.entities.animal.IOverworldAurorianMob;
+import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 
@@ -21,7 +21,7 @@ public class AurorianAnimalMeleeAttackGoal extends MeleeAttackGoal {
     }
 
     private boolean isSpawnInOverworld() {
-        return this.mob instanceof IOverworldAurorianMob aurorianAnimal && aurorianAnimal.isSpawnInOverworld();
+        return this.mob.getData(TAAttachmentTypes.SPAWN_IN_OVERWORLD);
     }
 
 }

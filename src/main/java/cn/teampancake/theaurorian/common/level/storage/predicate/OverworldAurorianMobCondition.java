@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.level.storage.predicate;
 
-import cn.teampancake.theaurorian.common.entities.animal.IOverworldAurorianMob;
+import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TALootItemConditions;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -24,9 +24,7 @@ public record OverworldAurorianMobCondition(LootContext.EntityTarget entityTarge
     @Override
     public boolean test(LootContext context) {
         Entity entity = context.getParamOrNull(this.entityTarget.getParam());
-        boolean flag1 = entity instanceof IOverworldAurorianMob mob && mob.isSpawnInOverworld();
-        boolean flag2 = entity instanceof LivingEntity living && living.getLastAttacker() == null;
-        return flag1 && flag2;
+        return entity instanceof LivingEntity living && living.getData(TAAttachmentTypes.SPAWN_IN_OVERWORLD) && living.getLastAttacker() == null;
     }
 
     public static LootItemCondition.Builder build() {

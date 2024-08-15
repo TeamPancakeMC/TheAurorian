@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -56,11 +57,16 @@ public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBl
             if (part == AlchemyTablePart.LEFT) {
                 BlockPos relative = pos.relative(getNeighbourDirection(part, state.getValue(FACING)));
                 BlockState relativeState = level.getBlockState(relative);
-                if (relativeState.is(this) && relativeState.getValue(PART) == AlchemyTablePart.RIGHT && level.getBlockEntity(relative) instanceof AlchemyTableBlockEntity blockEntity2) {
-                    player.openMenu(blockEntity2);
+                boolean isRight = relativeState.getValue(PART) == AlchemyTablePart.RIGHT;
+                if (relativeState.is(this) && isRight && level.getBlockEntity(relative) instanceof AlchemyTableBlockEntity blockEntity2) {
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        serverPlayer.openMenu(blockEntity2, extraData -> extraData.writeBlockPos(pos));
+                    }
                 }
             } else {
-                player.openMenu(blockEntity);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    serverPlayer.openMenu(blockEntity, extraData -> extraData.writeBlockPos(pos));
+                }
             }
         }
 
@@ -75,6 +81,7 @@ public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBl
                 Containers.dropContents(level, pos, scrapper);
                 level.updateNeighbourForOutputSignal(pos, this);
             }
+
             super.onRemove(state, level, pos, newState, isMoving);
         }
     }

@@ -16,6 +16,7 @@ import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -74,6 +75,7 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
                     }
                 }
             }
+
 	        blockEntity.updateClient(); // Sync craft progress to client
         }
     }
@@ -184,7 +186,8 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new MoonlightForgeMenu(containerId, inventory, this, this.handler, this.containerData);
+        ContainerLevelAccess access = ContainerLevelAccess.create(this.level, this.worldPosition);
+        return new MoonlightForgeMenu(containerId, inventory, access, this.handler, this.containerData);
     }
 
     private class Data implements ContainerData {
@@ -193,6 +196,12 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
         public int get(int index) {
             if (index == 0) {
                 return craftProgress;
+            } else if (index == 1) {
+                return hasMoonLight ? 1 : 0;
+            } else if (index == 2) {
+                return isCrafting ? 1 : 0;
+            } else if (index == 3) {
+                return isPowered ? 1 : 0;
             } else {
                 return 0;
             }
@@ -202,6 +211,12 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
         public void set(int index, int value) {
             if (index == 0) {
                 craftProgress = value;
+            } else if (index == 1) {
+                hasMoonLight = value == 1;
+            } else if (index == 2) {
+                isCrafting = value == 1;
+            } else if (index == 3) {
+                isPowered = value == 1;
             }
         }
 

@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
@@ -55,7 +56,9 @@ public class MoonlightForge extends BaseEntityBlockWithState {
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof MoonlightForgeBlockEntity blockEntity) {
             blockEntity.updateClient();
-            player.openMenu(blockEntity);
+            if (player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.openMenu(state.getMenuProvider(level, pos), extraData -> extraData.writeBlockPos(pos));
+            }
         }
 
         return InteractionResult.sidedSuccess(level.isClientSide());

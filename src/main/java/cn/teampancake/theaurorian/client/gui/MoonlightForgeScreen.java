@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.client.gui;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.inventory.MoonlightForgeMenu;
-import cn.teampancake.theaurorian.common.blocks.entity.MoonlightForgeBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.gui.GuiGraphics;
@@ -39,11 +38,10 @@ public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForge
         int i = (this.width - this.imageWidth) / 2 + 49;
         int j = (this.height - this.imageHeight) / 2 + 31;
         String s = "tooltips.block.theaurorian.moonlight_forge.gui.";
-        MoonlightForgeBlockEntity blockEntity = this.menu.getBlockEntity();
         if (mouseX >= i && mouseX <= i + 24 && mouseY >= j && mouseY <= j + 24) {
-            if (blockEntity.isPowered) {
+            if (this.menu.isPowered()) {
                 s += "redstone";
-            } else if (!blockEntity.hasMoonLight) {
+            } else if (!this.menu.hasMoonlight()) {
                 s += "no_moonlight";
             } else {
                 s += "has_moonlight";
@@ -59,16 +57,15 @@ public class MoonlightForgeScreen extends AbstractContainerScreen<MoonlightForge
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
         PoseStack poseStack = guiGraphics.pose();
-        MoonlightForgeBlockEntity blockEntity = this.menu.getBlockEntity();
         guiGraphics.blit(CONTAINER_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
-        if (blockEntity.isPowered) {
+        if (this.menu.isPowered()) {
             guiGraphics.blit(CONTAINER_LOCATION, i + 49, j + 31, 176, 41, 24, 24);
-        } else if (!blockEntity.hasMoonLight) {
+        } else if (!this.menu.hasMoonlight()) {
             guiGraphics.blit(CONTAINER_LOCATION, i + 49, j + 31, 176, 0, 24, 24);
         }
 
         if (this.menu.getCraftProgress() > 0) {
-            if (!blockEntity.isPowered && blockEntity.hasMoonLight) {
+            if (!this.menu.isPowered() && this.menu.hasMoonlight()) {
                 poseStack.pushPose();
                 float x = (float) (i + 49 + 12);
                 float y = (float) (j + 31 + 12);

@@ -12,6 +12,7 @@ import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -146,7 +147,8 @@ public class ScrapperBlockEntity extends SimpleContainerBlockEntity implements W
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new ScrapperMenu(containerId, inventory, this, this.handler, this.containerData);
+        ContainerLevelAccess access = ContainerLevelAccess.create(this.level, this.worldPosition);
+        return new ScrapperMenu(containerId, inventory, access, this.handler, this.containerData);
     }
 
     private class Data implements ContainerData {

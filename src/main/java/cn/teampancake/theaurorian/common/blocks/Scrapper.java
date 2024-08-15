@@ -43,8 +43,8 @@ public class Scrapper extends BaseEntityBlockWithState {
 
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof ScrapperBlockEntity blockEntity) {
-            player.openMenu(blockEntity);
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.openMenu(state.getMenuProvider(level, pos), extraData -> extraData.writeBlockPos(pos));
         }
 
         return InteractionResult.sidedSuccess(level.isClientSide());
@@ -58,6 +58,7 @@ public class Scrapper extends BaseEntityBlockWithState {
                 Containers.dropContents(level, pos, scrapper);
                 level.updateNeighbourForOutputSignal(pos, this);
             }
+
             super.onRemove(state, level, pos, newState, isMoving);
         }
     }

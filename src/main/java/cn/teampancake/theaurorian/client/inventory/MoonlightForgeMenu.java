@@ -1,15 +1,15 @@
 package cn.teampancake.theaurorian.client.inventory;
 
-import cn.teampancake.theaurorian.common.blocks.entity.MoonlightForgeBlockEntity;
+import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAMenus;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
@@ -17,17 +17,20 @@ import org.jetbrains.annotations.NotNull;
 
 public class MoonlightForgeMenu extends AbstractSimpleMenu {
 
-    private final MoonlightForgeBlockEntity moonlightForge;
     private final ContainerData containerData;
 
-    public MoonlightForgeMenu(int containerId, Inventory inventory, FriendlyByteBuf extraData) {
-        this(containerId, inventory, inventory.player.level().getBlockEntity(extraData.readBlockPos()), new ItemStackHandler(1), new SimpleContainerData(1));
+    @SuppressWarnings("unused")
+    public MoonlightForgeMenu(int containerId, Inventory inventory, RegistryFriendlyByteBuf buf) {
+        this(containerId, inventory, ContainerLevelAccess.NULL);
     }
 
-    public MoonlightForgeMenu(int containerId, Inventory inventory, BlockEntity blockEntity, IItemHandler itemHandler, ContainerData containerData) {
-        super(TAMenus.MOONLIGHT_FORGE_MENU.get(), containerId, inventory);
+    public MoonlightForgeMenu(int containerId, Inventory inventory, ContainerLevelAccess access) {
+        this(containerId, inventory, access, new ItemStackHandler(1), new SimpleContainerData(1));
+    }
+
+    public MoonlightForgeMenu(int containerId, Inventory inventory, ContainerLevelAccess access, IItemHandler itemHandler, ContainerData containerData) {
+        super(TAMenus.MOONLIGHT_FORGE_MENU.get(), containerId, inventory, access);
         checkContainerSize(inventory, 3);
-        this.moonlightForge = (MoonlightForgeBlockEntity) blockEntity;
         this.containerData = containerData;
         this.addSlot(new SlotItemHandler(itemHandler, 0, 22, 35));
         this.addSlot(new SlotItemHandler(itemHandler, 1, 84, 35));
@@ -38,10 +41,21 @@ public class MoonlightForgeMenu extends AbstractSimpleMenu {
     public int getCraftProgress() {
         return this.containerData.get(0);
     }
+    
+    public boolean hasMoonlight() {
+        return this.containerData.get(1) == 1;
+    }
+    
+    public boolean isCrafting() {
+        return this.containerData.get(2) == 1;
+    }
+    
+    public boolean isPowered() {
+        return this.containerData.get(3) == 1;
+    }
 
-    @Override
-    public MoonlightForgeBlockEntity getBlockEntity() {
-        return this.moonlightForge;
+    public boolean stillValid(@NotNull Player player) {
+        return stillValid(this.access, player, TABlocks.MOONLIGHT_FORGE.get());
     }
 
     @Override

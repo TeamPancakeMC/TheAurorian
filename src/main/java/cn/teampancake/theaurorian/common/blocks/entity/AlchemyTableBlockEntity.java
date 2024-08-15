@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
@@ -93,7 +94,8 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new AlchemyTableMenu(containerId, inventory, this, this.handler, this.containerData);
+        ContainerLevelAccess access = ContainerLevelAccess.create(this.level, this.worldPosition);
+        return new AlchemyTableMenu(containerId, inventory, access, this.handler, this.containerData);
     }
 
     private class Data implements ContainerData {

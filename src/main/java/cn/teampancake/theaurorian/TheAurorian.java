@@ -32,10 +32,11 @@ import java.util.Objects;
 public class TheAurorian {
 
     public static final String MOD_ID = "theaurorian";
+    public static final String FILENAME = MOD_ID + "/TheAurorian.toml";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public TheAurorian(IEventBus modEventBus, ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.COMMON, AurorianConfig.SPEC, "theaurorian/TheAurorian.toml");
+        modContainer.registerConfig(ModConfig.Type.COMMON, AurorianConfig.SPEC, FILENAME);
         TACreativeModeTabs.TABS.register(modEventBus);
         TAItems.ITEMS.register(modEventBus);
         TABlocks.BLOCKS.register(modEventBus);
@@ -86,6 +87,7 @@ public class TheAurorian {
 
     public void createNewRegistries(NewRegistryEvent event) {
         event.register(TABiomeLayers.REGISTRY);
+        event.register(TARunes.REGISTRY);
     }
 
     public void registerExtraStuff(RegisterEvent event) {

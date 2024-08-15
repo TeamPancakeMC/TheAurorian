@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record FrostbiteS2CPacket(int ticksFrostbite) implements CustomPacketPayload {
 
-    public static final Type<FrostbiteS2CPacket> TYPE = new Type<>(TheAurorian.prefix("frostbite"));
+    public static final Type<FrostbiteS2CPacket> TYPE = new Type<>(TheAurorian.prefix("ticks_frostbite"));
     public static final StreamCodec<RegistryFriendlyByteBuf, FrostbiteS2CPacket> STREAM_CODEC =
             CustomPacketPayload.codec(FrostbiteS2CPacket::write, FrostbiteS2CPacket::new);
 

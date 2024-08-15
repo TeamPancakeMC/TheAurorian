@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
 import cn.teampancake.theaurorian.common.registry.TABiomes;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -12,7 +13,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
@@ -29,7 +29,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.function.Supplier;
 
@@ -44,8 +43,8 @@ public abstract class MixinServerLevel extends Level {
 
     @Inject(method = "tickPrecipitation", at = @At(
             target = "Lnet/minecraft/world/level/biome/Biome;shouldFreeze(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z",
-            value = "INVOKE", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    public void tickPrecipitation(BlockPos pBlockPos, CallbackInfo ci, BlockPos blockPos1, BlockPos blockPos2, Biome biome) {
+            value = "INVOKE", shift = At.Shift.BEFORE), cancellable = true)
+    public void tickPrecipitation(BlockPos pBlockPos, CallbackInfo ci, @Local(ordinal = 1) BlockPos blockPos1, @Local(ordinal = 2) BlockPos blockPos2, @Local Biome biome) {
         if (this.getBiome(blockPos2).is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD)) {
             if (biome.shouldFreeze(this, blockPos2)) {
                 this.setBlockAndUpdate(blockPos2, TABlocks.FILTHY_ICE.get().defaultBlockState());
@@ -77,8 +76,8 @@ public abstract class MixinServerLevel extends Level {
     }
 
     @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;popPush(Ljava/lang/String;)V",
-            ordinal = 1, shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
-    public void tickChunk(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos, boolean flag, int i, int j, ProfilerFiller profiler) {
+            ordinal = 1, shift = At.Shift.AFTER))
+    public void tickChunk(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci, @Local(ordinal = 1) int i, @Local(ordinal = 2) int j, @Local ProfilerFiller profiler) {
         if (this.dimension() == TADimensions.AURORIAN_DIMENSION && LevelEventSubscriber.phaseCode == 4) {
             LevelChunkSection[] chunkSections = chunk.getSections();
             for (int l = 0; l < chunkSections.length; ++l) {

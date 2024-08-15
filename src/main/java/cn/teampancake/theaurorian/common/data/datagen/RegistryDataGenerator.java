@@ -27,6 +27,7 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.DAMAGE_TYPE, TADamageTypes::bootstrap)
             .add(Registries.STRUCTURE, TAStructures::bootstrap)
             .add(Registries.STRUCTURE_SET, TAStructureSets::bootstrap)
+            .add(Registries.TEMPLATE_POOL, TATemplatePools::bootstrap)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, TABiomeModifiers::bootstrap)
             .add(TABiomeLayerStack.BIOME_STACK_KEY, TABiomeLayerStack::bootstrap);
 

@@ -125,18 +125,6 @@ public class FilthyLakeFeature extends Feature<FilthyLakeFeature.Configuration> 
                 }
             }
 
-            if (fluidState.getFluidState().is(FluidTags.WATER)) {
-                for (int k2 = 0; k2 < 16; ++k2) {
-                    for (int k3 = 0; k3 < 16; ++k3) {
-                        BlockPos offsetPos = origin.offset(k2, 4, k3);
-                        boolean flag = this.canReplaceBlock(level.getBlockState(offsetPos));
-                        if (level.getBiome(offsetPos).value().shouldFreeze(level, offsetPos, Boolean.FALSE) && flag) {
-                            level.setBlock(offsetPos, TABlocks.FILTHY_ICE.get().defaultBlockState(), Block.UPDATE_CLIENTS);
-                        }
-                    }
-                }
-            }
-
             return true;
         }
     }

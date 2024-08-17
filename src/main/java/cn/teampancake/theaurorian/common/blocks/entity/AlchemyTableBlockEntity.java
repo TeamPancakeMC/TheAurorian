@@ -14,6 +14,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -62,8 +63,12 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
 
     @Nullable
     protected AlchemyTableRecipe checkBrewRecipe() {
-        assert this.level != null;
-        return this.quickCheck.getRecipeFor(this.getRecipeInput(), this.level).orElse(null).value();
+        if (this.level != null) {
+            RecipeHolder<? extends AlchemyTableRecipe> holder = this.quickCheck.getRecipeFor(this.getRecipeInput(), this.level).orElse(null);
+            return holder != null ? holder.value() : null;
+        }
+
+        return null;
     }
 
     private AlchemyTableRecipeInput getRecipeInput() {

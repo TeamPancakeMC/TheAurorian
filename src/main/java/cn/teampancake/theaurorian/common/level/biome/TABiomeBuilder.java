@@ -2,8 +2,7 @@ package cn.teampancake.theaurorian.common.level.biome;
 
 import cn.teampancake.theaurorian.common.level.chunk.TATerrainColumn;
 import cn.teampancake.theaurorian.common.registry.TABiomes;
-import it.unimi.dsi.fastutil.floats.Float2ObjectAVLTreeMap;
-import it.unimi.dsi.fastutil.floats.Float2ObjectSortedMap;
+import it.unimi.dsi.fastutil.doubles.Double2ObjectAVLTreeMap;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -47,8 +46,8 @@ public class TABiomeBuilder {
         });
     }
 
-    private static TATerrainColumn makeColumn(float noiseDepth, float noiseScale, Holder<Biome> biomeHolder, Consumer<Float2ObjectSortedMap<Holder<Biome>>> layerBuilder) {
-        return new TATerrainColumn(biomeHolder, Util.make(new Float2ObjectAVLTreeMap<>(), layerBuilder), noiseDepth, noiseScale);
+    private static TATerrainColumn makeColumn(float noiseDepth, float noiseScale, Holder<Biome> biomeHolder, Consumer<Double2ObjectAVLTreeMap<Holder<Biome>>> layerBuilder) {
+        return new TATerrainColumn(biomeHolder, Util.make(new Double2ObjectAVLTreeMap<>(), layerBuilder), noiseDepth, noiseScale);
     }
 
 }

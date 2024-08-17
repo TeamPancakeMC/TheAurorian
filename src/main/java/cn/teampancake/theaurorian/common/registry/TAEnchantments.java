@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.enchantments.MoltenCoreEffect;
+import cn.teampancake.theaurorian.common.enchantments.SpringOfLifeEffect;
 import cn.teampancake.theaurorian.common.level.storage.predicate.MoltenCoreEnchantmentCondition;
 import cn.teampancake.theaurorian.common.level.storage.predicate.NightWalkerEnchantmentCondition;
 import cn.teampancake.theaurorian.common.level.storage.predicate.SavageEnchantmentCondition;
@@ -129,7 +130,8 @@ public class TAEnchantments {
         register(context, SPRING_OF_LIFE, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.CHEST_ARMOR_ENCHANTABLE),
                 5, 1, Enchantment.constantCost(30),
-                Enchantment.constantCost(50), 4, EquipmentSlotGroup.CHEST)));
+                Enchantment.constantCost(50), 4, EquipmentSlotGroup.CHEST))
+                .withEffect(EnchantmentEffectComponents.TICK, new SpringOfLifeEffect(0)));
         register(context, EXPERIENCE_ORE, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.MINING_LOOT_ENCHANTABLE),
                 2, 4, Enchantment.dynamicCost(15, 10),

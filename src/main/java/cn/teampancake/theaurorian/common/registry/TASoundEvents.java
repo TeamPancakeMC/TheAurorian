@@ -14,6 +14,7 @@ public class TASoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> CRYSTALLINE_SWORD_SHOOT = register("crystalline_sword_shoot");
     public static final DeferredHolder<SoundEvent, SoundEvent> WEEPING_WILLOW_BELL = register("weeping_willow_bell");
     public static final DeferredHolder<SoundEvent, SoundEvent> BACKGROUND_MUSIC = register("music");
+    public static final DeferredHolder<SoundEvent, SoundEvent> EMPTY = register("empty");
 
     private static DeferredHolder<SoundEvent, SoundEvent> register(String sound) {
         return SOUND_EVENTS.register(sound, () -> SoundEvent.createVariableRangeEvent(TheAurorian.prefix(sound)));

@@ -2,9 +2,20 @@ package cn.teampancake.theaurorian.common.entities.phase.moonqueen;
 
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
+import cn.teampancake.theaurorian.common.registry.TASoundEvents;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.ExplosionDamageCalculator;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.SimpleExplosionDamageCalculator;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Optional;
+
 public class MoonQueenMoonBefallPhase extends AttackPhase<MoonQueen> {
+
+    private static final ExplosionDamageCalculator EXPLOSION_DAMAGE_CALCULATOR =
+            new SimpleExplosionDamageCalculator(Boolean.FALSE, Boolean.FALSE, (Optional.of(3.0F)), (Optional.empty()));
 
     public MoonQueenMoonBefallPhase() {
         super(3, 1, 26, 0);
@@ -20,10 +31,14 @@ public class MoonQueenMoonBefallPhase extends AttackPhase<MoonQueen> {
 
     @Override
     public void tick(MoonQueen entity) {
+        Level level = entity.level();
         entity.setDeltaMovement(Vec3.ZERO);
-        if (entity.getAttackTicks() == 14) {
-            entity.pushAwaySurroundingEntities(5.0D, 2.0D);
-            entity.level().broadcastEntityEvent(entity, (byte)77);
+        if (!level.isClientSide && entity.getAttackTicks() == 14) {
+            level.explode(entity, Explosion.getDefaultDamageSource(level, entity),
+                    EXPLOSION_DAMAGE_CALCULATOR, entity.getX(), entity.getY(), entity.getZ(), (3.0F),
+                    Boolean.FALSE, Level.ExplosionInteraction.NONE, ParticleTypes.EXPLOSION,
+                    ParticleTypes.EXPLOSION_EMITTER, TASoundEvents.EMPTY);
+            level.broadcastEntityEvent(entity, (byte) 77);
         }
     }
 

@@ -15,8 +15,6 @@ public class TALootItemConditions {
             DeferredRegister.create(BuiltInRegistries.LOOT_CONDITION_TYPE, TheAurorian.MOD_ID);
     public static final DeferredHolder<LootItemConditionType, LootItemConditionType> SAVAGE_ENCHANTMENT =
             register("savage_enchantment", SavageEnchantmentCondition.CODEC);
-    public static final DeferredHolder<LootItemConditionType, LootItemConditionType> LEGENDARY_HERO_ENCHANTMENT =
-            register("legendary_hero_enchantment", LegendaryHeroEnchantmentCondition.CODEC);
     public static final DeferredHolder<LootItemConditionType, LootItemConditionType> NIGHT_WALKER_ENCHANTMENT =
             register("night_walker_enchantment", NightWalkerEnchantmentCondition.CODEC);
     public static final DeferredHolder<LootItemConditionType, LootItemConditionType> MOLTEN_CORE_ENCHANTMENT =

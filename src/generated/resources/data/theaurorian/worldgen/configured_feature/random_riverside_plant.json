@@ -14,8 +14,9 @@
                   "entries": [
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "0"
                         }
                       },
@@ -23,8 +24,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "1"
                         }
                       },
@@ -32,8 +34,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "2"
                         }
                       },
@@ -41,8 +44,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "3"
                         }
                       },
@@ -50,8 +54,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "4"
                         }
                       },
@@ -59,8 +64,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "5"
                         }
                       },
@@ -68,8 +74,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "6"
                         }
                       },
@@ -77,8 +84,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "7"
                         }
                       },
@@ -86,8 +94,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "8"
                         }
                       },
@@ -95,8 +104,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "9"
                         }
                       },
@@ -104,8 +114,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "10"
                         }
                       },
@@ -113,8 +124,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "11"
                         }
                       },
@@ -122,8 +134,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "12"
                         }
                       },
@@ -131,8 +144,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "13"
                         }
                       },
@@ -140,8 +154,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "14"
                         }
                       },
@@ -149,8 +164,9 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:aurorian_water_grass",
+                        "Name": "theaurorian:tall_aurorian_water_grass",
                         "Properties": {
+                          "half": "lower",
                           "level": "15"
                         }
                       },
@@ -158,9 +174,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "0"
                         }
                       },
@@ -168,9 +183,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "1"
                         }
                       },
@@ -178,9 +192,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "2"
                         }
                       },
@@ -188,9 +201,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "3"
                         }
                       },
@@ -198,9 +210,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "4"
                         }
                       },
@@ -208,9 +219,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "5"
                         }
                       },
@@ -218,9 +228,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "6"
                         }
                       },
@@ -228,9 +237,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "7"
                         }
                       },
@@ -238,9 +246,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "8"
                         }
                       },
@@ -248,9 +255,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "9"
                         }
                       },
@@ -258,9 +264,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "10"
                         }
                       },
@@ -268,9 +273,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "11"
                         }
                       },
@@ -278,9 +282,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "12"
                         }
                       },
@@ -288,9 +291,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "13"
                         }
                       },
@@ -298,9 +300,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "14"
                         }
                       },
@@ -308,9 +309,8 @@
                     },
                     {
                       "data": {
-                        "Name": "theaurorian:tall_aurorian_water_grass",
+                        "Name": "theaurorian:aurorian_water_grass",
                         "Properties": {
-                          "half": "lower",
                           "level": "15"
                         }
                       },

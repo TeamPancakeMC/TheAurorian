@@ -3,6 +3,16 @@
   "description": {
     "translate": "enchantment.theaurorian.moonlight"
   },
+  "effects": {
+    "minecraft:tick": [
+      {
+        "effect": {
+          "type": "theaurorian:moonlight",
+          "placeholder": 0
+        }
+      }
+    ]
+  },
   "max_cost": {
     "base": 50,
     "per_level_above_first": 0

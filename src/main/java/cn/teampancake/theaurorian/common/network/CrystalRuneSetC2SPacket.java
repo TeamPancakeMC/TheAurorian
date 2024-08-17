@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record CrystalRuneSetC2SPacket(int key) implements CustomPacketPayload {
 
-    public static final Type<CrystalRuneSetC2SPacket> TYPE = new Type<>(TheAurorian.prefix("crystal_rune_set"));
+    public static final Type<CrystalRuneSetC2SPacket> TYPE = new Type<>(TheAurorian.prefix("network.crystal_rune_set"));
     public static final StreamCodec<ByteBuf, CrystalRuneSetC2SPacket> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.VAR_INT, CrystalRuneSetC2SPacket::key, CrystalRuneSetC2SPacket::new);
 

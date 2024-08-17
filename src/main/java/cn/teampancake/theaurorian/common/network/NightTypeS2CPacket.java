@@ -11,7 +11,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record NightTypeS2CPacket(int nightType) implements CustomPacketPayload {
 
-    public static final Type<NightTypeS2CPacket> TYPE = new Type<>(TheAurorian.prefix("frostbite"));
+    public static final Type<NightTypeS2CPacket> TYPE = new Type<>(TheAurorian.prefix("network.night_type"));
     public static final StreamCodec<RegistryFriendlyByteBuf, NightTypeS2CPacket> STREAM_CODEC =
             CustomPacketPayload.codec(NightTypeS2CPacket::write, NightTypeS2CPacket::new);
 

@@ -2,7 +2,7 @@ package cn.teampancake.theaurorian.common.network;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record FrostbiteS2CPacket(int ticksFrostbite) implements CustomPacketPayload {
 
-    public static final Type<FrostbiteS2CPacket> TYPE = new Type<>(TheAurorian.prefix("ticks_frostbite"));
+    public static final Type<FrostbiteS2CPacket> TYPE = new Type<>(TheAurorian.prefix("network.ticks_frostbite"));
     public static final StreamCodec<RegistryFriendlyByteBuf, FrostbiteS2CPacket> STREAM_CODEC =
             CustomPacketPayload.codec(FrostbiteS2CPacket::write, FrostbiteS2CPacket::new);
 
@@ -31,8 +31,8 @@ public record FrostbiteS2CPacket(int ticksFrostbite) implements CustomPacketPayl
 
     public static void handle(FrostbiteS2CPacket packet, IPayloadContext context) {
         context.enqueueWork(() -> {
-            Player player = Minecraft.getInstance().player;
-            if (context.flow().isClientbound() && player != null) {
+            Player player = context.player();
+            if (context.flow().isClientbound() && player instanceof LocalPlayer) {
                 player.setData(TAAttachmentTypes.TICKS_FROSTBITE, packet.ticksFrostbite);
             }
         });

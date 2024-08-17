@@ -6,7 +6,6 @@
   "refmap": "theaurorian.refmap.json",
   "mixins": [
     "MixinDamageSource",
-    "MixinEmeraldsForVillagerTypeItem",
     "MixinLevel",
     "MixinLivingEntity",
     "MixinPlayer",

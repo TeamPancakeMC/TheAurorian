@@ -71,7 +71,7 @@ public class TheAurorian {
         modEventBus.addListener(this::createNewRegistries);
         modEventBus.addListener(this::registerExtraStuff);
         modEventBus.addListener(this::setRegistriesForDatapack);
-        new TAGameRules();
+        TAGameRules.register();
         if (ModList.get().isLoaded("thirst")) {
             ThirstWasTakenCompat.init();
         }

@@ -55,8 +55,11 @@ public class TASkyRenderer {
         levelRenderer.skyBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, shaderInstance);
         VertexBuffer.unbind();
         RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
-                GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.blendFuncSeparate(
+                GlStateManager.SourceFactor.SRC_ALPHA,
+                GlStateManager.DestFactor.ONE,
+                GlStateManager.SourceFactor.ONE,
+                GlStateManager.DestFactor.ZERO);
         poseStack.pushPose();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
@@ -72,12 +75,19 @@ public class TASkyRenderer {
         float f14 = (float)(i1) / 2.0F;
         float f15 = (float)(l + 1) / 4.0F;
         float f16 = (float)(i1 + 1) / 2.0F;
-        BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferBuilder.addVertex(matrix4f1, -moonSize, -100.0F, moonSize).setUv(f15, f16);
-        bufferBuilder.addVertex(matrix4f1, moonSize, -100.0F, moonSize).setUv(f13, f16);
-        bufferBuilder.addVertex(matrix4f1, moonSize, -100.0F, -moonSize).setUv(f13, f14);
-        bufferBuilder.addVertex(matrix4f1, -moonSize, -100.0F, -moonSize).setUv(f15, f14);
-        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+        BufferBuilder bufferBuilder1 = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        bufferBuilder1.addVertex(matrix4f1, -moonSize, -100.0F, moonSize).setUv(f15, f16);
+        bufferBuilder1.addVertex(matrix4f1, moonSize, -100.0F, moonSize).setUv(f13, f16);
+        bufferBuilder1.addVertex(matrix4f1, moonSize, -100.0F, -moonSize).setUv(f13, f14);
+        bufferBuilder1.addVertex(matrix4f1, -moonSize, -100.0F, -moonSize).setUv(f15, f14);
+        BufferUploader.drawWithShader(bufferBuilder1.buildOrThrow());
+        RenderSystem.setShaderTexture(0, LevelRenderer.MOON_LOCATION);
+        BufferBuilder bufferBuilder2 = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        bufferBuilder2.addVertex(matrix4f1, -moonSize, 100.0F, -moonSize).setUv(f15, f16);
+        bufferBuilder2.addVertex(matrix4f1, moonSize, 100.0F, -moonSize).setUv(f13, f16);
+        bufferBuilder2.addVertex(matrix4f1, moonSize, 100.0F, moonSize).setUv(f13, f14);
+        bufferBuilder2.addVertex(matrix4f1, -moonSize, 100.0F, moonSize).setUv(f15, f14);
+        BufferUploader.drawWithShader(bufferBuilder2.buildOrThrow());
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         FogRenderer.setupNoFog();
         starBuffer.bind();
@@ -103,7 +113,6 @@ public class TASkyRenderer {
         map.put(TheAurorian.prefix("ta_cyan"), 0x80e3ec);
         map.put(TheAurorian.prefix("ta_orange"), 0xfff089);
         map.put(TheAurorian.prefix("ta_lime"), 0x69c941);
-
         TAEventFactory.onRegisterAurorianSkyColor(map);
         return ImmutableMap.copyOf(map);
     }
@@ -146,17 +155,17 @@ public class TASkyRenderer {
     }
 
     private MeshData drawStars(Tesselator tesselator) {
-        RandomSource randomsource = RandomSource.create(10842L);
+        RandomSource randomSource = RandomSource.create(10842L);
         BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-        for (int j = 0; j < 4500; j++) {
-            float f1 = randomsource.nextFloat() * 2.0F - 1.0F;
-            float f2 = randomsource.nextFloat() * 2.0F - 1.0F;
-            float f3 = randomsource.nextFloat() * 2.0F - 1.0F;
-            float f4 = 0.15F + randomsource.nextFloat() * 0.1F;
+        for (int j = 0; j < 5000; j++) {
+            float f1 = randomSource.nextFloat() * 2.0F - 1.0F;
+            float f2 = randomSource.nextFloat() * 2.0F - 1.0F;
+            float f3 = randomSource.nextFloat() * 2.0F - 1.0F;
+            float f4 = 0.15F + randomSource.nextFloat() * 0.1F;
             float f5 = Mth.lengthSquared(f1, f2, f3);
             if (!(f5 <= 0.010000001F) && !(f5 >= 1.0F)) {
                 Vector3f vector3f = new Vector3f(f1, f2, f3).normalize(100.0F);
-                float f6 = (float)(randomsource.nextDouble() * (float) Math.PI * 2.0);
+                float f6 = (float)(randomSource.nextDouble() * (float) Math.PI * 2.0);
                 Quaternionf quaternionf = new Quaternionf().rotateTo(new Vector3f(0.0F, 0.0F, -1.0F), vector3f).rotateZ(f6);
                 bufferBuilder.addVertex(vector3f.add(new Vector3f(f4, -f4, 0.0F).rotate(quaternionf)));
                 bufferBuilder.addVertex(vector3f.add(new Vector3f(f4, f4, 0.0F).rotate(quaternionf)));

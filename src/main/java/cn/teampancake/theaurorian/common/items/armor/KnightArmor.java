@@ -8,19 +8,44 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class KnightArmor extends BaseArmor<KnightArmorModel> {
 
     public KnightArmor(Type type) {
         super(TAArmorMaterials.KNIGHT, type, new Properties().rarity(Rarity.RARE));
+    }
+
+    public static boolean isWearFullArmor(Player player) {
+        List<ItemStack> list = new ArrayList<>();
+        player.getArmorSlots().forEach(stack -> {
+            if (stack.getItem() instanceof KnightArmor) {
+                list.add(stack);
+            }
+        });
+
+        return list.size() == player.getInventory().armor.size();
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+        if (entity instanceof Player player && isWearFullArmor(player) && !player.hasEffect(MobEffects.DAMAGE_BOOST)) {
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200));
+        }
     }
 
     @Override

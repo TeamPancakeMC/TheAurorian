@@ -10,6 +10,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -21,6 +22,14 @@ public class SpectralArmor extends BaseArmor<SpectralArmorModel> {
 
     public SpectralArmor(Type type) {
         super(TAArmorMaterials.SPECTRAL, type, new Properties().rarity(Rarity.RARE));
+    }
+
+    public static boolean isWearSpectralArmor(Player player) {
+        for (ItemStack slot : player.getArmorSlots()) {
+            return slot.getItem() instanceof SpectralArmor;
+        }
+
+        return false;
     }
 
     @Override

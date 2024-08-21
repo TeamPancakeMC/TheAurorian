@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.client.renderer.entity;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
 import cn.teampancake.theaurorian.common.registry.TAVillagerProfession;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -31,6 +32,18 @@ public class AurorianVillagerRenderer extends LivingEntityRenderer<AurorianVilla
 
         //Default Villager
         return ASTROLOGER;
+    }
+
+    @Override
+    protected void scale(AurorianVillager entity, PoseStack poseStack, float partialTickTime) {
+        float f = 0.9375F * entity.getAgeScale();
+        poseStack.scale(f, f, f);
+    }
+
+    @Override
+    protected float getShadowRadius(AurorianVillager entity) {
+        float f = super.getShadowRadius(entity);
+        return entity.isBaby() ? f * 0.5F : f;
     }
 
 }

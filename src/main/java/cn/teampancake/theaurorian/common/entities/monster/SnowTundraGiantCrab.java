@@ -5,10 +5,12 @@ import cn.teampancake.theaurorian.common.entities.ai.goal.GiantCrabDoNothingGoal
 import cn.teampancake.theaurorian.common.entities.ai.goal.LookAtTargetGoal;
 import cn.teampancake.theaurorian.common.entities.ai.goal.MoveToTargetGoal;
 import cn.teampancake.theaurorian.common.entities.phase.*;
+import cn.teampancake.theaurorian.common.registry.TASoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -29,6 +31,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -201,6 +204,26 @@ public class SnowTundraGiantCrab extends TAMonster implements GeoEntity, Neutral
     @Nullable @Override
     public UUID getPersistentAngerTarget() {
         return this.persistentAngerTarget;
+    }
+
+    @Nullable @Override
+    protected SoundEvent getAmbientSound() {
+        return TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_DEATH.get();
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_STEP.get(), 0.15F, 1.0F);
     }
 
     private class GiantCrabBodyRotationControl extends BodyRotationControl {

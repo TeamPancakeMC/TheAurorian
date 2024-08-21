@@ -13,6 +13,10 @@ public class TASoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> CRYSTALLINE_SWORD_CHARGING = register("crystalline_sword_charging");
     public static final DeferredHolder<SoundEvent, SoundEvent> CRYSTALLINE_SWORD_SHOOT = register("crystalline_sword_shoot");
     public static final DeferredHolder<SoundEvent, SoundEvent> WEEPING_WILLOW_BELL = register("weeping_willow_bell");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SNOW_TUNDRA_GIANT_CRAB_AMBIENT = register("snow_tundra_giant_crab/ambient");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SNOW_TUNDRA_GIANT_CRAB_STEP = register("snow_tundra_giant_crab/step");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SNOW_TUNDRA_GIANT_CRAB_HURT = register("snow_tundra_giant_crab/hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SNOW_TUNDRA_GIANT_CRAB_DEATH = register("snow_tundra_giant_crab/death");
     public static final DeferredHolder<SoundEvent, SoundEvent> BACKGROUND_MUSIC = register("music");
     public static final DeferredHolder<SoundEvent, SoundEvent> EMPTY = register("empty");
 

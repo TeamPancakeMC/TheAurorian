@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.mixin;
 
-import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -20,9 +19,7 @@ public class MixinLevelRenderer {
 
     @Inject(method = "renderEntity", at = @At(value = "HEAD"), cancellable = true)
     private void renderEntity(Entity entity, double camX, double camY, double camZ, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, CallbackInfo ci) {
-        Entity cameraEntity = Minecraft.getInstance().getCameraEntity();
-        boolean flag = entity.getData(TAAttachmentTypes.COMPLETELY_INVISIBLE);
-        if ((cameraEntity instanceof LocalPlayer player && player.hasEffect(TAMobEffects.CONCEALMENT) && entity != player) || flag) {
+        if (Minecraft.getInstance().getCameraEntity() instanceof LocalPlayer player && player.hasEffect(TAMobEffects.CONCEALMENT) && entity != player) {
             ci.cancel();
         }
     }

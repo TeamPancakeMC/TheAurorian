@@ -12,8 +12,6 @@ import java.util.function.Consumer;
 public class MixinEmeraldsForVillagerTypeItem {
 
     @Redirect(method = "<init>",at = @At(value = "INVOKE", target = "Ljava/util/Optional;ifPresent(Ljava/util/function/Consumer;)V"))
-    private void cancel(Optional instance, Consumer action){
-        //Do nothing here to cancel
-    }
+    private void cancel(Optional instance, Consumer action) {}
 
 }

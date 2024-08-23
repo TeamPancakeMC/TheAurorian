@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.items.armor;
 import cn.teampancake.theaurorian.client.model.entity.armor.MysteriumWoolArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.registry.TAEquipmentSet;
-import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;

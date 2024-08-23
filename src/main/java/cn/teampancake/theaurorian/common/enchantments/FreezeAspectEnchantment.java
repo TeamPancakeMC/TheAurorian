@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.enchantments;
 
-import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.registry.TAEquipmentSet;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.world.effect.MobEffectInstance;

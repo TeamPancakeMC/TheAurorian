@@ -60,8 +60,7 @@ public class ToolSubscriber {
                     .filter(enchantment1 -> enchantments.get(enchantment1) < enchantment1.getMaxLevel())
                     .skip((int) (enchantments.size() * Math.random())).findFirst().orElse(null);
             if (enchantment != null) {
-                int level = enchantments.get(enchantment);
-                enchantments.put(enchantment, level + 1);
+                enchantments.computeIfPresent(enchantment, (k, level) -> level + 1);
                 EnchantmentHelper.setEnchantments(enchantments, stack);
             }
         }

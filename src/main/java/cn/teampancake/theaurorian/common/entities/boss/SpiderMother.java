@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.entities.boss;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.spidermother.*;
+import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
 import cn.teampancake.theaurorian.common.registry.TAAttributes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.BlockPos;
@@ -201,6 +202,18 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
 
             this.alreadyHealForUUID.addAll(this.currentSavedUUID);
         }
+    }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        if (damageSource.getEntity() instanceof ServerPlayer player) {
+            AttributeInstance instance = player.getAttribute(Attributes.MAX_HEALTH);
+            if (instance != null && instance.getModifier(WebbingEntity.WEBBING_MODIFIER) != null) {
+                instance.removeModifier(WebbingEntity.WEBBING_MODIFIER);
+            }
+        }
+
+        super.die(damageSource);
     }
 
     @Override

@@ -7,13 +7,11 @@ import cn.teampancake.theaurorian.common.utils.TATooltipRenderUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 
-@EventBusSubscriber(modid = TheAurorian.MOD_ID)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID, value = Dist.CLIENT)
 public class TooltipEventSubscriber {
 
     private static final ResourceLocation UNCOMMON = TheAurorian.prefix("textures/gui/tooltips/uncommon.png");
@@ -28,8 +26,7 @@ public class TooltipEventSubscriber {
     private static final ResourceLocation CAT_BELL = TheAurorian.prefix("textures/gui/tooltips/cat_bell.png");
     private static final ResourceLocation TSLAT_SWORD = TheAurorian.prefix("textures/gui/tooltips/tslat_sword.png");
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
     public static void onRenderTooltips(RenderTooltipEvent.Pre event) {
         ItemStack itemStack = event.getItemStack();
         if (itemStack.is(TAItemTags.HAS_CUSTOM_TOOLTIPS)) {
@@ -47,9 +44,7 @@ public class TooltipEventSubscriber {
             if (itemStack.is(TAItems.CAT_BELL.get())) TooltipData.CAT_BELL_ITEM.renderTooltips(event);
             if (itemStack.is(TAItems.TSLAT_SWORD.get())) TooltipData.TSLAT_SWORD_ITEM.renderTooltips(event);
         }
-
     }
-
 
     public record TooltipData(ResourceLocation texture, int backgroundColor, int borderColor, int textureWidth, int textureHeight, int textureOffsetX, int textureOffsetY,
                        int[] xOffset, int[] yOffset, int[] uOffset, int[] vOffset, int[] uWidth, int[] vHeight) {

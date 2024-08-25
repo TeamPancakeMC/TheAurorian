@@ -6,7 +6,6 @@ import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
-import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -27,7 +26,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
-import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -81,10 +79,6 @@ public class ItemEventSubscriber {
             repairItem = tieredItem.getTier().getRepairIngredient();
         }
 
-        if (repairItem == Ingredient.of(TAItems.AURORIAN_STEEL.get())) {
-            AurorianSteelHelper.getAurorianSteelInfo(stack, tooltip);
-        }
-
         if (repairItem == Ingredient.of(TAItems.CRYSTALLINE_INGOT.get())) {
             //TODO CRYSTALLINE_INGOT TOOLTIP
         }
@@ -116,18 +110,6 @@ public class ItemEventSubscriber {
                 if (stack.is(TAItems.AURORIAN_SLIME_BOOTS.get()) && player.getCooldowns().isOnCooldown(stack.getItem())) {
                     player.setDeltaMovement(player.getDeltaMovement().x, 0.5F, player.getDeltaMovement().z);
                     player.getCooldowns().addCooldown(stack.getItem(), 100);
-                }
-            });
-        }
-    }
-
-    @SubscribeEvent
-    public static void onLivingFall(LivingFallEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            player.getArmorSlots().forEach(stack -> {
-                if (stack.is(TAItems.AURORIAN_SLIME_BOOTS.get()) && event.getDistance() > 3.0F) {
-                    player.setDeltaMovement(player.getDeltaMovement().x, 0.75F, player.getDeltaMovement().z);
-                    event.setCanceled(true);
                 }
             });
         }
@@ -171,17 +153,6 @@ public class ItemEventSubscriber {
             for (int i = 0; i < 4; i++) {
                 level.addParticle(ParticleTypes.CLOUD, originX, y, originZ, targetX, 0.25D, targetZ);
                 level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), originX, y, originZ, targetX, 0.25D, targetZ);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onUsingItem(LivingEntityUseItemEvent.Tick event){
-        if (event.getEntity() instanceof Player player) {
-            if (event.getItem().is(TAItems.CRYSTALLINE_SWORD.get())) {
-                if (player.getTicksUsingItem() >= 60) {
-                    player.releaseUsingItem();
-                }
             }
         }
     }

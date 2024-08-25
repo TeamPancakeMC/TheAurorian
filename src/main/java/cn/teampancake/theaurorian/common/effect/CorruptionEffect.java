@@ -2,8 +2,11 @@ package cn.teampancake.theaurorian.common.effect;
 
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TADamageTypes;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -17,7 +20,18 @@ public class CorruptionEffect extends IncurableEffect {
         super(MobEffectCategory.HARMFUL, 0x570e20);
     }
 
-    public void doHurtTarget(LivingEntity entity) {
+    @Override
+    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        Minecraft minecraft = Minecraft.getInstance();
+        Entity cameraEntity = minecraft.getCameraEntity();
+        if (cameraEntity instanceof LocalPlayer player) {
+            player.hurtTime = 0;
+        }
+
+        return true;
+    }
+
+    public static void doHurtTarget(LivingEntity entity) {
         AttachmentType<Float> type1 = TAAttachmentTypes.DAMAGE_ACCUMULATION.get();
         AttachmentType<Float> type2 = TAAttachmentTypes.ARMOR_HURT_ACCUMULATION.get();
         AttachmentType<Float> type3 = TAAttachmentTypes.EXHAUSTION_ACCUMULATION.get();

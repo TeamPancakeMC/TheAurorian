@@ -6,34 +6,28 @@ import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
 import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
-import cn.teampancake.theaurorian.common.entities.monster.MoonAcolyte;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
-import cn.teampancake.theaurorian.common.entities.monster.Spirit;
 import cn.teampancake.theaurorian.common.entities.projectile.ThrownAxe;
-import cn.teampancake.theaurorian.common.entities.projectile.WebbingEntity;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
-import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
+import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import cn.teampancake.theaurorian.common.network.FrostbiteS2CPacket;
 import cn.teampancake.theaurorian.common.registry.*;
-import cn.teampancake.theaurorian.common.utils.AurorianSteelHelper;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -45,19 +39,17 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.entity.projectile.ThrownEgg;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
@@ -69,75 +61,22 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
+import java.util.List;
 
+/** @noinspection deprecation*/
 @EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class EntityEventSubscriber {
 
     private static final DataComponentType<CustomData> CUSTOM_DATA = DataComponents.CUSTOM_DATA;
-
-    @SubscribeEvent
-    public static void onPlayerTicking(PlayerTickEvent.Pre event) {
-        if (event.getEntity() instanceof ServerPlayer serverPlayer && serverPlayer.isAlive()) {
-            ResourceKey<Enchantment> enchantment = TAEnchantments.SPRING_OF_LIFE;
-            Holder<Enchantment> holder = TAEnchantments.get(serverPlayer.level(), enchantment);
-            ItemStack chestItem = serverPlayer.getItemBySlot(EquipmentSlot.CHEST);
-            CompoundTag compoundTag = chestItem.getOrDefault(CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            Inventory inventory = serverPlayer.getInventory();
-            float maxHealth = serverPlayer.getMaxHealth();
-            int count = compoundTag.getInt("enchant_armor_heal_amount");
-            int level = chestItem.getEnchantmentLevel(holder);
-            boolean flag = serverPlayer.getHealth() < maxHealth * 0.1F;
-            boolean shouldHealPlayer = compoundTag.getBoolean("should_heal_player");
-            List<NonNullList<ItemStack>> compartments = ImmutableList.of(
-                    inventory.items, inventory.armor, inventory.offhand);
-            if (flag && level > 0 && !shouldHealPlayer) {
-                compoundTag.putBoolean("should_heal_player", true);
-                chestItem.set(CUSTOM_DATA, CustomData.of(compoundTag));
-            }
-
-            if (shouldHealPlayer && level > 0) {
-                compoundTag.putInt("enchant_armor_heal_amount", count + 1);
-                chestItem.set(CUSTOM_DATA, CustomData.of(compoundTag));
-                serverPlayer.heal((maxHealth * 0.01F));
-            }
-
-            for (NonNullList<ItemStack> nonNullList : compartments) {
-                for (ItemStack stack : nonNullList) {
-                    if (stack.getEnchantmentLevel(holder) > 0) {
-                        CompoundTag tag = stack.getOrDefault(CUSTOM_DATA, CustomData.EMPTY).copyTag();
-                        if (tag.getInt("enchant_armor_heal_amount") > 100 && tag.getBoolean("should_heal_player")) {
-                            stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).keySet().remove(holder);
-                            tag.putBoolean("should_heal_player", false);
-                            tag.putInt("enchant_armor_heal_amount", 0);
-                            stack.set(CUSTOM_DATA, CustomData.of(tag));
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerCloned(PlayerEvent.Clone event) {
-        Player originalPlayer = event.getOriginal();
-        Player newPlayer = event.getEntity();
-        Collection<MobEffectInstance> activeEffects = originalPlayer.getActiveEffects();
-        boolean flag = originalPlayer.hasEffect(TAMobEffects.POTION_REMAIN);
-        if (event.isWasDeath() && !activeEffects.isEmpty() && flag) {
-            originalPlayer.getActiveEffects().forEach(newPlayer::addEffect);
-        }
-    }
 
     @SubscribeEvent
     public static void onPlayerPickupXp(PlayerXpEvent.PickupXp event) {
@@ -210,62 +149,29 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
-        Level level = event.getLevel();
-        if (!level.isClientSide && level.isNight()) {
-            boolean isFullMoon = level.getMoonBrightness() == 1.0F;
-            if (level.dimension() == Level.OVERWORLD && isFullMoon) {
-                Entity entity = event.getEntity();
-                if (entity instanceof Pig pig) {
-                    TAEntityUtils.convertWithExtraData(TAEntityTypes.AURORIAN_PIG.get(), pig);
-                } else if (entity instanceof Cow cow) {
-                    TAEntityUtils.convertWithExtraData(TAEntityTypes.AURORIAN_COW.get(), cow);
-                } else if (entity instanceof Sheep sheep) {
-                    TAEntityUtils.convertWithExtraData(TAEntityTypes.AURORIAN_SHEEP.get(), sheep);
-                } else if (entity instanceof Rabbit rabbit) {
-                    TAEntityUtils.convertWithExtraData(TAEntityTypes.AURORIAN_RABBIT.get(), rabbit);
-                } else if (entity instanceof Chicken) {
-                    event.setCanceled(true);
-                } else if (entity instanceof MoonAcolyte || entity instanceof Spirit) {
-                    entity.setData(TAAttachmentTypes.SPAWN_IN_OVERWORLD, true);
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void onLivingTick(EntityTickEvent.Pre event) {
         if (event.getEntity() instanceof LivingEntity entity) {
             Level level = entity.level();
             if (!level.isClientSide()) {
+                int i = entity.getData(TAAttachmentTypes.TICKS_FROSTBITE);
+                Map<Holder<MobEffect>, MobEffectInstance> effectsMap = entity.getActiveEffectsMap();
                 if (entity.hasEffect(TAMobEffects.PARALYSIS) && entity.getVehicle() == null) {
                     SitEntity sitEntity = new SitEntity(level, entity.getOnPos(), 0.7D);
                     level.addFreshEntity(sitEntity);
                     entity.startRiding(sitEntity);
                 }
 
+                if (effectsMap.containsKey(TAMobEffects.CORRUPTION)) {
+                    MobEffectInstance instance = effectsMap.get(TAMobEffects.CORRUPTION);
+                    double maxDuration = entity.getData(TAAttachmentTypes.VALID_CORRUPTION_TIME);
+                    boolean flag = Math.random() <= (1.0D - instance.getDuration() / maxDuration);
+                    if (instance.getDuration() % 3 == 0 && flag) {
+                        effectsMap.remove(instance.getEffect());
+                    }
+                }
+
                 if (entity.getData(TAAttachmentTypes.SPAWN_IN_OVERWORLD) && level.isDay()) {
                     entity.kill();
-                }
-            }
-
-            MobEffect effect = TAMobEffects.CORRUPTION.get();
-            AttachmentType<Integer> type = TAAttachmentTypes.CORRUPTION_TIME.get();
-            int validTime = entity.getData(TAAttachmentTypes.VALID_CORRUPTION_TIME);
-            int i = entity.getData(TAAttachmentTypes.TICKS_FROSTBITE);
-            int j = entity.getData(TAAttachmentTypes.CORRUPTION_TIME);
-            if (!level.isClientSide) {
-                if (effect instanceof CorruptionEffect corruption && entity.hasEffect(TAMobEffects.CORRUPTION)) {
-                    boolean shouldRemove = level.random.nextFloat() < (j / (validTime + 40.0F));
-                    if (entity.tickCount % 20 == 0) {
-                        int data = entity.getData(type);
-                        entity.setData(type, data + 1);
-                    }
-
-                    if (j >= validTime || shouldRemove) {
-                        corruption.doHurtTarget(entity);
-                        entity.removeEffect(TAMobEffects.CORRUPTION);
-                    }
                 }
 
                 if (i > 0) {
@@ -314,15 +220,23 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
+    public static void onMobEffectRemoved(MobEffectEvent.Remove event) {
+        MobEffectInstance instance = event.getEffectInstance();
+        boolean flag = instance != null && !instance.isInfiniteDuration()
+                && instance.getEffect().is(TAMobEffects.CORRUPTION);
+        if (flag || event.getEffect().is(TAMobEffects.CORRUPTION)) {
+            CorruptionEffect.doHurtTarget(event.getEntity());
+        }
+    }
+
+    @SubscribeEvent
     public static void onMobEffectApplicable(MobEffectEvent.Applicable event) {
         LivingEntity entity = event.getEntity();
-        Holder<MobEffect> effect = Objects.requireNonNull(event.getEffectInstance()).getEffect();
         List<Holder<MobEffect>> effects = MoonQueen.getExclusiveEffects();
-        final Holder<MobEffect> holiness = TAMobEffects.HOLINESS;
-        final Holder<MobEffect> incantation = TAMobEffects.INCANTATION;
-        boolean flag1 = effect == incantation && entity.hasEffect(holiness);
-        boolean flag2 = effect == holiness && entity.hasEffect(incantation);
-        boolean flag3 = effect == TAMobEffects.PARALYSIS.get() && !(entity instanceof Player);
+        Holder<MobEffect> effect = Objects.requireNonNull(event.getEffectInstance()).getEffect();
+        boolean flag1 = effect.is(TAMobEffects.INCANTATION) && entity.hasEffect(TAMobEffects.HOLINESS);
+        boolean flag2 = effect.is(TAMobEffects.HOLINESS) && entity.hasEffect(TAMobEffects.INCANTATION);
+        boolean flag3 = effect.is(TAMobEffects.PARALYSIS) && !(entity instanceof Player);
         boolean flag4 = effects.contains(effect) && !(entity instanceof MoonQueen);
         if (flag1 || flag2 || flag3 || flag4) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
@@ -331,10 +245,10 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onMobEffectAdded(MobEffectEvent.Added event) {
+        AttachmentType<Integer> type = TAAttachmentTypes.VALID_CORRUPTION_TIME.get();
         MobEffectInstance instance = event.getEffectInstance();
         LivingEntity entity = event.getEntity();
-        AttachmentType<Integer> type = TAAttachmentTypes.VALID_CORRUPTION_TIME.get();
-        if (instance != null && instance.getEffect() == TAMobEffects.CORRUPTION) {
+        if (instance != null && instance.is(TAMobEffects.CORRUPTION)) {
             int duration = instance.getDuration();
             int oldValidTime = entity.getData(type);
             if (!entity.hasEffect(TAMobEffects.CORRUPTION) || duration > oldValidTime) {
@@ -348,8 +262,7 @@ public class EntityEventSubscriber {
         MobEffectInstance instance = event.getEffectInstance();
         LivingEntity entity = event.getEntity();
         if (instance != null) {
-            Holder<MobEffect> effect = instance.getEffect();
-            if (effect == TAMobEffects.PARALYSIS.get()) {
+            if (instance.is(TAMobEffects.PARALYSIS)) {
                 BlockPos pos = entity.getOnPos();
                 if (entity.getVehicle() instanceof SitEntity sitEntity) {
                     entity.moveTo(pos.getX(), pos.above().getY(), pos.getZ());
@@ -358,26 +271,26 @@ public class EntityEventSubscriber {
                 }
             }
 
-            if (effect == TAMobEffects.CRYSTALLIZATION.get() && entity instanceof ServerPlayer player) {
-                AttachmentType<List<ResourceLocation>> type = TAAttachmentTypes.MAX_HEALTH_SUBTRACT_IDS.get();
-                AttributeInstance attribute = player.getAttribute(Attributes.MAX_HEALTH);
-                List<ResourceLocation> list = player.getData(type);
-                if (attribute != null && !list.isEmpty()) {
-                    player.getData(type).clear();
-                    list.forEach(id -> {
-                        if (attribute.getModifier(id) != null) {
-                            attribute.removeModifier(id);
-                        }
-                    });
+            if (entity instanceof MoonQueen moonQueen && moonQueen.duelingMoment && MoonQueen.BUFF_LIST.contains(instance)) {
+                moonQueen.addEffect(MoonQueen.BUFF_LIST.get(entity.getRandom().nextInt(MoonQueen.BUFF_LIST.size())));
+                moonQueen.triggerAnim("buff_controller", "buff_animation");
+            }
+
+            if (instance.is(TAMobEffects.CRYSTALLIZATION)) {
+                List<ResourceLocation> list = entity.getData(TAAttachmentTypes.MAX_HEALTH_SUBTRACT_IDS);
+                AttributeInstance attribute = entity.getAttribute(Attributes.MAX_HEALTH);
+                if (!list.isEmpty() && attribute != null) {
+                    list.forEach(attribute::removeModifier);
+                    list.clear();
                 }
             }
 
-            if (effect instanceof CorruptionEffect corruption) {
-                corruption.doHurtTarget(entity);
+            if (instance.is(TAMobEffects.CORRUPTION)) {
+                CorruptionEffect.doHurtTarget(entity);
             }
 
-            if (effect instanceof ForbiddenCurseEffect forbiddenCurse && entity instanceof Player player) {
-                forbiddenCurse.restorePlayerInventoryItemEnchantments(player);
+            if (instance.is(TAMobEffects.FORBIDDEN_CURSE) && entity instanceof Player player) {
+                ForbiddenCurseEffect.restorePlayerInventoryItemEnchantments(player);
             }
         }
     }
@@ -394,13 +307,36 @@ public class EntityEventSubscriber {
         DamageSource source = event.getSource();
         LivingEntity entity = event.getEntity();
         boolean isHarmfulEffect = source.is(DamageTypes.INDIRECT_MAGIC) || source.is(DamageTypes.MAGIC);
-        if (isHarmfulEffect && entity.hasEffect(TAMobEffects.HOLINESS)) {
+        boolean enchantmentFlag = TAEntityUtils.canTriggerEnchantmentEffect(entity, TAEnchantments.VIRTUALIZATION);
+        if (isHarmfulEffect && entity.hasEffect(TAMobEffects.HOLINESS) || enchantmentFlag) {
             event.setNewDamage(0.0F);
         }
 
-        if (entity instanceof ServerPlayer player) {
+        if (entity instanceof Player player) {
             AttachmentType<Float> type = TAAttachmentTypes.EXHAUSTION_ACCUMULATION.get();
             player.setData(type, player.getData(type) + source.getFoodExhaustion());
+            if (SpectralArmor.isWearSpectralArmor(player)) {
+                player.getActiveEffects().stream().filter(instance -> {
+                    MobEffect effect = instance.getEffect().value();
+                    return effect.getCategory() == MobEffectCategory.HARMFUL;
+                }).forEach(instance -> player.removeEffect(instance.getEffect()));
+            }
+        }
+
+        if (source.getEntity() instanceof Player player) {
+            ItemStack itemInHand = entity.getItemInHand(entity.getUsedItemHand());
+            Set<Holder<Enchantment>> holderSet = itemInHand.getTagEnchantments().keySet();
+            if (holderSet.contains(TAEnchantments.get(player.level(), TAEnchantments.LEGENDARY_HERO))) {
+                List<LivingEntity> entities = player.level().getEntitiesOfClass(
+                        LivingEntity.class, player.getBoundingBox().inflate(20.0D),
+                        e -> e instanceof Player && e != player || e instanceof Villager);
+                event.setNewDamage(event.getNewDamage() + Math.min(entities.size(), 10));
+            }
+
+            if (entity.getAttributeValue(Attributes.ARMOR_TOUGHNESS) > 0.0D) {
+                Holder<Enchantment> holder = TAEnchantments.get(player.level(), TAEnchantments.SUNDER_ARMOR_SLASH);
+                event.setNewDamage(event.getNewDamage() + event.getNewDamage() * itemInHand.getEnchantmentLevel(holder) * 0.1F);
+            }
         }
     }
 
@@ -409,38 +345,7 @@ public class EntityEventSubscriber {
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
         Entity sourceEntity = source.getEntity();
-        if (target instanceof Player player && sourceEntity instanceof MoonQueen) {
-            event.setNewDamage(Math.max(1.0F, event.getNewDamage()));
-            if (player instanceof ServerPlayer) {
-                AttachmentType<Integer> type = TAAttachmentTypes.UNINTERRUPTED_HURT_BY_MOON_QUEEN_COUNT.get();
-                player.setData(type, player.getData(type) + 1);
-                if (player.getData(type) >= 10) {
-                    player.addEffect(new MobEffectInstance(TAMobEffects.LACERATION, 100));
-                }
-            }
-        }
-
         Holder<MobEffect> effect = TAMobEffects.CORRUPTION;
-        for (ItemStack piece : target.getArmorSlots()) {
-            if (piece.getItem() instanceof ArmorItem armorItem) {
-                if (armorItem.getMaterial() == TAArmorMaterials.AURORIAN_STEEL) {
-                    AurorianSteelHelper.handleAurorianSteelDurability(piece);
-                }
-            }
-        }
-
-        if (target.hasEffect(TAMobEffects.CRYSTALLIZATION) && target instanceof ServerPlayer player) {
-            event.setNewDamage(event.getNewDamage() * 1.5F);
-            AttributeInstance attribute = player.getAttribute(Attributes.MAX_HEALTH);
-            AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL;
-            if (attribute != null && player.getRandom().nextFloat() <= 0.25F) {
-                ResourceLocation id = TheAurorian.prefix("crystallization");
-                AttributeModifier modifier = new AttributeModifier(id, -0.1D, operation);
-                player.getData(TAAttachmentTypes.MAX_HEALTH_SUBTRACT_IDS).add(modifier.id());
-                attribute.addTransientModifier(modifier);
-            }
-        }
-
         if (target.hasEffect(effect)) {
             AttachmentType<Float> type = TAAttachmentTypes.DAMAGE_ACCUMULATION.get();
             target.setData(type, target.getData(type) + event.getNewDamage());
@@ -450,38 +355,36 @@ public class EntityEventSubscriber {
             }
         }
 
-        if (sourceEntity instanceof LivingEntity livingEntity) {
-            Holder<Enchantment> enchantment = TAEnchantments.get(livingEntity.level(), TAEnchantments.REFLECT_AURA);
-            int level = EnchantmentHelper.getEnchantmentLevel(enchantment, livingEntity);
-            if (level > 0 && livingEntity.getRandom().nextFloat() <= level * 0.01F) {
+        if (target.hasEffect(TAMobEffects.CRYSTALLIZATION)) {
+            event.setNewDamage(event.getOriginalDamage() * 1.5F);
+            AttributeInstance attribute = target.getAttribute(Attributes.MAX_HEALTH);
+            AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL;
+            if (attribute != null && target.getMaxHealth() > 2.0D && Math.random() <= 0.25F) {
+                UUID uuid = Mth.createInsecureUUID(RandomSource.createNewThreadLocalInstance());
+                ResourceLocation id = TheAurorian.prefix("crystallization-" + uuid);
+                AttributeModifier modifier = new AttributeModifier(id, -0.1D, operation);
+                target.getData(TAAttachmentTypes.MAX_HEALTH_SUBTRACT_IDS).add(modifier.id());
+                attribute.addTransientModifier(modifier);
+            }
+        }
+
+        if (sourceEntity instanceof LivingEntity entity) {
+            if (TAEntityUtils.canTriggerEnchantmentEffect(target, TAEnchantments.REFLECT_AURA)) {
                 float amount = event.getNewDamage();
-                livingEntity.getCombatTracker().recordDamage(source, amount);
-                livingEntity.setHealth(livingEntity.getHealth() - amount);
-                livingEntity.setAbsorptionAmount(livingEntity.getAbsorptionAmount() - amount);
-                livingEntity.gameEvent(GameEvent.ENTITY_DAMAGE);
+                entity.getCombatTracker().recordDamage(source, amount);
+                entity.setHealth(entity.getHealth() - amount);
+                entity.setAbsorptionAmount(entity.getAbsorptionAmount() - amount);
+                entity.gameEvent(GameEvent.ENTITY_DAMAGE);
             }
 
-            if (livingEntity instanceof SpiderMother spiderMother) {
+            if (entity instanceof SpiderMother spiderMother) {
                 if (spiderMother.getHealth() < spiderMother.getMaxHealth() * 0.5F) {
                     spiderMother.heal(event.getNewDamage());
                 }
             }
 
-            float chance = 0.00F;
-            for (ItemStack piece : livingEntity.getArmorSlots()) {
-                if (piece.getItem() instanceof ArmorItem armorItem) {
-                    if (armorItem.getMaterial() == TAArmorMaterials.SPECTRAL) {
-                        chance += 0.06F;
-                    }
-                }
-            }
-
-            if (chance != 0.00F && livingEntity.getRandom().nextFloat() <= chance) {
-                for (MobEffectInstance effectInstance : livingEntity.getActiveEffects()) {
-                    if (effectInstance.getEffect().value().getCategory() == MobEffectCategory.HARMFUL) {
-                        livingEntity.removeEffect(effectInstance.getEffect());
-                    }
-                }
+            if (entity instanceof MoonQueen) {
+                event.setNewDamage(Math.max(1.0F, event.getNewDamage()));
             }
         }
     }
@@ -499,8 +402,7 @@ public class EntityEventSubscriber {
                 }
 
                 if (moonQueen.duelingMoment) {
-                    String uuid = player.getStringUUID();
-                    moonQueen.killedDuelistUUID.add(uuid);
+                    moonQueen.killedDuelistName.add(player.getName().getString());
                     moonQueen.selectDuelistFromNearestTarget();
                     moonQueen.heal((moonQueen.getMaxHealth() * 0.1F));
                 }
@@ -539,22 +441,10 @@ public class EntityEventSubscriber {
         }
 
         if (sourceEntity instanceof ServerPlayer serverPlayer) {
-            AttributeInstance instance = serverPlayer.getAttribute(Attributes.MAX_HEALTH);
-            if (entity instanceof SpiderMother && instance != null) {
-                if (instance.getModifier(WebbingEntity.WEBBING_MODIFIER) != null) {
-                    instance.removeModifier(WebbingEntity.WEBBING_MODIFIER);
-                }
-            }
-
-            if (entity instanceof MoonQueen) {
-                serverPlayer.setData(TAAttachmentTypes.IMMUNE_TO_PRESSURE, true);
-            }
-
             ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(TAItems.TSLAT_SWORD.get())) {
                 DataComponentType<Integer> type = TADataComponents.KILL_COUNT.get();
-                int count = stack.getOrDefault(type, 0);
-                stack.set(type, count + 1);
+                stack.set(type, stack.getOrDefault(type, 0) + 1);
             }
         }
     }
@@ -563,6 +453,7 @@ public class EntityEventSubscriber {
     public static void onLivingDrops(LivingDropsEvent event) {
         LivingEntity entity = event.getEntity();
         Entity sourceEntity = event.getSource().getEntity();
+        event.setCanceled(sourceEntity instanceof MoonQueen);
         if ((entity instanceof AgeableMob || entity instanceof NeutralMob) && sourceEntity instanceof ServerPlayer player) {
             Holder<Enchantment> enchantment = TAEnchantments.get(entity.level(), TAEnchantments.SAVAGE);
             int level = EnchantmentHelper.getEnchantmentLevel(enchantment, player);
@@ -577,17 +468,11 @@ public class EntityEventSubscriber {
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
         event.setCanceled(source.is(DamageTypes.FREEZE) && target.hasEffect(TAMobEffects.WARM));
-        if (source.getEntity() instanceof ServerPlayer serverPlayer) {
-            ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+        if (target.isAlive() && source.getEntity() instanceof ServerPlayer player) {
+            ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(source)) {
-                int count = stack.getOrDefault(TADataComponents.KILL_COUNT, 0);
-                if (count > 20) {
-                    count = 20;
-                }
-
-                if (target.isAlive()) {
-                    target.setHealth(target.getHealth() - count * 0.05F);
-                }
+                int count = Mth.clamp(stack.getOrDefault(TADataComponents.KILL_COUNT, 0), 0, 20);
+                target.setHealth(target.getHealth() - count * 0.05F);
             }
         }
     }

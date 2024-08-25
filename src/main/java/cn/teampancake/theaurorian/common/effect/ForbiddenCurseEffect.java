@@ -2,7 +2,7 @@ package cn.teampancake.theaurorian.common.effect;
 
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class ForbiddenCurseEffect extends TAMobEffect {
+
+    private static final DataComponentType<ItemEnchantments> FORBIDDEN_CURSE = TADataComponents.FORBIDDEN_CURSE.get();
 
     public ForbiddenCurseEffect() {
         super(MobEffectCategory.HARMFUL, 0x4b6584);
@@ -34,33 +36,36 @@ public class ForbiddenCurseEffect extends TAMobEffect {
         return true;
     }
 
-    public void processPlayerInventoryItems(Player player, Consumer<NonNullList<ItemStack>> processItems) {
+    private static void processPlayerInventoryItems(Player player, Consumer<NonNullList<ItemStack>> processItems) {
         Inventory inventory = player.getInventory();
         processItems.accept(inventory.armor);
         processItems.accept(inventory.offhand);
         processItems.accept(inventory.items);
     }
 
-    public void removePlayerInventoryItemEnchantments(Player player) {
-        processPlayerInventoryItems(player, this::removeItemEnchantments);
+    private static void removePlayerInventoryItemEnchantments(Player player) {
+        processPlayerInventoryItems(player, ForbiddenCurseEffect::removeItemEnchantments);
     }
 
-    public void restorePlayerInventoryItemEnchantments(Player player) {
-        processPlayerInventoryItems(player, this::restoreItemEnchantments);
+    public static void restorePlayerInventoryItemEnchantments(Player player) {
+        processPlayerInventoryItems(player, ForbiddenCurseEffect::restoreItemEnchantments);
     }
 
-    public void removeItemEnchantments(List<ItemStack> itemStackList) {
+    private static void removeItemEnchantments(List<ItemStack> itemStackList) {
         itemStackList.stream().filter(ItemStack::isEnchanted).forEach(itemStack -> {
-            DataComponentMap components = itemStack.getComponents();
-            ItemEnchantments enchantments = components.get(DataComponents.ENCHANTMENTS);
-            if (components.has(TADataComponents.FORBIDDEN_CURSE.get())) {
-
-            }
+            itemStack.set(FORBIDDEN_CURSE, itemStack.getTagEnchantments());
+            itemStack.remove(DataComponents.ENCHANTMENTS);
         });
     }
 
-    public void restoreItemEnchantments(List<ItemStack> itemStackList) {
-
+    private static void restoreItemEnchantments(List<ItemStack> itemStackList) {
+        itemStackList.stream().filter(stack -> stack.has(FORBIDDEN_CURSE)).forEach(stack -> {
+            ItemEnchantments forbiddenCurses = stack.get(FORBIDDEN_CURSE);
+            if (forbiddenCurses != null) {
+                stack.set(DataComponents.ENCHANTMENTS, forbiddenCurses);
+                stack.remove(FORBIDDEN_CURSE);
+            }
+        });
     }
 
 }

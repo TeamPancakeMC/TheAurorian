@@ -15,6 +15,7 @@ import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.*;
 import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
 import cn.teampancake.theaurorian.common.entities.projectile.*;
+import cn.teampancake.theaurorian.common.entities.projectile.blade_waves.BladeWave;
 import cn.teampancake.theaurorian.common.entities.technical.LunaCircleEntity;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import net.minecraft.client.model.SlimeModel;
@@ -80,6 +81,9 @@ public class TAEntityTypes {
     public static final DeferredHolder<EntityType<?>, EntityType<UnstableCrystal>> UNSTABLE_CRYSTAL = ENTITY_TYPES.register("unstable_crystal",
             () -> EntityType.Builder.<UnstableCrystal>of(UnstableCrystal::new, MobCategory.MISC).sized(0.25F, 0.25F)
                     .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("unstable_crystal"));
+    public static final DeferredHolder<EntityType<?>, EntityType<BladeWave>> BLADE_WAVE = ENTITY_TYPES.register("blade_wave",
+            () -> EntityType.Builder.of(BladeWave::new, MobCategory.MISC).sized(0.5F, 0.5F)
+                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("blade_wave"));
     //NPC
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianVillager>> AURORIAN_VILLAGER = ENTITY_TYPES.register("aurorian_villager",
             () -> EntityType.Builder.of(AurorianVillager::new, MobCategory.CREATURE).sized(0.6F, 1.85F)
@@ -200,6 +204,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(THROWN_SHURIKEN.get(), ThrownShurikenRenderer::new);
         event.registerEntityRenderer(THROWN_SLATE_BRICK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UNSTABLE_CRYSTAL.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(BLADE_WAVE.get(), BladeWaveRenderer::new);
         event.registerEntityRenderer(BREAD_BEAST.get(), BreadBeastRenderer::new);
         event.registerEntityRenderer(ICEFIELD_DEER.get(), IcefieldDeerRenderer::new);
         event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), context -> new GeoEntityRenderer<>(

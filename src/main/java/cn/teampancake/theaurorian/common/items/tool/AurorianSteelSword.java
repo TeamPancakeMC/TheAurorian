@@ -25,7 +25,6 @@ public class AurorianSteelSword extends SwordItem implements ITooltipsItem {
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
-//        AurorianSteelHelper.handleAurorianSteelDurability(stack);
         return true;
     }
 

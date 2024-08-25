@@ -8,6 +8,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TAAttachmentTypes {
@@ -21,11 +22,10 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> DAMAGE_ACCUMULATION = registerFloat("damage_accumulation");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> EXHAUSTION_ACCUMULATION = registerFloat("exhaustion_accumulation");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> ARMOR_HURT_ACCUMULATION = registerFloat("armor_hurt_accumulation");
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IMMUNE_TO_PRESSURE = registerBoolean("immune_yo_pressure");
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> COMPLETELY_INVISIBLE = registerBoolean("completely_invisible");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IMMUNE_TO_PRESSURE = registerBoolean("immune_to_pressure");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SPAWN_IN_OVERWORLD = registerBoolean("spawn_in_overworld");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<List<ResourceLocation>>> MAX_HEALTH_SUBTRACT_IDS =
-            ATTACHMENT_TYPES.register("max_health_subtract_id", () -> AttachmentType.<List<ResourceLocation>>builder(() -> List.of()).build());
+            ATTACHMENT_TYPES.register("max_health_subtract_id", () -> AttachmentType.<List<ResourceLocation>>builder(() -> new ArrayList<>()).build());
 
     private static DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> registerInteger(String name) {
         return ATTACHMENT_TYPES.register(name, () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).build());

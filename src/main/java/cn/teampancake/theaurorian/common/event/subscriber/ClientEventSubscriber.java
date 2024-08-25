@@ -3,9 +3,7 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
-import cn.teampancake.theaurorian.common.effect.TremorEffect;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
-import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import com.mojang.blaze3d.shaders.FogShape;
@@ -15,16 +13,12 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -47,34 +41,11 @@ public class ClientEventSubscriber {
     @SubscribeEvent
     public static void onMovementInputUpdate(MovementInputUpdateEvent event) {
         if (event.getEntity() instanceof LocalPlayer localPlayer) {
-            localPlayer.getActiveEffectsMap().values().forEach(effect -> {
-                if (effect.getEffect() instanceof ConfusionEffect confusionEffect) {
-                    confusionEffect.onMovementInputUpdate(effect.getAmplifier(), event.getInput(), localPlayer);
+            localPlayer.getActiveEffectsMap().values().forEach(instance -> {
+                if (instance.is(TAMobEffects.CONFUSION)) {
+                    ConfusionEffect.onMovementInputUpdate(event.getInput(), localPlayer);
                 }
             });
-        }
-    }
-
-    @SubscribeEvent
-    public static void onViewpoint(ViewportEvent.ComputeFov event) {
-        Minecraft minecraft = Minecraft.getInstance();
-        Entity cameraEntity = minecraft.getCameraEntity();
-        if (cameraEntity instanceof LocalPlayer player) {
-            ClientLevel level = minecraft.level;
-            if (level != null) {
-                Holder<Enchantment> enchantment = TAEnchantments.get(level, TAEnchantments.MOONLIGHT);
-                int i = EnchantmentHelper.getEnchantmentLevel(enchantment, player);
-                level.entitiesForRendering().forEach(entity -> {
-                    if (entity instanceof LivingEntity livingEntity) {
-                        double distance = player.distanceToSqr(livingEntity);
-                        livingEntity.setSharedFlag(6, i > 0 && distance <= Math.pow(i * 20.0D, 2.0D));
-                    }
-                });
-            }
-
-            if (player.hasEffect(TAMobEffects.CORRUPTION)) {
-                player.hurtTime = 0;
-            }
         }
     }
 
@@ -83,24 +54,24 @@ public class ClientEventSubscriber {
         Minecraft minecraft = Minecraft.getInstance();
         LocalPlayer player = minecraft.player;
         if (player == null) return;
-        player.getActiveEffectsMap().forEach((effect, mobEffectInstance) -> {
-            if (effect instanceof ConfusionEffect) {
-                if (mobEffectInstance.getAmplifier() == 1) {
+        player.getActiveEffectsMap().forEach((effect, instance) -> {
+            if (instance.is(TAMobEffects.CONFUSION)) {
+                if (instance.getAmplifier() == 1) {
                     float rotation = Mth.sin(player.tickCount / 10.0F) * 45.0F;
                     event.setRoll(rotation);
                 }
 
-                if (mobEffectInstance.getAmplifier() == 2) {
+                if (instance.getAmplifier() == 2) {
                     event.setRoll(180.0F);
                 }
             }
 
-            if (effect instanceof TremorEffect) {
+            if (instance.is(TAMobEffects.TREMOR)) {
                 RandomSource rng = player.level().random;
                 Entity cameraEntity = minecraft.getCameraEntity();
-                float partialTick = minecraft.getTimer().getGameTimeDeltaPartialTick(Boolean.TRUE);
                 float tremorAmount = 0.5F;
                 if (cameraEntity != null) {
+                    float partialTick = minecraft.getTimer().getGameTimeDeltaPartialTick(Boolean.TRUE);
                     float d =  Mth.sin((cameraEntity.tickCount + partialTick) * 0.5F) * tremorAmount;
                     event.getCamera().move((d * rng.nextFloat()), (d * rng.nextFloat()), (d * rng.nextFloat()));
                 }

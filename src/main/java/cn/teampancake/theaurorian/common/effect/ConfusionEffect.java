@@ -10,19 +10,19 @@ public class ConfusionEffect extends TAMobEffect {
         super(MobEffectCategory.HARMFUL, 0xEB00c4);
     }
 
-    public void onMovementInputUpdate(int amplifier, Input input, LocalPlayer player) {
+    public static void onMovementInputUpdate(Input input, LocalPlayer player) {
         swapValues(input);
         invertValues(input);
         calculate(input, player.isMovingSlowly());
     }
 
-    private void swapValues(Input input) {
+    private static void swapValues(Input input) {
         boolean temp = input.jumping;
         input.jumping = input.shiftKeyDown;
         input.shiftKeyDown = temp;
     }
 
-    private void invertValues(Input input) {
+    private static void invertValues(Input input) {
         input.up = !input.up;
         input.down = !input.down;
         input.left = !input.left;
@@ -31,12 +31,12 @@ public class ConfusionEffect extends TAMobEffect {
         input.forwardImpulse = -input.forwardImpulse;
     }
 
-    public static void calculate(Input input, boolean isMovingSlowly) {
+    private static void calculate(Input input, boolean isMovingSlowly) {
         input.forwardImpulse = calculate(input.up, input.down, isMovingSlowly);
         input.leftImpulse = calculate(input.left, input.right, isMovingSlowly);
     }
 
-    public static float calculate(boolean a, boolean b, boolean isMovingSlowly) {
+    private static float calculate(boolean a, boolean b, boolean isMovingSlowly) {
         if (a == b) {
             return 0.0F;
         }

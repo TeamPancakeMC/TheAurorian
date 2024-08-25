@@ -4,13 +4,12 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
-import cn.teampancake.theaurorian.common.entities.phase.moonqueen.MoonQueenBlockPhase;
-import cn.teampancake.theaurorian.common.entities.phase.moonqueen.MoonQueenMeleePhase;
-import cn.teampancake.theaurorian.common.entities.phase.moonqueen.MoonQueenMoonBefallPhase;
+import cn.teampancake.theaurorian.common.entities.phase.moonqueen.*;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TAAttributes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -55,8 +54,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.Tags;
-import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -69,6 +68,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /** @noinspection deprecation*/
 public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
@@ -79,30 +79,33 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     private static final RawAnimation ATTACK_BURST = RawAnimation.begin().thenPlay("attack.burst");
     private static final RawAnimation ATTACK_BUFF = RawAnimation.begin().thenPlay("attack.buff");
     private static final RawAnimation ATTACK_DUEL = RawAnimation.begin().thenPlay("attack.duel");
+    private static final RawAnimation ATTACK_BLADE_WAVE = RawAnimation.begin().thenPlay("attack.blade_wave");
     private static final RawAnimation ATTACK_MOON_BEFALL = RawAnimation.begin().thenPlay("attack.moon_befall");
     private static final ResourceLocation SPEED_MODIFIER_FOUND_TARGET = TheAurorian.prefix("found_target");
     private static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
-    private static final List<MobEffectInstance> BUFF_LIST = List.of(
+    public static final ImmutableList<MobEffectInstance> BUFF_LIST = ImmutableList.of(
             new MobEffectInstance(TAMobEffects.CRESCENT, 200),
             new MobEffectInstance(TAMobEffects.BLESS_OF_MOON, 200),
             new MobEffectInstance(TAMobEffects.MOON_OF_VENGEANCE, 200));
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public final HashSet<String> killedDuelistUUID = new HashSet<>();
-    private final HashSet<String> currentSavedUUID = new HashSet<>();
-    private final HashSet<String> alreadyHealForUUID = new HashSet<>();
+    public final HashSet<String> killedDuelistName = new HashSet<>();
+    private final HashSet<String> currentSavedName = new HashSet<>();
+    private final HashSet<String> playerAlreadyHealFor = new HashSet<>();
     private long ticksCanOneHitMustKill = 24000L;
     private int ticksDueling = 2400;
+    private int triggerDuelingCount;
     public int preparationTime;
     public int safeTime;
     public boolean isNeutral;
     public boolean duelingMoment;
-    private String currentDuelistUUID = "";
+    private String currentDuelistName = "";
 
     public MoonQueen(EntityType<? extends MoonQueen> type, Level level) {
         super(type, level);
         this.xpReward = 500;
         this.attackManager = new AttackManager<>(this, List.of(
                 new MoonQueenMeleePhase(), new MoonQueenBlockPhase(),
+                new MoonQueenRangedPhase(), new MoonQueenBackAttackPhase(),
                 new MoonQueenMoonBefallPhase()));
     }
 
@@ -139,8 +142,8 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     public static List<Holder<MobEffect>> getExclusiveEffects() {
         List<Holder<MobEffect>> list = new ArrayList<>();
-        list.add(TAMobEffects.MOON_BEFALL);
         BUFF_LIST.forEach(e -> list.add(e.getEffect()));
+        list.add(TAMobEffects.MOON_BEFALL);
         return list;
     }
 
@@ -170,6 +173,8 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 .triggerableAnim("buff_animation", ATTACK_BUFF).transitionLength(5));
         controllers.add(new AnimationController<>(this, "duel_controller", state -> PlayState.STOP)
                 .triggerableAnim("duel_animation", ATTACK_DUEL).transitionLength(5));
+        controllers.add(new AnimationController<>(this, "blade_wave_controller", state -> PlayState.STOP)
+                .triggerableAnim("blade_wave_animation", ATTACK_BLADE_WAVE).transitionLength(5));
         controllers.add(new AnimationController<>(this, "moon_befall_controller", state -> PlayState.STOP)
                 .triggerableAnim("moon_befall_animation", ATTACK_MOON_BEFALL).transitionLength(5));
         controllers.add(new AnimationController<>(this, "defeat_controller", state -> PlayState.STOP)
@@ -195,57 +200,14 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         ListTag listTag = new ListTag();
         list.forEach(s -> {
             CompoundTag compound = new CompoundTag();
-            compound.putString("UUID", s);
+            compound.putString("Name", s);
             listTag.add(compound);
         });
 
         return listTag;
     }
 
-    private void teleportToLowestHealthOrOutermostTarget() {
-        boolean flag = this.random.nextBoolean();
-        List<String> uuidList = Lists.newArrayList();
-        List<Integer> integerList = Lists.newArrayList();
-        TreeMap<String, Integer> treeMap = new TreeMap<>();
-        AABB aabb = this.getBoundingBox().inflate(40.0F);
-        List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
-        if (!playerList.isEmpty()) {
-            playerList.stream().filter(this::hasLineOfSight)
-                    .filter(this::isTruePlayer).forEach(player -> {
-                float d = (float) this.distanceToSqr(player);
-                String uuid = player.getStringUUID();
-                if (flag) {
-                    treeMap.put(uuid, (int) player.getHealth());
-                } else {
-                    if (d > 144.0F) {
-                        treeMap.put(uuid, (int) d);
-                    }
-                }
-            });
-
-            if (treeMap.isEmpty()) return;
-            treeMap.forEach((key, value) -> integerList.add(value));
-            Collections.sort(integerList);
-            treeMap.forEach((key, value) -> {
-                int index = flag ? 0 : integerList.size();
-                if (Objects.equals(treeMap.get(key), integerList.get(index))) {
-                    uuidList.add(key);
-                }
-            });
-
-            if (!uuidList.isEmpty()) {
-                String uuid = uuidList.get(this.random.nextInt(uuidList.size()));
-                for (Player player : playerList) {
-                    if (player.getStringUUID().equals(uuid)) {
-                        this.teleportToTheBackOfTheTarget(player);
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    private void teleportToTheBackOfTheTarget(LivingEntity target) {
+    public void teleportToTheBackOfTheTarget(LivingEntity target) {
         Vec3 eyePos = target.getEyePosition();
         Vec3 lookAngle = target.getLookAngle();
         double tx = eyePos.x - lookAngle.x * 2.0D;
@@ -263,16 +225,37 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         return !player.isCreative() && !player.isSpectator();
     }
 
+    public List<Player> getPlayerInBoundingBoxWithInflate(double value) {
+        List<Player> list = this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(value));
+        Stream<Player> stream = list.stream().filter(this::hasLineOfSight).filter(this::isTruePlayer);
+        return new ArrayList<>(stream.toList());
+    }
+
     public void selectDuelistFromNearestTarget() {
-        AABB aabb = this.getBoundingBox().inflate(24.0D);
-        List<String> uuidList = new ArrayList<>();
-        List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
-        playerList.stream().filter(this::isTruePlayer).forEach(
-                player -> uuidList.add(player.getStringUUID()));
-        boolean flag = this.currentDuelistUUID.isEmpty();
-        if (!uuidList.isEmpty() && flag && this.ticksDueling > 0) {
-            int index = this.random.nextInt(uuidList.size());
-            this.currentDuelistUUID = uuidList.get(index);
+        List<String> list = new ArrayList<>();
+        this.getPlayerInBoundingBoxWithInflate(24.0D).stream()
+                .map(Player::getName).forEach(name -> list.add(name.getString()));
+        boolean flag = this.currentDuelistName.isEmpty();
+        if (!list.isEmpty() && flag && this.ticksDueling > 0) {
+            int index = this.random.nextInt(list.size());
+            this.triggerAnim(("duel_controller"), ("duel_animation"));
+            this.currentDuelistName = list.get(index);
+            this.triggerDuelingCount++;
+            if (this.triggerDuelingCount == 1) {
+                this.addEffect(BUFF_LIST.get(this.random.nextInt(BUFF_LIST.size())));
+                this.preparationTime = 20;
+                this.duelingMoment = true;
+            } else {
+                this.heal((this.getMaxHealth() * 0.1F));
+            }
+
+            LivingEntity attacker = this.getLastAttacker();
+            if (attacker != null && attacker.isAlive()) {
+                double dx = attacker.getX();
+                double dy = attacker.getEyeY();
+                double dz = attacker.getZ();
+                this.getLookControl().setLookAt(dx, dy, dz);
+            }
         }
     }
 
@@ -280,47 +263,21 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     protected void customServerAiStep() {
         super.customServerAiStep();
         if (this.level() instanceof ServerLevel serverLevel) {
-            String uuid = this.currentDuelistUUID;
             float maxHealth = this.getMaxHealth();
             LivingEntity target = this.getTarget();
-            AABB aabb16 = this.getBoundingBox().inflate(24.0D);
-            AABB aabb24 = this.getBoundingBox().inflate(24.0D);
-            List<ServerPlayer> serverPlayerList = serverLevel.players();
-            List<Player> playerList16 = this.level().getEntitiesOfClass(Player.class, aabb16);
-            List<Player> playerList24 = this.level().getEntitiesOfClass(Player.class, aabb24);
+            AABB aabb = this.getBoundingBox().inflate(24.0D);
+            List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
             AttributeInstance health = this.getAttribute(TAAttributes.MAX_BOSS_HEALTH);
-            serverPlayerList.forEach(player -> this.currentSavedUUID.add(player.getStringUUID()));
-            int size = this.currentSavedUUID.size() - this.alreadyHealForUUID.size() - 1;
+            serverLevel.players().forEach(player -> this.currentSavedName.add(player.getName().getString()));
+            int size = this.currentSavedName.size() - this.playerAlreadyHealFor.size() - 1;
             boolean isHalfHealth = this.getHealth() < this.getMaxHealth() * 0.5F;
             if (isHalfHealth && !this.duelingMoment && this.ticksDueling == 2400) {
-                this.addEffect(BUFF_LIST.get(this.random.nextInt(BUFF_LIST.size())));
-                this.triggerAnim(("duel_controller"), ("duel_animation"));
                 this.selectDuelistFromNearestTarget();
-                this.preparationTime = 20;
-                this.duelingMoment = true;
-                LivingEntity attacker = this.getLastAttacker();
-                if (attacker != null && attacker.isAlive()) {
-                    double dx = attacker.getX();
-                    double dy = attacker.getEyeY();
-                    double dz = attacker.getZ();
-                    this.getLookControl().setLookAt(dx, dy, dz);
-                }
             }
 
-            if (this.duelingMoment) {
-                for (MobEffectInstance instance : this.getActiveEffects()) {
-                    if (BUFF_LIST.contains(instance) && instance.getDuration() == 1) {
-                        this.addEffect(BUFF_LIST.get(this.random.nextInt(BUFF_LIST.size())));
-                        this.triggerAnim(("buff_controller"), ("buff_animation")); break;
-                    }
-                }
-
-                if (!uuid.isEmpty() && playerList24.isEmpty()) {
-                    float amount = this.getMaxHealth() * 0.1F / 20.0F;
-                    this.currentDuelistUUID = "";
-                    this.selectDuelistFromNearestTarget();
-                    this.heal(amount);
-                }
+            if (this.duelingMoment && !this.currentDuelistName.isEmpty()) {
+                this.currentDuelistName = "";
+                this.selectDuelistFromNearestTarget();
             }
 
             if (target != null) {
@@ -342,12 +299,12 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 }
             }
 
-            this.safeTime = playerList16.isEmpty() ? this.safeTime + 1 : 0;
+            this.safeTime = playerList.isEmpty() ? this.safeTime + 1 : 0;
             if (this.safeTime > 100 && this.tickCount % 20 == 0) {
-                this.heal(maxHealth * 0.05F);
+                this.heal((maxHealth * 0.05F));
             }
 
-            this.alreadyHealForUUID.addAll(this.currentSavedUUID);
+            this.playerAlreadyHealFor.addAll(this.currentSavedName);
         }
     }
 
@@ -387,7 +344,8 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             long l = this.ticksCanOneHitMustKill + 1L;
             this.ticksCanOneHitMustKill = Math.min(l, 24000L);
             if (this.duelingMoment && --this.ticksDueling == 0) {
-                this.currentDuelistUUID = "";
+                this.triggerDuelingCount = 0;
+                this.currentDuelistName = "";
                 this.duelingMoment = false;
             }
 
@@ -395,6 +353,15 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 --this.preparationTime;
             }
         }
+    }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        if (damageSource.getEntity() instanceof ServerPlayer player) {
+            player.setData(TAAttachmentTypes.IMMUNE_TO_PRESSURE, true);
+        }
+
+        super.die(damageSource);
     }
 
     @Override
@@ -451,13 +418,14 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         compound.putInt("SafeTime", this.safeTime);
         compound.putInt("TicksDueling", this.ticksDueling);
         compound.putInt("PreparationTime", this.preparationTime);
+        compound.putInt("TriggerDuelingCount", this.triggerDuelingCount);
         compound.putBoolean("IsNeutral", this.isNeutral);
         compound.putBoolean("DuelingMoment", this.duelingMoment);
-        compound.putString("CurrentDuelistUUID", this.currentDuelistUUID);
+        compound.putString("CurrentDuelistName", this.currentDuelistName);
         compound.putLong("TicksCanOneHitMustKill", this.ticksCanOneHitMustKill);
-        compound.put("KilledDuelistUUID", this.saveListTag(this.killedDuelistUUID));
-        compound.put("CurrentSavedUUID", this.saveListTag(this.currentSavedUUID));
-        compound.put("AlreadyHealForUUID", this.saveListTag(this.alreadyHealForUUID));
+        compound.put("KilledDuelistName", this.saveListTag(this.killedDuelistName));
+        compound.put("CurrentSavedName", this.saveListTag(this.currentSavedName));
+        compound.put("PlayerAlreadyHealFor", this.saveListTag(this.playerAlreadyHealFor));
     }
 
     @Override
@@ -466,29 +434,37 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         this.safeTime = compound.getInt("SafeTime");
         this.ticksDueling = compound.getInt("TicksDueling");
         this.preparationTime = compound.getInt("PreparationTime");
+        this.triggerDuelingCount = compound.getInt("TriggerDuelingCount");
         this.isNeutral = compound.getBoolean("IsNeutral");
         this.duelingMoment = compound.getBoolean("DuelingMoment");
-        this.currentDuelistUUID = compound.getString("CurrentDuelistUUID");
+        this.currentDuelistName = compound.getString("CurrentDuelistUUID");
         this.ticksCanOneHitMustKill = compound.getLong("TicksCanOneHitMustKill");
-        ListTag listTagK = compound.getList("KilledDuelistUUID", 10);
+        ListTag listTagK = compound.getList("KilledDuelistName", 10);
         for (int i = 0; i < listTagK.size(); i++) {
-            this.killedDuelistUUID.add(listTagK.getCompound(i).getString("UUID"));
+            this.killedDuelistName.add(listTagK.getCompound(i).getString("Name"));
         }
 
-        ListTag listTagC = compound.getList("CurrentSavedUUID", 10);
+        ListTag listTagC = compound.getList("CurrentSavedName", 10);
         for (int i = 0; i < listTagC.size(); i++) {
-            this.currentSavedUUID.add(listTagC.getCompound(i).getString("UUID"));
+            this.currentSavedName.add(listTagC.getCompound(i).getString("Name"));
         }
 
-        ListTag listTagT = compound.getList("AlreadyHealForUUID", 10);
+        ListTag listTagT = compound.getList("PlayerAlreadyHealFor", 10);
         for (int i = 0; i < listTagT.size(); i++) {
-            this.alreadyHealForUUID.add(listTagT.getCompound(i).getString("UUID"));
+            this.playerAlreadyHealFor.add(listTagT.getCompound(i).getString("Name"));
         }
     }
 
     @Override
     public boolean isInWall() {
         return false;
+    }
+
+    @Override
+    public boolean removeEffect(Holder<MobEffect> effect) {
+        List<Holder<MobEffect>> list = new ArrayList<>();
+        BUFF_LIST.forEach(instance -> list.add(instance.getEffect()));
+        return !list.contains(effect) && super.removeEffect(effect);
     }
 
     @Override
@@ -545,6 +521,14 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 EnchantmentHelper.doPostAttackEffects(serverLevel, entity, source);
             }
 
+            if (entity instanceof ServerPlayer player) {
+                AttachmentType<Integer> type = TAAttachmentTypes.UNINTERRUPTED_HURT_BY_MOON_QUEEN_COUNT.get();
+                player.setData(type, player.getData(type) + 1);
+                if (player.getData(type) >= 10) {
+                    player.addEffect(new MobEffectInstance(TAMobEffects.LACERATION, 100));
+                }
+            }
+
             this.setLastHurtMob(entity);
             this.playAttackSound();
             if (this.hasEffect(TAMobEffects.CRESCENT)) {
@@ -589,9 +573,8 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 return false;
             }
 
-            if (entity instanceof Player player) {
-                String uuid = player.getStringUUID();
-                if (this.duelingMoment && !this.currentDuelistUUID.equals(uuid)) {
+            if (entity instanceof Player player && this.duelingMoment && this.triggerDuelingCount > 0) {
+                if (!this.currentDuelistName.equals(player.getName().getString())) {
                     return false;
                 }
             }
@@ -628,16 +611,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         }
     }
 
-    public void pushAwaySurroundingEntities(double radius, double strength) {
-        AABB aabb = this.getBoundingBox().inflate(radius);
-        this.level().getEntitiesOfClass(LivingEntity.class, aabb, entity -> entity != this).forEach(entity -> {
-            Vec3 vec31 = entity.position().subtract(this.position());
-            double d = (2.5F - vec31.length()) * (double)0.6F * strength;
-            Vec3 vec32 = vec31.normalize().scale(Math.abs(d));
-            entity.push(vec32.x, 0.6F, vec32.z);
-        });
-    }
-
     @Override
     public boolean checkTotemDeathProtection(DamageSource damageSource) {
         if (this.ticksCanOneHitMustKill == 24000L) {
@@ -648,6 +621,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             map.put(this.getAttribute(Attributes.ARMOR), 30.0D);
             map.put(this.getAttribute(Attributes.ARMOR_TOUGHNESS), 20.0D);
             map.put(this.getAttribute(Attributes.KNOCKBACK_RESISTANCE), 1.0D);
+            map.put(this.getAttribute(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE), 1.0D);
             map.forEach(AttributeInstance::setBaseValue);
             this.duelingMoment = false;
             this.preparationTime = 26;
@@ -673,12 +647,12 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         public boolean canUse() {
             AABB aabb = getBoundingBox().inflate(24.0D);
             List<Player> playerList = level().getEntitiesOfClass(Player.class, aabb);
-            if (!currentDuelistUUID.isEmpty() && ticksDueling > 0) {
+            if (!currentDuelistName.isEmpty() && ticksDueling > 0) {
                 for (Player player : playerList) {
-                    String uuid = player.getStringUUID();
-                    if (uuid.equals(currentDuelistUUID)) {
+                    String name = player.getName().getString();
+                    if (name.equals(currentDuelistName)) {
                         if (!isTruePlayer(player)) {
-                            currentDuelistUUID = "";
+                            currentDuelistName = "";
                             selectDuelistFromNearestTarget();
                             return false;
                         }

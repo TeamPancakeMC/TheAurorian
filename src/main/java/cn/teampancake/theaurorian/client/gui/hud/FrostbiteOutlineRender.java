@@ -5,7 +5,6 @@ import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -13,6 +12,8 @@ import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 public class FrostbiteOutlineRender {
+
+    private static final ResourceLocation POWDER_SNOW_OUTLINE_LOCATION = ResourceLocation.withDefaultNamespace("textures/misc/powder_snow_outline.png");
 
     public static void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         Minecraft minecraft = Minecraft.getInstance();
@@ -23,7 +24,7 @@ public class FrostbiteOutlineRender {
             int j = player.getTicksRequiredToFreeze();
             if (player.getTicksFrozen() <= 0) {
                 float percentFrozen = (float) Math.min(i, j) / (float) j;
-                minecraft.gui.renderTextureOverlay(guiGraphics, Gui.POWDER_SNOW_OUTLINE_LOCATION, percentFrozen);
+                minecraft.gui.renderTextureOverlay(guiGraphics, POWDER_SNOW_OUTLINE_LOCATION, percentFrozen);
             }
         }
 

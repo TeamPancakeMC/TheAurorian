@@ -18,7 +18,7 @@ public class MoonQueenMoonBefallPhase extends AttackPhase<MoonQueen> {
             new SimpleExplosionDamageCalculator(Boolean.FALSE, Boolean.FALSE, (Optional.of(3.0F)), (Optional.empty()));
 
     public MoonQueenMoonBefallPhase() {
-        super(3, 1, 26, 0);
+        super(4, 1, 26, 0);
     }
 
     @Override

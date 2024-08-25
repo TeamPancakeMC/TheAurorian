@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.ItemStack;
@@ -17,17 +18,25 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
-//TODO: Should migrate the Pancake Lib.
+import java.util.ArrayList;
+import java.util.List;
+
 public class MysteriumWoolArmor extends BaseArmor<MysteriumWoolArmorModel> {
 
     public MysteriumWoolArmor(Type type) {
         super(ArmorMaterials.LEATHER, type, new Properties().rarity(Rarity.RARE));
     }
 
-//    @Override
-//    public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity livingEntity) {
-//        return TAEquipmentSet.MYSTERIUM_WOOL_ARMOR_SET.get().checkEquippable(livingEntity);
-//    }
+    public static boolean isWearFullArmor(Player player) {
+        List<ItemStack> list = new ArrayList<>();
+        player.getArmorSlots().forEach(stack -> {
+            if (stack.getItem() instanceof MysteriumWoolArmor) {
+                list.add(stack);
+            }
+        });
+
+        return list.size() == 4;
+    }
 
     @Override
     @OnlyIn(Dist.CLIENT)

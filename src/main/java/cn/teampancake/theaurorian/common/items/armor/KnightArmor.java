@@ -38,12 +38,12 @@ public class KnightArmor extends BaseArmor<KnightArmorModel> {
             }
         });
 
-        return list.size() == player.getInventory().armor.size();
+        return list.size() == 4;
     }
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        if (entity instanceof Player player && isWearFullArmor(player) && !player.hasEffect(MobEffects.DAMAGE_BOOST)) {
+        if (entity instanceof Player player && !player.hasEffect(MobEffects.DAMAGE_BOOST) && isWearFullArmor(player)) {
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200));
         }
     }

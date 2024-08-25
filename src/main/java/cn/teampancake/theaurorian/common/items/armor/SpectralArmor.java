@@ -25,11 +25,14 @@ public class SpectralArmor extends BaseArmor<SpectralArmorModel> {
     }
 
     public static boolean isWearSpectralArmor(Player player) {
+        int count = 0;
         for (ItemStack slot : player.getArmorSlots()) {
-            return slot.getItem() instanceof SpectralArmor;
+            if (slot.getItem() instanceof SpectralArmor) {
+                count++;
+            }
         }
 
-        return false;
+        return count > 0 && Math.random() < 1.0D - Math.pow(1.0D - 0.06D, count);
     }
 
     @Override

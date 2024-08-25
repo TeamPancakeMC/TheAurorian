@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.entities.boss;
 import cn.teampancake.theaurorian.common.entities.monster.MultiPhaseAttacker;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.registry.TAAttributes;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -19,8 +18,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Monster;
@@ -29,16 +26,15 @@ import net.minecraft.world.level.block.HoneyBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacker {
 
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> BOSS_HEALTH = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.FLOAT);
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(),
+    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(Objects.requireNonNull(this.getDisplayName()),
             BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false);
     protected AttackManager<?> attackManager = new AttackManager<>(this, List.of());
 
@@ -106,7 +102,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
 
     @Override
     public float getMaxHealth() {
-        return (float)this.getAttributeValue(TAAttributes.MAX_BOSS_HEALTH);
+        return (float) this.getAttributeValue(TAAttributes.MAX_BOSS_HEALTH);
     }
 
     @Override
@@ -166,34 +162,6 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
 
         if (compound.contains("Health", 99)) {
             compound.remove("Health");
-        }
-    }
-
-    @Override
-    protected void tickEffects() {
-        Iterator<Holder<MobEffect>> iterator = this.getActiveEffectsMap().keySet().iterator();
-        try {
-            while(iterator.hasNext()) {
-                Holder<MobEffect> mobEffect = iterator.next();
-                MobEffectInstance instance = this.getActiveEffectsMap().get(mobEffect);
-                if (!instance.tick(this, () -> this.onEffectUpdated(instance, true, null))) {
-                    if (!this.level().isClientSide) {
-                        iterator.remove();
-                        this.onEffectRemoved(instance);
-                    }
-                } else if (instance.getDuration() % 600 == 0) {
-                    this.onEffectUpdated(instance, false, null);
-                }
-            }
-        } catch (ConcurrentModificationException ignored) {
-        }
-
-        if (this.effectsDirty) {
-            if (!this.level().isClientSide) {
-                this.updateInvisibilityStatus();
-            }
-
-            this.effectsDirty = false;
         }
     }
 

@@ -17,12 +17,11 @@ public class FrostbiteOutlineRender {
 
     public static void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         Minecraft minecraft = Minecraft.getInstance();
-        minecraft.getProfiler().push("snowfield_frostbite");
         RenderSystem.enableBlend();
         if (minecraft.getCameraEntity() instanceof Player player) {
             int i = player.getData(TAAttachmentTypes.TICKS_FROSTBITE);
             int j = player.getTicksRequiredToFreeze();
-            if (player.getTicksFrozen() <= 0) {
+            if (player.getTicksFrozen() <= 0 && i > 0) {
                 float percentFrozen = (float) Math.min(i, j) / (float) j;
                 minecraft.gui.renderTextureOverlay(guiGraphics, POWDER_SNOW_OUTLINE_LOCATION, percentFrozen);
             }

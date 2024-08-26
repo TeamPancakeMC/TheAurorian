@@ -15,7 +15,7 @@ import java.util.Optional;
 public class MoonQueenMoonBefallPhase extends AttackPhase<MoonQueen> {
 
     private static final ExplosionDamageCalculator EXPLOSION_DAMAGE_CALCULATOR =
-            new SimpleExplosionDamageCalculator(Boolean.FALSE, Boolean.FALSE, (Optional.of(3.0F)), (Optional.empty()));
+            new SimpleExplosionDamageCalculator(Boolean.FALSE, Boolean.FALSE, (Optional.of(1.0F)), (Optional.empty()));
 
     public MoonQueenMoonBefallPhase() {
         super(4, 1, 26, 0);
@@ -33,12 +33,12 @@ public class MoonQueenMoonBefallPhase extends AttackPhase<MoonQueen> {
     public void tick(MoonQueen entity) {
         Level level = entity.level();
         entity.setDeltaMovement(Vec3.ZERO);
-        if (!level.isClientSide && entity.getAttackTicks() == 14) {
+        if (!level.isClientSide && entity.getAttackTicks() == 15) {
             level.explode(entity, Explosion.getDefaultDamageSource(level, entity),
-                    EXPLOSION_DAMAGE_CALCULATOR, entity.getX(), entity.getY(), entity.getZ(), (3.0F),
+                    EXPLOSION_DAMAGE_CALCULATOR, entity.getX(), entity.getY(), entity.getZ(), (2.0F),
                     Boolean.FALSE, Level.ExplosionInteraction.NONE, ParticleTypes.EXPLOSION,
                     ParticleTypes.EXPLOSION_EMITTER, TASoundEvents.EMPTY);
-            level.broadcastEntityEvent(entity, (byte) 77);
+//            level.broadcastEntityEvent(entity, (byte) 77);
         }
     }
 

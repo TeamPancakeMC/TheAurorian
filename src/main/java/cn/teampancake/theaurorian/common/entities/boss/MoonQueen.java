@@ -43,7 +43,6 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -113,16 +112,17 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new MeleeNoAttackGoal(this));
-        this.goalSelector.addGoal(7, new RandomStrollGoal(this, (1.0D)));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(this, (0.6D)));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, (1.0D)));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, (8.0F)));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, (8.0F)));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 0.8));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new MoonQueenNearestAttackableTargetGoal<>(this, Player.class, Boolean.FALSE));
         this.targetSelector.addGoal(3, new MoonQueenNearestAttackableTargetGoal<>(this, LivingEntity.class, Boolean.FALSE, entity -> {
             ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
             boolean flag1 = !key.getNamespace().equals(TheAurorian.MOD_ID);
-            boolean flag2 = entity.attackable() && !(entity instanceof Animal);
+            boolean flag2 = entity.attackable();
             return !(entity instanceof MoonQueen) && !(entity instanceof MoonlightKnight) && flag1 && flag2;
         }));
     }
@@ -275,10 +275,10 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 this.selectDuelistFromNearestTarget();
             }
 
-            if (this.duelingMoment && !this.currentDuelistName.isEmpty()) {
-                this.currentDuelistName = "";
-                this.selectDuelistFromNearestTarget();
-            }
+//            if (this.duelingMoment && !this.currentDuelistName.isEmpty()) {
+//                this.currentDuelistName = "";
+//                this.selectDuelistFromNearestTarget();
+//            }
 
             if (target != null) {
                 double distance = this.distanceToSqr(target);
@@ -626,7 +626,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             this.duelingMoment = false;
             this.preparationTime = 26;
             this.setBossHealth(1.0F);
-            this.setAttackState(3);
+            this.setAttackState(4);
             return true;
         } else {
             return false;

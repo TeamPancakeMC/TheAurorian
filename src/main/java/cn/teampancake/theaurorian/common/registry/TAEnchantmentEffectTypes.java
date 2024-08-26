@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.enchantments.FreezeAspectEffect;
 import cn.teampancake.theaurorian.common.enchantments.MoltenCoreEffect;
 import cn.teampancake.theaurorian.common.enchantments.SpringOfLifeEffect;
 import com.mojang.serialization.MapCodec;
@@ -15,6 +16,7 @@ public class TAEnchantmentEffectTypes {
 
     static {
         ENCHANTMENT_ENTITY_EFFECT_TYPES.register("molten_core", () -> MoltenCoreEffect.CODEC);
+        ENCHANTMENT_ENTITY_EFFECT_TYPES.register("freeze_aspect", () -> FreezeAspectEffect.CODEC);
         ENCHANTMENT_ENTITY_EFFECT_TYPES.register("source_of_terra", () -> SpringOfLifeEffect.CODEC);
     }
 

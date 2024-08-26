@@ -9,6 +9,7 @@ import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
 import cn.teampancake.theaurorian.common.entities.projectile.ThrownAxe;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
+import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import cn.teampancake.theaurorian.common.network.FrostbiteS2CPacket;
 import cn.teampancake.theaurorian.common.registry.*;
@@ -67,6 +68,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
@@ -77,6 +79,21 @@ import java.util.List;
 public class EntityEventSubscriber {
 
     private static final DataComponentType<CustomData> CUSTOM_DATA = DataComponents.CUSTOM_DATA;
+
+    @SubscribeEvent
+    public static void onPlayerTicking(PlayerTickEvent.Post event) {
+        if (event.getEntity() instanceof ServerPlayer player && player.level() instanceof ServerLevel level) {
+            boolean noImmuneEffect = !player.hasEffect(TAMobEffects.WARM) && !player.hasEffect(TAMobEffects.FROSTBITE);
+            boolean isSnowField = level.getBiome(player.blockPosition()).is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD);
+            if (!player.isCreative() && !player.isSpectator() && !MysteriumWoolArmor.isWearFullArmor(player)) {
+                if (noImmuneEffect && isSnowField && player.tickCount % 60 == 0) {
+                    player.setData(TAAttachmentTypes.TICKS_FROSTBITE, 140);
+                    player.hurt(player.damageSources().freeze(), 1.0F);
+                    player.setSharedFlagOnFire(false);
+                }
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void onPlayerPickupXp(PlayerXpEvent.PickupXp event) {

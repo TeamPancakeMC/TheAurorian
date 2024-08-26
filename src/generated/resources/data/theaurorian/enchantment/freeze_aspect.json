@@ -3,6 +3,24 @@
   "description": {
     "translate": "enchantment.theaurorian.freeze_aspect"
   },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "theaurorian:freeze_aspect",
+          "placeholder": 0
+        },
+        "enchanted": "attacker",
+        "requirements": {
+          "condition": "minecraft:damage_source_properties",
+          "predicate": {
+            "is_direct": true
+          }
+        }
+      }
+    ]
+  },
   "max_cost": {
     "base": 60,
     "per_level_above_first": 10

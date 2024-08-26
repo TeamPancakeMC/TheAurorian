@@ -1,11 +1,13 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.enchantments.FreezeAspectEffect;
 import cn.teampancake.theaurorian.common.enchantments.MoltenCoreEffect;
 import cn.teampancake.theaurorian.common.enchantments.SpringOfLifeEffect;
 import cn.teampancake.theaurorian.common.level.storage.predicate.MoltenCoreEnchantmentCondition;
 import cn.teampancake.theaurorian.common.level.storage.predicate.NightWalkerEnchantmentCondition;
 import cn.teampancake.theaurorian.common.level.storage.predicate.SavageEnchantmentCondition;
+import net.minecraft.advancements.critereon.DamageSourcePredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -18,9 +20,12 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
+import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.AddValue;
+import net.minecraft.world.item.enchantment.effects.Ignite;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 
 public class TAEnchantments {
 
@@ -126,7 +131,10 @@ public class TAEnchantments {
         register(context, FREEZE_ASPECT, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.HEAD_ARMOR_ENCHANTABLE),
                 2, 2, Enchantment.dynamicCost(10, 20),
-                Enchantment.dynamicCost(60, 10), 4, EquipmentSlotGroup.HAND)));
+                Enchantment.dynamicCost(60, 10), 4, EquipmentSlotGroup.HAND))
+                .withEffect(EnchantmentEffectComponents.POST_ATTACK, EnchantmentTarget.ATTACKER,
+                        EnchantmentTarget.VICTIM, new FreezeAspectEffect(0),
+                        DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().isDirect(true))));
         register(context, SPRING_OF_LIFE, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.CHEST_ARMOR_ENCHANTABLE),
                 5, 1, Enchantment.constantCost(30),

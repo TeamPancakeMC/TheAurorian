@@ -1,7 +1,6 @@
 {
   "type": "theaurorian:large_jigsaw",
   "biomes": "theaurorian:filthy_ice_crystal_snowfield",
-  "has_supporting_block": false,
   "max_distance_from_center": 348,
   "project_start_to_heightmap": "WORLD_SURFACE_WG",
   "size": 7,
@@ -11,9 +10,6 @@
   },
   "start_pool": "theaurorian:runestone_dungeon/part_5",
   "step": "surface_structures",
-  "supporting_block": {
-    "Name": "minecraft:air"
-  },
   "terrain_adaptation": "beard_thin",
   "use_expansion_hack": false
 }

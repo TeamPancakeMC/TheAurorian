@@ -772,7 +772,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addEffect(TAMobEffects.MOON_BEFALL, "Befall of Moon", "月临");
         this.addEffect(TAMobEffects.BLESS_OF_MOON, "Bless of Moon", "护月");
         this.addEffect(TAMobEffects.VULNERABILITY, "Vulnerability", "脆化");
-        this.addEffect(TAMobEffects.SHADOWED_SIGHT, "Concealment", "匿影");
+        this.addEffect(TAMobEffects.SHADOWED_SIGHT, "Shadowed Sight", "匿影");
         this.addEffect(TAMobEffects.EIDOLON_POISON, "Eidolon Poison", "幻光毒");
         this.addEffect(TAMobEffects.CRYSTALLIZATION, "Crystallization", "晶化");
         this.addEffect(TAMobEffects.FORBIDDEN_CURSE, "Forbidden Curse", "禁咒");

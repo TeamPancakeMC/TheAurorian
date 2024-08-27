@@ -78,7 +78,7 @@ dependencies {
 
     implementation "net.neoforged:neoforge:${neo_version}"
 
-    implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:4.5.8"
+    implementation "software.bernie.geckolib:geckolib-neoforge-1.21:4.5.8"
 
     implementation "curse.maven:thirst-was-taken-679270:5568715"
 

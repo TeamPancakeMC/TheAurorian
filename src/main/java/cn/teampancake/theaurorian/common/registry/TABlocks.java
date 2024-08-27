@@ -21,7 +21,6 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import static cn.teampancake.theaurorian.common.utils.TABlockRegUtils.*;
-import static cn.teampancake.theaurorian.common.utils.TABlockRegUtils.ore;
 import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.*;
 import static net.minecraft.world.level.block.state.BlockBehaviour.Properties.ofFullCopy;
 

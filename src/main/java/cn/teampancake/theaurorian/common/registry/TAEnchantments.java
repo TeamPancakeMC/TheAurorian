@@ -23,7 +23,6 @@ import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.AddValue;
-import net.minecraft.world.item.enchantment.effects.Ignite;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 

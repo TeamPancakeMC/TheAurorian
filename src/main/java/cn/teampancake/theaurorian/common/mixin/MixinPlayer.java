@@ -3,6 +3,8 @@ package cn.teampancake.theaurorian.common.mixin;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.core.Holder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -33,6 +35,11 @@ public abstract class MixinPlayer extends LivingEntity {
 
     protected MixinPlayer(EntityType<? extends LivingEntity> type, Level level) {
         super(type, level);
+    }
+
+    @WrapWithCondition(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;heal(F)V"))
+    public boolean aiStep(Player player, float healAmount) {
+        return !TAEntityUtils.shouldForbiddenNaturalRegeneration(player);
     }
 
     @Inject(method = "wantsToStopRiding", at = @At(value = "HEAD"), cancellable = true)

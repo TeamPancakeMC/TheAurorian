@@ -29,7 +29,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -309,13 +308,6 @@ public class EntityEventSubscriber {
             if (instance.is(TAMobEffects.FORBIDDEN_CURSE) && entity instanceof Player player) {
                 ForbiddenCurseEffect.restorePlayerInventoryItemEnchantments(player);
             }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onLivingHeal(LivingHealEvent event) {
-        if (event.getEntity() instanceof Player player && player.level().getDifficulty() != Difficulty.PEACEFUL) {
-            event.setCanceled(player.hasEffect(TAMobEffects.INCANTATION) || player.hasEffect(TAMobEffects.PRESSURE));
         }
     }
 

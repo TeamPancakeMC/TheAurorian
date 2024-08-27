@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 public class TACommonUtils {
 
     public static Iterable<Block> getKnownBlocks() {
-        return TABlocks.BLOCKS.getEntries().stream().map(DeferredHolder::get).collect(Collectors.toSet());
+        return TABlocks.BLOCKS.getEntries().stream().map(DeferredHolder::get).collect(Collectors.toList());
     }
 
     public static Iterable<Item> getKnownItems() {
-        return TAItems.ITEMS.getEntries().stream().map(DeferredHolder::get).collect(Collectors.toSet());
+        return TAItems.ITEMS.getEntries().stream().map(DeferredHolder::get).collect(Collectors.toList());
     }
 
 }

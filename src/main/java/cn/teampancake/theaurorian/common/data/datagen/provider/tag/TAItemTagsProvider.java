@@ -11,8 +11,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -44,6 +43,11 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.tag(Tags.Items.TOOLS_SHIELD).add(TAItems.CERULEAN_SHIELD.get(), TAItems.CRYSTALLINE_SHIELD.get(),
                 TAItems.MOON_SHIELD.get(), TAItems.UMBRA_SHIELD.get(), TAItems.MOONSTONE_SHIELD.get());
         this.tag(ItemTags.ARROWS).add(TAItems.CERULEAN_ARROW.get(), TAItems.CRYSTAL_ARROW.get());
+        this.tag(ItemTags.BOW_ENCHANTABLE).add(TAItems.KEEPERS_BOW.get(), TAItems.SILENT_WOOD_BOW.get());
+        this.tag(ItemTags.DURABILITY_ENCHANTABLE).add(TAItems.MOONSTONE_SICKLE.get(),
+                TAItems.SILENT_WOOD_SICKLE.get(), TAItems.AURORIAN_STONE_SICKLE.get());
+        this.tag(ItemTags.MINING_ENCHANTABLE).add(TAItems.MOONSTONE_SICKLE.get(),
+                TAItems.SILENT_WOOD_SICKLE.get(), TAItems.AURORIAN_STONE_SICKLE.get());
         this.tag(TAItemTags.RUNESTONE).add(TAItems.RUNESTONE_ICE.get(), TAItems.RUNESTONE_LIFE.get(),
                 TAItems.RUNESTONE_LIGHT.get(), TAItems.RUNESTONE_WATER.get(), TAItems.RUNESTONE_BLAZE.get(),
                 TAItems.RUNESTONE_THUNDER.get(), TAItems.RUNESTONE_DARKNESS.get());
@@ -78,6 +82,35 @@ public class TAItemTagsProvider extends ItemTagsProvider {
                 TAItems.RUNE_KNOWLEDGE_FRAGMENT.get());
         this.tag(TAItemTags.IS_MYTHICAL).add(TAItems.SLEEPING_BLACK_TEA.get());
         for (Item item : TACommonUtils.getKnownItems()) {
+            if (item instanceof SwordItem) {
+                this.tag(ItemTags.SWORDS).add(item);
+            }
+
+            if (item instanceof ShovelItem) {
+                this.tag(ItemTags.SHOVELS).add(item);
+            }
+
+            if (item instanceof PickaxeItem) {
+                this.tag(ItemTags.PICKAXES).add(item);
+            }
+
+            if (item instanceof AxeItem) {
+                this.tag(ItemTags.AXES).add(item);
+            }
+
+            if (item instanceof HoeItem) {
+                this.tag(ItemTags.HOES).add(item);
+            }
+
+            if (item instanceof ArmorItem armor) {
+                switch (armor.getEquipmentSlot()) {
+                    case HEAD -> this.tag(ItemTags.HEAD_ARMOR).add(armor);
+                    case CHEST -> this.tag(ItemTags.CHEST_ARMOR).add(armor);
+                    case LEGS -> this.tag(ItemTags.LEG_ARMOR).add(armor);
+                    case FEET -> this.tag(ItemTags.FOOT_ARMOR).add(armor);
+                }
+            }
+
             if (!(item instanceof IDeveloperItem)) {
                 if (item.getDefaultInstance().getMaxDamage() > 0) {
                     this.tag(TAItemTags.IS_EPIC).add(item);

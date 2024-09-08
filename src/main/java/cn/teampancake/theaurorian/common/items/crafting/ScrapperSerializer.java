@@ -18,9 +18,9 @@ public class ScrapperSerializer<T extends ScrapperRecipe> implements RecipeSeria
     public ScrapperSerializer(Factory<T> factory) {
         this.factory = factory;
         this.codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
-                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
-                Codec.INT.fieldOf("amount").forGetter(recipe -> recipe.amount)
+                Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(ScrapperRecipe::ingredient),
+                ItemStack.CODEC.fieldOf("result").forGetter(ScrapperRecipe::result),
+                Codec.INT.fieldOf("amount").forGetter(ScrapperRecipe::amount)
         ).apply(instance, factory::create));
         this.streamCodec = StreamCodec.of(this::toNetwork, this::fromNetwork);
     }
@@ -33,9 +33,9 @@ public class ScrapperSerializer<T extends ScrapperRecipe> implements RecipeSeria
     }
 
     public void toNetwork(RegistryFriendlyByteBuf buffer, T recipe) {
-        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.ingredient);
-        ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
-        buffer.writeVarInt(recipe.amount);
+        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.ingredient());
+        ItemStack.STREAM_CODEC.encode(buffer, recipe.result());
+        buffer.writeVarInt(recipe.amount());
     }
 
     @Override

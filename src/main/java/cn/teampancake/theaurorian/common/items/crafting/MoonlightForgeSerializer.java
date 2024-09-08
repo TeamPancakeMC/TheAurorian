@@ -17,9 +17,9 @@ public class MoonlightForgeSerializer<T extends MoonlightForgeRecipe> implements
     public MoonlightForgeSerializer(Factory<T> factory) {
         this.factory = factory;
         this.codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Ingredient.CODEC_NONEMPTY.fieldOf("equipment").forGetter(recipe -> recipe.equipment),
-                Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(recipe -> recipe.upgradeMaterial),
-                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+                Ingredient.CODEC_NONEMPTY.fieldOf("equipment").forGetter(MoonlightForgeRecipe::equipment),
+                Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(MoonlightForgeRecipe::upgradeMaterial),
+                ItemStack.CODEC.fieldOf("result").forGetter(MoonlightForgeRecipe::result)
         ).apply(instance, factory::create));
         this.streamCodec = StreamCodec.of(this::toNetwork, this::fromNetwork);
     }
@@ -32,9 +32,9 @@ public class MoonlightForgeSerializer<T extends MoonlightForgeRecipe> implements
     }
 
     private void toNetwork(RegistryFriendlyByteBuf buffer, T recipe) {
-        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.equipment);
-        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.upgradeMaterial);
-        ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
+        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.equipment());
+        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.upgradeMaterial());
+        ItemStack.STREAM_CODEC.encode(buffer, recipe.result());
     }
 
     @Override

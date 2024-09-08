@@ -8,7 +8,6 @@ import cn.teampancake.theaurorian.common.registry.TARecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
@@ -19,6 +18,8 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
 
@@ -48,9 +49,9 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
 
     protected void brew(AlchemyTableRecipe recipe, BlockPos pos, BlockState state) {
         if (this.level != null) {
-            this.maxAlchemyTime = recipe.alchemyTime;
+            this.maxAlchemyTime = recipe.alchemyTime();
             this.alchemyTime++;
-            if (this.alchemyTime > recipe.alchemyTime) {
+            if (this.alchemyTime > recipe.alchemyTime()) {
                 this.handler.insertItem(4, recipe.assemble(this.getRecipeInput(), level.registryAccess()), false);
                 recipe.consumeIngredients(this);
                 this.maxAlchemyTime = 0;
@@ -75,12 +76,8 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
         ItemStack input1 = this.getItem(0);
         ItemStack input2 = this.getItem(1);
         ItemStack input3 = this.getItem(2);
-        return new AlchemyTableRecipeInput(input1, input2, input3);
-    }
-
-    @Override
-    protected Component getDefaultName() {
-        return Component.empty();
+        ItemStack material = this.getItem(3);
+        return new AlchemyTableRecipeInput(input1, input2, input3, material);
     }
 
     @Override
@@ -99,7 +96,7 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        ContainerLevelAccess access = ContainerLevelAccess.create(this.level, this.worldPosition);
+        ContainerLevelAccess access = ContainerLevelAccess.create(Objects.requireNonNull(this.level), this.worldPosition);
         return new AlchemyTableMenu(containerId, inventory, access, this.handler, this.containerData);
     }
 

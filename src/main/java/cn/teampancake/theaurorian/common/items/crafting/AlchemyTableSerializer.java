@@ -18,12 +18,12 @@ public class AlchemyTableSerializer<T extends AlchemyTableRecipe> implements Rec
     public AlchemyTableSerializer(Factory<T> factory) {
         this.factory = factory;
         this.codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Ingredient.CODEC_NONEMPTY.fieldOf("input1").forGetter(recipe -> recipe.input1),
-                Ingredient.CODEC_NONEMPTY.fieldOf("input2").forGetter(recipe -> recipe.input2),
-                Ingredient.CODEC_NONEMPTY.fieldOf("input3").forGetter(recipe -> recipe.input3),
-                Ingredient.CODEC_NONEMPTY.fieldOf("material").forGetter(recipe -> recipe.material),
-                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
-                Codec.INT.fieldOf("alchemy_time").forGetter(recipe -> recipe.alchemyTime)
+                Ingredient.CODEC_NONEMPTY.fieldOf("input1").forGetter(AlchemyTableRecipe::input1),
+                Ingredient.CODEC_NONEMPTY.fieldOf("input2").forGetter(AlchemyTableRecipe::input2),
+                Ingredient.CODEC_NONEMPTY.fieldOf("input3").forGetter(AlchemyTableRecipe::input3),
+                Ingredient.CODEC_NONEMPTY.fieldOf("material").forGetter(AlchemyTableRecipe::material),
+                ItemStack.CODEC.fieldOf("result").forGetter(AlchemyTableRecipe::result),
+                Codec.INT.fieldOf("alchemy_time").forGetter(AlchemyTableRecipe::alchemyTime)
         ).apply(instance, factory::create));
         this.streamCodec = StreamCodec.of(this::toNetwork, this::fromNetwork);
     }
@@ -39,12 +39,12 @@ public class AlchemyTableSerializer<T extends AlchemyTableRecipe> implements Rec
     }
 
     public void toNetwork(RegistryFriendlyByteBuf buffer, T recipe) {
-        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input1);
-        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input2);
-        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input3);
-        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.material);
-        ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
-        buffer.writeVarInt(recipe.alchemyTime);
+        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input1());
+        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input2());
+        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input3());
+        Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.material());
+        ItemStack.STREAM_CODEC.encode(buffer, recipe.result());
+        buffer.writeVarInt(recipe.alchemyTime());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.compat;
+package cn.teampancake.theaurorian.compat.thirst;
 
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import dev.ghen.thirst.foundation.common.event.RegisterThirstValueEvent;

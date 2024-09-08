@@ -6,17 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public class ScrapperRecipe implements Recipe<SingleRecipeInput> {
-
-    protected final Ingredient ingredient;
-    protected final ItemStack result;
-    protected final int amount;
-
-    public ScrapperRecipe(Ingredient ingredient, ItemStack result, int amount) {
-        this.ingredient = ingredient;
-        this.result = result;
-        this.amount = amount;
-    }
+public record ScrapperRecipe(Ingredient ingredient, ItemStack result, int amount) implements Recipe<SingleRecipeInput> {
 
     @Override
     public boolean matches(SingleRecipeInput input, Level level) {

@@ -25,7 +25,7 @@ public class MoonlightForgeMenu extends AbstractSimpleMenu {
     }
 
     public MoonlightForgeMenu(int containerId, Inventory inventory, ContainerLevelAccess access) {
-        this(containerId, inventory, access, new ItemStackHandler(1), new SimpleContainerData(1));
+        this(containerId, inventory, access, new ItemStackHandler(3), new SimpleContainerData(4));
     }
 
     public MoonlightForgeMenu(int containerId, Inventory inventory, ContainerLevelAccess access, IItemHandler itemHandler, ContainerData containerData) {

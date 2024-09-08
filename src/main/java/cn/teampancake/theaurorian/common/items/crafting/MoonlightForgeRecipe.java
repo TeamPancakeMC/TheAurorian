@@ -6,17 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public class MoonlightForgeRecipe implements Recipe<SingleRecipeInput> {
-
-    protected final Ingredient equipment;
-    protected final Ingredient upgradeMaterial;
-    protected final ItemStack result;
-
-    public MoonlightForgeRecipe(Ingredient equipment, Ingredient upgradeMaterial, ItemStack result) {
-        this.equipment = equipment;
-        this.upgradeMaterial = upgradeMaterial;
-        this.result = result;
-    }
+public record MoonlightForgeRecipe(Ingredient equipment, Ingredient upgradeMaterial, ItemStack result) implements Recipe<SingleRecipeInput> {
 
     @Override
     public boolean matches(SingleRecipeInput input, Level level) {

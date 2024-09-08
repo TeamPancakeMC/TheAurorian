@@ -25,7 +25,7 @@ public class AlchemyTableMenu extends AbstractSimpleMenu {
     }
 
     public AlchemyTableMenu(int containerId, Inventory inventory, ContainerLevelAccess access) {
-        this(containerId, inventory, access, new ItemStackHandler(5), new SimpleContainerData(4));
+        this(containerId, inventory, access, new ItemStackHandler(5), new SimpleContainerData(2));
     }
 
     public AlchemyTableMenu(int containerId, Inventory inventory, ContainerLevelAccess access, IItemHandler itemHandler, ContainerData containerData) {

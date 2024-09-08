@@ -8,7 +8,7 @@ import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
 import cn.teampancake.theaurorian.common.registry.*;
-import cn.teampancake.theaurorian.compat.ThirstWasTakenCompat;
+import cn.teampancake.theaurorian.compat.thirst.ThirstWasTakenCompat;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;

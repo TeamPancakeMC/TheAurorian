@@ -26,6 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implements WorldlyContainer {
 
@@ -186,7 +187,7 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        ContainerLevelAccess access = ContainerLevelAccess.create(this.level, this.worldPosition);
+        ContainerLevelAccess access = ContainerLevelAccess.create(Objects.requireNonNull(this.level), this.worldPosition);
         return new MoonlightForgeMenu(containerId, inventory, access, this.handler, this.containerData);
     }
 
@@ -222,7 +223,7 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
 
         @Override
         public int getCount() {
-            return 1;
+            return 4;
         }
 
     }

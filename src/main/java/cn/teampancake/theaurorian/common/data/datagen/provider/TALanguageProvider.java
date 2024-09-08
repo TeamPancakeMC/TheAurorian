@@ -46,8 +46,10 @@ public class TALanguageProvider extends LanguageProvider {
         this.add("death.attack.corruption_3", "%1$s died under the cherry blossom tree", "%1$s死在了樱花树下");
         this.add("itemGroup." + TheAurorian.MOD_ID + ".normal", "The Aurorian", "极光幽境");
         this.add("itemGroup." + TheAurorian.MOD_ID + ".building", "The Aurorian (Building Materials)", "极光幽境（建材）");
-        this.add("theaurorian.container.moonlight_forge", "Moonlight Forge", "月光融锻台");
-        this.add("theaurorian.container.aurorian_furnace", "Aurorian Furnace", "极光熔炉");
+        this.add(TheAurorian.MOD_ID + ".container.aurorian_furnace", "Aurorian Furnace", "极光熔炉");
+        this.add(TheAurorian.MOD_ID + ".container.moonlight_forge", "Moonlight Forge", "月光融锻台");
+        this.add(TheAurorian.MOD_ID + ".container.alchemy_table", "Alchemy Table", "炼药桌");
+        this.add(TheAurorian.MOD_ID + ".container.scrapper", "Scrapper", "粉碎器");
         this.add("gamerule.enableAurorianBless", "Enable Aurorian Bless", "启用极光赐福");
         this.add("gamerule.enableAurorianBless.description",
                 "Controls whether players can obtain beneficial effects from the Aurorian Night.",

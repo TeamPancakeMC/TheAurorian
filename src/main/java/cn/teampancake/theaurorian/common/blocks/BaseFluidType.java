@@ -4,6 +4,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidType;
 
+import java.util.function.Consumer;
+
+@SuppressWarnings("removal")
 public class BaseFluidType extends FluidType {
 
     private final ResourceLocation stillTexture;
@@ -13,6 +16,11 @@ public class BaseFluidType extends FluidType {
         super(properties);
         this.stillTexture = stillTexture;
         this.flowingTexture = flowingTexture;
+    }
+
+    @Override
+    public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+        consumer.accept(new CustomClientFluidTypeExtensions());
     }
 
     private class CustomClientFluidTypeExtensions implements IClientFluidTypeExtensions {

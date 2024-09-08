@@ -348,7 +348,7 @@ public class TAItems {
             new Item.Properties(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.WEBBING::get, 0.5F));
     public static final DeferredHolder<Item, Item> LIVING_DIVINING_ROD = ITEMS.register("living_divining_rod", LivingDiviningRod::new);
     public static final DeferredHolder<Item, Item> LOCK_PICKS = ITEMS.register("lock_picks", () -> new Item(new Item.Properties().durability(10)));
-    public static final DeferredHolder<Item, Item> MOON_WATER_BUCKET = ITEMS.register("moon_water_bucket", () -> new BucketItem(TAFluids.MOON_WATER_STILL.get(), new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MOON_WATER_BUCKET = ITEMS.register("moon_water_bucket", () -> new BucketItem(TAFluids.MOON_WATER_STILL.get(), new Item.Properties().stacksTo(1)));
     public static final DeferredHolder<Item, Item> AURORIAN_WINGED_FISH_BUCKET = ITEMS.register("aurorian_winged_fish_bucket", () -> new MobBucketItem(TAEntityTypes.AURORIAN_WINGED_FISH.get(),
             Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, (new Item.Properties()).stacksTo(1)));
     public static final DeferredHolder<Item, Item> MOON_FISH_BUCKET = ITEMS.register("moon_fish_bucket", () -> new MobBucketItem(TAEntityTypes.MOON_FISH.get(),

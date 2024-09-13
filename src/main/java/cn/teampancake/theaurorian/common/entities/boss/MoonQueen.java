@@ -10,6 +10,8 @@ import cn.teampancake.theaurorian.common.registry.TAAttributes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
 import com.google.common.collect.ImmutableList;
+import it.unimi.dsi.fastutil.doubles.DoubleDoubleImmutablePair;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -25,16 +27,16 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -274,11 +276,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             if (isHalfHealth && !this.duelingMoment && this.ticksDueling == 2400) {
                 this.selectDuelistFromNearestTarget();
             }
-
-//            if (this.duelingMoment && !this.currentDuelistName.isEmpty()) {
-//                this.currentDuelistName = "";
-//                this.selectDuelistFromNearestTarget();
-//            }
 
             if (target != null) {
                 double distance = this.distanceToSqr(target);
@@ -561,31 +558,127 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         Entity entity = source.getEntity();
         boolean shouldImmuneRangedAttack = this.duelingMoment && source.getDirectEntity() instanceof Projectile;
         boolean isPreparingAnimation = this.preparationTime > 0 && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
-        if (!this.isInvulnerableTo(source)) {
+        if (this.isInvulnerableTo(source) || this.level().isClientSide || this.isDeadOrDying()) {
+            return false;
+        } else if (source.is(DamageTypeTags.IS_FIRE) && this.hasEffect(MobEffects.FIRE_RESISTANCE)) {
+            return false;
+        } else if (shouldImmuneRangedAttack || isPreparingAnimation) {
+            return false;
+        } else if (!source.isCreativePlayer() && this.getTarget() == null) {
+            return false;
+        } else if (entity instanceof Player player && this.duelingMoment && this.triggerDuelingCount > 0) {
+            if (!this.currentDuelistName.equals(player.getName().getString())) {
+                return false;
+            }
+        } else {
             this.isNeutral = false;
             this.safeTime = 0;
-            if (shouldImmuneRangedAttack || isPreparingAnimation) {
-                return false;
-            }
-
-            if (this.isDamageSourceBlocked(source)) {
+            this.noActionTime = 0;
+            float f = amount;
+            boolean flag = false;
+            if (amount > 0.0F && this.isDamageSourceBlocked(source)) {
                 this.triggerAnim(("block_controller"), ("block_animation"));
-                return false;
+                if (!source.is(DamageTypeTags.IS_PROJECTILE) && source.getDirectEntity() instanceof LivingEntity livingEntity) {
+                    this.blockUsingShield(livingEntity);
+                }
+
+                amount = 0.0F;
+                flag = true;
             }
 
-            if (entity instanceof Player player && this.duelingMoment && this.triggerDuelingCount > 0) {
-                if (!this.currentDuelistName.equals(player.getName().getString())) {
+            if (this.hasEffect(TAMobEffects.BLESS_OF_MOON)) {
+                amount *= 0.5F;
+            }
+
+            boolean flag1 = true;
+            if (this.invulnerableTime > 10.0F && !source.is(DamageTypeTags.BYPASSES_COOLDOWN)) {
+                if (amount <= this.lastHurt) {
                     return false;
                 }
+
+                this.actuallyHurt(source, amount - this.lastHurt);
+                this.lastHurt = amount;
+                flag1 = false;
+            } else {
+                this.lastHurt = amount;
+                this.invulnerableTime = 20;
+                this.actuallyHurt(source, amount);
+                this.hurtDuration = 10;
+                this.hurtTime = this.hurtDuration;
             }
 
-            if (super.hurt(source, this.hasEffect(TAMobEffects.BLESS_OF_MOON) ? amount / 2.0F : amount)) {
-                if (entity instanceof ServerPlayer player) {
-                    player.setData(TAAttachmentTypes.UNINTERRUPTED_HURT_BY_MOON_QUEEN_COUNT, 0);
+            if (entity != null) {
+                if (entity instanceof LivingEntity livingEntity
+                        && !source.is(DamageTypeTags.NO_ANGER) && (!source.is(DamageTypes.WIND_CHARGE)
+                        || !this.getType().is(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE))) {
+                    this.setLastHurtByMob(livingEntity);
                 }
 
-                return true;
+                if (entity instanceof Player player1) {
+                    this.lastHurtByPlayerTime = 100;
+                    this.lastHurtByPlayer = player1;
+                } else if (entity instanceof TamableAnimal tamableAnimal && tamableAnimal.isTame()) {
+                    this.lastHurtByPlayerTime = 100;
+                    if (tamableAnimal.getOwner() instanceof Player player) {
+                        this.lastHurtByPlayer = player;
+                    } else {
+                        this.lastHurtByPlayer = null;
+                    }
+                }
             }
+
+            if (flag1) {
+                if (flag) {
+                    this.level().broadcastEntityEvent(this, (byte)29);
+                } else {
+                    this.level().broadcastDamageEvent(this, source);
+                }
+
+                if (!source.is(DamageTypeTags.NO_IMPACT) && !flag) {
+                    this.markHurt();
+                }
+
+                if (!source.is(DamageTypeTags.NO_KNOCKBACK)) {
+                    double d0 = 0.0F;
+                    double d1 = 0.0F;
+                    if (source.getDirectEntity() instanceof Projectile projectile) {
+                        DoubleDoubleImmutablePair pair = projectile.calculateHorizontalHurtKnockbackDirection(this, source);
+                        d0 = -pair.leftDouble();
+                        d1 = -pair.rightDouble();
+                    } else if (source.getSourcePosition() != null) {
+                        d0 = source.getSourcePosition().x() - this.getX();
+                        d1 = source.getSourcePosition().z() - this.getZ();
+                    }
+
+                    this.knockback(0.4F, d0, d1);
+                    if (!flag) {
+                        this.indicateDamage(d0, d1);
+                    }
+                }
+            }
+
+            if (this.isDeadOrDying()) {
+                if (!this.checkTotemDeathProtection(source)) {
+                    if (flag1) {
+                        this.makeSound(this.getDeathSound());
+                    }
+
+                    this.die(source);
+                }
+            } else if (flag1) {
+                this.playHurtSound(source);
+            }
+
+            if (!flag) {
+                this.lastDamageSource = source;
+                this.lastDamageStamp = this.level().getGameTime();
+            }
+
+            if (entity instanceof ServerPlayer serverPlayer) {
+                CriteriaTriggers.PLAYER_HURT_ENTITY.trigger(serverPlayer, this, source, f, amount, flag);
+            }
+
+            return !flag;
         }
 
         return false;

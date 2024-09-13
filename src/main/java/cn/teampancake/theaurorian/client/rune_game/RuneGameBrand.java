@@ -78,17 +78,17 @@ public class RuneGameBrand {
 
     public void renderBrand(@NotNull GuiGraphics graphics) {
         if (this.isGray) {
-            graphics.blit(this.texture, x, y, BRAND_SIZE, DIFF, BRAND_SIZE, BRAND_SIZE,BRAND_SIZE,BRAND_SIZE * 2);
+            graphics.blit(this.texture, x, y, BRAND_SIZE, DIFF, BRAND_SIZE, BRAND_SIZE, BRAND_SIZE, BRAND_SIZE * 2);
         } else {
-            graphics.blit(this.texture, x, y, 0, 0, BRAND_SIZE, BRAND_SIZE,BRAND_SIZE, BRAND_SIZE * 2);
+            graphics.blit(this.texture, x, y, 0, 0, BRAND_SIZE, BRAND_SIZE, BRAND_SIZE, BRAND_SIZE * 2);
         }
     }
 
-    public void renderBrandEliminate(@NotNull GuiGraphics graphics ,int x,int y) {
-        graphics.blit(this.texture, x, y, 0, 0, BRAND_SIZE, BRAND_SIZE,BRAND_SIZE, BRAND_SIZE * 2);
+    public void renderBrandEliminate(@NotNull GuiGraphics graphics, int x, int y) {
+        graphics.blit(this.texture, x, y, 0, 0, BRAND_SIZE, BRAND_SIZE, BRAND_SIZE, BRAND_SIZE * 2);
     }
 
-    public static List<RuneGameBrand> RandomBrandList(int[][][] level) {
+    public static List<RuneGameBrand> randomBrandList(int[][][] level) {
         int validCount = getValidCount(level);
         List<RuneGameBrand> brandList = Lists.newArrayList();
         for (int i = 0; i < validCount; i = i + 3) {

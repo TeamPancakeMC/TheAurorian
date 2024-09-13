@@ -29,11 +29,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@SuppressWarnings({"ConstantConditions", "SameParameterValue"})
+@SuppressWarnings("ConstantConditions")
 public class TASkyRenderer {
 
+    private static final ResourceLocation MOON_LOCATION = TheAurorian.prefix("textures/environment/moon_phases.png");
     private static ResourceLocation currentPhase = TheAurorian.prefix("ta_cyan");
-    private static VertexBuffer starBuffer;
+    private static VertexBuffer starBuffer = null;
 
     public TASkyRenderer() {
         this.createStars();
@@ -65,9 +66,9 @@ public class TASkyRenderer {
         poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
         poseStack.mulPose(Axis.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F));
         Matrix4f matrix4f1 = poseStack.last().pose();
-        float moonSize = 50.0F;
+        float moonSize = 70.0F;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, LevelRenderer.MOON_LOCATION);
+        RenderSystem.setShaderTexture(0, MOON_LOCATION);
         int k = level.getMoonPhase();
         int l = k % 4;
         int i1 = k / 4 % 2;
@@ -81,7 +82,7 @@ public class TASkyRenderer {
         bufferBuilder1.addVertex(matrix4f1, moonSize, -100.0F, -moonSize).setUv(f13, f14);
         bufferBuilder1.addVertex(matrix4f1, -moonSize, -100.0F, -moonSize).setUv(f15, f14);
         BufferUploader.drawWithShader(bufferBuilder1.buildOrThrow());
-        RenderSystem.setShaderTexture(0, LevelRenderer.MOON_LOCATION);
+        RenderSystem.setShaderTexture(0, MOON_LOCATION);
         BufferBuilder bufferBuilder2 = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         bufferBuilder2.addVertex(matrix4f1, -moonSize, 100.0F, -moonSize).setUv(f15, f16);
         bufferBuilder2.addVertex(matrix4f1, moonSize, 100.0F, -moonSize).setUv(f13, f16);

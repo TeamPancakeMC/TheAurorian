@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.registry.TABiomes;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -22,6 +23,9 @@ public class TABiomeTagsProvider extends BiomeTagsProvider {
         this.tag(TABiomeTags.HAS_RUINS_ALTAR).add(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_FOREST_HILL);
         this.tag(TABiomeTags.IS_AUARORIAN_FOREST).add(TABiomes.AURORIAN_FOREST,
                 TABiomes.AURORIAN_FOREST_HILL, TABiomes.WEEPING_WILLOW_FOREST);
+        provider.lookupOrThrow(Registries.BIOME).listElementIds()
+                .filter(key -> key.location().getNamespace().equals(TheAurorian.MOD_ID))
+                .forEach(key -> this.tag(TABiomeTags.IS_AURORIAN).add(key));
     }
 
 }

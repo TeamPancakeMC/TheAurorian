@@ -6,7 +6,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
 import net.minecraft.world.entity.EntityType;
@@ -147,7 +146,7 @@ public class TABiomes {
 
     private static BiomeSpecialEffects.Builder defaultAmbientBuilder() {
         return new BiomeSpecialEffects.Builder().fogColor((0xC0FFD8)).waterColor(Color.WHITE.getRGB())
-                .waterFogColor(Color.WHITE.getRGB()).skyColor(OverworldBiomes.calculateSkyColor((0.2F)))
+                .waterFogColor(Color.WHITE.getRGB()).skyColor((0x010e34))
                 .backgroundMusic(new Music(TASoundEvents.BACKGROUND_MUSIC,
                         600, 12000, Boolean.FALSE));
     }

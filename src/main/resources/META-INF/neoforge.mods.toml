@@ -7,12 +7,9 @@ modId="${mod_id}"
 version="${mod_version}"
 displayName="${mod_name}"
 logoFile="the_aurorian_logo.png"
-
-# A text field displayed in the mod UI
-#credits="" #optional
-
 authors="${mod_authors}"
 description='''${mod_description}'''
+enumExtensions="META-INF/enumextensions.json"
 
 [[mixins]]
 config="${mod_id}.mixins.json"

@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TATooltipRenderUtils;
+import cn.teampancake.theaurorian.compat.mui.ModernUICompat;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -28,9 +29,11 @@ public class TooltipEventSubscriber {
 
     @SubscribeEvent
     public static void onRenderTooltips(RenderTooltipEvent.Pre event) {
+        ModernUICompat.toggleModernUITooltipRenderer(true);
         ItemStack itemStack = event.getItemStack();
         if (itemStack.is(TAItemTags.HAS_CUSTOM_TOOLTIPS)) {
             event.setCanceled(true);
+            ModernUICompat.toggleModernUITooltipRenderer(false);
             if (itemStack.is(TAItemTags.BUILDING_BLOCK)) TooltipData.UNCOMMON_ITEM.renderTooltips(event);
             if (itemStack.is(TAItemTags.IS_RARE)) TooltipData.RARE_ITEM.renderTooltips(event);
             if (itemStack.is(TAItemTags.IS_EPIC)) TooltipData.EPIC_ITEM.renderTooltips(event);

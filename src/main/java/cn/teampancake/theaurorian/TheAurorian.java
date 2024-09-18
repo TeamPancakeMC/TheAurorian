@@ -8,6 +8,7 @@ import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
 import cn.teampancake.theaurorian.common.registry.*;
+import cn.teampancake.theaurorian.compat.mui.ModernUICompat;
 import cn.teampancake.theaurorian.compat.thirst.ThirstWasTakenCompat;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -74,6 +75,10 @@ public class TheAurorian {
         TAGameRules.register();
         if (ModList.get().isLoaded("thirst")) {
             ThirstWasTakenCompat.init();
+        }
+
+        if (ModList.get().isLoaded("modernui")){
+            ModernUICompat.LOADED = true;
         }
 
         if (FMLEnvironment.dist.isClient()) {

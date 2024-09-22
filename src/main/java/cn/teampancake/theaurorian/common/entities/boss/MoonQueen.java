@@ -122,10 +122,8 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new MoonQueenNearestAttackableTargetGoal<>(this, Player.class, Boolean.FALSE));
         this.targetSelector.addGoal(3, new MoonQueenNearestAttackableTargetGoal<>(this, LivingEntity.class, Boolean.FALSE, entity -> {
-            ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
-            boolean flag1 = !key.getNamespace().equals(TheAurorian.MOD_ID);
-            boolean flag2 = entity.attackable();
-            return !(entity instanceof MoonQueen) && !(entity instanceof MoonlightKnight) && flag1 && flag2;
+            boolean flag = !BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getNamespace().equals(TheAurorian.MOD_ID);
+            return !(entity instanceof MoonQueen) && !(entity instanceof MoonlightKnight) && flag && entity.attackable();
         }));
     }
 
@@ -327,7 +325,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             for (BlockPos tempPos : blockPos) {
                 BlockPos relativePos = tempPos.relative(direction);
                 BlockState state = this.level().getBlockState(relativePos);
-                if (!state.is(TABlockTags.MOON_TEMPLE_BLOCK) && !state.isAir()) {
+                if (!state.is(TABlockTags.MOON_TEMPLE_BLOCKS) && !state.isAir()) {
                     this.level().destroyBlock(relativePos, Boolean.FALSE);
                 }
             }

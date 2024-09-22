@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.DungeonStoneGateBlockEntity;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
@@ -23,7 +24,7 @@ public class DungeonStoneGateKeyhole extends DungeonStoneGate {
     private final boolean lockPickable;
 
     public DungeonStoneGateKeyhole(Supplier<Item> keyItem, Supplier<Block> gateBlock, boolean lockPickable) {
-        super(TABlocks.breakWithQueenPickaxe());
+        super(TABlocks.dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
         this.keyItem = keyItem;
         this.gateBlock = gateBlock;
         this.lockPickable = lockPickable;

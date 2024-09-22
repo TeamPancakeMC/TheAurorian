@@ -25,7 +25,7 @@ public class TABiomeTagsProvider extends BiomeTagsProvider {
                 TABiomes.AURORIAN_FOREST_HILL, TABiomes.WEEPING_WILLOW_FOREST);
         provider.lookupOrThrow(Registries.BIOME).listElementIds()
                 .filter(key -> key.location().getNamespace().equals(TheAurorian.MOD_ID))
-                .forEach(key -> this.tag(TABiomeTags.IS_AURORIAN).add(key));
+                .toList().forEach(key -> this.tag(TABiomeTags.IS_AURORIAN).add(key));
     }
 
 }

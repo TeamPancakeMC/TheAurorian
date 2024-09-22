@@ -507,7 +507,7 @@ public class EntityEventSubscriber {
         ItemStack handStack = player.getItemInHand(player.getUsedItemHand());
         if (blockStack.is(Tags.Items.ORES) && handStack.is(TAItems.AURORIANITE_PICKAXE.get())) {
             event.setNewSpeed(event.getOriginalSpeed() * 1.4F);
-        } else if (state.is(TABlockTags.DUNGEON_BRICKS)) {
+        } else if (state.is(TABlockTags.DUNGEON_BLOCKS)) {
             boolean flag = handStack.is(TAItems.QUEENS_CHIPPER.get());
             event.setNewSpeed(flag ? event.getOriginalSpeed() * 16.0F : 0.0F);
         } else if (handStack.is(TAItems.UMBRA_PICKAXE.get())) {

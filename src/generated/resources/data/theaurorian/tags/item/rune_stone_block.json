@@ -1,12 +1,19 @@
 {
   "values": [
     "theaurorian:rune_stone",
+    "theaurorian:smooth_rune_stone",
+    "theaurorian:chiseled_rune_stone",
     "theaurorian:aurorian_castle_rune_stone",
     "theaurorian:aurorian_steel_castle_rune_stone",
     "theaurorian:cerulean_castle_rune_stone",
     "theaurorian:crystalline_castle_rune_stone",
     "theaurorian:moon_castle_rune_stone",
     "theaurorian:transparent_rune_stone",
-    "theaurorian:umbra_castle_rune_stone"
+    "theaurorian:umbra_castle_rune_stone",
+    "theaurorian:luminous_aurorian_castle_rune_stone",
+    "theaurorian:luminous_aurorian_steel_castle_rune_stone",
+    "theaurorian:luminous_cerulean_castle_rune_stone",
+    "theaurorian:luminous_crystalline_castle_rune_stone",
+    "theaurorian:luminous_moon_castle_rune_stone"
   ]
 }

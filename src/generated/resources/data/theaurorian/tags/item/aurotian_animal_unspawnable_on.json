@@ -1,16 +1,17 @@
 {
   "values": [
     "theaurorian:rune_stone",
+    "theaurorian:smooth_rune_stone",
     "theaurorian:moon_temple_bricks",
     "theaurorian:dark_stone_bricks",
     "theaurorian:dark_stone_fancy",
     "theaurorian:dark_stone_layers",
     "theaurorian:smooth_dark_stone_bricks",
-    "theaurorian:rune_stone_lamp",
     "theaurorian:chiseled_dark_stone_bricks",
-    "theaurorian:moon_temple_lamp",
+    "theaurorian:smooth_moon_temple_bricks",
+    "theaurorian:chiseled_moon_temple_bricks",
+    "theaurorian:rune_stone_lamp",
     "theaurorian:dark_stone_lamp",
-    "theaurorian:smooth_rune_stone",
-    "theaurorian:smooth_moon_temple_bricks"
+    "theaurorian:moon_temple_lamp"
   ]
 }

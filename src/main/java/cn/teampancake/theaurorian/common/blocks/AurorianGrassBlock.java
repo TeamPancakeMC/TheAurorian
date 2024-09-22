@@ -1,8 +1,10 @@
 package cn.teampancake.theaurorian.common.blocks;
 
+import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Blocks;
@@ -14,8 +16,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class AurorianGrassBlock extends GrassBlock {
 
-    public AurorianGrassBlock(Properties properties) {
-        super(properties);
+    public AurorianGrassBlock(TABlockProperties properties) {
+        super(properties.addBlockTag(BlockTags.MINEABLE_WITH_SHOVEL));
     }
 
     @Override

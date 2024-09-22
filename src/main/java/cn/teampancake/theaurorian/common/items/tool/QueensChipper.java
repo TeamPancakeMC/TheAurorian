@@ -15,7 +15,7 @@ public class QueensChipper extends PickaxeItem {
 
     @Override
     public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
-        return super.isCorrectToolForDrops(stack, state) || state.is(TABlockTags.DUNGEON_BRICKS);
+        return super.isCorrectToolForDrops(stack, state) || state.is(TABlockTags.DUNGEON_BLOCKS) || state.is(TABlockTags.MOON_TEMPLE_BLOCKS);
     }
 
 }

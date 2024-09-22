@@ -1,7 +1,9 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.MysteriumWoolBedBlockEntity;
+import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Blocks;
@@ -14,7 +16,7 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 public class MysteriumWoolBed extends BedBlock {
 
     public MysteriumWoolBed() {
-        super(DyeColor.BLUE, Properties.ofFullCopy(Blocks.BLUE_BED));
+        super(DyeColor.BLUE, TABlockProperties.ofFullCopy(Blocks.BLUE_BED).addBlockTag(BlockTags.BEDS));
     }
 
     @Override

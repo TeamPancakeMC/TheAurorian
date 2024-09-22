@@ -2,18 +2,18 @@
   "values": [
     "theaurorian:geode_ore",
     "theaurorian:erosive_geode_ore",
-    "theaurorian:moon_gem",
-    "theaurorian:moonlight_forge",
+    "theaurorian:aurorian_gold_ore",
+    "theaurorian:aurorian_diamond_ore",
+    "theaurorian:aurorian_emerald_ore",
+    "theaurorian:aurorian_redstone_ore",
+    "theaurorian:erosive_aurorian_gold_ore",
+    "theaurorian:erosive_aurorian_diamond_ore",
+    "theaurorian:erosive_aurorian_emerald_ore",
+    "theaurorian:erosive_aurorian_redstone_ore",
     "theaurorian:cerulean_block",
     "theaurorian:moonstone_block",
     "theaurorian:aurorian_steel_block",
-    "theaurorian:aurorian_gold_ore",
-    "theaurorian:erosive_aurorian_gold_ore",
-    "theaurorian:aurorian_diamond_ore",
-    "theaurorian:erosive_aurorian_diamond_ore",
-    "theaurorian:aurorian_redstone_ore",
-    "theaurorian:erosive_aurorian_redstone_ore",
-    "theaurorian:aurorian_emerald_ore",
-    "theaurorian:erosive_aurorian_emerald_ore"
+    "theaurorian:moonlight_forge",
+    "theaurorian:moon_gem"
   ]
 }

@@ -6,7 +6,9 @@ import cn.teampancake.theaurorian.common.blocks.RelicTable;
 import cn.teampancake.theaurorian.common.blocks.TACropBlock;
 import cn.teampancake.theaurorian.common.blocks.base.DoorBlockWithBase;
 import cn.teampancake.theaurorian.common.blocks.base.IHasBaseBlock;
+import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.blocks.state.properties.AlchemyTablePart;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
@@ -17,6 +19,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -24,7 +27,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -40,10 +42,10 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-@SuppressWarnings("deprecation")
 @ParametersAreNonnullByDefault
 public class TABlockLoot extends VanillaBlockLoot {
 
@@ -249,10 +251,16 @@ public class TABlockLoot extends VanillaBlockLoot {
                 .add(LootItem.lootTableItem(TAItems.SILK_BERRY_JAM.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).setWeight(25))
                 .add(LootItem.lootTableItem(Items.BOOK).apply(EnchantRandomlyFunction.randomApplicableEnchantment(this.registries)).setWeight(15))));
         for (Block block : TACommonUtils.getKnownBlocks()) {
-            float f = Blocks.BEDROCK.getExplosionResistance();
-            boolean hardLikeBedrock = block.getExplosionResistance() == f;
-            boolean notHardLikeBedrock = block.getExplosionResistance() != f;
-            if ((hardLikeBedrock || (block instanceof IHasBaseBlock && notHardLikeBedrock))) {
+            if (block.properties() instanceof TABlockProperties properties) {
+                List<TagKey<Block>> list = properties.blockTagList;
+                boolean flag1 = list.contains(TABlockTags.DUNGEON_BLOCKS);
+                boolean flag2 = list.contains(TABlockTags.MOON_TEMPLE_BLOCKS);
+                if (flag1 || flag2) {
+                    this.dropSelf(block);
+                }
+            }
+
+            if (block instanceof IHasBaseBlock) {
                 this.dropSelf(block);
             } else if (block instanceof DoorBlockWithBase doorBlock) {
                 this.add(doorBlock, block1 -> this.createDoorTable(doorBlock));
@@ -286,9 +294,9 @@ public class TABlockLoot extends VanillaBlockLoot {
             if (block.isEnabled(this.enabledFeatures)) {
                 ResourceKey<LootTable> lootTable = block.getLootTable();
                 if (lootTable != BuiltInLootTables.EMPTY && set.add(lootTable)) {
-                    LootTable.Builder lootTable$builder = this.map.remove(lootTable);
-                    if (lootTable$builder != null) {
-                        output.accept(lootTable, lootTable$builder);
+                    LootTable.Builder builder = this.map.remove(lootTable);
+                    if (builder != null) {
+                        output.accept(lootTable, builder);
                     }
                 }
             }

@@ -1,9 +1,11 @@
 package cn.teampancake.theaurorian.common.blocks;
 
+import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -22,7 +24,10 @@ import net.minecraft.world.phys.Vec3;
 public class BlueberryBush extends SweetBerryBushBlock {
 
     public BlueberryBush() {
-        super(Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH));
+        super(TABlockProperties.ofFullCopy(Blocks.SWEET_BERRY_BUSH).addBlockTag(
+                BlockTags.FALL_DAMAGE_RESETTING,
+                BlockTags.SWORD_EFFICIENT,
+                BlockTags.MINEABLE_WITH_AXE));
     }
 
     @Override

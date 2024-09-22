@@ -2,15 +2,15 @@
   "values": [
     "#theaurorian:aurorian_grass_block",
     "theaurorian:aurorian_stone",
-    "theaurorian:aurorian_dirt",
     "theaurorian:aurorian_granite",
     "theaurorian:aurorian_diorite",
     "theaurorian:aurorian_andesite",
+    "theaurorian:aurorian_dirt",
     "theaurorian:moon_sand",
-    "theaurorian:bright_moon_sand",
     "theaurorian:moon_sandstone",
     "theaurorian:cut_moon_sandstone",
     "theaurorian:smooth_moon_sandstone",
-    "theaurorian:bright_moon_sandstone"
+    "theaurorian:bright_moon_sandstone",
+    "theaurorian:bright_moon_sand"
   ]
 }

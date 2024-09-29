@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.146'
+    id 'net.neoforged.gradle.userdev' version '7.0.165'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -85,6 +85,9 @@ dependencies {
     implementation "software.bernie.geckolib:geckolib-neoforge-1.21:4.5.8"
     implementation "curse.maven:thirst-was-taken-679270:5568715"
     implementation "curse.maven:modern-ui-352491:5725568"
+
+    // https://mvnrepository.com/artifact/net.java.dev.jna/jna
+    implementation group: 'net.java.dev.jna', name: 'jna', version: '5.15.0'
 
     // compile against the JEI API but do not include it at runtime
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")

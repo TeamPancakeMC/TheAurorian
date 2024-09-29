@@ -75,8 +75,7 @@ public abstract class MixinServerLevel extends Level {
         }
     }
 
-    @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;popPush(Ljava/lang/String;)V",
-            ordinal = 1, shift = At.Shift.AFTER))
+    @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;popPush(Ljava/lang/String;)V", ordinal = 1, shift = At.Shift.AFTER))
     public void tickChunk(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci, @Local(ordinal = 1) int i, @Local(ordinal = 2) int j, @Local ProfilerFiller profiler) {
         if (this.dimension() == TADimensions.AURORIAN_DIMENSION && LevelEventSubscriber.phaseCode == 4) {
             LevelChunkSection[] chunkSections = chunk.getSections();

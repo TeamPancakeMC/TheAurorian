@@ -487,6 +487,24 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
+    public static void onArmorHurt(ArmorHurtEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity.hasEffect(TAMobEffects.CORRUPTION) || entity.hasEffect(TAMobEffects.TOUGH)) {
+            if (entity.hasEffect(TAMobEffects.CORRUPTION)) {
+                float damage = 0.0F;
+                for (EquipmentSlot slot : event.getArmorMap().keySet()) {
+                    damage += event.getOriginalDamage(slot);
+                }
+
+                AttachmentType<Float> type = TAAttachmentTypes.ARMOR_HURT_ACCUMULATION.get();
+                entity.setData(type, entity.getData(type) + damage);
+            }
+
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
     public static void onProjectileImpact(ProjectileImpactEvent event) {
         if (event.getRayTraceResult() instanceof EntityHitResult result) {
             Projectile projectile = event.getProjectile();

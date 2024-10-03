@@ -3,12 +3,14 @@ package cn.teampancake.theaurorian.common.entities.phase.moonqueen;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
+import com.mojang.math.Constants;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 public class MoonQueenMeleePhase extends AttackPhase<MoonQueen> {
 
@@ -48,7 +50,11 @@ public class MoonQueenMeleePhase extends AttackPhase<MoonQueen> {
         if (i >= 0 && target != null && entity.getAttackTicks() == this.hurtTargetTime[i]) {
             AABB selfInflate = entity.getBoundingBox().inflate(2.0D);
             AABB targetInflate = target.getBoundingBox().inflate(1.5D);
-            float value = entity.getYRot() * ((float) Math.PI / 180F);
+            float value = entity.getYRot() * Constants.DEG_TO_RAD;
+            float yRot = positionToYaw(entity.position(), target.position()) - 90.0F;
+            entity.setAttackYRot(yRot);
+            entity.getNavigation().stop();
+            entity.getLookControl().setLookAt(target, 360f, 360f);
             for (LivingEntity livingEntity : level.getNearbyEntities(LivingEntity.class,
                     TargetingConditions.DEFAULT, entity, selfInflate)) {
                 if (livingEntity.getUUID().equals(target.getUUID())) {
@@ -81,6 +87,18 @@ public class MoonQueenMeleePhase extends AttackPhase<MoonQueen> {
     @Override
     public void onStop(MoonQueen entity) {
 
+    }
+
+    public static float positionToYaw(Vec3 start, Vec3 end) {
+        return positionToYaw(end.subtract(start));
+    }
+
+    public static float positionToYaw(Vec3 vec3) {
+        return positionToYaw(vec3.x, vec3.z);
+    }
+
+    public static float positionToYaw(double diffX, double diffZ) {
+        return !(Math.abs(diffZ) > (double) 1.0E-5F) && !(Math.abs(diffX) > (double) 1.0E-5F) ? 0 : (float) (Mth.atan2(diffZ, diffX) * Mth.RAD_TO_DEG);
     }
 
 }

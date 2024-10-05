@@ -86,11 +86,13 @@ public class ModBusEventSubscriber {
 
     @SubscribeEvent
     public static void registerDispenserBehavior(FMLCommonSetupEvent event) {
-        DispenserBlock.registerProjectileBehavior(TAItems.CERULEAN_ARROW.get());
-        DispenserBlock.registerProjectileBehavior(TAItems.CRYSTAL_ARROW.get());
-        DispenserBlock.registerBehavior(TAItems.MOON_WATER_BUCKET.get(), new DispenseBucket());
-        DispenserBlock.registerBehavior(TAItems.MOON_FISH_BUCKET.get(), new DispenseBucket());
-        DispenserBlock.registerBehavior(TAItems.AURORIAN_WINGED_FISH_BUCKET.get(), new DispenseBucket());
+        event.enqueueWork(() -> {
+            DispenserBlock.registerProjectileBehavior(TAItems.CERULEAN_ARROW.get());
+            DispenserBlock.registerProjectileBehavior(TAItems.CRYSTAL_ARROW.get());
+            DispenserBlock.registerBehavior(TAItems.MOON_WATER_BUCKET.get(), new DispenseBucket());
+            DispenserBlock.registerBehavior(TAItems.MOON_FISH_BUCKET.get(), new DispenseBucket());
+            DispenserBlock.registerBehavior(TAItems.AURORIAN_WINGED_FISH_BUCKET.get(), new DispenseBucket());
+        });
     }
 
     @OnlyIn(Dist.CLIENT)

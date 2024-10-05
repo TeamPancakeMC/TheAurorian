@@ -71,7 +71,7 @@ public class AttackManager<T extends LivingEntity & MultiPhaseAttacker> {
     }
 
     private boolean canContinue(AttackPhase<T> phase) {
-        return phase.canContinue(this.entity) && this.entity.getAttackTicks() <= phase.getDuration();
+        return phase.canContinue(this.entity) && this.entity.getAttackTicks() <= phase.getDuration(this.entity);
     }
 
 }

@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.renderer.entity;
+package cn.teampancake.theaurorian.client.renderer.entity.abiotic;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.entities.projectile.blade_waves.BladeWave;
@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -26,8 +27,10 @@ public class BladeWaveRenderer extends EntityRenderer<BladeWave> {
     @Override
     public void render(BladeWave entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         poseStack.pushPose();
-        poseStack.scale(3.0F, 3.0F, 3.0F);
+        float f = 15.0F;
+        poseStack.scale(f, f, f);
         poseStack.mulPose(Axis.XN.rotationDegrees(90.0F));
+        poseStack.mulPose(Axis.ZN.rotationDegrees(entity.yRotO));
         PoseStack.Pose pose = poseStack.last();
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE_LOCATION));
         vertex(consumer, pose, packedLight, 0.0F, 0.0F, 0.0F, 1.0F);
@@ -35,6 +38,11 @@ public class BladeWaveRenderer extends EntityRenderer<BladeWave> {
         vertex(consumer, pose, packedLight, 1.0F, 1.0F, 1.0F, 0.0F);
         vertex(consumer, pose, packedLight, 0.0F, 1.0F, 0.0F, 0.0F);
         poseStack.popPose();
+    }
+
+    @Override
+    protected int getBlockLightLevel(BladeWave entity, BlockPos pos) {
+        return 15;
     }
 
     private static void vertex(VertexConsumer consumer, PoseStack.Pose pose, int packedLight, float x, float y, float u, float v) {

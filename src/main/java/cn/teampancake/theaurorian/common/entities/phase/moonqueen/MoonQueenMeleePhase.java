@@ -47,32 +47,44 @@ public class MoonQueenMeleePhase extends AttackPhase<MoonQueen> {
         int i = this.randomIndex;
         Level level = entity.level();
         LivingEntity target = entity.getTarget();
-        if (i >= 0 && target != null && entity.getAttackTicks() == this.hurtTargetTime[i]) {
-            AABB selfInflate = entity.getBoundingBox().inflate(2.0D);
-            AABB targetInflate = target.getBoundingBox().inflate(1.5D);
-            float value = entity.getYRot() * Constants.DEG_TO_RAD;
-            float yRot = positionToYaw(entity.position(), target.position()) - 90.0F;
-            entity.setAttackYRot(yRot);
-            entity.getNavigation().stop();
-            entity.getLookControl().setLookAt(target, 360f, 360f);
-            for (LivingEntity livingEntity : level.getNearbyEntities(LivingEntity.class,
-                    TargetingConditions.DEFAULT, entity, selfInflate)) {
-                if (livingEntity.getUUID().equals(target.getUUID())) {
-                    livingEntity.invulnerableTime = 0;
-                    entity.doHurtTarget(livingEntity);
-                    if (i == 2) {
-                        livingEntity.hurt(entity.damageSources().mobAttack(entity), 6.0F);
-                        livingEntity.knockback(1.0F, Mth.sin(value), -Mth.cos(value));
-                    }
+        if (i >= 0 && target != null) {
+            if (entity.getAttackTicks() == 0 && level.random.nextFloat() < 0.3F) {
+                Vec3 vec3 = entity.getDeltaMovement();
+                Vec3 vec31 = new Vec3(target.getX() - entity.getX(), 0.0D, target.getZ() - entity.getZ());
+                if (vec31.lengthSqr() > 1.0E-7) {
+                    vec31 = vec31.normalize().scale(0.4D).add(vec3.scale(0.2D));
                 }
+
+                entity.setDeltaMovement(vec31.x, 0.5D, vec31.z);
             }
 
-            if (i == 0 || i == 1) {
-                for (LivingEntity livingEntity : level.getEntitiesOfClass(LivingEntity.class, targetInflate)) {
-                    double distance = entity.distanceToSqr(livingEntity);
-                    if (livingEntity != entity && livingEntity != target && distance < 8.0D) {
-                        livingEntity.knockback(0.4F, Mth.sin(value), -Mth.cos(value));
+            if (entity.getAttackTicks() == this.hurtTargetTime[i]) {
+                AABB selfInflate = entity.getBoundingBox().inflate(2.0D);
+                AABB targetInflate = target.getBoundingBox().inflate(1.5D);
+                float value = entity.getYRot() * Constants.DEG_TO_RAD;
+                float yRot = positionToYaw(entity.position(), target.position()) - 90.0F;
+                entity.setAttackYRot(yRot);
+                entity.getNavigation().stop();
+                entity.getLookControl().setLookAt(target, 360f, 360f);
+                for (LivingEntity livingEntity : level.getNearbyEntities(LivingEntity.class,
+                        TargetingConditions.DEFAULT, entity, selfInflate)) {
+                    if (livingEntity.getUUID().equals(target.getUUID())) {
+                        livingEntity.invulnerableTime = 0;
                         entity.doHurtTarget(livingEntity);
+                        if (i == 2) {
+                            livingEntity.hurt(entity.damageSources().mobAttack(entity), 6.0F);
+                            livingEntity.knockback(1.0F, Mth.sin(value), -Mth.cos(value));
+                        }
+                    }
+                }
+
+                if (i == 0 || i == 1) {
+                    for (LivingEntity livingEntity : level.getEntitiesOfClass(LivingEntity.class, targetInflate)) {
+                        double distance = entity.distanceToSqr(livingEntity);
+                        if (livingEntity != entity && livingEntity != target && distance < 8.0D) {
+                            livingEntity.knockback(0.4F, Mth.sin(value), -Mth.cos(value));
+                            entity.doHurtTarget(livingEntity);
+                        }
                     }
                 }
             }

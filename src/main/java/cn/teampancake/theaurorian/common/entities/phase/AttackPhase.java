@@ -31,7 +31,7 @@ public abstract class AttackPhase<T extends LivingEntity & MultiPhaseAttacker> {
         return this.priority;
     }
 
-    public int getDuration() {
+    public int getDuration(T entity) {
         return this.duration;
     }
 

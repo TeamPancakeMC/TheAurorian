@@ -15,11 +15,11 @@ public class MoonlightKnightNormalMeleePhase extends AttackPhase<MoonlightKnight
     }
 
     @Override
-    public int getDuration() {
+    public int getDuration(MoonlightKnight entity) {
         if (this.randomIndex >= 0) {
             return this.durations[this.randomIndex];
         } else {
-            return super.getDuration();
+            return super.getDuration(entity);
         }
     }
 

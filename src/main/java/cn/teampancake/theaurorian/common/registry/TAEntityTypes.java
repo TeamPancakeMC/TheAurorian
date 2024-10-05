@@ -82,8 +82,11 @@ public class TAEntityTypes {
             () -> EntityType.Builder.<UnstableCrystal>of(UnstableCrystal::new, MobCategory.MISC).sized(0.25F, 0.25F)
                     .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("unstable_crystal"));
     public static final DeferredHolder<EntityType<?>, EntityType<BladeWave>> BLADE_WAVE = ENTITY_TYPES.register("blade_wave",
-            () -> EntityType.Builder.of(BladeWave::new, MobCategory.MISC).sized(0.5F, 0.5F)
+            () -> EntityType.Builder.<BladeWave>of(BladeWave::new, MobCategory.MISC).sized(5.5F, 1.5F)
                     .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("blade_wave"));
+    public static final DeferredHolder<EntityType<?>, EntityType<MoonQueenSword>> MOON_QUEEN_SWORD = ENTITY_TYPES.register("moon_queen_sword",
+            () -> EntityType.Builder.<MoonQueenSword>of(MoonQueenSword::new, MobCategory.MISC).sized(1.0F, 1.0F)
+                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("moon_queen_sword"));
     //NPC
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianVillager>> AURORIAN_VILLAGER = ENTITY_TYPES.register("aurorian_villager",
             () -> EntityType.Builder.of(AurorianVillager::new, MobCategory.CREATURE).sized(0.6F, 1.85F)
@@ -199,6 +202,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(WEBBING.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(SIT.get(), SitRenderer::new);
         event.registerEntityRenderer(LUNA_CIRCLE.get(), LunaCircleRenderer::new);
+        event.registerEntityRenderer(MOON_QUEEN_SWORD.get(), MoonQueenSwordRenderer::new);
         event.registerEntityRenderer(FALLING_FIREBALL.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(THROWN_AXE.get(), ThrownAxeRenderer::new);
         event.registerEntityRenderer(THROWN_SHURIKEN.get(), ThrownShurikenRenderer::new);

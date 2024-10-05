@@ -1,0 +1,30 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.moon_queen_sword",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "sword",
+					"pivot": [0, 4.125, 14],
+					"rotation": [90, 0, 0],
+					"cubes": [
+						{"origin": [-1, 1.125, 13], "size": [2, 6, 2], "uv": [2, 16]},
+						{"origin": [-1, 7.125, 10], "size": [2, 1, 8], "uv": [2, 5]},
+						{"origin": [0, 8.125, 10.5], "size": [0, 25, 7], "inflate": 0.001, "uv": [29, -6]},
+						{"origin": [-1, 8.125, 15], "size": [2, 4, 1], "inflate": -0.002, "pivot": [0, 8.125, 16], "rotation": [20, 0, 0], "uv": [22, 16]},
+						{"origin": [-1, 8.125, 12], "size": [2, 4, 1], "inflate": -0.003, "pivot": [0, 8.125, 12], "rotation": [-20, 0, 0], "uv": [22, 16]},
+						{"origin": [-1, -1.375, 13.5], "size": [2, 3, 3], "inflate": 0.05, "pivot": [0, -0.875, 14], "rotation": [45, 0, 0], "uv": [11, 15]}
+					]
+				}
+			]
+		}
+	]
+}

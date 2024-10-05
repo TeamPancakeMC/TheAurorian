@@ -179,7 +179,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
                 }
             }
 
-            if (f != 0.0F && (f < this.getMaxHealth() || flag && damageSource.isCreativePlayer())) {
+            if (f != 0.0F && (f < this.getMaxHealth() || flag)) {
                 this.getCombatTracker().recordDamage(damageSource, f);
                 this.setBossHealth(this.getHealth() - f);
                 this.setAbsorptionAmount(this.getAbsorptionAmount() - f);

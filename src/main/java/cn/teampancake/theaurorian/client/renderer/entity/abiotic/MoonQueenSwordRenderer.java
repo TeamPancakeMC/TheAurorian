@@ -27,7 +27,7 @@ public class MoonQueenSwordRenderer<T extends MoonQueenSword> extends GeoEntityR
             GeoBone bone = optional.get();
             bone.setRotX(entity.getModelXRot());
             bone.setRotY(entity.getModelYRot());
-            bone.setRotZ(entity.getModelZRot() - (float) Math.toRadians(90.0F));
+            bone.setRotZ(entity.getModelZRot());
             bone.setPosX(-8.0F);
         }
     }

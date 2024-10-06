@@ -3,10 +3,8 @@ package cn.teampancake.theaurorian.client.renderer.entity.abiotic;
 import cn.teampancake.theaurorian.common.entities.projectile.MoonQueenSword;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import software.bernie.geckolib.cache.object.GeoBone;
@@ -24,11 +22,12 @@ public class MoonQueenSwordRenderer<T extends MoonQueenSword> extends GeoEntityR
 
     @Override
     protected void applyRotations(T entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick, float nativeScale) {
-        poseStack.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTick, entity.yRotO, entity.getYRot()) - 90.0F));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTick, entity.xRotO, entity.getXRot()) + 90.0F));
         Optional<GeoBone> optional = this.model.getBone("sword");
         if (optional.isPresent()) {
             GeoBone bone = optional.get();
+            bone.setRotX(entity.getModelXRot());
+            bone.setRotY(entity.getModelYRot());
+            bone.setRotZ(entity.getModelZRot() - (float) Math.toRadians(90.0F));
             bone.setPosX(-8.0F);
         }
     }

@@ -23,6 +23,9 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 public class MoonQueenSword extends AbstractHurtingProjectile implements GeoEntity {
 
     private static final EntityDataAccessor<Float> WHITE_OVERLAY_RATIO = SynchedEntityData.defineId(MoonQueenSword.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> MODEL_X_ROT = SynchedEntityData.defineId(MoonQueenSword.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> MODEL_Y_ROT = SynchedEntityData.defineId(MoonQueenSword.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> MODEL_Z_ROT = SynchedEntityData.defineId(MoonQueenSword.class, EntityDataSerializers.FLOAT);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public MoonQueenSword(EntityType<? extends MoonQueenSword> type, Level level) {
@@ -31,7 +34,6 @@ public class MoonQueenSword extends AbstractHurtingProjectile implements GeoEnti
 
     public MoonQueenSword(Level level, double x, double y, double z) {
         super(TAEntityTypes.MOON_QUEEN_SWORD.get(), x, y, z, level);
-        this.triggerAnim(("spawn_controller"), ("spawn_animation"));
     }
 
     public MoonQueenSword(Level level, Vec3 movement, double x, double y, double z) {
@@ -45,6 +47,9 @@ public class MoonQueenSword extends AbstractHurtingProjectile implements GeoEnti
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(WHITE_OVERLAY_RATIO, 0.0F);
+        builder.define(MODEL_X_ROT, 0.0F);
+        builder.define(MODEL_Y_ROT, 0.0F);
+        builder.define(MODEL_Z_ROT, 0.0F);
     }
 
     @Override
@@ -63,14 +68,44 @@ public class MoonQueenSword extends AbstractHurtingProjectile implements GeoEnti
         return null;
     }
 
+    public float getModelXRot() {
+        return this.entityData.get(MODEL_X_ROT);
+    }
+
+    public void setModelXRot(float xRot) {
+        this.entityData.set(MODEL_X_ROT, xRot);
+    }
+
+    public float getModelYRot() {
+        return this.entityData.get(MODEL_Y_ROT);
+    }
+
+    public void setModelYRot(float yRot) {
+        this.entityData.set(MODEL_Y_ROT, yRot);
+    }
+
+    public float getModelZRot() {
+        return this.entityData.get(MODEL_Z_ROT);
+    }
+
+    public void setModelZRot(float zRot) {
+        this.entityData.set(MODEL_Z_ROT, zRot);
+    }
+
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putFloat("ModelXRot", this.getModelXRot());
+        compound.putFloat("ModelYRot", this.getModelYRot());
+        compound.putFloat("ModelZRot", this.getModelZRot());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.setModelXRot(compound.getFloat("ModelXRot"));
+        this.setModelYRot(compound.getFloat("ModelYRot"));
+        this.setModelZRot(compound.getFloat("ModelZRot"));
     }
 
 }

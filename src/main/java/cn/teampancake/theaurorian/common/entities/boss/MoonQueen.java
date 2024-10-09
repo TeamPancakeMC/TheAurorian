@@ -140,7 +140,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         builder.add(Attributes.ARMOR_TOUGHNESS, 10.0D);
         builder.add(Attributes.ATTACK_KNOCKBACK, 0.5D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.25D);
-        builder.add(Attributes.FOLLOW_RANGE, 40.0F);
+        builder.add(Attributes.FOLLOW_RANGE, 60.0F);
         builder.add(Attributes.ATTACK_DAMAGE, 8.0D);
         builder.add(Attributes.ARMOR, 8.0F);
         return builder;
@@ -318,6 +318,10 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 this.heal((maxHealth * 0.05F));
             }
 
+            if (this.getAttackState() == 0) {
+                this.setNoGravity(false);
+            }
+
             this.playerAlreadyHealFor.addAll(this.currentSavedName);
         }
     }
@@ -337,9 +341,9 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         }
     }
 
-    private void destroyHorizontalBlock() {
+    public void destroyHorizontalBlock() {
         BlockPos pos = this.blockPosition();
-        BlockPos[] blockPos = new BlockPos[] {pos, pos.above()};
+        BlockPos[] blockPos = new BlockPos[] {pos, pos.above(), pos.above().above()};
         for (Direction direction : Direction.BY_2D_DATA) {
             for (BlockPos tempPos : blockPos) {
                 BlockPos relativePos = tempPos.relative(direction);
@@ -787,7 +791,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
         @Override
         public void clientTick() {
-            if (getAttackState() == 1 || getAttackState() == 6) {
+            if (getAttackState() != 0) {
                 yHeadRot = getAttackYRot();
                 yBodyRot = getAttackYRot();
             } else {

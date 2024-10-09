@@ -288,6 +288,7 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.SPECTRAL_ARMOR, SpectralArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.MYSTERIUM_ARMOR, MysteriumWoolArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CRYSTAL_RUNE_ARMOR, CrystalRuneArmorModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.MOON_QUEEN_SWORD, MoonQueenSwordModel::createBodyLayer);
     }
 
     @SubscribeEvent

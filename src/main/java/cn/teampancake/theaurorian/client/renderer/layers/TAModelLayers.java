@@ -33,6 +33,7 @@ public class TAModelLayers {
     public static final ModelLayerLocation SPECTRAL_ARMOR = register("spectral_armor");
     public static final ModelLayerLocation MYSTERIUM_ARMOR = register("mysterium_armor");
     public static final ModelLayerLocation CRYSTAL_RUNE_ARMOR = register("crystal_rune_armor");
+    public static final ModelLayerLocation MOON_QUEEN_SWORD = register("moon_queen_sword");
 
     private static ModelLayerLocation register(String path) {
         return register(path, "main");

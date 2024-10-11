@@ -8,6 +8,7 @@
         "MixinDamageSource",
         "MixinEmeraldsForVillagerTypeItem",
         "MixinFoodData",
+        "MixinItem",
         "MixinLevel",
         "MixinLivingEntity",
         "MixinPlayer",

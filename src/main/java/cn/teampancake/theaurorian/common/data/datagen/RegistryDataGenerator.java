@@ -7,7 +7,6 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -28,7 +27,6 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.STRUCTURE, TAStructures::bootstrap)
             .add(Registries.STRUCTURE_SET, TAStructureSets::bootstrap)
             .add(Registries.TEMPLATE_POOL, TATemplatePools::bootstrap)
-            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, TABiomeModifiers::bootstrap)
             .add(TABiomeLayerStack.BIOME_STACK_KEY, TABiomeLayerStack::bootstrap);
 
     public RegistryDataGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

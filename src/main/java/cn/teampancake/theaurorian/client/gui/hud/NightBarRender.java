@@ -22,9 +22,10 @@ public class NightBarRender {
 
     public static void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         RenderSystem.enableBlend();
+        Minecraft minecraft = Minecraft.getInstance();
         int offsetX, offsetY;
-        LocalPlayer player = Minecraft.getInstance().player;
-        if (player != null) {
+        LocalPlayer player = minecraft.player;
+        if (player != null && !minecraft.options.hideGui) {
             long dayTime = (player.level().getDayTime() + 6000L) % 24000L;
             if (player.level().dimension() == TADimensions.AURORIAN_DIMENSION) {
                 if (dayTime > 6000 && dayTime <= 18000) {

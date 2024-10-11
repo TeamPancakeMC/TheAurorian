@@ -31,12 +31,10 @@ public class TAMobEffects {
     public static final DeferredHolder<MobEffect, MobEffect> BROKEN = MOB_EFFECTS.register("broken", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0x808080));
     public static final DeferredHolder<MobEffect, MobEffect> CRESCENT = MOB_EFFECTS.register("crescent", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xd1b9a1));
     public static final DeferredHolder<MobEffect, MobEffect> PRESSURE = MOB_EFFECTS.register("pressure", () -> new IncurableEffect(MobEffectCategory.HARMFUL, 0x714bdb));
-    public static final DeferredHolder<MobEffect, MobEffect> DEAFNESS = MOB_EFFECTS.register("deafness", () -> new IncurableEffect(MobEffectCategory.HARMFUL, 0x886671));
     public static final DeferredHolder<MobEffect, MobEffect> MOON_BEFALL = MOB_EFFECTS.register("moon_befall", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xb76ce6));
     public static final DeferredHolder<MobEffect, MobEffect> BLESS_OF_MOON = MOB_EFFECTS.register("bless_of_moon", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0xe3d5aa));
     public static final DeferredHolder<MobEffect, MobEffect> EIDOLON_POISON = MOB_EFFECTS.register("eidolon_poison", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0x36d6be));
     public static final DeferredHolder<MobEffect, MobEffect> CRYSTALLIZATION = MOB_EFFECTS.register("crystallization", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0x17d1c7));
-    public static final DeferredHolder<MobEffect, MobEffect> SHADOWED_SIGHT = MOB_EFFECTS.register("shadowed_sight", () -> new IncurableEffect(MobEffectCategory.HARMFUL, 0x2b2b2b));
     public static final DeferredHolder<MobEffect, MobEffect> MOON_OF_VENGEANCE = MOB_EFFECTS.register("moon_of_vengeance", () -> new TAMobEffect(MobEffectCategory.BENEFICIAL, 0x960a17));
     public static final DeferredHolder<MobEffect, MobEffect> WARM = MOB_EFFECTS.register("warm", WarmEffect::new);
     public static final DeferredHolder<MobEffect, MobEffect> NATURE = MOB_EFFECTS.register("nature", NatureEffect::new);

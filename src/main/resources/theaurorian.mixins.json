@@ -15,9 +15,7 @@
         "MixinTemptGoal"
     ],
     "client": [
-        "MixinClientLevel",
         "MixinClientPacketListener",
-        "MixinLevelRenderer",
         "MixinMinecraft"
     ],
     "injectors": {

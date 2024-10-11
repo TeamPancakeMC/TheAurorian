@@ -138,45 +138,6 @@ public class TASkyRenderer {
         return new Color(r, g, b).getRGB();
     }
 
-    public static Vec3 getBlueSkyColor(ClientLevel level, Vec3 pos) {
-        float timeOfDay = level.dimensionType().timeOfDay(10L);
-        Vec3 vec3 = pos.subtract(2.0D, 2.0D, 2.0D).scale(0.25D);
-        Vec3 vec31 = gaussianSampleVec3(vec3, (x, y, z) -> Vec3.fromRGB24(
-                level.getBiomeManager().getNoiseBiomeAtQuart(x, y, z).value().getSkyColor()));
-        float f1 = Mth.cos(timeOfDay * Mth.TWO_PI) * 2.0F + 0.5F;
-        return new Vec3((float) vec31.x * f1, (float) vec31.y * f1, (float) vec31.z * f1);
-    }
-
-    public static Vec3 gaussianSampleVec3(Vec3 vec3, CubicSampler.Vec3Fetcher fetcher) {
-        final double[] gaussianSampleKernel = new double[]{0.0, 1.0, 4.0, 8.0, 4.0, 1.0, 0.0};
-        int i = Mth.floor(vec3.x());
-        int j = Mth.floor(vec3.y());
-        int k = Mth.floor(vec3.z());
-        double d0 = vec3.x() - (double)i;
-        double d1 = vec3.y() - (double)j;
-        double d2 = vec3.z() - (double)k;
-        double d3 = 0.0;
-        int size = gaussianSampleKernel.length - 1;
-        Vec3 vec31 = Vec3.ZERO;
-        for (int l = 0; l < size; l++) {
-            double d4 = Mth.lerp(d0, gaussianSampleKernel[l + 1], gaussianSampleKernel[l]);
-            int i1 = i - 2 + l;
-            for (int j1 = 0; j1 < size; j1++) {
-                double d5 = Mth.lerp(d1, gaussianSampleKernel[j1 + 1], gaussianSampleKernel[j1]);
-                int k1 = j - 2 + j1;
-                for (int l1 = 0; l1 < size; l1++) {
-                    double d6 = Mth.lerp(d2, gaussianSampleKernel[l1 + 1], gaussianSampleKernel[l1]);
-                    int i2 = k - 2 + l1;
-                    double d7 = d4 * d5 * d6;
-                    d3 += d7;
-                    vec31 = vec31.add(fetcher.fetch(i1, k1, i2).scale(d7));
-                }
-            }
-        }
-
-        return vec31.scale(1.0 / d3);
-    }
-
     public static void setCurrentPhase(int stateCode) {
         List<ResourceLocation> colorNames = new ArrayList<>(DaySkyColors.keySet());
         currentPhase = colorNames.get(stateCode);

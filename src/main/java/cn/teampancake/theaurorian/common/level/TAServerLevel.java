@@ -5,10 +5,10 @@ import cn.teampancake.theaurorian.common.event.TAEventFactory;
 import cn.teampancake.theaurorian.common.network.FutureNightS2CPacket;
 import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
 import cn.teampancake.theaurorian.common.registry.*;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.SectionPos;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,11 +16,14 @@ import net.minecraft.server.level.progress.ChunkProgressListener;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.RandomSequences;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.CustomSpawner;
 import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -31,10 +34,13 @@ import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.ServerLevelData;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.concurrent.Executor;
 import java.util.function.BooleanSupplier;
 
 public class TAServerLevel extends ServerLevel {
@@ -44,10 +50,9 @@ public class TAServerLevel extends ServerLevel {
     private final Queue<Integer> futurePhase = new LinkedList<>();
 
     public TAServerLevel(
-            MinecraftServer server, ServerLevelData serverLevelData, LevelStem levelStem,
-            ChunkProgressListener progressListener, boolean isDebug, long biomeZoomSeed) {
-        super(server, server.executor, server.storageSource, serverLevelData, TADimensions.AURORIAN_DIMENSION,
-                levelStem, progressListener, isDebug, biomeZoomSeed, ImmutableList.of(), Boolean.TRUE, (null));
+            MinecraftServer server, Executor dispatcher, LevelStorageSource.LevelStorageAccess levelStorageAccess, ServerLevelData serverLevelData, ResourceKey<Level> dimension, LevelStem levelStem,
+            ChunkProgressListener progressListener, boolean isDebug, long biomeZoomSeed, List<CustomSpawner> customSpawners, boolean tickTime, @Nullable RandomSequences randomSequences) {
+        super(server, dispatcher, levelStorageAccess, serverLevelData, dimension, levelStem, progressListener, isDebug, biomeZoomSeed, customSpawners, tickTime, randomSequences);
     }
 
     @Override

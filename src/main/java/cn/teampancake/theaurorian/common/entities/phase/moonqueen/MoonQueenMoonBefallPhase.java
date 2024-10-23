@@ -34,10 +34,9 @@ public class MoonQueenMoonBefallPhase extends AttackPhase<MoonQueen> {
         Level level = entity.level();
         entity.setDeltaMovement(Vec3.ZERO);
         if (!level.isClientSide && entity.getAttackTicks() == 15) {
-            level.explode(entity, Explosion.getDefaultDamageSource(level, entity),
-                    EXPLOSION_DAMAGE_CALCULATOR, entity.getX(), entity.getY(), entity.getZ(), (2.0F),
-                    Boolean.FALSE, Level.ExplosionInteraction.NONE, ParticleTypes.EXPLOSION,
-                    ParticleTypes.EXPLOSION_EMITTER, TASoundEvents.EMPTY);
+            level.explode(entity, Explosion.getDefaultDamageSource(level, entity), EXPLOSION_DAMAGE_CALCULATOR,
+                    entity.getX(), entity.getY(), entity.getZ(), (2.0F), Boolean.FALSE, Level.ExplosionInteraction.NONE,
+                    Boolean.FALSE, ParticleTypes.EXPLOSION, ParticleTypes.EXPLOSION_EMITTER, TASoundEvents.EMPTY);
 //            level.broadcastEntityEvent(entity, (byte) 77);
         }
     }

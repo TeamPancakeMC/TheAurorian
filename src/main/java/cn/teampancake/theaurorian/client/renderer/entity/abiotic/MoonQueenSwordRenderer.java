@@ -32,8 +32,8 @@ public class MoonQueenSwordRenderer extends EntityRenderer<MoonQueenSword> {
     @Override
     public void render(MoonQueenSword entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
         poseStack.pushPose();
-        float extra = entity.getSwordType() == 1 && entity.getTimeUntilShoot() > 0 ? -90.0F : 0.0F;
         poseStack.translate(0.0F, -0.8F, 0.0F);
+        float extra = entity.getSwordType() == 1 && entity.getTimeUntilShoot() > 0 ? -90.0F : 0.0F;
         poseStack.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTick, entity.yRotO, entity.getYRot()) + 180.0F));
         poseStack.mulPose(Axis.XP.rotationDegrees(Mth.lerp(partialTick, entity.xRotO, entity.getXRot()) + extra));
         VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutout(this.getTextureLocation(entity)));

@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -15,6 +16,7 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -31,12 +33,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public class UmbraPickaxe extends PickaxeItem implements ITooltipsItem {
+public class UmbraPickaxe extends PickaxeItem {
 
     public UmbraPickaxe() {
-        super(TAToolTiers.UMBRA, new Properties().rarity(Rarity.EPIC)
+        super(TAToolTiers.UMBRA, TAItemProperties.get().rarity(Rarity.EPIC)
                 .component(DataComponents.CUSTOM_DATA, getDefaultSelectedBlock())
-                .attributes(createAttributes(TAToolTiers.UMBRA, (5), (1.2F))));
+                .attributes(createAttributes(TAToolTiers.UMBRA, (5), (1.2F)))
+                .addItemTag(ItemTags.PICKAXES, TAItemTags.IS_EPIC).hasTooltips());
     }
 
     private static CustomData getDefaultSelectedBlock() {

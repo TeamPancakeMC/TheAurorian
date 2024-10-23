@@ -1,9 +1,9 @@
 {
   "values": [
     "theaurorian:rune_stone_key",
-    "theaurorian:rune_stone_loot_key",
+    "theaurorian:dark_stone_key",
     "theaurorian:moon_temple_key",
-    "theaurorian:moon_temple_cell_key",
-    "theaurorian:dark_stone_key"
+    "theaurorian:rune_stone_loot_key",
+    "theaurorian:moon_temple_cell_key"
   ]
 }

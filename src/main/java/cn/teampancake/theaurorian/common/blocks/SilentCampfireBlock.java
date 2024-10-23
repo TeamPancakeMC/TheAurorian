@@ -1,6 +1,8 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.SilentCampfireBlockEntity;
+import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
+import cn.teampancake.theaurorian.common.blocks.state.TALootType;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -19,10 +21,10 @@ import org.jetbrains.annotations.Nullable;
 public class SilentCampfireBlock extends CampfireBlock {
 
     public SilentCampfireBlock() {
-        super(Boolean.TRUE, 1, Properties.of().mapColor(MapColor.PODZOL)
+        super(Boolean.TRUE, 1, TABlockProperties.get().mapColor(MapColor.PODZOL)
                 .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)
                 .lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 15 : 0)
-                .noOcclusion().ignitedByLava());
+                .lootType(TALootType.SILK_TOUCH).noOcclusion().ignitedByLava());
     }
 
     @Override

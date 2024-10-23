@@ -528,7 +528,7 @@ public class TARecipeProvider extends RecipeProvider {
                 .pattern("##I").pattern("# I").pattern("  I").unlockedBy(getHasName(material), has(material)).save(recipeOutput);
     }
 
-    protected static void buildFoodProcessRecipes(RecipeOutput recipeOutput, Item input, Item output, float xp) {
+    public static void buildFoodProcessRecipes(RecipeOutput recipeOutput, Item input, Item output, float xp) {
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 200)
                 .unlockedBy(getHasName(input), has(input)).save(recipeOutput, TheAurorian.prefix(getItemName(output) + "_smelting"));
         SimpleCookingRecipeBuilder.smoking(Ingredient.of(input), RecipeCategory.FOOD, output, xp, 100)

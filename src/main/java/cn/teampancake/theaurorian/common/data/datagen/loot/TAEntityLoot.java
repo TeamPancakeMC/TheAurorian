@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.data.datagen.loot;
 
-import cn.teampancake.theaurorian.common.level.storage.predicate.OverworldAurorianMobCondition;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -58,23 +57,19 @@ public class TAEntityLoot extends VanillaEntityLoot {
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TAItems.AURORIAN_RABBIT.get())
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
                         .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
-                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(0.0F)).when(OverworldAurorianMobCondition.build())));
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
         this.add(TAEntityTypes.AURORIAN_SHEEP.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TAItems.AURORIAN_MUTTON.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
                         .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TABlocks.MYSTERIUM_WOOL.get()))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
-                .withPool(LootPool.lootPool()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(0.0F)).when(OverworldAurorianMobCondition.build()))
-                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(0.0F)).when(OverworldAurorianMobCondition.build())));
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))));
         this.add(TAEntityTypes.AURORIAN_PIG.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TAItems.AURORIAN_PORK.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
                         .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
-                .withPool(LootPool.lootPool()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(0.0F)).when(OverworldAurorianMobCondition.build())));
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
         this.add(TAEntityTypes.AURORIAN_COW.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.LEATHER)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
@@ -85,9 +80,7 @@ public class TAEntityLoot extends VanillaEntityLoot {
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TAItems.AURORIAN_BEEF.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
                         .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
-                .withPool(LootPool.lootPool()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(0.0F)).when(OverworldAurorianMobCondition.build()))
-                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(0.0F)).when(OverworldAurorianMobCondition.build())));
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
         this.add(TAEntityTypes.AURORIAN_PIXIE.get(), LootTable.lootTable());
         //Monster
         this.add(TAEntityTypes.AURORIAN_SLIME.get(), LootTable.lootTable()

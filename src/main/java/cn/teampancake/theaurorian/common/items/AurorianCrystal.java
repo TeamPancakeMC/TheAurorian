@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -14,10 +15,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
-public class AurorianCrystal extends Item implements ITooltipsItem {
+public class AurorianCrystal extends Item {
 
     public AurorianCrystal() {
-        super(new Properties().durability(1));
+        super(TAItemProperties.get().durability(1).addItemTag(TAItemTags.IS_LEGENDARY).hasTooltips().isSimpleModelItem());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -14,12 +15,12 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-public class StrangeMeat extends Item implements ITooltipsItem {
+public class StrangeMeat extends Item {
 
     public StrangeMeat() {
-        super(new Properties().rarity(Rarity.EPIC).durability(10)
-                .food(new FoodProperties.Builder().nutrition(8)
-                        .saturationModifier((0.9F)).alwaysEdible().build()));
+        super(TAItemProperties.get().rarity(Rarity.EPIC).durability(10)
+                .food(new FoodProperties.Builder().nutrition(8).saturationModifier((0.9F)).alwaysEdible()
+                        .build()).addItemTag(TAItemTags.IS_RARE).hasTooltips().isSimpleModelItem());
     }
 
     @Override

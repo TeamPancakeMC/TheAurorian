@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.DungeonStoneGateBlockEntity;
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -19,18 +19,18 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
-public class DungeonStoneGate extends BaseEntityBlock implements ITooltipsItem {
+public class DungeonStoneGate extends BaseEntityBlock {
 
     public static final BooleanProperty UNLOCKED = BooleanProperty.create("unlocked");
 
-    public DungeonStoneGate(Properties properties) {
-        super(properties);
+    public DungeonStoneGate(TABlockProperties properties) {
+        super(properties.hasTooltips().useSimpleBlockItem());
         this.registerDefaultState(this.defaultBlockState().setValue(UNLOCKED, false));
     }
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(DungeonStoneGate::new);
+        return simpleCodec(p -> new DungeonStoneGate(TABlockProperties.get()));
     }
 
     @Override

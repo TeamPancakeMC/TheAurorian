@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.utils;
 
-import cn.teampancake.theaurorian.common.items.TASpecialItem;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -15,13 +15,12 @@ import java.util.function.Supplier;
 
 public class TAItemRegUtils {
 
-    public static DeferredHolder<Item, Item> normal(String name, boolean hasTooltips) {
-        return TAItems.ITEMS.register(name, () -> new TASpecialItem(new Item.Properties(), hasTooltips));
+    public static DeferredHolder<Item, Item> normal(String name, TAItemProperties properties) {
+        return TAItems.ITEMS.register(name, () -> new Item(properties.isSimpleModelItem()));
     }
 
-    public static DeferredHolder<Item, Item> food(String name, int nutrition, float saturation, boolean hasTooltips) {
-        return TAItems.ITEMS.register(name, () -> new TASpecialItem(new Item.Properties().food(
-                new FoodProperties.Builder().nutrition(nutrition).saturationModifier(saturation).build()), hasTooltips));
+    public static DeferredHolder<Item, Item> food(String name, TAItemProperties properties, int nutrition, float saturation) {
+        return TAItems.ITEMS.register(name, () -> new Item(properties.food(new FoodProperties.Builder().nutrition(nutrition).saturationModifier(saturation).build()).isSimpleModelItem()));
     }
 
     public static DeferredHolder<Item, Item> alias(String name, DeferredHolder<Block, Block> block, Item.Properties properties) {

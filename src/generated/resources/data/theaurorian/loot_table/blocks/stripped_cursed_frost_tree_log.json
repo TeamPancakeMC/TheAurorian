@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "theaurorian:stripped_cursed_frost_tree_log"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "theaurorian:blocks/stripped_cursed_frost_tree_log"
+}

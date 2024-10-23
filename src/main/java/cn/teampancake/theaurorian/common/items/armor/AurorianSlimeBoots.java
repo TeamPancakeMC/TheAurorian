@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.armor.AurorianSlimeBootsModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
@@ -20,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 public class AurorianSlimeBoots extends BaseArmor<AurorianSlimeBootsModel> {
 
     public AurorianSlimeBoots() {
-        super(TAArmorMaterials.AURORIAN_SLIME, Type.BOOTS, new Properties().rarity(Rarity.RARE));
+        super(TAArmorMaterials.AURORIAN_SLIME, Type.BOOTS, TAItemProperties.get().rarity(Rarity.RARE));
     }
 
     @Override

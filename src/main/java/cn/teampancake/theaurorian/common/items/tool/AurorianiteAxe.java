@@ -1,9 +1,11 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
@@ -14,10 +16,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class AurorianiteAxe extends AxeItem implements ITooltipsItem {
+public class AurorianiteAxe extends AxeItem {
 
     public AurorianiteAxe() {
-        super(TAToolTiers.AURORIANITE, new Properties().rarity(Rarity.EPIC).attributes(createAttributes(TAToolTiers.AURORIANITE, (12.0F), (-3.5F))));
+        super(TAToolTiers.AURORIANITE, TAItemProperties.get().rarity(Rarity.EPIC)
+                .attributes(createAttributes(TAToolTiers.AURORIANITE, (12.0F), (-3.5F)))
+                .addItemTag(ItemTags.AXES, TAItemTags.IS_EPIC).hasTooltips());
     }
 
     @Override

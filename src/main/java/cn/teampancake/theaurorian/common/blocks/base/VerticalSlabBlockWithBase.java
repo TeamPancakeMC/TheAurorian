@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 
 import java.util.Locale;
 
-public class VerticalSlabBlockWithBase extends Block implements SimpleWaterloggedBlock, IHasBaseBlock, ISimpleBlockItem {
+public class VerticalSlabBlockWithBase extends Block implements SimpleWaterloggedBlock, IHasBaseBlock {
 
     public static final EnumProperty<VerticalSlabShape> SHAPE = EnumProperty.create("shape", VerticalSlabShape.class);
     public static final EnumProperty<Connection> CONNECTION = EnumProperty.create("connection", Connection.class);

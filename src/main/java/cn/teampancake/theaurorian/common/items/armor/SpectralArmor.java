@@ -3,7 +3,9 @@ package cn.teampancake.theaurorian.common.items.armor;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.armor.SpectralArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
@@ -21,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 public class SpectralArmor extends BaseArmor<SpectralArmorModel> {
 
     public SpectralArmor(Type type) {
-        super(TAArmorMaterials.SPECTRAL, type, new Properties().rarity(Rarity.RARE));
+        super(TAArmorMaterials.SPECTRAL, type, TAItemProperties.get().rarity(Rarity.RARE).addItemTag(TAItemTags.SPECTRAL_ARMOR));
     }
 
     public static boolean isWearSpectralArmor(Player player) {

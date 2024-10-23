@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.armor.KnightArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
@@ -28,7 +29,7 @@ import java.util.HashSet;
 public class KnightArmor extends BaseArmor<KnightArmorModel> {
 
     public KnightArmor(Type type) {
-        super(TAArmorMaterials.KNIGHT, type, new Properties().rarity(Rarity.RARE));
+        super(TAArmorMaterials.KNIGHT, type, TAItemProperties.get().rarity(Rarity.RARE));
     }
 
     public static boolean isWearFullArmor(LivingEntity entity) {

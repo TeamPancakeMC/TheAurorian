@@ -7,6 +7,7 @@ import cn.teampancake.theaurorian.common.blocks.modified.HoeTillableBlock;
 import cn.teampancake.theaurorian.common.blocks.sign.*;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockSetType;
+import cn.teampancake.theaurorian.common.blocks.state.TALootType;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
 import cn.teampancake.theaurorian.common.blocks.technical.TempBarrier;
 import cn.teampancake.theaurorian.common.blocks.technical.TrapHoleRestorer;
@@ -34,40 +35,43 @@ public class TABlocks {
     public static final DeferredHolder<Block, LiquidBlock> MOLTEN_CERULEAN = BLOCKS.register("molten_cerulean", () -> new LiquidBlock(TAFluids.MOLTEN_CERULEAN_STILL.get(), ofFullCopy(Blocks.LAVA)));
     public static final DeferredHolder<Block, LiquidBlock> MOLTEN_MOONSTONE = BLOCKS.register("molten_moonstone", () -> new LiquidBlock(TAFluids.MOLTEN_MOONSTONE_STILL.get(), ofFullCopy(Blocks.LAVA)));
     public static final DeferredHolder<Block, LiquidBlock> MOON_WATER = BLOCKS.register("moon_water", () -> new LiquidBlock(TAFluids.MOON_WATER_STILL.get(), ofFullCopy(Blocks.WATER)));
-    public static final DeferredHolder<Block, Block> AURORIAN_STONE = normal("aurorian_stone", defaultStoneProperties(2.0F).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> AURORIAN_EROSIVE = normal("aurorian_erosive", defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, Block> AURORIAN_STONE_BRICKS = normal("aurorian_stone_bricks", defaultStoneProperties(2.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> AURORIAN_COBBLESTONE = normal("aurorian_cobblestone", defaultStoneProperties(2.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> AURORIAN_GRANITE = normal("aurorian_granite", defaultStoneProperties(2.0F).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> AURORIAN_DIORITE = normal("aurorian_diorite", defaultStoneProperties(2.0F).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> AURORIAN_ANDESITE = normal("aurorian_andesite", defaultStoneProperties(2.0F).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> AURORIAN_BARRIER_STONE = normal("aurorian_barrier_stone", ofFullCopy(Blocks.BEDROCK).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> AURORIAN_GRASS_BLOCK = register("aurorian_grass_block", () -> new AurorianGrassBlock(ofFullCopy(Blocks.GRASS_BLOCK).addBlockTag(TABlockTags.AURORIAN_GRASS_BLOCK)));
-    public static final DeferredHolder<Block, Block> LIGHT_AURORIAN_GRASS_BLOCK = register("light_aurorian_grass_block", () -> new AurorianGrassBlock(ofFullCopy(Blocks.GRASS_BLOCK).addBlockTag(TABlockTags.AURORIAN_GRASS_BLOCK).lightLevel(s -> 2)));
-    public static final DeferredHolder<Block, Block> SNOW_AURORIAN_GRASS_BLOCK = register("snow_aurorian_grass_block", () -> new AurorianGrassBlock(ofFullCopy(Blocks.GRASS_BLOCK).addBlockTag(TABlockTags.AURORIAN_GRASS_BLOCK)));
-    public static final DeferredHolder<Block, Block> RED_AURORIAN_GRASS_BLOCK = register("red_aurorian_grass_block", () -> new AurorianGrassBlock(ofFullCopy(Blocks.GRASS_BLOCK).addBlockTag(TABlockTags.AURORIAN_GRASS_BLOCK)));
+    public static final DeferredHolder<Block, Block> AURORIAN_STONE = normal("aurorian_stone", defaultStoneProperties(2.0F).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_EROSIVE = normal("aurorian_erosive", defaultStoneProperties(2.0F).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_STONE_BRICKS = normal("aurorian_stone_bricks", defaultStoneProperties(2.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_COBBLESTONE = normal("aurorian_cobblestone", defaultStoneProperties(2.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_GRANITE = normal("aurorian_granite", defaultStoneProperties(2.0F).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_DIORITE = normal("aurorian_diorite", defaultStoneProperties(2.0F).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_ANDESITE = normal("aurorian_andesite", defaultStoneProperties(2.0F).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_BARRIER_STONE = normal("aurorian_barrier_stone", ofFullCopy(Blocks.BEDROCK).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_GRASS_BLOCK = register("aurorian_grass_block", () -> new AurorianGrassBlock(ofFullCopy(Blocks.GRASS_BLOCK).addBlockTag(TABlockTags.AURORIAN_GRASS_BLOCK).useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> LIGHT_AURORIAN_GRASS_BLOCK = register("light_aurorian_grass_block", () -> new AurorianGrassBlock(ofFullCopy(Blocks.GRASS_BLOCK).addBlockTag(TABlockTags.AURORIAN_GRASS_BLOCK).lightLevel(s -> 2).useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> SNOW_AURORIAN_GRASS_BLOCK = register("snow_aurorian_grass_block", () -> new AurorianGrassBlock(ofFullCopy(Blocks.GRASS_BLOCK).addBlockTag(TABlockTags.AURORIAN_GRASS_BLOCK).useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> RED_AURORIAN_GRASS_BLOCK = register("red_aurorian_grass_block", () -> new AurorianGrassBlock(ofFullCopy(Blocks.GRASS_BLOCK).addBlockTag(TABlockTags.AURORIAN_GRASS_BLOCK).useSimpleBlockItem()));
     public static final DeferredHolder<Block, Block> AURORIAN_FARM_TILE = register("aurorian_farm_tile", () -> new AurorianFarmTile(ofFullCopy(Blocks.FARMLAND).addBlockTag(BlockTags.MINEABLE_WITH_SHOVEL)));
-    public static final DeferredHolder<Block, Block> AURORIAN_DIRT = register("aurorian_dirt", () -> new HoeTillableBlock(AURORIAN_FARM_TILE,
-            ofFullCopy(Blocks.DIRT).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.DIRT, BlockTags.MINEABLE_WITH_SHOVEL)));
-    public static final DeferredHolder<Block, Block> FILTHY_ICE = register("filthy_ice", () -> new IceBlock(ofFullCopy(Blocks.ICE).addBlockTag(BlockTags.ICE, BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON)));
-    public static final DeferredHolder<Block, Block> MOON_GLASS = register("moon_glass", () -> new TransparentBlock(ofFullCopy(Blocks.GLASS)));
-    public static final DeferredHolder<Block, Block> MOON_GLASS_PANE = register("moon_glass_pane", () -> new IronBarsBlock(ofFullCopy(Blocks.GLASS_PANE)));
-    public static final DeferredHolder<Block, Block> AURORIAN_GLASS = register("aurorian_glass", () -> new TransparentBlock(ofFullCopy(Blocks.GLASS)));
-    public static final DeferredHolder<Block, Block> AURORIAN_GLASS_PANE = register("aurorian_glass_pane", () -> new IronBarsBlock(ofFullCopy(Blocks.GLASS_PANE)));
-    public static final DeferredHolder<Block, Block> DARK_STONE_GLASS = register("dark_stone_glass", () -> new TransparentBlock(ofFullCopy(Blocks.GLASS)));
-    public static final DeferredHolder<Block, Block> DARK_STONE_GLASS_PANE = register("dark_stone_glass_pane", () -> new IronBarsBlock(ofFullCopy(Blocks.GLASS_PANE)));
-    public static final DeferredHolder<Block, Block> AURORIAN_GRASS = register("aurorian_grass", () -> new DeadBushBlock(ofFullCopy(Blocks.SHORT_GRASS)));
+    public static final DeferredHolder<Block, Block> AURORIAN_DIRT = register("aurorian_dirt", () -> new HoeTillableBlock(AURORIAN_FARM_TILE, ofFullCopy(Blocks.DIRT)
+            .addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.DIRT, BlockTags.MINEABLE_WITH_SHOVEL).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> FILTHY_ICE = register("filthy_ice", () -> new IceBlock(ofFullCopy(Blocks.ICE).addBlockTag(BlockTags.ICE, BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON).lootType(TALootType.SILK_TOUCH).useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> MOON_GLASS = register("moon_glass", () -> new TransparentBlock(ofFullCopy(Blocks.GLASS).lootType(TALootType.SILK_TOUCH).useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> MOON_GLASS_PANE = register("moon_glass_pane", () -> new IronBarsBlock(ofFullCopy(Blocks.GLASS_PANE).lootType(TALootType.SILK_TOUCH)));
+    public static final DeferredHolder<Block, Block> AURORIAN_GLASS = register("aurorian_glass", () -> new TransparentBlock(ofFullCopy(Blocks.GLASS).lootType(TALootType.SILK_TOUCH).useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> AURORIAN_GLASS_PANE = register("aurorian_glass_pane", () -> new IronBarsBlock(ofFullCopy(Blocks.GLASS_PANE).lootType(TALootType.SILK_TOUCH)));
+    public static final DeferredHolder<Block, Block> DARK_STONE_GLASS = register("dark_stone_glass", () -> new TransparentBlock(ofFullCopy(Blocks.GLASS).lootType(TALootType.SILK_TOUCH).useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> DARK_STONE_GLASS_PANE = register("dark_stone_glass_pane", () -> new IronBarsBlock(ofFullCopy(Blocks.GLASS_PANE).lootType(TALootType.SILK_TOUCH)));
+    public static final DeferredHolder<Block, Block> AURORIAN_GRASS = register("aurorian_grass", () -> new DeadBushBlock(ofFullCopy(Blocks.SHORT_GRASS).lootType(TALootType.SILK_TOUCH)));
     public static final DeferredHolder<Block, Block> AURORIAN_GRASS_LIGHT = register("aurorian_grass_light", () -> new DeadBushBlock(ofFullCopy(Blocks.SHORT_GRASS).lightLevel(s -> 2)));
     public static final DeferredHolder<Block, Block> AURORIAN_WATER_GRASS = register("aurorian_water_grass", () -> new TALightPlantBlock(ofFullCopy(Blocks.SHORT_GRASS)));
     public static final DeferredHolder<Block, Block> AURORIAN_LILY_PAD = BLOCKS.register("aurorian_lily_pad", () -> new AurorianWaterSurfacePlant(Block.box(0.5D, 0.0D, 0.5D, 15.5D, 0.5D, 15.5D)));
     public static final DeferredHolder<Block, Block> AURORIAN_WATER_MUSHROOM = BLOCKS.register("aurorian_water_mushroom", () -> new AurorianWaterSurfacePlant(Block.box(4.0D, 0.0D, 4.0D, 12.0D, 10.5D, 12.0D)));
-    public static final DeferredHolder<Block, Block> AURORIAN_FURNACE = register("aurorian_furnace", () -> new AurorianFurnace(defaultStoneProperties(3.5F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE)));
-    public static final DeferredHolder<Block, Block> AURORIAN_FURNACE_CHIMNEY = register("aurorian_furnace_chimney", () -> new AurorianFurnaceChimney(defaultStoneProperties(2.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE)));
+    public static final DeferredHolder<Block, Block> AURORIAN_FURNACE = register("aurorian_furnace", () -> new AurorianFurnace(defaultStoneProperties(3.5F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF)));
+    public static final DeferredHolder<Block, Block> AURORIAN_FURNACE_CHIMNEY = register("aurorian_furnace_chimney", () -> new AurorianFurnaceChimney(
+            defaultStoneProperties(2.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF).hasTooltips()));
     public static final DeferredHolder<Block, Block> AURORIAN_CRAFTING_TABLE = register("aurorian_crafting_table", AurorianCraftingTable::new);
     public static final DeferredHolder<Block, Block> AURORIAN_PORTAL = BLOCKS.register("aurorian_portal", () -> new AurorianPortal(ofFullCopy(Blocks.NETHER_PORTAL)));
-    public static final DeferredHolder<Block, Block> AURORIAN_PORTAL_FRAME_BRICKS = normal("aurorian_portal_frame_bricks", defaultStoneProperties(2.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE));
+    public static final DeferredHolder<Block, Block> AURORIAN_PORTAL_FRAME_BRICKS = normal("aurorian_portal_frame_bricks",
+            defaultStoneProperties(2.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
     public static final DeferredHolder<Block, Block> URN = register("urn", () -> new UrnBlock(of().mapColor(MapColor.STONE).instabreak().sound(SoundType.GLASS)));
-    public static final DeferredHolder<Block, Block> MYSTERIUM_WOOL = normal("mysterium_wool", ofFullCopy(Blocks.WHITE_WOOL).addBlockTag(BlockTags.WOOL));
+    public static final DeferredHolder<Block, Block> MYSTERIUM_WOOL = normal("mysterium_wool", ofFullCopy(Blocks.WHITE_WOOL)
+            .addBlockTag(BlockTags.WOOL).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
     public static final DeferredHolder<Block, Block> DREAMSCAPE_PISTIL = register("dreamscape_pistil", TASnowfieldTallPlantBlock::new);
     public static final DeferredHolder<Block, Block> FROST_TEARS_FLOWER = register("frost_tears_flower", TASnowfieldTallPlantBlock::new);
     public static final DeferredHolder<Block, Block> NEBULA_BLOSSOM_CLUSTER = register("nebula_blossom_cluster", TAFlowerBlock::new);
@@ -89,8 +93,8 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> TALL_LAVENDER_PLANT = register("tall_lavender_plant", () -> new DoublePlantBlock(ofFullCopy(Blocks.TALL_GRASS)));
     public static final DeferredHolder<Block, Block> TALL_AURORIAN_WATER_GRASS = register("tall_aurorian_water_grass", () -> new TALightDoublePlantBlock(ofFullCopy(Blocks.TALL_GRASS)));
     public static final DeferredHolder<Block, Block> TALL_AURORIAN_GRASS_LIGHT = register("tall_aurorian_grass_light", () -> new TALightDoublePlantBlock(ofFullCopy(Blocks.TALL_GRASS)));
-    public static final DeferredHolder<Block, Block> SMOOTH_AURORIAN_PERIDOTITE = normal("smooth_aurorian_peridotite", defaultStoneProperties(5.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> AURORIAN_PERIDOTITE = normal("aurorian_peridotite", defaultStoneProperties(5.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE));
+    public static final DeferredHolder<Block, Block> SMOOTH_AURORIAN_PERIDOTITE = normal("smooth_aurorian_peridotite", defaultStoneProperties(5.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_PERIDOTITE = normal("aurorian_peridotite", defaultStoneProperties(5.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
 
     /**
      * Ore
@@ -108,64 +112,64 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> AURORIAN_COPPER_ORE = ore("aurorian_copper_ore", ConstantInt.ZERO, ofFullCopy(Blocks.COPPER_ORE).addBlockTag(BlockTags.COPPER_ORES, BlockTags.NEEDS_STONE_TOOL));
     public static final DeferredHolder<Block, Block> AURORIAN_DIAMOND_ORE = ore("aurorian_diamond_ore", UniformInt.of((3), (7)), ofFullCopy(Blocks.DIAMOND_ORE).addBlockTag(BlockTags.DIAMOND_ORES, BlockTags.NEEDS_IRON_TOOL));
     public static final DeferredHolder<Block, Block> AURORIAN_EMERALD_ORE = ore("aurorian_emerald_ore", UniformInt.of((3), (7)), ofFullCopy(Blocks.EMERALD_ORE).addBlockTag(BlockTags.EMERALD_ORES, BlockTags.NEEDS_IRON_TOOL));
-    public static final DeferredHolder<Block, Block> AURORIAN_REDSTONE_ORE = register("aurorian_redstone_ore", () -> new RedStoneOreBlock(ofFullCopy(Blocks.REDSTONE_ORE).addBlockTag(BlockTags.REDSTONE_ORES, BlockTags.NEEDS_IRON_TOOL)));
+    public static final DeferredHolder<Block, Block> AURORIAN_REDSTONE_ORE = register("aurorian_redstone_ore", () -> new RedStoneOreBlock(ofFullCopy(Blocks.REDSTONE_ORE).addBlockTag(BlockTags.REDSTONE_ORES, BlockTags.NEEDS_IRON_TOOL).isSimpleModelBlock().useSimpleBlockItem()));
     public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_GOLD_ORE = ore("erosive_aurorian_gold_ore", ConstantInt.ZERO, ofFullCopy(Blocks.DEEPSLATE_GOLD_ORE).addBlockTag(BlockTags.GOLD_ORES, BlockTags.NEEDS_IRON_TOOL));
     public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_IRON_ORE = ore("erosive_aurorian_iron_ore", ConstantInt.ZERO, ofFullCopy(Blocks.DEEPSLATE_IRON_ORE).addBlockTag(BlockTags.IRON_ORES, BlockTags.NEEDS_STONE_TOOL));
     public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_LAPIS_ORE = ore("erosive_aurorian_lapis_ore", UniformInt.of((2), (5)), ofFullCopy(Blocks.DEEPSLATE_LAPIS_ORE).addBlockTag(BlockTags.LAPIS_ORES, BlockTags.NEEDS_STONE_TOOL));
     public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_COPPER_ORE = ore("erosive_aurorian_copper_ore", ConstantInt.ZERO, ofFullCopy(Blocks.DEEPSLATE_COPPER_ORE).addBlockTag(BlockTags.COPPER_ORES, BlockTags.NEEDS_STONE_TOOL));
     public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_DIAMOND_ORE = ore("erosive_aurorian_diamond_ore", UniformInt.of((3), (7)), ofFullCopy(Blocks.DEEPSLATE_DIAMOND_ORE).addBlockTag(BlockTags.DIAMOND_ORES, BlockTags.NEEDS_IRON_TOOL));
     public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_EMERALD_ORE = ore("erosive_aurorian_emerald_ore", UniformInt.of((3), (7)), ofFullCopy(Blocks.DEEPSLATE_EMERALD_ORE).addBlockTag(BlockTags.EMERALD_ORES, BlockTags.NEEDS_IRON_TOOL));
-    public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_REDSTONE_ORE = register("erosive_aurorian_redstone_ore", () -> new RedStoneOreBlock(ofFullCopy(Blocks.DEEPSLATE_REDSTONE_ORE).addBlockTag(BlockTags.REDSTONE_ORES, BlockTags.NEEDS_IRON_TOOL)));
+    public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_REDSTONE_ORE = register("erosive_aurorian_redstone_ore", () -> new RedStoneOreBlock(ofFullCopy(Blocks.DEEPSLATE_REDSTONE_ORE).addBlockTag(BlockTags.REDSTONE_ORES, BlockTags.NEEDS_IRON_TOOL).isSimpleModelBlock().useSimpleBlockItem()));
 
-    public static final DeferredHolder<Block, Block> RUNE_STONE = normal("rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK, TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON));
-    public static final DeferredHolder<Block, Block> SMOOTH_RUNE_STONE = normal("smooth_rune_stone", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> CHISELED_RUNE_STONE = normal("chiseled_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> AURORIAN_CASTLE_RUNE_STONE = normal("aurorian_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> AURORIAN_STEEL_CASTLE_RUNE_STONE = normal("aurorian_steel_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> CERULEAN_CASTLE_RUNE_STONE = normal("cerulean_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> CRYSTALLINE_CASTLE_RUNE_STONE = normal("crystalline_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> MOON_CASTLE_RUNE_STONE = normal("moon_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> TRANSPARENT_RUNE_STONE = normal("transparent_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> UMBRA_CASTLE_RUNE_STONE = normal("umbra_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE = normal("luminous_aurorian_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE = normal("luminous_aurorian_steel_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE = normal("luminous_cerulean_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE = normal("luminous_crystalline_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> LUMINOUS_MOON_CASTLE_RUNE_STONE = normal("luminous_moon_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK));
-    public static final DeferredHolder<Block, Block> RUNE_STONE_PILLAR = register("rune_stone_pillar", () -> new RotatedPillarBlock(dungeonBlockProperties()));
-    public static final DeferredHolder<Block, Block> DARK_STONE_PILLAR = register("dark_stone_pillar", () -> new RotatedPillarBlock(dungeonBlockProperties()));
-    public static final DeferredHolder<Block, Block> MOON_TEMPLE_PILLAR = register("moon_temple_pillar", () -> new RotatedPillarBlock(dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS)));
-    public static final DeferredHolder<Block, Block> MOON_TEMPLE_BRICKS = normal("moon_temple_bricks", dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS, TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON));
-    public static final DeferredHolder<Block, Block> DARK_STONE_BRICKS = normal("dark_stone_bricks", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON));
-    public static final DeferredHolder<Block, Block> DARK_STONE_FANCY = normal("dark_stone_fancy", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON));
-    public static final DeferredHolder<Block, Block> DARK_STONE_LAYERS = normal("dark_stone_layers", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON));
-    public static final DeferredHolder<Block, Block> SMOOTH_DARK_STONE_BRICKS = normal("smooth_dark_stone_bricks", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON));
-    public static final DeferredHolder<Block, Block> CHISELED_DARK_STONE_BRICKS = normal("chiseled_dark_stone_bricks", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON));
-    public static final DeferredHolder<Block, Block> SMOOTH_MOON_TEMPLE_BRICKS = normal("smooth_moon_temple_bricks", dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS, TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON));
-    public static final DeferredHolder<Block, Block> CHISELED_MOON_TEMPLE_BRICKS = normal("chiseled_moon_temple_bricks", dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS, TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON));
-    public static final DeferredHolder<Block, Block> RUNE_STONE_LAMP = normal("rune_stone_lamp", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).lightLevel(s -> 15));
-    public static final DeferredHolder<Block, Block> DARK_STONE_LAMP = normal("dark_stone_lamp", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).lightLevel(s -> 15));
-    public static final DeferredHolder<Block, Block> MOON_TEMPLE_LAMP = normal("moon_temple_lamp", dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS, TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).lightLevel(s -> 15));
-    public static final DeferredHolder<Block, Block> VOID_STONE = normal("void_stone", dungeonBlockProperties().lightLevel(s -> 7));
-    public static final DeferredHolder<Block, Block> RUNE_CRYSTAL = normal("rune_crystal", dungeonBlockProperties().lightLevel(s -> 3));
+    public static final DeferredHolder<Block, Block> RUNE_STONE = normal("rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK, TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> SMOOTH_RUNE_STONE = normal("smooth_rune_stone", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).addBlockTag(TABlockTags.RUNE_STONE_BLOCK).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> CHISELED_RUNE_STONE = normal("chiseled_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_CASTLE_RUNE_STONE = normal("aurorian_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_STEEL_CASTLE_RUNE_STONE = normal("aurorian_steel_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> CERULEAN_CASTLE_RUNE_STONE = normal("cerulean_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> CRYSTALLINE_CASTLE_RUNE_STONE = normal("crystalline_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> MOON_CASTLE_RUNE_STONE = normal("moon_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> TRANSPARENT_RUNE_STONE = normal("transparent_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> UMBRA_CASTLE_RUNE_STONE = normal("umbra_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE = normal("luminous_aurorian_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE = normal("luminous_aurorian_steel_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE = normal("luminous_cerulean_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE = normal("luminous_crystalline_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> LUMINOUS_MOON_CASTLE_RUNE_STONE = normal("luminous_moon_castle_rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK).useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> RUNE_STONE_PILLAR = register("rune_stone_pillar", () -> new RotatedPillarBlock(dungeonBlockProperties().useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> DARK_STONE_PILLAR = register("dark_stone_pillar", () -> new RotatedPillarBlock(dungeonBlockProperties().useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> MOON_TEMPLE_PILLAR = register("moon_temple_pillar", () -> new RotatedPillarBlock(dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> MOON_TEMPLE_BRICKS = normal("moon_temple_bricks", dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS, TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> DARK_STONE_BRICKS = normal("dark_stone_bricks", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> DARK_STONE_FANCY = normal("dark_stone_fancy", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> DARK_STONE_LAYERS = normal("dark_stone_layers", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> SMOOTH_DARK_STONE_BRICKS = normal("smooth_dark_stone_bricks", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> CHISELED_DARK_STONE_BRICKS = normal("chiseled_dark_stone_bricks", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> SMOOTH_MOON_TEMPLE_BRICKS = normal("smooth_moon_temple_bricks", dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS, TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> CHISELED_MOON_TEMPLE_BRICKS = normal("chiseled_moon_temple_bricks", dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS, TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> RUNE_STONE_LAMP = normal("rune_stone_lamp", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).lightLevel(s -> 15).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> DARK_STONE_LAMP = normal("dark_stone_lamp", dungeonBlockProperties(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).lightLevel(s -> 15).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> MOON_TEMPLE_LAMP = normal("moon_temple_lamp", dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS, TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).lightLevel(s -> 15).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> VOID_STONE = normal("void_stone", dungeonBlockProperties().lightLevel(s -> 7).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> RUNE_CRYSTAL = normal("rune_crystal", dungeonBlockProperties().lightLevel(s -> 3).isSimpleModelBlock().useSimpleBlockItem());
     public static final DeferredHolder<Block, Block> MYSTICAL_BARRIER = BLOCKS.register("mystical_barrier", () -> new MysticalBarrier(ofFullCopy(Blocks.BEDROCK)));
     public static final DeferredHolder<Block, Block> RUNE_STONE_BARS = register("rune_stone_bars", () -> new IronBarsBlock(dungeonBlockProperties().mapColor(MapColor.METAL)));
     public static final DeferredHolder<Block, Block> DARK_STONE_BARS = register("dark_stone_bars", () -> new IronBarsBlock(dungeonBlockProperties().mapColor(MapColor.METAL)));
     public static final DeferredHolder<Block, Block> MOON_TEMPLE_BARS = register("moon_temple_bars", () -> new IronBarsBlock(dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).mapColor(MapColor.METAL)));
-    public static final DeferredHolder<Block, Block> RUNE_STONE_GATE = register("rune_stone_gate", () -> new DungeonStoneGate(dungeonBlockProperties()));
-    public static final DeferredHolder<Block, Block> MOON_TEMPLE_GATE = register("moon_temple_gate", () -> new DungeonStoneGate(dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS)));
-    public static final DeferredHolder<Block, Block> DARK_STONE_GATE = register("dark_stone_gate", () -> new DungeonStoneGate(dungeonBlockProperties()));
-    public static final DeferredHolder<Block, Block> RUNE_STONE_LOOT_GATE = register("rune_stone_loot_gate", () -> new DungeonStoneGate(dungeonBlockProperties()));
-    public static final DeferredHolder<Block, Block> MOON_TEMPLE_CELL_GATE = register("moon_temple_cell_gate", () -> new DungeonStoneGate(dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS)));
+    public static final DeferredHolder<Block, Block> RUNE_STONE_GATE = register("rune_stone_gate", () -> new DungeonStoneGate(dungeonBlockProperties().isSimpleModelBlock()));
+    public static final DeferredHolder<Block, Block> MOON_TEMPLE_GATE = register("moon_temple_gate", () -> new DungeonStoneGate(dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).isSimpleModelBlock()));
+    public static final DeferredHolder<Block, Block> DARK_STONE_GATE = register("dark_stone_gate", () -> new DungeonStoneGate(dungeonBlockProperties().isSimpleModelBlock()));
+    public static final DeferredHolder<Block, Block> RUNE_STONE_LOOT_GATE = register("rune_stone_loot_gate", () -> new DungeonStoneGate(dungeonBlockProperties().isSimpleModelBlock()));
+    public static final DeferredHolder<Block, Block> MOON_TEMPLE_CELL_GATE = register("moon_temple_cell_gate", () -> new DungeonStoneGate(dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).isSimpleModelBlock()));
     public static final DeferredHolder<Block, Block> DARK_STONE_GATE_KEYHOLE = register("dark_stone_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.DARK_STONE_KEY, DARK_STONE_GATE));
     public static final DeferredHolder<Block, Block> MOON_TEMPLE_GATE_KEYHOLE = register("moon_temple_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.MOON_TEMPLE_KEY, MOON_TEMPLE_GATE));
     public static final DeferredHolder<Block, Block> RUNE_STONE_GATE_KEYHOLE = register("rune_stone_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.RUNE_STONE_KEY, RUNE_STONE_GATE, Boolean.TRUE));
     public static final DeferredHolder<Block, Block> RUNE_STONE_LOOT_GATE_KEYHOLE = register("rune_stone_loot_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.RUNE_STONE_LOOT_KEY, RUNE_STONE_LOOT_GATE));
     public static final DeferredHolder<Block, Block> MOON_TEMPLE_CELL_GATE_KEYHOLE = register("moon_temple_cell_gate_keyhole", () -> new DungeonStoneGateKeyhole(TAItems.MOON_TEMPLE_CELL_KEY, MOON_TEMPLE_CELL_GATE));
-    public static final DeferredHolder<Block, Block> CERULEAN_BLOCK = normal("cerulean_block", defaultStoneProperties(3.0F).mapColor(MapColor.METAL).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL));
-    public static final DeferredHolder<Block, Block> MOONSTONE_BLOCK = normal("moonstone_block", defaultStoneProperties(3.0F).mapColor(MapColor.METAL).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL));
-    public static final DeferredHolder<Block, Block> AURORIAN_COAL_BLOCK = normal("aurorian_coal_block", defaultStoneProperties(5.0F).mapColor(MapColor.METAL).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> AURORIAN_STEEL_BLOCK = normal("aurorian_steel_block", defaultStoneProperties(5.0F).mapColor(MapColor.METAL).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL));
+    public static final DeferredHolder<Block, Block> CERULEAN_BLOCK = normal("cerulean_block", defaultStoneProperties(3.0F).mapColor(MapColor.METAL).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> MOONSTONE_BLOCK = normal("moonstone_block", defaultStoneProperties(3.0F).mapColor(MapColor.METAL).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_COAL_BLOCK = normal("aurorian_coal_block", defaultStoneProperties(5.0F).mapColor(MapColor.METAL).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> AURORIAN_STEEL_BLOCK = normal("aurorian_steel_block", defaultStoneProperties(5.0F).mapColor(MapColor.METAL).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL).isSimpleModelBlock().useSimpleBlockItem());
     public static final DeferredHolder<Block, Block> LARGE_FILTHY_ICE_SPIKE = register("large_filthy_ice_spike", LargeFilthyIceSpike::new);
     public static final DeferredHolder<Block, Block> MEDIUM_FILTHY_ICE_SPIKE = register("medium_filthy_ice_spike", () -> new FilthyIceSpike(FilthyIceSpike.Size.MEDIUM));
     public static final DeferredHolder<Block, Block> SMALL_FILTHY_ICE_SPIKE = register("small_filthy_ice_spike", () -> new FilthyIceSpike(FilthyIceSpike.Size.SMALL));
@@ -177,39 +181,40 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> LARGE_MOONSTONE_BUD = register("large_moonstone_bud", () -> new TAClusterBlock(5, 3, ofFullCopy(Blocks.LARGE_AMETHYST_BUD)));
     public static final DeferredHolder<Block, Block> MEDIUM_MOONSTONE_BUD = register("medium_moonstone_bud", () -> new TAClusterBlock(4, 3, ofFullCopy(Blocks.MEDIUM_AMETHYST_BUD)));
     public static final DeferredHolder<Block, Block> SMALL_MOONSTONE_BUD = register("small_moonstone_bud", () -> new TAClusterBlock(3, 4, ofFullCopy(Blocks.SMALL_AMETHYST_BUD)));
-    public static final DeferredHolder<Block, Block> INDIGO_MUSHROOM = register("indigo_mushroom", () -> new IndigoMushroomBlock(ofFullCopy(Blocks.BROWN_MUSHROOM), TAConfiguredFeatures.HUGE_INDIGO_MUSHROOM));
+    public static final DeferredHolder<Block, Block> INDIGO_MUSHROOM = register("indigo_mushroom", () -> new IndigoMushroomBlock(ofFullCopy(Blocks.BROWN_MUSHROOM).lootType(TALootType.SELF), TAConfiguredFeatures.HUGE_INDIGO_MUSHROOM));
     public static final DeferredHolder<Block, Block> INDIGO_MUSHROOM_BLOCK = register("indigo_mushroom_block", () -> new IndigoMushroom(ofFullCopy(Blocks.BROWN_MUSHROOM_BLOCK).destroyTime(1.0F)));
-    public static final DeferredHolder<Block, Block> INDIGO_MUSHROOM_STEM = register("indigo_mushroom_stem", () -> new HugeMushroomBlock(ofFullCopy(Blocks.MUSHROOM_STEM).destroyTime(1.0F)));
-    public static final DeferredHolder<Block, Block> INDIGO_MUSHROOM_CRYSTAL = normal("indigo_mushroom_crystal", get().addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.GLASS).lightLevel(s -> 1));
+    public static final DeferredHolder<Block, Block> INDIGO_MUSHROOM_STEM = register("indigo_mushroom_stem", () -> new HugeMushroomBlock(ofFullCopy(Blocks.MUSHROOM_STEM).destroyTime(1.0F).lootType(TALootType.SILK_TOUCH)));
+    public static final DeferredHolder<Block, Block> INDIGO_MUSHROOM_CRYSTAL = normal("indigo_mushroom_crystal",
+            get().addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.GLASS).lightLevel(s -> 1).isSimpleModelBlock().useSimpleBlockItem());
     public static final DeferredHolder<Block, Block> MOONLIGHT_FORGE = register("moonlight_forge", () -> new MoonlightForge(defaultStoneProperties((2.0F))
-            .addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL).mapColor(MapColor.METAL).sound(SoundType.METAL).noOcclusion()));
+            .addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL).lootType(TALootType.SELF).mapColor(MapColor.METAL).sound(SoundType.METAL).noOcclusion()));
     public static final DeferredHolder<Block, Block> MOON_GEM = normal("moon_gem", defaultStoneProperties(2.0F)
-            .addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.METAL).noOcclusion());
+            .addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL).lootType(TALootType.SELF).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.METAL).noOcclusion());
     public static final DeferredHolder<Block, Block> MOON_SAND = register("moon_sand", () -> new TASandBlock(14406560, ofFullCopy(Blocks.SAND)
-            .addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, TABlockTags.AURORIAN_SAND_BLOCK, TABlockTags.AURORIAN_LIGHT_PLANT_MAY_PLACE_ON, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.SAND)));
-    public static final DeferredHolder<Block, Block> MOON_SAND_RIVER = register("moon_sand_river", () -> new TASandBlock(14406560, ofFullCopy(Blocks.SAND).addBlockTag(BlockTags.SAND)));
-    public static final DeferredHolder<Block, Block> MOON_SANDSTONE = normal("moon_sandstone", ofFullCopy(Blocks.SANDSTONE).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> CUT_MOON_SANDSTONE = normal("cut_moon_sandstone", ofFullCopy(Blocks.CUT_SANDSTONE).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> SMOOTH_MOON_SANDSTONE = normal("smooth_moon_sandstone", ofFullCopy(Blocks.SMOOTH_SANDSTONE).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> BRIGHT_MOON_SANDSTONE = normal("bright_moon_sandstone", ofFullCopy(Blocks.SANDSTONE).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> BRIGHT_MOON_SAND =  register("bright_moon_sand", () -> new TASandBlock(14406560, ofFullCopy(Blocks.SAND).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.SAND)));
-    public static final DeferredHolder<Block, Block> MOON_TORCH = BLOCKS.register("moon_torch", () -> new TorchBlock(ParticleTypes.CLOUD, ofFullCopy(Blocks.TORCH).addBlockTag(BlockTags.WALL_POST_OVERRIDE)));
+            .addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, TABlockTags.AURORIAN_SAND_BLOCK, TABlockTags.AURORIAN_LIGHT_PLANT_MAY_PLACE_ON, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.SAND).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem().useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> MOON_SAND_RIVER = register("moon_sand_river", () -> new TASandBlock(14406560, ofFullCopy(Blocks.SAND).addBlockTag(BlockTags.SAND).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> MOON_SANDSTONE = normal("moon_sandstone", ofFullCopy(Blocks.SANDSTONE).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> CUT_MOON_SANDSTONE = normal("cut_moon_sandstone", ofFullCopy(Blocks.CUT_SANDSTONE).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> SMOOTH_MOON_SANDSTONE = normal("smooth_moon_sandstone", ofFullCopy(Blocks.SMOOTH_SANDSTONE).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> BRIGHT_MOON_SANDSTONE = normal("bright_moon_sandstone", ofFullCopy(Blocks.SANDSTONE).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_PICKAXE).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> BRIGHT_MOON_SAND =  register("bright_moon_sand", () -> new TASandBlock(14406560, ofFullCopy(Blocks.SAND).addBlockTag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.SAND).isSimpleModelBlock().useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> MOON_TORCH = BLOCKS.register("moon_torch", () -> new TorchBlock(ParticleTypes.CLOUD, ofFullCopy(Blocks.TORCH).addBlockTag(BlockTags.WALL_POST_OVERRIDE).lootType(TALootType.SELF)));
     public static final DeferredHolder<Block, Block> MOON_WALL_TORCH = BLOCKS.register("moon_wall_torch", () -> new WallTorchBlock(ParticleTypes.CLOUD, ofFullCopy(Blocks.WALL_TORCH)));
-    public static final DeferredHolder<Block, Block> SCRAPPER = register("scrapper", () -> new Scrapper(defaultStoneProperties(2.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE)));
-    public static final DeferredHolder<Block, Block> UMBRA_STONE = normal("umbra_stone", defaultStoneProperties(5.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> UMBRA_STONE_CRACKED = normal("umbra_stone_cracked", defaultStoneProperties(5.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE));
-    public static final DeferredHolder<Block, Block> UMBRA_STONE_ROOF_TILES = normal("umbra_stone_roof_tiles", defaultStoneProperties(5.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE));
+    public static final DeferredHolder<Block, Block> SCRAPPER = register("scrapper", () -> new Scrapper(defaultStoneProperties(2.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).useSimpleBlockItem()));
+    public static final DeferredHolder<Block, Block> UMBRA_STONE = normal("umbra_stone", defaultStoneProperties(5.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> UMBRA_STONE_CRACKED = normal("umbra_stone_cracked", defaultStoneProperties(5.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
+    public static final DeferredHolder<Block, Block> UMBRA_STONE_ROOF_TILES = normal("umbra_stone_roof_tiles", defaultStoneProperties(5.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
     public static final DeferredHolder<Block, Block> STRIPPED_SILENT_TREE_LOG = wood("stripped_silent_tree_log", MapColor.COLOR_BLUE, 2.0F, TABlockTags.SILENT_TREE_LOGS);
     public static final DeferredHolder<Block, Block> STRIPPED_SILENT_TREE_WOOD = wood("stripped_silent_tree_wood", MapColor.COLOR_BLUE, 2.0F, TABlockTags.SILENT_TREE_LOGS);
     public static final DeferredHolder<Block, Block> SILENT_TREE_LEAVES = register("silent_tree_leaves", () -> Blocks.leaves(SoundType.GRASS));
-    public static final DeferredHolder<Block, Block> SILENT_TREE_PLANKS = normal("silent_tree_planks", ofFullCopy(Blocks.OAK_PLANKS).addBlockTag(TABlockTags.AURORIAN_PLANKS));
+    public static final DeferredHolder<Block, Block> SILENT_TREE_PLANKS = normal("silent_tree_planks", ofFullCopy(Blocks.OAK_PLANKS).addBlockTag(TABlockTags.AURORIAN_PLANKS).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
     public static final DeferredHolder<Block, Block> SILENT_TREE_LOG = wood("silent_tree_log", STRIPPED_SILENT_TREE_LOG, MapColor.COLOR_BLUE, 2.0F, TABlockTags.SILENT_TREE_LOGS);
     public static final DeferredHolder<Block, Block> SILENT_TREE_WOOD = wood("silent_tree_wood", STRIPPED_SILENT_TREE_WOOD, MapColor.COLOR_BLUE, 2.0F, TABlockTags.SILENT_TREE_LOGS);
-    public static final DeferredHolder<Block, Block> SILENT_TREE_SAPLING = register("silent_tree_sapling", () -> new SaplingBlock(TATreeGrower.SILENT_TREE, ofFullCopy(Blocks.OAK_SAPLING).addBlockTag(BlockTags.SAPLINGS)));
-    public static final DeferredHolder<Block, Block> SILENT_WOOD_TORCH = BLOCKS.register("silent_wood_torch", () -> new TorchBlock(ParticleTypes.FLAME, ofFullCopy(Blocks.TORCH).addBlockTag(BlockTags.WALL_POST_OVERRIDE)));
+    public static final DeferredHolder<Block, Block> SILENT_TREE_SAPLING = register("silent_tree_sapling", () -> new SaplingBlock(TATreeGrower.SILENT_TREE, ofFullCopy(Blocks.OAK_SAPLING).addBlockTag(BlockTags.SAPLINGS).lootType(TALootType.SELF)));
+    public static final DeferredHolder<Block, Block> SILENT_WOOD_TORCH = BLOCKS.register("silent_wood_torch", () -> new TorchBlock(ParticleTypes.FLAME, ofFullCopy(Blocks.TORCH).addBlockTag(BlockTags.WALL_POST_OVERRIDE).lootType(TALootType.SELF)));
     public static final DeferredHolder<Block, Block> SILENT_WOOD_WALL_TORCH = BLOCKS.register("silent_wood_wall_torch", () -> new WallTorchBlock(ParticleTypes.FLAME, ofFullCopy(Blocks.WALL_TORCH)));
     public static final DeferredHolder<Block, Block> SILENT_WOOD_CHEST = BLOCKS.register("silent_wood_chest", SilentWoodChest::new);
-    public static final DeferredHolder<Block, Block> SILENT_WOOD_LADDER = register("silent_wood_ladder", () -> new LadderBlock(ofFullCopy(Blocks.LADDER).addBlockTag(BlockTags.CLIMBABLE)));
+    public static final DeferredHolder<Block, Block> SILENT_WOOD_LADDER = register("silent_wood_ladder", () -> new LadderBlock(ofFullCopy(Blocks.LADDER).addBlockTag(BlockTags.CLIMBABLE).lootType(TALootType.SELF)));
     public static final DeferredHolder<Block, Block> SILENT_WOOD_SIGN = BLOCKS.register("silent_wood_sign", () -> new TAStandingSignBlock(ofFullCopy(Blocks.OAK_SIGN).addBlockTag(BlockTags.STANDING_SIGNS), TAWoodType.SILENT));
     public static final DeferredHolder<Block, Block> SILENT_WOOD_WALL_SIGN = BLOCKS.register("silent_wood_wall_sign", () -> new TAWallSignBlock(ofFullCopy(Blocks.OAK_SIGN).addBlockTag(BlockTags.WALL_SIGNS), TAWoodType.SILENT));
     public static final DeferredHolder<Block, Block> SILENT_WOOD_HANGING_SIGN = BLOCKS.register("silent_wood_hanging_sign",
@@ -219,7 +224,7 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> STRIPPED_WEEPING_WILLOW_LOG = wood("stripped_weeping_willow_log", MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.WEEPING_WILLOW_LOGS);
     public static final DeferredHolder<Block, Block> STRIPPED_WEEPING_WILLOW_WOOD = wood("stripped_weeping_willow_wood", MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.WEEPING_WILLOW_LOGS);
     public static final DeferredHolder<Block, Block> WEEPING_WILLOW_LEAVES = register("weeping_willow_leaves", () -> Blocks.leaves(SoundType.GRASS));
-    public static final DeferredHolder<Block, Block> WEEPING_WILLOW_PLANKS = normal("weeping_willow_planks", ofFullCopy(Blocks.OAK_PLANKS).addBlockTag(TABlockTags.AURORIAN_PLANKS));
+    public static final DeferredHolder<Block, Block> WEEPING_WILLOW_PLANKS = normal("weeping_willow_planks", ofFullCopy(Blocks.OAK_PLANKS).addBlockTag(TABlockTags.AURORIAN_PLANKS).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
     public static final DeferredHolder<Block, Block> WEEPING_WILLOW_LOG = wood("weeping_willow_log", STRIPPED_WEEPING_WILLOW_LOG, MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.WEEPING_WILLOW_LOGS);
     public static final DeferredHolder<Block, Block> WEEPING_WILLOW_WOOD = wood("weeping_willow_wood", STRIPPED_WEEPING_WILLOW_WOOD, MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.WEEPING_WILLOW_LOGS);
     public static final DeferredHolder<Block, Block> WEEPING_WILLOW_WOOD_SIGN = BLOCKS.register("weeping_willow_wood_sign",
@@ -233,10 +238,10 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> STRIPPED_CURTAIN_TREE_LOG = wood("stripped_curtain_tree_log", MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.CURTAIN_TREE_LOGS);
     public static final DeferredHolder<Block, Block> STRIPPED_CURTAIN_TREE_WOOD = wood("stripped_curtain_tree_wood", MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.CURTAIN_TREE_LOGS);
     public static final DeferredHolder<Block, Block> CURTAIN_TREE_LEAVES = register("curtain_tree_leaves", () -> Blocks.leaves(SoundType.GRASS));
-    public static final DeferredHolder<Block, Block> CURTAIN_TREE_PLANKS = normal("curtain_tree_planks", ofFullCopy(Blocks.OAK_PLANKS).addBlockTag(TABlockTags.AURORIAN_PLANKS));
+    public static final DeferredHolder<Block, Block> CURTAIN_TREE_PLANKS = normal("curtain_tree_planks", ofFullCopy(Blocks.OAK_PLANKS).addBlockTag(TABlockTags.AURORIAN_PLANKS).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
     public static final DeferredHolder<Block, Block> CURTAIN_TREE_LOG = wood("curtain_tree_log", STRIPPED_CURTAIN_TREE_LOG, MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.CURTAIN_TREE_LOGS);
     public static final DeferredHolder<Block, Block> CURTAIN_TREE_WOOD = wood("curtain_tree_wood", STRIPPED_CURTAIN_TREE_WOOD, MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.CURTAIN_TREE_LOGS);
-    public static final DeferredHolder<Block, Block> CURTAIN_TREE_SAPLING = register("curtain_tree_sapling", () -> new SaplingBlock(TATreeGrower.CURTAIN_TREE, ofFullCopy(Blocks.OAK_SAPLING).addBlockTag(BlockTags.SAPLINGS)));
+    public static final DeferredHolder<Block, Block> CURTAIN_TREE_SAPLING = register("curtain_tree_sapling", () -> new SaplingBlock(TATreeGrower.CURTAIN_TREE, ofFullCopy(Blocks.OAK_SAPLING).addBlockTag(BlockTags.SAPLINGS).lootType(TALootType.SELF)));
     public static final DeferredHolder<Block, Block> CURTAIN_WOOD_SIGN = BLOCKS.register("curtain_wood_sign", () -> new TAStandingSignBlock(ofFullCopy(Blocks.OAK_SIGN).addBlockTag(BlockTags.STANDING_SIGNS), TAWoodType.CURTAIN));
     public static final DeferredHolder<Block, Block> CURTAIN_WOOD_WALL_SIGN = BLOCKS.register("curtain_wood_wall_sign", () -> new TAWallSignBlock(ofFullCopy(Blocks.OAK_SIGN).addBlockTag(BlockTags.WALL_SIGNS), TAWoodType.CURTAIN));
     public static final DeferredHolder<Block, Block> CURTAIN_WOOD_HANGING_SIGN = BLOCKS.register("curtain_wood_hanging_sign",
@@ -246,10 +251,10 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> STRIPPED_CURSED_FROST_TREE_LOG = wood("stripped_cursed_frost_tree_log", MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.CURSED_FROST_TREE_LOGS);
     public static final DeferredHolder<Block, Block> STRIPPED_CURSED_FROST_TREE_WOOD = wood("stripped_cursed_frost_tree_wood", MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.CURSED_FROST_TREE_LOGS);
     public static final DeferredHolder<Block, Block> CURSED_FROST_TREE_LEAVES = register("cursed_frost_tree_leaves", () -> Blocks.leaves(SoundType.GRASS));
-    public static final DeferredHolder<Block, Block> CURSED_FROST_TREE_PLANKS = normal("cursed_frost_tree_planks", ofFullCopy(Blocks.OAK_PLANKS).addBlockTag(TABlockTags.AURORIAN_PLANKS));
+    public static final DeferredHolder<Block, Block> CURSED_FROST_TREE_PLANKS = normal("cursed_frost_tree_planks", ofFullCopy(Blocks.OAK_PLANKS).addBlockTag(TABlockTags.AURORIAN_PLANKS).lootType(TALootType.SELF).isSimpleModelBlock().useSimpleBlockItem());
     public static final DeferredHolder<Block, Block> CURSED_FROST_TREE_LOG = wood("cursed_frost_tree_log", STRIPPED_CURSED_FROST_TREE_LOG, MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.CURSED_FROST_TREE_LOGS);
     public static final DeferredHolder<Block, Block> CURSED_FROST_TREE_WOOD = wood("cursed_frost_tree_wood", STRIPPED_CURSED_FROST_TREE_WOOD, MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.CURSED_FROST_TREE_LOGS);
-    public static final DeferredHolder<Block, Block> CURSED_FROST_TREE_SAPLING = register("cursed_frost_tree_sapling", () -> new SaplingBlock(TATreeGrower.CURSED_FROST_TREE, ofFullCopy(Blocks.OAK_SAPLING).addBlockTag(BlockTags.SAPLINGS)));
+    public static final DeferredHolder<Block, Block> CURSED_FROST_TREE_SAPLING = register("cursed_frost_tree_sapling", () -> new SaplingBlock(TATreeGrower.CURSED_FROST_TREE, ofFullCopy(Blocks.OAK_SAPLING).addBlockTag(BlockTags.SAPLINGS).lootType(TALootType.SELF)));
     public static final DeferredHolder<Block, Block> CURSED_FROST_WOOD_SIGN = BLOCKS.register("cursed_frost_wood_sign", () -> new TAStandingSignBlock(ofFullCopy(Blocks.OAK_SIGN).addBlockTag(BlockTags.STANDING_SIGNS), TAWoodType.CURTAIN));
     public static final DeferredHolder<Block, Block> CURSED_FROST_WOOD_WALL_SIGN = BLOCKS.register("cursed_frost_wood_wall_sign", () -> new TAWallSignBlock(ofFullCopy(Blocks.OAK_SIGN).addBlockTag(BlockTags.WALL_SIGNS), TAWoodType.CURTAIN));
     public static final DeferredHolder<Block, Block> CURSED_FROST_WOOD_HANGING_SIGN = BLOCKS.register("cursed_frost_wood_hanging_sign",
@@ -300,9 +305,9 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> VERTICAL_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_dark_stone_brick_stairs", DARK_STONE_BRICKS, dungeonBlockProperties());
     public static final DeferredHolder<Block, Block> VERTICAL_SMOOTH_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_smooth_dark_stone_brick_stairs", SMOOTH_DARK_STONE_BRICKS, dungeonBlockProperties());
     public static final DeferredHolder<Block, Block> VERTICAL_CHISELED_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_chiseled_dark_stone_brick_stairs", CHISELED_DARK_STONE_BRICKS, dungeonBlockProperties());
-    public static final DeferredHolder<Block, Block> VERTICAL_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_moon_temple_brick_stairs", MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
-    public static final DeferredHolder<Block, Block> VERTICAL_SMOOTH_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_smooth_moon_temple_brick_stairs", SMOOTH_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
-    public static final DeferredHolder<Block, Block> VERTICAL_CHISELED_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_chiseled_moon_temple_brick_stairs", CHISELED_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
+    public static final DeferredHolder<Block, Block> VERTICAL_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_moon_temple_brick_stairs", MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
+    public static final DeferredHolder<Block, Block> VERTICAL_SMOOTH_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_smooth_moon_temple_brick_stairs", SMOOTH_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
+    public static final DeferredHolder<Block, Block> VERTICAL_CHISELED_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_chiseled_moon_temple_brick_stairs", CHISELED_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
     public static final DeferredHolder<Block, Block> VERTICAL_UMBRA_STONE_STAIRS = verticalStair("vertical_umbra_stone_stairs", UMBRA_STONE, defaultStoneProperties(5.0F));
     public static final DeferredHolder<Block, Block> VERTICAL_UMBRA_STONE_CRACKED_STAIRS = verticalStair("vertical_umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
     public static final DeferredHolder<Block, Block> VERTICAL_UMBRA_STONE_ROOF_STAIRS = verticalStair("vertical_umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
@@ -340,9 +345,9 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> VERTICAL_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_dark_stone_brick_slab", DARK_STONE_BRICKS, dungeonBlockProperties());
     public static final DeferredHolder<Block, Block> VERTICAL_SMOOTH_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_smooth_dark_stone_brick_slab", SMOOTH_DARK_STONE_BRICKS, dungeonBlockProperties());
     public static final DeferredHolder<Block, Block> VERTICAL_CHISELED_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_chiseled_dark_stone_brick_slab", CHISELED_DARK_STONE_BRICKS, dungeonBlockProperties());
-    public static final DeferredHolder<Block, Block> VERTICAL_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_moon_temple_brick_slab", MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
-    public static final DeferredHolder<Block, Block> VERTICAL_SMOOTH_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_smooth_moon_temple_brick_slab", SMOOTH_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
-    public static final DeferredHolder<Block, Block> VERTICAL_CHISELED_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_chiseled_moon_temple_brick_slab", CHISELED_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
+    public static final DeferredHolder<Block, Block> VERTICAL_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_moon_temple_brick_slab", MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
+    public static final DeferredHolder<Block, Block> VERTICAL_SMOOTH_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_smooth_moon_temple_brick_slab", SMOOTH_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
+    public static final DeferredHolder<Block, Block> VERTICAL_CHISELED_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_chiseled_moon_temple_brick_slab", CHISELED_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
     public static final DeferredHolder<Block, Block> VERTICAL_UMBRA_STONE_SLAB = verticalSlab("vertical_umbra_stone_slab", UMBRA_STONE, defaultStoneProperties(5.0F));
     public static final DeferredHolder<Block, Block> VERTICAL_UMBRA_STONE_CRACKED_SLAB = verticalSlab("vertical_umbra_stone_cracked_slab", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
     public static final DeferredHolder<Block, Block> VERTICAL_UMBRA_STONE_ROOF_SLAB = verticalSlab("vertical_umbra_stone_roof_slab", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
@@ -412,9 +417,9 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> DARK_STONE_BRICK_STAIRS = stair("dark_stone_brick_stairs", DARK_STONE_BRICKS, dungeonBlockProperties());
     public static final DeferredHolder<Block, Block> SMOOTH_DARK_STONE_BRICK_STAIRS = stair("smooth_dark_stone_brick_stairs", SMOOTH_DARK_STONE_BRICKS, dungeonBlockProperties());
     public static final DeferredHolder<Block, Block> CHISELED_DARK_STONE_BRICK_STAIRS = stair("chiseled_dark_stone_brick_stairs", CHISELED_DARK_STONE_BRICKS, dungeonBlockProperties());
-    public static final DeferredHolder<Block, Block> MOON_TEMPLE_BRICK_STAIRS = stair("moon_temple_brick_stairs", MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
-    public static final DeferredHolder<Block, Block> SMOOTH_MOON_TEMPLE_BRICK_STAIRS = stair("smooth_moon_temple_brick_stairs", SMOOTH_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
-    public static final DeferredHolder<Block, Block> CHISELED_MOON_TEMPLE_BRICK_STAIRS = stair("chiseled_moon_temple_brick_stairs", CHISELED_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
+    public static final DeferredHolder<Block, Block> MOON_TEMPLE_BRICK_STAIRS = stair("moon_temple_brick_stairs", MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
+    public static final DeferredHolder<Block, Block> SMOOTH_MOON_TEMPLE_BRICK_STAIRS = stair("smooth_moon_temple_brick_stairs", SMOOTH_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
+    public static final DeferredHolder<Block, Block> CHISELED_MOON_TEMPLE_BRICK_STAIRS = stair("chiseled_moon_temple_brick_stairs", CHISELED_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
     public static final DeferredHolder<Block, Block> UMBRA_STONE_STAIRS = stair("umbra_stone_stairs", UMBRA_STONE, defaultStoneProperties(5.0F));
     public static final DeferredHolder<Block, Block> UMBRA_STONE_CRACKED_STAIRS = stair("umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
     public static final DeferredHolder<Block, Block> UMBRA_STONE_ROOF_STAIRS = stair("umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
@@ -468,9 +473,9 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> DARK_STONE_BRICK_SLAB = slab("dark_stone_brick_slab", DARK_STONE_BRICKS, dungeonBlockProperties());
     public static final DeferredHolder<Block, Block> SMOOTH_DARK_STONE_BRICK_SLAB = slab("smooth_dark_stone_brick_slab", SMOOTH_DARK_STONE_BRICKS, dungeonBlockProperties());
     public static final DeferredHolder<Block, Block> CHISELED_DARK_STONE_BRICK_SLAB = slab("chiseled_dark_stone_brick_slab", CHISELED_DARK_STONE_BRICKS, dungeonBlockProperties());
-    public static final DeferredHolder<Block, Block> MOON_TEMPLE_BRICK_SLAB = slab("moon_temple_brick_slab", MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
-    public static final DeferredHolder<Block, Block> SMOOTH_MOON_TEMPLE_BRICK_SLAB = slab("smooth_moon_temple_brick_slab", SMOOTH_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
-    public static final DeferredHolder<Block, Block> CHISELED_MOON_TEMPLE_BRICK_SLAB = slab("chiseled_moon_temple_brick_slab", CHISELED_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
+    public static final DeferredHolder<Block, Block> MOON_TEMPLE_BRICK_SLAB = slab("moon_temple_brick_slab", MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
+    public static final DeferredHolder<Block, Block> SMOOTH_MOON_TEMPLE_BRICK_SLAB = slab("smooth_moon_temple_brick_slab", SMOOTH_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
+    public static final DeferredHolder<Block, Block> CHISELED_MOON_TEMPLE_BRICK_SLAB = slab("chiseled_moon_temple_brick_slab", CHISELED_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
     public static final DeferredHolder<Block, Block> UMBRA_STONE_SLAB = slab("umbra_stone_slab", UMBRA_STONE, defaultStoneProperties(5.0F));
     public static final DeferredHolder<Block, Block> UMBRA_STONE_CRACKED_SLAB = slab("umbra_stone_cracked_slab", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
     public static final DeferredHolder<Block, Block> UMBRA_STONE_ROOF_SLAB = slab("umbra_stone_roof_slab", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
@@ -508,9 +513,9 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> DARK_STONE_BRICK_WALL = wall("dark_stone_brick_wall", DARK_STONE_BRICKS, dungeonBlockProperties());
     public static final DeferredHolder<Block, Block> SMOOTH_DARK_STONE_BRICK_WALL = wall("smooth_dark_stone_brick_wall", SMOOTH_DARK_STONE_BRICKS, dungeonBlockProperties());
     public static final DeferredHolder<Block, Block> CHISELED_DARK_STONE_BRICK_WALL = wall("chiseled_dark_stone_brick_wall", CHISELED_DARK_STONE_BRICKS, dungeonBlockProperties());
-    public static final DeferredHolder<Block, Block> MOON_TEMPLE_BRICK_WALL = wall("moon_temple_brick_wall", MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
-    public static final DeferredHolder<Block, Block> SMOOTH_MOON_TEMPLE_BRICK_WALL = wall("smooth_moon_temple_brick_wall", SMOOTH_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
-    public static final DeferredHolder<Block, Block> CHISELED_MOON_TEMPLE_BRICK_WALL = wall("chiseled_moon_temple_brick_wall", CHISELED_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
+    public static final DeferredHolder<Block, Block> MOON_TEMPLE_BRICK_WALL = wall("moon_temple_brick_wall", MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
+    public static final DeferredHolder<Block, Block> SMOOTH_MOON_TEMPLE_BRICK_WALL = wall("smooth_moon_temple_brick_wall", SMOOTH_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
+    public static final DeferredHolder<Block, Block> CHISELED_MOON_TEMPLE_BRICK_WALL = wall("chiseled_moon_temple_brick_wall", CHISELED_MOON_TEMPLE_BRICKS, dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS).lootType(TALootType.SELF));
     public static final DeferredHolder<Block, Block> UMBRA_STONE_WALL = wall("umbra_stone_wall", UMBRA_STONE, defaultStoneProperties(5.0F));
     public static final DeferredHolder<Block, Block> UMBRA_STONE_CRACKED_WALL = wall("umbra_stone_cracked_wall", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
     public static final DeferredHolder<Block, Block> UMBRA_STONE_ROOF_WALL = wall("umbra_stone_roof_wall", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
@@ -536,7 +541,7 @@ public class TABlocks {
     @SafeVarargs
     public static TABlockProperties dungeonBlockProperties(TagKey<Block>... values) {
         return get().mapColor(MapColor.STONE).addBlockTag(TABlockTags.DUNGEON_BLOCKS).addBlockTag(values)
-                .instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
+                .lootType(TALootType.SELF).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
                 .strength(Byte.MAX_VALUE, Blocks.BEDROCK.getExplosionResistance());
     }
 

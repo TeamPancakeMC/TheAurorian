@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
+import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -11,12 +12,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-public class TALightDoublePlantBlock extends DoublePlantBlock implements IRiversidePlant {
+public class TALightDoublePlantBlock extends DoublePlantBlock {
 
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL;
 
-    public TALightDoublePlantBlock(Properties properties) {
-        super(properties.lightLevel(state -> state.getValue(LEVEL)));
+    public TALightDoublePlantBlock(TABlockProperties properties) {
+        super(properties.lightLevel(state -> state.getValue(LEVEL)).isRiversidePlant());
         this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(LEVEL, 0));
     }
 
@@ -26,8 +27,8 @@ public class TALightDoublePlantBlock extends DoublePlantBlock implements IRivers
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return pState.is(TABlockTags.AURORIAN_LIGHT_PLANT_MAY_PLACE_ON);
+    protected boolean mayPlaceOn(BlockState state, BlockGetter pLevel, BlockPos pPos) {
+        return state.is(TABlockTags.AURORIAN_LIGHT_PLANT_MAY_PLACE_ON);
     }
 
 }

@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.items.developer;
 
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -12,10 +13,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class CatBell extends Item implements IDeveloperItem, ITooltipsItem {
+public class CatBell extends Item {
 
     public CatBell() {
-        super(new Properties().durability(100));
+        super(TAItemProperties.get().durability(100).addItemTag(TAItemTags.HAS_CUSTOM_TOOLTIPS).hasTooltips().isDeveloperItem().isSimpleModelItem());
     }
 
     @Override

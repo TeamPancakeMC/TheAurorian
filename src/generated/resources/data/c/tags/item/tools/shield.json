@@ -1,9 +1,9 @@
 {
   "values": [
-    "theaurorian:cerulean_shield",
-    "theaurorian:crystalline_shield",
     "theaurorian:moon_shield",
     "theaurorian:umbra_shield",
+    "theaurorian:cerulean_shield",
+    "theaurorian:crystalline_shield",
     "theaurorian:moonstone_shield"
   ]
 }

@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.data.datagen.provider;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.*;
 import cn.teampancake.theaurorian.common.blocks.base.*;
+import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.blocks.state.properties.VerticalSlabShape;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
@@ -39,68 +40,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerMysticalBarrierState();
         this.registerLargeFilthyIceSpike();
         this.registerSilentWoodLadderState();
-        this.simpleBlock(TABlocks.AURORIAN_DIRT.get());
-        this.simpleBlock(TABlocks.AURORIAN_STONE.get());
-        this.simpleBlock(TABlocks.AURORIAN_EROSIVE.get());
-        this.simpleBlock(TABlocks.AURORIAN_STONE_BRICKS.get());
-        this.simpleBlock(TABlocks.AURORIAN_COBBLESTONE.get());
-        this.simpleBlock(TABlocks.AURORIAN_GRANITE.get());
-        this.simpleBlock(TABlocks.AURORIAN_DIORITE.get());
-        this.simpleBlock(TABlocks.AURORIAN_ANDESITE.get());
-        this.simpleBlock(TABlocks.AURORIAN_BARRIER_STONE.get());
-        this.simpleBlock(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
-        this.simpleBlock(TABlocks.AURORIAN_PERIDOTITE.get());
-        this.simpleBlock(TABlocks.AURORIAN_REDSTONE_ORE.get());
-        this.simpleBlock(TABlocks.EROSIVE_AURORIAN_REDSTONE_ORE.get());
-        this.simpleBlock(TABlocks.MYSTERIUM_WOOL.get());
-        this.simpleBlock(TABlocks.MOON_SAND.get());
-        this.simpleBlock(TABlocks.MOON_SAND_RIVER.get());
-        this.simpleBlock(TABlocks.MOON_SANDSTONE.get());
-        this.simpleBlock(TABlocks.CUT_MOON_SANDSTONE.get());
-        this.simpleBlock(TABlocks.SMOOTH_MOON_SANDSTONE.get());
-        this.simpleBlock(TABlocks.BRIGHT_MOON_SAND.get());
-        this.simpleBlock(TABlocks.BRIGHT_MOON_SANDSTONE.get());
-        this.simpleBlock(TABlocks.RUNE_STONE.get());
-        this.simpleBlock(TABlocks.SMOOTH_RUNE_STONE.get());
-        this.simpleBlock(TABlocks.CHISELED_RUNE_STONE.get());
-        this.simpleBlock(TABlocks.AURORIAN_CASTLE_RUNE_STONE.get());
-        this.simpleBlock(TABlocks.AURORIAN_STEEL_CASTLE_RUNE_STONE.get());
-        this.simpleBlock(TABlocks.CERULEAN_CASTLE_RUNE_STONE.get());
-        this.simpleBlock(TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE.get());
-        this.simpleBlock(TABlocks.MOON_CASTLE_RUNE_STONE.get());
-        this.simpleBlock(TABlocks.TRANSPARENT_RUNE_STONE.get());
-        this.simpleBlock(TABlocks.UMBRA_CASTLE_RUNE_STONE.get());
-        this.simpleBlock(TABlocks.MOON_TEMPLE_BRICKS.get());
-        this.simpleBlock(TABlocks.DARK_STONE_BRICKS.get());
-        this.simpleBlock(TABlocks.DARK_STONE_FANCY.get());
-        this.simpleBlock(TABlocks.DARK_STONE_LAYERS.get());
-        this.simpleBlock(TABlocks.SMOOTH_DARK_STONE_BRICKS.get());
-        this.simpleBlock(TABlocks.CHISELED_DARK_STONE_BRICKS.get());
-        this.simpleBlock(TABlocks.SMOOTH_MOON_TEMPLE_BRICKS.get());
-        this.simpleBlock(TABlocks.CHISELED_MOON_TEMPLE_BRICKS.get());
-        this.simpleBlock(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get());
-        this.simpleBlock(TABlocks.RUNE_STONE_LAMP.get());
-        this.simpleBlock(TABlocks.DARK_STONE_LAMP.get());
-        this.simpleBlock(TABlocks.MOON_TEMPLE_LAMP.get());
-        this.simpleBlock(TABlocks.VOID_STONE.get());
-        this.simpleBlock(TABlocks.RUNE_CRYSTAL.get());
-        this.simpleBlock(TABlocks.CERULEAN_BLOCK.get());
-        this.simpleBlock(TABlocks.MOONSTONE_BLOCK.get());
-        this.simpleBlock(TABlocks.AURORIAN_COAL_BLOCK.get());
-        this.simpleBlock(TABlocks.AURORIAN_STEEL_BLOCK.get());
-        this.simpleBlock(TABlocks.RUNE_STONE_GATE.get());
-        this.simpleBlock(TABlocks.DARK_STONE_GATE.get());
-        this.simpleBlock(TABlocks.MOON_TEMPLE_GATE.get());
-        this.simpleBlock(TABlocks.RUNE_STONE_LOOT_GATE.get());
-        this.simpleBlock(TABlocks.MOON_TEMPLE_CELL_GATE.get());
-        this.simpleBlock(TABlocks.UMBRA_STONE.get());
-        this.simpleBlock(TABlocks.UMBRA_STONE_CRACKED.get());
-        this.simpleBlock(TABlocks.UMBRA_STONE_ROOF_TILES.get());
-        this.simpleBlock(TABlocks.INDIGO_MUSHROOM_CRYSTAL.get());
-        this.simpleBlock(TABlocks.SILENT_TREE_PLANKS.get());
-        this.simpleBlock(TABlocks.WEEPING_WILLOW_PLANKS.get());
-        this.simpleBlock(TABlocks.CURTAIN_TREE_PLANKS.get());
-        this.simpleBlock(TABlocks.CURSED_FROST_TREE_PLANKS.get());
+        TACommonUtils.getKnownBlockStream().filter(block -> block.properties() instanceof TABlockProperties properties && properties.isSimpleModelBlock).forEach(this::simpleBlock);
         this.simpleBlock(TABlocks.SILENT_WOOD_CHEST.get(), this.models().getBuilder(this.name(TABlocks.SILENT_WOOD_CHEST.get()))
                 .texture("particle", this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_PLANKS.get()))));
         this.simpleBlock(TABlocks.SILENT_WOOD_TORCH.get(), this.models().torch(this.name(TABlocks.SILENT_WOOD_TORCH.get()),
@@ -250,9 +190,7 @@ public class TABlockStateProvider extends BlockStateProvider {
                 TABlocks.CURSED_FROST_WOOD_WALL_HANGING_SIGN.get(),
                 this.blockTexture(TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get()));
         for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block instanceof DropExperienceBlock) {
-                this.simpleBlock(block);
-            } else if (block instanceof PressurePlateBlockWithBase pressurePlateBlock) {
+            if (block instanceof PressurePlateBlockWithBase pressurePlateBlock) {
                 this.pressurePlateBlock(pressurePlateBlock, this.blockTexture(pressurePlateBlock.getBase()));
             } else if (block instanceof FenceGateBlockWithBase fenceGateBlock) {
                 this.fenceGateBlockWithRenderType(fenceGateBlock, this.blockTexture(fenceGateBlock.getBase()), CUTOUT);

@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.items.armor;
 
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -16,12 +17,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Consumer;
 
 @SuppressWarnings("removal")
-public abstract class BaseArmor<T extends HumanoidModel<?>> extends ArmorItem implements ITooltipsItem {
+public abstract class BaseArmor<T extends HumanoidModel<?>> extends ArmorItem {
 
     public static final String ARMOR_ID = "textures/models/armor/";
 
-    public BaseArmor(Holder<ArmorMaterial> material, Type type, Properties properties) {
-        super(material, type, properties);
+    public BaseArmor(Holder<ArmorMaterial> material, Type type, TAItemProperties properties) {
+        super(material, type, properties.addItemTag(TAItemTags.IS_EPIC).hasTooltips().isSimpleModelItem());
     }
 
     @Override

@@ -2,10 +2,10 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -66,7 +66,7 @@ public class ItemEventSubscriber {
     public static void onRenderItemTooltips(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
-        if (stack.getItem() instanceof ITooltipsItem tooltipsItem && tooltipsItem.isHasTooltips()) {
+        if (TACommonUtils.getItemProperties(stack.getItem()).hasTooltips) {
             tooltip.add(Component.translatable("tooltips." + stack.getItem().getDescriptionId()));
         }
 

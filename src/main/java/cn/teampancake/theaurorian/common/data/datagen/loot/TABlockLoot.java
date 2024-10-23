@@ -5,10 +5,9 @@ import cn.teampancake.theaurorian.common.blocks.BlueberryBush;
 import cn.teampancake.theaurorian.common.blocks.RelicTable;
 import cn.teampancake.theaurorian.common.blocks.TACropBlock;
 import cn.teampancake.theaurorian.common.blocks.base.DoorBlockWithBase;
-import cn.teampancake.theaurorian.common.blocks.base.IHasBaseBlock;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
+import cn.teampancake.theaurorian.common.blocks.state.TALootType;
 import cn.teampancake.theaurorian.common.blocks.state.properties.AlchemyTablePart;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
@@ -19,7 +18,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -27,6 +25,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -42,7 +41,6 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -59,72 +57,9 @@ public class TABlockLoot extends VanillaBlockLoot {
     @Override
     protected void generate() {
         HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        this.dropSelf(TABlocks.AURORIAN_DIRT.get());
-        this.dropSelf(TABlocks.AURORIAN_STONE_BRICKS.get());
-        this.dropSelf(TABlocks.AURORIAN_COBBLESTONE.get());
-        this.dropSelf(TABlocks.AURORIAN_FURNACE.get());
-        this.dropSelf(TABlocks.AURORIAN_FURNACE_CHIMNEY.get());
-        this.dropSelf(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS.get());
-        this.dropSelf(TABlocks.AURORIAN_PERIDOTITE.get());
-        this.dropSelf(TABlocks.SMOOTH_AURORIAN_PERIDOTITE.get());
-        this.dropSelf(TABlocks.MYSTERIUM_WOOL.get());
-        this.dropSelf(TABlocks.NEBULA_BLOSSOM_CLUSTER.get());
-        this.dropSelf(TABlocks.MOON_FROST_FLOWER.get());
-        this.dropSelf(TABlocks.VOID_CANDLE_FLOWER.get());
-        this.dropSelf(TABlocks.EQUINOX_FLOWER.get());
-        this.dropSelf(TABlocks.CERULEAN_BLOCK.get());
-        this.dropSelf(TABlocks.MOONSTONE_BLOCK.get());
-        this.dropSelf(TABlocks.INDIGO_MUSHROOM.get());
-        this.dropSelf(TABlocks.INDIGO_MUSHROOM_CRYSTAL.get());
-        this.dropSelf(TABlocks.MOONLIGHT_FORGE.get());
-        this.dropSelf(TABlocks.MOON_GEM.get());
-        this.dropSelf(TABlocks.MOON_SAND.get());
-        this.dropSelf(TABlocks.MOON_SAND_RIVER.get());
-        this.dropSelf(TABlocks.MOON_TORCH.get());
-        this.dropSelf(TABlocks.UMBRA_STONE.get());
-        this.dropSelf(TABlocks.UMBRA_STONE_CRACKED.get());
-        this.dropSelf(TABlocks.UMBRA_STONE_ROOF_TILES.get());
-        this.dropSelf(TABlocks.SILENT_TREE_LOG.get());
-        this.dropSelf(TABlocks.SILENT_TREE_PLANKS.get());
-        this.dropSelf(TABlocks.SILENT_TREE_WOOD.get());
-        this.dropSelf(TABlocks.SILENT_TREE_SAPLING.get());
-        this.dropSelf(TABlocks.SILENT_WOOD_TORCH.get());
-        this.dropSelf(TABlocks.SILENT_WOOD_CHEST.get());
-        this.dropSelf(TABlocks.SILENT_WOOD_LADDER.get());
-        this.dropSelf(TABlocks.ASTROLOGY_TABLE.get());
-        this.dropSelf(TABlocks.AURORIAN_CRAFTING_TABLE.get());
-        this.dropSelf(TABlocks.WEEPING_WILLOW_LOG.get());
-        this.dropSelf(TABlocks.WEEPING_WILLOW_PLANKS.get());
-        this.dropSelf(TABlocks.WEEPING_WILLOW_WOOD.get());
-        this.dropSelf(TABlocks.CURTAIN_TREE_LOG.get());
-        this.dropSelf(TABlocks.CURTAIN_TREE_PLANKS.get());
-        this.dropSelf(TABlocks.CURTAIN_TREE_WOOD.get());
-        this.dropSelf(TABlocks.CURTAIN_TREE_SAPLING.get());
-        this.dropSelf(TABlocks.CURSED_FROST_TREE_LOG.get());
-        this.dropSelf(TABlocks.CURSED_FROST_TREE_PLANKS.get());
-        this.dropSelf(TABlocks.CURSED_FROST_TREE_WOOD.get());
-        this.dropSelf(TABlocks.CURSED_FROST_TREE_SAPLING.get());
-        this.dropWhenSilkTouch(TABlocks.SILENT_CAMPFIRE.get());
-        this.dropWhenSilkTouch(TABlocks.FILTHY_ICE.get());
-        this.dropWhenSilkTouch(TABlocks.MOON_GLASS.get());
-        this.dropWhenSilkTouch(TABlocks.AURORIAN_GLASS.get());
-        this.dropWhenSilkTouch(TABlocks.DARK_STONE_GLASS.get());
-        this.dropWhenSilkTouch(TABlocks.MOON_GLASS_PANE.get());
-        this.dropWhenSilkTouch(TABlocks.AURORIAN_GLASS_PANE.get());
-        this.dropWhenSilkTouch(TABlocks.DARK_STONE_GLASS_PANE.get());
-        this.dropWhenSilkTouch(TABlocks.INDIGO_MUSHROOM_STEM.get());
-        this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_1.get());
-        this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_2.get());
-        this.dropPottedContents(TABlocks.POTTED_AURORIAN_FLOWER_3.get());
-        this.dropPottedContents(TABlocks.POTTED_EQUINOX_FLOWER.get());
-        this.dropPottedContents(TABlocks.POTTED_WICK_GRASS.get());
-        this.dropPottedContents(TABlocks.POTTED_AURORIAN_GRASS.get());
-        this.dropPottedContents(TABlocks.POTTED_LAVENDER_PLANT.get());
-        this.dropPottedContents(TABlocks.POTTED_PETUNIA_PLANT.get());
-        this.dropPottedContents(TABlocks.POTTED_SILENT_TREE_SAPLING.get());
-        this.dropPottedContents(TABlocks.POTTED_AURORIAN_GRASS_LIGHT.get());
-        this.dropPottedContents(TABlocks.POTTED_CURTAIN_TREE_SAPLING.get());
-        this.dropPottedContents(TABlocks.POTTED_CURSED_FROST_TREE_SAPLING.get());
+        TACommonUtils.getKnownBlockStream().filter(block -> this.hasLootType(block, TALootType.SELF)).forEach(this::dropSelf);
+        TACommonUtils.getKnownBlockStream().filter(block -> this.hasLootType(block, TALootType.SILK_TOUCH)).forEach(this::dropWhenSilkTouch);
+        TACommonUtils.getKnownBlockStream().filter(block -> block instanceof FlowerPotBlock).forEach(this::dropPottedContents);
         this.dropOther(TABlocks.MOON_WALL_TORCH.get(), TABlocks.MOON_TORCH.get());
         this.dropOther(TABlocks.SILENT_WOOD_WALL_TORCH.get(), TABlocks.SILENT_WOOD_TORCH.get());
         this.dropNuggets(TABlocks.CERULEAN_CLUSTER.get(), TAItems.CERULEAN_NUGGET.get(), 7.0F, 9.0F);
@@ -154,27 +89,27 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.add(TABlocks.ALCHEMY_TABLE.get(), block -> this.createSinglePropConditionTable(block, AlchemyTable.PART, AlchemyTablePart.RIGHT));
         this.add(TABlocks.RELIC_TABLE.get(), block -> this.createSinglePropConditionTable(block, RelicTable.HALF, DoubleBlockHalf.LOWER));
         this.add(TABlocks.MYSTERIUM_WOOL_BED.get(), block -> this.createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));
-        this.add(TABlocks.MOONSTONE_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_MOONSTONE.get()));
-        this.add(TABlocks.EROSIVE_MOONSTONE_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_MOONSTONE.get()));
-        this.add(TABlocks.CERULEAN_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_CERULEAN.get()));
-        this.add(TABlocks.EROSIVE_CERULEAN_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_CERULEAN.get()));
-        this.add(TABlocks.GEODE_ORE.get(), block -> this.createOreDrop(block, TAItems.CRYSTAL.get()));
-        this.add(TABlocks.EROSIVE_GEODE_ORE.get(), block -> this.createOreDrop(block, TAItems.CRYSTAL.get()));
-        this.add(TABlocks.AURORIAN_EMERALD_ORE.get(),block -> this.createOreDrop(block, Items.EMERALD));
+        this.add(TABlocks.AURORIAN_LAPIS_ORE.get(), this::createLapisOreDrops);
+        this.add(TABlocks.AURORIAN_COPPER_ORE.get(), this::createCopperOreDrops);
+        this.add(TABlocks.AURORIAN_REDSTONE_ORE.get(), this::createRedstoneOreDrops);
+        this.add(TABlocks.EROSIVE_AURORIAN_LAPIS_ORE.get(), this::createLapisOreDrops);
+        this.add(TABlocks.EROSIVE_AURORIAN_COPPER_ORE.get(), this::createCopperOreDrops);
+        this.add(TABlocks.EROSIVE_AURORIAN_REDSTONE_ORE.get(), this::createRedstoneOreDrops);
         this.add(TABlocks.AURORIAN_IRON_ORE.get(),block -> this.createOreDrop(block, Items.RAW_IRON));
         this.add(TABlocks.AURORIAN_GOLD_ORE.get(),block -> this.createOreDrop(block, Items.RAW_GOLD));
-        this.add(TABlocks.AURORIAN_COPPER_ORE.get(),block -> this.createOreDrop(block, Items.RAW_COPPER));
-        this.add(TABlocks.AURORIAN_REDSTONE_ORE.get(),block -> this.createOreDrop(block, Items.REDSTONE));
         this.add(TABlocks.AURORIAN_DIAMOND_ORE.get(),block -> this.createOreDrop(block, Items.DIAMOND));
-        this.add(TABlocks.AURORIAN_LAPIS_ORE.get(),block -> this.createOreDrop(block, Items.LAPIS_LAZULI));
-        this.add(TABlocks.EROSIVE_AURORIAN_EMERALD_ORE.get(), block -> this.createOreDrop(block, Items.EMERALD));
+        this.add(TABlocks.AURORIAN_EMERALD_ORE.get(),block -> this.createOreDrop(block, Items.EMERALD));
+        this.add(TABlocks.AURORIAN_COAL_ORE.get(), block -> this.createOreDrop(block, TAItems.AURORIAN_COAL.get()));
+        this.add(TABlocks.GEODE_ORE.get(), block -> this.createOreDrop(block, TAItems.CRYSTAL.get()));
+        this.add(TABlocks.CERULEAN_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_CERULEAN.get()));
+        this.add(TABlocks.MOONSTONE_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_MOONSTONE.get()));
         this.add(TABlocks.EROSIVE_AURORIAN_IRON_ORE.get(), block -> this.createOreDrop(block, Items.RAW_IRON));
         this.add(TABlocks.EROSIVE_AURORIAN_GOLD_ORE.get(), block -> this.createOreDrop(block, Items.RAW_GOLD));
-        this.add(TABlocks.EROSIVE_AURORIAN_COPPER_ORE.get(), block -> this.createOreDrop(block, Items.RAW_COPPER));
-        this.add(TABlocks.EROSIVE_AURORIAN_REDSTONE_ORE.get(), block -> this.createOreDrop(block, Items.REDSTONE));
         this.add(TABlocks.EROSIVE_AURORIAN_DIAMOND_ORE.get(), block -> this.createOreDrop(block, Items.DIAMOND));
-        this.add(TABlocks.EROSIVE_AURORIAN_LAPIS_ORE.get(), block -> this.createOreDrop(block, Items.LAPIS_LAZULI));
-        this.add(TABlocks.AURORIAN_COAL_ORE.get(), block -> this.createOreDrop(block, TAItems.AURORIAN_COAL.get()));
+        this.add(TABlocks.EROSIVE_AURORIAN_EMERALD_ORE.get(), block -> this.createOreDrop(block, Items.EMERALD));
+        this.add(TABlocks.EROSIVE_GEODE_ORE.get(), block -> this.createOreDrop(block, TAItems.CRYSTAL.get()));
+        this.add(TABlocks.EROSIVE_CERULEAN_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_CERULEAN.get()));
+        this.add(TABlocks.EROSIVE_MOONSTONE_ORE.get(), block -> this.createOreDrop(block, TAItems.RAW_MOONSTONE.get()));
         this.add(TABlocks.INDIGO_MUSHROOM_BLOCK.get(), block -> this.createMushroomBlockDrop(block, TABlocks.INDIGO_MUSHROOM.get()));
         this.add(TABlocks.AURORIAN_STONE.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_COBBLESTONE.get()));
         this.add(TABlocks.AURORIAN_GRASS_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, TABlocks.AURORIAN_DIRT.get()));
@@ -251,18 +186,7 @@ public class TABlockLoot extends VanillaBlockLoot {
                 .add(LootItem.lootTableItem(TAItems.SILK_BERRY_JAM.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))).setWeight(25))
                 .add(LootItem.lootTableItem(Items.BOOK).apply(EnchantRandomlyFunction.randomApplicableEnchantment(this.registries)).setWeight(15))));
         for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block.properties() instanceof TABlockProperties properties) {
-                List<TagKey<Block>> list = properties.blockTagList;
-                boolean flag1 = list.contains(TABlockTags.DUNGEON_BLOCKS);
-                boolean flag2 = list.contains(TABlockTags.MOON_TEMPLE_BLOCKS);
-                if (flag1 || flag2) {
-                    this.dropSelf(block);
-                }
-            }
-
-            if (block instanceof IHasBaseBlock) {
-                this.dropSelf(block);
-            } else if (block instanceof DoorBlockWithBase doorBlock) {
+            if (block instanceof DoorBlockWithBase doorBlock) {
                 this.add(doorBlock, block1 -> this.createDoorTable(doorBlock));
             }
         }
@@ -284,6 +208,10 @@ public class TABlockLoot extends VanillaBlockLoot {
                 .apply(ApplyBonusCount.addOreBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE)))
                 .add(LootItem.lootTableItem(itemLike).when(HAS_SHEARS.or(this.hasSilkTouch())))
                 .add(LootItem.lootTableItem(TAItems.PLANT_FIBER.get()).when(HAS_SICKLES)));
+    }
+
+    private boolean hasLootType(Block block, TALootType lootType) {
+        return block.properties() instanceof TABlockProperties properties && properties.lootType == lootType;
     }
 
     @Override

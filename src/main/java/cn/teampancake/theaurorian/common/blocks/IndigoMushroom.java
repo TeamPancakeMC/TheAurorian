@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
@@ -11,10 +11,10 @@ import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-public class IndigoMushroom extends HugeMushroomBlock implements ITooltipsItem {
+public class IndigoMushroom extends HugeMushroomBlock {
 
-    public IndigoMushroom(Properties properties) {
-        super(properties);
+    public IndigoMushroom(TABlockProperties properties) {
+        super(properties.hasTooltips());
     }
 
     @Override

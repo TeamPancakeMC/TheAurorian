@@ -28,11 +28,11 @@ public class TABlockTagsProvider extends BlockTagsProvider {
         this.tag(TABlockTags.CAN_HURT_SICKLE).addTag(BlockTags.LEAVES).addTag(BlockTags.WOOL)
                 .add(Blocks.COBWEB, Blocks.SHORT_GRASS, Blocks.FERN, Blocks.DEAD_BUSH,
                         Blocks.HANGING_ROOTS, Blocks.VINE, Blocks.TRIPWIRE);
+        this.tag(BlockTags.DIRT).addTag(TABlockTags.AURORIAN_GRASS_BLOCK);
         this.tag(BlockTags.PLANKS).addTag(TABlockTags.AURORIAN_PLANKS);
         this.tag(BlockTags.LOGS).addTag(TABlockTags.SILENT_TREE_LOGS)
                 .addTag(TABlockTags.WEEPING_WILLOW_LOGS)
                 .addTag(TABlockTags.CURTAIN_TREE_LOGS);
-        this.tag(BlockTags.DIRT).addTag(TABlockTags.AURORIAN_GRASS_BLOCK);
         for (Block block : TACommonUtils.getKnownBlocks()) {
             if (block instanceof LeavesBlock) {
                 this.tag(BlockTags.LEAVES).add(block);

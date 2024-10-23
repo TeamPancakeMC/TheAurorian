@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAStructureTags;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
@@ -30,10 +31,10 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class DungeonLocatorItem extends Item implements ITooltipsItem {
+public class DungeonLocatorItem extends Item {
 
     public DungeonLocatorItem() {
-        super(new Properties().durability(30).rarity(Rarity.EPIC));
+        super(TAItemProperties.get().durability(30).rarity(Rarity.EPIC).addItemTag(TAItemTags.IS_RARE).hasTooltips().isSimpleModelItem());
     }
 
     @Override

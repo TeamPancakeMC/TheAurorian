@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -13,10 +14,10 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-public class LivingDiviningRod extends Item implements ITooltipsItem {
+public class LivingDiviningRod extends Item {
 
     public LivingDiviningRod() {
-        super(new Properties().rarity(Rarity.EPIC));
+        super(TAItemProperties.get().rarity(Rarity.EPIC).addItemTag(TAItemTags.IS_RARE).hasTooltips().isSimpleModelItem());
     }
 
     @Override

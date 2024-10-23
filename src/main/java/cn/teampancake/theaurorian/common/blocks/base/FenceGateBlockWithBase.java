@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
-public class FenceGateBlockWithBase extends FenceGateBlock implements IHasBaseBlock, ISimpleBlockItem {
+public class FenceGateBlockWithBase extends FenceGateBlock implements IHasBaseBlock {
 
     private final Block base;
 

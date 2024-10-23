@@ -1,7 +1,14 @@
 {
   "values": [
-    "theaurorian:moonstone_sickle",
     "theaurorian:silent_wood_sickle",
-    "theaurorian:aurorian_stone_sickle"
+    "theaurorian:aurorian_stone_sickle",
+    "theaurorian:moonstone_sickle",
+    "theaurorian:moon_shield",
+    "theaurorian:umbra_shield",
+    "theaurorian:cerulean_shield",
+    "theaurorian:crystalline_shield",
+    "theaurorian:moonstone_shield",
+    "theaurorian:silent_wood_bow",
+    "theaurorian:keepers_bow"
   ]
 }

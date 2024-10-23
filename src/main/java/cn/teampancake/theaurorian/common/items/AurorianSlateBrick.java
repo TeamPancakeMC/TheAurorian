@@ -1,19 +1,14 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
@@ -22,7 +17,7 @@ import net.minecraft.world.level.Level;
 public class AurorianSlateBrick extends SimpleThrowProjectProjectile {
 
     public AurorianSlateBrick() {
-        super(new Properties().attributes(SwordItem.createAttributes(Tiers.WOOD, 4, 1.5F)),
+        super(TAItemProperties.get().attributes(SwordItem.createAttributes(Tiers.WOOD, 4, 1.5F)).addItemTag(TAItemTags.THROWABLE_WEAPONS),
                 SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.THROWN_SLATE_BRICK::get, 1.5F);
     }
 

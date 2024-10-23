@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.blocks;
 import cn.teampancake.theaurorian.common.blocks.entity.SilentWoodCraftingBlockEntity;
 import cn.teampancake.theaurorian.common.blocks.entity.SilentWoodCraftingContainer;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
+import cn.teampancake.theaurorian.common.blocks.state.TALootType;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -29,7 +30,7 @@ public class AurorianCraftingTable extends BaseEntityBlockWithState {
     private static final Component GUI_TITLE = Component.translatable("container.crafting");
 
     public AurorianCraftingTable() {
-        super(TABlockProperties.ofFullCopy(Blocks.CRAFTING_TABLE).addBlockTag(BlockTags.MINEABLE_WITH_AXE));
+        super(TABlockProperties.ofFullCopy(Blocks.CRAFTING_TABLE).addBlockTag(BlockTags.MINEABLE_WITH_AXE).lootType(TALootType.SELF).useSimpleBlockItem());
     }
 
     @Override

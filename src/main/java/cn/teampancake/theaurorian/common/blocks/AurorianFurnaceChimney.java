@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class AurorianFurnaceChimney extends Block implements ITooltipsItem {
+public class AurorianFurnaceChimney extends Block {
 
     public AurorianFurnaceChimney(Properties properties) {
         super(properties);

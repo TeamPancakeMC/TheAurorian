@@ -8,24 +8,19 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class WeepingWillowSap extends Item implements ITooltipsItem {
+public class WeepingWillowSap extends Item {
 
     public WeepingWillowSap() {
-        super(new Properties().food(new FoodProperties.Builder().build()));
-    }
-    protected void onFoodEaten(Level level, Player player) {
-        if (level.isClientSide) return;
-
-        if (player.hasEffect(MobEffects.POISON)) {
-            player.removeEffect(MobEffects.POISON);
-        }
+        super(TAItemProperties.get().food(new FoodProperties.Builder().build()).hasTooltips().isSimpleModelItem());
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         if (entity instanceof Player player && !level.isClientSide) {
-            onFoodEaten(level, player);
+            player.removeEffect(MobEffects.POISON);
         }
+
         return super.finishUsingItem(stack, level, entity);
     }
+
 }

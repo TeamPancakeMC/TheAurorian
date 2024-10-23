@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.SilentWoodChestBlockEntity;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
+import cn.teampancake.theaurorian.common.blocks.state.TALootType;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -14,7 +15,7 @@ import net.neoforged.neoforge.common.Tags;
 public class SilentWoodChest extends ChestBlock {
 
     public SilentWoodChest() {
-        super(TABlockProperties.ofFullCopy(Blocks.CHEST).addBlockTag(Tags.Blocks.CHESTS_WOODEN, BlockTags.MINEABLE_WITH_AXE), TABlockEntityTypes.SILENT_WOOD_CHEST::get);
+        super(TABlockProperties.ofFullCopy(Blocks.CHEST).addBlockTag(Tags.Blocks.CHESTS_WOODEN, BlockTags.MINEABLE_WITH_AXE).lootType(TALootType.SELF), TABlockEntityTypes.SILENT_WOOD_CHEST::get);
     }
 
     @Override

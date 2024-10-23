@@ -20,7 +20,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class VerticalStairBlockWithBase extends Block implements SimpleWaterloggedBlock, IHasBaseBlock, ISimpleBlockItem {
+public class VerticalStairBlockWithBase extends Block implements SimpleWaterloggedBlock, IHasBaseBlock {
 
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;

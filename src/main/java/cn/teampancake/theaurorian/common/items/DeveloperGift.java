@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.common.items.developer.IDeveloperItem;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -17,7 +17,7 @@ import java.util.List;
 public class DeveloperGift extends Item {
 
     public DeveloperGift() {
-        super(new Properties().fireResistant());
+        super(TAItemProperties.get().fireResistant().addItemTag(TAItemTags.IS_LEGENDARY).isSimpleModelItem());
     }
 
     @Nullable
@@ -25,8 +25,7 @@ public class DeveloperGift extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        if(developerItems==null)
-            developerItems=getDeveloperItems();
+        if (developerItems == null) developerItems = getDeveloperItems();
         ItemStack stack = player.getItemInHand(usedHand);
         stack.shrink(player.getAbilities().instabuild ? 0 : 1);
         int index = level.random.nextInt(developerItems.size());
@@ -36,12 +35,7 @@ public class DeveloperGift extends Item {
 
     private static List<Item> getDeveloperItems() {
         HashSet<Item> items = new HashSet<>();
-        for (Item item : TACommonUtils.getKnownItems()) {
-            if (item instanceof IDeveloperItem) {
-                items.add(item);
-            }
-        }
-
+        TACommonUtils.getKnownItemStream().filter(item -> TACommonUtils.getItemProperties(item).isDeveloperItem).forEach(items::add);
         return new ArrayList<>(items);
     }
 

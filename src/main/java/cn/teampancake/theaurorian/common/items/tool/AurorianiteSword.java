@@ -1,10 +1,12 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -24,10 +26,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class AurorianiteSword extends SwordItem implements ITooltipsItem {
+public class AurorianiteSword extends SwordItem {
 
     public AurorianiteSword() {
-        super(TAToolTiers.AURORIANITE, new Properties().rarity(Rarity.EPIC).attributes(createAttributes(TAToolTiers.AURORIANITE, (4), (-2.4F))));
+        super(TAToolTiers.AURORIANITE, TAItemProperties.get().rarity(Rarity.EPIC)
+                .attributes(createAttributes(TAToolTiers.AURORIANITE, (4), (-2.4F)))
+                .addItemTag(ItemTags.SWORDS, TAItemTags.IS_EPIC).hasTooltips());
     }
 
     @Override

@@ -1,8 +1,10 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -14,10 +16,12 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.Level;
 
-public class UmbraSword extends SwordItem implements ITooltipsItem {
+public class UmbraSword extends SwordItem {
 
     public UmbraSword() {
-        super(TAToolTiers.UMBRA, new Properties().rarity(Rarity.EPIC).attributes(createAttributes(TAToolTiers.UMBRA, (7), (1.6F))));
+        super(TAToolTiers.UMBRA, TAItemProperties.get().rarity(Rarity.EPIC)
+                .attributes(createAttributes(TAToolTiers.UMBRA, (7), (1.6F)))
+                .addItemTag(ItemTags.SWORDS, TAItemTags.IS_EPIC).hasTooltips());
     }
 
     @Override

@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.armor.CrystalRuneArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
@@ -20,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 public class CrystalRuneArmor extends BaseArmor<CrystalRuneArmorModel> {
 
     public CrystalRuneArmor(Type type) {
-        super(TAArmorMaterials.CRYSTAL_RUNE, type, new Properties().rarity(Rarity.EPIC));
+        super(TAArmorMaterials.CRYSTAL_RUNE, type, TAItemProperties.get().rarity(Rarity.EPIC));
     }
 
     @Override

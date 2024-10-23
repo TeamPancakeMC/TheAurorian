@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -14,6 +15,7 @@ import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -33,10 +35,12 @@ import net.neoforged.neoforge.client.IArmPoseTransformer;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.Nullable;
 
-public class CrystallineSword extends SwordItem implements ITooltipsItem {
+public class CrystallineSword extends SwordItem {
 
     public CrystallineSword() {
-        super(TAToolTiers.CRYSTALLINE, new Properties().rarity(Rarity.EPIC).durability(512).attributes(createAttributes(TAToolTiers.CRYSTALLINE, (3), (-2.4F))));
+        super(TAToolTiers.CRYSTALLINE, TAItemProperties.get().rarity(Rarity.EPIC).durability(512)
+                .attributes(createAttributes(TAToolTiers.CRYSTALLINE, (3), (-2.4F)))
+                .addItemTag(ItemTags.SWORDS, TAItemTags.IS_EPIC).hasTooltips());
     }
 
     @Override

@@ -2,9 +2,8 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.items.shield.CrystallineShield;
-import cn.teampancake.theaurorian.common.items.shield.MoonShield;
-import cn.teampancake.theaurorian.common.items.shield.MoonStoneShield;
 import cn.teampancake.theaurorian.common.items.shield.UmbraShield;
+import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -49,13 +48,11 @@ public class ShieldBlockSubscriber {
         }
     }
 
-
     @SubscribeEvent
     public static void onMoonShieldBlock(LivingShieldBlockEvent event) {
         LivingEntity livingEntity = event.getEntity();
-        Item item = livingEntity.getUseItem().getItem();
         Entity entity = event.getDamageSource().getEntity();
-        if (item instanceof MoonShield) {
+        if (livingEntity.getUseItem().is(TAItems.MOON_SHIELD)) {
             if (entity != null && livingEntity instanceof LivingEntity) {
                 entity.setPos(entity.getX(), entity.getY() + 5, entity.getZ());
             }
@@ -67,7 +64,7 @@ public class ShieldBlockSubscriber {
         Level level = event.getEntity().level();
         LivingEntity entity = event.getEntity();
         ItemStack offhandItem = entity.getOffhandItem();
-        if (offhandItem.getItem() instanceof MoonStoneShield) {
+        if (offhandItem.is(TAItems.MOONSTONE_SHIELD)) {
             if (level.isNight() && level.random.nextBoolean()) {
                 return;
             }

@@ -1,8 +1,10 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -19,10 +21,10 @@ import net.neoforged.neoforge.common.Tags;
 
 import java.util.Optional;
 
-public class CrystallinePickaxe extends PickaxeItem implements ITooltipsItem {
+public class CrystallinePickaxe extends PickaxeItem {
 
     public CrystallinePickaxe() {
-        super(TAToolTiers.CRYSTALLINE, new Properties().rarity(Rarity.EPIC).attributes(createAttributes(TAToolTiers.CRYSTALLINE, (1), (-2.8F))));
+        super(TAToolTiers.CRYSTALLINE, TAItemProperties.get().rarity(Rarity.EPIC).attributes(createAttributes(TAToolTiers.CRYSTALLINE, (1), (-2.8F))).addItemTag(ItemTags.PICKAXES, TAItemTags.IS_EPIC).hasTooltips());
     }
 
     @Override

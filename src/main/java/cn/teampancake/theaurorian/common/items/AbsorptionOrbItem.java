@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -13,10 +14,10 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class AbsorptionOrbItem extends Item implements ITooltipsItem {
+public class AbsorptionOrbItem extends Item {
 
     public AbsorptionOrbItem(){
-        super(new Properties().rarity(Rarity.EPIC).durability(250));
+        super(TAItemProperties.get().rarity(Rarity.EPIC).durability(250).addItemTag(TAItemTags.IS_RARE).hasTooltips().isSimpleModelItem());
     }
 
     @Override

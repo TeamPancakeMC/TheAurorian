@@ -18,6 +18,12 @@ import java.util.function.ToIntFunction;
 public class TABlockProperties extends BlockBehaviour.Properties {
 
     public List<TagKey<Block>> blockTagList = new ArrayList<>();
+    public TALootType lootType = TALootType.UNSET;
+    public boolean hasTooltips = false;
+    public boolean isBuildingBlock = false;
+    public boolean isSimpleModelBlock = false;
+    public boolean isRiversidePlant = false;
+    public boolean useSimpleBlockItem = false;
 
     public static TABlockProperties get() {
         return new TABlockProperties();
@@ -144,10 +150,33 @@ public class TABlockProperties extends BlockBehaviour.Properties {
         return this;
     }
 
-    @SafeVarargs
-    public final TABlockProperties replaceBlockTag(TagKey<Block>... values) {
-        this.blockTagList.clear();
-        this.addBlockTag(values);
+    public TABlockProperties lootType(TALootType lootType) {
+        this.lootType = lootType;
+        return this;
+    }
+
+    public TABlockProperties hasTooltips() {
+        this.hasTooltips = true;
+        return this;
+    }
+
+    public TABlockProperties isBuildingBlock() {
+        this.isBuildingBlock = true;
+        return this;
+    }
+
+    public TABlockProperties isSimpleModelBlock() {
+        this.isSimpleModelBlock = true;
+        return this;
+    }
+
+    public TABlockProperties isRiversidePlant() {
+        this.isRiversidePlant = true;
+        return this;
+    }
+
+    public TABlockProperties useSimpleBlockItem() {
+        this.useSimpleBlockItem = true;
         return this;
     }
 

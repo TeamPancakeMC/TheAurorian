@@ -1,9 +1,11 @@
 package cn.teampancake.theaurorian.common.items.shield;
 
-import cn.teampancake.theaurorian.common.items.ITooltipsItem;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -12,9 +14,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
-public class UmbraShield extends ShieldItem implements ITooltipsItem {
+public class UmbraShield extends ShieldItem {
 
     private static final int PARTICLE_DELAY = 6;
     private static final int PARTICLE_DENSITY = 50;
@@ -23,7 +26,7 @@ public class UmbraShield extends ShieldItem implements ITooltipsItem {
     private static final double REACH = 1.5;
 
     public UmbraShield() {
-        super(new Properties().durability(512));
+        super(TAItemProperties.get().durability(512).addItemTag(Tags.Items.TOOLS_SHIELD, ItemTags.DURABILITY_ENCHANTABLE, TAItemTags.IS_EPIC).hasTooltips());
     }
 
     @Override

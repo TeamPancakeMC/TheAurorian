@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 
-public class PressurePlateBlockWithBase extends PressurePlateBlock implements IHasBaseBlock, ISimpleBlockItem {
+public class PressurePlateBlockWithBase extends PressurePlateBlock implements IHasBaseBlock {
 
     private final Block base;
 

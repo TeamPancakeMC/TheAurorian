@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.entities.npc;
 
-import cn.teampancake.theaurorian.common.registry.TAVillagerTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -11,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class AurorianVillager extends Villager {
 
     public AurorianVillager(EntityType<? extends AurorianVillager> entityType, Level level) {
-        super(entityType, level, TAVillagerTypes.AURORIAN_PLAINS.get());
+        super(entityType, level);
     }
 
     public static AttributeSupplier.@NotNull Builder createAttributes() {

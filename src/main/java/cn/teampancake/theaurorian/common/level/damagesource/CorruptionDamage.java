@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.mixin;
+package cn.teampancake.theaurorian.common.level.damagesource;
 
 import cn.teampancake.theaurorian.common.registry.TADamageTypes;
 import net.minecraft.ChatFormatting;
@@ -11,24 +11,20 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.DyeColor;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Mixin(DamageSource.class)
-public class MixinDamageSource {
+public class CorruptionDamage extends DamageSource {
 
-    @Shadow @Final private Holder<DamageType> type;
+    public CorruptionDamage(Holder<DamageType> type) {
+        super(type);
+    }
 
-    @Inject(method = "getLocalizedDeathMessage", at = @At(value = "HEAD"), cancellable = true)
-    public void getLocalizedDeathMessage(LivingEntity livingEntity, CallbackInfoReturnable<Component> cir) {
-        if (this.type.is(TADamageTypes.CORRUPTION) && (livingEntity instanceof ServerPlayer || livingEntity.hasCustomName())) {
+    @Override
+    public Component getLocalizedDeathMessage(LivingEntity livingEntity) {
+        boolean flag = livingEntity instanceof ServerPlayer || livingEntity.hasCustomName();
+        if (this.typeHolder().is(TADamageTypes.CORRUPTION) && flag) {
             Map<Integer, Integer> styles = new HashMap<>();
             styles.put(1, ChatFormatting.DARK_RED.getColor());
             styles.put(2, DyeColor.CYAN.getTextColor());
@@ -38,8 +34,10 @@ public class MixinDamageSource {
             int index = random.nextInt(10) < 9 ? 1 : easterEgg;
             String s = "death.attack.corruption_" + index;
             Style style = Style.EMPTY.withColor(styles.get(index));
-            cir.setReturnValue(Component.translatable(s, livingEntity.getDisplayName()).setStyle(style));
+            return Component.translatable(s, livingEntity.getDisplayName()).setStyle(style);
         }
+
+        return super.getLocalizedDeathMessage(livingEntity);
     }
 
 }

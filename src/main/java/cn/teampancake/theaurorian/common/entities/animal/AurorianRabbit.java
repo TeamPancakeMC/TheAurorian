@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
-import cn.teampancake.theaurorian.common.entities.ai.goal.AurorianAnimalMeleeAttackGoal;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.server.level.ServerLevel;
@@ -54,7 +53,6 @@ public class AurorianRabbit extends Rabbit {
         this.goalSelector.addGoal(4, new RabbitAvoidEntityGoal<>(this, Wolf.class, 10.0F));
         this.goalSelector.addGoal(4, new RabbitAvoidEntityGoal<>(this, BlueTailWolf.class, 10.0F));
         this.goalSelector.addGoal(4, new RabbitAvoidEntityGoal<>(this, Monster.class, 4.0F));
-        this.goalSelector.addGoal(4, new AurorianAnimalMeleeAttackGoal(this));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.6));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
     }

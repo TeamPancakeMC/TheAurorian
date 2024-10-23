@@ -1,7 +1,5 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
-import cn.teampancake.theaurorian.common.entities.ai.goal.AurorianAnimalMeleeAttackGoal;
-import cn.teampancake.theaurorian.common.entities.ai.goal.AurorianAnimalPanicGoal;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.server.level.ServerLevel;
@@ -45,11 +43,10 @@ public class AurorianPig extends Pig {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new AurorianAnimalPanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D,
                 Ingredient.of(TAItems.SILK_BERRY.get()), false));
-        this.goalSelector.addGoal(4, new AurorianAnimalMeleeAttackGoal(this));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));

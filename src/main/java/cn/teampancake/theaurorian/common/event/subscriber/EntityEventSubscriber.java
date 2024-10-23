@@ -39,6 +39,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -61,6 +62,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -165,29 +167,22 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
+    public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
+        if (event.getEntity() instanceof Cat cat && cat.temptGoal != null) {
+
+        }
+    }
+
+    @SubscribeEvent
     public static void onLivingTick(EntityTickEvent.Pre event) {
         if (event.getEntity() instanceof LivingEntity entity) {
             Level level = entity.level();
             if (!level.isClientSide()) {
                 int i = entity.getData(TAAttachmentTypes.TICKS_FROSTBITE);
-                Map<Holder<MobEffect>, MobEffectInstance> effectsMap = entity.getActiveEffectsMap();
                 if (entity.hasEffect(TAMobEffects.PARALYSIS) && entity.getVehicle() == null) {
                     SitEntity sitEntity = new SitEntity(level, entity.getOnPos(), 0.7D);
                     level.addFreshEntity(sitEntity);
                     entity.startRiding(sitEntity);
-                }
-
-                if (effectsMap.containsKey(TAMobEffects.CORRUPTION)) {
-                    MobEffectInstance instance = effectsMap.get(TAMobEffects.CORRUPTION);
-                    double maxDuration = entity.getData(TAAttachmentTypes.VALID_CORRUPTION_TIME);
-                    boolean flag = Math.random() <= (1.0D - instance.getDuration() / maxDuration);
-                    if (instance.getDuration() % 3 == 0 && flag) {
-                        effectsMap.remove(instance.getEffect());
-                    }
-                }
-
-                if (entity.getData(TAAttachmentTypes.SPAWN_IN_OVERWORLD) && level.isDay()) {
-                    entity.kill();
                 }
 
                 if (i > 0) {
@@ -256,20 +251,6 @@ public class EntityEventSubscriber {
         boolean flag4 = effects.contains(effect) && !(entity instanceof MoonQueen);
         if (flag1 || flag2 || flag3 || flag4) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onMobEffectAdded(MobEffectEvent.Added event) {
-        AttachmentType<Integer> type = TAAttachmentTypes.VALID_CORRUPTION_TIME.get();
-        MobEffectInstance instance = event.getEffectInstance();
-        LivingEntity entity = event.getEntity();
-        if (instance != null && instance.is(TAMobEffects.CORRUPTION)) {
-            int duration = instance.getDuration();
-            int oldValidTime = entity.getData(type);
-            if (!entity.hasEffect(TAMobEffects.CORRUPTION) || duration > oldValidTime) {
-                entity.setData(type, duration);
-            }
         }
     }
 

@@ -1,10 +1,13 @@
 package cn.teampancake.theaurorian.common.effect;
 
+import cn.teampancake.theaurorian.common.level.damagesource.CorruptionDamage;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TADamageTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -32,17 +35,17 @@ public class CorruptionEffect extends IncurableEffect {
     }
 
     public static void doHurtTarget(LivingEntity entity) {
+        RegistryAccess registry = entity.level().registryAccess();
+        Holder<DamageType> holder = registry.holderOrThrow(TADamageTypes.CORRUPTION);
+        CorruptionDamage corruptionDamage = new CorruptionDamage(holder);
         AttachmentType<Float> type1 = TAAttachmentTypes.DAMAGE_ACCUMULATION.get();
         AttachmentType<Float> type2 = TAAttachmentTypes.ARMOR_HURT_ACCUMULATION.get();
         AttachmentType<Float> type3 = TAAttachmentTypes.EXHAUSTION_ACCUMULATION.get();
-        DamageSource source = entity.damageSources().source(TADamageTypes.CORRUPTION);
-        entity.hurt(source, entity.getData(type1));
+        entity.hurt(corruptionDamage, entity.getData(type1));
         entity.setData(type1, 0.0F);
-        entity.setData(TAAttachmentTypes.CORRUPTION_TIME, 0);
-        entity.setData(TAAttachmentTypes.VALID_CORRUPTION_TIME, 0);
         if (entity instanceof Player player) {
             float armorHurt = entity.getData(type2);
-            player.doHurtEquipment(source, armorHurt, ARMOR_SLOTS);
+            player.doHurtEquipment(corruptionDamage, armorHurt, ARMOR_SLOTS);
             player.causeFoodExhaustion(player.getData(type3));
             player.setData(type2, 0.0F);
             player.setData(type3, 0.0F);

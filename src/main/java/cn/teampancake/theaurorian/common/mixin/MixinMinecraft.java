@@ -25,10 +25,12 @@ public class MixinMinecraft {
     @Inject(method = "shouldEntityAppearGlowing", at = @At(value = "HEAD"), cancellable = true)
     public void shouldEntityAppearGlowing(Entity entity, CallbackInfoReturnable<Boolean> cir) {
         if (this.player != null && Minecraft.getInstance().getCameraEntity() == this.player) {
-            Holder<Enchantment> holder = TAEnchantments.get(player.level(), TAEnchantments.MOONLIGHT);
-            double distance = player.distanceToSqr(entity);
+            Holder<Enchantment> holder = TAEnchantments.get(this.player.level(), TAEnchantments.MOONLIGHT);
+            double distance = this.player.distanceToSqr(entity);
             int i = EnchantmentHelper.getEnchantmentLevel(holder, this.player);
-            cir.setReturnValue(i > 0 && distance <= Math.pow(i * 20.0D, 2.0D));
+            if (i > 0 && distance <= Math.pow(i * 20.0D, 2.0D)) {
+                cir.setReturnValue(true);
+            }
         }
     }
 

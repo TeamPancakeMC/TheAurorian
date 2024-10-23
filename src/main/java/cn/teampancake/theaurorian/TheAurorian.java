@@ -65,7 +65,6 @@ public class TheAurorian {
         TAStructurePlacementTypes.STRUCTURE_PLACEMENT_TYPES.register(modEventBus);
         TAEnchantmentEffectTypes.ENCHANTMENT_ENTITY_EFFECT_TYPES.register(modEventBus);
         TALootItemConditions.LOOT_CONDITION_TYPES.register(modEventBus);
-        TAVillagerTypes.VILLAGER_TYPES.register(modEventBus);
         TABiomeLayers.BIOME_LAYER_TYPES.register(modEventBus);
         TAMobEffects.MOB_EFFECTS.register(modEventBus);
         TAVillagerProfession.register(modEventBus);

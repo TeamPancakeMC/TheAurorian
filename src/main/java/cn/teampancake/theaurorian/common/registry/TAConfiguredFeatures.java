@@ -3,8 +3,8 @@ package cn.teampancake.theaurorian.common.registry;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.AurorianWaterSurfacePlant;
 import cn.teampancake.theaurorian.common.blocks.BlueberryBush;
-import cn.teampancake.theaurorian.common.blocks.IRiversidePlant;
 import cn.teampancake.theaurorian.common.blocks.TAClusterBlock;
+import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.level.feature.FilthyLakeFeature;
 import cn.teampancake.theaurorian.common.level.feature.config.FallenLogConfig;
 import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
@@ -182,9 +182,8 @@ public class TAConfiguredFeatures {
             if (block instanceof AurorianWaterSurfacePlant waterSurfacePlant) {
                 BlockState state = waterSurfacePlant.defaultBlockState();
                 levelValues.forEach(level -> waterSurfacePlantBuilder.add(state.setValue(levelProperty, level), 1));
-            } else if (block instanceof IRiversidePlant) {
-                BlockState state = block.defaultBlockState();
-                levelValues.forEach(level -> riversidePlantBuilder.add(state.setValue(levelProperty, level), 1));
+            } else if (block.properties() instanceof TABlockProperties properties && properties.isRiversidePlant) {
+                levelValues.forEach(level -> riversidePlantBuilder.add(block.defaultBlockState().setValue(levelProperty, level), 1));
             } else if (block instanceof TAClusterBlock clusterBlock) {
                 BlockState state = clusterBlock.defaultBlockState().setValue(TAClusterBlock.WATERLOGGED, Boolean.FALSE).setValue(TAClusterBlock.FACING, Direction.UP);
                 levelValues.forEach(level -> clusterBuilder.add(state.setValue(levelProperty, level), 1));

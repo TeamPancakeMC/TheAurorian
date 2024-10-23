@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.gui.AlchemyTableScreen;
 import cn.teampancake.theaurorian.client.gui.MoonlightForgeScreen;
 import cn.teampancake.theaurorian.client.gui.ScrapperScreen;
+import cn.teampancake.theaurorian.client.gui.TAWaitingScreen;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
@@ -31,6 +32,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.neoforged.neoforge.client.event.RegisterDimensionTransitionScreenEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -74,9 +76,15 @@ public class ModBusEventSubscriber {
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
-    public static void registerDimensionEffects(RegisterDimensionSpecialEffectsEvent event) {
+    public static void registerDimensionSpecialEffects(RegisterDimensionSpecialEffectsEvent event) {
         new TASkyRenderer();
         event.register(TheAurorian.prefix("aurorian"), new TASpecialEffects());
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void registerDimensionTransitionScreen(RegisterDimensionTransitionScreenEvent event) {
+        event.registerIncomingEffect(TADimensions.AURORIAN_DIMENSION, TAWaitingScreen::new);
     }
 
     @SubscribeEvent

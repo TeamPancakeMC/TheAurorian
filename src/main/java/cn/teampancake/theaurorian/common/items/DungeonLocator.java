@@ -31,9 +31,9 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class DungeonLocatorItem extends Item {
+public class DungeonLocator extends Item {
 
-    public DungeonLocatorItem() {
+    public DungeonLocator() {
         super(TAItemProperties.get().durability(30).rarity(Rarity.EPIC).addItemTag(TAItemTags.IS_RARE).hasTooltips().isSimpleModelItem());
     }
 

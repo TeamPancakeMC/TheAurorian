@@ -14,9 +14,9 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class AbsorptionOrbItem extends Item {
+public class AbsorptionOrb extends Item {
 
-    public AbsorptionOrbItem(){
+    public AbsorptionOrb(){
         super(TAItemProperties.get().rarity(Rarity.EPIC).durability(250).addItemTag(TAItemTags.IS_RARE).hasTooltips().isSimpleModelItem());
     }
 

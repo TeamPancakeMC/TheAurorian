@@ -296,7 +296,7 @@ public class TAItems {
     /**
      * Tool
      */
-    public static final DeferredHolder<Item, Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrbItem::new);
+    public static final DeferredHolder<Item, Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrb::new);
     public static final DeferredHolder<Item, Item> SILENT_WOOD_STICK = ITEMS.register("silent_wood_stick", () -> new Item(TAItemProperties.get().addItemTag(TAItemTags.IS_RARE, Tags.Items.RODS_WOODEN).hasTooltips().isSimpleModelItem()));
     public static final DeferredHolder<Item, Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(TAItemProperties.get()
             .rarity(Rarity.EPIC).addItemTag(TAItemTags.IS_RARE).isSimpleModelItem(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.STICKY_SPIKER::get, 1.5F, 1.0F));
@@ -338,7 +338,7 @@ public class TAItems {
             TAItemProperties.get().addItemTag(TAItemTags.HAS_CUSTOM_TOOLTIPS).hasTooltips());
     public static final DeferredHolder<Item, Item> WORLD_SCROLL_FRAGMENT = normal("world_scroll_fragment", TAItemProperties.get().addItemTag(TAItemTags.IS_RARE));
     public static final DeferredHolder<Item, Item> WORLD_SCROLL = ITEMS.register("world_scroll", WorldScroll::new);
-    public static final DeferredHolder<Item, Item> DUNGEON_LOCATOR = ITEMS.register("dungeon_locator", DungeonLocatorItem::new);
+    public static final DeferredHolder<Item, Item> DUNGEON_LOCATOR = ITEMS.register("dungeon_locator", DungeonLocator::new);
     public static final DeferredHolder<Item, Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(
             TAItemProperties.get(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.WEBBING::get, 0.5F));
     public static final DeferredHolder<Item, Item> LIVING_DIVINING_ROD = ITEMS.register("living_divining_rod", LivingDiviningRod::new);
@@ -377,7 +377,6 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> BLUE_TAIL_WOLF_SPAWN_EGG = spawnEgg("blue_tail_wolf", TAEntityTypes.BLUE_TAIL_WOLF, 0xe1eff5, 0x6381f7);
     public static final DeferredHolder<Item, Item> MOON_FISH_SPAWN_EGG = spawnEgg("moon_fish", TAEntityTypes.MOON_FISH, 0xd1ccc5, 0x594a48);
     public static final DeferredHolder<Item, Item> AURORIAN_WINGED_FISH_SPAWN_EGG = spawnEgg("aurorian_winged_fish", TAEntityTypes.AURORIAN_WINGED_FISH, 0x4581d5, 0x1b4a8a);
-    public static final DeferredHolder<Item, Item> AURORIAN_VILLAGER_SPAWN_EGG = spawnEgg("aurorian_villager", TAEntityTypes.AURORIAN_VILLAGER, 0x9e9e9e, 0x4f4f4f);
     public static final DeferredHolder<Item, Item> AURORIAN_RABBIT_SPAWN_EGG = spawnEgg("aurorian_rabbit", TAEntityTypes.AURORIAN_RABBIT, 0xc2e5e5, 0x43a2ec);
     public static final DeferredHolder<Item, Item> AURORIAN_SHEEP_SPAWN_EGG = spawnEgg("aurorian_sheep", TAEntityTypes.AURORIAN_SHEEP, 0x97b4f2, 0x7197ea);
     public static final DeferredHolder<Item, Item> AURORIAN_PIG_SPAWN_EGG = spawnEgg("aurorian_pig", TAEntityTypes.AURORIAN_PIG, 0xc6dfff, 0x5d6f93);
@@ -405,6 +404,7 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> RUNESTONE_KEEPER_SPAWN_EGG = spawnEgg("runestone_keeper", TAEntityTypes.RUNESTONE_KEEPER, 0xccc0e7, 0x550098);
     public static final DeferredHolder<Item, Item> SPIDER_MOTHER_SPAWN_EGG = spawnEgg("spider_mother", TAEntityTypes.SPIDER_MOTHER, 0x595d70, 0x0f1018);
     public static final DeferredHolder<Item, Item> MOON_QUEEN_SPAWN_EGG = spawnEgg("moon_queen", TAEntityTypes.MOON_QUEEN, 0xff82d4, 0x313d4b);
+    public static final DeferredHolder<Item, Item> AURORIAN_VILLAGER_SPAWN_EGG = ITEMS.register("aurorian_villager_spawn_egg", AurorianVillagerSpawnEgg::new);
     
     /**
      * Block Item

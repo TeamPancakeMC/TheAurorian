@@ -14,6 +14,7 @@ import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.*;
 import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
+import cn.teampancake.theaurorian.common.entities.npc.LadyKnight;
 import cn.teampancake.theaurorian.common.entities.projectile.*;
 import cn.teampancake.theaurorian.common.entities.projectile.blade_waves.BladeWave;
 import cn.teampancake.theaurorian.common.entities.technical.LunaCircleEntity;
@@ -42,9 +43,6 @@ public class TAEntityTypes {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, TheAurorian.MOD_ID);
     //Projectile
-    public static final DeferredHolder<EntityType<?>, EntityType<EyeOfDisturbedEntity>> EYE_OF_DISTURBED = ENTITY_TYPES.register("eye_of_disturbed",
-            () -> EntityType.Builder.<EyeOfDisturbedEntity>of(EyeOfDisturbedEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
-                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("eye_of_disturbed"));
     public static final DeferredHolder<EntityType<?>, EntityType<Arrow>> CRYSTALLINE_BEAM = ENTITY_TYPES.register("crystalline_beam",
             () -> EntityType.Builder.<Arrow>of(Arrow::new, MobCategory.MISC).sized(0.5F, 0.5F)
                     .clientTrackingRange((4)).updateInterval((20)).build("crystalline_beam"));
@@ -89,8 +87,9 @@ public class TAEntityTypes {
                     .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("moon_queen_sword"));
     //NPC
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianVillager>> AURORIAN_VILLAGER = ENTITY_TYPES.register("aurorian_villager",
-            () -> EntityType.Builder.of(AurorianVillager::new, MobCategory.CREATURE).sized(0.6F, 1.85F)
-                    .clientTrackingRange((8)).build("aurorian_villager"));
+            () -> EntityType.Builder.of(AurorianVillager::new, MobCategory.CREATURE).sized(0.6F, 1.85F).clientTrackingRange((8)).build("aurorian_villager"));
+    public static final DeferredHolder<EntityType<?>, EntityType<LadyKnight>> LADY_KNIGHT = ENTITY_TYPES.register("lady_knight",
+            () -> EntityType.Builder.of(LadyKnight::new, MobCategory.CREATURE).sized(0.6F, 1.85F).clientTrackingRange((8)).build("lady_knight"));
     //Animal
     public static final DeferredHolder<EntityType<?>, EntityType<BreadBeast>> BREAD_BEAST = ENTITY_TYPES.register("bread_beast",
             () -> EntityType.Builder.of(BreadBeast::new, MobCategory.CREATURE).sized(1.0F, 2.0F)
@@ -194,7 +193,6 @@ public class TAEntityTypes {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(EYE_OF_DISTURBED.get(), EyeOfDisturbedRenderer::new);
         event.registerEntityRenderer(CRYSTALLINE_BEAM.get(), CrystallineBeamRenderer::new);
         event.registerEntityRenderer(CERULEAN_ARROW.get(), CeruleanArrowRenderer::new);
         event.registerEntityRenderer(CRYSTAL_ARROW.get(), CrystalArrowRenderer::new);
@@ -214,6 +212,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(BLUE_TAIL_WOLF.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(AURORIAN_VILLAGER.get(), AurorianVillagerRenderer::new);
+        event.registerEntityRenderer(LADY_KNIGHT.get(), LadyKnightRenderer::new);
         event.registerEntityRenderer(MOON_FISH.get(), MoonFishRenderer::new);
         event.registerEntityRenderer(AURORIAN_WINGED_FISH.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(AURORIAN_WINGED_FISH.getId())));
@@ -223,11 +222,10 @@ public class TAEntityTypes {
         event.registerEntityRenderer(AURORIAN_COW.get(), AurorianCowRenderer::new);
         event.registerEntityRenderer(AURORIAN_PIXIE.get(), AurorianPixieRenderer::new);
         event.registerEntityRenderer(AURORIAN_SLIME.get(), AurorianSlimeRenderer::new);
-        event.registerEntityRenderer(DISTURBED_HOLLOW.get(), context -> new GeoEntityRenderer<>(
-                context, new DefaultedEntityGeoModel<>(DISTURBED_HOLLOW.getId(), Boolean.TRUE)));
+        event.registerEntityRenderer(DISTURBED_HOLLOW.get(), DisturbedHollowRenderer::new);
         event.registerEntityRenderer(UNDEAD_KNIGHT.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(UNDEAD_KNIGHT.getId(), Boolean.TRUE)));
-        event.registerEntityRenderer(SPIRIT.get(), context -> new GeoEntityRenderer<>(
+        event.registerEntityRenderer(SPIRIT.get(), context -> new SpiritRenderer<>(
                 context, new DefaultedEntityGeoModel<>(SPIRIT.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(MOON_ACOLYTE.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(MOON_ACOLYTE.getId(), Boolean.TRUE)));
@@ -276,6 +274,7 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.AURORIAN_PIXIE, AurorianPixieModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME, SlimeModel::createInnerBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME_OUTER, SlimeModel::createOuterBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.DISTURBED_HOLLOW, DisturbedHollowModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CRYSTALLINE_SPRITE, CrystallineSpriteModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.FLOWER_LEECH, FlowerLeechModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.FORGOTTEN_MAGIC_BOOK, ForgottenMagicBookModel::createBodyLayer);
@@ -324,6 +323,7 @@ public class TAEntityTypes {
         event.put(ICEFIELD_DEER.get(), IcefieldDeer.createAttributes().build());
         event.put(BLUE_TAIL_WOLF.get(), BlueTailWolf.createAttributes().build());
         event.put(MOON_FISH.get(), MoonFish.createAttributes().build());
+        event.put(LADY_KNIGHT.get(), LadyKnight.createAttributes().build());
         event.put(AURORIAN_WINGED_FISH.get(), AurorianWingedFish.createAttributes().build());
         event.put(AURORIAN_VILLAGER.get(), AurorianVillager.createAttributes().build());
         event.put(AURORIAN_RABBIT.get(), AurorianRabbit.createAttributes().build());

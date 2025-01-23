@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
-import cn.teampancake.theaurorian.common.entities.npc.LadyKnight;
+import cn.teampancake.theaurorian.common.entities.npc.Selena;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import com.mojang.math.Constants;
 import net.minecraft.nbt.CompoundTag;
@@ -45,7 +45,7 @@ public class DisturbedHollow extends Monster {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AurorianVillager.class, true));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LadyKnight.class, true));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Selena.class, true));
         this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 

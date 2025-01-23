@@ -14,7 +14,7 @@ import cn.teampancake.theaurorian.common.entities.boss.RunestoneKeeper;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.*;
 import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
-import cn.teampancake.theaurorian.common.entities.npc.LadyKnight;
+import cn.teampancake.theaurorian.common.entities.npc.Selena;
 import cn.teampancake.theaurorian.common.entities.projectile.*;
 import cn.teampancake.theaurorian.common.entities.projectile.blade_waves.BladeWave;
 import cn.teampancake.theaurorian.common.entities.technical.LunaCircleEntity;
@@ -88,8 +88,8 @@ public class TAEntityTypes {
     //NPC
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianVillager>> AURORIAN_VILLAGER = ENTITY_TYPES.register("aurorian_villager",
             () -> EntityType.Builder.of(AurorianVillager::new, MobCategory.CREATURE).sized(0.6F, 1.85F).clientTrackingRange((8)).build("aurorian_villager"));
-    public static final DeferredHolder<EntityType<?>, EntityType<LadyKnight>> LADY_KNIGHT = ENTITY_TYPES.register("lady_knight",
-            () -> EntityType.Builder.of(LadyKnight::new, MobCategory.CREATURE).sized(0.6F, 1.85F).clientTrackingRange((8)).build("lady_knight"));
+    public static final DeferredHolder<EntityType<?>, EntityType<Selena>> SELENA = ENTITY_TYPES.register("selena",
+            () -> EntityType.Builder.of(Selena::new, MobCategory.CREATURE).sized(0.6F, 1.85F).clientTrackingRange((8)).build("lady_knight"));
     //Animal
     public static final DeferredHolder<EntityType<?>, EntityType<BreadBeast>> BREAD_BEAST = ENTITY_TYPES.register("bread_beast",
             () -> EntityType.Builder.of(BreadBeast::new, MobCategory.CREATURE).sized(1.0F, 2.0F)
@@ -212,7 +212,7 @@ public class TAEntityTypes {
         event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(BLUE_TAIL_WOLF.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(AURORIAN_VILLAGER.get(), AurorianVillagerRenderer::new);
-        event.registerEntityRenderer(LADY_KNIGHT.get(), LadyKnightRenderer::new);
+        event.registerEntityRenderer(SELENA.get(), SelenaRenderer::new);
         event.registerEntityRenderer(MOON_FISH.get(), MoonFishRenderer::new);
         event.registerEntityRenderer(AURORIAN_WINGED_FISH.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(AURORIAN_WINGED_FISH.getId())));
@@ -323,7 +323,7 @@ public class TAEntityTypes {
         event.put(ICEFIELD_DEER.get(), IcefieldDeer.createAttributes().build());
         event.put(BLUE_TAIL_WOLF.get(), BlueTailWolf.createAttributes().build());
         event.put(MOON_FISH.get(), MoonFish.createAttributes().build());
-        event.put(LADY_KNIGHT.get(), LadyKnight.createAttributes().build());
+        event.put(SELENA.get(), Selena.createAttributes().build());
         event.put(AURORIAN_WINGED_FISH.get(), AurorianWingedFish.createAttributes().build());
         event.put(AURORIAN_VILLAGER.get(), AurorianVillager.createAttributes().build());
         event.put(AURORIAN_RABBIT.get(), AurorianRabbit.createAttributes().build());

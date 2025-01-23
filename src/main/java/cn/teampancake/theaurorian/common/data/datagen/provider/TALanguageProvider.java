@@ -713,11 +713,11 @@ public class TALanguageProvider extends LanguageProvider {
         this.addEntityType(TAEntityTypes.CRYSTAL_ARROW, "Crystal Arrow", "水晶箭");
         this.addEntityType(TAEntityTypes.STICKY_SPIKER, "Sticky Spiker", "粘性尖刺");
         this.addEntityType(TAEntityTypes.WEBBING, "Webbing", "蛛母之网");
-        this.addEntityType(TAEntityTypes.EYE_OF_DISTURBED, "Eye Of Disturbed", "空谷之眼");
         this.addEntityType(TAEntityTypes.BREAD_BEAST, "Bread Beast", "面包果兽");
         this.addEntityType(TAEntityTypes.ICEFIELD_DEER, "Icefield Deer", "冰原鹿");
         this.addEntityType(TAEntityTypes.BLUE_TAIL_WOLF, "Blue Tail Wolf", "青尾狼");
         this.addEntityType(TAEntityTypes.MOON_FISH, "Moon Fish", "皎月鱼");
+        this.addEntityType(TAEntityTypes.SELENA, "Selena", "赛琳娜");
         this.addEntityType(TAEntityTypes.AURORIAN_WINGED_FISH, "Aurorian Winged Fish", "极光翅鱼");
         this.addEntityType(TAEntityTypes.AURORIAN_VILLAGER, "Aurorian Villager", "极光村民");
         this.addEntityType(TAEntityTypes.AURORIAN_RABBIT, "Aurorian Rabbit", "极光兔");

@@ -2,7 +2,7 @@ package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
-import cn.teampancake.theaurorian.common.entities.npc.LadyKnight;
+import cn.teampancake.theaurorian.common.entities.npc.Selena;
 import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
@@ -40,7 +40,7 @@ public class AurorianSlime extends Slime {
         super.registerGoals();
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AurorianVillager.class,
                 Boolean.TRUE, entity -> Math.abs(entity.getY() - this.getY()) <= 4.0F));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LadyKnight.class,
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Selena.class,
                 Boolean.TRUE, entity -> Math.abs(entity.getY() - this.getY()) <= 4.0F));
     }
 

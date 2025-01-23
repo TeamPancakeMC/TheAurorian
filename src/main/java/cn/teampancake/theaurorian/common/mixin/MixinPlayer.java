@@ -34,7 +34,7 @@ public abstract class MixinPlayer extends LivingEntity {
 
     @Inject(method = "wantsToStopRiding", at = @At(value = "HEAD"), cancellable = true)
     protected void wantsToStopRiding(CallbackInfoReturnable<Boolean> cir) {
-        if (this.isPassenger() && this.hasEffect(TAMobEffects.PARALYSIS)) {
+        if (this.isPassenger() && (this.hasEffect(TAMobEffects.PARALYSIS) || this.hasEffect(TAMobEffects.STUN))) {
             cir.setReturnValue(false);
         }
     }

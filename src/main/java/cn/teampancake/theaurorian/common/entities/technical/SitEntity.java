@@ -1,13 +1,8 @@
 package cn.teampancake.theaurorian.common.entities.technical;
 
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -44,10 +39,5 @@ public class SitEntity extends Entity {
 
     @Override
     protected void addAdditionalSaveData(CompoundTag compound) {}
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-        return new ClientboundAddEntityPacket(this, entity);
-    }
 
 }

@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings({"deprecation", "OverrideOnly"})
+@SuppressWarnings({"deprecation"})
 public class AurorianPixie extends PathfinderMob {
 
     @Nullable

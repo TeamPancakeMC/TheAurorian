@@ -5,7 +5,6 @@
       "theaurorian:ta_cave_extra_underground"
     ]
   },
-  "creature_spawn_probability": 0.15,
   "downfall": 0.0,
   "effects": {
     "fog_color": 12648408,
@@ -72,51 +71,20 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [
-      {
-        "type": "theaurorian:aurorian_rabbit",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 10
-      },
-      {
-        "type": "theaurorian:aurorian_sheep",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 10
-      },
-      {
-        "type": "theaurorian:aurorian_pig",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 10
-      },
-      {
-        "type": "theaurorian:aurorian_cow",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 10
-      }
-    ],
+    "creature": [],
     "misc": [],
     "monster": [
       {
-        "type": "theaurorian:crystalline_sprite",
-        "maxCount": 2,
+        "type": "theaurorian:aurorian_slime",
+        "maxCount": 4,
         "minCount": 2,
-        "weight": 65
+        "weight": 100
       },
       {
-        "type": "theaurorian:disturbed_hollow",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 35
-      },
-      {
-        "type": "theaurorian:moon_acolyte",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 35
+        "type": "theaurorian:spirit",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 100
       }
     ],
     "underground_water_creature": [],

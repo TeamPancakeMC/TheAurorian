@@ -84,7 +84,7 @@
         "type": "theaurorian:disturbed_hollow",
         "maxCount": 4,
         "minCount": 1,
-        "weight": 35
+        "weight": 45
       },
       {
         "type": "theaurorian:moon_acolyte",

@@ -43,11 +43,14 @@ public class TABiomes {
         HolderGetter<PlacedFeature> featureGetter = context.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredWorldCarver<?>> carverGetter = context.lookup(Registries.CONFIGURED_CARVER);
         GenerationStep.Decoration vegetalDecoration = GenerationStep.Decoration.VEGETAL_DECORATION;
-        context.register(AURORIAN_FOREST, biomeOfNormalForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
-        context.register(AURORIAN_FOREST_HILL, biomeOfNormalForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
+        context.register(AURORIAN_FOREST, biomeOfNormalForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
+                .mobSpawnSettings(defaultForestAndPlainSpawning().build()).build());
+        context.register(AURORIAN_FOREST_HILL, biomeOfNormalForests(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
+                .mobSpawnSettings(defaultForestAndPlainSpawning().build()).build());
         context.register(AURORIAN_PLAINS, biomeWithParticle(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_FLOWER_PLAINS)
-                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_PLAINS), ParticleTypes.FIREWORK, 0.00375F).build());
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_PLAINS), ParticleTypes.FIREWORK, 0.00375F)
+                .mobSpawnSettings(defaultForestAndPlainSpawning().build()).build());
         context.register(AURORIAN_BEACH, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)).build());
         context.register(AURORIAN_RIVER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_WATER_SURFACE_PLANT)
@@ -163,7 +166,7 @@ public class TABiomes {
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_PIG.get(), 10, 1, 3));
         spawnInfo.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_COW.get(), 10, 1, 3));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.CRYSTALLINE_SPRITE.get(), 65, 2, 2));
-        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 35, 1, 3));
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 55, 1, 3));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_ACOLYTE.get(), 35, 1, 2));
         return spawnInfo;
     }
@@ -183,7 +186,7 @@ public class TABiomes {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
         spawnInfo.creatureGenerationProbability(0.2F);
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.CRYSTALLINE_SPRITE.get(), 45, 2, 2));
-        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 35, 1, 4));
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.DISTURBED_HOLLOW.get(), 45, 1, 4));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_ACOLYTE.get(), 35, 1, 2));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.ROCK_HAMMER.get(), 10, 1, 2));
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.TONG_SCORPION.get(), 10, 1, 2));
@@ -201,6 +204,13 @@ public class TABiomes {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
         spawnInfo.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_FISH.get(), 5, 2, 4));
         spawnInfo.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_WINGED_FISH.get(), 5, 2, 4));
+        return spawnInfo;
+    }
+
+    private static MobSpawnSettings.Builder defaultForestAndPlainSpawning() {
+        MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_SLIME.get(), 100, 2, 4));
+        spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.SPIRIT.get(), 100, 2, 4));
         return spawnInfo;
     }
 

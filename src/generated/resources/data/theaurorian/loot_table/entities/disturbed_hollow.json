@@ -12,21 +12,125 @@
               "count": {
                 "type": "minecraft:uniform",
                 "max": 2.0,
-                "min": 0.0
+                "min": 1.0
               },
               "function": "minecraft:set_count"
-            },
+            }
+          ],
+          "name": "minecraft:bone"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
             {
+              "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
+                "max": 3.0,
+                "min": 1.0
               },
-              "enchantment": "minecraft:looting",
-              "function": "minecraft:enchanted_count_increase"
+              "function": "minecraft:set_count"
             }
           ],
           "name": "theaurorian:soulless_flesh"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "chance": 0.15,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "theaurorian:blueberry"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "chance": 0.12,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "theaurorian:crystalline_ingot"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "chance": 0.07,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "theaurorian:lavender"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "chance": 0.02,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "theaurorian:aurorianite_ingot"
         }
       ],
       "rolls": 1.0

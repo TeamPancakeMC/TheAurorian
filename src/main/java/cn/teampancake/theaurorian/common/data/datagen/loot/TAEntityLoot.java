@@ -36,6 +36,7 @@ public class TAEntityLoot extends VanillaEntityLoot {
     @Override
     public void generate() {
         this.add(TAEntityTypes.AURORIAN_VILLAGER.get(), LootTable.lootTable());
+        this.add(TAEntityTypes.SELENA.get(), LootTable.lootTable());
         //Animal
         this.add(TAEntityTypes.BREAD_BEAST.get(), LootTable.lootTable());
         this.add(TAEntityTypes.ICEFIELD_DEER.get(), LootTable.lootTable());
@@ -83,6 +84,19 @@ public class TAEntityLoot extends VanillaEntityLoot {
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
         this.add(TAEntityTypes.AURORIAN_PIXIE.get(), LootTable.lootTable());
         //Monster
+        this.add(TAEntityTypes.DISTURBED_HOLLOW.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.BONE).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(TAItems.SOULLESS_FLESH.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TAItems.BLUEBERRY.get())
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)).when(LootItemRandomChanceCondition.randomChance(0.15F)))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TAItems.CRYSTALLINE_INGOT.get())
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)).when(LootItemRandomChanceCondition.randomChance(0.12F)))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TAItems.LAVENDER.get())
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)).when(LootItemRandomChanceCondition.randomChance(0.07F)))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TAItems.AURORIANITE_INGOT.get())
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)).when(LootItemRandomChanceCondition.randomChance(0.02F))))));
         this.add(TAEntityTypes.AURORIAN_SLIME.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(TAItems.AURORIAN_SLIMEBALL.get())
@@ -92,11 +106,16 @@ public class TAEntityLoot extends VanillaEntityLoot {
                                 .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))).when(this.killedByFrog()))
                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
                                 EntityPredicate.Builder.entity().subPredicate(SlimePredicate.sized(MinMaxBounds.Ints.exactly(1)))))));
-        this.addMonsterLoot(TAEntityTypes.DISTURBED_HOLLOW.get(), TAItems.SOULLESS_FLESH.get(), 2.0F);
+        this.add(TAEntityTypes.SPIRIT.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TAItems.SPECTRAL_SILK.get())
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(3.0F, 5.0F)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(TABlocks.EQUINOX_FLOWER.get())
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)).when(LootItemRandomChanceCondition.randomChance(0.25F)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
         this.addMonsterLoot(TAEntityTypes.UNDEAD_KNIGHT.get(), TAItems.SOULLESS_FLESH.get(), 2.0F);
         this.addMonsterLoot(TAEntityTypes.MOON_ACOLYTE.get(), TAItems.SOULLESS_FLESH.get(), 2.0F);
         this.addMonsterLoot(TAEntityTypes.CRYSTALLINE_SPRITE.get(), TAItems.CRYSTAL.get(), 1.0F);
-        this.addMonsterLoot(TAEntityTypes.SPIRIT.get(), TAItems.SPECTRAL_SILK.get(), 2.0F);
         this.addMonsterLoot(TAEntityTypes.SPIDERLING.get(), Items.SPIDER_EYE, 1.0F);
         this.add(TAEntityTypes.SPIDERLING_CRYSTAL_SHELL.get(), LootTable.lootTable());
         this.add(TAEntityTypes.SPIDERLING_WALL_CLIMBER.get(), LootTable.lootTable());

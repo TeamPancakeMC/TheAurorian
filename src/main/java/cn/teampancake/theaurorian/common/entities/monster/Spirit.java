@@ -1,33 +1,44 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.entities.ai.control.SpiritMoveControl;
 import cn.teampancake.theaurorian.common.entities.ai.goal.SpiritChargeAttackGoal;
 import cn.teampancake.theaurorian.common.entities.ai.goal.SpiritRandomMoveGoal;
+import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.SpiritMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -38,11 +49,15 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-//TODO: Should use entity tag to replace mob type.
+/** @noinspection deprecation*/
 public class Spirit extends TAMonster implements GeoEntity {
 
-    protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Spirit.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Spirit.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(Spirit.class, EntityDataSerializers.BOOLEAN);
+    private static final ResourceLocation ANGRY_MOVEMENT_SPEED_ID = TheAurorian.prefix("angry_movement_speed");
+    private static final ResourceLocation ANGRY_ATTACK_DAMAGE_ID = TheAurorian.prefix("angry_attack_damage");
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private boolean canInvisible = true;
 
     public Spirit(EntityType<? extends Spirit> type, Level level) {
         super(type, level);
@@ -58,28 +73,43 @@ public class Spirit extends TAMonster implements GeoEntity {
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AurorianVillager.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 
     public static boolean checkSpawnRules(EntityType<Spirit> spirit, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        BlockState state = level.getBlockState(pos.below());
-        boolean flag = state.is(Blocks.GRASS_BLOCK) && level.getLevel().dimension() == Level.OVERWORLD && level.getMoonBrightness() == 1.0F;
-        return (state.is(TABlocks.AURORIAN_GRASS.get()) || flag) && checkAnyLightMonsterSpawnRules(spirit, level, spawnType, pos, random);
+        return level.getBlockState(pos.below()).is(TABlocks.AURORIAN_GRASS_BLOCK.get()) && checkAnyLightMonsterSpawnRules(spirit, level, spawnType, pos, random);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Monster.createMonsterAttributes();
-        builder.add(Attributes.MAX_HEALTH, 20.0F);
+        builder.add(Attributes.MAX_HEALTH, 40.0F);
         builder.add(Attributes.MOVEMENT_SPEED, 0.2F);
-        builder.add(Attributes.ATTACK_DAMAGE, 3.0F);
+        builder.add(Attributes.ATTACK_DAMAGE, 5.0F);
         builder.add(Attributes.FOLLOW_RANGE, 35.0D);
         builder.add(Attributes.ARMOR, 0.0F);
         return builder;
     }
 
     @Override
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        if (this.isAngry()) {
+            AttributeInstance instance1 = this.getAttribute(Attributes.MOVEMENT_SPEED);
+            AttributeInstance instance2 = this.getAttribute(Attributes.ATTACK_DAMAGE);
+            if (instance1 != null && instance2 != null) {
+                instance1.addPermanentModifier(new AttributeModifier(ANGRY_MOVEMENT_SPEED_ID, 0.2D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+                instance2.addPermanentModifier(new AttributeModifier(ANGRY_ATTACK_DAMAGE_ID, 9.0D, AttributeModifier.Operation.ADD_VALUE));
+            }
+        }
+
+        return spawnGroupData;
+    }
+
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_FLAGS_ID, (byte)0);
+        builder.define(ANGRY, Boolean.FALSE);
     }
 
     public boolean getFlag(int mask) {
@@ -97,11 +127,40 @@ public class Spirit extends TAMonster implements GeoEntity {
         this.entityData.set(DATA_FLAGS_ID, (byte)(i & 255));
     }
 
+    public boolean isAngry() {
+        return this.entityData.get(ANGRY);
+    }
+
+    public void setAngry(boolean isAngry) {
+        this.entityData.set(ANGRY, isAngry);
+    }
+
     public void tick() {
         this.noPhysics = true;
         super.tick();
         this.noPhysics = false;
         this.setNoGravity(true);
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        super.customServerAiStep();
+        if (!this.level().isClientSide && this.canInvisible && this.getHealth() <= 5.0D) {
+            this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 200));
+            this.canInvisible = false;
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("IsAngry", this.isAngry());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setAngry(compound.getBoolean("IsAngry"));
     }
 
     @Override

@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.components.SourceOfTerra;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAMobEffectTags;
 import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
 import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
@@ -56,6 +57,7 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
@@ -201,6 +203,31 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
+    public static void onMobFinalizeSpawn(FinalizeSpawnEvent event) {
+        Mob mob = event.getEntity();
+        if (mob.getType().is(TAEntityTags.AFFECTED_BY_NIGHTMARE_MODE)) {
+            GameRules gameRules = event.getLevel().getLevel().getGameRules();
+            if (gameRules.getRule(TAGameRules.RULE_ENABLE_NIGHTMARE_MODE).get()) {
+                AttributeInstance health = mob.getAttribute(Attributes.MAX_HEALTH);
+                AttributeInstance attack = mob.getAttribute(Attributes.ATTACK_DAMAGE);
+                if (health != null && attack != null) {
+                    GameRules.Key<GameRules.IntegerValue> key = TAGameRules.RULE_NIGHTMARE_MODE_MULTIPLIER;
+                    ResourceLocation id1 = TheAurorian.prefix("nightmare_health_enhance");
+                    ResourceLocation id2 = TheAurorian.prefix("nightmare_attack_enhance");
+                    double multiplier = Math.max(1.0D, gameRules.getRule(key).get()) * 2.0D;
+                    AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_MULTIPLIED_BASE;
+                    health.addPermanentModifier(new AttributeModifier(id1, multiplier, operation));
+                    attack.addPermanentModifier(new AttributeModifier(id2, multiplier, operation));
+                }
+
+                if (mob.getLastDamageSource() == null) {
+                    mob.setHealth(mob.getMaxHealth());
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void onLivingTick(EntityTickEvent.Pre event) {
         if (event.getEntity() instanceof LivingEntity entity) {
             Level level = entity.level();
@@ -282,11 +309,6 @@ public class EntityEventSubscriber {
                     sitEntity.ejectPassengers();
                     sitEntity.discard();
                 }
-            }
-
-            if (entity instanceof MoonQueen moonQueen && moonQueen.duelingMoment && MoonQueen.BUFF_LIST.contains(instance)) {
-                moonQueen.addEffect(MoonQueen.BUFF_LIST.get(entity.getRandom().nextInt(MoonQueen.BUFF_LIST.size())));
-                moonQueen.triggerAnim("buff_controller", "buff_animation");
             }
 
             if (instance.is(TAMobEffects.CRYSTALLIZATION)) {
@@ -458,7 +480,10 @@ public class EntityEventSubscriber {
     public static void onLivingDrops(LivingDropsEvent event) {
         LivingEntity entity = event.getEntity();
         Entity sourceEntity = event.getSource().getEntity();
-        event.setCanceled(sourceEntity instanceof MoonQueen);
+        if (sourceEntity instanceof MoonQueen) {
+            event.setCanceled(true);
+        }
+
         if ((entity instanceof AgeableMob || entity instanceof NeutralMob) && sourceEntity instanceof ServerPlayer player) {
             Holder<Enchantment> enchantment = TAEnchantments.get(entity.level(), TAEnchantments.SAVAGE);
             int level = EnchantmentUtils.getEnchantmentLevel(enchantment, player);
@@ -472,7 +497,10 @@ public class EntityEventSubscriber {
     public static void onLivingAttacked(LivingIncomingDamageEvent event) {
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
-        event.setCanceled(source.is(DamageTypes.FREEZE) && target.hasEffect(TAMobEffects.WARM));
+        if (source.is(DamageTypes.FREEZE) && target.hasEffect(TAMobEffects.WARM)) {
+            event.setCanceled(true);
+        }
+
         if (target.isAlive() && source.getEntity() instanceof ServerPlayer player) {
             ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(source)) {

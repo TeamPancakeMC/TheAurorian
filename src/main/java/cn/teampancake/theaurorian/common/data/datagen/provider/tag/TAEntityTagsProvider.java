@@ -32,6 +32,8 @@ public class TAEntityTagsProvider extends EntityTypeTagsProvider {
         this.tag(TAEntityTags.WOLF_NON_TAME_ATTACK_TARGET).add(EntityType.SHEEP, EntityType.RABBIT, EntityType.FOX,
                 TAEntityTypes.AURORIAN_SHEEP.get(), TAEntityTypes.AURORIAN_RABBIT.get(), TAEntityTypes.ICEFIELD_DEER.get());
         this.tag(TAEntityTags.ALERTED_BY_BLUE_TAIL_WOLF).add(EntityType.WOLF, TAEntityTypes.BLUE_TAIL_WOLF.get());
+        this.tag(TAEntityTags.AFFECTED_BY_NIGHTMARE_MODE).add(TAEntityTypes.CRYSTALLINE_SPRITE.get(), TAEntityTypes.DISTURBED_HOLLOW.get(),
+                TAEntityTypes.MOON_ACOLYTE.get(), TAEntityTypes.SPIDERLING.get(), TAEntityTypes.UNDEAD_KNIGHT.get());
         this.tag(TAEntityTags.AURORIAN_BOSS).add(TAEntityTypes.MOONLIGHT_KNIGHT.get(), TAEntityTypes.RUNESTONE_KEEPER.get(),
                 TAEntityTypes.SPIDER_MOTHER.get(), TAEntityTypes.MOON_QUEEN.get());
         this.tag(Tags.EntityTypes.BOSSES).addTag(TAEntityTags.AURORIAN_BOSS);

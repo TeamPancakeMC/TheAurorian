@@ -26,10 +26,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
@@ -40,8 +37,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-/** @noinspection deprecation*/
-public class MoonAcolyte extends TAMonster implements GeoEntity, IAffectedByNightmareMode {
+public class MoonAcolyte extends TAMonster implements GeoEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
@@ -63,15 +59,8 @@ public class MoonAcolyte extends TAMonster implements GeoEntity, IAffectedByNigh
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 
-    @Nullable @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
-        return this.finalizeSpawn(this, level, spawnData);
-    }
-
     public static boolean checkSpawnRules(EntityType<MoonAcolyte> moonAcolyte, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        BlockState state = level.getBlockState(pos.below());
-        boolean flag = state.is(Blocks.GRASS_BLOCK) && level.getLevel().dimension() == Level.OVERWORLD && level.getMoonBrightness() == 1.0F;
-        return (state.is(TABlocks.MOON_TEMPLE_BRICKS.get()) || flag) && checkAnyLightMonsterSpawnRules(moonAcolyte, level, spawnType, pos, random);
+        return level.getBlockState(pos.below()).is(TABlocks.MOON_TEMPLE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(moonAcolyte, level, spawnType, pos, random);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

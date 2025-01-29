@@ -32,8 +32,7 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
     public float getChimneySpeedMultiplier() {
         int y = 0;
         int chimneyCount = 0;
-        while (this.level != null && !(this.level.isEmptyBlock(this.worldPosition.above(y)))
-                && chimneyCount < AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
+        while (this.level != null && !(this.level.isEmptyBlock(this.worldPosition.above(y))) && chimneyCount < AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
             y++;
             if (this.level.getBlockState(this.worldPosition.above(y)).getBlock() == TABlocks.AURORIAN_FURNACE_CHIMNEY.get()) {
                 chimneyCount++;
@@ -54,25 +53,26 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
             --blockEntity.litTime;
         }
 
-        ItemStack itemStack = blockEntity.items.get(1);
-        boolean hasInput = !blockEntity.items.get(0).isEmpty();
-        boolean hasFuel = !itemStack.isEmpty();
-        if (isLit || hasFuel && hasInput) {
+        ItemStack fuelItem = blockEntity.items.get(1);
+        ItemStack inputItem = blockEntity.items.get(0);
+        boolean hasInput = !inputItem.isEmpty();
+        boolean hasFuel = !fuelItem.isEmpty();
+        if (blockEntity.isLit() || hasFuel && hasInput) {
             int i = blockEntity.getMaxStackSize();
             float chimneySpeedMultiplier = blockEntity.getChimneySpeedMultiplier();
-            RecipeHolder<?> recipe = hasInput ? blockEntity.quickCheck.getRecipeFor(new SingleRecipeInput(itemStack), level).orElse(null) : null;
+            RecipeHolder<?> recipe = hasInput ? blockEntity.quickCheck.getRecipeFor(new SingleRecipeInput(inputItem), level).orElse(null) : null;
             if (!blockEntity.isLit() && blockEntity.canBurn(level.registryAccess(), recipe, blockEntity.items, i)) {
-                int burnDuration = blockEntity.getBurnDuration(itemStack);
+                int burnDuration = blockEntity.getBurnDuration(fuelItem);
                 blockEntity.litTime = (int) (burnDuration - burnDuration * chimneySpeedMultiplier);
                 blockEntity.litDuration = blockEntity.litTime;
                 if (blockEntity.isLit()) {
                     flag1 = true;
-                    if (itemStack.hasCraftingRemainingItem()) {
-                        blockEntity.items.set(1, itemStack.getCraftingRemainingItem());
+                    if (fuelItem.hasCraftingRemainingItem()) {
+                        blockEntity.items.set(1, fuelItem.getCraftingRemainingItem());
                     } else if (hasFuel) {
-                        itemStack.shrink(1);
-                        if (itemStack.isEmpty()) {
-                            blockEntity.items.set(1, itemStack.getCraftingRemainingItem());
+                        fuelItem.shrink(1);
+                        if (fuelItem.isEmpty()) {
+                            blockEntity.items.set(1, fuelItem.getCraftingRemainingItem());
                         }
                     }
                 }

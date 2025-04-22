@@ -49,7 +49,6 @@ public class ModBusEventSubscriber {
     @SubscribeEvent
     public static void registerNetworks(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar registrar = event.registrar("1");
-        //TODO: 护盾系统未添加，暂无对应的网络包
         registrar.playToClient(NightTypeS2CPacket.TYPE,
                 NightTypeS2CPacket.STREAM_CODEC,
                 NightTypeS2CPacket::handle);
@@ -74,9 +73,9 @@ public class ModBusEventSubscriber {
         registrar.playToServer(RuneGameTimeConsumingRecordC2SPacket.TYPE,
                 RuneGameTimeConsumingRecordC2SPacket.STREAM_CODEC,
                 RuneGameTimeConsumingRecordC2SPacket::handle);
-        registrar.playToServer(RuneGameAwardShardC2SPacket.TYPE,
-                RuneGameAwardShardC2SPacket.STREAM_CODEC,
-                RuneGameAwardShardC2SPacket::handle);
+        registrar.playToClient(InteractWithSelenaS2CPacket.TYPE,
+                InteractWithSelenaS2CPacket.STREAM_CODEC,
+                InteractWithSelenaS2CPacket::handle);
     }
 
     @OnlyIn(Dist.CLIENT)

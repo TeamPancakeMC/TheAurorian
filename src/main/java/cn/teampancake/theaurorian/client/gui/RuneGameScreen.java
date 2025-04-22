@@ -7,7 +7,6 @@ import cn.teampancake.theaurorian.client.rune_game.RuneGameLayer;
 import cn.teampancake.theaurorian.client.rune_game.RuneGameMap;
 import cn.teampancake.theaurorian.client.widget.RuneGameButton;
 import cn.teampancake.theaurorian.client.widget.TransparentButton;
-import cn.teampancake.theaurorian.common.network.RuneGameAwardShardC2SPacket;
 import cn.teampancake.theaurorian.common.network.RuneGameAwardStatC2SPacket;
 import cn.teampancake.theaurorian.common.network.RuneGameTimeConsumingRecordC2SPacket;
 import cn.teampancake.theaurorian.common.network.RuneGameWinC2SPacket;
@@ -27,7 +26,6 @@ import net.minecraft.stats.Stat;
 import net.minecraft.stats.Stats;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
@@ -197,17 +195,6 @@ public class RuneGameScreen extends Screen {
         }
     }
 
-    private void awardShard() {
-        if (this.minecraft != null) {
-            LocalPlayer localPlayer = this.minecraft.player;
-            if (localPlayer != null && ModList.get().isLoaded("scattered_shards")) {
-                String playerName = localPlayer.getName().getString();
-                String shardName = "theaurorian:mf_carnival_magician";
-                PacketDistributor.sendToServer(new RuneGameAwardShardC2SPacket(playerName, shardName));
-            }
-        }
-    }
-
     private RuneGameMap initMap() {
         RuneGameMap runeGameMap = new RuneGameMap(this.level);
         for (int i = 0; i < runeGameMap.getLayers().length; i++) {
@@ -241,7 +228,6 @@ public class RuneGameScreen extends Screen {
                                     PacketDistributor.sendToServer(new RuneGameTimeConsumingRecordC2SPacket(this.gameTime));
                                     this.gameStatus = GameStatus.WIN;
                                     this.gameOver = true;
-                                    this.awardShard();
                                 }
                             }
 

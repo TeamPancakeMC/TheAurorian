@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.boss;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAMobEffectTags;
 import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.moonqueen.*;
@@ -11,10 +11,11 @@ import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
 import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.doubles.DoubleDoubleImmutablePair;
+import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -88,7 +89,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     private static final RawAnimation ATTACK_MOON_BEFALL = RawAnimation.begin().thenPlay("attack.moon_befall");
     private static final ResourceLocation SPEED_MODIFIER_FOUND_TARGET = TheAurorian.prefix("found_target");
     private static final EntityDataAccessor<Float> ATTACK_Y_ROT = SynchedEntityData.defineId(MoonQueen.class, EntityDataSerializers.FLOAT);
-    public static final ImmutableList<MobEffectInstance> BUFF_LIST = ImmutableList.of(
+    private static final ImmutableList<MobEffectInstance> BUFF_LIST = ImmutableList.of(
             new MobEffectInstance(TAMobEffects.CRESCENT, 200),
             new MobEffectInstance(TAMobEffects.BLESS_OF_MOON, 200),
             new MobEffectInstance(TAMobEffects.MOON_OF_VENGEANCE, 200));
@@ -102,7 +103,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     public int preparationTime;
     public int safeTime;
     public int fqmPySwordNum;
-    public boolean isNeutral;
+    private boolean isNeutral;
     public boolean duelingMoment;
     private String currentDuelistName = "";
 
@@ -334,20 +335,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         }
     }
 
-    public void destroyHorizontalBlock() {
-        BlockPos pos = this.blockPosition();
-        BlockPos[] blockPos = new BlockPos[] {pos, pos.above(), pos.above().above()};
-        for (Direction direction : Direction.BY_2D_DATA) {
-            for (BlockPos tempPos : blockPos) {
-                BlockPos relativePos = tempPos.relative(direction);
-                BlockState state = this.level().getBlockState(relativePos);
-                if (!state.is(TABlockTags.MOON_TEMPLE_BLOCKS) && !state.isAir()) {
-                    this.level().destroyBlock(relativePos, Boolean.FALSE);
-                }
-            }
-        }
-    }
-
     @Override
     public void tick() {
         super.tick();
@@ -469,6 +456,47 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     }
 
     @Override
+    protected void tickEffects() {
+        Iterator<Holder<MobEffect>> iterator = this.activeEffects.keySet().iterator();
+        try {
+            while (iterator.hasNext()) {
+                Holder<MobEffect> holder = iterator.next();
+                MobEffectInstance instance = this.activeEffects.get(holder);
+                if (!instance.tick(this, () -> this.onEffectUpdated(instance, true, null))) {
+                    if (this.duelingMoment && BUFF_LIST.contains(instance)) {
+                        this.addEffect(BUFF_LIST.get(this.random.nextInt(BUFF_LIST.size())));
+                        this.triggerAnim("buff_controller", "buff_animation");
+                    }
+                    if (!this.level().isClientSide) {
+                        iterator.remove();
+                        this.onEffectRemoved(instance);
+                    }
+                } else if (instance.getDuration() % 600 == 0) {
+                    this.onEffectUpdated(instance, false, null);
+                }
+            }
+        } catch (ConcurrentModificationException ignored) {}
+        if (this.effectsDirty) {
+            if (!this.level().isClientSide) {
+                this.updateInvisibilityStatus();
+                this.updateGlowingStatus();
+            }
+
+            this.effectsDirty = false;
+        }
+
+        List<ParticleOptions> list = this.entityData.get(DATA_EFFECT_PARTICLES);
+        if (!list.isEmpty()) {
+            boolean flag = this.entityData.get(DATA_EFFECT_AMBIENCE_ID);
+            int i = this.isInvisible() ? 15 : 4;
+            int j = flag ? 5 : 1;
+            if (this.random.nextInt(i * j) == 0) {
+                this.level().addParticle(Util.getRandom(list, this.random), this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5), 1.0, 1.0, 1.0);
+            }
+        }
+    }
+
+    @Override
     public boolean isInWall() {
         return false;
     }
@@ -485,9 +513,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
     @Override
     public boolean removeEffect(Holder<MobEffect> effect) {
-        List<Holder<MobEffect>> list = new ArrayList<>();
-        BUFF_LIST.forEach(instance -> list.add(instance.getEffect()));
-        return !list.contains(effect) && super.removeEffect(effect);
+        return !effect.is(TAMobEffectTags.MOON_QUEEN_ONLY) && super.removeEffect(effect);
     }
 
     @Override

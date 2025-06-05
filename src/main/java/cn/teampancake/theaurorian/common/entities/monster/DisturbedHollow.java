@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
 import cn.teampancake.theaurorian.common.entities.npc.Selena;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
@@ -8,10 +9,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -26,6 +30,7 @@ import net.minecraft.world.level.Level;
 public class DisturbedHollow extends Monster {
 
     private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(DisturbedHollow.class, EntityDataSerializers.BOOLEAN);
+    private static final ResourceLocation SPEED_MODIFIER_DISTURBED_HOLLOW_ANGRY = TheAurorian.prefix("disturbed_hollow_angry");
     public final AnimationState idleAnimationState = new AnimationState();
     private int timeUntilAttackTarget;
 
@@ -86,12 +91,29 @@ public class DisturbedHollow extends Monster {
         if (!this.level().isClientSide) {
             if (this.getTarget() != null) {
                 if (++this.timeUntilAttackTarget > 100 && !this.isAngry()) {
+                    this.addSpeedWhenAngry();
                     this.setAngry(true);
                 }
             } else {
                 this.timeUntilAttackTarget = 0;
+                this.removeSpeedWhenNoAngry();
                 this.setAngry(false);
             }
+        }
+    }
+
+    private void removeSpeedWhenNoAngry() {
+        AttributeInstance instance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (instance != null && instance.getModifier(SPEED_MODIFIER_DISTURBED_HOLLOW_ANGRY) != null) {
+            instance.removeModifier(SPEED_MODIFIER_DISTURBED_HOLLOW_ANGRY);
+        }
+    }
+
+    private void addSpeedWhenAngry() {
+        AttributeInstance instance = this.getAttribute(Attributes.MOVEMENT_SPEED);
+        AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL;
+        if (instance != null && instance.getModifier(SPEED_MODIFIER_DISTURBED_HOLLOW_ANGRY) == null) {
+            instance.addTransientModifier(new AttributeModifier(SPEED_MODIFIER_DISTURBED_HOLLOW_ANGRY, 0.4F, operation));
         }
     }
 
@@ -138,6 +160,7 @@ public class DisturbedHollow extends Monster {
 
             this.setLastHurtMob(entity);
             this.playAttackSound();
+            this.removeSpeedWhenNoAngry();
             this.setAngry(false);
         }
 

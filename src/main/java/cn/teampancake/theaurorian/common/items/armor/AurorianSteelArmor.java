@@ -4,7 +4,6 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.armor.AurorianSteelArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
-import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
@@ -12,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.neoforged.api.distmarker.Dist;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 public class AurorianSteelArmor extends BaseArmor<AurorianSteelArmorModel> {
 
     public AurorianSteelArmor(Type type) {
-        super(TAArmorMaterials.AURORIAN_STEEL, type, TAItemProperties.get().rarity(Rarity.RARE));
+        super(TAArmorMaterials.AURORIAN_STEEL, type, new Item.Properties().rarity(Rarity.RARE));
     }
 
     @Override

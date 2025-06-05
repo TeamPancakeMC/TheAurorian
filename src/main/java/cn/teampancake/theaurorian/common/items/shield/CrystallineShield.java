@@ -1,18 +1,24 @@
 package cn.teampancake.theaurorian.common.items.shield;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
-import cn.teampancake.theaurorian.common.items.TAItemProperties;
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ShieldItem;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.List;
+
 public class CrystallineShield extends ShieldItem {
 
     public CrystallineShield() {
-        super(TAItemProperties.get().rarity(Rarity.EPIC).durability(512).addItemTag(Tags.Items.TOOLS_SHIELD, ItemTags.DURABILITY_ENCHANTABLE, TAItemTags.IS_EPIC).hasTooltips());
+        super(new Item.Properties().rarity(Rarity.EPIC).durability(512)
+                .component(TADataComponents.ITEM_TAGS, List.of(Tags.Items.TOOLS_SHIELD, ItemTags.DURABILITY_ENCHANTABLE, TAItemTags.IS_EPIC))
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }
 
     @Override

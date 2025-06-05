@@ -7,7 +7,6 @@ import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
-import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -70,7 +69,7 @@ public class ItemEventSubscriber {
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
         SourceOfTerra sourceOfTerra = stack.get(TADataComponents.SOURCE_OF_TERRA.get());
-        if (TACommonUtils.getItemProperties(stack.getItem()).hasTooltips) {
+        if (stack.getItem().components().has(TADataComponents.EXTRA_TOOLTIP.get())) {
             tooltip.add(Component.translatable("tooltips." + stack.getItem().getDescriptionId()));
         }
 

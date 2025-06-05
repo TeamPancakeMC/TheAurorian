@@ -1,7 +1,5 @@
 package cn.teampancake.theaurorian.common.utils;
 
-import cn.teampancake.theaurorian.api.ITAItem;
-import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.world.item.Item;
@@ -27,10 +25,6 @@ public class TACommonUtils {
 
     public static Iterable<Item> getKnownItems() {
         return getKnownItemStream().collect(Collectors.toList());
-    }
-
-    public static TAItemProperties getItemProperties(Item item) {
-        return item instanceof ITAItem taItem && taItem.TA$properties() instanceof TAItemProperties properties ? properties : new TAItemProperties();
     }
 
 }

@@ -3,16 +3,19 @@ package cn.teampancake.theaurorian.common.data.datagen.provider.tag;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class TAItemTagsProvider extends ItemTagsProvider {
@@ -38,7 +41,14 @@ public class TAItemTagsProvider extends ItemTagsProvider {
                 .addTag(TAItemTags.IS_EPIC).addTag(TAItemTags.IS_LEGENDARY).addTag(TAItemTags.IS_MYTHICAL);
         this.tag(TAItemTags.IS_RARE).addTag(TAItemTags.DUNGEON_KEY);
         for (Item item : TACommonUtils.getKnownItems()) {
-            TACommonUtils.getItemProperties(item).itemTagList.forEach(key -> this.tag(key).add(item));
+            ItemStack stack = item.getDefaultInstance();
+            if (stack.has(TADataComponents.ITEM_TAGS)) {
+                List<TagKey<Item>> tagKeys = stack.get(TADataComponents.ITEM_TAGS);
+                if (tagKeys != null && !tagKeys.isEmpty()) {
+                    tagKeys.forEach(key -> this.tag(key).add(item));
+                }
+            }
+            
             if (item instanceof ArmorItem armor) {
                 switch (armor.getEquipmentSlot()) {
                     case HEAD -> this.tag(ItemTags.HEAD_ARMOR).add(armor);

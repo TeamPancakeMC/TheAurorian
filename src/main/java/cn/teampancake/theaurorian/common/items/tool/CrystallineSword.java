@@ -1,12 +1,8 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
-import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
-import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
-import cn.teampancake.theaurorian.common.registry.TAItems;
-import cn.teampancake.theaurorian.common.registry.TAMobEffects;
-import cn.teampancake.theaurorian.common.registry.TASoundEvents;
+import cn.teampancake.theaurorian.common.registry.*;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
@@ -16,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,10 +21,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.common.asm.enumextension.EnumProxy;
@@ -35,12 +29,15 @@ import net.neoforged.neoforge.client.IArmPoseTransformer;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class CrystallineSword extends SwordItem {
 
     public CrystallineSword() {
-        super(TAToolTiers.CRYSTALLINE, TAItemProperties.get().rarity(Rarity.EPIC).durability(512)
+        super(TAToolTiers.CRYSTALLINE, new Item.Properties().rarity(Rarity.EPIC).durability(512)
                 .attributes(createAttributes(TAToolTiers.CRYSTALLINE, (3), (-2.4F)))
-                .addItemTag(ItemTags.SWORDS, TAItemTags.IS_EPIC).hasTooltips());
+                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS, TAItemTags.IS_EPIC))
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }
 
     @Override

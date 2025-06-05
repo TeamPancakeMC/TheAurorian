@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.items.armor;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.armor.MysteriumWoolArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
-import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
@@ -21,7 +20,7 @@ import java.util.HashSet;
 public class MysteriumWoolArmor extends BaseArmor<MysteriumWoolArmorModel> {
 
     public MysteriumWoolArmor(Type type) {
-        super(ArmorMaterials.LEATHER, type, TAItemProperties.get().rarity(Rarity.RARE));
+        super(ArmorMaterials.LEATHER, type, new Item.Properties().rarity(Rarity.RARE));
     }
 
     public static boolean isWearFullArmor(LivingEntity entity) {

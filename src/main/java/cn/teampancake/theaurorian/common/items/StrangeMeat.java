@@ -1,9 +1,11 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -26,9 +28,11 @@ public class StrangeMeat extends Item {
             MobEffects.DAMAGE_RESISTANCE, MobEffects.DIG_SPEED, MobEffects.MOVEMENT_SPEED);
 
     public StrangeMeat() {
-        super(TAItemProperties.get().rarity(Rarity.EPIC).durability(10)
-                .food(new FoodProperties.Builder().nutrition(8).saturationModifier((0.9F)).alwaysEdible()
-                        .build()).addItemTag(TAItemTags.IS_RARE).hasTooltips().isSimpleModelItem());
+        super(new Item.Properties().rarity(Rarity.EPIC).durability(10)
+                .food(new FoodProperties.Builder().nutrition(8).saturationModifier((0.9F)).alwaysEdible().build())
+                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
+                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 
     @Override

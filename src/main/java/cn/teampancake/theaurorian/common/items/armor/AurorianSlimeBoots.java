@@ -4,7 +4,6 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.armor.AurorianSlimeBootsModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
-import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
@@ -15,6 +14,7 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 public class AurorianSlimeBoots extends BaseArmor<AurorianSlimeBootsModel> {
 
     public AurorianSlimeBoots() {
-        super(TAArmorMaterials.AURORIAN_SLIME, Type.BOOTS, TAItemProperties.get().rarity(Rarity.RARE)
+        super(TAArmorMaterials.AURORIAN_SLIME, Type.BOOTS, new Item.Properties().rarity(Rarity.RARE)
                 .attributes(ItemAttributeModifiers.builder().add(Attributes.SNEAKING_SPEED,
                         new AttributeModifier(TheAurorian.prefix("slime_boots_sneaking_speed"), 1.0D,
                                 AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.FEET).build()));

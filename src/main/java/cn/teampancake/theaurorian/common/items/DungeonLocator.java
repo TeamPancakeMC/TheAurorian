@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAStructureTags;
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -17,6 +18,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -29,12 +31,16 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 
 public class DungeonLocator extends Item {
 
     public DungeonLocator() {
-        super(TAItemProperties.get().durability(30).rarity(Rarity.EPIC).addItemTag(TAItemTags.IS_RARE).hasTooltips().isSimpleModelItem());
+        super(new Item.Properties().durability(30).rarity(Rarity.EPIC)
+                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
+                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 
     @Override

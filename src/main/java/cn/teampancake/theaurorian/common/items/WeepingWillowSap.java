@@ -1,5 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import net.minecraft.util.Unit;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -11,7 +13,9 @@ import net.minecraft.world.level.Level;
 public class WeepingWillowSap extends Item {
 
     public WeepingWillowSap() {
-        super(TAItemProperties.get().food(new FoodProperties.Builder().build()).hasTooltips().isSimpleModelItem());
+        super(new Item.Properties().food(new FoodProperties.Builder().build())
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
+                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 
     @Override

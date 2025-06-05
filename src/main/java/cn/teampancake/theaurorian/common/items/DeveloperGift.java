@@ -1,7 +1,9 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -20,7 +22,9 @@ public class DeveloperGift extends Item {
     private static List<Item> developerItems = null;
 
     public DeveloperGift() {
-        super(TAItemProperties.get().fireResistant().addItemTag(TAItemTags.IS_LEGENDARY).isSimpleModelItem());
+        super(new Item.Properties().fireResistant()
+                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_LEGENDARY))
+                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 
     @Override
@@ -35,7 +39,7 @@ public class DeveloperGift extends Item {
 
     private static List<Item> getDeveloperItems() {
         HashSet<Item> items = new HashSet<>();
-        TACommonUtils.getKnownItemStream().filter(item -> TACommonUtils.getItemProperties(item).isDeveloperItem).forEach(items::add);
+        TACommonUtils.getKnownItemStream().filter(item -> item.components().has(TADataComponents.DEVELOPER.get())).forEach(items::add);
         return new ArrayList<>(items);
     }
 

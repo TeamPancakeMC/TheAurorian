@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.data.datagen.provider;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -10,6 +11,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
@@ -153,8 +155,8 @@ public class TAItemModelProvider extends ItemModelProvider {
                 .texture("layer0", this.modLoc("item/" + path));
     }
 
-    private void simpleBlockItem(Block block) {
-        this.withExistingParent(this.blockName(block), this.modLoc("block/" + this.blockName(block)));
+    public ItemModelBuilder simpleBlockItem(Block block) {
+        return this.withExistingParent(this.blockName(block), this.modLoc("block/" + this.blockName(block)));
     }
 
     private void simpleBlockItemWithParent(Block block) {
@@ -163,7 +165,7 @@ public class TAItemModelProvider extends ItemModelProvider {
     }
 
     private boolean isSimpleModelItem(Item item) {
-        return TACommonUtils.getItemProperties(item).isSimpleModelItem && !(item instanceof BlockItem);
+        return item.components().has(TADataComponents.SIMPLE_MODEL.get()) && !(item instanceof BlockItem);
     }
 
     private String itemName(Item item) {

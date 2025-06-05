@@ -1,27 +1,31 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
-import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.UUID;
 
 public class AurorianiteAxe extends AxeItem {
 
     public AurorianiteAxe() {
-        super(TAToolTiers.AURORIANITE, TAItemProperties.get().rarity(Rarity.EPIC)
+        super(TAToolTiers.AURORIANITE, new Item.Properties().rarity(Rarity.EPIC)
                 .attributes(createAttributes(TAToolTiers.AURORIANITE, (12.0F), (-3.5F)))
-                .addItemTag(ItemTags.AXES, TAItemTags.IS_EPIC).hasTooltips());
+                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.AXES, TAItemTags.IS_EPIC))
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }
 
     @Override

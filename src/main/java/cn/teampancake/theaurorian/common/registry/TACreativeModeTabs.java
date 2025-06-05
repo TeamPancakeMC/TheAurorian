@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
-import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.PaintingVariantTags;
@@ -15,7 +14,7 @@ public class TACreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TheAurorian.MOD_ID);
 
     private static boolean isDeveloperItem(Item item) {
-        return item == TAItems.DEVELOPER_GIFT.get() || TACommonUtils.getItemProperties(item).isDeveloperItem;
+        return item == TAItems.DEVELOPER_GIFT.get() || item.components().has(TADataComponents.DEVELOPER.get());
     }
 
     private static boolean isBuildingBlock(Item item) {

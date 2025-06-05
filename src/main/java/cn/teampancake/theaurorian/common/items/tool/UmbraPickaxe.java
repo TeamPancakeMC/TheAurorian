@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
-import cn.teampancake.theaurorian.common.items.TAItemProperties;
 import cn.teampancake.theaurorian.common.items.TAToolTiers;
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -17,13 +17,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -36,10 +34,11 @@ import java.util.List;
 public class UmbraPickaxe extends PickaxeItem {
 
     public UmbraPickaxe() {
-        super(TAToolTiers.UMBRA, TAItemProperties.get().rarity(Rarity.EPIC)
-                .component(DataComponents.CUSTOM_DATA, getDefaultSelectedBlock())
+        super(TAToolTiers.UMBRA, new Item.Properties().rarity(Rarity.EPIC)
                 .attributes(createAttributes(TAToolTiers.UMBRA, (5), (1.2F)))
-                .addItemTag(ItemTags.PICKAXES, TAItemTags.IS_EPIC).hasTooltips());
+                .component(DataComponents.CUSTOM_DATA, getDefaultSelectedBlock())
+                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES, TAItemTags.IS_EPIC))
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }
 
     private static CustomData getDefaultSelectedBlock() {

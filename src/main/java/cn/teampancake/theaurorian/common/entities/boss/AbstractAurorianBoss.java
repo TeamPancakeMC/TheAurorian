@@ -72,18 +72,18 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
 
     @Override
     protected void customServerAiStep() {
-//        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
         this.attackManager.tick();
     }
 
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
-//        this.bossEvent.addPlayer(player);
+        this.bossEvent.addPlayer(player);
     }
 
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
-//        this.bossEvent.removePlayer(player);
+        this.bossEvent.removePlayer(player);
     }
 
     @Override
@@ -107,7 +107,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
     @Override
     public void setHealth(float health) {}
 
-    public void setBossHealth(float health) {
+    protected void setBossHealth(float health) {
         this.entityData.set(BOSS_HEALTH, Mth.clamp(health, 0.0F, this.getMaxHealth()));
     }
 
@@ -119,9 +119,11 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
                     float randomPitch = (this.random.nextFloat() - this.random.nextFloat());
                     this.playSound(this.getDeathSound(), this.getSoundVolume(), randomPitch * 0.2F + 1.0F);
                 }
+
                 this.setBossHealth(0.0F);
                 this.die(this.damageSources().generic());
             }
+
             case 29 -> this.playSound(SoundEvents.SHIELD_BLOCK, 1.0F, 0.8F + this.level().random.nextFloat() * 0.4F);
             case 30 -> this.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + this.level().random.nextFloat() * 0.4F);
             case 46 -> {
@@ -136,6 +138,7 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
                     this.level().addParticle(ParticleTypes.PORTAL, d1, d2, d3, f, f1, f2);
                 }
             }
+
             case 53 -> HoneyBlock.showSlideParticles(this);
             case 54 -> HoneyBlock.showJumpParticles(this);
             case 60 -> this.makePoofParticles();

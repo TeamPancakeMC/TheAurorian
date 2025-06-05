@@ -79,6 +79,10 @@ public class TALanguageProvider extends LanguageProvider {
         this.add(TheAurorian.MOD_ID + ".rune_game_screen.sec", "%1$ss", "%1$s秒");
         this.add(TheAurorian.MOD_ID + ".rune_game_screen.min_sec", "%1$sm%2$ss", "%1$s分%2$s秒");
         this.add(TheAurorian.MOD_ID + ".rune_game_screen.h_min_sec", "%1$sh%2$sm%3$ss", "%1$s时%2$s分%3$s秒");
+        this.add(TheAurorian.MOD_ID + ".selena_initial_screen.dialogue", "Dialogue", "对话");
+        this.add(TheAurorian.MOD_ID + ".selena_initial_screen.fight", "Fight", "战斗");
+        this.add(TheAurorian.MOD_ID + ".selena_initial_screen.trade", "Trade", "交易");
+        this.add(TheAurorian.MOD_ID + ".selena_initial_screen.mission", "Mission", "任务");
 
         //MOD BIOMES
         this.addBiome(TABiomes.AURORIAN_FOREST, "Aurorian Forest", "谧树森林");

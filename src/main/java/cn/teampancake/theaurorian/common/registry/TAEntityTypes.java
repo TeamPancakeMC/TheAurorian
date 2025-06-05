@@ -207,12 +207,14 @@ public class TAEntityTypes {
         event.registerEntityRenderer(THROWN_SLATE_BRICK.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(UNSTABLE_CRYSTAL.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(BLADE_WAVE.get(), BladeWaveRenderer::new);
+        event.registerEntityRenderer(SPIRIT.get(), SpiritRenderer::new);
         event.registerEntityRenderer(BREAD_BEAST.get(), BreadBeastRenderer::new);
         event.registerEntityRenderer(ICEFIELD_DEER.get(), IcefieldDeerRenderer::new);
         event.registerEntityRenderer(BLUE_TAIL_WOLF.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(BLUE_TAIL_WOLF.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(AURORIAN_VILLAGER.get(), AurorianVillagerRenderer::new);
-        event.registerEntityRenderer(SELENA.get(), SelenaRenderer::new);
+        event.registerEntityRenderer(SELENA.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(SELENA.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(MOON_FISH.get(), MoonFishRenderer::new);
         event.registerEntityRenderer(AURORIAN_WINGED_FISH.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(AURORIAN_WINGED_FISH.getId())));
@@ -225,8 +227,6 @@ public class TAEntityTypes {
         event.registerEntityRenderer(DISTURBED_HOLLOW.get(), DisturbedHollowRenderer::new);
         event.registerEntityRenderer(UNDEAD_KNIGHT.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(UNDEAD_KNIGHT.getId(), Boolean.TRUE)));
-        event.registerEntityRenderer(SPIRIT.get(), context -> new SpiritRenderer<>(
-                context, new DefaultedEntityGeoModel<>(SPIRIT.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(MOON_ACOLYTE.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(MOON_ACOLYTE.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(SPIDERLING.get(), context -> new GeoEntityRenderer<>(
@@ -261,6 +261,7 @@ public class TAEntityTypes {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(TAModelLayers.SPIRIT, SpiritModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.BREAD_BEAST, BreadBeastModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.ICEFIELD_DEER, IcefieldDeerModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.MOON_FISH, MoonFishModel::createBodyLayer);

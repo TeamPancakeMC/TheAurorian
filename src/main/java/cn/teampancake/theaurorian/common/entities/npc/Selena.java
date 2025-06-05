@@ -1,11 +1,15 @@
 package cn.teampancake.theaurorian.common.entities.npc;
 
 import cn.teampancake.theaurorian.common.entities.monster.Spirit;
+import cn.teampancake.theaurorian.common.network.InteractWithSelenaS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -19,11 +23,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.neoforged.neoforge.network.PacketDistributor;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.constant.DefaultAnimations;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
 /** @noinspection deprecation*/
-public class Selena extends PathfinderMob {
+public class Selena extends PathfinderMob implements GeoEntity {
+
+    private static final RawAnimation ATTACK_BUFF = RawAnimation.begin().thenPlay("attack.buff");
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public Selena(EntityType<? extends Selena> entityType, Level level) {
         super(entityType, level);
@@ -54,10 +70,38 @@ public class Selena extends PathfinderMob {
     }
 
     @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericWalkRunIdleController(this));
+        controllers.add(new AnimationController<>(this, "swing_controller", state -> PlayState.STOP)
+                .triggerableAnim("swing_animation", DefaultAnimations.ATTACK_SWING).transitionLength(1));
+        controllers.add(new AnimationController<>(this, "buff_controller", state -> PlayState.STOP)
+                .triggerableAnim("buff_animation", ATTACK_BUFF).transitionLength(5));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
     public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         this.populateDefaultEquipmentSlots(level.getRandom(), difficulty);
         this.setCanPickUpLoot(true);
         return spawnGroupData;
+    }
+
+    @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if (!this.level().isClientSide) {
+            if (player instanceof ServerPlayer serverPlayer) {
+                String name = this.getName().getString();
+                PacketDistributor.sendToPlayer(serverPlayer, new InteractWithSelenaS2CPacket(name, this.getId()));
+            }
+
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        } else {
+            return InteractionResult.PASS;
+        }
     }
 
     @Override
@@ -73,11 +117,12 @@ public class Selena extends PathfinderMob {
 
     @Override
     public void die(DamageSource damageSource) {
-        if (!this.level().isClientSide && this.isDeadOrDying()) {
-            Spirit spirit = new Spirit(TAEntityTypes.SPIRIT.get(), this.level());
+        Level level = this.level();
+        if (!level.isClientSide && this.isDeadOrDying()) {
+            Spirit spirit = new Spirit(TAEntityTypes.SPIRIT.get(), level);
             spirit.setPos(this.position());
             spirit.setAngry(true);
-            this.level().addFreshEntity(spirit);
+            level.addFreshEntity(spirit);
         }
 
         super.die(damageSource);

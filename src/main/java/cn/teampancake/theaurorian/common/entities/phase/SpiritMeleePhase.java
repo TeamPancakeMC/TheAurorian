@@ -16,7 +16,7 @@ public class SpiritMeleePhase extends AttackPhase<Spirit> {
 
     @Override
     public void onStart(Spirit entity) {
-        entity.triggerAnim("swing_controller", "swing_animation");
+
     }
 
     @Override

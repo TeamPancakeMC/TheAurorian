@@ -1,28 +1,25 @@
 package cn.teampancake.theaurorian.client.renderer.entity;
 
+import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.client.model.entity.SpiritModel;
+import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
 import cn.teampancake.theaurorian.common.entities.monster.Spirit;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
-public class SpiritRenderer<T extends Spirit & GeoAnimatable> extends GeoEntityRenderer<T> {
+@OnlyIn(Dist.CLIENT)
+public class SpiritRenderer extends MobRenderer<Spirit, SpiritModel<Spirit>> {
 
-    public SpiritRenderer(EntityRendererProvider.Context renderManager, GeoModel<T> model) {
-        super(renderManager, model);
+    public SpiritRenderer(EntityRendererProvider.Context context) {
+        super(context, new SpiritModel<>(context.bakeLayer(TAModelLayers.SPIRIT)), 0.5F);
     }
 
     @Override
-    public @Nullable RenderType getRenderType(T animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
-        if (animatable.isAngry() && animatable.isInvisible()) {
-            return RenderType.entityGlintDirect();
-        }
-
-        return super.getRenderType(animatable, texture, bufferSource, partialTick);
+    public ResourceLocation getTextureLocation(Spirit entity) {
+        return TheAurorian.prefix("textures/entity/spirit.png");
     }
 
 }

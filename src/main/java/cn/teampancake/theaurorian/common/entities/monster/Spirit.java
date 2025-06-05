@@ -21,6 +21,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -39,24 +40,18 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.constant.DefaultAnimations;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
 /** @noinspection deprecation*/
-public class Spirit extends TAMonster implements GeoEntity {
+public class Spirit extends TAMonster {
 
     private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Spirit.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(Spirit.class, EntityDataSerializers.BOOLEAN);
     private static final ResourceLocation ANGRY_MOVEMENT_SPEED_ID = TheAurorian.prefix("angry_movement_speed");
     private static final ResourceLocation ANGRY_ATTACK_DAMAGE_ID = TheAurorian.prefix("angry_attack_damage");
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
     private boolean canInvisible = true;
 
     public Spirit(EntityType<? extends Spirit> type, Level level) {
@@ -112,6 +107,17 @@ public class Spirit extends TAMonster implements GeoEntity {
         builder.define(ANGRY, Boolean.FALSE);
     }
 
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        if (key.equals(ATTACK_STATE) && this.getAttackState() != 0) {
+            if (this.getAttackState() == 1) {
+                this.attackAnimationState.start(this.tickCount);
+            }
+        }
+
+        super.onSyncedDataUpdated(key);
+    }
+
     public boolean getFlag(int mask) {
         return (this.entityData.get(DATA_FLAGS_ID) & mask) != 0;
     }
@@ -143,6 +149,15 @@ public class Spirit extends TAMonster implements GeoEntity {
     }
 
     @Override
+    public void aiStep() {
+        super.aiStep();
+        if (this.level().isClientSide) {
+            boolean flag = !this.isInWaterOrBubble() && !this.walkAnimation.isMoving();
+            this.idleAnimationState.animateWhen(flag, this.tickCount);
+        }
+    }
+
+    @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
         if (!this.level().isClientSide && this.canInvisible && this.getHealth() <= 5.0D) {
@@ -161,18 +176,6 @@ public class Spirit extends TAMonster implements GeoEntity {
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setAngry(compound.getBoolean("IsAngry"));
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(DefaultAnimations.genericWalkIdleController(this));
-        controllers.add(new AnimationController<>(this, "swing_controller", state -> PlayState.STOP)
-                .triggerableAnim("swing_animation", DefaultAnimations.ATTACK_SWING).transitionLength(5));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
     }
 
     @Override

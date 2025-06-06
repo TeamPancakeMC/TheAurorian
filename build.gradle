@@ -1,3 +1,14 @@
+import proguard.gradle.ProGuardTask
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.guardsquare:proguard-gradle:7.6.0'
+    }
+}
+
 plugins {
     id 'java-library'
     id 'eclipse'
@@ -67,6 +78,10 @@ repositories {
     }
 
     maven {
+        url "https://maven.shedaniel.me/"
+    }
+
+    maven {
         name 'Curse Maven'
         url = "https://www.cursemaven.com"
     }
@@ -81,7 +96,8 @@ repositories {
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
-    implementation "software.bernie.geckolib:geckolib-neoforge-1.21:4.5.8"
+    implementation "software.bernie.geckolib:geckolib-neoforge-1.21.1:4.7.3"
+    implementation "me.shedaniel.cloth:cloth-config-neoforge:15.0.140"
     implementation "curse.maven:thirst-was-taken-679270:5568715"
     implementation "curse.maven:modern-ui-352491:5725568"
 
@@ -111,6 +127,44 @@ tasks.withType(ProcessResources).configureEach {
     filesMatching(['META-INF/neoforge.mods.toml']) {
         expand replaceProperties
     }
+}
+
+tasks.register('proguard', ProGuardTask) {
+    dependsOn tasks.jar
+
+    keep(["allowobfuscation": true], "public class ${project.group}.** { *; }")
+    keep(["allowobfuscation": false], "public class ${project.group}.mixin.** { *; }")
+
+    optimizationpasses(10)
+    keepattributes("*Annotation*")
+    repackageclasses()
+    ignorewarnings()
+    verbose()
+
+    obfuscationdictionary("dic.txt")
+    classobfuscationdictionary("dic.txt")
+    packageobfuscationdictionary("dic.txt")
+
+    printmapping(project.layout.buildDirectory.file("proguard/mappings.map"))
+
+    configurations.runtimeClasspath.getResolvedConfiguration().getFiles().each { File file ->
+        if (file.isFile() && file.getName().endsWith('.jar')) {
+            libraryjars(file.getPath())
+        }
+    }
+
+    // Automatically handle the Java version of this build.
+    if (System.getProperty('java.version').startsWith('1.')) {
+        // Before Java 9, the runtime classes were packaged in a single jar file.
+        libraryjars "${System.getProperty('java.home')}/lib/rt.jar"
+    } else {
+        // As of Java 9, the runtime classes are packaged in modular jmod files.
+        libraryjars "${System.getProperty('java.home')}/jmods/java.base.jmod", jarfilter: '!**.jar', filter: '!module-info.class'
+        //libraryjars "${System.getProperty('java.home')}/jmods/....."
+    }
+
+    injars tasks.jar.outputs.files.singleFile
+    outjars(layout.buildDirectory.file("libs/${archivesBaseName}-minified.jar"))
 }
 
 publishing {

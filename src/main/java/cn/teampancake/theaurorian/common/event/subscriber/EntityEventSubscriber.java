@@ -509,23 +509,6 @@ public class EntityEventSubscriber {
                 target.setHealth(target.getHealth() - count * 0.05F);
             }
         }
-
-        if (event.getSource().getEntity() instanceof Player player &&
-                player.hasEffect(TAMobEffects.HOLINESS) &&
-                player.getMainHandItem().getItem() instanceof AurorianSteelSword) {
-
-            // 延长神圣效果1.5秒
-            MobEffectInstance holinessEffect = player.getEffect(TAMobEffects.HOLINESS);
-            if (holinessEffect != null) {
-                int currentDuration = holinessEffect.getDuration();
-                player.addEffect(new MobEffectInstance(TAMobEffects.HOLINESS,
-                        currentDuration + 30,
-                        holinessEffect.getAmplifier(),
-                        holinessEffect.isAmbient(),
-                        holinessEffect.isVisible(),
-                        holinessEffect.showIcon()));
-            }
-        }
     }
 
     @SubscribeEvent

@@ -46,6 +46,19 @@ public class AurorianSteelSword extends SwordItem {
             float extraDamage = isUndead(target) ? 2.0F : 1.0F;
             if (extraDamage > 0) {
                 target.hurt(target.damageSources().playerAttack(player), extraDamage);
+                
+                // 只有当目标生物被击杀时才延长神圣效果
+                if (target.isDeadOrDying()) {
+                    // 获取当前神圣效果并延长持续时间
+                    MobEffectInstance currentEffect = player.getEffect(TAMobEffects.HOLINESS);
+                    if (currentEffect != null) {
+                        // 击杀亡灵生物延长更多时间
+                        int extraDuration = isUndead(target) ? 60 : 30;
+                        player.addEffect(new MobEffectInstance(TAMobEffects.HOLINESS, 
+                                currentEffect.getDuration() + extraDuration, 
+                                currentEffect.getAmplifier()));
+                    }
+                }
             }
         }
 

@@ -14,6 +14,7 @@ import cn.teampancake.theaurorian.common.entities.projectile.ThrownAxe;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
+import cn.teampancake.theaurorian.common.items.tool.AurorianSteelSword;
 import cn.teampancake.theaurorian.common.level.effect.CorruptionEffectInstance;
 import cn.teampancake.theaurorian.common.network.FrostbiteS2CPacket;
 import cn.teampancake.theaurorian.common.registry.*;
@@ -506,6 +507,23 @@ public class EntityEventSubscriber {
             if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(source)) {
                 int count = Mth.clamp(stack.getOrDefault(TADataComponents.KILL_COUNT, 0), 0, 20);
                 target.setHealth(target.getHealth() - count * 0.05F);
+            }
+        }
+
+        if (event.getSource().getEntity() instanceof Player player &&
+                player.hasEffect(TAMobEffects.HOLINESS) &&
+                player.getMainHandItem().getItem() instanceof AurorianSteelSword) {
+
+            // 延长神圣效果1.5秒
+            MobEffectInstance holinessEffect = player.getEffect(TAMobEffects.HOLINESS);
+            if (holinessEffect != null) {
+                int currentDuration = holinessEffect.getDuration();
+                player.addEffect(new MobEffectInstance(TAMobEffects.HOLINESS,
+                        currentDuration + 30,
+                        holinessEffect.getAmplifier(),
+                        holinessEffect.isAmbient(),
+                        holinessEffect.isVisible(),
+                        holinessEffect.showIcon()));
             }
         }
     }

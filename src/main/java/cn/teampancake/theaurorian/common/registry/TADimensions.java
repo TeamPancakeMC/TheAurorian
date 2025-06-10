@@ -14,7 +14,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
@@ -51,11 +50,10 @@ public class TADimensions {
     }
 
     public static void bootstrapStem(BootstrapContext<LevelStem> context) {
-        HolderGetter<Biome> biome = context.lookup(Registries.BIOME);
         HolderGetter<DimensionType> dimensionType = context.lookup(Registries.DIMENSION_TYPE);
         HolderGetter<NoiseGeneratorSettings> noiseSettings = context.lookup(Registries.NOISE_SETTINGS);
         NoiseBasedChunkGenerator chunkGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
-                TABiomeBuilder.makeBiomeList(biome), -1.25F, 2.5F,
+                TABiomeBuilder.makeBiomeList(context.lookup(Registries.BIOME)), -1.25F, 2.5F,
                 context.lookup(TABiomeLayerStack.BIOME_STACK_KEY).getOrThrow(TABiomeLayerStack.BIOMES_ALONG_STREAMS)),
                 noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
         LevelStem levelStem = new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),

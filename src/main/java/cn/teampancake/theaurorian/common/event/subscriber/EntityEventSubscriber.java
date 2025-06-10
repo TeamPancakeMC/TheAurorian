@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.blocks.MysteriumWoolBed;
 import cn.teampancake.theaurorian.common.components.SourceOfTerra;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
@@ -15,6 +16,7 @@ import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import cn.teampancake.theaurorian.common.items.tool.AurorianSteelSword;
+import cn.teampancake.theaurorian.common.level.TAServerPlayer;
 import cn.teampancake.theaurorian.common.level.effect.CorruptionEffectInstance;
 import cn.teampancake.theaurorian.common.network.FrostbiteS2CPacket;
 import cn.teampancake.theaurorian.common.registry.*;
@@ -29,6 +31,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -64,7 +67,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -72,9 +77,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.*;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
+import net.neoforged.neoforge.event.entity.player.*;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -288,7 +291,7 @@ public class EntityEventSubscriber {
         try {
             Class<MobEffectEvent> clazz = MobEffectEvent.class;
             Field field = clazz.getDeclaredField("effectInstance");
-            field.setAccessible(Boolean.TRUE);
+            field.setAccessible(true);
             if (field.get(event) instanceof MobEffectInstance instance) {
                 if (instance.is(TAMobEffects.CORRUPTION)) {
                     field.set(event, new CorruptionEffectInstance(instance));
@@ -453,13 +456,19 @@ public class EntityEventSubscriber {
             }
         }
 
-        if (entity instanceof ServerPlayer serverPlayer) {
-            ItemStack chestItem = serverPlayer.getItemBySlot(EquipmentSlot.CHEST);
+        if (entity instanceof ServerPlayer player) {
+            Level level = player.level();
+            ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
             Holder<Enchantment> enchantment = TAEnchantments.get(entity.level(), TAEnchantments.GUARDIAN);
             int enchantmentLevel = chestItem.getEnchantmentLevel(enchantment);
-            if (enchantmentLevel > 0 && !serverPlayer.getAbilities().instabuild) {
-                serverPlayer.setHealth(serverPlayer.getMaxHealth());
+            if (enchantmentLevel > 0 && !player.getAbilities().instabuild) {
+                player.setHealth(player.getMaxHealth());
                 chestItem.setCount(0);
+                event.setCanceled(true);
+            }
+
+            if (level.dimension() == TADimensions.AURORIAN_DIMENSION) {
+                TAServerPlayer.die(player, event.getSource());
                 event.setCanceled(true);
             }
         }
@@ -510,20 +519,12 @@ public class EntityEventSubscriber {
             }
         }
 
-        if (event.getSource().getEntity() instanceof Player player &&
-                player.hasEffect(TAMobEffects.HOLINESS) &&
-                player.getMainHandItem().getItem() instanceof AurorianSteelSword) {
-
-            // 延长神圣效果1.5秒
+        if (source.getEntity() instanceof Player player && player.hasEffect(TAMobEffects.HOLINESS)
+                && player.getMainHandItem().getItem() instanceof AurorianSteelSword) {
             MobEffectInstance holinessEffect = player.getEffect(TAMobEffects.HOLINESS);
             if (holinessEffect != null) {
-                int currentDuration = holinessEffect.getDuration();
-                player.addEffect(new MobEffectInstance(TAMobEffects.HOLINESS,
-                        currentDuration + 30,
-                        holinessEffect.getAmplifier(),
-                        holinessEffect.isAmbient(),
-                        holinessEffect.isVisible(),
-                        holinessEffect.showIcon()));
+                holinessEffect.duration += 30;
+                player.addEffect(holinessEffect);
             }
         }
     }
@@ -558,6 +559,42 @@ public class EntityEventSubscriber {
 
                 if (projectile instanceof AbstractArrow arrow && arrow.getData(TAAttachmentTypes.SHOOT_FROM_KEEPERS_BOW.get())) {
                     livingEntity.invulnerableTime = 0;
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerSetSpawn(PlayerSetSpawnEvent event) {
+        Player player = event.getEntity();
+        BlockPos newSpawn = event.getNewSpawn();
+        if (player.level().dimension() == TADimensions.AURORIAN_DIMENSION) {
+            if (player instanceof ServerPlayer serverPlayer && newSpawn != null) {
+                BlockState state = player.level().getBlockState(newSpawn);
+                if (state.getBlock() instanceof MysteriumWoolBed) {
+                    player.setData(TAAttachmentTypes.SPAWN_POINT_OF_AURORIAN, newSpawn);
+                    String key = "message.block." + TheAurorian.MOD_ID + ".set_spawn";
+                    MutableComponent component = Component.translatable(key);
+                    serverPlayer.sendSystemMessage(component);
+                    event.setCanceled(true);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRespawnPosition(PlayerRespawnPositionEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            ServerLevel level = player.serverLevel();
+            BlockPos pos = TAEntityUtils.getLastPos(player, TAAttachmentTypes.SPAWN_POINT_OF_AURORIAN.get());
+            if (pos != null && player.getData(TAAttachmentTypes.SHOULD_SPAWN_IN_AURORIAN.get())) {
+                Optional<ServerPlayer.RespawnPosAngle> optional = ServerPlayer.findRespawnAndUseSpawnBlock(
+                        level, pos, player.getRespawnAngle(), player.isRespawnForced(), Boolean.FALSE);
+                if (optional.isPresent() && level.dimension() == TADimensions.AURORIAN_DIMENSION) {
+                    ServerPlayer.RespawnPosAngle respawnPosAngle = optional.get();
+                    DimensionTransition transition = new DimensionTransition(level, respawnPosAngle.position(),
+                            Vec3.ZERO, respawnPosAngle.yaw(), 0.0F, DimensionTransition.DO_NOTHING);
+                    event.setDimensionTransition(transition);
                 }
             }
         }

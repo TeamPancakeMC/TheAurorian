@@ -4,7 +4,9 @@ import cn.teampancake.theaurorian.common.blocks.entity.MysteriumWoolBedBlockEnti
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
@@ -22,6 +24,11 @@ public class MysteriumWoolBed extends BedBlock {
     @Override
     public RenderShape getRenderShape(BlockState state) {
         return state.getValue(PART) == BedPart.HEAD ? RenderShape.MODEL : RenderShape.INVISIBLE;
+    }
+
+    @Override
+    public boolean isBed(BlockState state, BlockGetter level, BlockPos pos, LivingEntity sleeper) {
+        return true;
     }
 
     @Override

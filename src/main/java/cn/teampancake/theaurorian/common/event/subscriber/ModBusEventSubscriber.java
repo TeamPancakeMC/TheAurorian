@@ -76,6 +76,12 @@ public class ModBusEventSubscriber {
         registrar.playToClient(InteractWithSelenaS2CPacket.TYPE,
                 InteractWithSelenaS2CPacket.STREAM_CODEC,
                 InteractWithSelenaS2CPacket::handle);
+        registrar.playToServer(PlayerDeathRespawnC2SPacket.TYPE,
+                PlayerDeathRespawnC2SPacket.STREAM_CODEC,
+                PlayerDeathRespawnC2SPacket::handle);
+        registrar.playToClient(ShowDeathScreenS2CPacket.TYPE,
+                ShowDeathScreenS2CPacket.STREAM_CODEC,
+                ShowDeathScreenS2CPacket::handle);
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -130,7 +130,7 @@ public class TAEntityUtils {
     }
 
     @Nullable
-    private static BlockPos getLastPos(ServerPlayer player, AttachmentType<BlockPos> type) {
+    public static BlockPos getLastPos(ServerPlayer player, AttachmentType<BlockPos> type) {
         BlockPos lastPos = player.getData(type);
         try {
             Class<AttachmentHolder> clazz = AttachmentHolder.class;

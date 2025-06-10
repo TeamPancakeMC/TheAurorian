@@ -119,15 +119,14 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new MeleeNoAttackGoal(this));
-        this.goalSelector.addGoal(7, new RandomStrollGoal(this, (0.6D)));
-        this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, (1.0D)));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, (8.0F)));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, (0.8D)));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new MeleeNoAttackGoal(this));
+        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.6D, 10));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.8D, 10));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new MoonQueenNearestAttackableTargetGoal<>(this, Player.class, Boolean.FALSE));
-        this.targetSelector.addGoal(3, new MoonQueenNearestAttackableTargetGoal<>(this, LivingEntity.class, Boolean.FALSE, entity -> {
+        this.targetSelector.addGoal(2, new MoonQueenNearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(3, new MoonQueenNearestAttackableTargetGoal<>(this, LivingEntity.class, true, entity -> {
             boolean flag = !BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getNamespace().equals(TheAurorian.MOD_ID);
             return !(entity instanceof MoonQueen) && !(entity instanceof MoonlightKnight) && flag && entity.attackable();
         }));
@@ -191,9 +190,9 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         switch (level.getDifficulty()) {
-            case NORMAL -> this.fqmPySwordNum = 16;
-            case HARD -> this.fqmPySwordNum = 24;
-            default -> this.fqmPySwordNum = 10;
+            case NORMAL -> this.fqmPySwordNum = 24;
+            case HARD -> this.fqmPySwordNum = 32;
+            default -> this.fqmPySwordNum = 16;
         }
 
         return spawnGroupData;
@@ -397,17 +396,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.IRON_GOLEM_STEP, 0.15F, 1.0F);
-    }
-
-    @Override
-    public void handleEntityEvent(byte id) {
-        if (id == 77) {
-            for (int i = 0; i < 150; i++) {
-                this.createParticleBall(0.4D, 1);
-            }
-        } else {
-            super.handleEntityEvent(id);
-        }
     }
 
     @Override
@@ -623,11 +611,13 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             this.noActionTime = 0;
             float f = amount;
             boolean flag = false;
+            
             if (amount > 0.0F && this.isDamageSourceBlocked(source)) {
                 if (!source.is(DamageTypeTags.IS_PROJECTILE) && source.getDirectEntity() instanceof LivingEntity livingEntity) {
                     this.blockUsingShield(livingEntity);
+                    this.triggerAnim("block_controller", "block_animation");
+                    this.level().broadcastEntityEvent(this, (byte)29);
                 }
-
                 amount = 0.0F;
                 flag = true;
             }
@@ -668,7 +658,6 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 
             if (flag1) {
                 if (flag) {
-                    this.triggerAnim(("block_controller"), ("block_animation"));
                     this.level().broadcastEntityEvent(this, (byte)29);
                 } else {
                     this.level().broadcastDamageEvent(this, source);
@@ -814,10 +803,17 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 yHeadRot = getAttackYRot();
                 yBodyRot = getAttackYRot();
             } else {
-                super.clientTick();
+                LivingEntity target = getTarget();
+                if (target != null) {
+                    double dx = target.getX() - getX();
+                    double dz = target.getZ() - getZ();
+                    yHeadRot = (float) (Mth.atan2(dz, dx) * (180.0D / Math.PI)) - 90.0F;
+                    yBodyRot = yHeadRot;
+                } else {
+                    super.clientTick();
+                }
             }
         }
-
     }
 
 }

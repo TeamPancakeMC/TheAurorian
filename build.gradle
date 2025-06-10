@@ -21,6 +21,15 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
+tasks.named('jar', Jar).configure {
+    exclude('src/main/resources/assets/theaurorian/lang_extra/**')
+    exclude('cn/teampancake/theaurorian/common/data/datagen/loot/**')
+    exclude('cn/teampancake/theaurorian/common/data/datagen/provider/**')
+    exclude('cn/teampancake/theaurorian/common/data/datagen/recipes/**')
+    exclude('cn/teampancake/theaurorian/common/data/datagen/RegistryDataGenerator.class')
+    exclude('cn/teampancake/theaurorian/common/data/datagen/TADataGenerator.class')
+}
+
 version = mod_version
 group = mod_group_id
 
@@ -64,7 +73,9 @@ runs {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
 
 configurations {
     runtimeClasspath.extendsFrom localRuntime
@@ -82,12 +93,12 @@ repositories {
     }
 
     maven {
-        name 'Curse Maven'
+        name = 'Curse Maven'
         url = "https://www.cursemaven.com"
     }
 
     maven {
-        name "Jared\'s Maven" // JEI
+        name = "Jared\'s Maven" // JEI
         url "https://maven.blamejared.com/"
     }
 
@@ -100,6 +111,7 @@ dependencies {
     implementation "me.shedaniel.cloth:cloth-config-neoforge:15.0.140"
     implementation "curse.maven:thirst-was-taken-679270:5568715"
     implementation "curse.maven:modern-ui-352491:5725568"
+    implementation "curse.maven:auth-me-356643:6177873"
 
     // compile against the JEI API but do not include it at runtime
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")

@@ -859,7 +859,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addEnchantment(TAEnchantments.SUNDER_ARMOR_SLASH, "Sunder Armor Slash", "破甲斩击",
                 "Does extra damage to target wearing armor.","对穿戴盔甲的对象造成额外伤害");
         this.addEnchantment(TAEnchantments.LIGHTNING_RESISTANCE, "Lightning Resistance", "雷电抵御",
-                "Negates damage that would have been done by lightning enchantment.","降低雷电魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");
+                "Negates damage that would have been done by lightning enchantment and completely negates lightning strike damage.","降低雷电魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");
 
         //MOD PAINTING
         this.addPainting(TAPaintingVariants.AURORIAN_STEEL, "Aurorian Steel", "极光钢");

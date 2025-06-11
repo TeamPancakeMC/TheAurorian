@@ -10,15 +10,23 @@ buildscript {
 }
 
 plugins {
-    id 'java-library'
-    id 'eclipse'
     id 'idea'
+    id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.165'
+    id 'net.neoforged.moddev' version '2.0.91'
 }
 
 tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
+}
+
+tasks.named('jar', Jar).configure {
+    exclude('src/main/resources/assets/theaurorian/lang_extra/**')
+    exclude('cn/teampancake/theaurorian/common/data/datagen/loot/**')
+    exclude('cn/teampancake/theaurorian/common/data/datagen/provider/**')
+    exclude('cn/teampancake/theaurorian/common/data/datagen/recipes/**')
+    exclude('cn/teampancake/theaurorian/common/data/datagen/RegistryDataGenerator.class')
+    exclude('cn/teampancake/theaurorian/common/data/datagen/TADataGenerator.class')
 }
 
 version = mod_version
@@ -34,37 +42,54 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
-//minecraft.accessTransformers.entry public net.minecraft.client.Minecraft textureManager # textureManager
+neoForge {
+    version = project.neo_version
 
-runs {
-    configureEach {
-
-        systemProperty 'forge.logging.markers', 'REGISTRIES'
-
-        systemProperty 'forge.logging.console.level', 'debug'
-
-        modSource project.sourceSets.main
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
     }
 
-    client {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+    accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
     }
 
-    server {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-    }
-
-    gameTestServer {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-    }
-
-    data {
-        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
 
 configurations {
     runtimeClasspath.extendsFrom localRuntime
@@ -82,12 +107,12 @@ repositories {
     }
 
     maven {
-        name 'Curse Maven'
+        name = 'Curse Maven'
         url = "https://www.cursemaven.com"
     }
 
     maven {
-        name "Jared\'s Maven" // JEI
+        name = "Jared\'s Maven" // JEI
         url "https://maven.blamejared.com/"
     }
 
@@ -99,7 +124,8 @@ dependencies {
     implementation "software.bernie.geckolib:geckolib-neoforge-1.21.1:4.7.3"
     implementation "me.shedaniel.cloth:cloth-config-neoforge:15.0.140"
     implementation "curse.maven:thirst-was-taken-679270:5568715"
-    implementation "curse.maven:modern-ui-352491:5725568"
+    implementation "curse.maven:modern-ui-352491:6200236"
+    implementation "curse.maven:auth-me-356643:6177873"
 
     // compile against the JEI API but do not include it at runtime
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
@@ -108,7 +134,7 @@ dependencies {
     runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
 }
 
-tasks.withType(ProcessResources).configureEach {
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
     var replaceProperties = [
             minecraft_version      : minecraft_version,
             minecraft_version_range: minecraft_version_range,
@@ -123,11 +149,14 @@ tasks.withType(ProcessResources).configureEach {
             mod_description        : mod_description
     ]
     inputs.properties replaceProperties
-
-    filesMatching(['META-INF/neoforge.mods.toml']) {
-        expand replaceProperties
-    }
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
 }
+
+sourceSets.main.resources.srcDir generateModMetadata
+
+neoForge.ideSyncTask generateModMetadata
 
 tasks.register('proguard', ProGuardTask) {
     dependsOn tasks.jar

@@ -72,7 +72,7 @@ public class MoonQueenSword extends AbstractArrow {
             this.playSound(TASoundEvents.CRYSTALLINE_SWORD_SHOOT.get());
             this.setRotate(!this.isRotate());
             switch (this.getSwordType()) {
-                case 0: this.shootFromRotation(entity, this.fixedXRot, this.fixedYRot, 0.0F, 1.5F, 0.0F); break;
+                case 0: this.shootFromRotation(entity, this.fixedXRot, this.fixedYRot, 0.0F, 2.0F, 0.0F); break;
                 case 1: this.addDeltaMovement(new Vec3(this.type1Vec3X, this.type1Vec3Y, this.type1Vec3Z)); break;
             }
         }

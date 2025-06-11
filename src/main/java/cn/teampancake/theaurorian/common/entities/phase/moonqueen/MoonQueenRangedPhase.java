@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
 import cn.teampancake.theaurorian.common.entities.projectile.blade_waves.BladeWave;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
@@ -15,7 +16,7 @@ public class MoonQueenRangedPhase extends AttackPhase<MoonQueen> {
 
     @Override
     public boolean canStart(MoonQueen entity, boolean coolDownOver) {
-        return entity.preparationTime <= 0 && entity.isAlive() && TAEntityUtils.canReachTarget(entity, 12.0D);
+        return entity.preparationTime <= 0 && entity.isAlive() && TAEntityUtils.canReachTarget(entity, 24.0D);
     }
 
     @Override
@@ -34,6 +35,7 @@ public class MoonQueenRangedPhase extends AttackPhase<MoonQueen> {
         Level level = entity.level();
         LivingEntity target = entity.getTarget();
         if (!level.isClientSide && target != null && entity.getAttackTicks() == 3) {
+            entity.lookAt(EntityAnchorArgument.Anchor.EYES, target.position());
             BladeWave bladeWave = new BladeWave(entity, entity.getViewVector(1.0F), level);
             level.addFreshEntity(bladeWave);
         }

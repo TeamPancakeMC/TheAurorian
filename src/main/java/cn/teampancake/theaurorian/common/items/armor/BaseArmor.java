@@ -43,7 +43,7 @@ public abstract class BaseArmor<T extends HumanoidModel<?>> extends ArmorItem {
 
         @Override @NotNull
         public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
-            return getModel();
+            return armorSlot == EquipmentSlot.LEGS ? _default : getModel();
         }
 
     }

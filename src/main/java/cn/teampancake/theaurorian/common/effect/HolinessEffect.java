@@ -16,12 +16,6 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 圣洁效果 - 净化负面效果并提供额外能力
- * 1. 获得效果时清除所有负面状态
- * 2. 提供少量攻击力和移动速度加成
- * 3. 产生华丽的圣洁魔法阵粒子效果
- */
 public class HolinessEffect extends MobEffect {
 
     private static final double ATTACK_BOOST_AMOUNT = 0.1D; // 10%攻击力提升
@@ -51,28 +45,14 @@ public class HolinessEffect extends MobEffect {
 
     public HolinessEffect() {
         super(MobEffectCategory.BENEFICIAL, 0xffffeb);
-        
-        // 添加属性修饰符 - 攻击力提升
-        this.addAttributeModifier(
-            Attributes.ATTACK_DAMAGE, 
-            TheAurorian.prefix("holiness_attack_boost"), 
-            ATTACK_BOOST_AMOUNT, 
-            AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
-        );
-        
-        // 添加属性修饰符 - 移动速度提升
-        this.addAttributeModifier(
-            Attributes.MOVEMENT_SPEED, 
-            TheAurorian.prefix("holiness_speed_boost"), 
-            SPEED_BOOST_AMOUNT, 
-            AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
-        );
+        this.addAttributeModifier(Attributes.ATTACK_DAMAGE,
+            TheAurorian.prefix("holiness_attack_boost"), ATTACK_BOOST_AMOUNT,
+            AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        this.addAttributeModifier(Attributes.MOVEMENT_SPEED,
+            TheAurorian.prefix("holiness_speed_boost"), SPEED_BOOST_AMOUNT,
+            AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     }
 
-    /**
-     * 效果开始时触发
-     * 清除实体身上所有负面效果
-     */
     @Override
     public void onEffectStarted(LivingEntity livingEntity, int amplifier) {
         // 清除所有负面效果
@@ -80,21 +60,17 @@ public class HolinessEffect extends MobEffect {
                 .map(MobEffectInstance::getEffect)
                 .filter(holder -> !holder.value().isBeneficial())
                 .forEach(livingEntity::removeEffect);
-        
+
         // 产生初始圣洁光环粒子效果（爆发效果）
-        spawnInitialHolinessParticles(livingEntity);
+        this.spawnInitialHolinessParticles(livingEntity);
     }
-    
-    /**
-     * 每个游戏刻执行一次
-     * 返回true表示应用效果
-     */
+
     @Override
     public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        // 根据设定的间隔更新粒子效果
         if (livingEntity.tickCount % PARTICLE_UPDATE_INTERVAL == 0) {
             spawnHolinessParticles(livingEntity, amplifier);
         }
+
         return true;
     }
     
@@ -120,28 +96,17 @@ public class HolinessEffect extends MobEffect {
             double speed = 0.15 + entity.getRandom().nextDouble() * 0.15;
             
             // 末地烛光粒子 - 白色光芒
-            serverLevel.sendParticles(
-                ParticleTypes.END_ROD,
-                x, y, z,
-                1, // 粒子数量
-                offsetX, offsetY, offsetZ, // 方向
-                speed // 速度
-            );
+            serverLevel.sendParticles(ParticleTypes.END_ROD, x, y, z,
+                1, offsetX, offsetY, offsetZ, speed);
         }
         
         // 金色尘埃粒子 - 形成爆发中心
         for (int i = 0; i < 40; i++) {
-            double offsetX = (entity.getRandom().nextDouble() - 0.5) * 1.0;
-            double offsetY = (entity.getRandom().nextDouble() - 0.5) * 1.0;
-            double offsetZ = (entity.getRandom().nextDouble() - 0.5) * 1.0;
-            
-            serverLevel.sendParticles(
-                new DustParticleOptions(GOLD_COLOR, 1.0F),
-                x, y, z,
-                1, // 粒子数量
-                offsetX, offsetY, offsetZ, // 方向
-                0.1 // 速度
-            );
+            double offsetX = (entity.getRandom().nextDouble() - 0.5);
+            double offsetY = (entity.getRandom().nextDouble() - 0.5);
+            double offsetZ = (entity.getRandom().nextDouble() - 0.5);
+            serverLevel.sendParticles(new DustParticleOptions(GOLD_COLOR, 1.0F),
+                    x, y, z, 1, offsetX, offsetY, offsetZ, 0.1);
         }
         
         // 初始魔法阵 - 快速展开效果
@@ -157,14 +122,9 @@ public class HolinessEffect extends MobEffect {
                 // 交替使用金色和白色
                 Vector3f color = (i % 2 == 0) ? GOLD_COLOR : WHITE_COLOR;
                 float size = 0.7F + (r / 10.0F) * 0.3F;
-                
-                serverLevel.sendParticles(
-                    new DustParticleOptions(color, size),
-                    particleX, baseY, particleZ,
-                    1, // 粒子数量
-                    0.0, 0.0, 0.0, // 不扩散
-                    0.0 // 不移动
-                );
+                serverLevel.sendParticles(new DustParticleOptions(color, size),
+                        particleX, baseY, particleZ, 1,
+                        0.0, 0.0, 0.0, 0.0);
             }
         }
     }
@@ -199,14 +159,8 @@ public class HolinessEffect extends MobEffect {
             double minHeight = entity.getY() + RING_HEIGHT_OFFSET * 0.5;
             double randomY = minHeight + entity.getRandom().nextDouble() * (maxHeight - minHeight);
             double randomZ = entity.getZ() + (entity.getRandom().nextDouble() - 0.5) * 1.5;
-            
-            serverLevel.sendParticles(
-                new DustParticleOptions(WHITE_COLOR, 0.7F),
-                randomX, randomY, randomZ,
-                1, // 粒子数量
-                0.0, 0.0, 0.0, // 不扩散
-                0.0 // 不移动
-            );
+            serverLevel.sendParticles(new DustParticleOptions(WHITE_COLOR, 0.7F),
+                randomX, randomY, randomZ, 1, 0.0, 0.0, 0.0, 0.0);
         }
     }
     
@@ -230,22 +184,15 @@ public class HolinessEffect extends MobEffect {
             Vector3f nextPoint = outerPoints.get((i + 1) % outerPoints.size());
             
             // 生成外圈连接线
-            spawnLineBetweenPoints(level, 
-                entityX + point.x(), entityY, entityZ + point.z(),
-                entityX + nextPoint.x(), entityY, entityZ + nextPoint.z(),
-                6, // 每条线上的粒子数量
-                WHITE_COLOR, // 白色外圈
-                0.8f // 粒子大小
-            );
+            spawnLineBetweenPoints(level,
+                    entityX + point.x(), entityY, entityZ + point.z(),
+                    entityX + nextPoint.x(), entityY, entityZ + nextPoint.z(),
+                    6, WHITE_COLOR, 0.8f);
             
             // 在每个点上添加金色亮点
-            level.sendParticles(
-                new DustParticleOptions(GOLD_BRIGHT, 1.0f),
+            level.sendParticles(new DustParticleOptions(GOLD_BRIGHT, 1.0f),
                 entityX + point.x(), entityY, entityZ + point.z(),
-                1, // 粒子数量
-                0.0, 0.0, 0.0, // 不扩散
-                0.0 // 不移动
-            );
+                1, 0.0, 0.0, 0.0, 0.0);
         }
         
         // 生成魔法阵中圈
@@ -258,10 +205,7 @@ public class HolinessEffect extends MobEffect {
             spawnLineBetweenPoints(level, 
                 entityX + point.x(), entityY, entityZ + point.z(),
                 entityX + nextPoint.x(), entityY, entityZ + nextPoint.z(),
-                5, // 每条线上的粒子数量
-                GOLD_COLOR, // 金色中圈
-                0.7f // 粒子大小
-            );
+                5, GOLD_COLOR, 0.7f);
         }
         
         // 生成魔法阵内圈（五角星）
@@ -276,40 +220,24 @@ public class HolinessEffect extends MobEffect {
             spawnLineBetweenPoints(level, 
                 entityX + point.x(), entityY, entityZ + point.z(),
                 entityX + nextPoint.x(), entityY, entityZ + nextPoint.z(),
-                4, // 每条线上的粒子数量
-                WHITE_BLUE, // 白蓝色内圈
-                0.7f // 粒子大小
-            );
+                4, WHITE_BLUE, 0.7f);
             
             // 在每个星角添加金色亮点
-            level.sendParticles(
-                new DustParticleOptions(GOLD_BRIGHT, 1.0f),
+            level.sendParticles(new DustParticleOptions(GOLD_BRIGHT, 1.0f),
                 entityX + point.x(), entityY, entityZ + point.z(),
-                1, // 粒子数量
-                0.0, 0.0, 0.0, // 不扩散
-                0.0 // 不移动
-            );
+                1, 0.0, 0.0, 0.0, 0.0);
         }
         
         // 生成中心点
-        level.sendParticles(
-            new DustParticleOptions(GOLD_BRIGHT, 1.2f),
-            entityX, entityY, entityZ,
-            1, // 粒子数量
-            0.0, 0.0, 0.0, // 不扩散
-            0.0 // 不移动
-        );
+        level.sendParticles(new DustParticleOptions(GOLD_BRIGHT, 1.2f),
+            entityX, entityY, entityZ, 1, 0.0, 0.0, 0.0, 0.0);
         
         // 生成魔法阵中心符文（小圆环）
         List<Vector3f> centerPoints = generateCirclePoints(8, MAGIC_CIRCLE_RADIUS * 0.2f, outerRotation * 2);
         for (Vector3f point : centerPoints) {
-            level.sendParticles(
-                new DustParticleOptions(WHITE_COLOR, 0.5f),
+            level.sendParticles(new DustParticleOptions(WHITE_COLOR, 0.5f),
                 entityX + point.x(), entityY, entityZ + point.z(),
-                1, // 粒子数量
-                0.0, 0.0, 0.0, // 不扩散
-                0.0 // 不移动
-            );
+                1, 0.0, 0.0, 0.0, 0.0);
         }
         
         // 添加旋转光束效果
@@ -323,13 +251,8 @@ public class HolinessEffect extends MobEffect {
             // 向上的光束
             for (int h = 0; h < 5; h++) {
                 double beamHeight = entityY + 0.1 + (h * 0.2);
-                level.sendParticles(
-                    ParticleTypes.END_ROD,
-                    beamX, beamHeight, beamZ,
-                    1, // 粒子数量
-                    0.0, 0.05, 0.0, // 只在Y方向有轻微扩散
-                    0.01 // 速度
-                );
+                level.sendParticles(ParticleTypes.END_ROD, beamX, beamHeight, beamZ,
+                    1, 0.0, 0.05, 0.0, 0.01);
             }
         }
         
@@ -342,10 +265,7 @@ public class HolinessEffect extends MobEffect {
                     level.sendParticles(
                         new DustParticleOptions(GOLD_COLOR, 0.4f),
                         entityX + point.x(), entityY, entityZ + point.z(),
-                        1, // 粒子数量
-                        0.0, 0.0, 0.0, // 不扩散
-                        0.0 // 不移动
-                    );
+                        1, 0.0, 0.0, 0.0, 0.0);
                 }
             }
         }
@@ -362,14 +282,9 @@ public class HolinessEffect extends MobEffect {
             double x = x1 + (x2 - x1) * ratio;
             double y = y1 + (y2 - y1) * ratio;
             double z = z1 + (z2 - z1) * ratio;
-            
             level.sendParticles(
-                new DustParticleOptions(color, size),
-                x, y, z,
-                1, // 粒子数量
-                0.0, 0.0, 0.0, // 不扩散
-                0.0 // 不移动
-            );
+                new DustParticleOptions(color, size), x, y, z,
+                    1, 0.0, 0.0, 0.0, 0.0);
         }
     }
     
@@ -427,30 +342,19 @@ public class HolinessEffect extends MobEffect {
             
             // 交替使用两种粒子
             if (i % 2 == 0) {
-                level.sendParticles(
-                    ParticleTypes.END_ROD,
-                    particleX, particleY, particleZ,
-                    1, // 粒子数量
-                    0.01, 0.01, 0.01, // 轻微扩散
-                    0.01 // 轻微速度
-                );
+                level.sendParticles(ParticleTypes.END_ROD, particleX, particleY, particleZ,
+                    1, 0.01, 0.01, 0.01, 0.01);
             } else {
-                level.sendParticles(
-                    new DustParticleOptions(GOLD_COLOR, 0.8F),
+                level.sendParticles(new DustParticleOptions(GOLD_COLOR, 0.8F),
                     particleX, particleY, particleZ,
-                    1, // 粒子数量
-                    0.01, 0.01, 0.01, // 轻微扩散
-                    0.0 // 不移动
-                );
+                    1, 0.01, 0.01, 0.01, 0.0);
             }
         }
     }
-    
-    /**
-     * 决定是否在当前游戏刻应用效果
-     */
+
     @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
-        return true; // 每个游戏刻都应用效果
+        return true;
     }
+
 }

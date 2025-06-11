@@ -19,21 +19,20 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stat;
 import net.minecraft.stats.Stats;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.sounds.SoundEvents;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
 @OnlyIn(Dist.CLIENT)
 public class RuneGameScreen extends Screen {
@@ -49,7 +48,7 @@ public class RuneGameScreen extends Screen {
     private static final Component NORMAL_MODE = Component.translatable(PREFIX + "normal_mode");
     private static final Component HARD_MODE = Component.translatable(PREFIX + "hard_mode");
     private static final Component HINT = Component.translatable(PREFIX + "hint");
-    
+
     protected final int checkAreaWidth = 166;
     protected final int checkAreaHeight = 28;
     private int gameTime;
@@ -72,18 +71,19 @@ public class RuneGameScreen extends Screen {
     private boolean flag = true;
     private boolean gameOver = false;
     private boolean buttonsAdded = false;
-    private Difficulty difficulty = Difficulty.NORMAL; // 默认难度
+    private Difficulty difficulty = Difficulty.NORMAL;
     private int hintsRemaining = 3; // 默认提示次数
-    private RuneGameBrand highlightedBrand = null; // 当前高亮的符文
+    @Nullable
+    private RuneGameBrand highlightedBrand; // 当前高亮的符文
     private long highlightStartTime = 0; // 高亮开始时间
-    
+
     // 游戏统计
     private int movesCount = 0;
     private int eliminationsCount = 0;
-    
+
     private long celebrationStartTime = 0;
     private boolean playingVictoryCelebration = false;
-    
+
     public RuneGameScreen(int[][][] level) {
         super(Component.nullToEmpty("rune_game"));
         this.level = level;
@@ -92,7 +92,7 @@ public class RuneGameScreen extends Screen {
     @Override
     protected void init() {
         this.buttonList.clear();
-        
+
         // 游戏结束按钮
         this.playAgainButton = new TransparentButton(this.width / 2 - 100, this.height / 4 + 68, 200, 20, PLAY_AGAIN, button -> {
             this.renderables.clear();
@@ -103,43 +103,43 @@ public class RuneGameScreen extends Screen {
             this.buttonsAdded = false;
             this.playingVictoryCelebration = false;
             this.celebrationStartTime = 0;
-            resetHints();
+            this.resetHints();
             this.runeGameMap = this.initMap();
             this.runeGameMap.checkAll();
             this.setButtonsState(false);
-            
+
             // 重新启用难度选择按钮
             if (this.normalModeButton != null) this.normalModeButton.active = true;
             if (this.hardModeButton != null) this.hardModeButton.active = true;
         });
-        
+
         this.quitGameButton = new TransparentButton(this.width / 2 - 100, this.height / 4 + 96, 200, 20, QUIT_GAME, button -> this.onClose());
-        
+
         // 难度选择按钮 - 移动到屏幕上方且增加间隔，防止误触
         this.normalModeButton = new TransparentButton(this.width / 2 - 120, 10, 100, 20, NORMAL_MODE, button -> {
             if (this.difficulty != Difficulty.NORMAL) {
-            this.difficulty = Difficulty.NORMAL;
-            resetGame();
-                
+                this.difficulty = Difficulty.NORMAL;
+                this.resetGame();
+
                 // 游戏开始后禁用难度选择按钮
-                this.normalModeButton.active = false;
+                // this.normalModeButton.active = false;
                 if (this.hardModeButton != null) this.hardModeButton.active = false;
             }
         });
-        
+
         this.hardModeButton = new TransparentButton(this.width / 2 + 20, 10, 100, 20, HARD_MODE, button -> {
             if (this.difficulty != Difficulty.HARD) {
-            this.difficulty = Difficulty.HARD;
-            resetGame();
-                
+                this.difficulty = Difficulty.HARD;
+                this.resetGame();
+
                 // 游戏开始后禁用难度选择按钮
                 if (this.normalModeButton != null) this.normalModeButton.active = false;
                 this.hardModeButton.active = false;
             }
         });
-        
+
         // 提示按钮
-        this.hintButton = new TransparentButton(this.width - 70, 10, 60, 20, 
+        this.hintButton = new TransparentButton(this.width - 70, 10, 60, 20,
             Component.translatable(PREFIX + "hint", this.hintsRemaining), button -> {
             if (this.hintsRemaining > 0 && !this.gameOver) {
                 showHint();
@@ -147,13 +147,13 @@ public class RuneGameScreen extends Screen {
                 button.setMessage(Component.translatable(PREFIX + "hint", this.hintsRemaining));
             }
         });
-        
+
         this.buttonList.add(this.addRenderableWidget(this.playAgainButton));
         this.buttonList.add(this.addRenderableWidget(this.quitGameButton));
         this.buttonList.add(this.addRenderableWidget(this.normalModeButton));
         this.buttonList.add(this.addRenderableWidget(this.hardModeButton));
         this.buttonList.add(this.addRenderableWidget(this.hintButton));
-        
+
         this.setButtonsState(false);
         this.normalModeButton.active = true;
         this.normalModeButton.visible = true;
@@ -171,7 +171,7 @@ public class RuneGameScreen extends Screen {
             this.hintButton.setMessage(Component.translatable(PREFIX + "hint", this.hintsRemaining));
         }
     }
-    
+
     // 重置游戏
     private void resetGame() {
         this.renderables.clear();
@@ -182,33 +182,29 @@ public class RuneGameScreen extends Screen {
         this.buttonsAdded = false;
         this.playingVictoryCelebration = false;
         this.celebrationStartTime = 0;
-        resetHints();
+        this.resetHints();
         this.runeGameMap = this.initMap();
         this.runeGameMap.checkAll();
         this.setButtonsState(false);
         this.flag = false;
-        
+
         // 游戏开始后禁用难度选择按钮，防止意外切换
         if (this.normalModeButton != null) this.normalModeButton.active = false;
         if (this.hardModeButton != null) this.hardModeButton.active = false;
-        
-        // 输出当前难度模式的调试信息
-        System.out.println("游戏已重置 - 当前难度: " + this.difficulty.name());
     }
-    
+
     // 显示提示
     private void showHint() {
         if (this.runeGameMap == null) return;
-        
+
         // 找到一个可点击的非灰色符文
         RuneGameBrand brandToHighlight = null;
-        
+
         outer:
         for (RuneGameLayer layer : this.runeGameMap.getLayers()) {
             RuneGameBrand[][] brands = layer.getBrands();
-            for (int row = 0; row < brands.length; row++) {
-                for (int col = 0; col < brands[row].length; col++) {
-                    RuneGameBrand brand = brands[row][col];
+            for (RuneGameBrand[] runeGameBrands : brands) {
+                for (RuneGameBrand brand : runeGameBrands) {
                     if (brand != null && brand.hasBrand() != 0 && !brand.isGray()) {
                         // 检查是否有相同类型的符文在消除区域
                         boolean hasSimilar = false;
@@ -218,7 +214,7 @@ public class RuneGameScreen extends Screen {
                                 break;
                             }
                         }
-                        
+
                         if (hasSimilar) {
                             brandToHighlight = brand;
                             break outer;
@@ -227,15 +223,14 @@ public class RuneGameScreen extends Screen {
                 }
             }
         }
-        
+
         // 如果没有找到匹配的，选择任意一个可点击的符文
         if (brandToHighlight == null) {
             outer:
             for (RuneGameLayer layer : this.runeGameMap.getLayers()) {
                 RuneGameBrand[][] brands = layer.getBrands();
-                for (int row = 0; row < brands.length; row++) {
-                    for (int col = 0; col < brands[row].length; col++) {
-                        RuneGameBrand brand = brands[row][col];
+                for (RuneGameBrand[] runeGameBrands : brands) {
+                    for (RuneGameBrand brand : runeGameBrands) {
                         if (brand != null && brand.hasBrand() != 0 && !brand.isGray()) {
                             brandToHighlight = brand;
                             break outer;
@@ -244,22 +239,12 @@ public class RuneGameScreen extends Screen {
                 }
             }
         }
-        
+
         if (brandToHighlight != null) {
             this.highlightedBrand = brandToHighlight;
             this.highlightStartTime = System.currentTimeMillis();
-            // 播放提示音效
             if (this.minecraft != null) {
-                // 使用静态工厂方法创建SimpleSoundInstance
-                net.minecraft.resources.ResourceLocation soundId = net.minecraft.resources.ResourceLocation.tryParse("minecraft:block.note_block.pling");
-                if (soundId != null) {
-                    this.minecraft.getSoundManager().play(
-                        net.minecraft.client.resources.sounds.SimpleSoundInstance.forUI(
-                            net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.get(soundId),
-                            1.0F
-                        )
-                    );
-                }
+                this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_PLING, 1.0F));
             }
         }
     }
@@ -277,7 +262,7 @@ public class RuneGameScreen extends Screen {
             resetHints();
             this.runeGameMap = this.initMap();
             this.runeGameMap.checkAll();
-            
+
             // 游戏初始化后禁用难度选择按钮
             if (this.normalModeButton != null) this.normalModeButton.active = false;
             if (this.hardModeButton != null) this.hardModeButton.active = false;
@@ -287,23 +272,23 @@ public class RuneGameScreen extends Screen {
         int slotsY = this.height - this.checkAreaHeight - 20;
         guiGraphics.blit(SLOTS, slotsX, slotsY, 0, 0, this.checkAreaWidth, this.checkAreaHeight, this.checkAreaWidth, this.checkAreaHeight);
         this.runeGameEliminate.render(guiGraphics, this.width / 2 - checkAreaWidth / 2, this.height - this.checkAreaHeight - 20);
-        
+
         // 渲染游戏统计信息
         if (!this.gameOver) {
             Component timeText = formatElapsedTime(this.gameTime).withStyle(ChatFormatting.WHITE);
             Component movesText = Component.literal(String.valueOf(this.movesCount)).withStyle(ChatFormatting.WHITE);
             Component elimText = Component.literal(String.valueOf(this.eliminationsCount)).withStyle(ChatFormatting.WHITE);
-            
-            guiGraphics.drawString(this.font, 
-                Component.translatable(PREFIX + "stats", timeText, movesText, elimText), 
+
+            guiGraphics.drawString(this.font,
+                Component.translatable(PREFIX + "stats", timeText, movesText, elimText),
                 10, this.height - 40, 16777215);
-                
+
             // 显示当前难度
             Component diffText = Component.translatable(PREFIX + this.difficulty.name().toLowerCase())
                 .withStyle(this.difficulty.getColor());
             guiGraphics.drawString(this.font, diffText, 10, 40, 16777215);
         }
-        
+
         if (this.gameOver) {
             if (this.playAgainButton != null && this.quitGameButton != null && !this.buttonsAdded) {
                 this.buttonList.add(this.addRenderableWidget(this.playAgainButton));
@@ -333,13 +318,13 @@ public class RuneGameScreen extends Screen {
                 Component gameTimeText = formatElapsedTime(this.gameTime).withStyle(ChatFormatting.YELLOW);
                 Component currentGameInfo = Component.translatable(PREFIX + "current_game_info", gameTimeText, bestGameTime);
                 guiGraphics.drawCenteredString(this.font, currentGameInfo, this.width / 2, 70, 16777215);
-                
+
                 // 显示游戏统计
                 Component movesText = Component.literal(String.valueOf(this.movesCount)).withStyle(ChatFormatting.YELLOW);
                 Component elimText = Component.literal(String.valueOf(this.eliminationsCount)).withStyle(ChatFormatting.YELLOW);
                 Component statsInfo = Component.translatable(PREFIX + "final_stats", movesText, elimText);
                 guiGraphics.drawCenteredString(this.font, statsInfo, this.width / 2, 90, 16777215);
-                
+
                 // 显示总体统计数据
                 if (player != null) {
                     int totalMoves = player.getStats().getValue(Stats.CUSTOM.get(TAStats.RUNE_GAME_MOVE_COUNT.get()));
@@ -349,7 +334,7 @@ public class RuneGameScreen extends Screen {
                     Component totalStatsInfo = Component.translatable(PREFIX + "total_stats", totalMovesText, totalElimText);
                     guiGraphics.drawCenteredString(this.font, totalStatsInfo, this.width / 2, 110, 16777215);
                 }
-                
+
                 pose.popPose();
             }
 
@@ -366,20 +351,20 @@ public class RuneGameScreen extends Screen {
         for (Renderable renderable : this.renderables) {
             renderable.render(guiGraphics, mouseX, mouseY, partialTick);
         }
-        
+
         // 渲染提示高亮
         if (this.highlightedBrand != null && !this.gameOver) {
             long currentTime = System.currentTimeMillis();
             if (currentTime - this.highlightStartTime < 2000) { // 高亮持续2秒
                 // 绘制闪烁边框
-                int x = this.highlightedBrand.getRectangle().getX();
-                int y = this.highlightedBrand.getRectangle().getY();
+                int x = this.highlightedBrand.getRectangle().x();
+                int y = this.highlightedBrand.getRectangle().y();
                 int size = RuneGameBrand.BRAND_SIZE;
-                
+
                 // 脉动效果
                 float pulseIntensity = (float)Math.sin((currentTime - this.highlightStartTime) / 200.0) * 0.5f + 0.5f;
                 int color = 0xFFFFFF00 | (int)(pulseIntensity * 255) << 24;
-                
+
                 // 绘制高亮边框
                 guiGraphics.fill(x - 2, y - 2, x + size + 2, y - 1, color); // 上
                 guiGraphics.fill(x - 2, y + size + 1, x + size + 2, y + size + 2, color); // 下
@@ -397,34 +382,26 @@ public class RuneGameScreen extends Screen {
             PacketDistributor.sendToServer(new RuneGameAwardStatC2SPacket(1));
             this.gameTime++;
         }
-        
+
         // 处理胜利庆祝音效的延迟播放
         if (playingVictoryCelebration) {
             int elapsed = this.gameTime - (int)celebrationStartTime;
-            
+
             // 间隔6个游戏刻播放第二个烟花音效
             if (elapsed == 6) {
-                playFireworkSound(1.1F);
+                this.playFireworkSound(1.1F);
             }
             // 间隔12个游戏刻播放第三个烟花音效
             else if (elapsed == 12) {
-                playFireworkSound(1.0F);
-                
+                this.playFireworkSound(1.0F);
+
                 // 播放大爆炸音效
                 if (this.minecraft != null) {
-                    net.minecraft.resources.ResourceLocation largeBlast = net.minecraft.resources.ResourceLocation.tryParse("minecraft:entity.firework_rocket.large_blast");
-                    if (largeBlast != null) {
-                        this.minecraft.getSoundManager().play(
-                            net.minecraft.client.resources.sounds.SimpleSoundInstance.forUI(
-                                net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.get(largeBlast),
-                                1.2F
-                            )
-                        );
-                    }
+                    this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FIREWORK_ROCKET_LARGE_BLAST, 1.2F));
                 }
-                
+
                 // 庆祝结束
-                playingVictoryCelebration = false;
+                this.playingVictoryCelebration = false;
             }
         }
     }
@@ -482,48 +459,47 @@ public class RuneGameScreen extends Screen {
         // 这增加了游戏的策略性，让玩家可以提前规划消除顺序
         boolean isHardMode = this.difficulty == Difficulty.HARD;
         int runeTypesLimit = isHardMode ? 12 : 6;
-        
+
         // 计算总符文数并确保是3的倍数
         int totalRunes = getValidCount(this.level);
         if (totalRunes % 3 != 0) {
             // 调整关卡大小为3的倍数，这样才能确保完美消除
             totalRunes = (totalRunes / 3) * 3;
-            System.out.println("调整符文总数为: " + totalRunes + "（确保是3的倍数）");
         }
-        
+
         // 创建符文游戏地图
         RuneGameMap runeGameMap = new RuneGameMap(this.level);
-        
+
         // 设置符文类型限制和难度模式
         runeGameMap.setRuneTypesLimit(runeTypesLimit);
         runeGameMap.setHardMode(isHardMode);
-        
+
         // 创建自定义的符文列表，确保符文数量是3的倍数
         List<RuneGameBrand> brandList = RuneGameBrand.randomBrandList(this.level, runeTypesLimit, isHardMode);
-        
+
         // 重新初始化地图，使用我们自定义的符文列表
         runeGameMap.initWithCustomBrands(brandList);
-        
+
         for (int i = 0; i < runeGameMap.getLayers().length; i++) {
             RuneGameLayer layer = runeGameMap.getLayers()[i];
             RuneGameBrand[][] layerBrands = layer.getBrands();
-            
+
             // 计算当前层的最大行数和列数
             int maxRows = layerBrands.length;
             int maxCols = 0;
             for (RuneGameBrand[] brandRow : layerBrands) {
                 maxCols = Math.max(maxCols, brandRow.length);
             }
-            
+
             // 计算居中的偏移量，Y轴上移30像素避免遮挡消除栏
             int offsetX = (this.width - maxCols * RuneGameBrand.BRAND_SIZE) / 2;
             int offsetY = (this.height - maxRows * RuneGameBrand.BRAND_SIZE) / 2 - 30;
-            
+
             // 添加层级水平偏移，每层相对于下一层向右偏移1像素
             // 层级编号是从上到下递增的，所以层级越高，偏移量越大
             // 最底层(i=runeGameLayers.length-1)偏移为0，每上一层增加1像素
             int layerOffset = (runeGameMap.getLayers().length - 1 - i);
-            
+
             for (int row = 0; row < layerBrands.length; row++) {
                 for (int col = 0; col < layerBrands[row].length; col++) {
                     RuneGameBrand brand = layerBrands[row][col];
@@ -542,10 +518,10 @@ public class RuneGameScreen extends Screen {
                                 this.movesCount++; // 增加移动次数
                                 // 记录移动次数统计
                                 PacketDistributor.sendToServer(new RuneGameAwardStatC2SPacket(2));
-                                
+
                                 // 检查是否有消除发生
                                 int eliminatedGroups = this.runeGameEliminate.eliminate();
-                                
+
                                 // 如果有消除，增加消除计数并发送统计
                                 if (eliminatedGroups > 0) {
                                     this.eliminationsCount += eliminatedGroups;
@@ -554,21 +530,19 @@ public class RuneGameScreen extends Screen {
                                         PacketDistributor.sendToServer(new RuneGameAwardStatC2SPacket(3));
                                     }
                                 }
-                                
+
                                 int size = this.runeGameEliminate.getSlots().size();
-                                
+
                                 // 所有模式使用相同的消除栏容量限制
                                 int failLimit = 7;
-                                
+
                                 if (size >= failLimit) {
                                     PacketDistributor.sendToServer(new RuneGameAwardStatC2SPacket(0));
                                     this.gameStatus = GameStatus.LOST;
                                     this.gameOver = true;
-                                    
+
                                     // 播放失败音效
-                                    playDefeatSound();
-                                    
-                                    System.out.println("游戏结束 - 失败（消除栏溢出）");
+                                    this.playDefeatSound();
                                 }
 
                                 // 检查游戏是否获胜
@@ -590,12 +564,9 @@ public class RuneGameScreen extends Screen {
         return runeGameMap;
     }
 
-    /**
-     * 检查游戏是否获胜
-     */
     private void checkWinCondition() {
         boolean allBrandsCleared = true;
-        
+
         // 检查游戏区域是否还有牌
         if (this.runeGameMap != null) {
             for (RuneGameLayer layer : this.runeGameMap.getLayers()) {
@@ -613,149 +584,55 @@ public class RuneGameScreen extends Screen {
                 if (!allBrandsCleared) break;
             }
         }
-        
+
         // 如果所有牌都被清除，玩家获胜条件检查
         if (allBrandsCleared) {
             // 消除最后可能的牌组
             this.runeGameEliminate.eliminate();
-            
+
             // 获取消除区域中剩余牌的数量
             int remainingBrands = this.runeGameEliminate.getSlots().size();
-            
+
             // 如果消除区域为空或者只剩余1-2个牌，玩家获胜
             if (remainingBrands <= 2) {
-                // 游戏胜利
                 PacketDistributor.sendToServer(new RuneGameAwardStatC2SPacket(0));
                 PacketDistributor.sendToServer(new RuneGameWinC2SPacket(Boolean.TRUE));
                 PacketDistributor.sendToServer(new RuneGameTimeConsumingRecordC2SPacket(this.gameTime));
                 this.gameStatus = GameStatus.WIN;
                 this.gameOver = true;
-                
-                // 播放胜利音效（烟花）
-                playVictoryCelebration();
-                
-                // 添加调试输出
-                System.out.println("游戏结束 - 胜利");
-                System.out.println("本局移动次数：" + this.movesCount);
-                System.out.println("本局消除次数：" + this.eliminationsCount);
-                if (remainingBrands > 0) {
-                    System.out.println("消除区剩余牌数：" + remainingBrands + "（宽容模式获胜）");
-                }
+                this.playVictoryCelebration();
             }
         }
     }
-    
-    /**
-     * 获取游戏级别中有效的符文数量
-     */
+
     private int getValidCount(int[][][] level) {
         return Arrays.stream(level).flatMap(Arrays::stream).flatMapToInt(Arrays::stream)
                 .reduce(0, (count, value) -> value != 0 ? count + 1 : count);
     }
 
-    /**
-     * 播放烟花音效
-     * @param pitch 音调，默认为1.0F
-     */
     private void playFireworkSound(float pitch) {
         if (this.minecraft != null) {
-            try {
-                net.minecraft.resources.ResourceLocation soundId = net.minecraft.resources.ResourceLocation.tryParse("minecraft:entity.firework_rocket.blast");
-                if (soundId != null) {
-                    this.minecraft.getSoundManager().play(
-                        net.minecraft.client.resources.sounds.SimpleSoundInstance.forUI(
-                            net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.get(soundId),
-                            pitch
-                        )
-                    );
-                }
-                
-                // 额外播放远距离烟花爆炸音效，增强效果
-                net.minecraft.resources.ResourceLocation distantSound = net.minecraft.resources.ResourceLocation.tryParse("minecraft:entity.firework_rocket.large_blast_far");
-                if (distantSound != null) {
-                    this.minecraft.getSoundManager().play(
-                        net.minecraft.client.resources.sounds.SimpleSoundInstance.forUI(
-                            net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.get(distantSound),
-                            pitch * 0.8F
-                        )
-                    );
-                }
-            } catch (Exception e) {
-                // 忽略音效播放错误
-                System.err.println("播放烟花音效失败: " + e.getMessage());
-            }
+            this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FIREWORK_ROCKET_BLAST, pitch));
+            this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FIREWORK_ROCKET_LARGE_BLAST_FAR, pitch * 0.8F));
         }
     }
-    
-    /**
-     * 使用默认音调播放烟花音效
-     */
-    private void playFireworkSound() {
-        playFireworkSound(1.0F);
-    }
 
-    /**
-     * 播放胜利庆祝音效，包含多个烟花音效和一个成就音效
-     */
     private void playVictoryCelebration() {
         if (this.minecraft != null) {
-            try {
-                // 先播放一个成就音效
-                net.minecraft.resources.ResourceLocation achievementSound = net.minecraft.resources.ResourceLocation.tryParse("minecraft:ui.toast.challenge_complete");
-                if (achievementSound != null) {
-                    this.minecraft.getSoundManager().play(
-                        net.minecraft.client.resources.sounds.SimpleSoundInstance.forUI(
-                            net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.get(achievementSound),
-                            1.0F
-                        )
-                    );
-                }
-                
-                // 立即播放第一个烟花音效
-                playFireworkSound(0.9F);
-                
-                // 使用游戏的计时器系统来延迟播放后续音效
-                // 设置延迟播放标志和时间
-                celebrationStartTime = this.gameTime;
-                playingVictoryCelebration = true;
-            } catch (Exception e) {
-                // 忽略音效播放错误
-                System.err.println("播放胜利庆祝音效失败: " + e.getMessage());
-            }
+            this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 1.0F));
+            this.playFireworkSound(0.9F);
+
+            // 使用游戏的计时器系统来延迟播放后续音效
+            // 设置延迟播放标志和时间
+            this.celebrationStartTime = this.gameTime;
+            this.playingVictoryCelebration = true;
         }
     }
 
-    /**
-     * 播放失败音效
-     */
     private void playDefeatSound() {
         if (this.minecraft != null) {
-            try {
-                // 播放一个低沉的音符盒音效
-                net.minecraft.resources.ResourceLocation noteSound = net.minecraft.resources.ResourceLocation.tryParse("minecraft:block.note_block.bass");
-                if (noteSound != null) {
-                    this.minecraft.getSoundManager().play(
-                        net.minecraft.client.resources.sounds.SimpleSoundInstance.forUI(
-                            net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.get(noteSound),
-                            0.6F
-                        )
-                    );
-                }
-                
-                // 播放一个失败的音效
-                net.minecraft.resources.ResourceLocation anvilSound = net.minecraft.resources.ResourceLocation.tryParse("minecraft:block.anvil.land");
-                if (anvilSound != null) {
-                    this.minecraft.getSoundManager().play(
-                        net.minecraft.client.resources.sounds.SimpleSoundInstance.forUI(
-                            net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.get(anvilSound),
-                            0.7F
-                        )
-                    );
-                }
-            } catch (Exception e) {
-                // 忽略音效播放错误
-                System.err.println("播放失败音效失败: " + e.getMessage());
-            }
+            this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.NOTE_BLOCK_BASS, 0.6F));
+            this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ANVIL_LAND, 0.7F));
         }
     }
 
@@ -777,4 +654,5 @@ public class RuneGameScreen extends Screen {
             return this.color;
         }
     }
+
 }

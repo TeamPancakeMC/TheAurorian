@@ -42,9 +42,7 @@ public class TACommands {
                         .then(Commands.argument("phase", StringArgumentType.word())
                                 .suggests(NIGHT_PHASE_SUGGESTIONS)
                                 .executes(TACommands::setNightPhase)
-                        )
-                )
-        );
+                        )));
     }
     
     private static int setNightPhase(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {

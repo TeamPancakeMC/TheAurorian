@@ -18,11 +18,9 @@ public record RuneGameAwardStatC2SPacket(int key) implements CustomPacketPayload
     public static final Type<RuneGameAwardStatC2SPacket> TYPE = new Type<>(TheAurorian.prefix("network.rune_game_award_stat"));
     public static final StreamCodec<RegistryFriendlyByteBuf, RuneGameAwardStatC2SPacket> STREAM_CODEC =
             CustomPacketPayload.codec(RuneGameAwardStatC2SPacket::write, RuneGameAwardStatC2SPacket::new);
-    
-    // 使用HashMap替代Map.of，以便更灵活地管理映射
+
     private static final Map<Integer, ResourceLocation> STATS = new HashMap<>();
-    
-    // 在静态块中初始化映射
+
     static {
         STATS.put(0, TAStats.RUNE_GAME_PLAY_COUNT.get());
         STATS.put(1, TAStats.TOTAL_RUNE_GAME_TIME.get());
@@ -47,10 +45,7 @@ public record RuneGameAwardStatC2SPacket(int key) implements CustomPacketPayload
         if (context.player() instanceof ServerPlayer player) {
             ResourceLocation statLocation = STATS.get(packet.key);
             if (statLocation != null) {
-                System.out.println("统计 key=" + packet.key + ", 统计项=" + statLocation);
                 player.awardStat(statLocation);
-            } else {
-                System.err.println("错误：找不到统计项，key=" + packet.key);
             }
         }
     }

@@ -1,9 +1,7 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.common.event.TAEventFactory;
-import cn.teampancake.theaurorian.common.network.FutureNightS2CPacket;
 import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
@@ -36,36 +34,17 @@ public class LevelEventSubscriber {
     private static long lastDayTime = 0; // 上次检查的游戏时间
     private static final Random random = new Random();
     private static final float PHASE_CHANGE_CHANCE = 0.2f; // 五分之一的概率改变夜晚类型
-    
-    /**
-     * 极光世界时间特性：
-     * - 皎月夜（白天，6000-18000）：具有黑夜特性，亡灵生物不会燃烧，玩家会受到"压力"效果
-     * - 夜晚（18001-5999）：不同类型的夜晚提供不同的祝福效果
-     */
-    
-    /**
-     * 夜晚类型枚举，对应不同的祝福效果
-     * 0: 战斗夜 - 增加攻击力与抗性
-     * 1: 保护夜 - 提供韧性
-     * 2: 探索夜 - 提高移动速度
-     * 3: 挖掘夜 - 加快挖掘速度
-     * 4: 生长夜 - 加速植物生长
-     */
+
     public enum NightPhase {
         // 战斗夜：提供伤害增强和伤害抗性
         COMBAT_NIGHT(0, player -> {
             player.addEffect(blessEffect(MobEffects.DAMAGE_BOOST));
             player.addEffect(blessEffect(MobEffects.DAMAGE_RESISTANCE));
         }),
-        // 保护夜：提供韧性效果
         PROTECTION_NIGHT(1, player -> player.addEffect(blessEffect(TAMobEffects.TOUGH))),
-        // 探索夜：提高移动速度
         EXPLORATION_NIGHT(2, player -> player.addEffect(blessEffect(MobEffects.MOVEMENT_SPEED))),
-        // 挖掘夜：加快挖掘速度
         MINING_NIGHT(3, player -> player.addEffect(blessEffect(MobEffects.DIG_SPEED))),
-        // 生长夜：加速植物生长
-        GROWTH_NIGHT(4, player -> {/* TODO: VEGETABLES GROW FASTER */}),
-        // 自定义夜晚类型
+        GROWTH_NIGHT(4, player -> {}),
         CUSTOM(-1, null);
 
         private final int code;
@@ -126,11 +105,7 @@ public class LevelEventSubscriber {
             }
             return "Unknown Night";
         }
-        
-        /**
-         * 随机选择一个夜晚类型
-         * @return 随机的夜晚类型
-         */
+
         public static NightPhase getRandomPhase() {
             int randomCode = random.nextInt(NAMES.length);
             return fromCode(randomCode);
@@ -179,16 +154,11 @@ public class LevelEventSubscriber {
                         // 通知玩家夜晚类型已更改
                         serverPlayer.sendSystemMessage(
                             Component.translatable("commands.theaurorian.night_phase.changed", 
-                            NightPhase.getDisplayName(phaseCode))
-                        );
+                            NightPhase.getDisplayName(phaseCode)));
                     }
-                    
-                    // 记录到日志
-                    TheAurorian.LOGGER.info("Night phase changed to: {}", NightPhase.getName(phaseCode));
                 }
             }
 
-            // 每200刻应用一次效果
             if (dayTime % 200 == 0) {
                 for (ServerPlayer serverPlayer : playerList) {
                     if (serverPlayer.level().dimension() != TADimensions.AURORIAN_DIMENSION) {
@@ -206,13 +176,7 @@ public class LevelEventSubscriber {
             lastDayTime = dayTime;
         }
     }
-    
-    /**
-     * 设置当前夜晚类型，用于命令调用
-     * @param phase 要设置的夜晚类型
-     * @param serverLevel 服务器世界
-     * @return 是否设置成功
-     */
+
     public static boolean setNightPhase(NightPhase phase, ServerLevel serverLevel) {
         if (serverLevel.dimension() != TADimensions.AURORIAN_DIMENSION) {
             return false;
@@ -238,25 +202,16 @@ public class LevelEventSubscriber {
         
         return true;
     }
-    
-    /**
-     * 应用皎月夜效果（白天时段，6000-18000）
-     * 皎月夜虽然是白天，但具有黑夜的特性，例如亡灵生物不燃烧
-     * 非免疫玩家会受到"压力"效果
-     */
+
     private static void applyBrightMoonNightEffect(ServerPlayer serverPlayer) {
         if (!serverPlayer.getData(TAAttachmentTypes.IMMUNE_TO_PRESSURE)) {
             serverPlayer.addEffect(blessEffect(TAMobEffects.PRESSURE));
         }
     }
-    
-    /**
-     * 应用夜晚效果
-     */
+
     private static void applyNighttimeEffect(ServerPlayer serverPlayer, ServerLevel serverLevel) {
         if (serverLevel.getGameRules().getBoolean(TAGameRules.RULE_ENABLE_AURORIAN_BLESS)) {
             NightPhase currentPhase = NightPhase.fromCode(phaseCode);
-            
             if (currentPhase != NightPhase.CUSTOM) {
                 currentPhase.applyBlessEffect(serverPlayer);
             } else {
@@ -268,4 +223,5 @@ public class LevelEventSubscriber {
     private static MobEffectInstance blessEffect(Holder<MobEffect> effect) {
         return new MobEffectInstance(effect, 320, 0, false, false);
     }
+
 }

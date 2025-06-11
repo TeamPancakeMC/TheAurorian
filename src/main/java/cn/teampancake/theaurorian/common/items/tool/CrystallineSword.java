@@ -43,13 +43,9 @@ import net.minecraft.core.particles.DustParticleOptions;
 import org.joml.Vector3f;
 import net.minecraft.network.chat.Component;
 
-/**
- * 月凝晶剑 - 一种可以发射结晶光束的高级武器
- */
 public class CrystallineSword extends SwordItem {
 
     // 常量定义
-    private static final int BASE_DURABILITY = 512;
     private static final int COOLDOWN_TICKS = 600; // 30秒冷却
     private static final int MIN_CHARGE_TIME = 5;
     private static final int CHARGE_SOUND_INTERVAL = 100; // 每5秒播放一次充能音效
@@ -75,10 +71,8 @@ public class CrystallineSword extends SwordItem {
     private static final ConcurrentHashMap<UUID, BeamInfo> ACTIVE_BEAMS = new ConcurrentHashMap<>();
 
     public CrystallineSword() {
-        super(TAToolTiers.CRYSTALLINE, new Item.Properties()
-                .rarity(Rarity.EPIC)
-                .durability(BASE_DURABILITY)
-                .attributes(createAttributes(TAToolTiers.CRYSTALLINE, (3), (-2.4F)))
+        super(TAToolTiers.CRYSTALLINE, new Item.Properties().rarity(Rarity.EPIC).durability(512)
+                .attributes(createAttributes(TAToolTiers.CRYSTALLINE, 3, -2.4F))
                 .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS, TAItemTags.IS_EPIC))
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }
@@ -107,24 +101,19 @@ public class CrystallineSword extends SwordItem {
                     player.displayClientMessage(Component.translatable("message.theaurorian.crystalline_sword.charging_low_durability"), true);
                     
                     // 添加红色警告粒子
-                    if (level.isClientSide) {
-                        Vec3 pos = player.getEyePosition();
-                        Vec3 look = player.getLookAngle();
-                        Vec3 particlePos = pos.add(look.scale(2.0));
-                        
-                        for (int i = 0; i < 10; i++) {
-                            double offsetX = level.getRandom().nextDouble() - 0.5;
-                            double offsetY = level.getRandom().nextDouble() - 0.5;
-                            double offsetZ = level.getRandom().nextDouble() - 0.5;
-                            
-                            level.addParticle(
-                                new DustParticleOptions(new Vector3f(1.0F, 0.2F, 0.2F), 1.0F), // 红色粒子
-                                particlePos.x + offsetX, 
-                                particlePos.y + offsetY, 
-                                particlePos.z + offsetZ,
-                                0, 0, 0
-                            );
-                        }
+                    Vec3 pos = player.getEyePosition();
+                    Vec3 look = player.getLookAngle();
+                    Vec3 particlePos = pos.add(look.scale(2.0));
+
+                    for (int i = 0; i < 10; i++) {
+                        double offsetX = level.getRandom().nextDouble() - 0.5;
+                        double offsetY = level.getRandom().nextDouble() - 0.5;
+                        double offsetZ = level.getRandom().nextDouble() - 0.5;
+
+                        level.addParticle(
+                            new DustParticleOptions(new Vector3f(1.0F, 0.2F, 0.2F), 1.0F), // 红色粒子
+                            particlePos.x + offsetX, particlePos.y + offsetY, particlePos.z + offsetZ,
+                            0, 0, 0);
                     }
                 }
             }
@@ -206,7 +195,7 @@ public class CrystallineSword extends SwordItem {
         }
         
         // 消耗耐久度
-        stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(player.getUsedItemHand()));
+        stack.consume(1, player);
         
         // 超级光束额外消耗15点耐久
         if (isSuperBeam) {
@@ -234,8 +223,7 @@ public class CrystallineSword extends SwordItem {
                 calculateBeamDamage(effectiveChargeTime),
                 System.currentTimeMillis(),
                 BEAM_DURATION,
-                isSuperBeam
-        );
+                isSuperBeam);
 
         // 注册光束
         ACTIVE_BEAMS.put(player.getUUID(), beamInfo);
@@ -312,10 +300,9 @@ public class CrystallineSword extends SwordItem {
                         pos.x + offsetX,
                         pos.y + offsetY,
                         pos.z + offsetZ,
-                        1, // 粒子数量
-                        vx, vy, vz, // 速度
-                        isSuperBeam ? 0.04 : 0.02 // 速度因子
-                );
+                        1,
+                        vx, vy, vz,
+                        isSuperBeam ? 0.04 : 0.02);
             } else {
                 // 添加一些闪光粒子
                 level.sendParticles(
@@ -323,10 +310,9 @@ public class CrystallineSword extends SwordItem {
                         pos.x + offsetX * 0.5,
                         pos.y + offsetY * 0.5,
                         pos.z + offsetZ * 0.5,
-                        1, // 粒子数量
-                        vx * 0.5, vy * 0.5, vz * 0.5, // 速度
-                        isSuperBeam ? 0.02 : 0.01 // 速度因子
-                );
+                        1,
+                        vx * 0.5, vy * 0.5, vz * 0.5,
+                        isSuperBeam ? 0.02 : 0.01);
             }
         }
         
@@ -397,11 +383,8 @@ public class CrystallineSword extends SwordItem {
                     // 超级光束使用更炫酷的粒子
                     if (random.nextDouble() < 0.7) {
                         // 主螺旋粒子
-                        level.sendParticles(
-                                TAParticleTypes.MAGIC_PURPLE.get(),
-                                pos.x, pos.y, pos.z,
-                                1, vx, vy, vz, 0.02
-                        );
+                        level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(),
+                                pos.x, pos.y, pos.z, 1, vx, vy, vz, 0.02);
                         
                         // 超级光束增加额外粒子使螺旋更粗
                         if (random.nextDouble() < 0.6) {
@@ -409,29 +392,20 @@ public class CrystallineSword extends SwordItem {
                             double offsetScale = 0.5 + random.nextDouble() * 0.3; // 0.5-0.8的随机偏移
                             Vec3 offsetPos = pos.add(
                                 perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
-                                .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale))
-                            );
+                                .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
                             
-                            level.sendParticles(
-                                    TAParticleTypes.MAGIC_PURPLE.get(),
-                                    offsetPos.x, offsetPos.y, offsetPos.z,
-                                    1, vx * 0.8, vy * 0.8, vz * 0.8, 0.015
-                            );
+                            level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), offsetPos.x, offsetPos.y, offsetPos.z,
+                                    1, vx * 0.8, vy * 0.8, vz * 0.8, 0.015);
                         }
                     } else if (random.nextDouble() < 0.5) {
                         // 闪电粒子
-                        level.sendParticles(
-                                TAParticleTypes.MAGIC_PURPLE.get(),
-                                pos.x, pos.y, pos.z,
-                                1, vx * 2, vy * 2, vz * 2, 0.05
-                        );
+                        level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), pos.x, pos.y, pos.z,
+                                1, vx * 2, vy * 2, vz * 2, 0.05);
                     } else {
                         // 闪光粒子
                         level.sendParticles(
-                            ParticleTypes.END_ROD,
-                            pos.x, pos.y, pos.z,
-                            1, 0, 0, 0, 0
-                        );
+                            ParticleTypes.END_ROD, pos.x, pos.y, pos.z,
+                            1, 0, 0, 0, 0);
                     }
                 } else {
                     // 普通光束粒子
@@ -439,14 +413,11 @@ public class CrystallineSword extends SwordItem {
                         level.sendParticles(
                                 TAParticleTypes.MAGIC_PURPLE.get(),
                                 pos.x, pos.y, pos.z,
-                                1, vx, vy, vz, 0.01
-                        );
+                                1, vx, vy, vz, 0.01);
                     } else {
                         level.sendParticles(
-                                ParticleTypes.END_ROD,
-                                pos.x, pos.y, pos.z,
-                                1, vx, vy, vz, 0.01
-                        );
+                                ParticleTypes.END_ROD, pos.x, pos.y, pos.z,
+                                1, vx, vy, vz, 0.01);
                     }
                 }
             }
@@ -482,46 +453,34 @@ public class CrystallineSword extends SwordItem {
                     
                     // 使用不同的粒子
                     if (helix == 0) {
-                        level.sendParticles(
-                                TAParticleTypes.MAGIC_PURPLE.get(),
-                                pos.x, pos.y, pos.z,
-                                1, vx, vy, vz, 0.03
-                        );
+                        level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(),
+                                pos.x, pos.y, pos.z, 1, vx, vy, vz, 0.03);
                         
                         // 添加额外粒子使双螺旋更粗
                         if (random.nextDouble() < 0.5) {
                             double offsetScale = 0.6;
                             Vec3 offsetPos = pos.add(
                                 perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
-                                .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale))
-                            );
+                                .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
                             
-                            level.sendParticles(
-                                    TAParticleTypes.MAGIC_PURPLE.get(),
-                                    offsetPos.x, offsetPos.y, offsetPos.z,
-                                    1, vx * 0.7, vy * 0.7, vz * 0.7, 0.02
-                            );
+                            level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), offsetPos.x, offsetPos.y, offsetPos.z,
+                                    1, vx * 0.7, vy * 0.7, vz * 0.7, 0.02);
                         }
                     } else {
                         level.sendParticles(
                                 TAParticleTypes.MAGIC_PURPLE.get(),
                                 pos.x, pos.y, pos.z,
-                                1, vx, vy, vz, 0.03
-                        );
+                                1, vx, vy, vz, 0.03);
                         
                         // 添加额外粒子使双螺旋更粗
                         if (random.nextDouble() < 0.5) {
                             double offsetScale = 0.6;
                             Vec3 offsetPos = pos.add(
                                 perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
-                                .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale))
-                            );
+                                .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
                             
-                            level.sendParticles(
-                                    TAParticleTypes.MAGIC_PURPLE.get(),
-                                    offsetPos.x, offsetPos.y, offsetPos.z,
-                                    1, vx * 0.7, vy * 0.7, vz * 0.7, 0.02
-                            );
+                            level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), offsetPos.x, offsetPos.y, offsetPos.z,
+                                    1, vx * 0.7, vy * 0.7, vz * 0.7, 0.02);
                         }
                     }
                 }
@@ -553,22 +512,17 @@ public class CrystallineSword extends SwordItem {
                 level.sendParticles(
                         TAParticleTypes.MAGIC_PURPLE.get(),
                         pos.x, pos.y, pos.z,
-                        1, vx, vy, vz, 0.025
-                );
+                        1, vx, vy, vz, 0.025);
                 
                 // 添加额外粒子使中心螺旋更粗
                 if (random.nextDouble() < 0.7) {
                     double offsetScale = 0.8;
                     Vec3 offsetPos = pos.add(
                         perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
-                        .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale))
-                    );
+                        .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
                     
-                    level.sendParticles(
-                            TAParticleTypes.MAGIC_PURPLE.get(),
-                            offsetPos.x, offsetPos.y, offsetPos.z,
-                            1, vx * 0.6, vy * 0.6, vz * 0.6, 0.02
-                    );
+                    level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), offsetPos.x, offsetPos.y, offsetPos.z,
+                            1, vx * 0.6, vy * 0.6, vz * 0.6, 0.02);
                 }
             }
         }
@@ -617,11 +571,7 @@ public class CrystallineSword extends SwordItem {
             
             // 计算粒子位置
             double distance = random.nextDouble() * impactRadius;
-            Vec3 pos = impactPos.add(
-                    x * distance,
-                    y * distance,
-                    z * distance
-            );
+            Vec3 pos = impactPos.add(x * distance, y * distance, z * distance);
             
             // 计算粒子速度
             double speed = isSuperBeam ? 0.2 : 0.1;
@@ -637,29 +587,19 @@ public class CrystallineSword extends SwordItem {
                     level.sendParticles(
                             TAParticleTypes.MAGIC_PURPLE.get(),
                             pos.x, pos.y, pos.z,
-                            1, vx, vy, vz, 0.05
-                    );
+                            1, vx, vy, vz, 0.05);
                 } else if (random.nextDouble() < 0.3) {
                     // 闪电
-                    level.sendParticles(
-                            TAParticleTypes.MAGIC_PURPLE.get(),
-                            pos.x, pos.y, pos.z,
-                            1, vx * 1.5, vy * 1.5, vz * 1.5, 0.1
-                    );
+                    level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), pos.x, pos.y, pos.z,
+                            1, vx * 1.5, vy * 1.5, vz * 1.5, 0.1);
                 } else if (random.nextDouble() < 0.1) {
                     // 闪光
-                    level.sendParticles(
-                            ParticleTypes.END_ROD,
-                            pos.x, pos.y, pos.z,
-                            1, 0, 0, 0, 0
-                    );
+                    level.sendParticles(ParticleTypes.END_ROD, pos.x, pos.y, pos.z,
+                            1, 0, 0, 0, 0);
                 } else {
                     // 爆炸
-                    level.sendParticles(
-                            TAParticleTypes.MAGIC_PURPLE.get(),
-                            pos.x, pos.y, pos.z,
-                            1, vx * 0.2, vy * 0.2, vz * 0.2, 0.02
-                    );
+                    level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), pos.x, pos.y, pos.z,
+                            1, vx * 0.2, vy * 0.2, vz * 0.2, 0.02);
                 }
             } else {
                 // 普通光束撞击效果
@@ -668,15 +608,12 @@ public class CrystallineSword extends SwordItem {
                     level.sendParticles(
                             TAParticleTypes.MAGIC_PURPLE.get(),
                             pos.x, pos.y, pos.z,
-                            1, vx, vy, vz, 0.02
-                    );
+                            1, vx, vy, vz, 0.02);
                 } else {
                     // 末地烛粒子
                     level.sendParticles(
-                            ParticleTypes.END_ROD,
-                            pos.x, pos.y, pos.z,
-                            1, vx, vy, vz, 0.02
-                    );
+                            ParticleTypes.END_ROD, pos.x, pos.y, pos.z,
+                            1, vx, vy, vz, 0.02);
                 }
             }
         }
@@ -702,17 +639,13 @@ public class CrystallineSword extends SwordItem {
                     double angle = j * Math.PI * 2 / ringParticles;
                     Vec3 ringPos = impactPos.add(
                             right.scale(Math.cos(angle) * radius).add(
-                            planeNormal.scale(Math.sin(angle) * radius))
-                    );
+                            planeNormal.scale(Math.sin(angle) * radius)));
                     
                     Vec3 ringVelocity = right.scale(Math.cos(angle) * speed).add(
                             planeNormal.scale(Math.sin(angle) * speed));
                     
-                    level.sendParticles(
-                            TAParticleTypes.MAGIC_PURPLE.get(),
-                            ringPos.x, ringPos.y, ringPos.z,
-                            1, ringVelocity.x, ringVelocity.y, ringVelocity.z, 0.02
-                    );
+                    level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), ringPos.x, ringPos.y, ringPos.z,
+                            1, ringVelocity.x, ringVelocity.y, ringVelocity.z, 0.02);
                 }
             }
         }
@@ -743,8 +676,7 @@ public class CrystallineSword extends SwordItem {
             double r = originRadius * (0.8 + random.nextDouble() * 0.4);
             Vec3 ringPos = origin.add(
                 right.scale(Math.cos(angle) * r).add(
-                newUp.scale(Math.sin(angle) * r))
-            );
+                newUp.scale(Math.sin(angle) * r)));
             
             // 向外的速度
             double speed = 0.02;
@@ -754,10 +686,11 @@ public class CrystallineSword extends SwordItem {
             level.sendParticles(
                     TAParticleTypes.MAGIC_PURPLE.get(),
                     ringPos.x, ringPos.y, ringPos.z,
-                    1, // 粒子数量
-                    outDir.x * speed, outDir.y * speed, outDir.z * speed, // 速度
-                    0.01 // 速度因子
-            );
+                    1,
+                    outDir.x * speed,
+                    outDir.y * speed,
+                    outDir.z * speed,
+                    0.01);
         }
         
         // 添加一些向前的粒子
@@ -777,10 +710,11 @@ public class CrystallineSword extends SwordItem {
             level.sendParticles(
                     ParticleTypes.END_ROD,
                     pos.x, pos.y, pos.z,
-                    1, // 粒子数量
-                    direction.x * 0.1, direction.y * 0.1, direction.z * 0.1, // 速度
-                    0.01 // 速度因子
-            );
+                    1,
+                    direction.x * 0.1,
+                    direction.y * 0.1,
+                    direction.z * 0.1,
+                    0.01);
         }
     }
 
@@ -816,9 +750,9 @@ public class CrystallineSword extends SwordItem {
                         level.getPlayerByUUID(beamInfo.owner)
                 ), adjustedDamage);
 
-                if(livingEntity.isDeadOrDying() && player != null){
+                if (livingEntity.isDeadOrDying() && player != null){
                     player.getCooldowns().removeCooldown(TAItems.CRYSTALLINE_SWORD.get());
-                }else {
+                } else {
                     // 添加眩晕效果，距离越近眩晕时间越长
                     int stunDuration = (int)(40 * Math.max(0.8f, distanceMultiplier));
                     
@@ -910,8 +844,7 @@ public class CrystallineSword extends SwordItem {
                     double distanceToLine = distanceToLine(start, end, entityPos);
                     // 使用更宽松的判定，实体中心点到光束的距离小于光束宽度的1.5倍即可命中
                     return distanceToLine < BEAM_WIDTH * 1.5;
-                }
-        );
+                });
     }
 
     /**
@@ -924,13 +857,7 @@ public class CrystallineSword extends SwordItem {
         Entity owner = level.getPlayerByUUID(ownerUUID);
 
         // 创建ClipContext
-        ClipContext clipContext = new ClipContext(
-                start,
-                end,
-                ClipContext.Block.COLLIDER,
-                ClipContext.Fluid.NONE,
-                owner
-        );
+        ClipContext clipContext = new ClipContext(start, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, owner);
 
         // 执行射线检测
         BlockHitResult blockHit = level.clip(clipContext);
@@ -950,8 +877,7 @@ public class CrystallineSword extends SwordItem {
                 Math.min(start.z, end.z) - BEAM_WIDTH,
                 Math.max(start.x, end.x) + BEAM_WIDTH,
                 Math.max(start.y, end.y) + BEAM_WIDTH,
-                Math.max(start.z, end.z) + BEAM_WIDTH
-        );
+                Math.max(start.z, end.z) + BEAM_WIDTH);
 
         Entity closestEntity = null;
         double closestDistance = Double.MAX_VALUE;
@@ -1011,7 +937,7 @@ public class CrystallineSword extends SwordItem {
 
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        return 72000; // 最大使用时间
+        return 72000;
     }
 
     @Override
@@ -1022,10 +948,7 @@ public class CrystallineSword extends SwordItem {
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         boolean result = super.hurtEnemy(stack, target, attacker);
-        
-        // 检查是否击杀目标
         if (target.isDeadOrDying() && attacker instanceof Player player) {
-            // 重置冷却时间
             player.getCooldowns().removeCooldown(TAItems.CRYSTALLINE_SWORD.get());
         }
         
@@ -1059,7 +982,7 @@ public class CrystallineSword extends SwordItem {
         }
 
         boolean isExpired() {
-            return System.currentTimeMillis() > startTime + (duration * 50); // 50ms per tick
+            return System.currentTimeMillis() > startTime + (duration * 50L);
         }
     }
 
@@ -1109,7 +1032,6 @@ public class CrystallineSword extends SwordItem {
             poseStack.translate(Math.max(limit, limit * 3.0F * normalizedProgress), 0.05F, 0.0F);
             poseStack.mulPose(Axis.XN.rotationDegrees(Math.min(90.0F, 90.0F * 3.0F * normalizedProgress)));
             poseStack.mulPose(Axis.YN.rotation(0.0F));
-
             return true;
         }
     }
@@ -1153,7 +1075,7 @@ public class CrystallineSword extends SwordItem {
         Vec3 circleCenter = player.getEyePosition().add(playerLook.scale(3.5));
         
         // 魔法阵大小随充能增长 (更大的基础尺寸)
-        float size = 2.5F + progress * 1.0F;
+        float size = 2.5F + progress;
         
         // 超级蓄力状态下，魔法阵更大
         if (isSuperCharge) {
@@ -1247,15 +1169,9 @@ public class CrystallineSword extends SwordItem {
                 for (int i = 0; i < 20; i++) {
                     double angle = i * Math.PI * 2 / 20;
                     double radius = 1.5 + Math.sin(level.getGameTime() * 0.05) * 0.5;
-                    
                     Vec3 offset = right.scale(Math.cos(angle) * radius).add(planeNormal.scale(Math.sin(angle) * radius));
                     Vec3 pos = player.position().add(0, 1.0, 0).add(offset);
-                    
-                    level.addParticle(
-                            TAParticleTypes.MAGIC_PURPLE.get(),
-                            pos.x, pos.y, pos.z,
-                            offset.x * 0.02, 0.05, offset.z * 0.02
-                    );
+                    level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(), pos.x, pos.y, pos.z, offset.x * 0.02, 0.05, offset.z * 0.02);
                 }
             }
         }
@@ -1286,8 +1202,7 @@ public class CrystallineSword extends SwordItem {
             // 在垂直于玩家视线的平面上计算点的位置
             Vec3 point = center.add(
                 right.scale(sin * size).add(
-                up.scale(cos * size))
-            );
+                up.scale(cos * size)));
             
             // 使用紫色魔法粒子，添加一些随机速度使其更动态
             double speedFactor = 0.002;
@@ -1296,8 +1211,7 @@ public class CrystallineSword extends SwordItem {
                     point.x, point.y, point.z,
                     (level.getRandom().nextDouble() - 0.5) * speedFactor,
                     (level.getRandom().nextDouble() - 0.5) * speedFactor,
-                    (level.getRandom().nextDouble() - 0.5) * speedFactor
-            );
+                    (level.getRandom().nextDouble() - 0.5) * speedFactor);
             
             // 超级蓄力状态下，添加额外的粒子使环更粗
             if (isSuperCharge) {
@@ -1305,31 +1219,27 @@ public class CrystallineSword extends SwordItem {
                 double innerFactor = 0.9;
                 Vec3 innerPoint = center.add(
                     right.scale(sin * size * innerFactor).add(
-                    up.scale(cos * size * innerFactor))
-                );
+                    up.scale(cos * size * innerFactor)));
                 
                 level.addParticle(
                         TAParticleTypes.MAGIC_PURPLE.get(),
                         innerPoint.x, innerPoint.y, innerPoint.z,
                         (level.getRandom().nextDouble() - 0.5) * speedFactor,
                         (level.getRandom().nextDouble() - 0.5) * speedFactor,
-                        (level.getRandom().nextDouble() - 0.5) * speedFactor
-                );
+                        (level.getRandom().nextDouble() - 0.5) * speedFactor);
                 
                 // 向外侧添加粒子
                 double outerFactor = 1.1;
                 Vec3 outerPoint = center.add(
                     right.scale(sin * size * outerFactor).add(
-                    up.scale(cos * size * outerFactor))
-                );
+                    up.scale(cos * size * outerFactor)));
                 
                 level.addParticle(
                         TAParticleTypes.MAGIC_PURPLE.get(),
                         outerPoint.x, outerPoint.y, outerPoint.z,
                         (level.getRandom().nextDouble() - 0.5) * speedFactor,
                         (level.getRandom().nextDouble() - 0.5) * speedFactor,
-                        (level.getRandom().nextDouble() - 0.5) * speedFactor
-                );
+                        (level.getRandom().nextDouble() - 0.5) * speedFactor);
             }
         }
     }
@@ -1372,8 +1282,7 @@ public class CrystallineSword extends SwordItem {
                     pos.x, pos.y, pos.z,
                     (random.nextDouble() - 0.5) * speedFactor,
                     (random.nextDouble() - 0.5) * speedFactor,
-                    (random.nextDouble() - 0.5) * speedFactor
-            );
+                    (random.nextDouble() - 0.5) * speedFactor);
         }
     }
     
@@ -1399,8 +1308,7 @@ public class CrystallineSword extends SwordItem {
             
             Vec3 runePos = center.add(
                 right.scale(Math.sin(angle) * dist).add(
-                up.scale(Math.cos(angle) * dist))
-            );
+                up.scale(Math.cos(angle) * dist)));
             
             // 符文旋转角度
             double runeRotation = rotation + i * 30;
@@ -1434,8 +1342,7 @@ public class CrystallineSword extends SwordItem {
             
             Vec3 point1 = center.add(
                 right.scale(sin * size).add(
-                up.scale(cos * size))
-            );
+                up.scale(cos * size)));
             
             // 下一个点
             double nextAngle = Math.toRadians(120 * ((i + 1) % 3) + rotation);
@@ -1444,8 +1351,7 @@ public class CrystallineSword extends SwordItem {
             
             Vec3 point2 = center.add(
                 right.scale(nextSin * size).add(
-                up.scale(nextCos * size))
-            );
+                up.scale(nextCos * size)));
             
             // 在两点之间生成粒子线
             int points = 5;
@@ -1457,8 +1363,7 @@ public class CrystallineSword extends SwordItem {
                 level.addParticle(
                         TAParticleTypes.MAGIC_PURPLE.get(),
                         linePos.x, linePos.y, linePos.z,
-                        0, 0.005, 0
-                );
+                        0, 0.005, 0);
             }
         }
     }
@@ -1475,8 +1380,7 @@ public class CrystallineSword extends SwordItem {
             
             Vec3 point1 = center.add(
                 right.scale(sin * size).add(
-                up.scale(cos * size))
-            );
+                up.scale(cos * size)));
             
             // 下一个点
             double nextAngle = Math.toRadians(90 * ((i + 1) % 4) + rotation);
@@ -1485,8 +1389,7 @@ public class CrystallineSword extends SwordItem {
             
             Vec3 point2 = center.add(
                 right.scale(nextSin * size).add(
-                up.scale(nextCos * size))
-            );
+                up.scale(nextCos * size)));
             
             // 在两点之间生成粒子线
             int points = 4;
@@ -1498,8 +1401,7 @@ public class CrystallineSword extends SwordItem {
                 level.addParticle(
                         TAParticleTypes.MAGIC_PURPLE.get(),
                         linePos.x, linePos.y, linePos.z,
-                        0, 0.005, 0
-                );
+                        0, 0.005, 0);
             }
         }
     }
@@ -1517,15 +1419,13 @@ public class CrystallineSword extends SwordItem {
             
             Vec3 point = center.add(
                 right.scale(sin * size).add(
-                up.scale(cos * size))
-            );
+                up.scale(cos * size)));
             
             // 使用紫色魔法粒子
             level.addParticle(
                     TAParticleTypes.MAGIC_PURPLE.get(),
                     point.x, point.y, point.z,
-                    0, 0.005, 0
-            );
+                    0, 0.005, 0);
         }
     }
     
@@ -1560,18 +1460,12 @@ public class CrystallineSword extends SwordItem {
                 
                 Vec3 point = center.add(
                     right.scale(sin * rippleSize).add(
-                    up.scale(cos * rippleSize))
-                );
+                    up.scale(cos * rippleSize)));
                 
                 // 使用紫色魔法粒子
                 double speedFactor = 0.001 * (1 - step / (float)steps); // 速度随距离减小
-                level.addParticle(
-                        TAParticleTypes.MAGIC_PURPLE.get(),
-                        point.x, point.y, point.z,
-                        sin * speedFactor,
-                        0,
-                        cos * speedFactor
-                );
+                level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(), point.x, point.y, point.z,
+                        sin * speedFactor, 0, cos * speedFactor);
             }
         }
     }
@@ -1602,18 +1496,15 @@ public class CrystallineSword extends SwordItem {
                 Vec3 pos = center.add(offset);
                 
                 // 向上漂浮的附魔粒子
-                level.addParticle(
-                        ParticleTypes.ENCHANT,
-                        pos.x, pos.y, pos.z,
-                        0, 0.1 + random.nextDouble() * 0.2, 0
-                );
+                level.addParticle(ParticleTypes.ENCHANT, pos.x, pos.y, pos.z,
+                        0, 0.1 + random.nextDouble() * 0.2, 0);
             } 
             // 在玩家周围生成附魔粒子
             else {
                 // 玩家周围的随机位置
-                double offsetX = (random.nextDouble() - 0.5) * 1.0;
+                double offsetX = (random.nextDouble() - 0.5);
                 double offsetY = random.nextDouble() * 2.0; // 主要在上方
-                double offsetZ = (random.nextDouble() - 0.5) * 1.0;
+                double offsetZ = (random.nextDouble() - 0.5);
                 
                 Vec3 playerPos = player.position();
                 
@@ -1622,8 +1513,7 @@ public class CrystallineSword extends SwordItem {
                         playerPos.x + offsetX,
                         playerPos.y + offsetY,
                         playerPos.z + offsetZ,
-                        0, 0.05 + random.nextDouble() * 0.05, 0
-                );
+                        0, 0.05 + random.nextDouble() * 0.05, 0);
             }
         }
     }
@@ -1647,8 +1537,7 @@ public class CrystallineSword extends SwordItem {
                     center.z + offsetZ,
                     (random.nextDouble() - 0.5) * 2,
                     (random.nextDouble() - 0.5) * 2,
-                    (random.nextDouble() - 0.5) * 2
-            );
+                    (random.nextDouble() - 0.5) * 2);
         }
     }
 
@@ -1674,8 +1563,7 @@ public class CrystallineSword extends SwordItem {
             // 在垂直于玩家视线的平面上计算点的位置
             Vec3 point = center.add(
                 right.scale(sin * size).add(
-                up.scale(cos * size))
-            );
+                up.scale(cos * size)));
             
             // 连接到对面的点形成六芒星
             double oppositeAngle = Math.toRadians(60 * ((i + 3) % 6) + rotation);
@@ -1684,8 +1572,7 @@ public class CrystallineSword extends SwordItem {
             
             Vec3 oppositePoint = center.add(
                 right.scale(oppositeSin * size).add(
-                up.scale(oppositeCos * size))
-            );
+                up.scale(oppositeCos * size)));
             
             // 在两点之间生成粒子线
             int points = isSuperCharge ? 15 : 10; // 超级蓄力时点数更多
@@ -1702,11 +1589,9 @@ public class CrystallineSword extends SwordItem {
                              .add(up.scale((level.getRandom().nextDouble() - 0.5) * offsetFactor));
                 
                 // 使用紫色魔法粒子，并添加一些微小的速度使其闪烁
-                level.addParticle(
-                        TAParticleTypes.MAGIC_PURPLE.get(),
+                level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(),
                         linePos.x + offset.x, linePos.y + offset.y, linePos.z + offset.z,
-                        0, 0.005 + level.getRandom().nextDouble() * (isSuperCharge ? 0.02 : 0.01), 0
-                );
+                        0, 0.005 + level.getRandom().nextDouble() * (isSuperCharge ? 0.02 : 0.01), 0);
                 
                 // 超级蓄力时添加额外的粒子使线条更粗
                 if (isSuperCharge && level.getRandom().nextBoolean()) {
@@ -1714,11 +1599,9 @@ public class CrystallineSword extends SwordItem {
                     Vec3 extraOffset = right.scale((level.getRandom().nextDouble() - 0.5) * offsetFactor * 1.5)
                                      .add(up.scale((level.getRandom().nextDouble() - 0.5) * offsetFactor * 1.5));
                     
-                    level.addParticle(
-                            TAParticleTypes.MAGIC_PURPLE.get(),
+                    level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(),
                             linePos.x + extraOffset.x, linePos.y + extraOffset.y, linePos.z + extraOffset.z,
-                            0, 0.005 + level.getRandom().nextDouble() * 0.02, 0
-                    );
+                            0, 0.005 + level.getRandom().nextDouble() * 0.02, 0);
                 }
             }
         }
@@ -1741,8 +1624,7 @@ public class CrystallineSword extends SwordItem {
             // 在垂直于玩家视线的平面上计算点的位置
             Vec3 point = center.add(
                 right.scale(sin * size).add(
-                up.scale(cos * size))
-            );
+                up.scale(cos * size)));
             
             // 符文效果 (更大更明显的符文)
             double runeHeight = 0.2;
@@ -1758,8 +1640,7 @@ public class CrystallineSword extends SwordItem {
                         runePos.x, runePos.y, runePos.z,
                         (level.getRandom().nextDouble() - 0.5) * speedFactor,
                         (level.getRandom().nextDouble() - 0.5) * speedFactor,
-                        (level.getRandom().nextDouble() - 0.5) * speedFactor
-                );
+                        (level.getRandom().nextDouble() - 0.5) * speedFactor);
             }
         }
     }
@@ -1801,8 +1682,7 @@ public class CrystallineSword extends SwordItem {
                         rayPos.x, rayPos.y, rayPos.z,
                         rayDir.x * speedFactor,
                         rayDir.y * speedFactor,
-                        rayDir.z * speedFactor
-                );
+                        rayDir.z * speedFactor);
             }
         }
     }
@@ -1823,8 +1703,7 @@ public class CrystallineSword extends SwordItem {
             
             Vec3 startPos = center.add(
                 right.scale(Math.sin(startAngle) * startDist).add(
-                up.scale(Math.cos(startAngle) * startDist))
-            );
+                up.scale(Math.cos(startAngle) * startDist)));
             
             // 随机选择终点 (可能是另一边的外围点或者其他位置)
             double endAngle = startAngle + Math.PI + (random.nextDouble() - 0.5) * Math.PI;
@@ -1832,8 +1711,7 @@ public class CrystallineSword extends SwordItem {
             
             Vec3 endPos = center.add(
                 right.scale(Math.sin(endAngle) * endDist).add(
-                up.scale(Math.cos(endAngle) * endDist))
-            );
+                up.scale(Math.cos(endAngle) * endDist)));
             
             // 生成闪电路径 (之字形)
             int segments = 4 + random.nextInt(3);
@@ -1866,11 +1744,7 @@ public class CrystallineSword extends SwordItem {
                     Vec3 pos = lastPos.add(targetPos.subtract(lastPos).scale(s));
                     
                     // 使用亮紫色粒子
-                    level.addParticle(
-                            TAParticleTypes.MAGIC_PURPLE.get(),
-                            pos.x, pos.y, pos.z,
-                            0, 0, 0
-                    );
+                    level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(), pos.x, pos.y, pos.z, 0, 0, 0);
                 }
                 
                 lastPos = targetPos;
@@ -1884,21 +1758,20 @@ public class CrystallineSword extends SwordItem {
     private void generateStarburstEffects(Level level, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只在特定充能阶段生成
         if (progress < 0.3F || level.getRandom().nextInt(4) != 0) return;
-        
+
         RandomSource random = level.getRandom();
-        
+
         // 星辰数量随充能增加
         int starCount = 1 + (int)(progress * 2);
-        
+
         for (int i = 0; i < starCount; i++) {
             // 随机位置 (避开中心区域)
             double angle = random.nextDouble() * Math.PI * 2;
             double dist = size * (0.5 + random.nextDouble() * 0.5); // 主要在中间到外围区域
-            
+
             Vec3 starPos = center.add(
                 right.scale(Math.sin(angle) * dist).add(
-                up.scale(Math.cos(angle) * dist))
-            );
+                up.scale(Math.cos(angle) * dist)));
             
             // 星辰爆发效果
             int rays = 4 + random.nextInt(4);
@@ -1917,8 +1790,7 @@ public class CrystallineSword extends SwordItem {
                         starPos.x, starPos.y, starPos.z,
                         rayDir.x * 0.02,
                         rayDir.y * 0.02,
-                        rayDir.z * 0.02
-                );
+                        rayDir.z * 0.02);
             }
         }
     }
@@ -1942,8 +1814,7 @@ public class CrystallineSword extends SwordItem {
             
             Vec3 startPos = center.add(
                 right.scale(Math.sin(startAngle) * startDist).add(
-                up.scale(Math.cos(startAngle) * startDist))
-            );
+                up.scale(Math.cos(startAngle) * startDist)));
             
             // 轨迹方向 (沿着魔法阵平面)
             double moveAngle = startAngle + Math.PI/2 + (random.nextDouble() - 0.5) * Math.PI/4;
@@ -1963,11 +1834,7 @@ public class CrystallineSword extends SwordItem {
                 Vector3f color = new Vector3f(0.7F, 0.3F + hue, 0.9F); // 从紫色到略带蓝色
                 
                 // 使用尘埃粒子实现颜色变化
-                level.addParticle(
-                        new DustParticleOptions(color, 1.0F),
-                        pos.x, pos.y, pos.z,
-                        0, 0, 0
-                );
+                level.addParticle(new DustParticleOptions(color, 1.0F), pos.x, pos.y, pos.z, 0, 0, 0);
             }
         }
     }
@@ -2018,11 +1885,7 @@ public class CrystallineSword extends SwordItem {
                            .add(up.scale(-Math.sin(spiralAngle) * speedFactor * (clockwise ? -1 : 1)));
             
             // 使用紫色魔法粒子
-            level.addParticle(
-                    TAParticleTypes.MAGIC_PURPLE.get(),
-                    pos.x, pos.y, pos.z,
-                    velocity.x, velocity.y, velocity.z
-            );
+            level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(), pos.x, pos.y, pos.z, velocity.x, velocity.y, velocity.z);
         }
     }
 }

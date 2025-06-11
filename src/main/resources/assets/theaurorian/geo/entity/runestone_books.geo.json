@@ -1,0 +1,116 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.runestone_books",
+				"texture_width": 144,
+				"texture_height": 48,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 4.5,
+				"visible_bounds_offset": [0, 1.75, 0]
+			},
+			"bones": [
+				{
+					"name": "book1",
+					"pivot": [-16.96027, 16.84674, 3.63686]
+				},
+				{
+					"name": "book_1",
+					"parent": "book1",
+					"pivot": [-16.96027, 16.84674, 3.63686],
+					"cubes": [
+						{"origin": [-14, 10, -2], "size": [8, 12, 4], "pivot": [-13, 11, 4], "rotation": [-7.5, 127.5, 5], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "rune1_1",
+					"parent": "book_1",
+					"pivot": [-16.96027, 16.84674, 3.63686],
+					"cubes": [
+						{"origin": [-14, 10, -2.5], "size": [8, 12, 5], "pivot": [-13, 11, 4], "rotation": [-7.5, 127.5, 5], "uv": [0, 16]}
+					]
+				},
+				{
+					"name": "rune1_2",
+					"parent": "book_1",
+					"pivot": [-16.96027, 16.84674, 3.63686],
+					"cubes": [
+						{"origin": [-14, 10, -2.5], "size": [8, 12, 5], "pivot": [-13, 11, 4], "rotation": [-7.5, 127.5, 5], "uv": [26, 16]}
+					]
+				},
+				{
+					"name": "rune1_3",
+					"parent": "book_1",
+					"pivot": [-16.96027, 16.84674, 3.63686],
+					"cubes": [
+						{"origin": [-14, 10, -2.5], "size": [8, 12, 5], "pivot": [-13, 11, 4], "rotation": [-7.5, 127.5, 5], "uv": [52, 16]}
+					]
+				},
+				{
+					"name": "rune1_4",
+					"parent": "book_1",
+					"pivot": [-16.96027, 16.84674, 3.63686],
+					"cubes": [
+						{"origin": [-14, 10, -2.5], "size": [8, 12, 5], "pivot": [-13, 11, 4], "rotation": [-7.5, 127.5, 5], "uv": [78, 16]}
+					]
+				},
+				{
+					"name": "rune1_5",
+					"parent": "book_1",
+					"pivot": [-16.96027, 16.84674, 3.63686],
+					"cubes": [
+						{"origin": [-14, 10, -2.5], "size": [8, 12, 5], "pivot": [-13, 11, 4], "rotation": [-7.5, 127.5, 5], "uv": [104, 16]}
+					]
+				},
+				{
+					"name": "book_2",
+					"pivot": [13.56073, 35.95335, -9.95121],
+					"cubes": [
+						{"origin": [7, 29, -14], "size": [8, 12, 4], "pivot": [13, 25, -7], "rotation": [-15, -52.5, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "rune2_1",
+					"parent": "book_2",
+					"pivot": [13.56073, 35.95335, -9.95121],
+					"cubes": [
+						{"origin": [7, 29, -14.5], "size": [8, 12, 5], "pivot": [13, 25, -7], "rotation": [-15, -52.5, 0], "uv": [0, 16]}
+					]
+				},
+				{
+					"name": "rune2_2",
+					"parent": "book_2",
+					"pivot": [13.56073, 35.95335, -9.95121],
+					"cubes": [
+						{"origin": [7, 29, -14.5], "size": [8, 12, 5], "pivot": [13, 25, -7], "rotation": [-15, -52.5, 0], "uv": [26, 16]}
+					]
+				},
+				{
+					"name": "rune2_3",
+					"parent": "book_2",
+					"pivot": [13.56073, 35.95335, -9.95121],
+					"cubes": [
+						{"origin": [7, 29, -14.5], "size": [8, 12, 5], "pivot": [13, 25, -7], "rotation": [-15, -52.5, 0], "uv": [52, 16]}
+					]
+				},
+				{
+					"name": "rune2_4",
+					"parent": "book_2",
+					"pivot": [13.56073, 35.95335, -9.95121],
+					"cubes": [
+						{"origin": [7, 29, -14.5], "size": [8, 12, 5], "pivot": [13, 25, -7], "rotation": [-15, -52.5, 0], "uv": [78, 16]}
+					]
+				},
+				{
+					"name": "rune2_5",
+					"parent": "book_2",
+					"pivot": [13.56073, 35.95335, -9.95121],
+					"cubes": [
+						{"origin": [7, 29, -14.5], "size": [8, 12, 5], "pivot": [13, 25, -7], "rotation": [-15, -52.5, 0], "uv": [104, 16]}
+					]
+				}
+			]
+		}
+	]
+}

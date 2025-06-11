@@ -216,7 +216,8 @@ public class TAEntityTypes {
         event.registerEntityRenderer(SELENA.get(), context -> new GeoEntityRenderer<>(
                 context, new DefaultedEntityGeoModel<>(SELENA.getId(), Boolean.TRUE)));
         event.registerEntityRenderer(MOON_FISH.get(), MoonFishRenderer::new);
-        event.registerEntityRenderer(AURORIAN_WINGED_FISH.get(), AurorianWingedFishRenderer::new);
+        event.registerEntityRenderer(AURORIAN_WINGED_FISH.get(), context -> new GeoEntityRenderer<>(
+                context, new DefaultedEntityGeoModel<>(AURORIAN_WINGED_FISH.getId())));
         event.registerEntityRenderer(AURORIAN_RABBIT.get(), AurorianRabbitRenderer::new);
         event.registerEntityRenderer(AURORIAN_SHEEP.get(), AurorianSheepRenderer::new);
         event.registerEntityRenderer(AURORIAN_PIG.get(), AurorianPigRenderer::new);

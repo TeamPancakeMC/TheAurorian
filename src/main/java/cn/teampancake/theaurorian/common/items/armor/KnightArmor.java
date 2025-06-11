@@ -3,7 +3,7 @@ package cn.teampancake.theaurorian.common.items.armor;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.model.entity.armor.KnightArmorModel;
 import cn.teampancake.theaurorian.client.renderer.layers.TAModelLayers;
-import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
+import cn.teampancake.theaurorian.common.registry.TAArmorMaterials;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;

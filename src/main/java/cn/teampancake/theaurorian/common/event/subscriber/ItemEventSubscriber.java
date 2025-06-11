@@ -3,7 +3,7 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.components.SourceOfTerra;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
-import cn.teampancake.theaurorian.common.items.TAArmorMaterials;
+import cn.teampancake.theaurorian.common.registry.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.component.DataComponentType;

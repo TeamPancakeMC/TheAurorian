@@ -804,6 +804,8 @@
   "message.theaurorian.crystalline_sword.charging_low_durability": "§c警告：耐久度不足，无法使用超级光束！",
   "message.theaurorian.crystalline_sword.low_durability": "§c剑的耐久度不足，无法使用超级光束！",
   "messages.item.theaurorian.aurorian_steel_sword.holiness": "所有的罪恶已被驱散！",
+  "messages.item.theaurorian.aurorian_steel_sword.uuz.1": "%s大人把你吃掉啦！",
+  "messages.item.theaurorian.aurorian_steel_sword.uuz.2": "%s大人又开始幻想了！",
   "messages.item.theaurorian.umbra_pickaxe.fail": "选择失败，因为剩余耐久已不足60！",
   "messages.item.theaurorian.umbra_pickaxe.selected": "已选择方块：%s",
   "night_phase.theaurorian.combat": "战斗夜",

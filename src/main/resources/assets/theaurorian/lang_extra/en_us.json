@@ -16,6 +16,8 @@
     "message.source_of_terra.invalid": "Container is invalid or has benn destroy!",
     "message.source_of_terra.unbind": "You have already unbound this container!",
     "messages.item.theaurorian.aurorian_steel_sword.holiness": "All evil has been dispelled!",
+    "messages.item.theaurorian.aurorian_steel_sword.uuz.1": "%s has been ate you up!",
+    "messages.item.theaurorian.aurorian_steel_sword.uuz.2": "%s started daydreaming again!",
     "messages.item.theaurorian.umbra_pickaxe.fail": "The remaining durability is less than 60 so select fail!",
     "messages.item.theaurorian.umbra_pickaxe.selected": "Selected Block: %s",
     "stat.theaurorian.rune_game_best_time": "§6Best time consuming of play the Rune Game",

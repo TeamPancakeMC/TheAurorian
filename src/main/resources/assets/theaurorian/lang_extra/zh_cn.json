@@ -16,6 +16,8 @@
     "message.source_of_terra.invalid": "§c绑定的容器无效或已被破坏！",
     "message.source_of_terra.unbind": "§b您已取消绑定该容器！",
     "messages.item.theaurorian.aurorian_steel_sword.holiness": "所有的罪恶已被驱散！",
+    "messages.item.theaurorian.aurorian_steel_sword.uuz.1": "%s大人把你吃掉啦！",
+    "messages.item.theaurorian.aurorian_steel_sword.uuz.2": "%s大人又开始幻想了！",
     "messages.item.theaurorian.umbra_pickaxe.fail": "选择失败，因为剩余耐久已不足60！",
     "messages.item.theaurorian.umbra_pickaxe.selected": "已选择方块：%s",
     "stat.theaurorian.rune_game_best_time": "§6符石游戏成功最少耗时",

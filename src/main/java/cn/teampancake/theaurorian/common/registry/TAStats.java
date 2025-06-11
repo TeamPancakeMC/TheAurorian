@@ -21,6 +21,8 @@ public class TAStats {
     public static final DeferredHolder<ResourceLocation, ResourceLocation> RUNE_GAME_PLAY_COUNT = makeCustomStat("rune_game_play_count", StatFormatter.DEFAULT);
     public static final DeferredHolder<ResourceLocation, ResourceLocation> TOTAL_RUNE_GAME_TIME = makeCustomStat("total_rune_game_time", TAStatFormatter.STANDARD_TIME_FOR_RUNE_GAME);
     public static final DeferredHolder<ResourceLocation, ResourceLocation> RUNE_GAME_BEST_TIME = makeCustomStat("rune_game_best_time", TAStatFormatter.STANDARD_TIME_FOR_RUNE_GAME);
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> RUNE_GAME_MOVE_COUNT = makeCustomStat("rune_game_move_count", StatFormatter.DEFAULT);
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> RUNE_GAME_ELIMINATION_COUNT = makeCustomStat("rune_game_elimination_count", StatFormatter.DEFAULT);
 
     private static DeferredHolder<ResourceLocation, ResourceLocation> makeCustomStat(String key, StatFormatter formatter) {
         ResourceLocation value = TheAurorian.prefix(key);

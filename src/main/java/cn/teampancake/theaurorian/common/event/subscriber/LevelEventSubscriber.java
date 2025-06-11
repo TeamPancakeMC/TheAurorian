@@ -10,6 +10,7 @@ import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAGameRules;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,13 +25,117 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 @EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class LevelEventSubscriber {
 
     private static int dayCount;
     public static int phaseCode = 0;
-    public static Queue<Integer> futurePhase = new LinkedList<>();
+    private static boolean isDay = true; // 追踪当前是白天还是黑夜
+    private static long lastDayTime = 0; // 上次检查的游戏时间
+    private static final Random random = new Random();
+    private static final float PHASE_CHANGE_CHANCE = 0.2f; // 五分之一的概率改变夜晚类型
+    
+    /**
+     * 极光世界时间特性：
+     * - 皎月夜（白天，6000-18000）：具有黑夜特性，亡灵生物不会燃烧，玩家会受到"压力"效果
+     * - 夜晚（18001-5999）：不同类型的夜晚提供不同的祝福效果
+     */
+    
+    /**
+     * 夜晚类型枚举，对应不同的祝福效果
+     * 0: 战斗夜 - 增加攻击力与抗性
+     * 1: 保护夜 - 提供韧性
+     * 2: 探索夜 - 提高移动速度
+     * 3: 挖掘夜 - 加快挖掘速度
+     * 4: 生长夜 - 加速植物生长
+     */
+    public enum NightPhase {
+        // 战斗夜：提供伤害增强和伤害抗性
+        COMBAT_NIGHT(0, player -> {
+            player.addEffect(blessEffect(MobEffects.DAMAGE_BOOST));
+            player.addEffect(blessEffect(MobEffects.DAMAGE_RESISTANCE));
+        }),
+        // 保护夜：提供韧性效果
+        PROTECTION_NIGHT(1, player -> player.addEffect(blessEffect(TAMobEffects.TOUGH))),
+        // 探索夜：提高移动速度
+        EXPLORATION_NIGHT(2, player -> player.addEffect(blessEffect(MobEffects.MOVEMENT_SPEED))),
+        // 挖掘夜：加快挖掘速度
+        MINING_NIGHT(3, player -> player.addEffect(blessEffect(MobEffects.DIG_SPEED))),
+        // 生长夜：加速植物生长
+        GROWTH_NIGHT(4, player -> {/* TODO: VEGETABLES GROW FASTER */}),
+        // 自定义夜晚类型
+        CUSTOM(-1, null);
+
+        private final int code;
+        private final Consumer<ServerPlayer> blessEffect;
+        private static final String[] NAMES = {"combat", "protection", "exploration", "mining", "growth"};
+        
+        private static final Map<Integer, NightPhase> BY_CODE = new HashMap<>();
+        private static final Map<String, NightPhase> BY_NAME = new HashMap<>();
+        
+        static {
+            for (NightPhase phase : values()) {
+                if (phase != CUSTOM) {
+                    BY_CODE.put(phase.code, phase);
+                    BY_NAME.put(NAMES[phase.code], phase);
+                    // 同时注册小写名称
+                    BY_NAME.put(phase.name().toLowerCase(Locale.ROOT), phase);
+                }
+            }
+        }
+
+        NightPhase(int code, Consumer<ServerPlayer> blessEffect) {
+            this.code = code;
+            this.blessEffect = blessEffect;
+        }
+        
+        public int getCode() {
+            return code;
+        }
+        
+        public void applyBlessEffect(ServerPlayer player) {
+            if (this.blessEffect != null) {
+                this.blessEffect.accept(player);
+            }
+        }
+        
+        public static NightPhase fromCode(int code) {
+            return BY_CODE.getOrDefault(code, CUSTOM);
+        }
+        
+        public static NightPhase fromName(String name) {
+            return BY_NAME.getOrDefault(name.toLowerCase(Locale.ROOT), CUSTOM);
+        }
+        
+        public static String getName(int code) {
+            if (code >= 0 && code < NAMES.length) {
+                return NAMES[code];
+            }
+            return "unknown";
+        }
+        
+        public static String[] getAllNames() {
+            return NAMES;
+        }
+        
+        public static String getDisplayName(int code) {
+            if (code >= 0 && code < NAMES.length) {
+                return Component.translatable("night_phase.theaurorian." + NAMES[code]).getString();
+            }
+            return "Unknown Night";
+        }
+        
+        /**
+         * 随机选择一个夜晚类型
+         * @return 随机的夜晚类型
+         */
+        public static NightPhase getRandomPhase() {
+            int randomCode = random.nextInt(NAMES.length);
+            return fromCode(randomCode);
+        }
+    }
 
     @SubscribeEvent
     public static void onLevelLoad(LevelEvent.Load event) {
@@ -44,58 +149,118 @@ public class LevelEventSubscriber {
     @SubscribeEvent
     public static void onLevelTick(LevelTickEvent.Pre event) {
         if (event.getLevel() instanceof ServerLevel serverLevel) {
-            List<ServerPlayer> playerList = serverLevel.players();
-            if (serverLevel.dimension() == TADimensions.AURORIAN_DIMENSION) {
-                long dayCounter = (serverLevel.dayTime() + 6000L) / 24000;
-                if (dayCounter != dayCount) {
-                    dayCount = (int) Math.floor(dayCounter);
-                    if (futurePhase.size() < 4) {
-                        Random random = new Random();
-                        futurePhase.add(random.nextInt(TASkyRenderer.DaySkyColors.size()));
-                    }
-
-                    phaseCode = futurePhase.remove();
-                    Integer[] list = futurePhase.toArray(Integer[]::new);
-                    for (ServerPlayer serverPlayer : playerList) {
-                        PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(phaseCode));
-                        PacketDistributor.sendToPlayer(serverPlayer, new FutureNightS2CPacket(Arrays.stream(list).mapToInt(Integer::valueOf).toArray()));
-                    }
-                }
-            }
-
             if (serverLevel.dimension() != TADimensions.AURORIAN_DIMENSION) {
                 return;
             }
 
+            List<ServerPlayer> playerList = serverLevel.players();
             long dayTime = (serverLevel.dayTime() + 6000L) % 24000;
+            
+            // 检测昼夜交替
+            boolean currentIsDay = dayTime > 6000 && dayTime <= 18000;
+            
+            // 检测是否从夜晚变成白天或从白天变成夜晚
+            if (currentIsDay != isDay) {
+                isDay = currentIsDay;
+                
+                // 从皎月夜（白天）到祝福夜（黑夜）时，有五分之一概率随机改变夜晚类型
+                if (!isDay && random.nextFloat() < PHASE_CHANGE_CHANCE) {
+                    phaseCode = NightPhase.getRandomPhase().getCode();
+                    
+                    // 通知所有玩家夜晚类型已更改
+                    for (ServerPlayer serverPlayer : playerList) {
+                        PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(phaseCode));
+                        
+                        if (serverLevel.getGameRules().getBoolean(TAGameRules.RULE_ENABLE_AURORIAN_BLESS)) {
+                            // 立即应用新的夜晚效果
+                            NightPhase.fromCode(phaseCode).applyBlessEffect(serverPlayer);
+                        }
+                        
+                        // 通知玩家夜晚类型已更改
+                        serverPlayer.sendSystemMessage(
+                            Component.translatable("commands.theaurorian.night_phase.changed", 
+                            NightPhase.getDisplayName(phaseCode))
+                        );
+                    }
+                    
+                    // 记录到日志
+                    TheAurorian.LOGGER.info("Night phase changed to: {}", NightPhase.getName(phaseCode));
+                }
+            }
+
+            // 每200刻应用一次效果
             if (dayTime % 200 == 0) {
                 for (ServerPlayer serverPlayer : playerList) {
                     if (serverPlayer.level().dimension() != TADimensions.AURORIAN_DIMENSION) {
                         continue;
                     }
-                    if (dayTime > 6000 && dayTime <= 18000) {
-                        if (!serverPlayer.getData(TAAttachmentTypes.IMMUNE_TO_PRESSURE)) {
-                            serverPlayer.addEffect(blessEffect(TAMobEffects.PRESSURE));
-                        }
+                    
+                    if (isDay) {
+                        applyBrightMoonNightEffect(serverPlayer);
                     } else {
-                        if (serverLevel.getGameRules().getBoolean(TAGameRules.RULE_ENABLE_AURORIAN_BLESS)) {
-                            if (phaseCode == 2) {
-                                serverPlayer.addEffect(blessEffect(MobEffects.MOVEMENT_SPEED));
-                            } else if (phaseCode == 0) {
-                                serverPlayer.addEffect(blessEffect(MobEffects.DAMAGE_BOOST));
-                                serverPlayer.addEffect(blessEffect(MobEffects.DAMAGE_RESISTANCE));
-                            } else if (phaseCode == 3) {
-                                serverPlayer.addEffect(blessEffect(MobEffects.DIG_SPEED));
-                            } else if (phaseCode == 4) {
-                                //TODO: VEGETABLES GROW FASTER
-                            } else if (phaseCode == 1) {
-                                serverPlayer.addEffect(blessEffect(TAMobEffects.TOUGH));
-                            } else {
-                                TAEventFactory.onRegisterAurorianSkyBless(serverPlayer, serverLevel, phaseCode);
-                            }
-                        }
+                        applyNighttimeEffect(serverPlayer, serverLevel);
                     }
                 }
+            }
+            
+            lastDayTime = dayTime;
+        }
+    }
+    
+    /**
+     * 设置当前夜晚类型，用于命令调用
+     * @param phase 要设置的夜晚类型
+     * @param serverLevel 服务器世界
+     * @return 是否设置成功
+     */
+    public static boolean setNightPhase(NightPhase phase, ServerLevel serverLevel) {
+        if (serverLevel.dimension() != TADimensions.AURORIAN_DIMENSION) {
+            return false;
+        }
+        
+        phaseCode = phase.getCode();
+        
+        // 通知所有玩家夜晚类型已更改
+        for (ServerPlayer serverPlayer : serverLevel.players()) {
+            PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(phaseCode));
+            
+            // 如果当前是黑夜，立即应用效果
+            long dayTime = (serverLevel.dayTime() + 6000L) % 24000;
+            boolean currentIsDay = dayTime > 6000 && dayTime <= 18000;
+            
+            if (!currentIsDay && serverLevel.getGameRules().getBoolean(TAGameRules.RULE_ENABLE_AURORIAN_BLESS)) {
+                phase.applyBlessEffect(serverPlayer);
+            }
+            
+            // 通知玩家夜晚已更改
+            serverPlayer.sendSystemMessage(Component.translatable("commands.theaurorian.night_phase.set", NightPhase.getDisplayName(phaseCode)));
+        }
+        
+        return true;
+    }
+    
+    /**
+     * 应用皎月夜效果（白天时段，6000-18000）
+     * 皎月夜虽然是白天，但具有黑夜的特性，例如亡灵生物不燃烧
+     * 非免疫玩家会受到"压力"效果
+     */
+    private static void applyBrightMoonNightEffect(ServerPlayer serverPlayer) {
+        if (!serverPlayer.getData(TAAttachmentTypes.IMMUNE_TO_PRESSURE)) {
+            serverPlayer.addEffect(blessEffect(TAMobEffects.PRESSURE));
+        }
+    }
+    
+    /**
+     * 应用夜晚效果
+     */
+    private static void applyNighttimeEffect(ServerPlayer serverPlayer, ServerLevel serverLevel) {
+        if (serverLevel.getGameRules().getBoolean(TAGameRules.RULE_ENABLE_AURORIAN_BLESS)) {
+            NightPhase currentPhase = NightPhase.fromCode(phaseCode);
+            
+            if (currentPhase != NightPhase.CUSTOM) {
+                currentPhase.applyBlessEffect(serverPlayer);
+            } else {
+                TAEventFactory.onRegisterAurorianSkyBless(serverPlayer, serverLevel, phaseCode);
             }
         }
     }
@@ -103,5 +268,4 @@ public class LevelEventSubscriber {
     private static MobEffectInstance blessEffect(Holder<MobEffect> effect) {
         return new MobEffectInstance(effect, 320, 0, false, false);
     }
-
 }

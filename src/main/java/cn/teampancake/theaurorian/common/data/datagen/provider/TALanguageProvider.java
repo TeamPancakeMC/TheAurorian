@@ -72,6 +72,8 @@ public class TALanguageProvider extends LanguageProvider {
         this.add("tooltips." + TheAurorian.MOD_ID + ".rune_game.player", "Player: ", "玩家：");
         this.add("tooltips." + TheAurorian.MOD_ID + ".source_of_terra.dimension", "The current dimension of container: ", "容器所在的维度：");
         this.add(TheAurorian.MOD_ID + ".rune_game_screen.game_over", "Game Over", "游 戏 结 束");
+        this.add(TheAurorian.MOD_ID + ".rune_game_screen.game_win", "Rune Puzzle Solved", "成功解开符文谜题");
+        this.add(TheAurorian.MOD_ID + ".rune_game_screen.game_lost", "Rune Puzzle Unsolved", "符文谜题尚未解开");
         this.add(TheAurorian.MOD_ID + ".rune_game_screen.current_game_info",
                 "Current Game Time: %1$s, Best Time: %2$s", "本场游戏用时：%1$s，最佳用时：%2$s");
         this.add(TheAurorian.MOD_ID + ".rune_game_screen.play_again", "Play Again", "再来一次");
@@ -79,6 +81,14 @@ public class TALanguageProvider extends LanguageProvider {
         this.add(TheAurorian.MOD_ID + ".rune_game_screen.sec", "%1$ss", "%1$s秒");
         this.add(TheAurorian.MOD_ID + ".rune_game_screen.min_sec", "%1$sm%2$ss", "%1$s分%2$s秒");
         this.add(TheAurorian.MOD_ID + ".rune_game_screen.h_min_sec", "%1$sh%2$sm%3$ss", "%1$s时%2$s分%3$s秒");
+        this.add(TheAurorian.MOD_ID + ".rune_game_screen.normal_mode", "Normal Mode (6 Rune Types)", "普通模式（6种符文）");
+        this.add(TheAurorian.MOD_ID + ".rune_game_screen.hard_mode", "Hard Mode (12 Rune Types)", "困难模式（12种符文）");
+        this.add(TheAurorian.MOD_ID + ".rune_game_screen.hint", "Hint (%d)", "提示 (%d)");
+        this.add(TheAurorian.MOD_ID + ".rune_game_screen.stats", "Time: %s | Moves: %s | Elims: %s", "时间: %s | 移动: %s | 消除: %s");
+        this.add(TheAurorian.MOD_ID + ".rune_game_screen.final_stats", "Game Moves: %s | Game Eliminations: %s", "总移动次数: %s | 总消除次数: %s");
+        this.add(TheAurorian.MOD_ID + ".rune_game_screen.total_stats", "Total Moves: %s | Total Eliminations: %s", "历史总移动: %s | 历史总消除: %s");
+        this.add(TheAurorian.MOD_ID + ".rune_game_screen.normal", "Normal Mode", "普通模式");
+        this.add(TheAurorian.MOD_ID + ".rune_game_screen.hard", "Hard Mode", "困难模式");
         this.add(TheAurorian.MOD_ID + ".selena_initial_screen.dialogue", "Dialogue", "对话");
         this.add(TheAurorian.MOD_ID + ".selena_initial_screen.fight", "Fight", "战斗");
         this.add(TheAurorian.MOD_ID + ".selena_initial_screen.trade", "Trade", "交易");
@@ -849,7 +859,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addEnchantment(TAEnchantments.SUNDER_ARMOR_SLASH, "Sunder Armor Slash", "破甲斩击",
                 "Does extra damage to target wearing armor.","对穿戴盔甲的对象造成额外伤害");
         this.addEnchantment(TAEnchantments.LIGHTNING_RESISTANCE, "Lightning Resistance", "雷电抵御",
-                "Negates damage that would have been done by lightning enchantment.","降低“雷电”魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");
+                "Negates damage that would have been done by lightning enchantment.","降低雷电魔咒造成的额外伤害，同时完全抵消被雷击中的伤害");
 
         //MOD PAINTING
         this.addPainting(TAPaintingVariants.AURORIAN_STEEL, "Aurorian Steel", "极光钢");

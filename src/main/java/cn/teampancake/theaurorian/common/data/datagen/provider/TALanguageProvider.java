@@ -543,6 +543,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAItems.MOONLIGHT_KNIGHT_SPAWN_EGG, "月光骑士刷怪蛋");
         this.addKey(TAItems.MOON_ACOLYTE_SPAWN_EGG, "皎月侍从刷怪蛋");
         this.addKey(TAItems.MOON_QUEEN_SPAWN_EGG, "皎月女王刷怪蛋");
+        this.addKey(TAItems.SELENA_SPAWN_EGG, "赛琳娜刷怪蛋");
         this.addKey(TAItems.MOONSTONE_INGOT, "皎月石锭");
         this.addKey(TAItems.MOONSTONE_NUGGET, "皎月石粒");
         this.addKey(TAItems.MOON_SHIELD, "皎月之盾");

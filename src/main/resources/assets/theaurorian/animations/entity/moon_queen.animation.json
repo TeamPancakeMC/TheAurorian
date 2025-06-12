@@ -647,7 +647,7 @@
 			}
 		},
 		"attack.swing": {
-			"animation_length": 1.04167,
+			"animation_length": 0.75,
 			"bones": {
 				"all": {
 					"rotation": {
@@ -1161,7 +1161,7 @@
 			}
 		},
 		"attack.swing_2": {
-			"animation_length": 1,
+			"animation_length": 0.75,
 			"bones": {
 				"all": {
 					"rotation": {
@@ -1547,7 +1547,7 @@
 			}
 		},
 		"attack.burst": {
-			"animation_length": 1,
+			"animation_length": 0.75,
 			"bones": {
 				"all": {
 					"rotation": {

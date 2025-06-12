@@ -21,7 +21,7 @@ public class TADataMapProvider extends DataMapProvider {
     }
 
     @Override
-    protected void gather() {
+    protected void gather(HolderLookup.Provider provider) {
         // COMPOSTABLES
         this.addCompostable(0.3F, TABlocks.AURORIAN_GRASS.get());
         this.addCompostable(0.3F, TABlocks.AURORIAN_GRASS_LIGHT.get());

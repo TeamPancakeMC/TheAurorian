@@ -19,6 +19,13 @@ public class MeleeNoAttackGoal extends MeleeAttackGoal {
     }
 
     @Override
+    public boolean canUse() {
+        LivingEntity target = this.mob.getTarget();
+        // 只有当实体有目标时才执行此行为
+        return target != null && target.isAlive() && super.canUse();
+    }
+
+    @Override
     protected void checkAndPerformAttack(LivingEntity enemy) {
         // we use our custom attack manager
     }

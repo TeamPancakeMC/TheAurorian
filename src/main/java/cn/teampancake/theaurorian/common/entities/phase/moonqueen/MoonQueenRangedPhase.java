@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 public class MoonQueenRangedPhase extends AttackPhase<MoonQueen> {
 
     public MoonQueenRangedPhase() {
-        super(3, 2, 30, 0);
+        super(3, 2, 30, 60);
     }
 
     @Override

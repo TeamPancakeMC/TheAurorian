@@ -17,7 +17,8 @@ public class MoonQueenBackAttackPhase extends AttackPhase<MoonQueen> {
 
     @Override
     public boolean canStart(MoonQueen entity, boolean coolDownOver) {
-        return entity.getRandom().nextBoolean() && entity.isAlive() && entity.preparationTime <= 0;
+        return entity.getRandom().nextBoolean() && entity.isAlive() && entity.preparationTime <= 0 
+               && entity.getTarget() != null && coolDownOver;
     }
 
     @Override

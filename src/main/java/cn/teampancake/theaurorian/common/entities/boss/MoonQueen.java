@@ -3,13 +3,17 @@ package cn.teampancake.theaurorian.common.entities.boss;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAMobEffectTags;
 import cn.teampancake.theaurorian.common.entities.ai.goal.MeleeNoAttackGoal;
-import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
+import cn.teampancake.theaurorian.common.entities.ai.goal.MoonQueenForceStrollGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.MoonQueenResetAttackStateGoal;
+import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
+import cn.teampancake.theaurorian.common.entities.phase.MoonQueenAttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.moonqueen.*;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TAAttributes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.doubles.DoubleDoubleImmutablePair;
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -106,21 +110,28 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     private boolean isNeutral;
     public boolean duelingMoment;
     private String currentDuelistName = "";
+    private int idleResetCounter = 0;
 
     public MoonQueen(EntityType<? extends MoonQueen> type, Level level) {
         super(type, level);
         this.xpReward = 500;
-        this.attackManager = new AttackManager<>(this, List.of(
-                new MoonQueenMeleePhase(), new MoonQueenBlockPhase(), new MoonQueenRangedPhase(),
-                new MoonQueenBackAttackPhase(), new MoonQueenMoonBefallPhase(),
-                new MoonQueenFirstQuarterMoonWithRainOfSwords()));
+        this.setNoGravity(false);
+        List<AttackPhase<MoonQueen>> phaseList = Lists.newArrayList(
+                new MoonQueenMeleePhase(),
+                new MoonQueenRangedPhase(),
+                new MoonQueenBackAttackPhase(),
+                new MoonQueenBlockPhase(),
+                new MoonQueenMoonBefallPhase(),
+                new MoonQueenFirstQuarterMoonWithRainOfSwords());
+        this.attackManager = new MoonQueenAttackManager(this, phaseList);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MeleeNoAttackGoal(this));
-        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.6D, 10));
+        this.goalSelector.addGoal(1, new MoonQueenResetAttackStateGoal(this));
+        this.goalSelector.addGoal(2, new MoonQueenForceStrollGoal(this, 0.6D));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.8D, 10));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
@@ -294,6 +305,10 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
 //                this.destroyHorizontalBlock();
             } else {
                 this.removeSpeedWhenNoTarget();
+                if (!this.duelingMoment && this.preparationTime <= 0 && this.tickCount % 20 == 0) {
+                    this.setAttackState(0);
+                    this.setAttackTicks(0);
+                }
             }
 
             if (health != null && size > 0) {
@@ -344,6 +359,18 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
                 this.triggerDuelingCount = 0;
                 this.currentDuelistName = "";
                 this.duelingMoment = false;
+            }
+
+            if (this.isNeutral && this.safeTime > 300 && this.getTarget() == null) {
+                this.isNeutral = false;
+            }
+
+            if (++this.idleResetCounter >= 100) {
+                this.idleResetCounter = 0;
+                if (this.getTarget() == null && !this.duelingMoment && this.preparationTime <= 0) {
+                    this.setAttackState(0);
+                    this.setAttackTicks(0);
+                }
             }
 
             if (this.preparationTime > 0) {

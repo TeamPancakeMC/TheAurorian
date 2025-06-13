@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.compat;
+package cn.teampancake.theaurorian.common.utils;
 
 import cn.teampancake.theaurorian.common.items.crafting.AlchemyTableRecipe;
 import cn.teampancake.theaurorian.common.items.crafting.MoonlightForgeRecipe;

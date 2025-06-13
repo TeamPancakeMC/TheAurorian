@@ -14,21 +14,13 @@ public class TAMobEffects {
 
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, TheAurorian.MOD_ID);
     public static final DeferredHolder<MobEffect, MobEffect> STUN = MOB_EFFECTS.register("stun", () -> new MobEffect(MobEffectCategory.HARMFUL, 0x8b0000)
-            // 降低80%移动速度，允许微弱移动
             .addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("stun_ms"), -0.8, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            // 降低90%攻击伤害，保留最小伤害能力
             .addAttributeModifier(Attributes.ATTACK_DAMAGE, TheAurorian.prefix("stun_ad"), -0.9, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            // 降低90%跳跃力量，几乎无法跳跃
             .addAttributeModifier(Attributes.JUMP_STRENGTH, TheAurorian.prefix("stun_js"), -0.9, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            // 降低95%方块破坏速度，几乎无法破坏方块
             .addAttributeModifier(Attributes.BLOCK_BREAK_SPEED, TheAurorian.prefix("stun_bbs"), -0.95, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            // 降低70%方块交互范围，只能与近距离方块交互
             .addAttributeModifier(Attributes.BLOCK_INTERACTION_RANGE, TheAurorian.prefix("stun_bir"), -0.7, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            // 降低70%实体交互范围，只能与近距离实体交互
             .addAttributeModifier(Attributes.ENTITY_INTERACTION_RANGE, TheAurorian.prefix("stun_eir"), -0.7, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            // 降低95%挖掘效率，几乎无法挖掘
             .addAttributeModifier(Attributes.MINING_EFFICIENCY, TheAurorian.prefix("stun_me"), -0.95, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            // 降低70%攻击速度，大幅降低战斗能力
             .addAttributeModifier(Attributes.ATTACK_SPEED, TheAurorian.prefix("stun_as"), -0.7, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
     public static final DeferredHolder<MobEffect, MobEffect> PARALYSIS = MOB_EFFECTS.register("paralysis", () -> new MobEffect(MobEffectCategory.HARMFUL, 0xc09c72)
             .addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("paralysis_ms"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)

@@ -4,7 +4,6 @@ import cn.teampancake.theaurorian.client.gui.hud.FrostbiteOutlineRender;
 import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.client.gui.hud.ProgressBarRenderer;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
-import cn.teampancake.theaurorian.common.registry.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
 import cn.teampancake.theaurorian.common.registry.*;

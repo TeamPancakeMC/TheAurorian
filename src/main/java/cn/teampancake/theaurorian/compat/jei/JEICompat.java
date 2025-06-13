@@ -8,7 +8,7 @@ import cn.teampancake.theaurorian.common.items.crafting.AlchemyTableRecipe;
 import cn.teampancake.theaurorian.common.items.crafting.MoonlightForgeRecipe;
 import cn.teampancake.theaurorian.common.items.crafting.ScrapperRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
-import cn.teampancake.theaurorian.compat.RecipeViewerConstants;
+import cn.teampancake.theaurorian.common.utils.RecipeViewerConstants;
 import cn.teampancake.theaurorian.compat.jei.categories.AlchemyTableCategory;
 import cn.teampancake.theaurorian.compat.jei.categories.MoonlightForgeCategory;
 import cn.teampancake.theaurorian.compat.jei.categories.ScrapperCategory;

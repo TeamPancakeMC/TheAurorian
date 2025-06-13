@@ -17,19 +17,27 @@ public class MoonQueenMeleePhase extends AttackPhase<MoonQueen> {
     private final String[] parts = new String[] {"swing", "swing_2", "burst"};
     private final int[] hurtTargetTime = new int[] {10, 7, 8};
     private int randomIndex = -1;
+    private int lastIndex = -1;
 
     public MoonQueenMeleePhase() {
-        super(1, 1, 20, 0);
+        super(1, 1, 11, 0);
     }
 
     @Override
     public boolean canStart(MoonQueen entity, boolean coolDownOver) {
-        return entity.preparationTime <= 0 && entity.isAlive() && TAEntityUtils.canReachTarget(entity, 2.0D);
+        boolean flag = entity.getTarget() != null && entity.isValidTarget(entity.getTarget());
+        return entity.preparationTime <= 0 && entity.isAlive() && flag && TAEntityUtils.canReachTarget(entity, 3.0D);
     }
 
     @Override
     public void onStart(MoonQueen entity) {
-        this.randomIndex = RandomSource.create().nextInt(3);
+        RandomSource random = RandomSource.create();
+        int newIndex;
+        do {
+            newIndex = random.nextInt(3);
+        } while (newIndex == lastIndex);
+        this.randomIndex = newIndex;
+        this.lastIndex = newIndex;
         String part = this.parts[this.randomIndex];
         String controller = part + "_controller";
         String animation = part + "_animation";

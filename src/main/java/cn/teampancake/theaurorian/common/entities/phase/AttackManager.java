@@ -18,18 +18,6 @@ public class AttackManager<T extends LivingEntity & MultiPhaseAttacker> {
     private final IntArrayList priorities = new IntArrayList();
     private final Int2IntArrayMap coolDowns = new Int2IntArrayMap();
 
-    public Int2IntArrayMap getCoolDowns() {
-        return this.coolDowns;
-    }
-
-    /**
-     * 获取此攻击管理器控制的实体
-     * @return 实体引用
-     */
-    protected T getEntity() {
-        return this.entity;
-    }
-
     public AttackManager(T entity, List<AttackPhase<T>> phaseList) {
         this.entity = entity;
         this.phaseList.addAll(phaseList);

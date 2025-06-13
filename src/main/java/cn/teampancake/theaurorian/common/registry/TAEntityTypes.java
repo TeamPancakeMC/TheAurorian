@@ -303,7 +303,7 @@ public class TAEntityTypes {
         registerNormalSpawn(event, AURORIAN_PIG.get(), SpawnPlacementTypes.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
         registerNormalSpawn(event, AURORIAN_COW.get(), SpawnPlacementTypes.ON_GROUND, TASpawnRules::checkAnimalSpawnRules);
         registerNormalSpawn(event, AURORIAN_SLIME.get(), SpawnPlacementTypes.ON_GROUND, AurorianSlime::checkSpawnRules);
-        registerNormalSpawn(event, DISTURBED_HOLLOW.get(), SpawnPlacementTypes.ON_GROUND, Monster::checkMonsterSpawnRules);
+        registerNormalSpawn(event, DISTURBED_HOLLOW.get(), SpawnPlacementTypes.ON_GROUND, DisturbedHollow::checkSpawnRules);
         registerNormalSpawn(event, UNDEAD_KNIGHT.get(), SpawnPlacementTypes.ON_GROUND, UndeadKnight::checkSpawnRules);
         registerNormalSpawn(event, SPIRIT.get(), SpawnPlacementTypes.ON_GROUND, Spirit::checkSpawnRules);
         registerNormalSpawn(event, MOON_ACOLYTE.get(), SpawnPlacementTypes.ON_GROUND, MoonAcolyte::checkSpawnRules);

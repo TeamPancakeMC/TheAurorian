@@ -46,6 +46,21 @@ public class CrystallineSprite extends Monster implements RangedAttackMob {
     }
 
     public static boolean checkSpawnRules(EntityType<CrystallineSprite> crystallineSprite, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        if (random.nextInt(3) != 0) {
+            return false;
+        }
+        
+        double inflateDistance = 24.0D;
+        if (!level.getEntitiesOfClass(Player.class, 
+                new net.minecraft.world.phys.AABB(
+                    pos.getX() - inflateDistance, pos.getY() - inflateDistance, pos.getZ() - inflateDistance, 
+                    pos.getX() + inflateDistance, pos.getY() + inflateDistance, pos.getZ() + inflateDistance
+                )).isEmpty()) {
+            if (random.nextInt(3) != 0) {
+                return false;
+            }
+        }
+        
         return level.getBlockState(pos.below()).is(TABlocks.MOON_TEMPLE_BRICKS.get()) && checkAnyLightMonsterSpawnRules(crystallineSprite, level, spawnType, pos, random);
     }
 

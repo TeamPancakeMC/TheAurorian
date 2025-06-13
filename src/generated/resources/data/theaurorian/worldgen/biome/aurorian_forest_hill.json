@@ -72,25 +72,75 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "theaurorian:aurorian_rabbit",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 8
+      },
+      {
+        "type": "theaurorian:aurorian_sheep",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 8
+      },
+      {
+        "type": "theaurorian:aurorian_pig",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 8
+      },
+      {
+        "type": "theaurorian:aurorian_cow",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 8
+      }
+    ],
     "misc": [],
     "monster": [
       {
         "type": "theaurorian:aurorian_slime",
-        "maxCount": 4,
-        "minCount": 2,
-        "weight": 100
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 5
       },
       {
         "type": "theaurorian:spirit",
-        "maxCount": 4,
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 1
+      },
+      {
+        "type": "theaurorian:disturbed_hollow",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 16
+      },
+      {
+        "type": "theaurorian:spiderling",
+        "maxCount": 3,
         "minCount": 2,
-        "weight": 100
+        "weight": 8
       }
     ],
     "underground_water_creature": [],
     "water_ambient": [],
-    "water_creature": []
+    "water_creature": [
+      {
+        "type": "theaurorian:moon_fish",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 5
+      },
+      {
+        "type": "theaurorian:aurorian_winged_fish",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 5
+      }
+    ]
   },
   "temperature": 0.2
 }

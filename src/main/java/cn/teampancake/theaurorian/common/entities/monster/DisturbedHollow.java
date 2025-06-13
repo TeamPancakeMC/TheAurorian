@@ -26,6 +26,10 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.util.RandomSource;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.MobSpawnType;
 
 public class DisturbedHollow extends Monster {
 
@@ -62,6 +66,25 @@ public class DisturbedHollow extends Monster {
         builder.add(Attributes.FOLLOW_RANGE, 35.0D);
         builder.add(Attributes.ARMOR, 2.0F);
         return builder;
+    }
+
+    public static boolean checkSpawnRules(EntityType<DisturbedHollow> disturbed, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        if (random.nextInt(3) != 0) {
+            return false;
+        }
+        
+        double inflateDistance = 22.0D;
+        if (!level.getEntitiesOfClass(Player.class, 
+                new net.minecraft.world.phys.AABB(
+                    pos.getX() - inflateDistance, pos.getY() - inflateDistance, pos.getZ() - inflateDistance, 
+                    pos.getX() + inflateDistance, pos.getY() + inflateDistance, pos.getZ() + inflateDistance
+                )).isEmpty()) {
+            if (random.nextInt(2) != 0) {
+                return false;
+            }
+        }
+        
+        return Monster.checkMonsterSpawnRules(disturbed, level, spawnType, pos, random);
     }
 
     @Override

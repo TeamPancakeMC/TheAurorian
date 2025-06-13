@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
 import cn.teampancake.theaurorian.common.entities.npc.Selena;
 import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
 import cn.teampancake.theaurorian.common.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.TABiomes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.entity.player.Player;
 
 public class AurorianSlime extends Slime {
 
@@ -32,7 +34,33 @@ public class AurorianSlime extends Slime {
     }
 
     public static boolean checkSpawnRules(EntityType<AurorianSlime> aurorianSlime, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkMobSpawnRules(aurorianSlime, level, spawnType, pos, random);
+        if (random.nextInt(8) != 0) {
+            return false;
+        }
+        
+        boolean isAurorianPlains = level.getBiome(pos).is(TABiomes.AURORIAN_PLAINS);
+        boolean isAurorianForest = level.getBiome(pos).is(TABiomes.AURORIAN_FOREST) || level.getBiome(pos).is(TABiomes.AURORIAN_FOREST_HILL);
+        
+        if (isAurorianForest && random.nextInt(3) != 0) {
+            return false;
+        }
+        
+        if (isAurorianPlains && random.nextInt(4) != 0) {
+            return false;
+        }
+        
+        double inflateDistance = 20.0D;
+        if (!level.getEntitiesOfClass(Player.class, 
+                new net.minecraft.world.phys.AABB(
+                    pos.getX() - inflateDistance, pos.getY() - inflateDistance, pos.getZ() - inflateDistance, 
+                    pos.getX() + inflateDistance, pos.getY() + inflateDistance, pos.getZ() + inflateDistance
+                )).isEmpty()) {
+            if (random.nextInt(5) != 0) {
+                return false;
+            }
+        }
+        
+        return !level.getBlockState(pos.below()).is(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON) && checkMobSpawnRules(aurorianSlime, level, spawnType, pos, random);
     }
 
     @Override
@@ -47,16 +75,24 @@ public class AurorianSlime extends Slime {
     @Override
     public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         RandomSource random = level.getRandom();
-        int i = random.nextInt(3);
-        if (i < 2 && random.nextFloat() < 0.5F * difficulty.getSpecialMultiplier()) {
-            i++;
+        
+        // 获取当前生物群系
+        boolean isAurorianPlains = level.getBiome(this.blockPosition()).is(TABiomes.AURORIAN_PLAINS);
+        
+        // 默认大小为size4 (2^2)
+        int sizeCategory = 2;
+        
+        // 20%的概率生成size8 (2^3)
+        if (random.nextFloat() < 0.2F) {
+            sizeCategory = 3;
         }
-
-        if (LevelEventSubscriber.phaseCode == 0 && random.nextFloat() <= 0.15F) {
-            i = 3;
+        
+        // 如果是在极光平原中，有1%的极低概率生成size32 (2^5)
+        if (isAurorianPlains && random.nextFloat() < 0.01F) {
+            sizeCategory = 5;
         }
-
-        int j = 1 << i;
+        
+        int j = 1 << sizeCategory;
         this.setSize(j, true);
         return spawnGroupData;
     }

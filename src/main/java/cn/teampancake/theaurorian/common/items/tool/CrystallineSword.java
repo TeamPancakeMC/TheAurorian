@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
-import cn.teampancake.theaurorian.common.items.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.*;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

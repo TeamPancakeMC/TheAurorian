@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
-import cn.teampancake.theaurorian.common.items.TAToolTiers;
+import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;

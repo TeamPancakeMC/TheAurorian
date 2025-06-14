@@ -38,6 +38,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -64,6 +65,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -136,22 +138,32 @@ public class EntityEventSubscriber {
         ItemStack itemInHand = player.getItemInHand(event.getHand());
         DataComponentType<SourceOfTerra> componentType = TADataComponents.SOURCE_OF_TERRA.get();
         if (itemInHand.getEnchantmentLevel(TAEnchantments.get(level, TAEnchantments.SOURCE_OF_TERRA)) > 0) {
-            if (HopperBlockEntity.getContainerAt(level, pos) != null && player.isShiftKeyDown()) {
+            Container container = HopperBlockEntity.getContainerAt(level, pos);
+            if (container instanceof BlockEntity blockEntity && player.isShiftKeyDown()) {
                 SourceOfTerra sourceOfTerra = itemInHand.get(componentType);
                 String dimension = level.dimension().location().toString();
                 if (sourceOfTerra == null) {
-                    itemInHand.set(componentType, new SourceOfTerra(dimension, pos.getX(), pos.getY(), pos.getZ()));
+                    itemInHand.set(componentType, new SourceOfTerra(dimension, pos));
                     checkIfServerPlayerAndSendMessage(player, "message.source_of_terra.bind");
+                    addUUIDToBlockEntity(blockEntity, player);
                 } else {
-                    int selectedX = sourceOfTerra.selectedX();
-                    int selectedY = sourceOfTerra.selectedY();
-                    int selectedZ = sourceOfTerra.selectedZ();
+                    BlockPos selectedPos = sourceOfTerra.selectedPos();
+                    int selectedX = selectedPos.getX();
+                    int selectedY = selectedPos.getY();
+                    int selectedZ = selectedPos.getZ();
                     if (selectedX == pos.getX() && selectedY == pos.getY() && selectedZ == pos.getZ()) {
                         checkIfServerPlayerAndSendMessage(player, "message.source_of_terra.unbind");
                         itemInHand.remove(componentType);
+                        removeUUIDFromBlockEntity(blockEntity, player);
                     } else {
-                        itemInHand.set(componentType, new SourceOfTerra(dimension, pos.getX(), pos.getY(), pos.getZ()));
+                        Container selectedContainer = HopperBlockEntity.getContainerAt(level, selectedPos);
+                        if (selectedContainer instanceof BlockEntity selectedBlockEntity) {
+                            removeUUIDFromBlockEntity(selectedBlockEntity, player);
+                        }
+
+                        itemInHand.set(componentType, new SourceOfTerra(dimension, pos));
                         checkIfServerPlayerAndSendMessage(player, "message.source_of_terra.changed");
+                        addUUIDToBlockEntity(blockEntity, player);
                     }
                 }
             }
@@ -258,7 +270,34 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onShieldBlock(LivingShieldBlockEvent event) {
         DamageSource source = event.getDamageSource();
-        if (source.getEntity() instanceof SnowTundraGiantCrab) {
+        Entity sourceEntity = source.getEntity();
+        if (event.getEntity() instanceof Player player) {
+            ItemStack useItem = player.getUseItem();
+            if (useItem.is(TAItems.UMBRA_SHIELD) && sourceEntity != null) {
+                sourceEntity.setRemainingFireTicks(60);
+            } else if (useItem.is(TAItems.MOONSTONE_SHIELD)) {
+                Level level = player.level();
+                if (level.random.nextBoolean()) {
+                    float shieldDamage = event.shieldDamage();
+                    float multiplier = level.isDay() ? 2.0F : 0.5F;
+                    event.setBlockedDamage(shieldDamage * multiplier);
+                }
+            } else if (useItem.is(TAItems.CRYSTALLINE_SHIELD)) {
+                List<ItemStack> handSlots = new ArrayList<>();
+                player.getHandSlots().forEach(handSlots::add);
+                handSlots.remove(useItem);
+                ItemStack otherStack = handSlots.getFirst();
+                if (!otherStack.isEmpty() && otherStack.isDamageableItem()) {
+                    int damageValue = otherStack.getDamageValue();
+                    if (damageValue < otherStack.getMaxDamage()) {
+                        otherStack.setDamageValue(damageValue + 1);
+                        player.getCooldowns().addCooldown(useItem.getItem(), 20);
+                    }
+                }
+            }
+        }
+
+        if (sourceEntity instanceof SnowTundraGiantCrab) {
             event.setShieldDamage(event.shieldDamage() * 3);
         }
     }
@@ -532,17 +571,18 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onArmorHurt(ArmorHurtEvent event) {
         LivingEntity entity = event.getEntity();
-        if (entity.hasEffect(TAMobEffects.CORRUPTION) || entity.hasEffect(TAMobEffects.TOUGH)) {
-            if (entity.hasEffect(TAMobEffects.CORRUPTION)) {
-                float damage = 0.0F;
-                for (EquipmentSlot slot : event.getArmorMap().keySet()) {
-                    damage += event.getOriginalDamage(slot);
-                }
-
-                AttachmentType<Float> type = TAAttachmentTypes.ARMOR_HURT_ACCUMULATION.get();
-                entity.setData(type, entity.getData(type) + damage);
+        if (entity.hasEffect(TAMobEffects.CORRUPTION)) {
+            float damage = 0.0F;
+            for (EquipmentSlot slot : event.getArmorMap().keySet()) {
+                damage += event.getOriginalDamage(slot);
             }
 
+            AttachmentType<Float> type = TAAttachmentTypes.ARMOR_HURT_ACCUMULATION.get();
+            entity.setData(type, entity.getData(type) + damage);
+            event.setCanceled(true);
+        }
+
+        if (entity.hasEffect(TAMobEffects.TOUGH)) {
             event.setCanceled(true);
         }
     }
@@ -557,8 +597,11 @@ public class EntityEventSubscriber {
                     livingEntity.hurt(livingEntity.damageSources().thrown(projectile, player), 1.0F);
                 }
 
-                if (projectile instanceof AbstractArrow arrow && arrow.getData(TAAttachmentTypes.SHOOT_FROM_KEEPERS_BOW.get())) {
-                    livingEntity.invulnerableTime = 0;
+                if (projectile instanceof AbstractArrow arrow) {
+                    ItemStack weaponItem = arrow.getWeaponItem();
+                    if (weaponItem != null && weaponItem.is(TAItems.KEEPERS_BOW)) {
+                        livingEntity.invulnerableTime = 0;
+                    }
                 }
             }
         }
@@ -619,6 +662,24 @@ public class EntityEventSubscriber {
             if (state.is(selected.getBlock()) && !state.isAir()) {
                 event.setNewSpeed(event.getOriginalSpeed() * 2.0F);
             }
+        }
+    }
+
+    private static void addUUIDToBlockEntity(BlockEntity blockEntity, Player player) {
+        AttachmentType<List<UUID>> attachmentType = TAAttachmentTypes.BINDING_PLAYER_UUIDS.get();
+        List<UUID> uuidList = blockEntity.getData(attachmentType);
+        if (!uuidList.contains(player.getUUID())) {
+            uuidList.add(player.getUUID());
+            blockEntity.setData(attachmentType, uuidList);
+        }
+    }
+
+    private static void removeUUIDFromBlockEntity(BlockEntity blockEntity, Player player) {
+        AttachmentType<List<UUID>> attachmentType = TAAttachmentTypes.BINDING_PLAYER_UUIDS.get();
+        List<UUID> uuidList = blockEntity.getData(attachmentType);
+        if (uuidList.contains(player.getUUID())) {
+            uuidList.remove(player.getUUID());
+            blockEntity.setData(attachmentType, uuidList);
         }
     }
 

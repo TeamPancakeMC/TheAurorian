@@ -261,7 +261,8 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> MOON_FISH = food("moon_fish", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)), 2, 0.4F);
     public static final DeferredHolder<Item, Item> AURORIAN_WINGED_FISH = food("aurorian_winged_fish", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)), 2,0.4F);
     public static final DeferredHolder<Item, Item> COOKED_MOON_FISH = food("cooked_moon_fish", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE, TAItemTags.COOKED_MEAT)), 5,6);
-    public static final DeferredHolder<Item, Item> COOKED_AURORIAN_WINGED_FISH = food("cooked_aurorian_winged_fish", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE, TAItemTags.COOKED_MEAT)), 5,6);
+    public static final DeferredHolder<Item, Item> COOKED_AURORIAN_WINGED_FISH = food("cooked_aurorian_winged_fish", () -> new Item.Properties()
+            .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE, TAItemTags.COOKED_MEAT)), 5,6);
     public static final DeferredHolder<Item, Item> LAVENDER_SEEDS = alias("lavender_seeds", TABlocks.LAVENDER_CROP, () -> new Item.Properties().component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> SILK_BERRY = alias("silk_berry", TABlocks.SILK_BERRY_CROP, () -> new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(1).saturationModifier((0.1F)).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
@@ -272,34 +273,44 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> GINGERBREAD_MAN = ITEMS.register("gingerbread_man", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier((0.4F))
             .effect(() -> new MobEffectInstance(TAMobEffects.WARM, 1200), 1.0F).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> AURORIAN_SPECIALTY_DRINK = ITEMS.register("aurorian_specialty_drink", () -> new Item(new Item.Properties()
-            .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600), 1.0F).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+            .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600), 1.0F).build())
+            .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> MOONLIT_BLUEBERRY_SPECIALTY_DRINK = ITEMS.register("moonlit_blueberry_specialty_drink", () -> new Item(new Item.Properties()
-            .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 1), 1.0F).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+            .food(new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 1), 1.0F).build())
+            .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> AURORIAN_BACON = ITEMS.register("aurorian_bacon", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier((0.8F))
-            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 60), 1.0F).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 60), 1.0F).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+            .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> STRANGE_MEAT = ITEMS.register("strange_meat", StrangeMeat::new);
     public static final DeferredHolder<Item, Item> LAVENDER_SALAD = ITEMS.register("lavender_salad", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier((5.0F))
-            .effect(() -> new MobEffectInstance(TAMobEffects.NATURE, 600), 1.0F).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+            .effect(() -> new MobEffectInstance(TAMobEffects.NATURE, 600), 1.0F).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+            .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> FAKE_ALGAL_PIT_FISH = ITEMS.register("fake_algal_pit_fish", () -> new Item(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(4).saturationModifier((5.0F)).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+            .food(new FoodProperties.Builder().nutrition(4).saturationModifier((5.0F)).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+            .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> SASHIMI = ITEMS.register("sashimi", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationModifier((2.0F))
-            .effect(() -> new MobEffectInstance(MobEffects.LUCK, 400), 1.0F).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+            .effect(() -> new MobEffectInstance(MobEffects.LUCK, 400), 1.0F).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+            .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> SILENT_WOOD_FRUIT = ITEMS.register("silent_wood_fruit", () -> new Item(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(3).saturationModifier((2.5F)).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+            .food(new FoodProperties.Builder().nutrition(3).saturationModifier((2.5F)).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+            .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> GOLDEN_SILENT_WOOD_FRUIT = ITEMS.register("golden_silent_wood_fruit", () -> new Item(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(4).saturationModifier((5.0F)).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+            .food(new FoodProperties.Builder().nutrition(4).saturationModifier((5.0F)).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+            .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> KEBAB_WITH_MUSHROOM = ITEMS.register("kebab_with_mushroom",
             () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationModifier((15.0F))
                     .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1200), 1.0F).build())
                     .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> AURORIAN_WINTER_ROOT = ITEMS.register("aurorian_winter_root", () -> new Item(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(1).saturationModifier((0.8F)).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+            .food(new FoodProperties.Builder().nutrition(1).saturationModifier((0.8F)).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+            .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> ROASTED_AURORIAN_WINTER_ROOT = ITEMS.register("roasted_aurorian_winter_root",
             () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier((6.0F))
                     .effect(() -> new MobEffectInstance(TAMobEffects.WARM, 400), 1.0F).build())
                     .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> DARK_STONE_SHRIMP = ITEMS.register("dark_stone_shrimp", () -> new Item(new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(3).saturationModifier((0.8F)).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+            .food(new FoodProperties.Builder().nutrition(3).saturationModifier((0.8F)).build()).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+            .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
 
     /**
      * Key
@@ -320,8 +331,10 @@ public class TAItems {
     /**
      * Arrow
      */
-    public static final DeferredHolder<Item, Item> CERULEAN_ARROW = ITEMS.register("cerulean_arrow", () -> new CeruleanArrow(new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(ItemTags.ARROWS, TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
-    public static final DeferredHolder<Item, Item> CRYSTAL_ARROW = ITEMS.register("crystal_arrow", () -> new CrystalArrow(new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(ItemTags.ARROWS, TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+    public static final DeferredHolder<Item, Item> CERULEAN_ARROW = ITEMS.register("cerulean_arrow", () -> new CeruleanArrow(new Item.Properties()
+            .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.ARROWS, TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+    public static final DeferredHolder<Item, Item> CRYSTAL_ARROW = ITEMS.register("crystal_arrow", () -> new CrystalArrow(new Item.Properties()
+            .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.ARROWS, TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
 
     /**
      * Tool
@@ -418,40 +431,40 @@ public class TAItems {
     /**
      * Spawn Egg
      */
-    public static final DeferredHolder<Item, Item> BREAD_BEAST_SPAWN_EGG = spawnEgg("bread_beast", TAEntityTypes.BREAD_BEAST, 0xc4b4a1, 0x734b41);
-    public static final DeferredHolder<Item, Item> ICEFIELD_DEER_SPAWN_EGG = spawnEgg("icefield_deer", TAEntityTypes.ICEFIELD_DEER, 0xadb0c4, 0x5f4569);
-    public static final DeferredHolder<Item, Item> BLUE_TAIL_WOLF_SPAWN_EGG = spawnEgg("blue_tail_wolf", TAEntityTypes.BLUE_TAIL_WOLF, 0xe1eff5, 0x6381f7);
-    public static final DeferredHolder<Item, Item> MOON_FISH_SPAWN_EGG = spawnEgg("moon_fish", TAEntityTypes.MOON_FISH, 0xd1ccc5, 0x594a48);
-    public static final DeferredHolder<Item, Item> AURORIAN_WINGED_FISH_SPAWN_EGG = spawnEgg("aurorian_winged_fish", TAEntityTypes.AURORIAN_WINGED_FISH, 0x4581d5, 0x1b4a8a);
-    public static final DeferredHolder<Item, Item> AURORIAN_RABBIT_SPAWN_EGG = spawnEgg("aurorian_rabbit", TAEntityTypes.AURORIAN_RABBIT, 0xc2e5e5, 0x43a2ec);
-    public static final DeferredHolder<Item, Item> AURORIAN_SHEEP_SPAWN_EGG = spawnEgg("aurorian_sheep", TAEntityTypes.AURORIAN_SHEEP, 0x97b4f2, 0x7197ea);
-    public static final DeferredHolder<Item, Item> AURORIAN_PIG_SPAWN_EGG = spawnEgg("aurorian_pig", TAEntityTypes.AURORIAN_PIG, 0xc6dfff, 0x5d6f93);
-    public static final DeferredHolder<Item, Item> AURORIAN_COW_SPAWN_EGG = spawnEgg("aurorian_cow", TAEntityTypes.AURORIAN_COW, 0x578a91, 0x454c5b);
-    public static final DeferredHolder<Item, Item> AURORIAN_PIXIE_SPAWN_EGG = spawnEgg("aurorian_pixie", TAEntityTypes.AURORIAN_PIXIE, 0x9cc6f1, 0x88b7e3);
-    public static final DeferredHolder<Item, Item> AURORIAN_SLIME_SPAWN_EGG = spawnEgg("aurorian_slime", TAEntityTypes.AURORIAN_SLIME, 0x151028, 0x43a2ec);
-    public static final DeferredHolder<Item, Item> DISTURBED_HOLLOW_SPAWN_EGG = spawnEgg("disturbed_hollow", TAEntityTypes.DISTURBED_HOLLOW, 0xade0f5, 0x272727);
-    public static final DeferredHolder<Item, Item> UNDEAD_KNIGHT_SPAWN_EGG = spawnEgg("undead_knight", TAEntityTypes.UNDEAD_KNIGHT, 0x5c7394, 0x181b1e);
-    public static final DeferredHolder<Item, Item> SPIRIT_SPAWN_EGG = spawnEgg("spirit", TAEntityTypes.SPIRIT, 0xb0b6bc, 0x303131);
-    public static final DeferredHolder<Item, Item> MOON_ACOLYTE_SPAWN_EGG = spawnEgg("moon_acolyte", TAEntityTypes.MOON_ACOLYTE, 0x0270af, 0x191919);
-    public static final DeferredHolder<Item, Item> SPIDERLING_SPAWN_EGG = spawnEgg("spiderling", TAEntityTypes.SPIDERLING, 0x1efefe, 0x0f1018);
-    public static final DeferredHolder<Item, Item> SPIDERLING_CRYSTAL_SHELL_SPAWN_EGG = spawnEgg("spiderling_crystal_shell", TAEntityTypes.SPIDERLING_CRYSTAL_SHELL, 0xd1ffdf, 0x363675);
-    public static final DeferredHolder<Item, Item> SPIDERLING_WALL_CLIMBER_SPAWN_EGG = spawnEgg("spiderling_wall_climber", TAEntityTypes.SPIDERLING_WALL_CLIMBER, 0xd1ffdf, 0x363675);
-    public static final DeferredHolder<Item, Item> GIANT_CRYSTAL_SPIDER_SPAWN_EGG = spawnEgg("giant_crystal_spider", TAEntityTypes.GIANT_CRYSTAL_SPIDER, 0xd1ffdf, 0x363675);
-    public static final DeferredHolder<Item, Item> RUNE_SPIDER_SPAWN_EGG = spawnEgg("rune_spider", TAEntityTypes.RUNE_SPIDER, 0xffc7f0, 0x8e69cf);
-    public static final DeferredHolder<Item, Item> CRYSTALLINE_SPRITE_SPAWN_EGG = spawnEgg("crystalline_sprite", TAEntityTypes.CRYSTALLINE_SPRITE, 0xf5e2fc, 0xf0c9fd);
-    public static final DeferredHolder<Item, Item> CAVE_DWELLER_SPAWN_EGG = spawnEgg("cave_dweller", TAEntityTypes.CAVE_DWELLER, 0x5e6b7d, 0xdc54f7);
-    public static final DeferredHolder<Item, Item> ROCK_HAMMER_SPAWN_EGG = spawnEgg("rock_hammer", TAEntityTypes.ROCK_HAMMER, 0xe3e0d1, 0x45332e);
-    public static final DeferredHolder<Item, Item> TONG_SCORPION_SPAWN_EGG = spawnEgg("tong_scorpion", TAEntityTypes.TONG_SCORPION, 0x4f4334, 0x211a18);
-    public static final DeferredHolder<Item, Item> SNOW_TUNDRA_GIANT_CRAB_SPAWN_EGG = spawnEgg("snow_tundra_giant_crab", TAEntityTypes.SNOW_TUNDRA_GIANT_CRAB, 0xd8deed, 0x2347d9);
-    public static final DeferredHolder<Item, Item> FLOWER_LEECH_SPAWN_EGG = spawnEgg("flower_leech", TAEntityTypes.FLOWER_LEECH, 0xcd92d1, 0x362d23);
-    public static final DeferredHolder<Item, Item> FORGOTTEN_MAGIC_BOOK_SPAWN_EGG = spawnEgg("forgotten_magic_book", TAEntityTypes.FORGOTTEN_MAGIC_BOOK, 0xd9d2c5, 0x3a2f40);
-    public static final DeferredHolder<Item, Item> HYPHA_WALKING_MUSHROOM_SPAWN_EGG = spawnEgg("hypha_walking_mushroom", TAEntityTypes.HYPHA_WALKING_MUSHROOM, 0xededdf, 0xc48a80);
-    public static final DeferredHolder<Item, Item> MOONLIGHT_KNIGHT_SPAWN_EGG = spawnEgg("moonlight_knight", TAEntityTypes.MOONLIGHT_KNIGHT, 0xb8bdbe, 0x0955a8);
-    public static final DeferredHolder<Item, Item> RUNESTONE_KEEPER_SPAWN_EGG = spawnEgg("runestone_keeper", TAEntityTypes.RUNESTONE_KEEPER, 0xccc0e7, 0x550098);
-    public static final DeferredHolder<Item, Item> SPIDER_MOTHER_SPAWN_EGG = spawnEgg("spider_mother", TAEntityTypes.SPIDER_MOTHER, 0x595d70, 0x0f1018);
-    public static final DeferredHolder<Item, Item> MOON_QUEEN_SPAWN_EGG = spawnEgg("moon_queen", TAEntityTypes.MOON_QUEEN, 0xff82d4, 0x313d4b);
-    public static final DeferredHolder<Item, Item> SELENA_SPAWN_EGG = spawnEgg("selena", TAEntityTypes.SELENA, 0xf5e0c7, 0xc78f6e);
-    public static final DeferredHolder<Item, Item> AURORIAN_VILLAGER_SPAWN_EGG = ITEMS.register("aurorian_villager_spawn_egg", AurorianVillagerSpawnEgg::new);
+    public static final DeferredHolder<Item, Item> BREAD_BEAST_SPAWN_EGG = spawnEgg(TAEntityTypes.BREAD_BEAST, 0xc4b4a1, 0x734b41);
+    public static final DeferredHolder<Item, Item> ICEFIELD_DEER_SPAWN_EGG = spawnEgg(TAEntityTypes.ICEFIELD_DEER, 0xadb0c4, 0x5f4569);
+    public static final DeferredHolder<Item, Item> BLUE_TAIL_WOLF_SPAWN_EGG = spawnEgg(TAEntityTypes.BLUE_TAIL_WOLF, 0xe1eff5, 0x6381f7);
+    public static final DeferredHolder<Item, Item> MOON_FISH_SPAWN_EGG = spawnEgg(TAEntityTypes.MOON_FISH, 0xd1ccc5, 0x594a48);
+    public static final DeferredHolder<Item, Item> AURORIAN_WINGED_FISH_SPAWN_EGG = spawnEgg(TAEntityTypes.AURORIAN_WINGED_FISH, 0x4581d5, 0x1b4a8a);
+    public static final DeferredHolder<Item, Item> AURORIAN_RABBIT_SPAWN_EGG = spawnEgg(TAEntityTypes.AURORIAN_RABBIT, 0xc2e5e5, 0x43a2ec);
+    public static final DeferredHolder<Item, Item> AURORIAN_SHEEP_SPAWN_EGG = spawnEgg(TAEntityTypes.AURORIAN_SHEEP, 0x97b4f2, 0x7197ea);
+    public static final DeferredHolder<Item, Item> AURORIAN_PIG_SPAWN_EGG = spawnEgg(TAEntityTypes.AURORIAN_PIG, 0xc6dfff, 0x5d6f93);
+    public static final DeferredHolder<Item, Item> AURORIAN_COW_SPAWN_EGG = spawnEgg(TAEntityTypes.AURORIAN_COW, 0x578a91, 0x454c5b);
+    public static final DeferredHolder<Item, Item> AURORIAN_PIXIE_SPAWN_EGG = spawnEgg(TAEntityTypes.AURORIAN_PIXIE, 0x9cc6f1, 0x88b7e3);
+    public static final DeferredHolder<Item, Item> AURORIAN_SLIME_SPAWN_EGG = spawnEgg(TAEntityTypes.AURORIAN_SLIME, 0x151028, 0x43a2ec);
+    public static final DeferredHolder<Item, Item> AURORIAN_VILLAGER_SPAWN_EGG = spawnEgg(TAEntityTypes.AURORIAN_VILLAGER, 0x9e9e9e, 0x4f4f4f);
+    public static final DeferredHolder<Item, Item> DISTURBED_HOLLOW_SPAWN_EGG = spawnEgg(TAEntityTypes.DISTURBED_HOLLOW, 0xade0f5, 0x272727);
+    public static final DeferredHolder<Item, Item> UNDEAD_KNIGHT_SPAWN_EGG = spawnEgg(TAEntityTypes.UNDEAD_KNIGHT, 0x5c7394, 0x181b1e);
+    public static final DeferredHolder<Item, Item> SPIRIT_SPAWN_EGG = spawnEgg(TAEntityTypes.SPIRIT, 0xb0b6bc, 0x303131);
+    public static final DeferredHolder<Item, Item> MOON_ACOLYTE_SPAWN_EGG = spawnEgg(TAEntityTypes.MOON_ACOLYTE, 0x0270af, 0x191919);
+    public static final DeferredHolder<Item, Item> SPIDERLING_SPAWN_EGG = spawnEgg(TAEntityTypes.SPIDERLING, 0x1efefe, 0x0f1018);
+    public static final DeferredHolder<Item, Item> SPIDERLING_CRYSTAL_SHELL_SPAWN_EGG = spawnEgg(TAEntityTypes.SPIDERLING_CRYSTAL_SHELL, 0xd1ffdf, 0x363675);
+    public static final DeferredHolder<Item, Item> SPIDERLING_WALL_CLIMBER_SPAWN_EGG = spawnEgg(TAEntityTypes.SPIDERLING_WALL_CLIMBER, 0xd1ffdf, 0x363675);
+    public static final DeferredHolder<Item, Item> GIANT_CRYSTAL_SPIDER_SPAWN_EGG = spawnEgg(TAEntityTypes.GIANT_CRYSTAL_SPIDER, 0xd1ffdf, 0x363675);
+    public static final DeferredHolder<Item, Item> RUNE_SPIDER_SPAWN_EGG = spawnEgg(TAEntityTypes.RUNE_SPIDER, 0xffc7f0, 0x8e69cf);
+    public static final DeferredHolder<Item, Item> CRYSTALLINE_SPRITE_SPAWN_EGG = spawnEgg(TAEntityTypes.CRYSTALLINE_SPRITE, 0xf5e2fc, 0xf0c9fd);
+    public static final DeferredHolder<Item, Item> CAVE_DWELLER_SPAWN_EGG = spawnEgg(TAEntityTypes.CAVE_DWELLER, 0x5e6b7d, 0xdc54f7);
+    public static final DeferredHolder<Item, Item> ROCK_HAMMER_SPAWN_EGG = spawnEgg(TAEntityTypes.ROCK_HAMMER, 0xe3e0d1, 0x45332e);
+    public static final DeferredHolder<Item, Item> TONG_SCORPION_SPAWN_EGG = spawnEgg(TAEntityTypes.TONG_SCORPION, 0x4f4334, 0x211a18);
+    public static final DeferredHolder<Item, Item> SNOW_TUNDRA_GIANT_CRAB_SPAWN_EGG = spawnEgg(TAEntityTypes.SNOW_TUNDRA_GIANT_CRAB, 0xd8deed, 0x2347d9);
+    public static final DeferredHolder<Item, Item> FLOWER_LEECH_SPAWN_EGG = spawnEgg(TAEntityTypes.FLOWER_LEECH, 0xcd92d1, 0x362d23);
+    public static final DeferredHolder<Item, Item> FORGOTTEN_MAGIC_BOOK_SPAWN_EGG = spawnEgg(TAEntityTypes.FORGOTTEN_MAGIC_BOOK, 0xd9d2c5, 0x3a2f40);
+    public static final DeferredHolder<Item, Item> HYPHA_WALKING_MUSHROOM_SPAWN_EGG = spawnEgg(TAEntityTypes.HYPHA_WALKING_MUSHROOM, 0xededdf, 0xc48a80);
+    public static final DeferredHolder<Item, Item> MOONLIGHT_KNIGHT_SPAWN_EGG = spawnEgg(TAEntityTypes.MOONLIGHT_KNIGHT, 0xb8bdbe, 0x0955a8);
+    public static final DeferredHolder<Item, Item> RUNESTONE_KEEPER_SPAWN_EGG = spawnEgg(TAEntityTypes.RUNESTONE_KEEPER, 0xccc0e7, 0x550098);
+    public static final DeferredHolder<Item, Item> SPIDER_MOTHER_SPAWN_EGG = spawnEgg(TAEntityTypes.SPIDER_MOTHER, 0x595d70, 0x0f1018);
+    public static final DeferredHolder<Item, Item> MOON_QUEEN_SPAWN_EGG = spawnEgg(TAEntityTypes.MOON_QUEEN, 0xff82d4, 0x313d4b);
+    public static final DeferredHolder<Item, Item> SELENA_SPAWN_EGG = spawnEgg(TAEntityTypes.SELENA, 0xf5e0c7, 0xc78f6e);
     
     /**
      * Block Item

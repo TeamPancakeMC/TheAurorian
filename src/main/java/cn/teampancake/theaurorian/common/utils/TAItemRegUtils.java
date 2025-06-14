@@ -2,6 +2,8 @@ package cn.teampancake.theaurorian.common.utils;
 
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItems;
+import net.minecraft.core.MappedRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -29,8 +31,11 @@ public class TAItemRegUtils {
         return TAItems.ITEMS.register(name, () -> new ItemNameBlockItem(block.get(), properties.get()));
     }
 
-    public static DeferredHolder<Item, Item> spawnEgg(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor) {
-        return TAItems.ITEMS.register(name + "_spawn_egg", () -> new DeferredSpawnEggItem(type, backgroundColor, highlightColor, new Item.Properties()));
+    /** @noinspection deprecation*/
+    public static<T extends Mob> DeferredHolder<Item, Item> spawnEgg(DeferredHolder<EntityType<?>, EntityType<T>> type, int backgroundColor, int highlightColor) {
+        ((MappedRegistry<?>) BuiltInRegistries.ITEM).unfreeze();
+        DeferredSpawnEggItem spawnEggItem = new DeferredSpawnEggItem(type, backgroundColor, highlightColor, new Item.Properties());
+        return TAItems.ITEMS.register(type.getId().getPath() + "_spawn_egg", () -> spawnEggItem);
     }
 
 }

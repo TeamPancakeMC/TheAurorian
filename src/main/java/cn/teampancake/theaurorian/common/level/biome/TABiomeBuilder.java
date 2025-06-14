@@ -17,6 +17,8 @@ public class TABiomeBuilder {
     public static List<TATerrainColumn> makeBiomeList(HolderGetter<Biome> biomeRegistry) {
         return List.of(
                 biomeColumnWithUnderground(9.0F + 0.36F, 0.5F, biomeRegistry, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD, TABiomes.UNDER_SNOWFIELD),
+                biomeColumnWithUnderground(9.0F + 1.5F, 1.0F, biomeRegistry, TABiomes.FILTHY_ICE_MOUNTAIN, TABiomes.UNDER_SNOWFIELD),
+                biomeColumnWithUnderground(9.0F + 0.7F, 0.8F, biomeRegistry, TABiomes.FILTHY_ICE_HILLS, TABiomes.UNDER_SNOWFIELD),
                 biomeColumnWithUnderground(9.0F + 0.3F, 0.3F, biomeRegistry, TABiomes.AURORIAN_PLAINS, TABiomes.UNDERGROUND),
                 biomeColumnWithUnderground(9.0F + 0.3F, 0.3F, biomeRegistry, TABiomes.AURORIAN_FOREST, TABiomes.UNDERGROUND),
                 biomeColumnWithUnderground(9.0F + 0.4F, 0.4F, biomeRegistry, TABiomes.AURORIAN_FOREST_HILL, TABiomes.UNDERGROUND),

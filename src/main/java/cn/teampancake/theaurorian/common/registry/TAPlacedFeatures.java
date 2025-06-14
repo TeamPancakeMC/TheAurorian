@@ -40,6 +40,7 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
     public static final ResourceKey<PlacedFeature> FILTHY_WATER_LAKE = createKey("filthy_water_lake");
     public static final ResourceKey<PlacedFeature> FILTHY_FREEZE_TOP_LAYER = createKey("filthy_freeze_top_layer");
+    public static final ResourceKey<PlacedFeature> ICE_SPIKE_FEATURE = createKey("ice_spike_feature");
     public static final ResourceKey<PlacedFeature> RANDOM_FALLEN_SILENT_LOG = createKey("random_fallen_silent_log");
     public static final ResourceKey<PlacedFeature> RANDOM_WATER_SURFACE_PLANT = createKey("random_water_surface_plant");
     public static final ResourceKey<PlacedFeature> RANDOM_CRYSTAL_CLUSTER = createKey("random_crystal_cluster");
@@ -195,6 +196,9 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URN));
         PlacementUtils.register(context, TREES_CURSED_FROST_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_CURSED_FROST_FOREST), 
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
+        PlacementUtils.register(context, ICE_SPIKE_FEATURE, configuredFeature.getOrThrow(TAConfiguredFeatures.ICE_SPIKE),
+                CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome());
         if (!smallRuinConfigList.isEmpty() && !AURORIAN_FOREST_SMALL_RUINS.isEmpty()) {
             for (int i = 0; i < AURORIAN_FOREST_SMALL_RUINS.size(); i++) {
                 Holder<ConfiguredFeature<?, ?>> smallRuinHolder = configuredFeature.getOrThrow(smallRuinConfigList.get(i));

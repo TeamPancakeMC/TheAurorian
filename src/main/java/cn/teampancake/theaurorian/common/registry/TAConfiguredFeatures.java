@@ -75,6 +75,7 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FILTHY_WATER_LAKE = createKey("filthy_water_lake");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FILTHY_FREEZE_TOP_LAYER = createKey("filthy_freeze_top_layer");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ICE_SPIKE = createKey("ice_spike");
     public static final ResourceKey<ConfiguredFeature<?, ?>> HUGE_INDIGO_MUSHROOM = createKey("huge_indigo_mushroom");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_FALLEN_SILENT_LOG = createKey("random_fallen_silent_log");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_WATER_SURFACE_PLANT = createKey("random_water_surface_plant");
@@ -352,6 +353,9 @@ public class TAConfiguredFeatures {
         Holder<PlacedFeature> cursedFrostTreeHolder = placedFeature.getOrThrow(TAPlacedFeatures.CURSED_FROST_TREE);
         FeatureUtils.register(context, TREES_CURSED_FROST_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
                 List.of(new WeightedPlacedFeature(cursedFrostTreeHolder, 0.5F)), cursedFrostTreeHolder));
+
+        // 注册冰刺特征
+        FeatureUtils.register(context, ICE_SPIKE, Feature.ICE_SPIKE, FeatureConfiguration.NONE);
     }
 
     static {

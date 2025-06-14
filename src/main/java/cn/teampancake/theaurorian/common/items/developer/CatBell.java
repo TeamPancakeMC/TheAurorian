@@ -30,12 +30,12 @@ import java.util.List;
 
 public class CatBell extends Item {
 
-    private static final int BASE_DURATION = 200; // 10秒
-    private static final float REPEL_RADIUS = 8.0F; // 驱散敌对生物半径
-    private static final double REPEL_STRENGTH = 0.5D; // 驱散力度
+    private static final int BASE_DURATION = 200;
+    private static final float REPEL_RADIUS = 8.0F;
+    private static final double REPEL_STRENGTH = 0.5D;
 
     public CatBell() {
-        super(new Item.Properties().durability(300).rarity(Rarity.RARE)
+        super(new Item.Properties().durability(300).rarity(Rarity.EPIC)
                 .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.HAS_CUSTOM_TOOLTIPS))
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.DEVELOPER, Unit.INSTANCE)
@@ -99,8 +99,7 @@ public class CatBell extends Item {
 
     private void repelHostileMobs(Level level, Player player) {
         AABB areaOfEffect = player.getBoundingBox().inflate(REPEL_RADIUS);
-        List<Monster> nearbyMonsters = level.getEntitiesOfClass(Monster.class, areaOfEffect);
-        for (Monster monster : nearbyMonsters) {
+        for (Monster monster : level.getEntitiesOfClass(Monster.class, areaOfEffect)) {
             Vec3 pushDirection = monster.position().subtract(player.position()).normalize();
             monster.setDeltaMovement(monster.getDeltaMovement().add(
                     pushDirection.x * REPEL_STRENGTH, 0.3, pushDirection.z * REPEL_STRENGTH));
@@ -112,18 +111,14 @@ public class CatBell extends Item {
     private void spawnParticleEffects(ServerLevel level, Player player) {
         RandomSource random = level.getRandom();
         Vec3 position = player.position().add(0, 1.0, 0);
-
-        // 在玩家周围生成螺旋粒子效果
-        for (int i = 0; i < 3; i++) { // 3圈螺旋
-            for (int j = 0; j < 20; j++) { // 每圈20个粒子
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 20; j++) {
                 double angle = j * Math.PI * 2 / 20;
-                double radius = 1.0 + i * 0.3; // 逐渐增大的半径
-                double offsetY = j * 0.05; // 螺旋上升
+                double radius = 1.0 + i * 0.3;
+                double offsetY = j * 0.05;
                 Vec3 particlePos = position.add(Math.cos(angle) * radius, offsetY, Math.sin(angle) * radius);
                 level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(),
                         particlePos.x, particlePos.y, particlePos.z, 1, 0, 0, 0, 0.05);
-                
-                // 偶尔添加一些音符粒子
                 if (random.nextInt(5) == 0) {
                     level.sendParticles(ParticleTypes.NOTE,
                             particlePos.x, particlePos.y + 0.5, particlePos.z,
@@ -131,8 +126,7 @@ public class CatBell extends Item {
                 }
             }
         }
-        
-        // 在玩家脚下生成圆形波纹
+
         for (int i = 0; i < 36; i++) {
             double angle = i * Math.PI * 2 / 36;
             double radius = 2.0;

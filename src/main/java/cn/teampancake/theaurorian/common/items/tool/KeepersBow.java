@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -62,7 +61,6 @@ public class KeepersBow extends BowItem {
                 f3 = -f3;
                 Projectile projectile = this.createProjectile(level, shooter, weapon, itemStack, isCrit);
                 if (projectile instanceof AbstractArrow abstractArrow) {
-                    abstractArrow.setData(TAAttachmentTypes.SHOOT_FROM_KEEPERS_BOW.get(), true);
                     abstractArrow.setCritArrow(isCrit);
                     if (i < projectileItems.size() / 3) {
                         if (shooter instanceof Player player && !player.getAbilities().instabuild) {

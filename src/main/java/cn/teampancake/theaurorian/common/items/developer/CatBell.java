@@ -35,8 +35,8 @@ public class CatBell extends Item {
     private static final double REPEL_STRENGTH = 0.5D; // 驱散力度
 
     public CatBell() {
-        super(new Item.Properties().durability(300).rarity(Rarity.EPIC)
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.HAS_CUSTOM_TOOLTIPS, TAItemTags.IS_MYTHICAL))
+        super(new Item.Properties().durability(300).rarity(Rarity.RARE)
+                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.HAS_CUSTOM_TOOLTIPS))
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.DEVELOPER, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));

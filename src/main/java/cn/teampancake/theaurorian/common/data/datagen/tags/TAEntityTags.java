@@ -12,6 +12,7 @@ public class TAEntityTags {
     public static final TagKey<EntityType<?>> ALERTED_BY_BLUE_TAIL_WOLF = create("alerted_by_blue_tail_wolf");
     public static final TagKey<EntityType<?>> AURORIAN_BOSS = create("aurorian_boss");
     public static final TagKey<EntityType<?>> SPIDERLING = create("spiderling");
+    public static final TagKey<EntityType<?>> AURORIAN_MOBS = create("aurorian_mobs");
 
     private static TagKey<EntityType<?>> create(String name) {
         return TagKey.create(Registries.ENTITY_TYPE, TheAurorian.prefix(name));

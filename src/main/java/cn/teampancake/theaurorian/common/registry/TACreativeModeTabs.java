@@ -13,10 +13,6 @@ public class TACreativeModeTabs {
 
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TheAurorian.MOD_ID);
 
-    private static boolean isDeveloperItem(Item item) {
-        return item == TAItems.DEVELOPER_GIFT.get() || item.components().has(TADataComponents.DEVELOPER.get());
-    }
-
     private static boolean isBuildingBlock(Item item) {
         return item instanceof BlockItem blockItem && blockItem.getBlock().properties() instanceof TABlockProperties properties && properties.isBuildingBlock;
     }
@@ -24,7 +20,7 @@ public class TACreativeModeTabs {
     static {
         TABS.register("normal_tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup." + TheAurorian.MOD_ID + ".normal"))
                 .icon(() -> new ItemStack(TAItems.AURORIAN_CRYSTAL.get())).displayItems((params, output) -> {
-                    TAItems.ITEMS.getEntries().stream().map(DeferredHolder::get).filter(item -> !isDeveloperItem(item) && !isBuildingBlock(item)).forEach(output::accept);
+                    TAItems.ITEMS.getEntries().stream().map(DeferredHolder::get).filter(item -> !isBuildingBlock(item)).forEach(output::accept);
                     params.holders().lookup(Registries.PAINTING_VARIANT).ifPresent(lookup -> CreativeModeTabs.generatePresetPaintings(output, params.holders(), lookup,
                             holder -> holder.is(PaintingVariantTags.PLACEABLE) && holder.value().assetId().getNamespace().equals(TheAurorian.MOD_ID),
                             CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));

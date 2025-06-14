@@ -66,6 +66,15 @@
           },
           {
             "biome_layers": {
+              "-1.0": "theaurorian:cursed_frost_forest",
+              "-3.0": "theaurorian:under_snowfield"
+            },
+            "depth": 9.36,
+            "key_biome": "theaurorian:cursed_frost_forest",
+            "scale": 0.5
+          },
+          {
+            "biome_layers": {
               "-1.0": "theaurorian:equinox_flower_plains",
               "-3.0": "theaurorian:underground"
             },

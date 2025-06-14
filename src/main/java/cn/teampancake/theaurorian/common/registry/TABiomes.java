@@ -30,10 +30,13 @@ public class TABiomes {
     public static final ResourceKey<Biome> LAVENDER_PLAINS = createKey("lavender_plains");
     public static final ResourceKey<Biome> WEEPING_WILLOW_FOREST = createKey("weeping_willow_forest");
     public static final ResourceKey<Biome> FILTHY_ICE_CRYSTAL_SNOWFIELD = createKey("filthy_ice_crystal_snowfield");
+    public static final ResourceKey<Biome> FILTHY_ICE_MOUNTAIN = createKey("filthy_ice_mountain");
+    public static final ResourceKey<Biome> FILTHY_ICE_HILLS = createKey("filthy_ice_hills");
     public static final ResourceKey<Biome> BRIGHT_MOON_DESERT = createKey("bright_moon_desert");
     public static final ResourceKey<Biome> UNDER_SNOWFIELD = createKey("under_snowfield");
     public static final ResourceKey<Biome> UNDERGROUND = createKey("underground");
     public static final ResourceKey<Biome> UNDERWATER = createKey("underwater");
+    public static final ResourceKey<Biome> CURSED_FROST_FOREST = createKey("cursed_frost_forest");
 
     private static ResourceKey<Biome> createKey(String name) {
         return ResourceKey.create(Registries.BIOME, TheAurorian.prefix(name));
@@ -79,6 +82,33 @@ public class TABiomes {
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
                 .mobSpawnSettings(defaultForestAndPlainSpawning().build()).build());
         context.register(UNDERWATER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter), defaultFishSpawning().build()).build());
+        context.register(CURSED_FROST_FOREST, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+        .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
+        .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_CURSED_FROST_FOREST)
+        .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
+        )
+        .mobSpawnSettings(defaultMobSpawning().build())
+        .hasPrecipitation(Boolean.TRUE)
+        .temperature((-0.5F))
+        .build());
+        context.register(FILTHY_ICE_MOUNTAIN, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+                .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
+                .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_FLOWER_SNOWFIELD))
+                .mobSpawnSettings(snowfieldMobSpawning().build())
+                .hasPrecipitation(Boolean.TRUE)
+                .temperature((-1.0F))
+                .build());
+        context.register(FILTHY_ICE_HILLS, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+                .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
+                .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_FLOWER_SNOWFIELD))
+                .mobSpawnSettings(snowfieldMobSpawning()
+                        .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.ICEFIELD_DEER.get(), 30, 2, 4))
+                        .build())
+                .hasPrecipitation(Boolean.TRUE)
+                .temperature((-0.8F))
+                .build());
     }
 
     private static Biome.BiomeBuilder biomeOfNormalForests(BiomeGenerationSettings.Builder biomeGenerationSettings) {

@@ -14,12 +14,6 @@
       "replace_current_music": false,
       "sound": "theaurorian:music"
     },
-    "particle": {
-      "options": {
-        "type": "minecraft:soul"
-      },
-      "probability": 0.0025
-    },
     "sky_color": 69172,
     "water_color": -1,
     "water_fog_color": -1
@@ -60,27 +54,58 @@
     [],
     [],
     [
-      "theaurorian:patch_equinox_flower"
+      "theaurorian:patch_aurorian_grass_light_forest",
+      "theaurorian:trees_cursed_frost_forest",
+      "theaurorian:random_riverside_plant",
+      "theaurorian:riverside_moon_sand"
+    ],
+    [
+      "theaurorian:filthy_freeze_top_layer"
     ]
   ],
-  "has_precipitation": false,
+  "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "theaurorian:aurorian_rabbit",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 8
+      },
+      {
+        "type": "theaurorian:aurorian_sheep",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 8
+      },
+      {
+        "type": "theaurorian:aurorian_pig",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 8
+      },
+      {
+        "type": "theaurorian:aurorian_cow",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 8
+      }
+    ],
     "misc": [],
     "monster": [
       {
-        "type": "theaurorian:spirit",
+        "type": "theaurorian:crystalline_sprite",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 90
+        "weight": 45
       }
     ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.2
+  "temperature": -0.5
 }

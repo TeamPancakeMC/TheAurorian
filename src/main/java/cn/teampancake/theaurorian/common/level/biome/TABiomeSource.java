@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.level.legacy.area.LazyArea;
 import cn.teampancake.theaurorian.common.level.legacy.context.LazyAreaContext;
 import cn.teampancake.theaurorian.common.level.legacy.layer.BiomeLayerFactory;
 import cn.teampancake.theaurorian.common.registry.TABiomeLayerStack;
+import cn.teampancake.theaurorian.common.registry.TABiomes;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -84,11 +85,21 @@ public class TABiomeSource extends BiomeSource {
     }
 
     public Optional<TATerrainColumn> getTerrainColumn(int x, int z) {
-        return this.getTerrainColumn(this.genBiomes.get().getBiome(x, z));
+        ResourceKey<Biome> biomeKey = this.genBiomes.get().getBiome(x, z);
+        TATerrainColumn column = this.biomeList.get(biomeKey);
+        if (column == null) {
+            TheAurorian.LOGGER.warn("找不到生物群系地形列 (getTerrainColumn x,z): {}", biomeKey);
+            return Optional.of(this.getDefaultTerrainColumn());
+        }
+        return Optional.of(column);
     }
 
     public Optional<TATerrainColumn> getTerrainColumn(ResourceKey<Biome> biome) {
-        return this.biomeList.values().stream().filter(p -> p.is(biome)).findFirst();
+        Optional<TATerrainColumn> column = this.biomeList.values().stream().filter(p -> p.is(biome)).findFirst();
+        if (column.isEmpty()) {
+            TheAurorian.LOGGER.warn("找不到生物群系地形列 (getTerrainColumn): {}", biome);
+        }
+        return column;
     }
 
     public <T> T getBiomeValue(ResourceKey<Biome> biome, Function<TATerrainColumn, T> function, T other) {
@@ -97,11 +108,31 @@ public class TABiomeSource extends BiomeSource {
 
     @Override
     public Holder<Biome> getNoiseBiome(int x, int y, int z, Climate.Sampler sampler) {
-        return this.biomeList.get(this.genBiomes.get().getBiome(x, z)).getBiome(y);
+        ResourceKey<Biome> biomeKey = this.genBiomes.get().getBiome(x, z);
+        TATerrainColumn column = this.biomeList.get(biomeKey);
+        if (column == null) {
+            // 如果找不到对应的地形列，记录日志并使用默认生物群系
+            TheAurorian.LOGGER.warn("找不到生物群系地形列: {}", biomeKey);
+            column = this.getDefaultTerrainColumn();
+        }
+        return column.getBiome(y);
     }
 
     private Holder<BiomeLayerFactory> getBiomeConfig() {
         return this.genBiomeConfig;
+    }
+
+    /**
+     * 获取默认生物群系，当找不到指定生物群系时使用
+     */
+    private TATerrainColumn getDefaultTerrainColumn() {
+        // 优先使用极光森林作为默认生物群系
+        TATerrainColumn defaultColumn = this.biomeList.get(TABiomes.AURORIAN_FOREST);
+        if (defaultColumn == null) {
+            // 如果极光森林不存在，使用第一个可用的生物群系
+            defaultColumn = this.biomeList.values().stream().findFirst().orElseThrow();
+        }
+        return defaultColumn;
     }
 
 }

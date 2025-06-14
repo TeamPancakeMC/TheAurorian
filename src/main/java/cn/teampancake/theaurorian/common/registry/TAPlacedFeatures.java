@@ -40,6 +40,7 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
     public static final ResourceKey<PlacedFeature> FILTHY_WATER_LAKE = createKey("filthy_water_lake");
     public static final ResourceKey<PlacedFeature> FILTHY_FREEZE_TOP_LAYER = createKey("filthy_freeze_top_layer");
+    public static final ResourceKey<PlacedFeature> ICE_SPIKE_FEATURE = createKey("ice_spike_feature");
     public static final ResourceKey<PlacedFeature> RANDOM_FALLEN_SILENT_LOG = createKey("random_fallen_silent_log");
     public static final ResourceKey<PlacedFeature> RANDOM_WATER_SURFACE_PLANT = createKey("random_water_surface_plant");
     public static final ResourceKey<PlacedFeature> RANDOM_CRYSTAL_CLUSTER = createKey("random_crystal_cluster");
@@ -74,6 +75,7 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> ORE_COPPER_LARGE = createKey("ore_copper_large");
     public static final ResourceKey<PlacedFeature> RANDOM_URNS = createKey("random_urns");
     public static final ResourceKey<PlacedFeature> SILENT_TREE = createKey("silent_tree");
+    public static final ResourceKey<PlacedFeature> CURSED_FROST_TREE = createKey("cursed_frost_tree");
     public static final ResourceKey<PlacedFeature> WEEPING_WILLOW_TREE = createKey("weeping_willow_tree");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_SPRING = createKey("aurorian_forest_spring");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_REMAINS = createKey("aurorian_forest_remains");
@@ -82,6 +84,7 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_SHATTERED_WREATH = createKey("aurorian_forest_shattered_wreath");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_SHATTERED_PILLAR = createKey("aurorian_forest_shattered_pillar");
     public static final ResourceKey<PlacedFeature> AURORIAN_FOREST_SHATTERED_FOREST_PILLAR = createKey("aurorian_forest_shattered_forest_pillar");
+    public static final ResourceKey<PlacedFeature> TREES_CURSED_FROST_FOREST = createKey("trees_cursed_frost_forest");
     public static final List<ResourceKey<PlacedFeature>> AURORIAN_FOREST_SMALL_RUINS = new ArrayList<>();
 
     private static ResourceKey<PlacedFeature> createKey(String key) {
@@ -129,6 +132,7 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, RIVERSIDE_MOON_SAND, configuredFeature.getOrThrow(TAConfiguredFeatures.RIVERSIDE_MOON_SAND), CountPlacement.of(10),
                 InSquarePlacement.spread(), BiomeFilter.biome(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BlockPredicateFilter.forPredicate(BlockPredicate.anyOf(riversidePredicates)));
         PlacementUtils.register(context, SILENT_TREE, configuredFeature.getOrThrow(TAConfiguredFeatures.SILENT_TREE), PlacementUtils.filteredByBlockSurvival(TABlocks.SILENT_TREE_SAPLING.get()));
+        PlacementUtils.register(context, CURSED_FROST_TREE, configuredFeature.getOrThrow(TAConfiguredFeatures.CURSED_FROST_TREE), PlacementUtils.filteredByBlockSurvival(TABlocks.CURSED_FROST_TREE_SAPLING.get()));
         PlacementUtils.register(context, WEEPING_WILLOW_TREE, configuredFeature.getOrThrow(TAConfiguredFeatures.WEEPING_WILLOW_TREE),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(BlockPredicate.matchesBlocks(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get()))));
         PlacementUtils.register(context, AURORIAN_FOREST_SPRING, configuredFeature.getOrThrow(TAConfiguredFeatures.AURORIAN_FOREST_SPRING), PlacementUtils.HEIGHTMAP_WORLD_SURFACE);
@@ -190,6 +194,11 @@ public class TAPlacedFeatures {
         PlacementUtils.register(context, ORE_COPPER_LARGE, configuredFeature.getOrThrow(TAConfiguredFeatures.ORE_COPPER_LARGE),
                 OrePlacements.commonOrePlacement(16, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(112))));
         PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URN));
+        PlacementUtils.register(context, TREES_CURSED_FROST_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_CURSED_FROST_FOREST), 
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
+        PlacementUtils.register(context, ICE_SPIKE_FEATURE, configuredFeature.getOrThrow(TAConfiguredFeatures.ICE_SPIKE),
+                CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome());
         if (!smallRuinConfigList.isEmpty() && !AURORIAN_FOREST_SMALL_RUINS.isEmpty()) {
             for (int i = 0; i < AURORIAN_FOREST_SMALL_RUINS.size(); i++) {
                 Holder<ConfiguredFeature<?, ?>> smallRuinHolder = configuredFeature.getOrThrow(smallRuinConfigList.get(i));

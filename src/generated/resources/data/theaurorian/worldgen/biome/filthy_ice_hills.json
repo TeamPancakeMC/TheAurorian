@@ -14,19 +14,15 @@
       "replace_current_music": false,
       "sound": "theaurorian:music"
     },
-    "particle": {
-      "options": {
-        "type": "minecraft:soul"
-      },
-      "probability": 0.0025
-    },
     "sky_color": 69172,
     "water_color": -1,
     "water_fog_color": -1
   },
   "features": [
     [],
-    [],
+    [
+      "theaurorian:filthy_water_lake"
+    ],
     [],
     [],
     [],
@@ -60,27 +56,63 @@
     [],
     [],
     [
-      "theaurorian:patch_equinox_flower"
+      "theaurorian:patch_flower_snowfield",
+      "theaurorian:random_riverside_plant",
+      "theaurorian:riverside_moon_sand"
+    ],
+    [
+      "theaurorian:filthy_freeze_top_layer"
     ]
   ],
-  "has_precipitation": false,
+  "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "theaurorian:icefield_deer",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 30
+      },
+      {
+        "type": "theaurorian:blue_tail_wolf",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 20
+      }
+    ],
     "misc": [],
     "monster": [
       {
-        "type": "theaurorian:spirit",
+        "type": "theaurorian:crystalline_sprite",
+        "maxCount": 2,
+        "minCount": 2,
+        "weight": 100
+      },
+      {
+        "type": "theaurorian:disturbed_hollow",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 100
+      },
+      {
+        "type": "theaurorian:moon_acolyte",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 90
+        "weight": 100
+      },
+      {
+        "type": "theaurorian:snow_tundra_giant_crab",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 10
       }
     ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.2
-}
+  "temperature": -0.8
+} 

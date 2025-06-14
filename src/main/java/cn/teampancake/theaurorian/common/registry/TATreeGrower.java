@@ -11,6 +11,6 @@ public class TATreeGrower {
     public static final TreeGrower CURTAIN_TREE = new TreeGrower("curtain_tree",
             Optional.empty(), Optional.empty(), Optional.empty());
     public static final TreeGrower CURSED_FROST_TREE = new TreeGrower("cursed_frost_tree",
-            Optional.empty(), Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.of(TAConfiguredFeatures.CURSED_FROST_TREE), Optional.empty());
 
 }

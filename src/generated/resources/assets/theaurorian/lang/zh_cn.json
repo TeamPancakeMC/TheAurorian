@@ -459,7 +459,7 @@
   "enchantment.theaurorian.lightning_damage": "雷电伤害",
   "enchantment.theaurorian.lightning_damage.desc": "根据对方穿戴的护甲数量造成额外伤害",
   "enchantment.theaurorian.lightning_resistance": "雷电抵御",
-  "enchantment.theaurorian.lightning_resistance.desc": "降低“雷电”魔咒造成的额外伤害，同时完全抵消被雷击中的伤害",
+  "enchantment.theaurorian.lightning_resistance.desc": "降低雷电魔咒造成的额外伤害，同时完全抵消被雷击中的伤害",
   "enchantment.theaurorian.molten_core": "熔火之心",
   "enchantment.theaurorian.molten_core.desc": "受到火焰伤害或熔岩伤害时，会造成额外伤害",
   "enchantment.theaurorian.moonlight": "月光",
@@ -746,6 +746,7 @@
   "item.theaurorian.runestone_thunder": "雷电符文石",
   "item.theaurorian.runestone_water": "水流符文石",
   "item.theaurorian.sashimi": "生鱼片",
+  "item.theaurorian.selena_spawn_egg": "赛琳娜刷怪蛋",
   "item.theaurorian.silent_wood_axe": "谧木斧",
   "item.theaurorian.silent_wood_bow": "谧木弓",
   "item.theaurorian.silent_wood_fruit": "谧木果",
@@ -839,7 +840,6 @@
   "theaurorian.rune_game_screen.current_game_info": "本场游戏用时：%1$s，最佳用时：%2$s",
   "theaurorian.rune_game_screen.easy": "简单模式",
   "theaurorian.rune_game_screen.easy_mode": "简单模式",
-  "theaurorian.rune_game_screen.total_stats": "总移动次数: %s | 总消除次数: %s",
   "theaurorian.rune_game_screen.game_lost": "符文谜题尚未解开",
   "theaurorian.rune_game_screen.game_over": "游戏结束",
   "theaurorian.rune_game_screen.game_win": "成功解开符文谜题",
@@ -854,6 +854,7 @@
   "theaurorian.rune_game_screen.quit_game": "退出游戏",
   "theaurorian.rune_game_screen.sec": "%1$s秒",
   "theaurorian.rune_game_screen.stats": "时间: %s | 移动: %s | 消除: %s",
+  "theaurorian.rune_game_screen.total_stats": "总移动次数: %s | 总消除次数: %s",
   "theaurorian.selena_initial_screen.dialogue": "对话",
   "theaurorian.selena_initial_screen.fight": "战斗",
   "theaurorian.selena_initial_screen.mission": "任务",
@@ -971,5 +972,9 @@
   "tooltips.theaurorian.rune_game.player": "玩家：",
   "tooltips.theaurorian.rune_game.status": "符石游戏状态：",
   "tooltips.theaurorian.rune_game.undone": "未完成",
-  "tooltips.theaurorian.source_of_terra.dimension": "容器所在的维度："
+  "tooltips.theaurorian.source_of_terra.dimension": "容器所在的维度：",
+  "advancement.theaurorian.first_traveler.title": "异界的旅客?",
+  "advancement.theaurorian.first_traveler.desc": "进入极光维度",
+  "advancement.theaurorian.not_friendly.title": "并非友善",
+  "advancement.theaurorian.not_friendly.desc": "击杀极光世界的生物"
 }

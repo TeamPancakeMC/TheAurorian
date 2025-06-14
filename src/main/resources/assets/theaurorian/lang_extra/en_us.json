@@ -10,6 +10,8 @@
     "gamerule.nightmareModeMultiplier.description": "Controls the multiplier of monster attributes when Nightmare Mode is enable.",
     "itemGroup.theaurorian.building": "The Aurorian (Building Materials)",
     "itemGroup.theaurorian.normal": "The Aurorian",
+    "biome.theaurorian.filthy_ice_mountain": "Filthy Ice Mountain",
+    "biome.theaurorian.filthy_ice_hills": "Filthy Ice Hills",
     "message.block.theaurorian.set_spawn": "Respawn point in The Aurorian has benn set",
     "message.source_of_terra.bind": "You have already bound this container!",
     "message.source_of_terra.changed": "Container has been changed!",

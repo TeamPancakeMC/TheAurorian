@@ -1,0 +1,38 @@
+{
+  "parent": "theaurorian:first_traveler",
+  "criteria": {
+    "kill_aurorian_mob": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "#theaurorian:aurorian_mobs"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "translate": "advancement.theaurorian.not_friendly.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "theaurorian:silent_wood_sword"
+    },
+    "title": {
+      "translate": "advancement.theaurorian.not_friendly.title"
+    }
+  },
+  "requirements": [
+    [
+      "kill_aurorian_mob"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

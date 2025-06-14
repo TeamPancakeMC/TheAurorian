@@ -8,6 +8,7 @@ import cn.teampancake.theaurorian.common.level.legacy.layer.BiomeLayerFactory;
 import cn.teampancake.theaurorian.common.level.legacy.layer.BiomeLayerType;
 import cn.teampancake.theaurorian.common.level.legacy.layer.SmoothLayer;
 import cn.teampancake.theaurorian.common.level.legacy.layer.ZoomLayer;
+import cn.teampancake.theaurorian.common.registry.TABiomes;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
@@ -50,10 +51,12 @@ public class TABiomeLayerStack {
     }
 
     public static Pair<BiomeLayerFactory, BiomeLayerFactory> getRiverLayer() {
-        BiomeLayerFactory biomes = new RandomBiomeLayer.Factory(1L, 15,
+        BiomeLayerFactory biomes = new RandomBiomeLayer.Factory(1L, 30,
                 ImmutableList.of(TABiomes.AURORIAN_PLAINS, TABiomes.AURORIAN_FOREST,
-                        TABiomes.AURORIAN_FOREST_HILL, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD),
-                ImmutableList.of(TABiomes.AURORIAN_LAKE,TABiomes.LAVENDER_PLAINS, TABiomes.WEEPING_WILLOW_FOREST,
+                        TABiomes.AURORIAN_FOREST_HILL, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD, 
+                        TABiomes.CURSED_FROST_FOREST, TABiomes.FILTHY_ICE_HILLS, TABiomes.FILTHY_ICE_MOUNTAIN,
+                        TABiomes.FILTHY_ICE_HILLS, TABiomes.FILTHY_ICE_MOUNTAIN, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD),
+                ImmutableList.of(TABiomes.AURORIAN_LAKE, TABiomes.LAVENDER_PLAINS, TABiomes.WEEPING_WILLOW_FOREST,
                         TABiomes.BRIGHT_MOON_DESERT, TABiomes.EQUINOX_FLOWER_PLAINS));
         biomes = new ZoomLayer.Factory(1000L, false, Holder.direct(biomes));
         biomes = new ZoomLayer.Factory(1001L, false, Holder.direct(biomes));
@@ -67,11 +70,12 @@ public class TABiomeLayerStack {
 
     private static @NotNull BiomeLayerFactory getBiomeLayerFactory(BiomeLayerFactory biomes) {
         BiomeLayerFactory riverLayer = new SeamLayer.Factory(1L, TABiomes.AURORIAN_RIVER,
-                List.of(TABiomes.BRIGHT_MOON_DESERT,TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD),
-                List.of(Pair.of(TABiomes.AURORIAN_PLAINS,TABiomes.AURORIAN_PLAINS),
-                        Pair.of(TABiomes.AURORIAN_FOREST_HILL,TABiomes.AURORIAN_FOREST_HILL),
-                        Pair.of(TABiomes.EQUINOX_FLOWER_PLAINS,TABiomes.EQUINOX_FLOWER_PLAINS),
-                        Pair.of(TABiomes.LAVENDER_PLAINS,TABiomes.LAVENDER_PLAINS)), Holder.direct(biomes));
+                List.of(TABiomes.BRIGHT_MOON_DESERT, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD,
+                        TABiomes.FILTHY_ICE_MOUNTAIN, TABiomes.FILTHY_ICE_HILLS),
+                List.of(Pair.of(TABiomes.AURORIAN_PLAINS, TABiomes.AURORIAN_PLAINS),
+                        Pair.of(TABiomes.AURORIAN_FOREST_HILL, TABiomes.AURORIAN_FOREST_HILL),
+                        Pair.of(TABiomes.EQUINOX_FLOWER_PLAINS, TABiomes.EQUINOX_FLOWER_PLAINS),
+                        Pair.of(TABiomes.LAVENDER_PLAINS, TABiomes.LAVENDER_PLAINS)), Holder.direct(biomes));
         riverLayer = new SmoothLayer.Factory(7000L, Holder.direct(riverLayer));
         return riverLayer;
     }

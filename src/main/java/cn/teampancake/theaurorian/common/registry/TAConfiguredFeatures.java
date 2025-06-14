@@ -42,6 +42,7 @@ import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.SpruceFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
@@ -106,6 +107,7 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_LARGE = createKey("ore_copper_large");
     public static final ResourceKey<ConfiguredFeature<?, ?>> RANDOM_URN = createKey("random_urn");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SILENT_TREE = createKey("silent_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CURSED_FROST_TREE = createKey("cursed_frost_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WEEPING_WILLOW_TREE = createKey("weeping_willow_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SPRING = createKey("aurorian_forest_spring");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_REMAINS = createKey("aurorian_forest_remains");
@@ -114,6 +116,7 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SHATTERED_WREATH = createKey("aurorian_forest_shattered_wreath");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SHATTERED_PILLAR = createKey("aurorian_forest_shattered_pillar");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AURORIAN_FOREST_SHATTERED_FOREST_PILLAR = createKey("aurorian_forest_shattered_forest_pillar");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_CURSED_FROST_FOREST = createKey("trees_cursed_frost_forest");
     public static final List<ResourceKey<ConfiguredFeature<?, ?>>> AURORIAN_FOREST_SMALL_RUINS = new ArrayList<>();
 
     private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
@@ -132,6 +135,15 @@ public class TAConfiguredFeatures {
                 new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.ZERO,
                         ConstantInt.of(5), (0.25F), (0.5F), (0.16666667F), (0.33333334F)),
                 new TwoLayersFeatureSize(1, 0, 2)));
+    }
+
+    private static TreeConfiguration.TreeConfigurationBuilder cursedFrostTree() {
+        return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.CURSED_FROST_TREE_LOG.get()),
+                new StraightTrunkPlacer(5, 3, 0), 
+                BlockStateProvider.simple(TABlocks.CURSED_FROST_TREE_LEAVES.get()),
+                new SpruceFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 
+                        ConstantInt.of(1)), 
+                new TwoLayersFeatureSize(2, 0, 2)));
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder weepingWillowTree() {
@@ -276,6 +288,8 @@ public class TAConfiguredFeatures {
         FeatureUtils.register(context, SILENT_TREE, Feature.TREE, silentTree()
                 .dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get())).ignoreVines()
                 .decorators(ImmutableList.of(new CrystalBudDecorator(0.05F))).build());
+        FeatureUtils.register(context, CURSED_FROST_TREE, Feature.TREE, cursedFrostTree()
+                .dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get())).ignoreVines().build());
         FeatureUtils.register(context, WEEPING_WILLOW_TREE, Feature.TREE, weepingWillowTree()
                 .dirt(BlockStateProvider.simple(TABlocks.AURORIAN_DIRT.get())).ignoreVines()
                 .decorators(ImmutableList.of(new CrystalBudDecorator(0.05F))).build());
@@ -334,6 +348,10 @@ public class TAConfiguredFeatures {
                 FeatureUtils.register(context, SMALL_AURORIAN_FOREST_RUINS, Feature.RANDOM_SELECTOR, config);
             }
         }
+
+        Holder<PlacedFeature> cursedFrostTreeHolder = placedFeature.getOrThrow(TAPlacedFeatures.CURSED_FROST_TREE);
+        FeatureUtils.register(context, TREES_CURSED_FROST_FOREST, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
+                List.of(new WeightedPlacedFeature(cursedFrostTreeHolder, 0.5F)), cursedFrostTreeHolder));
     }
 
     static {

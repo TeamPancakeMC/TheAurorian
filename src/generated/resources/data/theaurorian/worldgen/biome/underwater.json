@@ -61,7 +61,8 @@
     "misc": [],
     "monster": [],
     "underground_water_creature": [],
-    "water_ambient": [
+    "water_ambient": [],
+    "water_creature": [
       {
         "type": "theaurorian:moon_fish",
         "maxCount": 4,
@@ -74,8 +75,7 @@
         "minCount": 2,
         "weight": 5
       }
-    ],
-    "water_creature": []
+    ]
   },
   "temperature": 0.2
 }

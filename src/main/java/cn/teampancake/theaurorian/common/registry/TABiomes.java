@@ -34,6 +34,7 @@ public class TABiomes {
     public static final ResourceKey<Biome> UNDER_SNOWFIELD = createKey("under_snowfield");
     public static final ResourceKey<Biome> UNDERGROUND = createKey("underground");
     public static final ResourceKey<Biome> UNDERWATER = createKey("underwater");
+    public static final ResourceKey<Biome> CURSED_FROST_FOREST = createKey("cursed_frost_forest");
 
     private static ResourceKey<Biome> createKey(String name) {
         return ResourceKey.create(Registries.BIOME, TheAurorian.prefix(name));
@@ -79,6 +80,15 @@ public class TABiomes {
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
                 .mobSpawnSettings(defaultForestAndPlainSpawning().build()).build());
         context.register(UNDERWATER, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter), defaultFishSpawning().build()).build());
+        context.register(CURSED_FROST_FOREST, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+        .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
+        .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_CURSED_FROST_FOREST)
+        .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
+        )
+        .mobSpawnSettings(defaultMobSpawning().build())
+        .hasPrecipitation(Boolean.TRUE)
+        .temperature((-0.5F))
+        .build());
     }
 
     private static Biome.BiomeBuilder biomeOfNormalForests(BiomeGenerationSettings.Builder biomeGenerationSettings) {

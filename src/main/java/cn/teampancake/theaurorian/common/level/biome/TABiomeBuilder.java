@@ -25,7 +25,8 @@ public class TABiomeBuilder {
                 biomeColumnWithUnderground(9.0F + 0.3F, 0.4F, biomeRegistry, TABiomes.WEEPING_WILLOW_FOREST, TABiomes.UNDERGROUND),
                 biomeColumnWithUnderground(9.0F + 0.3F, 0.4F, biomeRegistry, TABiomes.BRIGHT_MOON_DESERT, TABiomes.UNDERGROUND),
                 biomeColumnForLake(9.0F - 1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_RIVER),
-                biomeColumnForLake(9.0F - 1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_LAKE));
+                biomeColumnForLake(9.0F - 1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_LAKE),
+                biomeColumnWithUnderground(9.0F + 0.36F, 0.5F, biomeRegistry, TABiomes.CURSED_FROST_FOREST, TABiomes.UNDER_SNOWFIELD));
     }
 
     private static TATerrainColumn biomeColumnWithUnderground(float noiseDepth, float noiseScale, HolderGetter<Biome> biomeRegistry, ResourceKey<Biome> key, ResourceKey<Biome> under) {

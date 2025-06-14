@@ -5,7 +5,6 @@
       "theaurorian:ta_cave_extra_underground"
     ]
   },
-  "creature_spawn_probability": 0.15,
   "downfall": 0.0,
   "effects": {
     "fog_color": 12648408,
@@ -69,25 +68,25 @@
         "type": "theaurorian:aurorian_rabbit",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 10
+        "weight": 8
       },
       {
         "type": "theaurorian:aurorian_sheep",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 10
+        "weight": 8
       },
       {
         "type": "theaurorian:aurorian_pig",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 10
+        "weight": 8
       },
       {
         "type": "theaurorian:aurorian_cow",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 10
+        "weight": 8
       }
     ],
     "misc": [],
@@ -95,20 +94,8 @@
       {
         "type": "theaurorian:crystalline_sprite",
         "maxCount": 2,
-        "minCount": 2,
-        "weight": 65
-      },
-      {
-        "type": "theaurorian:disturbed_hollow",
-        "maxCount": 3,
         "minCount": 1,
-        "weight": 55
-      },
-      {
-        "type": "theaurorian:moon_acolyte",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 35
+        "weight": 45
       }
     ],
     "underground_water_creature": [],

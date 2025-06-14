@@ -1,0 +1,29 @@
+{
+  "criteria": {
+    "enter_aurorian": {
+      "conditions": {
+        "to": "theaurorian:the_aurorian"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "translate": "advancement.theaurorian.first_traveler.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "theaurorian:aurorian_crystal"
+    },
+    "title": {
+      "translate": "advancement.theaurorian.first_traveler.title"
+    }
+  },
+  "requirements": [
+    [
+      "enter_aurorian"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

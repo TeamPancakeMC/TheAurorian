@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.entities.monster;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
 import cn.teampancake.theaurorian.common.entities.npc.Selena;
-import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TABiomes;
 import net.minecraft.core.BlockPos;
@@ -75,19 +74,12 @@ public class AurorianSlime extends Slime {
     @Override
     public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         RandomSource random = level.getRandom();
-        
-        // 获取当前生物群系
         boolean isAurorianPlains = level.getBiome(this.blockPosition()).is(TABiomes.AURORIAN_PLAINS);
-        
-        // 默认大小为size4 (2^2)
         int sizeCategory = 2;
-        
-        // 20%的概率生成size8 (2^3)
         if (random.nextFloat() < 0.2F) {
             sizeCategory = 3;
         }
-        
-        // 如果是在极光平原中，有1%的极低概率生成size32 (2^5)
+
         if (isAurorianPlains && random.nextFloat() < 0.01F) {
             sizeCategory = 5;
         }

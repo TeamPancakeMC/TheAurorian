@@ -126,7 +126,7 @@ public class TAEntityTypes {
                     .clientTrackingRange((8)).build("snow_tundra_giant_crab"));
     //Monster
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianSlime>> AURORIAN_SLIME = ENTITY_TYPES.register("aurorian_slime",
-            () -> EntityType.Builder.of(AurorianSlime::new, MobCategory.MONSTER).sized(2.04F, 2.04F)
+            () -> EntityType.Builder.of(AurorianSlime::new, MobCategory.MONSTER).sized(0.52F, 0.52F)
                     .clientTrackingRange((10)).build("aurorian_slime"));
     public static final DeferredHolder<EntityType<?>, EntityType<DisturbedHollow>> DISTURBED_HOLLOW = ENTITY_TYPES.register("disturbed_hollow",
             () -> EntityType.Builder.of(DisturbedHollow::new, MobCategory.MONSTER).sized(0.6F, 1.95F)

@@ -1,6 +1,6 @@
 {
   "criteria": {
-    "enter_aurorian": {
+    "entered_aurorian": {
       "conditions": {
         "to": "theaurorian:the_aurorian"
       },
@@ -8,21 +8,21 @@
     }
   },
   "display": {
-    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "background": "theaurorian:textures/block/aurorian_stone_bricks.png",
     "description": {
-      "translate": "advancement.theaurorian.first_traveler.desc"
+      "translate": "advancement.theaurorian.enter_aurorian.desc"
     },
     "icon": {
       "count": 1,
       "id": "theaurorian:aurorian_crystal"
     },
     "title": {
-      "translate": "advancement.theaurorian.first_traveler.title"
+      "translate": "advancement.theaurorian.enter_aurorian.title"
     }
   },
   "requirements": [
     [
-      "enter_aurorian"
+      "entered_aurorian"
     ]
   ],
   "sends_telemetry_event": true

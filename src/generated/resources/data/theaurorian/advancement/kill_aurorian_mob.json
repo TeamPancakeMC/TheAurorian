@@ -1,7 +1,7 @@
 {
-  "parent": "theaurorian:first_traveler",
+  "parent": "theaurorian:enter_aurorian",
   "criteria": {
-    "kill_aurorian_mob": {
+    "killed_aurorian_mob": {
       "conditions": {
         "entity": [
           {
@@ -17,21 +17,20 @@
     }
   },
   "display": {
-    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
     "description": {
-      "translate": "advancement.theaurorian.not_friendly.desc"
+      "translate": "advancement.theaurorian.kill_aurorian_mob.desc"
     },
     "icon": {
       "count": 1,
       "id": "theaurorian:silent_wood_sword"
     },
     "title": {
-      "translate": "advancement.theaurorian.not_friendly.title"
+      "translate": "advancement.theaurorian.kill_aurorian_mob.title"
     }
   },
   "requirements": [
     [
-      "kill_aurorian_mob"
+      "killed_aurorian_mob"
     ]
   ],
   "sends_telemetry_event": true

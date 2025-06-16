@@ -1,4 +1,8 @@
 {
+  "advancement.theaurorian.enter_aurorian.desc": "进入极光维度",
+  "advancement.theaurorian.enter_aurorian.title": "异界的旅客?",
+  "advancement.theaurorian.kill_aurorian_mob.desc": "击杀极光世界的生物",
+  "advancement.theaurorian.kill_aurorian_mob.title": "并非友善",
   "biome.theaurorian.aurorian_beach": "极光沙滩",
   "biome.theaurorian.aurorian_forest": "谧树森林",
   "biome.theaurorian.aurorian_forest_hill": "谧树森林山丘",
@@ -8,6 +12,8 @@
   "biome.theaurorian.bright_moon_desert": "皓月沙漠",
   "biome.theaurorian.equinox_flower_plains": "彼岸花平原",
   "biome.theaurorian.filthy_ice_crystal_snowfield": "黯晶雪原",
+  "biome.theaurorian.filthy_ice_hills": "肮脏冰晶丘陵",
+  "biome.theaurorian.filthy_ice_mountain": "肮脏冰晶雪山",
   "biome.theaurorian.lavender_plains": "薰衣草平原",
   "biome.theaurorian.weeping_willow_forest": "垂柳森林",
   "block.theaurorian.alchemy_table": "炼药桌",
@@ -459,7 +465,7 @@
   "enchantment.theaurorian.lightning_damage": "雷电伤害",
   "enchantment.theaurorian.lightning_damage.desc": "根据对方穿戴的护甲数量造成额外伤害",
   "enchantment.theaurorian.lightning_resistance": "雷电抵御",
-  "enchantment.theaurorian.lightning_resistance.desc": "降低雷电魔咒造成的额外伤害，同时完全抵消被雷击中的伤害",
+  "enchantment.theaurorian.lightning_resistance.desc": "降低\"雷电\"魔咒造成的额外伤害，同时完全抵消被雷击中的伤害",
   "enchantment.theaurorian.molten_core": "熔火之心",
   "enchantment.theaurorian.molten_core.desc": "受到火焰伤害或熔岩伤害时，会造成额外伤害",
   "enchantment.theaurorian.moonlight": "月光",
@@ -800,6 +806,7 @@
   "message.block.theaurorian.set_spawn": "已设置在极光幽境的出生点",
   "message.source_of_terra.bind": "§a您已绑定该容器！",
   "message.source_of_terra.changed": "§e绑定的容器已被更改！",
+  "message.source_of_terra.destroy": "§c你绑定的容器已被破坏！",
   "message.source_of_terra.invalid": "§c绑定的容器无效或已被破坏！",
   "message.source_of_terra.unbind": "§b您已取消绑定该容器！",
   "message.theaurorian.crystalline_sword.charging_low_durability": "§c警告：耐久度不足，无法使用超级光束！",
@@ -972,9 +979,5 @@
   "tooltips.theaurorian.rune_game.player": "玩家：",
   "tooltips.theaurorian.rune_game.status": "符石游戏状态：",
   "tooltips.theaurorian.rune_game.undone": "未完成",
-  "tooltips.theaurorian.source_of_terra.dimension": "容器所在的维度：",
-  "advancement.theaurorian.first_traveler.title": "异界的旅客?",
-  "advancement.theaurorian.first_traveler.desc": "进入极光维度",
-  "advancement.theaurorian.not_friendly.title": "并非友善",
-  "advancement.theaurorian.not_friendly.desc": "击杀极光世界的生物"
+  "tooltips.theaurorian.source_of_terra.dimension": "容器所在的维度："
 }

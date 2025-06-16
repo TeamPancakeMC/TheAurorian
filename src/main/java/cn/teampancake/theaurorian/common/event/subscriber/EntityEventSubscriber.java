@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.MysteriumWoolBed;
 import cn.teampancake.theaurorian.common.components.SourceOfTerra;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAMobEffectTags;
@@ -15,7 +16,6 @@ import cn.teampancake.theaurorian.common.entities.projectile.ThrownAxe;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
-import cn.teampancake.theaurorian.common.items.tool.AurorianSteelSword;
 import cn.teampancake.theaurorian.common.level.TAServerPlayer;
 import cn.teampancake.theaurorian.common.level.effect.CorruptionEffectInstance;
 import cn.teampancake.theaurorian.common.network.FrostbiteS2CPacket;
@@ -36,6 +36,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
@@ -70,7 +71,9 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.portal.DimensionTransition;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -97,7 +100,7 @@ public class EntityEventSubscriber {
     public static void onPlayerTicking(PlayerTickEvent.Post event) {
         if (event.getEntity() instanceof ServerPlayer player && player.level() instanceof ServerLevel level) {
             boolean noImmuneEffect = !player.hasEffect(TAMobEffects.WARM) && !player.hasEffect(TAMobEffects.FROSTBITE);
-            boolean isSnowField = level.getBiome(player.blockPosition()).is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD);
+            boolean isSnowField = level.getBiome(player.blockPosition()).is(TABiomeTags.IS_FILTHY_ICE);
             if (!player.isCreative() && !player.isSpectator() && !MysteriumWoolArmor.isWearFullArmor(player)) {
                 if (noImmuneEffect && isSnowField && player.tickCount % 60 == 0) {
                     player.setData(TAAttachmentTypes.TICKS_FROSTBITE, 140);
@@ -178,6 +181,7 @@ public class EntityEventSubscriber {
         Holder<Enchantment> enchantment = TAEnchantments.get(level, TAEnchantments.ROUNDABOUT_THROW);
         int enchantmentLevel = EnchantmentUtils.getEnchantmentLevel(enchantment, player);
         if (stack.getItem() instanceof AxeItem && enchantmentLevel > 0) {
+            player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
             if (!level.isClientSide) {
                 Inventory inventory = player.getInventory();
                 player.setItemInHand(event.getHand(), ItemStack.EMPTY);
@@ -194,8 +198,6 @@ public class EntityEventSubscriber {
                 entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 0.0F);
                 level.addFreshEntity(entity);
             }
-
-            player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
         }
     }
 
@@ -213,7 +215,7 @@ public class EntityEventSubscriber {
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof Cat cat) {
             Predicate<ItemStack> items = stack -> stack.is(TAItems.CAT_BELL);
-            TemptGoal temptGoal = new TemptGoal(cat, (1.25F), items, Boolean.FALSE);
+            TemptGoal temptGoal = new TemptGoal(cat, 1.25F, items, Boolean.FALSE);
             cat.goalSelector.addGoal(0, temptGoal);
         }
     }
@@ -244,7 +246,7 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onLivingTick(EntityTickEvent.Pre event) {
+    public static void onEntityPreTick(EntityTickEvent.Pre event) {
         if (event.getEntity() instanceof LivingEntity entity) {
             Level level = entity.level();
             if (!level.isClientSide()) {
@@ -262,6 +264,43 @@ public class EntityEventSubscriber {
                     if (entity instanceof ServerPlayer serverPlayer) {
                         PacketDistributor.sendToPlayer(serverPlayer, new FrostbiteS2CPacket(i));
                     }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityPostTick(EntityTickEvent.Post event) {
+        if (event.getEntity() instanceof AbstractArrow arrow) {
+            Level level = arrow.level();
+            int life = arrow.life;
+            ItemStack weaponItem = arrow.getWeaponItem();
+            boolean flag = arrow.getData(TAAttachmentTypes.CAN_SPAWN_OTHER_ARROW);
+            List<Vec3> vec3s = arrow.getData(TAAttachmentTypes.ARROWS_SPAWN_VEC3);
+            if (!level.isClientSide && flag) {
+                arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
+                if (!vec3s.isEmpty() && life < vec3s.size() && vec3s.get(life) != Vec3.ZERO) {
+                    Entity entity = arrow.getType().create(level);
+                    if (entity instanceof AbstractArrow copyOfArrow) {
+                        copyOfArrow.setUUID(Mth.createInsecureUUID());
+                        copyOfArrow.setDeltaMovement(0, -3.0D, 0);
+                        copyOfArrow.setPos(vec3s.get(life));
+                        copyOfArrow.setCritArrow(true);
+                        copyOfArrow.firedFromWeapon = weaponItem;
+                        level.addFreshEntity(copyOfArrow);
+                    }
+                }
+            }
+
+            if (!level.isClientSide && weaponItem != null && !weaponItem.is(TAItems.SILENT_WOOD_BOW)) {
+                if (flag && life > arrow.getData(TAAttachmentTypes.TIME_UNTIL_PLAYER_CAN_PICKUP)) {
+                    arrow.pickup = AbstractArrow.Pickup.ALLOWED;
+                } else {
+                    arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
+                }
+
+                if (!flag && arrow.inGround) {
+                    arrow.life = 1100;
                 }
             }
         }
@@ -466,7 +505,7 @@ public class EntityEventSubscriber {
         if (sourceEntity instanceof MoonQueen moonQueen) {
             moonQueen.safeTime = 0;
             Holder<MobEffect> effect = TAMobEffects.MOON_BEFALL;
-            if (entity instanceof ServerPlayer player) {
+            if (entity instanceof Player player) {
                 if (moonQueen.hasEffect(effect)) {
                     moonQueen.removeEffect(effect);
                 }
@@ -498,7 +537,7 @@ public class EntityEventSubscriber {
         if (entity instanceof ServerPlayer player) {
             Level level = player.level();
             ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
-            Holder<Enchantment> enchantment = TAEnchantments.get(entity.level(), TAEnchantments.GUARDIAN);
+            Holder<Enchantment> enchantment = TAEnchantments.get(level, TAEnchantments.GUARDIAN);
             int enchantmentLevel = chestItem.getEnchantmentLevel(enchantment);
             if (enchantmentLevel > 0 && !player.getAbilities().instabuild) {
                 player.setHealth(player.getMaxHealth());
@@ -516,11 +555,19 @@ public class EntityEventSubscriber {
             spiderMother.heal(entity.getMaxHealth());
         }
 
-        if (sourceEntity instanceof ServerPlayer serverPlayer) {
-            ItemStack stack = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+        if (sourceEntity instanceof Player player) {
+            ItemStack stack = player.getUseItem();
             if (stack.is(TAItems.TSLAT_SWORD.get())) {
                 DataComponentType<Integer> type = TADataComponents.KILL_COUNT.get();
                 stack.set(type, stack.getOrDefault(type, 0) + 1);
+            }
+
+            if (stack.is(TAItems.AURORIAN_STEEL_SWORD)) {
+                MobEffectInstance holinessEffect = player.getEffect(TAMobEffects.HOLINESS);
+                boolean flag = entity.getType().is(EntityTypeTags.UNDEAD);
+                if (holinessEffect != null) {
+                    holinessEffect.duration += flag ? 60 : 30;
+                }
             }
         }
     }
@@ -533,7 +580,7 @@ public class EntityEventSubscriber {
             event.setCanceled(true);
         }
 
-        if ((entity instanceof AgeableMob || entity instanceof NeutralMob) && sourceEntity instanceof ServerPlayer player) {
+        if ((entity instanceof AgeableMob || entity instanceof NeutralMob) && sourceEntity instanceof Player player) {
             Holder<Enchantment> enchantment = TAEnchantments.get(entity.level(), TAEnchantments.SAVAGE);
             int level = EnchantmentUtils.getEnchantmentLevel(enchantment, player);
             if (level > 0 && player.getRandom().nextFloat() <= level * 0.1F) {
@@ -550,20 +597,11 @@ public class EntityEventSubscriber {
             event.setCanceled(true);
         }
 
-        if (target.isAlive() && source.getEntity() instanceof ServerPlayer player) {
+        if (target.isAlive() && source.getEntity() instanceof Player player) {
             ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(source)) {
                 int count = Mth.clamp(stack.getOrDefault(TADataComponents.KILL_COUNT, 0), 0, 20);
                 target.setHealth(target.getHealth() - count * 0.05F);
-            }
-        }
-
-        if (source.getEntity() instanceof Player player && player.hasEffect(TAMobEffects.HOLINESS)
-                && player.getMainHandItem().getItem() instanceof AurorianSteelSword) {
-            MobEffectInstance holinessEffect = player.getEffect(TAMobEffects.HOLINESS);
-            if (holinessEffect != null) {
-                holinessEffect.duration += 30;
-                player.addEffect(holinessEffect);
             }
         }
     }
@@ -589,7 +627,8 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onProjectileImpact(ProjectileImpactEvent event) {
-        if (event.getRayTraceResult() instanceof EntityHitResult result) {
+        HitResult rayTraceResult = event.getRayTraceResult();
+        if (rayTraceResult instanceof EntityHitResult result) {
             Projectile projectile = event.getProjectile();
             if (result.getEntity() instanceof LivingEntity livingEntity) {
                 boolean flag = projectile instanceof ThrownEgg || projectile instanceof Snowball;
@@ -602,6 +641,36 @@ public class EntityEventSubscriber {
                     if (weaponItem != null && weaponItem.is(TAItems.KEEPERS_BOW)) {
                         livingEntity.invulnerableTime = 0;
                     }
+                }
+            }
+        }
+
+        if (rayTraceResult instanceof BlockHitResult result) {
+            Projectile projectile = event.getProjectile();
+            if (projectile instanceof AbstractArrow arrow) {
+                ItemStack weaponItem = arrow.getWeaponItem();
+                if (weaponItem != null && weaponItem.is(TAItems.SILENT_WOOD_BOW)) {
+                    List<Vec3> list = new ArrayList<>(20);
+                    RandomSource random = arrow.level().random;
+                    Vec3 hitVec = result.getLocation();
+                    int index = 0;
+                    for (int i = 0; i < 50; i++) {
+                        index += random.nextInt(3) + 1;
+                        double angle = random.nextDouble() * Math.PI * 2;
+                        double distance = random.nextDouble() * 5.0D;
+                        double x = hitVec.x + Math.cos(angle) * distance;
+                        double z = hitVec.z + Math.sin(angle) * distance;
+                        double y = hitVec.y + 10.0D;
+                        while (list.size() <= index) {
+                            list.add(Vec3.ZERO);
+                        }
+
+                        list.set(index, new Vec3(x, y, z));
+                    }
+
+                    arrow.setData(TAAttachmentTypes.TIME_UNTIL_PLAYER_CAN_PICKUP, index);
+                    arrow.setData(TAAttachmentTypes.CAN_SPAWN_OTHER_ARROW, true);
+                    arrow.setData(TAAttachmentTypes.ARROWS_SPAWN_VEC3, list);
                 }
             }
         }

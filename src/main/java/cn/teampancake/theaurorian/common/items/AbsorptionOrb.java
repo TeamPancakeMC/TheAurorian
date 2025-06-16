@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.items;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
@@ -12,6 +13,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -23,6 +26,11 @@ public class AbsorptionOrb extends Item {
                 .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+    }
+
+    @Override
+    public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
+        return enchantment.is(Enchantments.UNBREAKING) || enchantment.is(Enchantments.MENDING) || super.supportsEnchantment(stack, enchantment);
     }
 
     @Override

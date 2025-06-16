@@ -63,7 +63,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleBlockItemWithParent(TABlocks.RUNE_STONE_BARS.get());
         this.simpleBlockItemWithParent(TABlocks.DARK_STONE_BARS.get());
         this.simpleBlockItemWithParent(TABlocks.MOON_TEMPLE_BARS.get());
-        this.withExistingParent(this.blockName(TABlocks.SILENT_WOOD_CHEST.get()), this.mcLoc("item/chest"))
+        this.withExistingParent(this.blockName(TABlocks.AURORIAN_CHEST.get()), this.mcLoc("item/chest"))
                 .texture("particle", this.modLoc("block/" + this.blockName(TABlocks.SILENT_TREE_PLANKS.get())));
         this.withExistingParent(this.blockName(TABlocks.MOON_GLASS_PANE.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.blockName(TABlocks.MOON_GLASS.get())));

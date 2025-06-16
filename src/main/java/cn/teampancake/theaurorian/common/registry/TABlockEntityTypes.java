@@ -3,7 +3,7 @@ package cn.teampancake.theaurorian.common.registry;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.renderer.block.MoonlightForgeRenderer;
 import cn.teampancake.theaurorian.client.renderer.block.SilentCampfireRender;
-import cn.teampancake.theaurorian.client.renderer.block.SilentWoodChestRenderer;
+import cn.teampancake.theaurorian.client.renderer.block.AurorianChestRenderer;
 import cn.teampancake.theaurorian.common.blocks.entity.*;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
@@ -27,8 +27,8 @@ public class TABlockEntityTypes {
             () -> BlockEntityType.Builder.of(MoonlightForgeBlockEntity::new, TABlocks.MOONLIGHT_FORGE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ScrapperBlockEntity>> SCRAPPER = BLOCK_ENTITY_TYPES.register("scrapper",
             () -> BlockEntityType.Builder.of(ScrapperBlockEntity::new, TABlocks.SCRAPPER.get()).build(null));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SilentWoodChestBlockEntity>> SILENT_WOOD_CHEST = BLOCK_ENTITY_TYPES.register("silent_wood_chest",
-            () -> BlockEntityType.Builder.of(SilentWoodChestBlockEntity::new, TABlocks.SILENT_WOOD_CHEST.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AurorianChestBlockEntity>> AURORIAN_CHEST = BLOCK_ENTITY_TYPES.register("aurorian_chest",
+            () -> BlockEntityType.Builder.of(AurorianChestBlockEntity::new, TABlocks.AURORIAN_CHEST.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SilentWoodCraftingBlockEntity>> SILENT_WOOD_CRAFTING_TABLE = BLOCK_ENTITY_TYPES.register("silent_wood_crafting_table",
             () -> BlockEntityType.Builder.of(SilentWoodCraftingBlockEntity::new, TABlocks.AURORIAN_CRAFTING_TABLE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SilentCampfireBlockEntity>> SILENT_CAMPFIRE =  BLOCK_ENTITY_TYPES.register("silent_campfire",
@@ -58,7 +58,7 @@ public class TABlockEntityTypes {
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(SILENT_WOOD_CHEST.get(), SilentWoodChestRenderer::new);
+        event.registerBlockEntityRenderer(AURORIAN_CHEST.get(), AurorianChestRenderer::new);
         event.registerBlockEntityRenderer(MOONLIGHT_FORGE.get(), MoonlightForgeRenderer::new);
         event.registerBlockEntityRenderer(SILENT_CAMPFIRE.get(), SilentCampfireRender::new);
         event.registerBlockEntityRenderer(TA_HANGING_SIGN.get(), HangingSignRenderer::new);

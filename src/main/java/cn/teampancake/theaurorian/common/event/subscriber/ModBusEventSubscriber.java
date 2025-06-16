@@ -6,7 +6,7 @@ import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
-import cn.teampancake.theaurorian.common.items.SilentWoodChestItem;
+import cn.teampancake.theaurorian.common.items.AurorianChestItem;
 import cn.teampancake.theaurorian.common.items.weapon.CrystallineSword;
 import cn.teampancake.theaurorian.common.network.*;
 import cn.teampancake.theaurorian.common.registry.*;
@@ -88,7 +88,7 @@ public class ModBusEventSubscriber {
     @SubscribeEvent
     public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
         event.registerItem(new CrystallineSword.CrystallineSwordUseAnim(), TAItems.CRYSTALLINE_SWORD);
-        event.registerItem(new SilentWoodChestItem.RenderChestItem(), TAItems.SILENT_WOOD_CHEST);
+        event.registerItem(new AurorianChestItem.RenderChestItem(), TAItems.AURORIAN_CHEST);
     }
 
     @OnlyIn(Dist.CLIENT)

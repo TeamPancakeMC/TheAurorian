@@ -80,6 +80,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TABlocks.AURORIAN_WATER_MUSHROOM, "极光水菇");
         this.addKey(TABlocks.AURORIAN_FURNACE, "极光熔炉");
         this.addKey(TABlocks.AURORIAN_FURNACE_CHIMNEY, "极光熔炉孔道");
+        this.addKey(TABlocks.AURORIAN_CHEST, "极光箱子");
         this.addKey(TABlocks.AURORIAN_CRAFTING_TABLE, "极光工作台");
         this.addKey(TABlocks.AURORIAN_PORTAL, "极光传送门");
         this.addKey(TABlocks.AURORIAN_PORTAL_FRAME_BRICKS, "极光传送门框架");
@@ -211,7 +212,6 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TABlocks.SILENT_TREE_WOOD, "谧树木头");
         this.addKey(TABlocks.SILENT_TREE_SAPLING, "谧树树苗");
         this.addKey(TABlocks.SILENT_WOOD_TORCH, "谧木火把");
-        this.addKey(TABlocks.SILENT_WOOD_CHEST, "谧木箱子");
         this.addKey(TABlocks.SILENT_WOOD_LADDER, "谧木梯子");
         this.addKey(TABlocks.SILENT_WOOD_SIGN, "谧木告示牌");
         this.addKey(TABlocks.SILENT_WOOD_HANGING_SIGN, "悬挂式谧木告示牌");

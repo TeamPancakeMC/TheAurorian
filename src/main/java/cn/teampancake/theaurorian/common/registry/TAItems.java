@@ -471,7 +471,7 @@ public class TAItems {
             () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_LILY_PAD.get(), new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.BUILDING_BLOCK))));
     public static final DeferredHolder<Item, Item> AURORIAN_WATER_MUSHROOM = ITEMS.register("aurorian_water_mushroom",
             () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_WATER_MUSHROOM.get(), new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.BUILDING_BLOCK))));
-    public static final DeferredHolder<Item, Item> SILENT_WOOD_CHEST = ITEMS.register("silent_wood_chest", SilentWoodChestItem::new);
+    public static final DeferredHolder<Item, Item> AURORIAN_CHEST = ITEMS.register("aurorian_chest", AurorianChestItem::new);
     public static final DeferredHolder<Item, Item> MOON_TORCH = ITEMS.register("moon_torch", () -> new StandingAndWallBlockItem(
             TABlocks.MOON_TORCH.get(), TABlocks.MOON_WALL_TORCH.get(), new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.BUILDING_BLOCK)), Direction.DOWN));
     public static final DeferredHolder<Item, Item> SILENT_WOOD_TORCH = ITEMS.register("silent_wood_torch", () -> new StandingAndWallBlockItem(

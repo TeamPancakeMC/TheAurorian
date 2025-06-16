@@ -65,6 +65,7 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> AURORIAN_FURNACE = register("aurorian_furnace", () -> new AurorianFurnace(defaultStoneProperties(3.5F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF)));
     public static final DeferredHolder<Block, Block> AURORIAN_FURNACE_CHIMNEY = register("aurorian_furnace_chimney", () -> new AurorianFurnaceChimney(
             defaultStoneProperties(2.0F).addBlockTag(BlockTags.MINEABLE_WITH_PICKAXE).lootType(TALootType.SELF)));
+    public static final DeferredHolder<Block, Block> AURORIAN_CHEST = BLOCKS.register("aurorian_chest", AurorianChest::new);
     public static final DeferredHolder<Block, Block> AURORIAN_CRAFTING_TABLE = register("aurorian_crafting_table", AurorianCraftingTable::new);
     public static final DeferredHolder<Block, Block> AURORIAN_PORTAL = BLOCKS.register("aurorian_portal", () -> new AurorianPortal(ofFullCopy(Blocks.NETHER_PORTAL)));
     public static final DeferredHolder<Block, Block> AURORIAN_PORTAL_FRAME_BRICKS = normal("aurorian_portal_frame_bricks",
@@ -213,7 +214,6 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> SILENT_TREE_SAPLING = register("silent_tree_sapling", () -> new SaplingBlock(TATreeGrower.SILENT_TREE, ofFullCopy(Blocks.OAK_SAPLING).addBlockTag(BlockTags.SAPLINGS).lootType(TALootType.SELF)));
     public static final DeferredHolder<Block, Block> SILENT_WOOD_TORCH = BLOCKS.register("silent_wood_torch", () -> new TorchBlock(ParticleTypes.FLAME, ofFullCopy(Blocks.TORCH).addBlockTag(BlockTags.WALL_POST_OVERRIDE).lootType(TALootType.SELF)));
     public static final DeferredHolder<Block, Block> SILENT_WOOD_WALL_TORCH = BLOCKS.register("silent_wood_wall_torch", () -> new WallTorchBlock(ParticleTypes.FLAME, ofFullCopy(Blocks.WALL_TORCH)));
-    public static final DeferredHolder<Block, Block> SILENT_WOOD_CHEST = BLOCKS.register("silent_wood_chest", SilentWoodChest::new);
     public static final DeferredHolder<Block, Block> SILENT_WOOD_LADDER = register("silent_wood_ladder", () -> new LadderBlock(ofFullCopy(Blocks.LADDER).addBlockTag(BlockTags.CLIMBABLE).lootType(TALootType.SELF)));
     public static final DeferredHolder<Block, Block> SILENT_WOOD_SIGN = BLOCKS.register("silent_wood_sign", () -> new TAStandingSignBlock(ofFullCopy(Blocks.OAK_SIGN).addBlockTag(BlockTags.STANDING_SIGNS), TAWoodType.SILENT));
     public static final DeferredHolder<Block, Block> SILENT_WOOD_WALL_SIGN = BLOCKS.register("silent_wood_wall_sign", () -> new TAWallSignBlock(ofFullCopy(Blocks.OAK_SIGN).addBlockTag(BlockTags.WALL_SIGNS), TAWoodType.SILENT));

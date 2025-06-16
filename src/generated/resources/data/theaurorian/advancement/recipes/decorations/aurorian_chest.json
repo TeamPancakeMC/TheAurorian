@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "theaurorian:silent_wood_chest"
+        "recipe": "theaurorian:aurorian_chest"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "theaurorian:silent_wood_chest"
+      "theaurorian:aurorian_chest"
     ]
   }
 }

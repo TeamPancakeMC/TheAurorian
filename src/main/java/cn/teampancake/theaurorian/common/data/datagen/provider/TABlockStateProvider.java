@@ -42,7 +42,7 @@ public class TABlockStateProvider extends BlockStateProvider {
         this.registerLargeFilthyIceSpike();
         this.registerSilentWoodLadderState();
         TACommonUtils.getKnownBlockStream().filter(block -> block.properties() instanceof TABlockProperties properties && properties.isSimpleModelBlock).forEach(this::simpleBlock);
-        this.simpleBlock(TABlocks.SILENT_WOOD_CHEST.get(), this.models().getBuilder(this.name(TABlocks.SILENT_WOOD_CHEST.get()))
+        this.simpleBlock(TABlocks.AURORIAN_CHEST.get(), this.models().getBuilder(this.name(TABlocks.AURORIAN_CHEST.get()))
                 .texture("particle", this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_PLANKS.get()))));
         this.simpleBlock(TABlocks.SILENT_WOOD_TORCH.get(), this.models().torch(this.name(TABlocks.SILENT_WOOD_TORCH.get()),
                 this.blockTexture(TABlocks.SILENT_WOOD_TORCH.get())).renderType(CUTOUT));

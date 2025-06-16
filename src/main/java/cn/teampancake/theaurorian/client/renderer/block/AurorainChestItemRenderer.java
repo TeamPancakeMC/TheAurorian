@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer.block;
 
-import cn.teampancake.theaurorian.common.blocks.SilentWoodChest;
-import cn.teampancake.theaurorian.common.blocks.entity.SilentWoodChestBlockEntity;
+import cn.teampancake.theaurorian.common.blocks.AurorianChest;
+import cn.teampancake.theaurorian.common.blocks.entity.AurorianChestBlockEntity;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -16,9 +16,9 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class SilentWoodChestItemRenderer extends BlockEntityWithoutLevelRenderer {
+public class AurorainChestItemRenderer extends BlockEntityWithoutLevelRenderer {
 
-    public SilentWoodChestItemRenderer() {
+    public AurorainChestItemRenderer() {
         super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
     }
 
@@ -27,9 +27,9 @@ public class SilentWoodChestItemRenderer extends BlockEntityWithoutLevelRenderer
 
     @Override
     public void renderByItem(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
-        if (Block.byItem(stack.getItem()) instanceof SilentWoodChest) {
-            SilentWoodChestBlockEntity silentWoodChest = new SilentWoodChestBlockEntity(BlockPos.ZERO, TABlocks.SILENT_WOOD_CHEST.get().defaultBlockState());
-            Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(silentWoodChest, poseStack, buffer, packedLight, packedOverlay);
+        if (Block.byItem(stack.getItem()) instanceof AurorianChest) {
+            AurorianChestBlockEntity aurorianChest = new AurorianChestBlockEntity(BlockPos.ZERO, TABlocks.AURORIAN_CHEST.get().defaultBlockState());
+            Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(aurorianChest, poseStack, buffer, packedLight, packedOverlay);
         } else {
             super.renderByItem(stack, displayContext, poseStack, buffer, packedLight, packedOverlay);
         }

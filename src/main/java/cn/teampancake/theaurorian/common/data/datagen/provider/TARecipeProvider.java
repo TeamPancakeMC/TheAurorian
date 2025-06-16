@@ -132,7 +132,7 @@ public class TARecipeProvider extends RecipeProvider {
                 .define('X', TAItemTags.AURORIAN_PLANKS)
                 .pattern("###").pattern("XXX").group("bed")
                 .unlockedBy(getHasName(TABlocks.MYSTERIUM_WOOL.get()), has(TABlocks.MYSTERIUM_WOOL.get())).save(recipeOutput);
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.SILENT_WOOD_CHEST.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TABlocks.AURORIAN_CHEST.get())
                 .define('#', TABlocks.SILENT_TREE_PLANKS.get()).define('X', Blocks.CHEST)
                 .pattern("###").pattern("#X#").pattern("###")
                 .unlockedBy("has_lots_of_items", CriteriaTriggers.INVENTORY_CHANGED

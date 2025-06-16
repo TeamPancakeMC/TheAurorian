@@ -21,6 +21,7 @@ public class TABiomeTagsProvider extends BiomeTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         this.tag(TABiomeTags.HAS_RUINS_ALTAR).add(TABiomes.AURORIAN_FOREST, TABiomes.AURORIAN_FOREST_HILL);
+        this.tag(TABiomeTags.IS_FILTHY_ICE).add(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD, TABiomes.FILTHY_ICE_MOUNTAIN, TABiomes.FILTHY_ICE_HILLS);
         this.tag(TABiomeTags.IS_AUARORIAN_FOREST).add(TABiomes.AURORIAN_FOREST,
                 TABiomes.AURORIAN_FOREST_HILL, TABiomes.WEEPING_WILLOW_FOREST);
         provider.lookupOrThrow(Registries.BIOME).listElementIds()

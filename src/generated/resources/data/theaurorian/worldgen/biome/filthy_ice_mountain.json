@@ -72,9 +72,9 @@
     "creature": [
       {
         "type": "theaurorian:icefield_deer",
-        "maxCount": 4,
-        "minCount": 2,
-        "weight": 30
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 20
       },
       {
         "type": "theaurorian:blue_tail_wolf",
@@ -107,7 +107,7 @@
         "type": "theaurorian:snow_tundra_giant_crab",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 15
+        "weight": 10
       }
     ],
     "underground_water_creature": [],
@@ -115,4 +115,4 @@
     "water_creature": []
   },
   "temperature": -1.0
-} 
+}

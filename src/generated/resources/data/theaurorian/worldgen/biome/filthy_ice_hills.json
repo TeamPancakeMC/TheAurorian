@@ -72,15 +72,21 @@
     "creature": [
       {
         "type": "theaurorian:icefield_deer",
-        "maxCount": 4,
-        "minCount": 2,
-        "weight": 30
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 20
       },
       {
         "type": "theaurorian:blue_tail_wolf",
         "maxCount": 3,
         "minCount": 1,
         "weight": 20
+      },
+      {
+        "type": "theaurorian:icefield_deer",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 30
       }
     ],
     "misc": [],
@@ -115,4 +121,4 @@
     "water_creature": []
   },
   "temperature": -0.8
-} 
+}

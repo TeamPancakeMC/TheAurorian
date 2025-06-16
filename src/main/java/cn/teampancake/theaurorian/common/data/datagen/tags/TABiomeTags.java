@@ -8,6 +8,7 @@ import net.minecraft.world.level.biome.Biome;
 public class TABiomeTags {
 
     public static final TagKey<Biome> IS_AURORIAN = create("is_aurorian");
+    public static final TagKey<Biome> IS_FILTHY_ICE = create("is_filthy_ice");
     public static final TagKey<Biome> HAS_RUINS_ALTAR = create("has_ruins_altar");
     public static final TagKey<Biome> IS_AUARORIAN_FOREST = create("is_aurorian_forest");
 

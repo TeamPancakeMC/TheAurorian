@@ -305,7 +305,9 @@
                         "if_true": {
                           "type": "minecraft:biome",
                           "biome_is": [
-                            "theaurorian:filthy_ice_crystal_snowfield"
+                            "theaurorian:filthy_ice_crystal_snowfield",
+                            "theaurorian:filthy_ice_mountain",
+                            "theaurorian:filthy_ice_hills"
                           ]
                         },
                         "then_run": {

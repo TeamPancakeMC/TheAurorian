@@ -45,7 +45,7 @@ public class TADimensions {
     public static void bootstrapType(BootstrapContext<DimensionType> context) {
         DimensionType dimensionType = new DimensionType(OptionalLong.empty(), Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, 1.0D,
                 Boolean.TRUE, Boolean.FALSE, -64, 384, 384, BlockTags.INFINIBURN_OVERWORLD, TheAurorian.prefix("aurorian"), 0.0F,
-                new DimensionType.MonsterSettings(Boolean.FALSE, Boolean.FALSE, UniformInt.of(ConstantInt.ZERO.getValue(), 7), ConstantInt.ZERO.getValue()));
+                new DimensionType.MonsterSettings(Boolean.FALSE, Boolean.FALSE, UniformInt.of(0, 7), ConstantInt.ZERO.getValue()));
         context.register(AURORIAN_DIMENSION_TYPE, dimensionType);
     }
 
@@ -66,16 +66,18 @@ public class TADimensions {
         RuleSource aurorianDirt = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_DIRT.get());
         RuleSource aurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_GRASS_BLOCK.get());
         RuleSource lightAurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get());
-        RuleSource snowaurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get());
+        RuleSource snowAurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get());
         RuleSource redAurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
         RuleSource brightMoonSand = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SAND.get());
         RuleSource brightMoonSandstone = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SANDSTONE.get());
         ConditionSource notUnderWater = waterBlockCheck(-1, ConstantInt.ZERO.getValue());
-        ConditionSource notUnderDeepWater = waterStartCheck(-6, (-1));
+        ConditionSource notUnderDeepWater = waterStartCheck(-6, -1);
         RuleSource overworldLike = sequence(
                 ifTrue(ON_FLOOR, sequence(ifTrue(notUnderWater, sequence(
                         ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST), lightAurorianGrassBlock),
-                        ifTrue(isBiome(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD), snowaurorianGrassBlock),
+                        ifTrue(isBiome(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD,
+                                TABiomes.FILTHY_ICE_MOUNTAIN,
+                                TABiomes.FILTHY_ICE_HILLS), snowAurorianGrassBlock),
                         ifTrue(isBiome(TABiomes.EQUINOX_FLOWER_PLAINS), redAurorianGrassBlock),
                         ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSand), aurorianGrassBlock)))),
                 ifTrue(notUnderDeepWater, sequence(ifTrue(UNDER_FLOOR, sequence(
@@ -92,7 +94,7 @@ public class TADimensions {
                 NoiseRouterData.getFunction(densityFunctions, NoiseRouterData.DEPTH));
         DensityFunction slopedCheeseFunction = NoiseRouterData.getFunction(densityFunctions, NoiseRouterData.SLOPED_CHEESE);
         DensityFunction densityfunction12 = DensityFunctions.min(slopedCheeseFunction,
-                DensityFunctions.mul(DensityFunctions.constant((5.0D)),
+                DensityFunctions.mul(DensityFunctions.constant(5.0D),
                 NoiseRouterData.getFunction(densityFunctions, NoiseRouterData.ENTRANCES)));
         DensityFunction densityfunction13 = DensityFunctions.rangeChoice(slopedCheeseFunction, (-1000000.0D), (1.5625D),
                 densityfunction12, NoiseRouterData.underground(densityFunctions, noiseParameters, slopedCheeseFunction));
@@ -103,7 +105,7 @@ public class TADimensions {
                 DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
                 DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
                 NoiseRouterData.slideOverworld(Boolean.FALSE, DensityFunctions.add(densityfunction10,
-                        DensityFunctions.constant((-0.703125D))).clamp((-64.0D), (64.0D))),
+                        DensityFunctions.constant(-0.703125D)).clamp(-64.0D, 64.0D)),
                 densityfunction14, DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero());
     }
 

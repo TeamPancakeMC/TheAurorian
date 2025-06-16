@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.client.renderer.level;
 
-import cn.teampancake.theaurorian.common.registry.TABiomes;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
@@ -40,7 +40,7 @@ public class TAWeatherRenderer {
                 double d0 = (double) levelRenderer.rainSizeX[l1] * 0.5D;
                 double d1 = (double) levelRenderer.rainSizeZ[l1] * 0.5D;
                 mutableBlockPos.set(k1, camY, j1);
-                if (level.getBiome(mutableBlockPos).is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD)) {
+                if (level.getBiome(mutableBlockPos).is(TABiomeTags.IS_FILTHY_ICE)) {
                     int i2 = level.getHeight(Heightmap.Types.MOTION_BLOCKING, k1, j1);
                     int j2 = j - l;
                     int k2 = j + l;

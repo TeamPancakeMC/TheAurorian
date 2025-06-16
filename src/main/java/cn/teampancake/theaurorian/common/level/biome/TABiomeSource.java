@@ -17,10 +17,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -87,19 +84,11 @@ public class TABiomeSource extends BiomeSource {
     public Optional<TATerrainColumn> getTerrainColumn(int x, int z) {
         ResourceKey<Biome> biomeKey = this.genBiomes.get().getBiome(x, z);
         TATerrainColumn column = this.biomeList.get(biomeKey);
-        if (column == null) {
-            TheAurorian.LOGGER.warn("找不到生物群系地形列 (getTerrainColumn x,z): {}", biomeKey);
-            return Optional.of(this.getDefaultTerrainColumn());
-        }
-        return Optional.of(column);
+        return Optional.of(Objects.requireNonNullElseGet(column, this::getDefaultTerrainColumn));
     }
 
     public Optional<TATerrainColumn> getTerrainColumn(ResourceKey<Biome> biome) {
-        Optional<TATerrainColumn> column = this.biomeList.values().stream().filter(p -> p.is(biome)).findFirst();
-        if (column.isEmpty()) {
-            TheAurorian.LOGGER.warn("找不到生物群系地形列 (getTerrainColumn): {}", biome);
-        }
-        return column;
+        return this.biomeList.values().stream().filter(p -> p.is(biome)).findFirst();
     }
 
     public <T> T getBiomeValue(ResourceKey<Biome> biome, Function<TATerrainColumn, T> function, T other) {
@@ -111,8 +100,6 @@ public class TABiomeSource extends BiomeSource {
         ResourceKey<Biome> biomeKey = this.genBiomes.get().getBiome(x, z);
         TATerrainColumn column = this.biomeList.get(biomeKey);
         if (column == null) {
-            // 如果找不到对应的地形列，记录日志并使用默认生物群系
-            TheAurorian.LOGGER.warn("找不到生物群系地形列: {}", biomeKey);
             column = this.getDefaultTerrainColumn();
         }
         return column.getBiome(y);
@@ -122,14 +109,9 @@ public class TABiomeSource extends BiomeSource {
         return this.genBiomeConfig;
     }
 
-    /**
-     * 获取默认生物群系，当找不到指定生物群系时使用
-     */
     private TATerrainColumn getDefaultTerrainColumn() {
-        // 优先使用极光森林作为默认生物群系
         TATerrainColumn defaultColumn = this.biomeList.get(TABiomes.AURORIAN_FOREST);
         if (defaultColumn == null) {
-            // 如果极光森林不存在，使用第一个可用的生物群系
             defaultColumn = this.biomeList.values().stream().findFirst().orElseThrow();
         }
         return defaultColumn;

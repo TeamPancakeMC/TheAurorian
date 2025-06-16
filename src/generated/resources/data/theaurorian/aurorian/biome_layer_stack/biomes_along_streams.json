@@ -16,17 +16,20 @@
                         "theaurorian:aurorian_forest_hill",
                         "theaurorian:filthy_ice_crystal_snowfield",
                         "theaurorian:cursed_frost_forest",
-                        "theaurorian:filthy_ice_hills"
+                        "theaurorian:filthy_ice_hills",
+                        "theaurorian:filthy_ice_mountain",
+                        "theaurorian:filthy_ice_hills",
+                        "theaurorian:filthy_ice_mountain",
+                        "theaurorian:filthy_ice_crystal_snowfield"
                       ],
                       "layer_type": "theaurorian:random_biomes",
-                      "rare_biome_chance": 15,
+                      "rare_biome_chance": 30,
                       "rare_biomes": [
                         "theaurorian:aurorian_lake",
                         "theaurorian:lavender_plains",
                         "theaurorian:weeping_willow_forest",
                         "theaurorian:bright_moon_desert",
-                        "theaurorian:equinox_flower_plains",
-                        "theaurorian:filthy_ice_mountain"
+                        "theaurorian:equinox_flower_plains"
                       ],
                       "salt": 1
                     },

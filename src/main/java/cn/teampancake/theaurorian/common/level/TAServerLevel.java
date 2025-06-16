@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.level;
 
+import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.core.BlockPos;
@@ -71,7 +72,7 @@ public class TAServerLevel {
         BlockPos heightmapPos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockPos);
         BlockPos belowPos = heightmapPos.below();
         Biome biome = level.getBiome(heightmapPos).value();
-        boolean flag = level.getBiome(belowPos).is(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD);
+        boolean flag = level.getBiome(belowPos).is(TABiomeTags.IS_FILTHY_ICE);
         if (level.isAreaLoaded(belowPos, 1) && biome.shouldFreeze(level, belowPos)) {
             Block block = flag ? TABlocks.FILTHY_ICE.get() : Blocks.ICE;
             level.setBlockAndUpdate(belowPos, block.defaultBlockState());

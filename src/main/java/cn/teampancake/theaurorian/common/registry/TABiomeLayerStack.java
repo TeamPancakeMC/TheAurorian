@@ -8,7 +8,6 @@ import cn.teampancake.theaurorian.common.level.legacy.layer.BiomeLayerFactory;
 import cn.teampancake.theaurorian.common.level.legacy.layer.BiomeLayerType;
 import cn.teampancake.theaurorian.common.level.legacy.layer.SmoothLayer;
 import cn.teampancake.theaurorian.common.level.legacy.layer.ZoomLayer;
-import cn.teampancake.theaurorian.common.registry.TABiomes;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;

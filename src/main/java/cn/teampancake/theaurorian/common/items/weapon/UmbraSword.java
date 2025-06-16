@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.items.tool;
+package cn.teampancake.theaurorian.common.items.weapon;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;

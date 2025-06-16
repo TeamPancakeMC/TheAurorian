@@ -7,7 +7,7 @@ import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.items.SilentWoodChestItem;
-import cn.teampancake.theaurorian.common.items.tool.CrystallineSword;
+import cn.teampancake.theaurorian.common.items.weapon.CrystallineSword;
 import cn.teampancake.theaurorian.common.network.*;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;

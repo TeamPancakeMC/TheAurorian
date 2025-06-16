@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.items;
+package cn.teampancake.theaurorian.common.items.weapon;
 
 import cn.teampancake.theaurorian.common.entities.projectile.CeruleanArrowEntity;
 import net.minecraft.world.entity.LivingEntity;

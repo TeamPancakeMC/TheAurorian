@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.items.tool;
+package cn.teampancake.theaurorian.common.items.weapon;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;

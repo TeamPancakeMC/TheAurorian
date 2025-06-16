@@ -1,6 +1,7 @@
-package cn.teampancake.theaurorian.common.items;
+package cn.teampancake.theaurorian.common.items.weapon;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.SimpleThrowProjectProjectile;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import net.minecraft.core.particles.ItemParticleOption;

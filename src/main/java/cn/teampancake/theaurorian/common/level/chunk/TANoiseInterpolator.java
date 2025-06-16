@@ -107,4 +107,5 @@ public class TANoiseInterpolator {
     public interface NoiseFiller {
         void fillNoiseColumn(RandomState random, double[] columns, int x, int z, int min, int max);
     }
+
 }

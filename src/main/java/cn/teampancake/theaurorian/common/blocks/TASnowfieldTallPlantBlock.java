@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
-@SuppressWarnings("deprecation")
 public class TASnowfieldTallPlantBlock extends DoublePlantBlock {
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;

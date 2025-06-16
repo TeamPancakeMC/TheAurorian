@@ -4,12 +4,15 @@ import cn.teampancake.theaurorian.common.blocks.AurorianFurnace;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
+import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.FurnaceMenu;
 import net.minecraft.world.item.ItemStack;
@@ -19,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
 
@@ -34,7 +38,7 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         int chimneyCount = 0;
         while (this.level != null && !(this.level.isEmptyBlock(this.worldPosition.above(y))) && chimneyCount < AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
             y++;
-            if (this.level.getBlockState(this.worldPosition.above(y)).getBlock() == TABlocks.AURORIAN_FURNACE_CHIMNEY.get()) {
+            if (this.level.getBlockState(this.worldPosition.above(y)).is(TABlocks.AURORIAN_FURNACE_CHIMNEY)) {
                 chimneyCount++;
             }
         }
@@ -103,6 +107,13 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         }
 
         if (flag1) {
+            if (level.getGameTime() % 20 == 0) {
+                AABB aabb = new AABB(pos).inflate(7).expandTowards(0.0, level.getHeight(), 0.0);
+                for (Player player : level.getEntitiesOfClass(Player.class, aabb)) {
+                    player.addEffect(new MobEffectInstance(TAMobEffects.WARM, 100));
+                }
+            }
+
             setChanged(level, pos, state);
         }
     }

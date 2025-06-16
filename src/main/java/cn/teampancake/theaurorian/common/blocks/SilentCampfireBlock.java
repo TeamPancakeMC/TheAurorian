@@ -28,18 +28,17 @@ public class SilentCampfireBlock extends CampfireBlock {
     }
 
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new SilentCampfireBlockEntity(pPos, pState);
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new SilentCampfireBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        if (pLevel.isClientSide) {
-            return pState.getValue(LIT) ? createTickerHelper(pBlockEntityType, TABlockEntityTypes.SILENT_CAMPFIRE.get(), CampfireBlockEntity::particleTick) : null;
-        } else {
-            return pState.getValue(LIT) ? createTickerHelper(pBlockEntityType, TABlockEntityTypes.SILENT_CAMPFIRE.get(), CampfireBlockEntity::cookTick) : createTickerHelper(pBlockEntityType, BlockEntityType.CAMPFIRE, CampfireBlockEntity::cooldownTick);
-        }
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+        BlockEntityTicker<T> particleTick = createTickerHelper(blockEntityType, TABlockEntityTypes.SILENT_CAMPFIRE.get(), CampfireBlockEntity::particleTick);
+        BlockEntityTicker<T> cooldownTick = createTickerHelper(blockEntityType, TABlockEntityTypes.SILENT_CAMPFIRE.get(), CampfireBlockEntity::cooldownTick);
+        BlockEntityTicker<T> cookTick = createTickerHelper(blockEntityType, TABlockEntityTypes.SILENT_CAMPFIRE.get(), SilentCampfireBlockEntity::cookTick);
+        return level.isClientSide ? (state.getValue(LIT) ? particleTick : null) : (state.getValue(LIT) ? cookTick : cooldownTick);
     }
 
 }

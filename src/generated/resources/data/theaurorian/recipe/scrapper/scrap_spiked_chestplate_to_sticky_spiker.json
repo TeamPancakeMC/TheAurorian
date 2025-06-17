@@ -1,11 +1,11 @@
 {
   "type": "theaurorian:scrapper",
-  "amount": 9,
+  "amount": 5,
   "ingredient": {
     "item": "theaurorian:spiked_chestplate"
   },
   "result": {
     "count": 1,
-    "id": "theaurorian:umbra_scrap"
+    "id": "theaurorian:sticky_spiker"
   }
 }

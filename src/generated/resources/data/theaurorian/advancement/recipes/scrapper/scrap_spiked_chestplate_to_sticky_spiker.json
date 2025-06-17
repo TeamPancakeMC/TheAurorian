@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_crystalline_sword": {
+    "has_spiked_chestplate": {
       "conditions": {
         "items": [
           {
-            "items": "theaurorian:crystalline_sword"
+            "items": "theaurorian:spiked_chestplate"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "theaurorian:scrap_crystalline_sword_to_umbra_scrap"
+        "recipe": "theaurorian:scrap_spiked_chestplate_to_sticky_spiker"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_crystalline_sword"
+      "has_spiked_chestplate"
     ]
   ],
   "rewards": {
     "recipes": [
-      "theaurorian:scrap_crystalline_sword_to_umbra_scrap"
+      "theaurorian:scrap_spiked_chestplate_to_sticky_spiker"
     ]
   }
 }

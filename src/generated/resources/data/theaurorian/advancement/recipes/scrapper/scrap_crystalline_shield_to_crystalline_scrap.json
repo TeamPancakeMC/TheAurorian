@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_living_divining_rod": {
+    "has_crystalline_shield": {
       "conditions": {
         "items": [
           {
-            "items": "theaurorian:living_divining_rod"
+            "items": "theaurorian:crystalline_shield"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "theaurorian:scrap_living_divining_rod_to_umbra_scrap"
+        "recipe": "theaurorian:scrap_crystalline_shield_to_crystalline_scrap"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_living_divining_rod"
+      "has_crystalline_shield"
     ]
   ],
   "rewards": {
     "recipes": [
-      "theaurorian:scrap_living_divining_rod_to_umbra_scrap"
+      "theaurorian:scrap_crystalline_shield_to_crystalline_scrap"
     ]
   }
 }

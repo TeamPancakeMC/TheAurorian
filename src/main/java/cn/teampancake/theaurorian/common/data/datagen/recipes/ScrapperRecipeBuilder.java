@@ -22,7 +22,7 @@ public class ScrapperRecipeBuilder implements RecipeBuilder {
     private final Ingredient ingredient;
     private final ItemStack result;
     private final int amount;
-    protected final ScrapperSerializer.Factory<?> factory;
+    private final ScrapperSerializer.Factory<?> factory;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
     public ScrapperRecipeBuilder(
@@ -46,7 +46,7 @@ public class ScrapperRecipeBuilder implements RecipeBuilder {
 
     @Override
     public RecipeBuilder group(@Nullable String groupName) {
-        return null;
+        return this;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ScrapperRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(RecipeOutput recipeOutput, ResourceLocation id) {
-        this.ensureValid(id);
+        if (this.criteria.isEmpty()) throw new IllegalStateException("No way of obtaining recipe " + id);
         Advancement.Builder builder = recipeOutput.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
                 .rewards(AdvancementRewards.Builder.recipe(id))
@@ -66,12 +66,6 @@ public class ScrapperRecipeBuilder implements RecipeBuilder {
         ResourceLocation r1 = id.withPrefix("scrapper/");
         ResourceLocation r2 = id.withPrefix("recipes/scrapper/");
         recipeOutput.accept(r1, recipe, builder.build(r2));
-    }
-
-    private void ensureValid(ResourceLocation id) {
-        if (this.criteria.isEmpty()) {
-            throw new IllegalStateException("No way of obtaining recipe " + id);
-        }
     }
 
 }

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_aurorianite_axe": {
+    "has_crystalline_pickaxe": {
       "conditions": {
         "items": [
           {
-            "items": "theaurorian:aurorianite_axe"
+            "items": "theaurorian:crystalline_pickaxe"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "theaurorian:scrap_aurorianite_axe_to_umbra_scrap"
+        "recipe": "theaurorian:scrap_crystalline_pickaxe_to_crystalline_scrap"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_aurorianite_axe"
+      "has_crystalline_pickaxe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "theaurorian:scrap_aurorianite_axe_to_umbra_scrap"
+      "theaurorian:scrap_crystalline_pickaxe_to_crystalline_scrap"
     ]
   }
 }

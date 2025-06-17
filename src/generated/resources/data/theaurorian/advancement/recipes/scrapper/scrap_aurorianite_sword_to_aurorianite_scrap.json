@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_crystalline_shield": {
+    "has_aurorianite_sword": {
       "conditions": {
         "items": [
           {
-            "items": "theaurorian:crystalline_shield"
+            "items": "theaurorian:aurorianite_sword"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "theaurorian:scrap_crystalline_shield_to_umbra_scrap"
+        "recipe": "theaurorian:scrap_aurorianite_sword_to_aurorianite_scrap"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_crystalline_shield"
+      "has_aurorianite_sword"
     ]
   ],
   "rewards": {
     "recipes": [
-      "theaurorian:scrap_crystalline_shield_to_umbra_scrap"
+      "theaurorian:scrap_aurorianite_sword_to_aurorianite_scrap"
     ]
   }
 }

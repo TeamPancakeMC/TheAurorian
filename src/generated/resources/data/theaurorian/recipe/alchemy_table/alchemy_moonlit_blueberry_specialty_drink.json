@@ -1,17 +1,35 @@
 {
   "type": "theaurorian:alchemy_table",
   "alchemy_time": 140,
-  "input1": {
-    "item": "theaurorian:lavender"
-  },
-  "input2": {
-    "item": "theaurorian:blueberry"
-  },
-  "input3": {
-    "item": "theaurorian:ice_calendula"
-  },
+  "ingredients": [
+    {
+      "item": "theaurorian:lavender"
+    },
+    {
+      "item": "theaurorian:blueberry"
+    },
+    {
+      "item": "theaurorian:ice_calendula"
+    }
+  ],
   "material": {
-    "item": "minecraft:potion"
+    "type": "neoforge:components",
+    "components": {
+      "minecraft:attribute_modifiers": {
+        "modifiers": []
+      },
+      "minecraft:enchantments": {
+        "levels": {}
+      },
+      "minecraft:lore": [],
+      "minecraft:max_stack_size": 1,
+      "minecraft:potion_contents": {
+        "potion": "minecraft:water"
+      },
+      "minecraft:rarity": "common",
+      "minecraft:repair_cost": 0
+    },
+    "items": "minecraft:potion"
   },
   "result": {
     "count": 1,

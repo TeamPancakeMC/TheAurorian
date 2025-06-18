@@ -1,34 +1,56 @@
 package cn.teampancake.theaurorian.common.items.crafting;
 
-import cn.teampancake.theaurorian.common.blocks.entity.AlchemyTableBlockEntity;
 import cn.teampancake.theaurorian.common.registry.TARecipes;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.Containers;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public record AlchemyTableRecipe(Ingredient input1, Ingredient input2, Ingredient input3, Ingredient material,
-                                 ItemStack result, int alchemyTime) implements Recipe<AlchemyTableRecipeInput> {
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public record AlchemyTableRecipe(NonNullList<Ingredient> ingredients, Ingredient material, ItemStack result, int alchemyTime) implements Recipe<AlchemyTableRecipeInput> {
 
     @Override
-    public boolean matches(AlchemyTableRecipeInput table, Level level) {
-        boolean b1 = false, b2 = false, b3 = false;
+    public boolean matches(AlchemyTableRecipeInput input, Level level) {
+        List<ItemStack> inputItems = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            ItemStack item = table.getItem(i);
-            if (item.isEmpty()) return false;
-            if (this.input1.test(item)) b1 = true;
-            else if (this.input2.test(item)) b2 = true;
-            else if (this.input3.test(item)) b3 = true;
+            ItemStack item = input.getItem(i);
+            if (!item.isEmpty()) {
+                inputItems.add(item);
+            }
         }
 
-        if (!b1 || !b2 || !b3) return false;
-        return this.material.test(table.getItem(3));
+        if (inputItems.size() != this.ingredients.size()) {
+            return false;
+        }
+
+        List<Ingredient> ingredientsCopy = new ArrayList<>(this.ingredients);
+        for (ItemStack stack : inputItems) {
+            boolean matched = false;
+            Iterator<Ingredient> it = ingredientsCopy.iterator();
+            while (it.hasNext()) {
+                Ingredient ing = it.next();
+                if (ing.test(stack)) {
+                    it.remove();
+                    matched = true;
+                    break;
+                }
+            }
+
+            if (!matched) {
+                return false;
+            }
+        }
+
+        return this.material.test(input.getItem(3));
     }
 
     @Override
     public ItemStack assemble(AlchemyTableRecipeInput table, HolderLookup.Provider registries) {
-        return this.result.copy();
+        return this.getResultItem(registries);
     }
 
     @Override
@@ -49,27 +71,6 @@ public record AlchemyTableRecipe(Ingredient input1, Ingredient input2, Ingredien
     @Override
     public RecipeType<?> getType() {
         return TARecipes.ALCHEMY_TABLE_RECIPE.get();
-    }
-
-    public void consumeIngredients(AlchemyTableBlockEntity table) {
-        for (int i = 0; i < 4; i++) {
-            var item = table.getItem(i);
-            if (item.hasCraftingRemainingItem()) {
-                Level level = table.getLevel();
-                if (item.getCount() == 1) {
-                    table.setItem(i, item.getCraftingRemainingItem());
-                } else {
-                    if (level != null) {
-                        Containers.dropItemStack(level,
-                                table.getBlockPos().getX() + 0.5,
-                                table.getBlockPos().getY() + 1.2,
-                                table.getBlockPos().getZ() + 0.5,
-                                item.getCraftingRemainingItem());
-                        item.shrink(1);
-                    }
-                }
-            } else item.shrink(1);
-        }
     }
 
 }

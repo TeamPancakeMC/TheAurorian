@@ -29,7 +29,6 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBlock {
 
     public static final EnumProperty<AlchemyTablePart> PART = EnumProperty.create("part", AlchemyTablePart.class);

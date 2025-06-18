@@ -69,6 +69,7 @@ public class TheAurorian {
         TALootItemConditions.LOOT_CONDITION_TYPES.register(modEventBus);
         TABiomeLayers.BIOME_LAYER_TYPES.register(modEventBus);
         TAMobEffects.MOB_EFFECTS.register(modEventBus);
+        TAPotions.POTIONS.register(modEventBus);
         TAVillagerProfession.register(modEventBus);
         modEventBus.addListener(this::init);
         modEventBus.addListener(this::createNewRegistries);

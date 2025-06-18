@@ -19,11 +19,14 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
@@ -252,23 +255,24 @@ public class TARecipeProvider extends RecipeProvider {
         forging(recipeOutput, TAItems.MOONSTONE_SHIELD.get(), TAItems.TROPHY_MOON_QUEEN.get(), TAItems.MOON_SHIELD.get());
         forging(recipeOutput, TAItems.SILENT_WOOD_BOW.get(), TAItems.TROPHY_KEEPER.get(), TAItems.KEEPERS_BOW.get());
         //Alchemy Recipes
-        alchemy(recipeOutput, TAItems.LAVENDER.get(), TABlocks.PETUNIA_PLANT.get(), TABlocks.ICE_CALENDULA.get(), Items.POTION,
-                TAItems.AURORIAN_SPECIALTY_DRINK.get().getDefaultInstance(), 140);
-        alchemy(recipeOutput, TAItems.LAVENDER.get(), TAItems.BLUEBERRY.get(), TABlocks.ICE_CALENDULA.get(), Items.POTION,
-                TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK.get().getDefaultInstance(), 140);
+        Ingredient waterBottle = DataComponentIngredient.of(false, PotionContents.createItemStack(Items.POTION, Potions.WATER));
+        alchemy(recipeOutput, AlchemyTableRecipeBuilder.alchemy(waterBottle, new ItemStack(TAItems.AURORIAN_SPECIALTY_DRINK.get()))
+                .requires(TAItems.LAVENDER.get()).requires(TABlocks.PETUNIA_PLANT.get()).requires(TABlocks.ICE_CALENDULA.get())
+                .unlockedBy(getHasName(TABlocks.PETUNIA_PLANT.get()), has(TABlocks.PETUNIA_PLANT.get())));
+        alchemy(recipeOutput, AlchemyTableRecipeBuilder.alchemy(waterBottle, new ItemStack(TAItems.MOONLIT_BLUEBERRY_SPECIALTY_DRINK.get()))
+                .requires(TAItems.LAVENDER.get()).requires(TAItems.BLUEBERRY.get()).requires(TABlocks.ICE_CALENDULA.get())
+                .unlockedBy(getHasName(TAItems.BLUEBERRY.get()), has(TAItems.BLUEBERRY.get())));
         //Scrapper Recipes For Mod
         scrapping(recipeOutput, TAItems.UMBRA_SWORD.get(), TAItems.UMBRA_SCRAP.get(), 4);
         scrapping(recipeOutput, TAItems.UMBRA_PICKAXE.get(), TAItems.UMBRA_SCRAP.get(), 6);
         scrapping(recipeOutput, TAItems.UMBRA_SHIELD.get(), TAItems.UMBRA_SCRAP.get(), 9);
-        scrapping(recipeOutput, TAItems.SPIKED_CHESTPLATE.get(), TAItems.UMBRA_SCRAP.get(), 9);
-        scrapping(recipeOutput, TAItems.AURORIANITE_SWORD.get(), TAItems.UMBRA_SCRAP.get(), 4);
-        scrapping(recipeOutput, TAItems.AURORIANITE_PICKAXE.get(), TAItems.UMBRA_SCRAP.get(), 6);
-        scrapping(recipeOutput, TAItems.AURORIANITE_AXE.get(), TAItems.UMBRA_SCRAP.get(), 6);
-        scrapping(recipeOutput, TAItems.CRYSTALLINE_SWORD.get(), TAItems.UMBRA_SCRAP.get(), 4);
-        scrapping(recipeOutput, TAItems.CRYSTALLINE_PICKAXE.get(), TAItems.UMBRA_SCRAP.get(), 6);
-        scrapping(recipeOutput, TAItems.CRYSTALLINE_SHIELD.get(), TAItems.UMBRA_SCRAP.get(), 9);
-        scrapping(recipeOutput, TAItems.ABSORPTION_ORB.get(), TAItems.UMBRA_SCRAP.get(), 8);
-        scrapping(recipeOutput, TAItems.LIVING_DIVINING_ROD.get(), TAItems.UMBRA_SCRAP.get(), 4);
+        scrapping(recipeOutput, TAItems.AURORIANITE_SWORD.get(), TAItems.AURORIANITE_SCRAP.get(), 4);
+        scrapping(recipeOutput, TAItems.AURORIANITE_PICKAXE.get(), TAItems.AURORIANITE_SCRAP.get(), 6);
+        scrapping(recipeOutput, TAItems.AURORIANITE_AXE.get(), TAItems.AURORIANITE_SCRAP.get(), 6);
+        scrapping(recipeOutput, TAItems.CRYSTALLINE_SWORD.get(), TAItems.CRYSTALLINE_SCRAP.get(), 4);
+        scrapping(recipeOutput, TAItems.CRYSTALLINE_PICKAXE.get(), TAItems.CRYSTALLINE_SCRAP.get(), 6);
+        scrapping(recipeOutput, TAItems.CRYSTALLINE_SHIELD.get(), TAItems.CRYSTALLINE_SCRAP.get(), 9);
+        scrapping(recipeOutput, TAItems.SPIKED_CHESTPLATE.get(), TAItems.STICKY_SPIKER.get(), 5);
         scrapping(recipeOutput, TAItems.AURORIAN_STEEL_SWORD.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 12);
         scrapping(recipeOutput, TAItems.AURORIAN_STEEL_PICKAXE.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 18);
         scrapping(recipeOutput, TAItems.AURORIAN_STEEL_AXE.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 18);
@@ -450,10 +454,8 @@ public class TARecipeProvider extends RecipeProvider {
                 .save(recipeOutput, TheAurorian.prefix("forge_" + getItemName(equipment) + "_to_" + getItemName(result)));
     }
 
-    public static void alchemy(
-            RecipeOutput recipeOutput, ItemLike input1, ItemLike input2, ItemLike input3, ItemLike material, ItemStack result, int alchemyTime) {
-        AlchemyTableRecipeBuilder.addRecipe(Ingredient.of(input1), Ingredient.of(input2), Ingredient.of(input3), Ingredient.of(material), result, alchemyTime)
-                .unlockedBy(getHasName(input1), has(input1)).save(recipeOutput, TheAurorian.prefix("alchemy_" + getItemName(result.getItem())));
+    public static void alchemy(RecipeOutput recipeOutput, AlchemyTableRecipeBuilder builder) {
+        builder.save(recipeOutput, TheAurorian.prefix("alchemy_" + getItemName(builder.getResult())));
     }
 
     public static void scrapping(RecipeOutput recipeOutput, ItemLike ingredient, ItemLike result, int amount) {
@@ -463,14 +465,12 @@ public class TARecipeProvider extends RecipeProvider {
 
     private static void verticalStairs(RecipeOutput recipeOutput, VerticalStairBlockWithBase slab) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, slab, 4).define('#', Ingredient.of(slab.getBase()))
-                .pattern("#").pattern("#").pattern("#")
-                .unlockedBy(getHasName(slab.getBase()), has(slab.getBase())).save(recipeOutput);
+                .pattern("#").pattern("#").pattern("#").unlockedBy(getHasName(slab.getBase()), has(slab.getBase())).save(recipeOutput);
     }
 
     private static void verticalSlab(RecipeOutput recipeOutput, VerticalSlabBlockWithBase stair) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, stair, 6).define('#', Ingredient.of(stair.getBase()))
-                .pattern("###").pattern(" ##").pattern("  #")
-                .unlockedBy(getHasName(stair.getBase()), has(stair.getBase())).save(recipeOutput);
+                .pattern("###").pattern(" ##").pattern("  #").unlockedBy(getHasName(stair.getBase()), has(stair.getBase())).save(recipeOutput);
     }
 
     private void buildArmorRecipes(RecipeOutput recipeOutput, ItemLike helmet,

@@ -15,10 +15,10 @@ public class TARecipes {
 
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MoonlightForgeRecipe>> MOONLIGHT_FORGE_SERIALIZER =
             RECIPE_SERIALIZERS.register("moonlight_forge", () -> new MoonlightForgeSerializer<>(MoonlightForgeRecipe::new));
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<AlchemyTableRecipe>> ALCHEMY_TABLE_SERIALIZER =
-            RECIPE_SERIALIZERS.register("alchemy_table", () -> new AlchemyTableSerializer<>(AlchemyTableRecipe::new));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ScrapperRecipe>> SCRAPPER_SERIALIZER =
             RECIPE_SERIALIZERS.register("scrapper", () -> new ScrapperSerializer<>(ScrapperRecipe::new));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<AlchemyTableRecipe>> ALCHEMY_TABLE_SERIALIZER =
+            RECIPE_SERIALIZERS.register("alchemy_table", AlchemyTableSerializer::new);
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<MoonlightForgeRecipe>> MOONLIGHT_FORGE_RECIPE =
             RECIPE_TYPES.register("moonlight_forge", () -> RecipeType.simple(TheAurorian.prefix("moonlight_forge")));

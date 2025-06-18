@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_lavender": {
+    "has_petunia_plant": {
       "conditions": {
         "items": [
           {
-            "items": "theaurorian:lavender"
+            "items": "theaurorian:petunia_plant"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_lavender"
+      "has_petunia_plant"
     ]
   ],
   "rewards": {

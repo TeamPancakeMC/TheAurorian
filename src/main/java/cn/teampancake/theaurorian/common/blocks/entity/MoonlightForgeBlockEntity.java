@@ -19,6 +19,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -34,9 +35,9 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
     public boolean hasMoonLight, isCrafting, isPowered;
     private final ContainerData containerData = new Data();
     private final RecipeManager.CachedCheck<SingleRecipeInput, ? extends MoonlightForgeRecipe> quickCheck;
-    private static final int[] SLOTS_FOR_UP = new int[]{0};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{2, 1};
-    private static final int[] SLOTS_FOR_SIDES = new int[]{1};
+    private static final int[] SLOTS_FOR_UP = new int[] {0};
+    private static final int[] SLOTS_FOR_DOWN = new int[] {2, 1};
+    private static final int[] SLOTS_FOR_SIDES = new int[] {1};
 
     public MoonlightForgeBlockEntity(BlockPos pos, BlockState blockState) {
         super(TABlockEntityTypes.MOONLIGHT_FORGE.get(), pos, blockState);
@@ -44,18 +45,11 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
         this.handler = new Handler(3);
     }
 
-    @SuppressWarnings("unused")
     public static void serverTick(Level level, BlockPos pos, BlockState state, MoonlightForgeBlockEntity blockEntity) {
         if (!level.isClientSide()) {
-            ItemStack equipment = blockEntity.handler.getStackInSlot(0);
-            ItemStack upgradeMaterial = blockEntity.handler.getStackInSlot(1);
-            NonNullList<ItemStack> inventory = blockEntity.handler.getStacks();
-            MoonlightForgeRecipe recipe = !equipment.isEmpty() ? blockEntity.quickCheck
-                    .getRecipeFor(new SingleRecipeInput(equipment), level).orElse(null).value() : null;
-            blockEntity.isPowered = level.hasNeighborSignal(pos);
-            blockEntity.hasMoonLight = level.canSeeSky(pos.above()) &&(level.dimension() == TADimensions.AURORIAN_DIMENSION || level.isNight());
-            blockEntity.isCrafting = blockEntity.canWork(level.registryAccess(), recipe, inventory);
-            if (blockEntity.isCrafting && upgradeMaterial.getCount() > 0) {
+            MoonlightForgeRecipe recipe = blockEntity.checkForgeRecipe();
+            if (recipe != null && blockEntity.canWork(pos, level.registryAccess(), recipe)) {
+                blockEntity.isCrafting = true;
                 float heightPercent = (float) pos.getY() / (float) level.getHeight();
                 int tickInterval = 2;
                 if (heightPercent <= 0.25) {
@@ -70,44 +64,54 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
 	                int newVal = blockEntity.craftProgress + 1;
                     if (newVal >= 100) {
                         blockEntity.stopCrafting();
-                        blockEntity.startWork(level.registryAccess(), recipe, inventory);
+                        blockEntity.startWork(level.registryAccess(), recipe);
+                        setChanged(level, pos, state);
                     } else {
                         blockEntity.craftProgress = newVal;
                     }
                 }
             }
-
-	        blockEntity.updateClient(); // Sync craft progress to client
         }
     }
 
-    protected void startWork(RegistryAccess registryAccess, @Nullable Recipe<SingleRecipeInput> recipe, NonNullList<ItemStack> inventory) {
-        if (recipe != null && this.canWork(registryAccess, recipe, inventory)) {
-            SingleRecipeInput input = new SingleRecipeInput(inventory.getFirst());
-            ItemStack copyOfResultStack = recipe.assemble(input, registryAccess);
-            ItemStack equipmentStack = inventory.get(0), resultStack = inventory.get(2), materialStack = inventory.get(1);
-            if (equipmentStack.isEnchanted() && this.level != null) {
-                HolderLookup.RegistryLookup<Enchantment> lookup = this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
-                equipmentStack.getAllEnchantments(lookup).entrySet().forEach(entry -> copyOfResultStack.enchant(entry.getKey(), entry.getIntValue()));
-            }
-
-            if (resultStack.isEmpty()) {
-                inventory.set(2, copyOfResultStack.copy());
-                equipmentStack.shrink(1);
-				materialStack.shrink(1);
-            }
+    protected void startWork(RegistryAccess registryAccess, Recipe<SingleRecipeInput> recipe) {
+        ItemStack equipmentStack = this.getItem(0);
+        SingleRecipeInput input = new SingleRecipeInput(equipmentStack);
+        ItemStack resultStack = recipe.assemble(input, registryAccess);
+        if (equipmentStack.isEnchanted() && this.level != null) {
+            HolderLookup.RegistryLookup<Enchantment> lookup = this.level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+            equipmentStack.getAllEnchantments(lookup).entrySet().forEach(entry -> resultStack.enchant(entry.getKey(), entry.getIntValue()));
         }
+
+        equipmentStack.shrink(1);
+        this.setItem(2, resultStack);
+        this.getItem(1).shrink(1);
     }
 
-    protected boolean canWork(RegistryAccess registryAccess, @Nullable Recipe<SingleRecipeInput> recipe, NonNullList<ItemStack> inventory) {
-        if (!inventory.get(0).isEmpty() && recipe != null) {
-            SingleRecipeInput input = new SingleRecipeInput(inventory.getFirst());
-            ItemStack copyOfResultStack = recipe.assemble(input, registryAccess);
-            boolean flag = this.hasMoonLight && !this.isPowered;
-            return !copyOfResultStack.isEmpty() && inventory.get(2).isEmpty() && flag;
-        } else {
-            return false;
+    protected boolean canWork(BlockPos pos, RegistryAccess registryAccess, Recipe<SingleRecipeInput> recipe) {
+        if (this.level != null) {
+            boolean flag1 = this.level.dimension() == TADimensions.AURORIAN_DIMENSION;
+            this.isPowered = this.level.hasNeighborSignal(pos);
+            this.hasMoonLight = this.level.canSeeSky(pos.above()) && (flag1 || this.level.isNight());
+            SingleRecipeInput input = new SingleRecipeInput(this.getItem(0));
+            ItemStack resultStack = recipe.assemble(input, registryAccess);
+            boolean flag2 = this.hasMoonLight && !this.isPowered;
+            return !resultStack.isEmpty() && this.getItem(2).isEmpty() && flag2;
         }
+
+        return false;
+    }
+
+    @Nullable
+    private MoonlightForgeRecipe checkForgeRecipe() {
+        ItemStack equipment = this.getItem(0);
+        if (this.level != null && !equipment.isEmpty()) {
+            SingleRecipeInput input = new SingleRecipeInput(equipment);
+            RecipeHolder<? extends MoonlightForgeRecipe> holder = this.quickCheck.getRecipeFor(input, this.level).orElse(null);
+            return holder != null ? holder.value() : null;
+        }
+
+        return null;
     }
 
     public boolean isCrafting() {

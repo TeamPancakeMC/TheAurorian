@@ -101,7 +101,7 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
 
     private void mixPotion(BlockPos pos, BlockState state) {
         DataComponentType<PotionContents> potionContents = DataComponents.POTION_CONTENTS;
-        ItemStack existing = this.getItem(4);
+        ItemStack material = this.getItem(3);
         boolean hasA = false, hasB = false, hasCustom = false;
         int cIndex = -1, mIndex = -1, potionIndex = -1;
         for (int i = 0; i < 3; i++) {
@@ -121,9 +121,9 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
         this.canMixPotion = hasA && hasB && hasCustom;
         if (potionIndex < 0 || this.level == null) return;
         ItemStack potionStack = this.getItem(potionIndex);
-        if (!potionStack.isEmpty() && !existing.isEmpty() && this.canMixPotion) {
+        if (!potionStack.isEmpty() && !material.isEmpty() && this.getItem(4).isEmpty() && this.canMixPotion) {
             PotionContents inputContents = potionStack.get(potionContents);
-            PotionContents resultContents = existing.get(potionContents);
+            PotionContents resultContents = material.get(potionContents);
             if (inputContents != null && resultContents != null && resultContents.hasEffects()) {
                 this.maxAlchemyTime = 140;
                 this.alchemyTime++;
@@ -144,7 +144,9 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
                     customEffects.forEach(instance -> instance.duration += 200);
                     Optional<Integer> customColor = Optional.of(PotionContents.getColor(customEffects));
                     PotionContents newResultContents = new PotionContents(potion, customColor, customEffects);
-                    existing.set(potionContents, newResultContents);
+                    material.set(potionContents, newResultContents);
+                    this.setItem(4, material.copy());
+                    this.setItem(3, ItemStack.EMPTY);
                     this.getItem(cIndex).shrink(1);
                     this.getItem(mIndex).shrink(1);
                     this.maxAlchemyTime = 0;

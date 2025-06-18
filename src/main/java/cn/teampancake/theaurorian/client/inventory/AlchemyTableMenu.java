@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.client.inventory;
 
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAMenus;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -37,7 +36,7 @@ public class AlchemyTableMenu extends AbstractSimpleMenu {
         this.addSlot(new SlotItemHandler(itemHandler, 1, 44, 16));
         this.addSlot(new SlotItemHandler(itemHandler, 2, 69, 16));
         this.addSlot(new SlotItemHandler(itemHandler, 3, 137, 16));
-        this.addSlot(new AlchemyResultSlot(itemHandler, 4, 89, 42));
+        this.addSlot(new TAResultSlot(itemHandler, 4, 89, 42));
         this.addDataSlots(containerData);
     }
 
@@ -76,19 +75,6 @@ public class AlchemyTableMenu extends AbstractSimpleMenu {
         }
 
         return itemStack;
-    }
-
-    private static class AlchemyResultSlot extends SlotItemHandler {
-
-        public AlchemyResultSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-        }
-
-        @Override
-        public boolean mayPlace(ItemStack stack) {
-            return stack.has(DataComponents.POTION_CONTENTS);
-        }
-
     }
 
 }

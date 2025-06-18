@@ -28,7 +28,8 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> ARMOR_HURT_ACCUMULATION = registerFloat("armor_hurt_accumulation");
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SHOULD_SPAWN_IN_AURORIAN = registerBoolean("should_spawn_in_aurorain");
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> CAN_SPAWN_OTHER_ARROW = registerBoolean("can_spawn_other_arrow");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> CAN_SUMMON_OTHER_ARROW = registerBoolean("can_summon_other_arrow");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SUMMONED_BY_SILENT_BOW = registerBoolean("summoned_by_silent_bow");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IMMUNE_TO_PRESSURE =
             ATTACHMENT_TYPES.register("immune_to_pressure", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
 

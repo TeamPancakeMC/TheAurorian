@@ -272,35 +272,43 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onEntityPostTick(EntityTickEvent.Post event) {
         if (event.getEntity() instanceof AbstractArrow arrow) {
+            AttachmentType<Boolean> type1 = TAAttachmentTypes.CAN_SUMMON_OTHER_ARROW.get();
+            AttachmentType<Boolean> type2 = TAAttachmentTypes.SUMMONED_BY_SILENT_BOW.get();
             Level level = arrow.level();
-            int life = arrow.life;
+            int universalLife = arrow.life;
             ItemStack weaponItem = arrow.getWeaponItem();
-            boolean flag = arrow.getData(TAAttachmentTypes.CAN_SPAWN_OTHER_ARROW);
-            List<Vec3> vec3s = arrow.getData(TAAttachmentTypes.ARROWS_SPAWN_VEC3);
-            if (!level.isClientSide && flag) {
+            boolean flag = arrow.getData(type1);
+            if (!level.isClientSide && flag && !arrow.getData(type2)) {
                 arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
-                if (!vec3s.isEmpty() && life < vec3s.size() && vec3s.get(life) != Vec3.ZERO) {
-                    Entity entity = arrow.getType().create(level);
-                    if (entity instanceof AbstractArrow copyOfArrow) {
-                        copyOfArrow.setUUID(Mth.createInsecureUUID());
-                        copyOfArrow.setDeltaMovement(0, -3.0D, 0);
-                        copyOfArrow.setPos(vec3s.get(life));
-                        copyOfArrow.setCritArrow(true);
-                        copyOfArrow.firedFromWeapon = weaponItem;
-                        level.addFreshEntity(copyOfArrow);
+                List<Vec3> vec3s = arrow.getData(TAAttachmentTypes.ARROWS_SPAWN_VEC3);
+                if (!vec3s.isEmpty() && arrow.life < vec3s.size()) {
+                    Vec3 vec3 = vec3s.get(arrow.life);
+                    if (vec3.x > 0.0F || vec3.y > 0.0F || vec3.z > 0.0F) {
+                        Entity entity = arrow.getType().create(level);
+                        if (entity instanceof AbstractArrow copyOfArrow) {
+                            copyOfArrow.setUUID(Mth.createInsecureUUID());
+                            copyOfArrow.setDeltaMovement(0, -3.0D, 0);
+                            copyOfArrow.setPos(vec3);
+                            copyOfArrow.setCritArrow(true);
+                            copyOfArrow.setData(type2, true);
+                            copyOfArrow.firedFromWeapon = weaponItem;
+                            copyOfArrow.life = 1100;
+                            level.addFreshEntity(copyOfArrow);
+                            vec3s.set(arrow.life, Vec3.ZERO);
+                        }
                     }
                 }
             }
 
             if (!level.isClientSide && weaponItem != null && !weaponItem.is(TAItems.SILENT_WOOD_BOW)) {
-                if (flag && life > arrow.getData(TAAttachmentTypes.TIME_UNTIL_PLAYER_CAN_PICKUP)) {
+                if (flag && universalLife > arrow.getData(TAAttachmentTypes.TIME_UNTIL_PLAYER_CAN_PICKUP)) {
                     arrow.pickup = AbstractArrow.Pickup.ALLOWED;
                 } else {
                     arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
                 }
 
-                if (!flag && arrow.inGround) {
-                    arrow.life = 1100;
+                if (arrow.getData(type2)) {
+                    arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
                 }
             }
         }
@@ -655,7 +663,7 @@ public class EntityEventSubscriber {
                     Vec3 hitVec = result.getLocation();
                     int index = 0;
                     for (int i = 0; i < 50; i++) {
-                        index += random.nextInt(3) + 1;
+                        index += random.nextInt(2) + 1;
                         double angle = random.nextDouble() * Math.PI * 2;
                         double distance = random.nextDouble() * 5.0D;
                         double x = hitVec.x + Math.cos(angle) * distance;
@@ -669,7 +677,7 @@ public class EntityEventSubscriber {
                     }
 
                     arrow.setData(TAAttachmentTypes.TIME_UNTIL_PLAYER_CAN_PICKUP, index);
-                    arrow.setData(TAAttachmentTypes.CAN_SPAWN_OTHER_ARROW, true);
+                    arrow.setData(TAAttachmentTypes.CAN_SUMMON_OTHER_ARROW, true);
                     arrow.setData(TAAttachmentTypes.ARROWS_SPAWN_VEC3, list);
                 }
             }

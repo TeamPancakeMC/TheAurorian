@@ -1,0 +1,67 @@
+{
+  "values": {
+    "minecraft:absorption": {
+      "formula": "0+5-!12"
+    },
+    "minecraft:bad_omen": {
+      "formula": "1+6-!9"
+    },
+    "minecraft:conduit_power": {
+      "formula": "5+10-!2"
+    },
+    "minecraft:darkness": {
+      "formula": "8+13-!1"
+    },
+    "minecraft:dolphins_grace": {
+      "formula": "7+12-!4"
+    },
+    "minecraft:glowing": {
+      "formula": "6+15-!3"
+    },
+    "minecraft:haste": {
+      "formula": "1+0-!11"
+    },
+    "minecraft:health_boost": {
+      "formula": "5+10-!9"
+    },
+    "minecraft:hero_of_the_village": {
+      "formula": "4+11-!7"
+    },
+    "minecraft:instant_damage": {
+      "formula": "!11-!14+!0-!1"
+    },
+    "minecraft:instant_health": {
+      "formula": "11+!0-!1-!14"
+    },
+    "minecraft:levitation": {
+      "formula": "2+9-!14"
+    },
+    "minecraft:luck": {
+      "formula": "3+8-!13"
+    },
+    "minecraft:poison": {
+      "formula": "14>5"
+    },
+    "minecraft:resistance": {
+      "formula": "12-!2"
+    },
+    "minecraft:saturation": {
+      "formula": "10+15-!8"
+    },
+    "minecraft:slow_falling": {
+      "formula": "3+8-!6"
+    },
+    "minecraft:speed": {
+      "formula": "7+!3-!1"
+    },
+    "minecraft:strength": {
+      "formula": "2+7-!12"
+    },
+    "minecraft:unluck": {
+      "formula": "7+12-!4"
+    },
+    "minecraft:wither": {
+      "formula": "2+9-!14"
+    }
+  }
+}

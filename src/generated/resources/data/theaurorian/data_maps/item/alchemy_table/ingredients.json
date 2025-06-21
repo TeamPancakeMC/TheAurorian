@@ -1,0 +1,73 @@
+{
+  "values": {
+    "minecraft:blaze_powder": {
+      "formula": "+14"
+    },
+    "minecraft:breeze_rod": {
+      "formula": "+4+9+12"
+    },
+    "minecraft:cobweb": {
+      "formula": "+2+7+10"
+    },
+    "minecraft:dragon_breath": {
+      "formula": "+5+10+13"
+    },
+    "minecraft:fermented_spider_eye": {
+      "formula": "+14+9"
+    },
+    "minecraft:ghast_tear": {
+      "formula": "+11"
+    },
+    "minecraft:glistering_melon_slice": {
+      "formula": "+2+7+10"
+    },
+    "minecraft:glowstone_dust": {
+      "formula": "+1+6+13"
+    },
+    "minecraft:golden_apple": {
+      "formula": "+7+12+0"
+    },
+    "minecraft:golden_carrot": {
+      "formula": "+6+11+2"
+    },
+    "minecraft:gunpowder": {
+      "formula": "+4+9+14"
+    },
+    "minecraft:magma_cream": {
+      "formula": "+14+6+1"
+    },
+    "minecraft:phantom_membrane": {
+      "formula": "+3+8+11"
+    },
+    "minecraft:pufferfish": {
+      "formula": "+5+10+1"
+    },
+    "minecraft:rabbit_foot": {
+      "formula": "+7+12+0"
+    },
+    "minecraft:redstone": {
+      "formula": "+3+8+11"
+    },
+    "minecraft:rotten_flesh": {
+      "formula": "+6+11+14"
+    },
+    "minecraft:slime_block": {
+      "formula": "+1+6+9"
+    },
+    "minecraft:spider_eye": {
+      "formula": "+10+7+5"
+    },
+    "minecraft:stone": {
+      "formula": "+0+5+8"
+    },
+    "minecraft:sugar": {
+      "formula": "+0"
+    },
+    "minecraft:turtle_helmet": {
+      "formula": "+13+4+7"
+    },
+    "minecraft:wither_skeleton_skull": {
+      "formula": "+8+13+1"
+    }
+  }
+}

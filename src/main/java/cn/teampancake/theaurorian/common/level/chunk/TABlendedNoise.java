@@ -9,8 +9,17 @@ import net.minecraft.world.level.levelgen.synth.PerlinNoise;
 @SuppressWarnings("deprecation")
 public class TABlendedNoise extends BlendedNoise {
 
+    public final double xzScale;
+    public final double yScale;
+    public final double xzFactor;
+    public final double yFactor;
+
     public TABlendedNoise(RandomSource random) {
         super(random, 0.25D, 0.125D, 80.0D, 160.0D, 8.0D);
+        this.xzScale = 0.25D;
+        this.yScale = 0.125D;
+        this.xzFactor = 80.0D;
+        this.yFactor = 160.0D;
     }
 
     public double sampleAndClampNoise(int x, int y, int z, double scaleXZ, double scaleY, double factorXZ, double factorY) {

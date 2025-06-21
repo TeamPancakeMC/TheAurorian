@@ -36,6 +36,7 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
+import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 @EventBusSubscriber(modid = TheAurorian.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class ModBusEventSubscriber {
@@ -102,6 +103,13 @@ public class ModBusEventSubscriber {
     @SubscribeEvent
     public static void registerDimensionTransitionScreen(RegisterDimensionTransitionScreenEvent event) {
         event.registerIncomingEffect(TADimensions.AURORIAN_DIMENSION, TAWaitingScreen::new);
+    }
+
+    @SubscribeEvent
+    public static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
+        event.register(TADataMaps.ALCHEMY_TABLE_USABLE_EFFECTS);
+        event.register(TADataMaps.ALCHEMY_TABLE_AMPLIFIER_EFFECTS);
+        event.register(TADataMaps.ALCHEMY_TABLE_INGREDIENTS);
     }
 
     @SubscribeEvent

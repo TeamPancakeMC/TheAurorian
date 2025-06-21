@@ -1,0 +1,115 @@
+{
+  "values": {
+    "minecraft:absorption": {
+      "formula": "0+5+8 & !12 & 3+14 & <9"
+    },
+    "minecraft:bad_omen": {
+      "formula": "7+12+0 & !5 & 11+6 & >3"
+    },
+    "minecraft:blindness": {
+      "formula": "9 & !1 & !5 & !3 & =3"
+    },
+    "minecraft:conduit_power": {
+      "formula": "1+6+13 & !9 & 5+12 & >7"
+    },
+    "minecraft:darkness": {
+      "formula": "5+10+1 & !8 & 0+13 & >4"
+    },
+    "minecraft:dolphins_grace": {
+      "formula": "4+9+14 & !1 & 8+3 & <12"
+    },
+    "minecraft:fire_resistance": {
+      "formula": "14 & !5 & 6-!1 & 14+13+12"
+    },
+    "minecraft:glowing": {
+      "formula": "13+4+7 & !10 & 2+15 & >1"
+    },
+    "minecraft:haste": {
+      "formula": "2 & 12+2+6-1-7 & <8"
+    },
+    "minecraft:health_boost": {
+      "formula": "7+12+0 & !3 & 10+5 & <2"
+    },
+    "minecraft:hero_of_the_village": {
+      "formula": "2+7+10 & !13 & 1+14 & <6"
+    },
+    "minecraft:hunger": {
+      "formula": ">4>6>8-3-8+2"
+    },
+    "minecraft:infested": {
+      "formula": "7+12+15 & !3 & 10+5 & <2"
+    },
+    "minecraft:instant_damage": {
+      "formula": "!11 & 1 & 10 & !7"
+    },
+    "minecraft:instant_health": {
+      "formula": "11 & <6"
+    },
+    "minecraft:invisibility": {
+      "formula": "2+5+13-0-4 & !7 & !1 & >5"
+    },
+    "minecraft:jump_boost": {
+      "formula": "8 & 2+0 & <5"
+    },
+    "minecraft:levitation": {
+      "formula": "6+11+2 & !3 & 9+0 & <14"
+    },
+    "minecraft:luck": {
+      "formula": "2+7+10 & !13 & 5+0 & <12"
+    },
+    "minecraft:mining_fatigue": {
+      "formula": "!2 & !1*2-9 & 14-5"
+    },
+    "minecraft:nausea": {
+      "formula": "8*2-!7+4-11 & !2 | 13 & 11 & 2*3-1-5"
+    },
+    "minecraft:night_vision": {
+      "formula": "8*2-!7 & 5 & !0 & >3"
+    },
+    "minecraft:oozing": {
+      "formula": "6+11+14 & !2 & 9+4 & <1"
+    },
+    "minecraft:poison": {
+      "formula": "12+9 & !13 & !0"
+    },
+    "minecraft:regeneration": {
+      "formula": "!14 & 13*3-!0-!5-8"
+    },
+    "minecraft:resistance": {
+      "formula": "10 & 4 & 10+5+6 & <9"
+    },
+    "minecraft:saturation": {
+      "formula": "1+6+9 & !11 & 4+15 & <8"
+    },
+    "minecraft:slow_falling": {
+      "formula": "3+8+11 & !2 & 7+4 & <10"
+    },
+    "minecraft:slowness": {
+      "formula": "10 & 7 & !4 & 7+5+1-0"
+    },
+    "minecraft:speed": {
+      "formula": "!10 & !4 & 5*2+0 & >1 | !7 & !4 & 5*2+0 & >1"
+    },
+    "minecraft:strength": {
+      "formula": "9 & 3 & 9+4+5 & <11"
+    },
+    "minecraft:unluck": {
+      "formula": "3+8+11 & !14 & 6+1 & <13"
+    },
+    "minecraft:water_breathing": {
+      "formula": "0+1+12 & !6 & 10 & !11 & !13"
+    },
+    "minecraft:weakness": {
+      "formula": "=1>5>7>9+3-7-2-11 & !10 & !0"
+    },
+    "minecraft:weaving": {
+      "formula": "5+10+13 & !1 & 8+3 & <0"
+    },
+    "minecraft:wind_charged": {
+      "formula": "4+9+12 & !0 & 7+2 & <15"
+    },
+    "minecraft:wither": {
+      "formula": "8+13+1 & !4 & 11+6 & <3"
+    }
+  }
+}

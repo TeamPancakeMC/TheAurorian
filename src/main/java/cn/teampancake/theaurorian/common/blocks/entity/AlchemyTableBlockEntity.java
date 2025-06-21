@@ -123,22 +123,19 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
         ItemStack potionStack = this.getItem(potionIndex);
         if (!potionStack.isEmpty() && !material.isEmpty() && this.getItem(4).isEmpty() && this.canMixPotion) {
             PotionContents inputContents = potionStack.get(potionContents);
-            PotionContents resultContents = material.get(potionContents);
-            if (inputContents != null && resultContents != null && resultContents.hasEffects()) {
+            PotionContents materialContents = material.get(potionContents);
+            if (inputContents != null && materialContents != null && inputContents.hasEffects()) {
                 this.maxAlchemyTime = 140;
                 this.alchemyTime++;
                 if (this.alchemyTime > 140) {
-                    List<MobEffectInstance> resultList = new ArrayList<>();
-                    resultContents.getAllEffects().forEach(resultList::add);
+                    List<MobEffectInstance> inputList = new ArrayList<>();
+                    inputContents.getAllEffects().forEach(inputList::add);
                     Optional<Holder<Potion>> potion = Optional.of(TAPotions.OMNI);
-                    List<MobEffectInstance> customEffects = resultList;
-                    if (inputContents.hasEffects()) {
-                        List<MobEffectInstance> inputList = new ArrayList<>();
-                        inputContents.getAllEffects().forEach(inputList::add);
-                        customEffects = this.mergeCustomEffectList(inputList, resultList);
-                        potionStack.set(potionContents, new PotionContents(Potions.WATER));
-                    } else {
-                        this.setItem(potionIndex, new ItemStack(Items.GLASS_BOTTLE));
+                    List<MobEffectInstance> customEffects = inputList;
+                    if (materialContents.hasEffects()) {
+                        List<MobEffectInstance> materialList = new ArrayList<>();
+                        materialContents.getAllEffects().forEach(materialList::add);
+                        customEffects = this.mergeCustomEffectList(materialList, inputList);
                     }
 
                     customEffects.forEach(instance -> instance.duration += 200);
@@ -147,6 +144,7 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
                     material.set(potionContents, newResultContents);
                     this.setItem(4, material.copy());
                     this.setItem(3, ItemStack.EMPTY);
+                    this.setItem(potionIndex, new ItemStack(Items.GLASS_BOTTLE));
                     this.getItem(cIndex).shrink(1);
                     this.getItem(mIndex).shrink(1);
                     this.maxAlchemyTime = 0;

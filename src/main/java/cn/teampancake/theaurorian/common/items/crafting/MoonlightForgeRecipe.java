@@ -10,7 +10,7 @@ public record MoonlightForgeRecipe(Ingredient equipment, Ingredient upgradeMater
 
     @Override
     public boolean matches(SingleRecipeInput input, Level level) {
-        return this.equipment.test(input.getItem(0)) && this.upgradeMaterial.test(input.getItem(1));
+        return this.equipment.test(input.getItem(0));
     }
 
     @Override

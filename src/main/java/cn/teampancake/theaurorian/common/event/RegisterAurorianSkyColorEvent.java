@@ -3,10 +3,11 @@ package cn.teampancake.theaurorian.common.event;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.Event;
+import net.neoforged.fml.event.IModBusEvent;
 
 import java.util.Map;
 
-public class RegisterAurorianSkyColorEvent extends Event {
+public class RegisterAurorianSkyColorEvent extends Event implements IModBusEvent {
 
     private final Map<ResourceLocation, Integer> daySkyColors;
 

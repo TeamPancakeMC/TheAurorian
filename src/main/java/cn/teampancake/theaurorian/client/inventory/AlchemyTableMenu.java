@@ -25,7 +25,7 @@ public class AlchemyTableMenu extends AbstractSimpleMenu {
     }
 
     public AlchemyTableMenu(int containerId, Inventory inventory, ContainerLevelAccess access) {
-        this(containerId, inventory, access, new ItemStackHandler(5), new SimpleContainerData(2));
+        this(containerId, inventory, access, new ItemStackHandler(5), new SimpleContainerData(4));
     }
 
     public AlchemyTableMenu(int containerId, Inventory inventory, ContainerLevelAccess access, IItemHandler itemHandler, ContainerData containerData) {
@@ -40,12 +40,8 @@ public class AlchemyTableMenu extends AbstractSimpleMenu {
         this.addDataSlots(containerData);
     }
 
-    public int getAlchemyTime() {
-        return this.containerData.get(0);
-    }
-
-    public int getMaxAlchemyTime() {
-        return this.containerData.get(1);
+    public ContainerData getContainerData() {
+        return this.containerData;
     }
 
     public boolean stillValid(@NotNull Player player) {

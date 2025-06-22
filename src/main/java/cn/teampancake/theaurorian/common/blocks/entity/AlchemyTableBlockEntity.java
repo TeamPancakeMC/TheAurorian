@@ -1,10 +1,17 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
 import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
+import cn.teampancake.theaurorian.common.components.AlchemyProduct;
+import cn.teampancake.theaurorian.common.event.TAEventFactory;
 import cn.teampancake.theaurorian.common.items.crafting.AlchemyTableRecipe;
 import cn.teampancake.theaurorian.common.items.crafting.AlchemyTableRecipeInput;
+import cn.teampancake.theaurorian.common.level.alchemy.PotionConflictResolver;
+import cn.teampancake.theaurorian.common.level.alchemy.PotionDecaySystem;
 import cn.teampancake.theaurorian.common.registry.*;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -12,8 +19,10 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Unit;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -36,6 +45,8 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
 
     private int alchemyTime;
     private int maxAlchemyTime;
+    private int liquidLevel;
+    private int liquidData;
     private boolean canMixPotion;
     private boolean canEffectFusion;
     private final ContainerData containerData = new Data();
@@ -100,18 +111,20 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
     }
 
     private void mixPotion(BlockPos pos, BlockState state) {
+        DataComponentType<AlchemyProduct> alchemyProduct = TADataComponents.ALCHEMY_PRODUCT.get();
         DataComponentType<PotionContents> potionContents = DataComponents.POTION_CONTENTS;
+        DataComponentType<Integer> mixingCount = TADataComponents.MIXING_COUNT.get();
         ItemStack material = this.getItem(3);
         boolean hasA = false, hasB = false, hasCustom = false;
-        int cIndex = -1, mIndex = -1, potionIndex = -1;
+        int aIndex = -1, bIndex = -1, potionIndex = -1;
         for (int i = 0; i < 3; i++) {
             ItemStack stack = this.getItem(i);
-            if (!hasA && stack.is(TAItems.CERULEAN_NUGGET)) {
+            if (!hasA && !stack.isEmpty()) {
                 hasA = true;
-                cIndex = i;
-            } else if (!hasB && stack.is(TAItems.MOONSTONE_NUGGET)) {
+                aIndex = i;
+            } else if (!hasB && !stack.isEmpty()) {
                 hasB = true;
-                mIndex = i;
+                bIndex = i;
             } else if (!hasCustom && stack.has(potionContents)) {
                 hasCustom = true;
                 potionIndex = i;
@@ -121,13 +134,27 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
         this.canMixPotion = hasA && hasB && hasCustom;
         if (potionIndex < 0 || this.level == null) return;
         ItemStack potionStack = this.getItem(potionIndex);
-        if (!potionStack.isEmpty() && !material.isEmpty() && this.getItem(4).isEmpty() && this.canMixPotion) {
+        if (!potionStack.isEmpty() && !material.isEmpty() && this.getItem(4).isEmpty()) {
             PotionContents inputContents = potionStack.get(potionContents);
             PotionContents materialContents = material.get(potionContents);
-            if (inputContents != null && materialContents != null && inputContents.hasEffects()) {
+            ItemStack cerulean = this.getItem(aIndex);
+            ItemStack moonstone = this.getItem(bIndex);
+            int cMaxStackSize = cerulean.getMaxStackSize();
+            int mMaxStackSize = moonstone.getMaxStackSize();
+            int max = Math.max(potionStack.getOrDefault(mixingCount, 1), material.getOrDefault(mixingCount, 1));
+            if (max > cerulean.getCount() && max <= cMaxStackSize || max > moonstone.getCount() && max <= mMaxStackSize) {
+                if (!cerulean.is(TAItems.CERULEAN_NUGGET) || !moonstone.is(TAItems.MOONSTONE_NUGGET)) this.canMixPotion = false; return;
+            } else if (max > cMaxStackSize && max <= cMaxStackSize * 2 || max > mMaxStackSize && max <= mMaxStackSize * 2) {
+                if (!cerulean.is(TAItems.CERULEAN_INGOT) || !moonstone.is(TAItems.MOONSTONE_INGOT)) this.canMixPotion = false; return;
+            } else if (max > cMaxStackSize * 2 && max <= cMaxStackSize * 3 || max > mMaxStackSize * 2 && max <= mMaxStackSize * 3) {
+                if (!cerulean.is(TABlocks.CERULEAN_BLOCK.get().asItem()) || !moonstone.is(TABlocks.MOONSTONE_BLOCK.get().asItem())) this.canMixPotion = false; return;
+            }
+
+            if (inputContents != null && materialContents != null && inputContents.hasEffects() && this.canMixPotion) {
                 this.maxAlchemyTime = 140;
                 this.alchemyTime++;
-                if (this.alchemyTime > 140) {
+                if (this.alchemyTime > this.maxAlchemyTime) {
+                    ItemStack resultStack = potionStack.copyAndClear();
                     List<MobEffectInstance> inputList = new ArrayList<>();
                     inputContents.getAllEffects().forEach(inputList::add);
                     Optional<Holder<Potion>> potion = Optional.of(TAPotions.OMNI);
@@ -138,15 +165,19 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
                         customEffects = this.mergeCustomEffectList(materialList, inputList);
                     }
 
-                    customEffects.forEach(instance -> instance.duration += 200);
                     Optional<Integer> customColor = Optional.of(PotionContents.getColor(customEffects));
-                    PotionContents newResultContents = new PotionContents(potion, customColor, customEffects);
-                    material.set(potionContents, newResultContents);
-                    this.setItem(4, material.copy());
-                    this.setItem(3, ItemStack.EMPTY);
-                    this.setItem(potionIndex, new ItemStack(Items.GLASS_BOTTLE));
-                    this.getItem(cIndex).shrink(1);
-                    this.getItem(mIndex).shrink(1);
+                    PotionContents resultContents = new PotionContents(potion, customColor, customEffects);
+                    resultContents.customEffects().forEach(instance -> instance.duration += 200);
+                    resultStack.set(mixingCount, resultStack.getOrDefault(mixingCount, 1) + 1);
+                    resultStack.set(potionContents, resultContents);
+                    if (!resultStack.has(alchemyProduct)) {
+                        resultStack.set(alchemyProduct, AlchemyProduct.EMPTY);
+                    }
+
+                    cerulean.shrink(max % cMaxStackSize);
+                    moonstone.shrink(max % mMaxStackSize);
+                    this.setItem(3, Items.GLASS_BOTTLE);
+                    this.setItem(4, resultStack);
                     this.maxAlchemyTime = 0;
                     this.alchemyTime = 0;
                     this.canMixPotion = false;
@@ -157,6 +188,7 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
     }
 
     private void foodEffectFusion(BlockPos pos, BlockState state) {
+        DataComponentType<AlchemyProduct> alchemyProduct = TADataComponents.ALCHEMY_PRODUCT.get();
         DataComponentType<PotionContents> potionContents = DataComponents.POTION_CONTENTS;
         DataComponentType<FoodProperties> food = DataComponents.FOOD;
         boolean hasFood = false;
@@ -204,9 +236,13 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
                 if (this.canWork(existing, resultStack)) {
                     this.maxAlchemyTime = 140;
                     this.alchemyTime++;
-                    if (this.alchemyTime > 140) {
+                    if (this.alchemyTime > this.maxAlchemyTime) {
                         potionStack.set(potionContents, new PotionContents(Potions.WATER));
-                        resultStack.set(TADataComponents.INFUSED_POTION, true);
+                        resultStack.set(TADataComponents.INFUSED_POTION, Unit.INSTANCE);
+                        if (!resultStack.has(alchemyProduct)) {
+                            resultStack.set(alchemyProduct, AlchemyProduct.EMPTY);
+                        }
+
                         foodStack.shrink(1);
                         if (existing.isEmpty()) {
                             this.setItem(4, resultStack);
@@ -230,7 +266,7 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
             Holder<MobEffect> effect = newInstance.getEffect();
             if (resultMap.containsKey(effect)) {
                 MobEffectInstance existInstance = resultMap.get(effect);
-                existInstance.duration += newInstance.duration;
+                PotionDecaySystem.onPotionMixed(existInstance, newInstance);
                 existInstance.amplifier += newInstance.amplifier;
             } else {
                 resultMap.put(effect, newInstance);
@@ -241,14 +277,67 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
             Holder<MobEffect> effect = newInstance.getEffect();
             if (resultMap.containsKey(effect)) {
                 MobEffectInstance existInstance = resultMap.get(effect);
-                existInstance.duration += newInstance.duration;
+                PotionDecaySystem.onPotionMixed(existInstance, newInstance);
                 existInstance.amplifier += newInstance.amplifier;
             } else {
                 resultMap.put(effect, newInstance);
             }
         }
 
-        return new ArrayList<>(resultMap.values());
+        ArrayList<MobEffectInstance> list = new ArrayList<>(resultMap.values());
+        return this.resolveConflicts(list);
+    }
+
+    private List<MobEffectInstance> resolveConflicts(List<MobEffectInstance> effects) {
+        Map<Holder<MobEffect>, MobEffectInstance> effectMap = new HashMap<>();
+        for (MobEffectInstance instance : effects) {
+            Holder<MobEffect> effect = instance.getEffect();
+            boolean hasConflict = false;
+            for (Holder<MobEffect> existingEffect : effectMap.keySet()) {
+                if (this.getFullConflictMap().containsEntry(effect, existingEffect)) {
+                    hasConflict = true;
+                    PotionConflictResolver.ConflictResult result =
+                            PotionConflictResolver.resolveConflict(
+                                    effectMap.get(existingEffect), instance);
+                    if (result.fullyCancelled()) {
+                        effectMap.remove(existingEffect);
+                    } else if (result.remainingEffect() != null) {
+                        MobEffectInstance remainingEffect = result.remainingEffect();
+                        effectMap.put(remainingEffect.getEffect(), remainingEffect);
+                    }
+
+                    break;
+                }
+            }
+
+            if (!hasConflict) {
+                effectMap.put(effect, instance);
+            }
+        }
+
+        return new ArrayList<>(effectMap.values());
+    }
+
+    private Multimap<Holder<MobEffect>, Holder<MobEffect>> getFullConflictMap() {
+        Multimap<Holder<MobEffect>, Holder<MobEffect>> conflictMap = HashMultimap.create();
+        conflictMap.put(MobEffects.MOVEMENT_SPEED, MobEffects.MOVEMENT_SLOWDOWN);
+        conflictMap.put(MobEffects.MOVEMENT_SLOWDOWN, MobEffects.MOVEMENT_SPEED);
+        conflictMap.put(MobEffects.DIG_SPEED, MobEffects.DIG_SLOWDOWN);
+        conflictMap.put(MobEffects.DIG_SLOWDOWN, MobEffects.DIG_SPEED);
+        conflictMap.put(MobEffects.DAMAGE_BOOST, MobEffects.WEAKNESS);
+        conflictMap.put(MobEffects.WEAKNESS, MobEffects.DAMAGE_BOOST);
+        conflictMap.put(MobEffects.REGENERATION, MobEffects.POISON);
+        conflictMap.put(MobEffects.POISON, MobEffects.REGENERATION);
+        conflictMap.put(MobEffects.NIGHT_VISION, MobEffects.BLINDNESS);
+        conflictMap.put(MobEffects.BLINDNESS, MobEffects.NIGHT_VISION);
+        conflictMap.put(MobEffects.SATURATION, MobEffects.HUNGER);
+        conflictMap.put(MobEffects.HUNGER, MobEffects.SATURATION);
+        conflictMap.put(MobEffects.LUCK, MobEffects.UNLUCK);
+        conflictMap.put(MobEffects.UNLUCK, MobEffects.LUCK);
+        conflictMap.put(MobEffects.HEAL, MobEffects.HARM);
+        conflictMap.put(MobEffects.HARM, MobEffects.HEAL);
+        TAEventFactory.onRegisterConflictingEffect(conflictMap);
+        return ImmutableMultimap.copyOf(conflictMap);
     }
     
     private boolean canWork(ItemStack existing, ItemStack result) {
@@ -291,6 +380,8 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
         super.loadAdditional(tag, registries);
         this.alchemyTime = tag.getInt("AlchemyTime");
         this.maxAlchemyTime = tag.getInt("MaxAlchemyTime");
+        this.liquidLevel = tag.getInt("LiquidLevel");
+        this.liquidData = tag.getInt("LiquidData");
     }
 
     @Override
@@ -298,6 +389,8 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
         super.saveAdditional(tag, registries);
         tag.putInt("AlchemyTime", this.alchemyTime);
         tag.putInt("MaxAlchemyTime", this.maxAlchemyTime);
+        tag.putInt("LiquidLevel", this.liquidLevel);
+        tag.putInt("LiquidData", this.liquidData);
     }
 
     @Override
@@ -314,6 +407,10 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
                 return alchemyTime;
             } else if (index == 1) {
                 return maxAlchemyTime;
+            } else if (index == 2) {
+                return liquidLevel;
+            } else if (index == 3) {
+                return liquidData;
             } else {
                 return 0;
             }
@@ -325,12 +422,16 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
                 alchemyTime = value;
             } else if (index == 1) {
                 maxAlchemyTime = value;
+            } else if (index == 2) {
+                liquidLevel = value;
+            } else if (index == 3) {
+                liquidData = value;
             }
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 4;
         }
 
     }

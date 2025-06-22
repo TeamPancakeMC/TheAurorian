@@ -174,8 +174,8 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
                         resultStack.set(alchemyProduct, AlchemyProduct.EMPTY);
                     }
 
-                    cerulean.shrink(max % cMaxStackSize);
-                    moonstone.shrink(max % mMaxStackSize);
+                    cerulean.shrink(this.correctConsumeCount(max, cMaxStackSize));
+                    moonstone.shrink(this.correctConsumeCount(max, mMaxStackSize));
                     this.setItem(3, Items.GLASS_BOTTLE);
                     this.setItem(4, resultStack);
                     this.maxAlchemyTime = 0;
@@ -351,6 +351,11 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
                     && totalCount <= existing.getMaxStackSize()
                     || totalCount <= result.getMaxStackSize();
         }
+    }
+
+    private int correctConsumeCount(int mixingCount, int maxStack) {
+        int remainder = mixingCount % maxStack;
+        return remainder == 0 ? Math.abs(maxStack) : remainder;
     }
 
     private FoodProperties.PossibleEffect newPossibleEffect(MobEffectInstance instance) {

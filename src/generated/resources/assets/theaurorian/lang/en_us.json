@@ -874,6 +874,7 @@
   "tooltips.block.theaurorian.moonlight_forge.gui.no_moonlight": "No Moonlight Detected!",
   "tooltips.block.theaurorian.moonlight_forge.gui.redstone": "Currently disabled by redstone power.",
   "tooltips.item.theaurorian.absorption_orb": "Heals mainhand item when held in offhand!",
+  "tooltips.item.theaurorian.alchemy.mixing_count": "Mixing Count of Potion: ",
   "tooltips.item.theaurorian.aurorian_coal": "A fuel that better than coal.",
   "tooltips.item.theaurorian.aurorian_slime_boots": "Jump while sneaking to do an extra high jump! Also blocks fall damage.",
   "tooltips.item.theaurorian.aurorian_steel": "The truth blessing of the aurora! The enchantment will upgrade slowly as key goes on until the max level!",

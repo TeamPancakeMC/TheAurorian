@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.components.AlchemyProduct;
 import cn.teampancake.theaurorian.common.components.RuneGame;
 import cn.teampancake.theaurorian.common.components.SourceOfTerra;
 import com.mojang.serialization.Codec;
@@ -25,8 +26,6 @@ public class TADataComponents {
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPE = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, TheAurorian.MOD_ID);
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> KILL_COUNT = DATA_COMPONENT_TYPE.register("kill_count",
             () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> INFUSED_POTION = DATA_COMPONENT_TYPE.register("infused_potion",
-            () -> DataComponentType.<Boolean>builder().persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemEnchantments>> FORBIDDEN_CURSE = DATA_COMPONENT_TYPE.register("forbidden_curse",
             () -> DataComponentType.<ItemEnchantments>builder().persistent(ItemEnchantments.CODEC).networkSynchronized(ItemEnchantments.STREAM_CODEC).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> SPRING_OF_LIFE = DATA_COMPONENT_TYPE.register("spring_of_life",
@@ -44,5 +43,13 @@ public class TADataComponents {
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> SIMPLE_MODEL = DATA_COMPONENT_TYPE.register("simple_model",
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MIXING_COUNT = DATA_COMPONENT_TYPE.register("mixing_count",
+            () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> INGREDIENT_APPLIER = DATA_COMPONENT_TYPE.register("ingredient_applier",
+            () -> DataComponentType.<Boolean>builder().persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding().build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> INFUSED_POTION = DATA_COMPONENT_TYPE.register("infused_potion",
+            () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<AlchemyProduct>> ALCHEMY_PRODUCT = DATA_COMPONENT_TYPE.register("alchemy_product",
+            () -> DataComponentType.<AlchemyProduct>builder().persistent(AlchemyProduct.CODEC).networkSynchronized(AlchemyProduct.STREAM_CODEC).cacheEncoding().build());
 
 }

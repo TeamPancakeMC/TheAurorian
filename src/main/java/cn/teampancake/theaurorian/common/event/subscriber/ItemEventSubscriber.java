@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -71,17 +72,24 @@ public class ItemEventSubscriber {
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
         FoodProperties foodProperties = stack.get(DataComponents.FOOD);
-        Boolean infusePotion = stack.get(TADataComponents.INFUSED_POTION);
+        Integer mixingCount = stack.get(TADataComponents.MIXING_COUNT);
         SourceOfTerra sourceOfTerra = stack.get(TADataComponents.SOURCE_OF_TERRA.get());
         if (stack.getItem().components().has(TADataComponents.EXTRA_TOOLTIP.get())) {
             tooltip.add(Component.translatable("tooltips." + stack.getItem().getDescriptionId()));
         }
 
-        if (foodProperties != null && infusePotion != null && infusePotion) {
+        if (foodProperties != null && stack.has(TADataComponents.INFUSED_POTION)) {
             float tickRate = event.getContext().tickRate();
             List<MobEffectInstance> foodEffects = new ArrayList<>();
             foodProperties.effects().forEach(effect -> foodEffects.add(effect.effect()));
             PotionContents.addPotionTooltip(foodEffects, tooltip::add, (1.0F), tickRate);
+        }
+
+        if (mixingCount != null) {
+            String key = "tooltips.item.theaurorian.alchemy.mixing_count";
+            String s = String.valueOf(mixingCount.intValue());
+            Component c = Component.literal(s).withStyle(ChatFormatting.WHITE);
+            tooltip.add(Component.translatable(key).withStyle(ChatFormatting.GREEN).append(c));
         }
 
         if (sourceOfTerra != null) {

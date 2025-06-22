@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.level.biome.layer.FilthyIceBiomeLayer;
 import cn.teampancake.theaurorian.common.level.biome.layer.FilteredBiomeLayer;
 import cn.teampancake.theaurorian.common.level.biome.layer.RandomBiomeLayer;
 import cn.teampancake.theaurorian.common.level.biome.layer.SeamLayer;
@@ -28,6 +29,7 @@ public class TABiomeLayers {
     public static final DeferredHolder<BiomeLayerType, BiomeLayerType> SMOOTH = registerType("smooth", () -> () -> SmoothLayer.Factory.CODEC);
     public static final DeferredHolder<BiomeLayerType, BiomeLayerType> FILTERED = registerType("filtered", () -> () -> FilteredBiomeLayer.Factory.CODEC);
     public static final DeferredHolder<BiomeLayerType, BiomeLayerType> RANDOM_BIOMES = registerType("random_biomes", () -> () -> RandomBiomeLayer.Factory.CODEC);
+    public static final DeferredHolder<BiomeLayerType, BiomeLayerType> FILTHY_ICE = registerType("filthy_ice", () -> () -> FilthyIceBiomeLayer.Factory.CODEC);
 
     private static DeferredHolder<BiomeLayerType, BiomeLayerType> registerType(String name, Supplier<BiomeLayerType> factory) {
         return BIOME_LAYER_TYPES.register(name, factory);

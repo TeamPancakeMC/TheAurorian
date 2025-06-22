@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.level.biome.layer.FilthyIceBiomeLayer;
 import cn.teampancake.theaurorian.common.level.biome.layer.FilteredBiomeLayer;
 import cn.teampancake.theaurorian.common.level.biome.layer.RandomBiomeLayer;
 import cn.teampancake.theaurorian.common.level.biome.layer.SeamLayer;
@@ -19,6 +20,7 @@ import net.minecraft.resources.ResourceKey;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Optional;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class TABiomeLayerStack {
@@ -28,6 +30,7 @@ public class TABiomeLayerStack {
     public static final Codec<Holder<BiomeLayerFactory>> HOLDER_CODEC = RegistryFileCodec.create(BIOME_STACK_KEY, DISPATCH_CODEC, true);
     public static final ResourceKey<BiomeLayerFactory> RANDOM_FOREST_BIOMES = registerKey("random_forest_biomes");
     public static final ResourceKey<BiomeLayerFactory> BIOMES_ALONG_STREAMS = registerKey("biomes_along_streams");
+    public static final ResourceKey<BiomeLayerFactory> FILTHY_ICE_BIOME = registerKey("filthy_ice_biome");
 
     private static ResourceKey<BiomeLayerFactory> registerKey(String name) {
         return ResourceKey.create(BIOME_STACK_KEY, TheAurorian.prefix(name));
@@ -40,6 +43,7 @@ public class TABiomeLayerStack {
         Holder.Reference<BiomeLayerFactory> randomBiomes = context.register(RANDOM_FOREST_BIOMES, biomeFactory.getSecond());
         context.register(BIOMES_ALONG_STREAMS, new FilteredBiomeLayer.Factory(100L,
                 TABiomes.AURORIAN_RIVER, Holder.direct(riverLayer), randomBiomes));
+        context.register(FILTHY_ICE_BIOME, new FilthyIceBiomeLayer.Factory(3000L, Optional.empty()));
     }
 
     public static Holder<BiomeLayerFactory> getDefaultLayer() {
@@ -50,33 +54,40 @@ public class TABiomeLayerStack {
     }
 
     public static Pair<BiomeLayerFactory, BiomeLayerFactory> getRiverLayer() {
+        // 创建基础生物群系分布 - 黯晶群系作为一个整体随机生成
         BiomeLayerFactory biomes = new RandomBiomeLayer.Factory(1L, 30,
                 ImmutableList.of(TABiomes.AURORIAN_PLAINS, TABiomes.AURORIAN_FOREST,
-                        TABiomes.AURORIAN_FOREST_HILL, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD, 
-                        TABiomes.CURSED_FROST_FOREST, TABiomes.FILTHY_ICE_HILLS, TABiomes.FILTHY_ICE_MOUNTAIN,
-                        TABiomes.FILTHY_ICE_HILLS, TABiomes.FILTHY_ICE_MOUNTAIN, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD),
+                        TABiomes.AURORIAN_FOREST_HILL, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD, // 黯晶雪原作为代表
+                        TABiomes.CURSED_FROST_FOREST),
                 ImmutableList.of(TABiomes.AURORIAN_LAKE, TABiomes.LAVENDER_PLAINS, TABiomes.WEEPING_WILLOW_FOREST,
                         TABiomes.BRIGHT_MOON_DESERT, TABiomes.EQUINOX_FLOWER_PLAINS));
+        
+        // 应用多层缩放
         biomes = new ZoomLayer.Factory(1000L, false, Holder.direct(biomes));
         biomes = new ZoomLayer.Factory(1001L, false, Holder.direct(biomes));
         biomes = new ZoomLayer.Factory(1002L, false, Holder.direct(biomes));
         biomes = new ZoomLayer.Factory(1003L, false, Holder.direct(biomes));
         biomes = new ZoomLayer.Factory(1004L, false, Holder.direct(biomes));
         biomes = new ZoomLayer.Factory(1005L, false, Holder.direct(biomes));
+        
+        // 替换黯晶雪原为黯晶群系分布
+        biomes = new FilthyIceBiomeLayer.Factory(2000L, Optional.of(Holder.direct(biomes)));
+        
         BiomeLayerFactory riverLayer = getBiomeLayerFactory(biomes);
         return new Pair<>(riverLayer, biomes);
     }
 
     private static @NotNull BiomeLayerFactory getBiomeLayerFactory(BiomeLayerFactory biomes) {
         BiomeLayerFactory riverLayer = new SeamLayer.Factory(1L, TABiomes.AURORIAN_RIVER,
-                List.of(TABiomes.BRIGHT_MOON_DESERT, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD,
-                        TABiomes.FILTHY_ICE_MOUNTAIN, TABiomes.FILTHY_ICE_HILLS),
+                List.of(TABiomes.BRIGHT_MOON_DESERT, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD),
                 List.of(Pair.of(TABiomes.AURORIAN_PLAINS, TABiomes.AURORIAN_PLAINS),
                         Pair.of(TABiomes.AURORIAN_FOREST_HILL, TABiomes.AURORIAN_FOREST_HILL),
                         Pair.of(TABiomes.EQUINOX_FLOWER_PLAINS, TABiomes.EQUINOX_FLOWER_PLAINS),
-                        Pair.of(TABiomes.LAVENDER_PLAINS, TABiomes.LAVENDER_PLAINS)), Holder.direct(biomes));
+                        Pair.of(TABiomes.LAVENDER_PLAINS, TABiomes.LAVENDER_PLAINS),
+                        Pair.of(TABiomes.FILTHY_ICE_MOUNTAIN, TABiomes.FILTHY_ICE_HILLS),
+                        Pair.of(TABiomes.FILTHY_ICE_HILLS, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD)),
+                Holder.direct(biomes));
         riverLayer = new SmoothLayer.Factory(7000L, Holder.direct(riverLayer));
         return riverLayer;
     }
-
 }

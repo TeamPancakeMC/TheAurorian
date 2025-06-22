@@ -87,12 +87,12 @@ public class TABiomes {
         context.register(FILTHY_ICE_MOUNTAIN, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
                 .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE)
-                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_FLOWER_SNOWFIELD))
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_FLOWER_MOUNTAINS))
                 .mobSpawnSettings(snowfieldMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature((-1.0F)).build());
         context.register(FILTHY_ICE_HILLS, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
                 .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE)
-                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_FLOWER_SNOWFIELD))
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_FLOWER_HILLS))
                 .mobSpawnSettings(snowfieldMobSpawning().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(
                         TAEntityTypes.ICEFIELD_DEER.get(), 30, 2, 4)).build())
                 .hasPrecipitation(Boolean.TRUE).temperature((-0.8F)).build());

@@ -44,7 +44,7 @@ public class TADataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> SIMPLE_MODEL = DATA_COMPONENT_TYPE.register("simple_model",
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MIXING_COUNT = DATA_COMPONENT_TYPE.register("mixing_count",
-            () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
+            () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> INGREDIENT_APPLIER = DATA_COMPONENT_TYPE.register("ingredient_applier",
             () -> DataComponentType.<Boolean>builder().persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> INFUSED_POTION = DATA_COMPONENT_TYPE.register("infused_potion",

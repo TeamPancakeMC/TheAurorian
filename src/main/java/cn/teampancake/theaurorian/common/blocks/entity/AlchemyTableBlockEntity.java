@@ -1,25 +1,24 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
 import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
+import cn.teampancake.theaurorian.common.blocks.AlchemyTable;
+import cn.teampancake.theaurorian.common.blocks.state.properties.AlchemyTablePart;
 import cn.teampancake.theaurorian.common.components.AlchemyProduct;
 import cn.teampancake.theaurorian.common.event.TAEventFactory;
 import cn.teampancake.theaurorian.common.items.crafting.AlchemyTableRecipe;
 import cn.teampancake.theaurorian.common.items.crafting.AlchemyTableRecipeInput;
 import cn.teampancake.theaurorian.common.level.alchemy.PotionConflictResolver;
-import cn.teampancake.theaurorian.common.level.alchemy.PotionDecaySystem;
 import cn.teampancake.theaurorian.common.registry.*;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Unit;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -41,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
+public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity implements WorldlyContainer {
 
     private int alchemyTime;
     private int maxAlchemyTime;
@@ -141,7 +140,7 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
             ItemStack moonstone = this.getItem(bIndex);
             int cMaxStackSize = cerulean.getMaxStackSize();
             int mMaxStackSize = moonstone.getMaxStackSize();
-            int max = Math.max(potionStack.getOrDefault(mixingCount, 1), material.getOrDefault(mixingCount, 1));
+            int max = Math.max(potionStack.getOrDefault(mixingCount, 0), material.getOrDefault(mixingCount, 0)) + 1;
             if (max > cerulean.getCount() && max <= cMaxStackSize || max > moonstone.getCount() && max <= mMaxStackSize) {
                 if (!cerulean.is(TAItems.CERULEAN_NUGGET) || !moonstone.is(TAItems.MOONSTONE_NUGGET)) this.canMixPotion = false; return;
             } else if (max > cMaxStackSize && max <= cMaxStackSize * 2 || max > mMaxStackSize && max <= mMaxStackSize * 2) {
@@ -168,7 +167,7 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
                     Optional<Integer> customColor = Optional.of(PotionContents.getColor(customEffects));
                     PotionContents resultContents = new PotionContents(potion, customColor, customEffects);
                     resultContents.customEffects().forEach(instance -> instance.duration += 200);
-                    resultStack.set(mixingCount, resultStack.getOrDefault(mixingCount, 1) + 1);
+                    resultStack.set(mixingCount, resultStack.getOrDefault(mixingCount, 0) + 1);
                     resultStack.set(potionContents, resultContents);
                     if (!resultStack.has(alchemyProduct)) {
                         resultStack.set(alchemyProduct, AlchemyProduct.EMPTY);
@@ -260,50 +259,30 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
         }
     }
 
-    private List<MobEffectInstance> mergeCustomEffectList(List<MobEffectInstance> inputList, List<MobEffectInstance> resultList) {
+    private List<MobEffectInstance> mergeCustomEffectList(List<MobEffectInstance> potion1, List<MobEffectInstance> potion2) {
+        List<MobEffectInstance> combined = new ArrayList<>();
+        combined.addAll(potion1);
+        combined.addAll(potion2);
         Map<Holder<MobEffect>, MobEffectInstance> resultMap = new HashMap<>();
-        for (MobEffectInstance newInstance : inputList) {
-            Holder<MobEffect> effect = newInstance.getEffect();
-            if (resultMap.containsKey(effect)) {
-                MobEffectInstance existInstance = resultMap.get(effect);
-                PotionDecaySystem.onPotionMixed(existInstance, newInstance);
-                existInstance.amplifier += newInstance.amplifier;
-            } else {
-                resultMap.put(effect, newInstance);
+        Map<Holder<MobEffect>, Integer> cancellationLog = new HashMap<>();
+        for (MobEffectInstance effect : combined) {
+            Holder<MobEffect> effectType = effect.getEffect();
+            if (cancellationLog.containsKey(effectType) && cancellationLog.get(effectType) >= effect.getDuration()) {
+                continue;
             }
-        }
 
-        for (MobEffectInstance newInstance : resultList) {
-            Holder<MobEffect> effect = newInstance.getEffect();
-            if (resultMap.containsKey(effect)) {
-                MobEffectInstance existInstance = resultMap.get(effect);
-                PotionDecaySystem.onPotionMixed(existInstance, newInstance);
-                existInstance.amplifier += newInstance.amplifier;
-            } else {
-                resultMap.put(effect, newInstance);
-            }
-        }
-
-        ArrayList<MobEffectInstance> list = new ArrayList<>(resultMap.values());
-        return this.resolveConflicts(list);
-    }
-
-    private List<MobEffectInstance> resolveConflicts(List<MobEffectInstance> effects) {
-        Map<Holder<MobEffect>, MobEffectInstance> effectMap = new HashMap<>();
-        for (MobEffectInstance instance : effects) {
-            Holder<MobEffect> effect = instance.getEffect();
             boolean hasConflict = false;
-            for (Holder<MobEffect> existingEffect : effectMap.keySet()) {
-                if (this.getFullConflictMap().containsEntry(effect, existingEffect)) {
+            for (Holder<MobEffect> existingType : resultMap.keySet()) {
+                if (this.getFullConflictMap().containsEntry(effectType, existingType)) {
                     hasConflict = true;
-                    PotionConflictResolver.ConflictResult result =
-                            PotionConflictResolver.resolveConflict(
-                                    effectMap.get(existingEffect), instance);
-                    if (result.fullyCancelled()) {
-                        effectMap.remove(existingEffect);
-                    } else if (result.remainingEffect() != null) {
-                        MobEffectInstance remainingEffect = result.remainingEffect();
-                        effectMap.put(remainingEffect.getEffect(), remainingEffect);
+                    MobEffectInstance existingEffect = resultMap.get(existingType);
+                    PotionConflictResolver.ConflictResolution resolution = PotionConflictResolver.resolveConflict(existingEffect, effect);
+                    cancellationLog.merge(effectType, resolution.cancelledAmount(), Integer::sum);
+                    cancellationLog.merge(existingType, resolution.cancelledAmount(), Integer::sum);
+                    if (resolution.remainingEffect() == null) {
+                        resultMap.remove(existingType);
+                    } else {
+                        resultMap.put(existingType, resolution.remainingEffect());
                     }
 
                     break;
@@ -311,11 +290,30 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
             }
 
             if (!hasConflict) {
-                effectMap.put(effect, instance);
+                if (resultMap.containsKey(effectType)) {
+                    MobEffectInstance combinedEffect = combineNonConflictingEffects(resultMap.get(effectType), effect);
+                    resultMap.put(effectType, combinedEffect);
+                } else {
+                    int remainingDuration = effect.getDuration();
+                    if (cancellationLog.containsKey(effectType)) {
+                        remainingDuration -= cancellationLog.get(effectType);
+                    }
+
+                    if (remainingDuration > 0) {
+                        MobEffectInstance adjustedEffect = new MobEffectInstance(effect.getEffect(), remainingDuration);
+                        resultMap.put(effectType, adjustedEffect);
+                    }
+                }
             }
         }
 
-        return new ArrayList<>(effectMap.values());
+        return new ArrayList<>(resultMap.values());
+    }
+
+    private MobEffectInstance combineNonConflictingEffects(MobEffectInstance a, MobEffectInstance b) {
+        int newAmplifier = a.getAmplifier() + b.getAmplifier() + 1;
+        int newDuration = (a.getDuration() + b.getDuration()) / 2;
+        return new MobEffectInstance(a.getEffect(), newDuration, newAmplifier);
     }
 
     private Multimap<Holder<MobEffect>, Holder<MobEffect>> getFullConflictMap() {
@@ -396,6 +394,35 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity {
         tag.putInt("MaxAlchemyTime", this.maxAlchemyTime);
         tag.putInt("LiquidLevel", this.liquidLevel);
         tag.putInt("LiquidData", this.liquidData);
+    }
+
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        return slot >= 0 && slot < 4;
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        AlchemyTablePart part = this.getBlockState().getValue(AlchemyTable.PART);
+        if (side == Direction.DOWN) {
+            return new int[]{4};
+        } else {
+            if (part == AlchemyTablePart.LEFT) {
+                return new int[]{0, 1, 2};
+            } else {
+                return new int[]{3};
+            }
+        }
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int index, ItemStack itemStack, @Nullable Direction direction) {
+        return this.canPlaceItem(index, itemStack) && direction != Direction.DOWN;
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
+        return index == 4 && direction == Direction.DOWN;
     }
 
     @Override

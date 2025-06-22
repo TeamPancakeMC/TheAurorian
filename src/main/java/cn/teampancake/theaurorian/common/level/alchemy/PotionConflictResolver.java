@@ -6,58 +6,54 @@ import net.minecraft.world.effect.MobEffectInstance;
 
 public class PotionConflictResolver {
 
-    public static ConflictResult resolveConflict(MobEffectInstance effect1, MobEffectInstance effect2) {
+    public static ConflictResolution resolveConflict(MobEffectInstance effect1, MobEffectInstance effect2) {
         EffectType type1 = getEffectType(effect1.getEffect());
         EffectType type2 = getEffectType(effect2.getEffect());
-        int effectiveLevel1 = (type1 == EffectType.DURATION_ONLY) ? 1 : effect1.getAmplifier() + 1;
-        int effectiveLevel2 = (type2 == EffectType.DURATION_ONLY) ? 1 : effect2.getAmplifier() + 1;
-        int duration1 = (type1 == EffectType.INSTANTANEOUS) ? Integer.MAX_VALUE : effect1.getDuration();
-        int duration2 = (type2 == EffectType.INSTANTANEOUS) ? Integer.MAX_VALUE : effect2.getDuration();
-        float strength1 = calculateEffectStrength(effectiveLevel1, duration1, type1);
-        float strength2 = calculateEffectStrength(effectiveLevel2, duration2, type2);
-        MobEffectInstance primaryEffect = strength1 >= strength2 ? effect1 : effect2;
-        MobEffectInstance secondaryEffect = strength1 >= strength2 ? effect2 : effect1;
-        boolean bothAreFullEffects = type1 == EffectType.FULL && type2 == EffectType.FULL;
-        return calculateResult(primaryEffect, secondaryEffect, bothAreFullEffects);
+        float strength1 = calculateEffectStrength(effect1, type1);
+        float strength2 = calculateEffectStrength(effect2, type2);
+        boolean effect1Dominant = strength1 >= strength2;
+        MobEffectInstance dominant = effect1Dominant ? effect1 : effect2;
+        MobEffectInstance recessive = effect1Dominant ? effect2 : effect1;
+        return performPreciseCancellation(dominant, recessive, type1, type2);
     }
 
-    private static ConflictResult calculateResult(MobEffectInstance primary, MobEffectInstance secondary, boolean bothAreFullEffects) {
-        MobEffectInstance result = new MobEffectInstance(primary);
-        if (bothAreFullEffects) {
-            int levelDiff = primary.getAmplifier() - secondary.getAmplifier();
-            if (levelDiff == 0) {
-                result.duration = Math.min(primary.getDuration(), secondary.getDuration());
-            } else if (levelDiff > 0) {
-                float reductionRatio = 1f - (1f / (levelDiff + 1));
-                result.duration = (int)(primary.getDuration() * reductionRatio);
+    private static ConflictResolution performPreciseCancellation(
+            MobEffectInstance dominant, MobEffectInstance recessive,
+            EffectType typeD, EffectType typeR) {
+        MobEffectInstance result = new MobEffectInstance(dominant);
+        int cancelAmount = 0;
+        if (typeD == EffectType.FULL && typeR == EffectType.FULL) {
+            if (dominant.getAmplifier() == recessive.getAmplifier()) {
+                cancelAmount = Math.min(dominant.getDuration(), recessive.getDuration());
             } else {
-                result.duration = primary.getDuration() / (Math.abs(levelDiff) + 1);
+                float ratio = (recessive.getAmplifier() + 1f) / (dominant.getAmplifier() + 1f);
+                cancelAmount = (int)(recessive.getDuration() * ratio);
             }
-        } else {
-            EffectType primaryType = getEffectType(primary.getEffect());
-            EffectType secondaryType = getEffectType(secondary.getEffect());
-            if (primaryType == EffectType.INSTANTANEOUS || secondaryType == EffectType.INSTANTANEOUS) {
-                if (primaryType == EffectType.INSTANTANEOUS && secondaryType == EffectType.INSTANTANEOUS) {
-                    return new ConflictResult(null, Boolean.TRUE);
-                } else if (primaryType == EffectType.INSTANTANEOUS) {
-                    result.duration = secondary.getDuration() / 2;
-                } else {
-                    result.duration = primary.getDuration() / 2;
-                }
+
+            result.duration = dominant.getDuration() - cancelAmount;
+        } else if (typeD == EffectType.INSTANTANEOUS) {
+            if (typeR == EffectType.INSTANTANEOUS) {
+                return new ConflictResolution(null, recessive.getDuration());
             } else {
-                result.duration = Math.min(primary.getDuration(), secondary.getDuration());
+                cancelAmount = recessive.getDuration() / 2;
             }
+        } else if (typeD == EffectType.DURATION_ONLY) {
+            cancelAmount = Math.min(dominant.getDuration(), recessive.getDuration());
+            result.duration = dominant.getDuration() - cancelAmount;
         }
 
-        result.duration = Math.max(0, result.duration);
-        return new ConflictResult(result.duration > 0 ? result : null, result.duration == 0);
+        if (result.duration <= 0) {
+            return new ConflictResolution(null, cancelAmount);
+        }
+
+        return new ConflictResolution(result, cancelAmount);
     }
 
-    private static float calculateEffectStrength(int level, int duration, EffectType type) {
+    private static float calculateEffectStrength(MobEffectInstance effect, EffectType type) {
         return switch (type) {
-            case INSTANTANEOUS -> level * 1000f;
-            case DURATION_ONLY -> duration / 20f;
-            case FULL -> (level * level) * (duration / 20f);
+            case INSTANTANEOUS -> (effect.getAmplifier() + 1) * 1000f;
+            case DURATION_ONLY -> effect.getDuration() / 20f;
+            case FULL -> (effect.getAmplifier() + 1) * (effect.getDuration() / 20f);
         };
     }
 
@@ -74,7 +70,7 @@ public class PotionConflictResolver {
         }
     }
 
-    public record ConflictResult(MobEffectInstance remainingEffect, boolean fullyCancelled) { }
+    public record ConflictResolution(MobEffectInstance remainingEffect, int cancelledAmount) { }
 
     private enum EffectType {
         INSTANTANEOUS,

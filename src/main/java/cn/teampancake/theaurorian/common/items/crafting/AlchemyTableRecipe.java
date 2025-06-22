@@ -1,8 +1,11 @@
 package cn.teampancake.theaurorian.common.items.crafting;
 
+import cn.teampancake.theaurorian.common.components.AlchemyProduct;
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TARecipes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -60,6 +63,11 @@ public record AlchemyTableRecipe(NonNullList<Ingredient> ingredients, Ingredient
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider registries) {
+        DataComponentType<AlchemyProduct> component = TADataComponents.ALCHEMY_PRODUCT.get();
+        if (!this.result.has(component)) {
+            this.result.set(component, AlchemyProduct.EMPTY);
+        }
+
         return this.result;
     }
 

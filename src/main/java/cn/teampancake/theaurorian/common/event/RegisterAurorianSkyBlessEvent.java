@@ -3,8 +3,9 @@ package cn.teampancake.theaurorian.common.event;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.Event;
+import net.neoforged.fml.event.IModBusEvent;
 
-public class RegisterAurorianSkyBlessEvent extends Event {
+public class RegisterAurorianSkyBlessEvent extends Event implements IModBusEvent {
 
     private final ServerPlayer serverPlayer;
     private final ServerLevel serverLevel;

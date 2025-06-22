@@ -124,6 +124,7 @@ dependencies {
     implementation "software.bernie.geckolib:geckolib-neoforge-1.21.1:4.7.3"
     implementation "me.shedaniel.cloth:cloth-config-neoforge:15.0.140"
     implementation "curse.maven:thirst-was-taken-679270:5568715"
+    implementation "curse.maven:configured-457570:5873783"
     implementation "curse.maven:modern-ui-352491:6200236"
     implementation "curse.maven:auth-me-356643:6177873"
 

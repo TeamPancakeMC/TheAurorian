@@ -21,7 +21,7 @@ public abstract class AbstractSimpleMenu extends AbstractContainerMenu {
         this.access = access;
     }
 
-    private void addPlayerInventory(Inventory inventory) {
+    protected void addPlayerInventory(Inventory inventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
                 int index = l + i * 9 + 9;
@@ -32,7 +32,7 @@ public abstract class AbstractSimpleMenu extends AbstractContainerMenu {
         }
     }
 
-    private void addPlayerHotBar(Inventory inventory) {
+    protected void addPlayerHotBar(Inventory inventory) {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(inventory, i, 8 + i * 18, 142));
         }

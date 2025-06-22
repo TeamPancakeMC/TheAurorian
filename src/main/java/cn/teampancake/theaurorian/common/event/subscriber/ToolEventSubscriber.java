@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;
-import cn.teampancake.theaurorian.common.utils.InventoryUtils;
+import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -25,7 +25,7 @@ public class ToolEventSubscriber {
     public static void onTickPlayerTick(PlayerTickEvent.Pre event) {
         Player player = event.getEntity();
         if (player.level().isClientSide()) return;
-        List<ItemStack> inventoryItems = InventoryUtils.getInventoryItems(player.getInventory(), stack -> {
+        List<ItemStack> inventoryItems = TAInventoryUtils.getInventoryItems(player.getInventory(), stack -> {
             if (stack.getItem() instanceof TieredItem tieredItem) {
                 Tier tier = tieredItem.getTier();
                 return tier == TAToolTiers.AURORIAN_STEEL;

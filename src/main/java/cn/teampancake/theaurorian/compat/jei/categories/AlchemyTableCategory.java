@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.compat.jei.categories;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.items.crafting.AlchemyTableRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.ITickTimer;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -24,7 +23,7 @@ public class AlchemyTableCategory implements IRecipeCategory<AlchemyTableRecipe>
 
     public static final RecipeType<AlchemyTableRecipe> ALCHEMY_TABLE_RECIPE =
             RecipeType.create(TheAurorian.MOD_ID, "alchemy_table", AlchemyTableRecipe.class);
-    private static final ResourceLocation ALCHEMY_TABLE_BAR = TheAurorian.prefix("textures/gui/sprites/alchemy_table_bar.png");
+    private static final ResourceLocation ALCHEMY_TABLE_BAR = TheAurorian.prefix("textures/gui/sprites/alchemy_table/bottle.png");
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -34,7 +33,7 @@ public class AlchemyTableCategory implements IRecipeCategory<AlchemyTableRecipe>
     public AlchemyTableCategory(IGuiHelper guiHelper) {
         ResourceLocation location = TheAurorian.prefix("textures/gui/alchemy_table_jei.png");
         this.background = guiHelper.createDrawable(location, 0, 0, 176, 82);
-        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TABlocks.ALCHEMY_TABLE.get()));
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(TABlocks.ALCHEMY_TABLE.get()));
         this.localizedName = Component.translatable(TheAurorian.MOD_ID + ".container.alchemy_table");
         this.bar = guiHelper.drawableBuilder(ALCHEMY_TABLE_BAR, 0, 0, 23, 33)
                 .buildAnimated(new TickTimer(guiHelper), IDrawableAnimated.StartDirection.BOTTOM);

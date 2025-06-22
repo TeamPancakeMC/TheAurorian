@@ -9,15 +9,16 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
-//TODO: 能力系统大改，原来的不能用了，要修改。
-public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntity{
+public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntity {
 
+    @SuppressWarnings("NotNullFieldNotInitialized")
     protected Handler handler;
 
     protected SimpleContainerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
@@ -86,6 +87,11 @@ public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntit
     }
 
     @Override
+    public void clearContent() {
+        this.handler.getStacks().clear();
+    }
+
+    @Override
     public void setItem(int index, ItemStack stack) {
         this.handler.getStacks().set(index, stack);
         if (stack.getCount() > this.getMaxStackSize()) {
@@ -93,9 +99,8 @@ public abstract class SimpleContainerBlockEntity extends BaseContainerBlockEntit
         }
     }
 
-    @Override
-    public void clearContent() {
-        this.handler.getStacks().clear();
+    public void setItem(int index, ItemLike item) {
+        this.setItem(index, new ItemStack(item));
     }
 
     protected class Handler extends ItemStackHandler {

@@ -21,8 +21,7 @@ public class MixinItemColors {
     @Inject(method = "getColor", at = @At(value = "HEAD"), cancellable = true)
     public void getColor(ItemStack stack, int tintIndex, CallbackInfoReturnable<Integer> cir) {
         FoodProperties foodProperties = stack.get(DataComponents.FOOD);
-        Boolean infusePotion = stack.get(TADataComponents.INFUSED_POTION);
-        if (foodProperties != null && infusePotion != null) {
+        if (foodProperties != null && stack.has(TADataComponents.INFUSED_POTION)) {
             List<MobEffectInstance> foodEffects = new ArrayList<>();
             foodProperties.effects().forEach(effect -> foodEffects.add(effect.effect()));
             cir.setReturnValue(PotionContents.getColor(foodEffects));

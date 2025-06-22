@@ -5,6 +5,7 @@
     "compatibilityLevel": "JAVA_21",
     "refmap": "theaurorian.refmap.json",
     "mixins": [
+        "MixinBoundTickingBlockEntity",
         "MixinFoodData",
         "MixinItemStack",
         "MixinLevel",

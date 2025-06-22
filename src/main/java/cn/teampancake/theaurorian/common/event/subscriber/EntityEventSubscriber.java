@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import cn.teampancake.theaurorian.common.blocks.MysteriumWoolBed;
 import cn.teampancake.theaurorian.common.components.SourceOfTerra;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
@@ -22,6 +23,7 @@ import cn.teampancake.theaurorian.common.network.FrostbiteS2CPacket;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
+import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -59,6 +61,9 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.entity.projectile.ThrownEgg;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -91,6 +96,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /** @noinspection deprecation*/
 @EventBusSubscriber(modid = TheAurorian.MOD_ID)
@@ -99,11 +105,13 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onPlayerTicking(PlayerTickEvent.Post event) {
         if (event.getEntity() instanceof ServerPlayer player && player.level() instanceof ServerLevel level) {
-            boolean noImmuneEffect = !player.hasEffect(TAMobEffects.WARM) && !player.hasEffect(TAMobEffects.FROSTBITE);
-            boolean isSnowField = level.getBiome(player.blockPosition()).is(TABiomeTags.IS_FILTHY_ICE);
-            if (!player.isCreative() && !player.isSpectator() && !MysteriumWoolArmor.isWearFullArmor(player)) {
-                if (noImmuneEffect && isSnowField && player.tickCount % 60 == 0) {
-                    player.setData(TAAttachmentTypes.TICKS_FROSTBITE, 140);
+            if (player.isAlive() && !player.isSpectator() && !level.isClientSide()) {
+                TAInventoryUtils.applyPotionDecay(player.getInventory().items, player, level);
+                boolean noImmuneEffect = !player.hasEffect(TAMobEffects.WARM) && !player.hasEffect(TAMobEffects.FROSTBITE);
+                boolean isInSnowField = level.getBiome(player.blockPosition()).is(TABiomeTags.IS_FILTHY_ICE);
+                if (noImmuneEffect && isInSnowField && !player.isCreative()
+                        && !MysteriumWoolArmor.isWearFullArmor(player) && player.tickCount % 60 == 0) {
+                    player.setData(TAAttachmentTypes.TICKS_FROSTBITE, player.getTicksRequiredToFreeze());
                     player.hurt(player.damageSources().freeze(), 1.0F);
                     player.setSharedFlagOnFire(false);
                 }
@@ -680,6 +688,24 @@ public class EntityEventSubscriber {
                     arrow.setData(TAAttachmentTypes.CAN_SUMMON_OTHER_ARROW, true);
                     arrow.setData(TAAttachmentTypes.ARROWS_SPAWN_VEC3, list);
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerContainer(PlayerContainerEvent event) {
+        AbstractContainerMenu container = event.getContainer();
+        if (container instanceof AlchemyTableMenu menu) {
+            Stream<Slot> stream = menu.slots.stream();
+            List<ItemStack> stacks = stream.filter(Slot::hasItem).map(Slot::getItem).toList();
+            DataComponentType<Boolean> component = TADataComponents.INGREDIENT_APPLIER.get();
+            if (event instanceof PlayerContainerEvent.Open) {
+                ContainerData containerData = menu.getContainerData();
+                TAInventoryUtils.refreshIngredientApplier(containerData, stacks, Boolean.FALSE);
+            }
+
+            if (event instanceof PlayerContainerEvent.Close) {
+                stacks.stream().filter(stack -> stack.has(component)).forEach(stack -> stack.remove(component));
             }
         }
     }

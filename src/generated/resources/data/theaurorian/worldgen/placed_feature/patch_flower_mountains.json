@@ -1,9 +1,9 @@
 {
-  "feature": "theaurorian:patch_flower_snowfield",
+  "feature": "theaurorian:patch_flower_mountains",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 6
+      "count": 3
     },
     {
       "type": "minecraft:in_square"
@@ -13,10 +13,10 @@
       "height": {
         "type": "minecraft:uniform",
         "max_inclusive": {
-          "absolute": 110
+          "absolute": 140
         },
         "min_inclusive": {
-          "absolute": 90
+          "absolute": 100
         }
       }
     },

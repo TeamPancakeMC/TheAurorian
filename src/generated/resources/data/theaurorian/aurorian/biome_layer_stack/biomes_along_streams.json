@@ -10,49 +10,51 @@
                 "parent": {
                   "parent": {
                     "parent": {
-                      "common_biomes": [
-                        "theaurorian:aurorian_plains",
-                        "theaurorian:aurorian_forest",
-                        "theaurorian:aurorian_forest_hill",
-                        "theaurorian:filthy_ice_crystal_snowfield",
-                        "theaurorian:cursed_frost_forest",
-                        "theaurorian:filthy_ice_hills"
-                      ],
-                      "layer_type": "theaurorian:random_biomes",
-                      "rare_biome_chance": 30,
-                      "rare_biomes": [
-                        "theaurorian:aurorian_lake",
-                        "theaurorian:lavender_plains",
-                        "theaurorian:weeping_willow_forest",
-                        "theaurorian:bright_moon_desert",
-                        "theaurorian:equinox_flower_plains",
-                        "theaurorian:filthy_ice_mountain"
-                      ],
-                      "salt": 1
+                      "parent": {
+                        "common_biomes": [
+                          "theaurorian:aurorian_plains",
+                          "theaurorian:aurorian_forest",
+                          "theaurorian:aurorian_forest_hill",
+                          "theaurorian:filthy_ice_crystal_snowfield",
+                          "theaurorian:cursed_frost_forest"
+                        ],
+                        "layer_type": "theaurorian:random_biomes",
+                        "rare_biome_chance": 30,
+                        "rare_biomes": [
+                          "theaurorian:aurorian_lake",
+                          "theaurorian:lavender_plains",
+                          "theaurorian:weeping_willow_forest",
+                          "theaurorian:bright_moon_desert",
+                          "theaurorian:equinox_flower_plains"
+                        ],
+                        "salt": 1
+                      },
+                      "fuzzy": false,
+                      "layer_type": "theaurorian:zoom",
+                      "salt": 1000
                     },
                     "fuzzy": false,
                     "layer_type": "theaurorian:zoom",
-                    "salt": 1000
+                    "salt": 1001
                   },
                   "fuzzy": false,
                   "layer_type": "theaurorian:zoom",
-                  "salt": 1001
+                  "salt": 1002
                 },
                 "fuzzy": false,
                 "layer_type": "theaurorian:zoom",
-                "salt": 1002
+                "salt": 1003
               },
               "fuzzy": false,
               "layer_type": "theaurorian:zoom",
-              "salt": 1003
+              "salt": 1004
             },
             "fuzzy": false,
             "layer_type": "theaurorian:zoom",
-            "salt": 1004
+            "salt": 1005
           },
-          "fuzzy": false,
-          "layer_type": "theaurorian:zoom",
-          "salt": 1005
+          "layer_type": "theaurorian:filthy_ice",
+          "salt": 2000
         },
         "dividing_biome": "theaurorian:aurorian_river",
         "excluded_biome_intersections": [
@@ -75,12 +77,15 @@
           [
             "theaurorian:filthy_ice_mountain",
             "theaurorian:filthy_ice_hills"
+          ],
+          [
+            "theaurorian:filthy_ice_hills",
+            "theaurorian:filthy_ice_crystal_snowfield"
           ]
         ],
         "excluded_neighbor_biomes": [
           "theaurorian:bright_moon_desert",
-          "theaurorian:filthy_ice_crystal_snowfield",
-          "theaurorian:filthy_ice_hills"
+          "theaurorian:filthy_ice_crystal_snowfield"
         ],
         "layer_type": "theaurorian:river",
         "salt": 1

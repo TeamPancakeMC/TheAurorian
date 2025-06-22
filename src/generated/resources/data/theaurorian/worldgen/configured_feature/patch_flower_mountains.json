@@ -10,47 +10,21 @@
             "entries": [
               {
                 "data": {
-                  "Name": "theaurorian:dreamscape_pistil",
-                  "Properties": {
-                    "facing": "north",
-                    "half": "lower"
-                  }
-                },
-                "weight": 1
-              },
-              {
-                "data": {
-                  "Name": "theaurorian:frost_tears_flower",
-                  "Properties": {
-                    "facing": "north",
-                    "half": "lower"
-                  }
-                },
-                "weight": 1
-              },
-              {
-                "data": {
-                  "Name": "theaurorian:crisped_mallow"
-                },
-                "weight": 1
-              },
-              {
-                "data": {
                   "Name": "theaurorian:frost_snow_grass"
                 },
-                "weight": 12
+                "weight": 20
               },
               {
                 "data": {
                   "Name": "theaurorian:ice_calendula"
                 },
-                "weight": 1
+                "weight": 2
               },
               {
                 "data": {
                   "Name": "theaurorian:winter_root"
                 },
-                "weight": 1
+                "weight": 2
               }
             ]
           }
@@ -66,7 +40,7 @@
         }
       ]
     },
-    "tries": 5,
+    "tries": 4,
     "xz_spread": 7,
     "y_spread": 3
   }

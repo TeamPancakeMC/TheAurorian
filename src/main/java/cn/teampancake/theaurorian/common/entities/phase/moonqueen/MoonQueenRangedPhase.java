@@ -11,12 +11,13 @@ import net.minecraft.world.level.Level;
 public class MoonQueenRangedPhase extends AttackPhase<MoonQueen> {
 
     public MoonQueenRangedPhase() {
-        super(3, 2, 30, 60);
+        super(3, 2, 30, 200);
     }
 
     @Override
     public boolean canStart(MoonQueen entity, boolean coolDownOver) {
-        return entity.preparationTime <= 0 && entity.isAlive() && TAEntityUtils.canReachTarget(entity, 24.0D);
+        boolean flag = entity.getTarget() != null && entity.isValidTarget(entity.getTarget());
+        return entity.preparationTime <= 0 && entity.isAlive() && flag && coolDownOver && TAEntityUtils.canReachTarget(entity, 24.0D);
     }
 
     @Override

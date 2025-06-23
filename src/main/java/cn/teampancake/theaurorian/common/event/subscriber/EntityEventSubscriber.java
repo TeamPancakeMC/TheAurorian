@@ -398,8 +398,8 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onMobEffectExpired(MobEffectEvent.Expired event) {
         MobEffectInstance instance = event.getEffectInstance();
-        LivingEntity entity = event.getEntity();
         if (instance != null) {
+            LivingEntity entity = event.getEntity();
             if (instance.is(TAMobEffects.PARALYSIS) || instance.is(TAMobEffects.STUN)) {
                 BlockPos pos = entity.getOnPos();
                 if (entity.getVehicle() instanceof SitEntity sitEntity) {
@@ -477,19 +477,6 @@ public class EntityEventSubscriber {
             //Prevent the death message doesn't show.
             if (Objects.requireNonNull(target.getEffect(effect)).getDuration() > 10) {
                 event.setNewDamage(0.0F);
-            }
-        }
-
-        if (target.hasEffect(TAMobEffects.CRYSTALLIZATION)) {
-            event.setNewDamage(event.getOriginalDamage() * 1.5F);
-            AttributeInstance attribute = target.getAttribute(Attributes.MAX_HEALTH);
-            AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL;
-            if (attribute != null && target.getMaxHealth() > 2.0D && Math.random() <= 0.25F) {
-                UUID uuid = Mth.createInsecureUUID(RandomSource.createNewThreadLocalInstance());
-                ResourceLocation id = TheAurorian.prefix("crystallization-" + uuid);
-                AttributeModifier modifier = new AttributeModifier(id, -0.1D, operation);
-                target.getData(TAAttachmentTypes.MAX_HEALTH_SUBTRACT_IDS).add(modifier.id());
-                attribute.addTransientModifier(modifier);
             }
         }
 

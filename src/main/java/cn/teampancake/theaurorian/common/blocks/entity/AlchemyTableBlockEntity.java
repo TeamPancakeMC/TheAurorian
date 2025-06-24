@@ -49,7 +49,7 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity implemen
     private boolean canMixPotion;
     private boolean canEffectFusion;
     private final ContainerData containerData = new Data();
-    private final RecipeManager.CachedCheck<AlchemyTableRecipeInput, ? extends AlchemyTableRecipe> quickCheck;
+    private final RecipeManager.CachedCheck<AlchemyTableRecipeInput, ?> quickCheck;
 
     public AlchemyTableBlockEntity(BlockPos pos, BlockState blockState) {
         super(TABlockEntityTypes.ALCHEMY_TABLE.get(), pos, blockState);
@@ -58,18 +58,16 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity implemen
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, AlchemyTableBlockEntity blockEntity) {
-        if (!level.isClientSide()) {
-            blockEntity.mixPotion(pos, state);
-            blockEntity.foodEffectFusion(pos, state);
-            if (!blockEntity.canMixPotion && !blockEntity.canEffectFusion) {
-                AlchemyTableRecipe recipe = blockEntity.checkBrewRecipe();
-                if (recipe != null) {
-                    blockEntity.baseBrew(recipe, pos, state);
-                } else {
-                    blockEntity.maxAlchemyTime = 0;
-                    blockEntity.alchemyTime = 0;
-                    setChanged(level, pos, state);
-                }
+        blockEntity.mixPotion(pos, state);
+        blockEntity.foodEffectFusion(pos, state);
+        if (!blockEntity.canMixPotion && !blockEntity.canEffectFusion) {
+            AlchemyTableRecipe recipe = blockEntity.checkBrewRecipe();
+            if (recipe != null) {
+                blockEntity.baseBrew(recipe, pos, state);
+            } else {
+                blockEntity.maxAlchemyTime = 0;
+                blockEntity.alchemyTime = 0;
+                setChanged(level, pos, state);
             }
         }
     }
@@ -201,14 +199,14 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity implemen
         }
 
         this.canEffectFusion = hasFood;
-        if (foodIndex < 0) return;
+        if (foodIndex < 0 || this.level == null) return;
         ItemStack foodStack = this.getItem(foodIndex);
         ItemStack potionStack = this.getItem(3);
         if (!foodStack.isEmpty() && !potionStack.isEmpty() && this.canEffectFusion) {
             FoodProperties oldFoodProperties = foodStack.get(food);
             PotionContents materialContents = potionStack.get(potionContents);
             boolean flag = materialContents != null && materialContents.hasEffects();
-            if (this.level != null && oldFoodProperties != null && flag) {
+            if (oldFoodProperties != null && flag) {
                 List<MobEffectInstance> potionEffects = new ArrayList<>();
                 materialContents.getAllEffects().forEach(potionEffects::add);
                 List<FoodProperties.PossibleEffect> possibleEffects = oldFoodProperties.effects();
@@ -363,8 +361,8 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity implemen
     @Nullable
     private AlchemyTableRecipe checkBrewRecipe() {
         if (this.level != null) {
-            RecipeHolder<? extends AlchemyTableRecipe> holder = this.quickCheck.getRecipeFor(this.getRecipeInput(), this.level).orElse(null);
-            return holder != null ? holder.value() : null;
+            RecipeHolder<?> holder = this.quickCheck.getRecipeFor(this.getRecipeInput(), this.level).orElse(null);
+            return holder != null && holder.value() instanceof AlchemyTableRecipe recipe ? recipe : null;
         }
 
         return null;
@@ -435,29 +433,22 @@ public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity implemen
 
         @Override
         public int get(int index) {
-            if (index == 0) {
-                return alchemyTime;
-            } else if (index == 1) {
-                return maxAlchemyTime;
-            } else if (index == 2) {
-                return liquidLevel;
-            } else if (index == 3) {
-                return liquidData;
-            } else {
-                return 0;
-            }
+            return switch (index) {
+                case 0 -> alchemyTime;
+                case 1 -> maxAlchemyTime;
+                case 2 -> liquidLevel;
+                case 3 -> liquidData;
+                default -> 0;
+            };
         }
 
         @Override
         public void set(int index, int value) {
-            if (index == 0) {
-                alchemyTime = value;
-            } else if (index == 1) {
-                maxAlchemyTime = value;
-            } else if (index == 2) {
-                liquidLevel = value;
-            } else if (index == 3) {
-                liquidData = value;
+            switch (index) {
+                case 0 -> alchemyTime = value;
+                case 1 -> maxAlchemyTime = value;
+                case 2 -> liquidLevel = value;
+                case 3 -> liquidData = value;
             }
         }
 

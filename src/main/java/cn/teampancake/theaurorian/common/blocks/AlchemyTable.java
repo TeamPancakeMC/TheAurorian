@@ -51,19 +51,17 @@ public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBl
 
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof AlchemyTableBlockEntity blockEntity) {
-            AlchemyTablePart part = state.getValue(PART);
-            if (part == AlchemyTablePart.LEFT) {
-                BlockPos relative = pos.relative(getNeighbourDirection(part, state.getValue(FACING)));
-                BlockState relativeState = level.getBlockState(relative);
-                boolean isRight = relativeState.getValue(PART) == AlchemyTablePart.RIGHT;
-                if (relativeState.is(this) && isRight && level.getBlockEntity(relative) instanceof AlchemyTableBlockEntity blockEntity2) {
-                    if (player instanceof ServerPlayer serverPlayer) {
-                        serverPlayer.openMenu(blockEntity2, extraData -> extraData.writeBlockPos(pos));
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
+            if (level.getBlockEntity(pos) instanceof AlchemyTableBlockEntity blockEntity) {
+                AlchemyTablePart part = state.getValue(PART);
+                if (part == AlchemyTablePart.LEFT) {
+                    BlockPos relative = pos.relative(getNeighbourDirection(part, state.getValue(FACING)));
+                    BlockState relativeState = level.getBlockState(relative);
+                    if (relativeState.is(this) && relativeState.getValue(PART) == AlchemyTablePart.RIGHT
+                            && level.getBlockEntity(relative) instanceof AlchemyTableBlockEntity) {
+                        serverPlayer.openMenu(blockEntity, extraData -> extraData.writeBlockPos(relative));
                     }
-                }
-            } else {
-                if (player instanceof ServerPlayer serverPlayer) {
+                } else {
                     serverPlayer.openMenu(blockEntity, extraData -> extraData.writeBlockPos(pos));
                 }
             }
@@ -76,8 +74,8 @@ public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBl
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof AlchemyTableBlockEntity scrapper) {
-                Containers.dropContents(level, pos, scrapper);
+            if (blockEntity instanceof AlchemyTableBlockEntity alchemyTable) {
+                Containers.dropContents(level, pos, alchemyTable);
                 level.updateNeighbourForOutputSignal(pos, this);
             }
 
@@ -161,13 +159,7 @@ public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBl
 
     @Nullable @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide() || state.getValue(PART) == AlchemyTablePart.LEFT ? null: createTickerHelper(blockEntityType, TABlockEntityTypes.ALCHEMY_TABLE.get(), AlchemyTableBlockEntity::serverTick);
-    }
-
-    @Nullable
-    @SuppressWarnings("unchecked")
-    private static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> serverType, BlockEntityType<E> clientType, BlockEntityTicker<? super E> ticker) {
-        return clientType == serverType ? (BlockEntityTicker<A>)ticker : null;
+        return level.isClientSide() ? null : BaseEntityBlock.createTickerHelper(blockEntityType, TABlockEntityTypes.ALCHEMY_TABLE.get(), AlchemyTableBlockEntity::serverTick);
     }
 
 }

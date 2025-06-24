@@ -83,6 +83,9 @@ public class ModBusEventSubscriber {
         registrar.playToClient(ShowDeathScreenS2CPacket.TYPE,
                 ShowDeathScreenS2CPacket.STREAM_CODEC,
                 ShowDeathScreenS2CPacket::handle);
+        registrar.playToClient(ShowStunScreenS2CPacket.TYPE,
+                ShowStunScreenS2CPacket.STREAM_CODEC,
+                ShowStunScreenS2CPacket::handle);
     }
 
     @OnlyIn(Dist.CLIENT)

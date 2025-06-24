@@ -14,14 +14,14 @@ public class TAMobEffects {
 
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, TheAurorian.MOD_ID);
     public static final DeferredHolder<MobEffect, MobEffect> STUN = MOB_EFFECTS.register("stun", () -> new MobEffect(MobEffectCategory.HARMFUL, 0x8b0000)
-            .addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("stun_ms"), -0.8, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.ATTACK_DAMAGE, TheAurorian.prefix("stun_ad"), -0.9, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.JUMP_STRENGTH, TheAurorian.prefix("stun_js"), -0.9, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.BLOCK_BREAK_SPEED, TheAurorian.prefix("stun_bbs"), -0.95, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.BLOCK_INTERACTION_RANGE, TheAurorian.prefix("stun_bir"), -0.7, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.ENTITY_INTERACTION_RANGE, TheAurorian.prefix("stun_eir"), -0.7, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.MINING_EFFICIENCY, TheAurorian.prefix("stun_me"), -0.95, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.ATTACK_SPEED, TheAurorian.prefix("stun_as"), -0.7, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+            .addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("stun_ms"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.ATTACK_DAMAGE, TheAurorian.prefix("stun_ad"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.JUMP_STRENGTH, TheAurorian.prefix("stun_js"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.BLOCK_BREAK_SPEED, TheAurorian.prefix("stun_bbs"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.BLOCK_INTERACTION_RANGE, TheAurorian.prefix("stun_bir"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.ENTITY_INTERACTION_RANGE, TheAurorian.prefix("stun_eir"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.MINING_EFFICIENCY, TheAurorian.prefix("stun_me"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.ATTACK_SPEED, TheAurorian.prefix("stun_as"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
     public static final DeferredHolder<MobEffect, MobEffect> PARALYSIS = MOB_EFFECTS.register("paralysis", () -> new MobEffect(MobEffectCategory.HARMFUL, 0xc09c72)
             .addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("paralysis_ms"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
             .addAttributeModifier(Attributes.JUMP_STRENGTH, TheAurorian.prefix("paralysis_js"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));

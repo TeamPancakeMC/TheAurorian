@@ -20,6 +20,7 @@ import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import cn.teampancake.theaurorian.common.level.TAServerPlayer;
 import cn.teampancake.theaurorian.common.level.effect.CorruptionEffectInstance;
 import cn.teampancake.theaurorian.common.network.FrostbiteS2CPacket;
+import cn.teampancake.theaurorian.common.network.ShowStunScreenS2CPacket;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
@@ -383,12 +384,17 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onMobEffectAdded(MobEffectEvent.Added event) {
         try {
+            LivingEntity entity = event.getEntity();
             Class<MobEffectEvent> clazz = MobEffectEvent.class;
             Field field = clazz.getDeclaredField("effectInstance");
             field.setAccessible(true);
             if (field.get(event) instanceof MobEffectInstance instance) {
                 if (instance.is(TAMobEffects.CORRUPTION)) {
                     field.set(event, new CorruptionEffectInstance(instance));
+                }
+
+                if (instance.is(TAMobEffects.STUN) && entity instanceof ServerPlayer player) {
+                    PacketDistributor.sendToPlayer(player, new ShowStunScreenS2CPacket(instance.duration));
                 }
             }
 

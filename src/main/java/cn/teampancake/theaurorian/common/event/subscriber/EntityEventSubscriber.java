@@ -395,6 +395,8 @@ public class EntityEventSubscriber {
 
                 if (instance.is(TAMobEffects.STUN) && entity instanceof ServerPlayer player) {
                     PacketDistributor.sendToPlayer(player, new ShowStunScreenS2CPacket(instance.duration));
+                    instance.showIcon = false;
+                    instance.visible = false;
                 }
             }
 

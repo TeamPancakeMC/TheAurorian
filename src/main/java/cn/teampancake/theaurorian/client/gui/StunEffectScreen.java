@@ -22,9 +22,7 @@ public class StunEffectScreen extends Screen {
     private static final Component RECOVERING = Component.translatable(PREFIX + "recovering");
     private static final Component STUNNING = Component.translatable(PREFIX + "stunning");
 
-    private final long stunStartTime = System.currentTimeMillis();
     private final int stunDuration;
-    private float iconScale = 5.0f;
     private float iconRotation = 0.0f;
     private float progress = 1.0f;
     private String keyHint = "";
@@ -32,7 +30,6 @@ public class StunEffectScreen extends Screen {
     private boolean isRecovering = false;
     private boolean hasClosed = false;
     private long recoverStartTime = 0;
-    private float iconColorLerp = 0f;
     private float recoverAlpha = 1.0f;
 
     public StunEffectScreen(int stunDuration) {
@@ -41,57 +38,32 @@ public class StunEffectScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        this.renderTransparentBackground(guiGraphics);
         int width = this.width;
         int height = this.height;
         long now = System.currentTimeMillis();
-
-        // 2. 脉动暗角
         float vignetteAlpha = (float) (0.35 + 0.15 * Math.sin(now / 250.0));
         vignetteAlpha *= this.recoverAlpha;
         this.drawVignette(guiGraphics, width, height, vignetteAlpha);
-
-        // 3. 屏幕抖动
-        int baseCenterX = width / 2;
-        int baseCenterY = height / 2 - 40;
-
-        // 4. 中心眩晕图标（缩放、旋转、颜色渐变）
-        float iconScaleNow = this.iconScale * this.recoverAlpha;
-        Color iconColor = lerpColor(new Color(120, 200, 255), new Color(120, 255, 180), this.iconColorLerp);
-        if (this.isRecovering) {
-            iconColor = new Color(120, 255, 120);
-        }
-
         PoseStack poseStack = guiGraphics.pose();
         poseStack.pushPose();
+        int baseCenterX = width / 2;
+        int baseCenterY = height / 2 - 40;
         poseStack.translate(baseCenterX, baseCenterY, 0);
-        poseStack.scale(iconScaleNow, iconScaleNow, iconScaleNow);
+        poseStack.scale(6.0F, 6.0F, 6.0F);
         poseStack.mulPose(Axis.ZP.rotationDegrees(this.iconRotation));
-        float red = iconColor.getRed() / 255f;
-        float green = iconColor.getGreen() / 255f;
-        float blue = iconColor.getBlue() / 255f;
-        guiGraphics.setColor(red, green, blue, this.recoverAlpha);
         int iconWidth = 18;
         int iconHeight = 18;
         guiGraphics.blit(STUN_ICON, -iconWidth / 2, -iconHeight / 2, 0, 0, iconWidth, iconHeight, iconWidth, iconHeight);
         poseStack.popPose();
-        guiGraphics.setColor(1f, 1f, 1f, 1f);
-
-        // 5. 进度环
-        this.drawProgressRing(guiGraphics, baseCenterX, baseCenterY, 64, this.progress, this.recoverAlpha);
-
-        // 6. 进度条
-        int barWidth = 200, barHeight = 12;
+        int barWidth = 240, barHeight = 12;
         int barX = width / 2 - barWidth / 2;
         int barY = baseCenterY + 80;
         this.drawLoadingBar(guiGraphics, barX, barY, barWidth, barHeight, this.progress, this.recoverAlpha);
-
-        // 7. 状态文字
         Component tip = this.isRecovering ? RECOVERING : STUNNING;
         int tipColor = this.isRecovering ? 0x77FF77 : 0xFFFFFF;
         guiGraphics.drawCenteredString(this.font, tip, width / 2, barY + 30, tipColor | (((int)(255 * this.recoverAlpha)) << 24));
-
-        // 8. 按键锁定提示
         if (!this.keyHint.isEmpty()) {
             MutableComponent text = Component.translatable(PREFIX + "forbidden", this.keyHint);
             guiGraphics.drawCenteredString(this.font, text, width / 2, height - 40, 0xFF5555 | (((int)(255 * this.recoverAlpha)) << 24));
@@ -106,56 +78,35 @@ public class StunEffectScreen extends Screen {
     @Override
     public void tick() {
         long now = System.currentTimeMillis();
-        long elapsed = now - this.stunStartTime;
         if (this.minecraft != null) {
             LocalPlayer player = this.minecraft.player;
             if (player != null && player.hasEffect(TAMobEffects.STUN)) {
                 MobEffectInstance instance = player.getEffect(TAMobEffects.STUN);
                 if (instance != null) {
-                    this.progress = Math.max(1.0f, 1.0f - (float) instance.duration / this.stunDuration);
+                    this.progress = Math.max(0.0f, 1.0f - (float) instance.duration / this.stunDuration);
                 }
             } else {
                 this.minecraft.setScreen(null);
             }
         }
 
-        // 图标缩放动画
-        if (elapsed < 600) {
-            this.iconScale = 5.0f - 2.0f * (elapsed / 600.0f);
-        } else {
-            this.iconScale = 1.0f;
-        }
-
-        // 图标旋转速度随眩晕强度变化
         float iconRotationSpeed = 180.0f + 180.0f * this.progress;
         this.iconRotation += iconRotationSpeed / 20.0f;
         if (this.iconRotation > 360.0f) {
             this.iconRotation -= 360.0f;
         }
 
-        // 图标颜色渐变
-        this.iconColorLerp = (float)(0.5f + 0.5f * Math.sin(now / 1200.0));
-        if (this.isRecovering) {
-            this.iconColorLerp = 1.0f;
-        }
-
-        // 进入恢复阶段
-        if (this.progress <= 0.0f && !this.isRecovering) {
+        if (this.progress > 0.95F && !this.isRecovering) {
             this.isRecovering = true;
             this.recoverStartTime = System.currentTimeMillis();
         }
 
-        // 恢复阶段淡出
         if (this.isRecovering && !this.hasClosed) {
             long recoverElapsed = now - this.recoverStartTime;
             this.recoverAlpha = Math.max(0f, 1.0f - recoverElapsed / 800.0f);
-            if (this.minecraft != null) {
-                this.minecraft.setScreen(null);
-                this.hasClosed = true;
-            }
+            this.hasClosed = true;
         }
 
-        // 按键提示消失
         if (!this.keyHint.isEmpty() && now - this.keyHintTime > 1000) {
             this.keyHint = "";
         }
@@ -173,22 +124,25 @@ public class StunEffectScreen extends Screen {
         return true;
     }
 
-    // 脉动暗角
     private void drawVignette(GuiGraphics graphics, int w, int h, float alpha) {
         int steps = 32;
         int cx = w / 2, cy = h / 2;
-        int maxR = Math.max(w, h) / 2;
-        for (int i = steps - 1; i >= 0; i--) {
-            float r0 = (float)i / steps;
-            float r1 = (float)(i + 1) / steps;
-            graphics.fill(
-                cx - (int)(maxR * r0), cy - (int)(maxR * r0),
-                cx + (int)(maxR * r0), cy + (int)(maxR * r0),
-                ((int)(255 * alpha * r1)) << 24);
+        int rx = w / 4;
+        int ry = h / 6;
+        int maxR = (int)(Math.sqrt(w * w + h * h) / 2);
+        for (int i = 0; i < steps; i++) {
+            float t1 = (float)(i + 1) / steps;
+            int r1x = (int)(rx + (maxR - rx) * t1);
+            int r1y = (int)(ry + (maxR - ry) * t1);
+            float opacity = alpha * t1;
+            int color = ((int)(255 * opacity)) << 24;
+            graphics.fill(0, 0, w, cy - r1y, color);
+            graphics.fill(0, cy + r1y, w, h, color);
+            graphics.fill(0, cy - r1y, cx - r1x, cy + r1y, color);
+            graphics.fill(cx + r1x, cy - r1y, w, cy + r1y, color);
         }
     }
 
-    // 进度环
     public void drawProgressRing(GuiGraphics graphics, int cx, int cy, int radius, float progress, float alpha) {
         int segs = 60;
         float angleStep = 360.0f / segs;
@@ -207,7 +161,6 @@ public class StunEffectScreen extends Screen {
         }
     }
 
-    // 进度条
     private void drawLoadingBar(GuiGraphics graphics, int x, int y, int w, int h, float progress, float alpha) {
         int bg = ((int)(alpha * 255) << 24) | 0x333333;
         int fg = ((int)(alpha * 255) << 24) | 0xDDFF88;
@@ -220,7 +173,6 @@ public class StunEffectScreen extends Screen {
         graphics.fill(x + w - 1, y, x + w, y + h, border);
     }
 
-    // 颜色插值
     private Color lerpColor(Color c1, Color c2, float t) {
         int r = (int)(c1.getRed() + (c2.getRed() - c1.getRed()) * t);
         int g = (int)(c1.getGreen() + (c2.getGreen() - c1.getGreen()) * t);

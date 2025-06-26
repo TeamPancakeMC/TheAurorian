@@ -47,6 +47,30 @@ public class ClientEventSubscriber {
     }
 
     @SubscribeEvent
+    public static void onMouseButtonPre(InputEvent.MouseButton.Pre event) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (player != null && player.hasEffect(TAMobEffects.STUN)) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMouseScrolling(InputEvent.MouseScrollingEvent event) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (player != null && player.hasEffect(TAMobEffects.STUN)) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onInteractionKeyMappingTriggered(InputEvent.InteractionKeyMappingTriggered event) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (player != null && player.hasEffect(TAMobEffects.STUN)) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
     public static void onPlaySound(PlaySoundEvent event) {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player != null && player.hasEffect(TAMobEffects.DEAFNESS)) {

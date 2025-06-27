@@ -8,6 +8,7 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAMobEffectTags;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
+import cn.teampancake.theaurorian.common.entities.boss.AbstractAurorianBoss;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
@@ -431,38 +432,6 @@ public class EntityEventSubscriber {
     public static void onLivingDeath(LivingDeathEvent event) {
         Entity sourceEntity = event.getSource().getEntity();
         LivingEntity entity = event.getEntity();
-        if (sourceEntity instanceof MoonQueen moonQueen) {
-            moonQueen.safeTime = 0;
-            Holder<MobEffect> effect = TAMobEffects.MOON_BEFALL;
-            if (entity instanceof Player player) {
-                if (moonQueen.hasEffect(effect)) {
-                    moonQueen.removeEffect(effect);
-                }
-
-                if (moonQueen.duelingMoment) {
-                    moonQueen.killedDuelistName.add(player.getName().getString());
-                    moonQueen.selectDuelistFromNearestTarget();
-                    moonQueen.heal((moonQueen.getMaxHealth() * 0.1F));
-                }
-            }
-
-            if (!(entity instanceof Player) && !entity.isRemoved()) {
-                Level level = entity.level();
-                if (entity.isSleeping()) {
-                    entity.stopSleeping();
-                }
-
-                entity.getCombatTracker().recheckStatus();
-                if (level instanceof ServerLevel) {
-                    entity.gameEvent(GameEvent.ENTITY_DIE);
-                    level.broadcastEntityEvent(entity, (byte)3);
-                }
-
-                entity.setPose(Pose.DYING);
-                event.setCanceled(true);
-            }
-        }
-
         if (entity instanceof ServerPlayer player) {
             Level level = player.level();
             ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
@@ -480,8 +449,8 @@ public class EntityEventSubscriber {
             }
         }
 
-        if (sourceEntity instanceof SpiderMother spiderMother) {
-            spiderMother.heal(entity.getMaxHealth());
+        if (sourceEntity instanceof AbstractAurorianBoss boss) {
+            boss.onKilledTarget(entity);
         }
 
         if (sourceEntity instanceof Player player) {

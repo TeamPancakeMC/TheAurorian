@@ -260,6 +260,11 @@ public class SpiderMother extends AbstractAurorianBoss implements GeoEntity {
     }
 
     @Override
+    public void onKilledTarget(LivingEntity target) {
+        this.heal(target.getMaxHealth());
+    }
+
+    @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.SPIDER_AMBIENT;
     }

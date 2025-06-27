@@ -19,6 +19,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HoneyBlock;
@@ -28,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
 
-abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacker {
+public abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacker {
 
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ATTACK_TICKS = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
@@ -145,6 +146,8 @@ abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacke
             default -> {}
         }
     }
+
+    public void onKilledTarget(LivingEntity target) {}
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {

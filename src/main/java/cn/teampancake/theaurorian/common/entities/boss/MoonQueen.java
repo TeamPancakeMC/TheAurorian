@@ -98,14 +98,14 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             new MobEffectInstance(TAMobEffects.BLESS_OF_MOON, 200),
             new MobEffectInstance(TAMobEffects.MOON_OF_VENGEANCE, 200));
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public final HashSet<String> killedDuelistName = new HashSet<>();
+    private final HashSet<String> killedDuelistName = new HashSet<>();
     private final HashSet<String> currentSavedName = new HashSet<>();
     private final HashSet<String> playerAlreadyHealFor = new HashSet<>();
     private long ticksCanOneHitMustKill = 24000L;
     private int ticksDueling = 2400;
     private int triggerDuelingCount;
     public int preparationTime;
-    public int safeTime;
+    private int safeTime;
     public int fqmPySwordNum;
     private boolean isNeutral;
     public boolean duelingMoment;
@@ -399,6 +399,23 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             if (this.deathTime > 80 && !this.isRemoved()) {
                 this.level().broadcastEntityEvent(this, (byte) 60);
                 this.remove(RemovalReason.KILLED);
+            }
+        }
+    }
+
+    @Override
+    public void onKilledTarget(LivingEntity target) {
+        this.safeTime = 0;
+        Holder<MobEffect> effect = TAMobEffects.MOON_BEFALL;
+        if (target instanceof Player player) {
+            if (this.hasEffect(effect)) {
+                this.removeEffect(effect);
+            }
+
+            if (this.duelingMoment) {
+                this.killedDuelistName.add(player.getName().getString());
+                this.selectDuelistFromNearestTarget();
+                this.heal((this.getMaxHealth() * 0.1F));
             }
         }
     }

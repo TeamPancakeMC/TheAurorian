@@ -736,10 +736,13 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAMobEffects.BROKEN, "破盾");
         this.addKey(TAMobEffects.NATURE, "自然");
         this.addKey(TAMobEffects.TREMOR, "震颤");
+        this.addKey(TAMobEffects.DETONIX, "爆蚀");
         this.addKey(TAMobEffects.CRESCENT, "新月");
         this.addKey(TAMobEffects.HOLINESS, "圣洁");
         this.addKey(TAMobEffects.PRESSURE, "威压");
         this.addKey(TAMobEffects.DEAFNESS, "失聪");
+        this.addKey(TAMobEffects.REJECTUM, "拒纳");
+        this.addKey(TAMobEffects.SOUL_BIND, "魂缚");
         this.addKey(TAMobEffects.PARALYSIS, "瘫痪");
         this.addKey(TAMobEffects.CONFUSION, "混乱");
         this.addKey(TAMobEffects.FROSTBITE, "冻伤");

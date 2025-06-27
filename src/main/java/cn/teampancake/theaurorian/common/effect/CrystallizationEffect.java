@@ -12,6 +12,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
+import java.util.List;
 import java.util.UUID;
 
 public class CrystallizationEffect extends IncurableEffect {
@@ -21,10 +22,20 @@ public class CrystallizationEffect extends IncurableEffect {
     }
 
     @Override
+    public void onEffectExpired(LivingEntity livingEntity, int amplifier) {
+        List<ResourceLocation> list = livingEntity.getData(TAAttachmentTypes.MAX_HEALTH_SUBTRACT_IDS);
+        AttributeInstance attribute = livingEntity.getAttribute(Attributes.MAX_HEALTH);
+        if (!list.isEmpty() && attribute != null) {
+            list.forEach(attribute::removeModifier);
+            list.clear();
+        }
+    }
+
+    @Override
     public void onMobHurt(LivingEntity livingEntity, int amplifier, DamageSource damageSource, float amount) {
         AttributeInstance attribute = livingEntity.getAttribute(Attributes.MAX_HEALTH);
         AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL;
-        if (attribute != null && livingEntity.getMaxHealth() > 2.0D && Math.random() <= 0.25F) {
+        if (attribute != null && livingEntity.getMaxHealth() > 2.0D && Math.random() <= (amplifier + 1) * 0.1F) {
             UUID uuid = Mth.createInsecureUUID(RandomSource.createNewThreadLocalInstance());
             ResourceLocation id = TheAurorian.prefix("crystallization-" + uuid);
             AttributeModifier modifier = new AttributeModifier(id, -0.1D, operation);

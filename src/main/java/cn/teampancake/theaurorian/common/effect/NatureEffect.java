@@ -19,7 +19,10 @@ public class NatureEffect extends MobEffect {
     public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
         Holder<Biome> biomes = livingEntity.level().getBiome(livingEntity.blockPosition());
         if (biomes.is(BiomeTags.IS_FOREST) || biomes.is(TABiomeTags.IS_AUARORIAN_FOREST)) {
-            livingEntity.removeEffect(TAMobEffects.PRESSURE);
+            if (livingEntity.hasEffect(TAMobEffects.PRESSURE)) {
+                livingEntity.removeEffect(TAMobEffects.PRESSURE);
+            }
+
             if (livingEntity.getHealth() < livingEntity.getMaxHealth()) {
                 livingEntity.heal(1.0F);
             }

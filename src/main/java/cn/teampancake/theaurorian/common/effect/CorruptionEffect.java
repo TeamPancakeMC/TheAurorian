@@ -34,7 +34,17 @@ public class CorruptionEffect extends IncurableEffect {
         return true;
     }
 
-    public static void doHurtTarget(LivingEntity entity) {
+    @Override
+    public void onEffectRemoved(LivingEntity livingEntity) {
+        this.doHurtTarget(livingEntity);
+    }
+
+    @Override
+    public void onEffectExpired(LivingEntity livingEntity, int amplifier) {
+        this.doHurtTarget(livingEntity);
+    }
+
+    private void doHurtTarget(LivingEntity entity) {
         RegistryAccess registry = entity.level().registryAccess();
         Holder<DamageType> holder = registry.holderOrThrow(TADamageTypes.CORRUPTION);
         CorruptionDamage corruptionDamage = new CorruptionDamage(holder);

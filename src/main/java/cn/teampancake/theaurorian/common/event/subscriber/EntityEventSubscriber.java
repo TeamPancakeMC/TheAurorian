@@ -3,17 +3,14 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import cn.teampancake.theaurorian.common.blocks.MysteriumWoolBed;
-import cn.teampancake.theaurorian.common.components.SourceOfTerra;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAMobEffectTags;
-import cn.teampancake.theaurorian.common.effect.CorruptionEffect;
-import cn.teampancake.theaurorian.common.effect.ForbiddenCurseEffect;
+import cn.teampancake.theaurorian.common.effect.TAMobEffect;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
-import cn.teampancake.theaurorian.common.entities.projectile.ThrownAxe;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
@@ -38,11 +35,9 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.stats.Stats;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -56,7 +51,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -65,15 +59,12 @@ import net.minecraft.world.entity.projectile.ThrownEgg;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.portal.DimensionTransition;
@@ -85,6 +76,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.*;
@@ -97,7 +89,6 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 /** @noinspection deprecation*/
 @EventBusSubscriber(modid = TheAurorian.MOD_ID)
@@ -144,69 +135,15 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        BlockPos pos = event.getPos();
-        Level level = event.getLevel();
-        Player player = event.getEntity();
-        ItemStack itemInHand = player.getItemInHand(event.getHand());
-        DataComponentType<SourceOfTerra> componentType = TADataComponents.SOURCE_OF_TERRA.get();
-        if (itemInHand.getEnchantmentLevel(TAEnchantments.get(level, TAEnchantments.SOURCE_OF_TERRA)) > 0) {
-            Container container = HopperBlockEntity.getContainerAt(level, pos);
-            if (container instanceof BlockEntity blockEntity && player.isShiftKeyDown()) {
-                SourceOfTerra sourceOfTerra = itemInHand.get(componentType);
-                String dimension = level.dimension().location().toString();
-                if (sourceOfTerra == null) {
-                    itemInHand.set(componentType, new SourceOfTerra(dimension, pos));
-                    checkIfServerPlayerAndSendMessage(player, "message.source_of_terra.bind");
-                    addUUIDToBlockEntity(blockEntity, player);
-                } else {
-                    BlockPos selectedPos = sourceOfTerra.selectedPos();
-                    int selectedX = selectedPos.getX();
-                    int selectedY = selectedPos.getY();
-                    int selectedZ = selectedPos.getZ();
-                    if (selectedX == pos.getX() && selectedY == pos.getY() && selectedZ == pos.getZ()) {
-                        checkIfServerPlayerAndSendMessage(player, "message.source_of_terra.unbind");
-                        itemInHand.remove(componentType);
-                        removeUUIDFromBlockEntity(blockEntity, player);
-                    } else {
-                        Container selectedContainer = HopperBlockEntity.getContainerAt(level, selectedPos);
-                        if (selectedContainer instanceof BlockEntity selectedBlockEntity) {
-                            removeUUIDFromBlockEntity(selectedBlockEntity, player);
-                        }
-
-                        itemInHand.set(componentType, new SourceOfTerra(dimension, pos));
-                        checkIfServerPlayerAndSendMessage(player, "message.source_of_terra.changed");
-                        addUUIDToBlockEntity(blockEntity, player);
-                    }
-                }
-            }
+        if (event.getLevel() instanceof ServerLevel serverLevel) {
+            TAEnchantmentEffectComponents.onBlockUse(serverLevel, event.getEntity(), event.getPos());
         }
     }
 
     @SubscribeEvent
     public static void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        Player player = event.getEntity();
-        ItemStack stack = event.getItemStack();
-        Level level = player.level();
-        Holder<Enchantment> enchantment = TAEnchantments.get(level, TAEnchantments.ROUNDABOUT_THROW);
-        int enchantmentLevel = EnchantmentUtils.getEnchantmentLevel(enchantment, player);
-        if (stack.getItem() instanceof AxeItem && enchantmentLevel > 0) {
-            player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-            if (!level.isClientSide) {
-                Inventory inventory = player.getInventory();
-                player.setItemInHand(event.getHand(), ItemStack.EMPTY);
-                double baseDamage = player.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
-                double damage = 1.0F + baseDamage * 1.2F;
-                int containerSize = inventory.getContainerSize();
-                int slot = event.getHand() == InteractionHand.OFF_HAND ? containerSize - 1 : inventory.selected;
-                ThrownAxe entity = new ThrownAxe(level, player);
-                double y = player.position().y + player.getBbHeight() / 2.0F;
-                entity.setPos(player.position().x, y, player.position().z);
-                entity.setData((float) damage, player.getUUID(), slot);
-                entity.setNoGravity(true);
-                entity.setItem(stack);
-                entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 0.0F);
-                level.addFreshEntity(entity);
-            }
+        if (event.getLevel() instanceof ServerLevel serverLevel) {
+            TAEnchantmentEffectComponents.onItemUse(serverLevel, event.getEntity());
         }
     }
 
@@ -361,10 +298,8 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onMobEffectRemoved(MobEffectEvent.Remove event) {
         MobEffectInstance instance = event.getEffectInstance();
-        boolean flag = instance != null && !instance.isInfiniteDuration()
-                && instance.getEffect().is(TAMobEffects.CORRUPTION);
-        if (flag || event.getEffect().is(TAMobEffects.CORRUPTION)) {
-            CorruptionEffect.doHurtTarget(event.getEntity());
+        if (instance != null && instance.effect.value() instanceof TAMobEffect effect) {
+            effect.onEffectRemoved(event.getEntity());
         }
     }
 
@@ -384,7 +319,6 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onMobEffectAdded(MobEffectEvent.Added event) {
         try {
-            LivingEntity entity = event.getEntity();
             Class<MobEffectEvent> clazz = MobEffectEvent.class;
             Field field = clazz.getDeclaredField("effectInstance");
             field.setAccessible(true);
@@ -393,7 +327,7 @@ public class EntityEventSubscriber {
                     field.set(event, new CorruptionEffectInstance(instance));
                 }
 
-                if (instance.is(TAMobEffects.STUN) && entity instanceof ServerPlayer player) {
+                if (instance.is(TAMobEffects.STUN) && event.getEntity() instanceof ServerPlayer player) {
                     PacketDistributor.sendToPlayer(player, new ShowStunScreenS2CPacket(instance.duration));
                     instance.showIcon = false;
                     instance.visible = false;
@@ -406,8 +340,9 @@ public class EntityEventSubscriber {
     @SubscribeEvent
     public static void onMobEffectExpired(MobEffectEvent.Expired event) {
         MobEffectInstance instance = event.getEffectInstance();
-        if (instance != null) {
+        if (instance != null && instance.effect.value() instanceof TAMobEffect effect) {
             LivingEntity entity = event.getEntity();
+            effect.onEffectExpired(entity, instance.getAmplifier());
             if (instance.is(TAMobEffects.PARALYSIS) || instance.is(TAMobEffects.STUN)) {
                 BlockPos pos = entity.getOnPos();
                 if (entity.getVehicle() instanceof SitEntity sitEntity) {
@@ -415,23 +350,6 @@ public class EntityEventSubscriber {
                     sitEntity.ejectPassengers();
                     sitEntity.discard();
                 }
-            }
-
-            if (instance.is(TAMobEffects.CRYSTALLIZATION)) {
-                List<ResourceLocation> list = entity.getData(TAAttachmentTypes.MAX_HEALTH_SUBTRACT_IDS);
-                AttributeInstance attribute = entity.getAttribute(Attributes.MAX_HEALTH);
-                if (!list.isEmpty() && attribute != null) {
-                    list.forEach(attribute::removeModifier);
-                    list.clear();
-                }
-            }
-
-            if (instance.is(TAMobEffects.CORRUPTION)) {
-                CorruptionEffect.doHurtTarget(entity);
-            }
-
-            if (instance.is(TAMobEffects.FORBIDDEN_CURSE) && entity instanceof Player player) {
-                ForbiddenCurseEffect.restorePlayerInventoryItemEnchantments(player);
             }
         }
     }
@@ -691,8 +609,7 @@ public class EntityEventSubscriber {
     public static void onPlayerContainer(PlayerContainerEvent event) {
         AbstractContainerMenu container = event.getContainer();
         if (container instanceof AlchemyTableMenu menu) {
-            Stream<Slot> stream = menu.slots.stream();
-            List<ItemStack> stacks = stream.filter(Slot::hasItem).map(Slot::getItem).toList();
+            List<ItemStack> stacks = menu.slots.stream().filter(Slot::hasItem).map(Slot::getItem).toList();
             DataComponentType<Boolean> component = TADataComponents.INGREDIENT_APPLIER.get();
             if (event instanceof PlayerContainerEvent.Open) {
                 ContainerData containerData = menu.getContainerData();
@@ -742,6 +659,13 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
+    public static void onPlayerPickupItem(ItemEntityPickupEvent.Pre event) {
+        if (event.getPlayer().hasEffect(TAMobEffects.REJECTUM)) {
+            event.setCanPickup(TriState.FALSE);
+        }
+    }
+
+    @SubscribeEvent
     public static void playerBreakSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
         BlockState state = event.getState();
@@ -760,30 +684,6 @@ public class EntityEventSubscriber {
             if (state.is(selected.getBlock()) && !state.isAir()) {
                 event.setNewSpeed(event.getOriginalSpeed() * 2.0F);
             }
-        }
-    }
-
-    private static void addUUIDToBlockEntity(BlockEntity blockEntity, Player player) {
-        AttachmentType<List<UUID>> attachmentType = TAAttachmentTypes.BINDING_PLAYER_UUIDS.get();
-        List<UUID> uuidList = blockEntity.getData(attachmentType);
-        if (!uuidList.contains(player.getUUID())) {
-            uuidList.add(player.getUUID());
-            blockEntity.setData(attachmentType, uuidList);
-        }
-    }
-
-    private static void removeUUIDFromBlockEntity(BlockEntity blockEntity, Player player) {
-        AttachmentType<List<UUID>> attachmentType = TAAttachmentTypes.BINDING_PLAYER_UUIDS.get();
-        List<UUID> uuidList = blockEntity.getData(attachmentType);
-        if (uuidList.contains(player.getUUID())) {
-            uuidList.remove(player.getUUID());
-            blockEntity.setData(attachmentType, uuidList);
-        }
-    }
-
-    private static void checkIfServerPlayerAndSendMessage(Player player, String key) {
-        if (player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.sendSystemMessage(Component.translatable(key));
         }
     }
 

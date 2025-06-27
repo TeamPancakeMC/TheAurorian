@@ -7,7 +7,7 @@
     "minecraft:tick": [
       {
         "effect": {
-          "type": "theaurorian:source_of_terra",
+          "type": "theaurorian:spring_of_life",
           "placeholder": 0
         }
       }

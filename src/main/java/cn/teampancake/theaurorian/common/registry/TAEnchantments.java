@@ -1,9 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.enchantments.FreezeAspectEffect;
-import cn.teampancake.theaurorian.common.enchantments.MoltenCoreEffect;
-import cn.teampancake.theaurorian.common.enchantments.SpringOfLifeEffect;
+import cn.teampancake.theaurorian.common.enchantments.*;
 import cn.teampancake.theaurorian.common.level.storage.predicate.MoltenCoreEnchantmentCondition;
 import cn.teampancake.theaurorian.common.level.storage.predicate.NightWalkerEnchantmentCondition;
 import cn.teampancake.theaurorian.common.level.storage.predicate.SavageEnchantmentCondition;
@@ -16,6 +14,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -155,7 +154,8 @@ public class TAEnchantments {
         register(context, SOURCE_OF_TERRA, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.MINING_LOOT_ENCHANTABLE),
                 2, 1, Enchantment.constantCost(40),
-                Enchantment.constantCost(80), 4, EquipmentSlotGroup.HAND)));
+                Enchantment.constantCost(80), 4, EquipmentSlotGroup.HAND))
+                .withEffect(TAEnchantmentEffectComponents.BLOCK_USE.get(), new SourceOfTerraEffect(Unit.INSTANCE)));
         register(context, COBWEB_CROSSING, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
                 5, 1, Enchantment.constantCost(20),
@@ -163,7 +163,8 @@ public class TAEnchantments {
         register(context, ROUNDABOUT_THROW, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.AXES),
                 2, 3, Enchantment.dynamicCost(11, 10),
-                Enchantment.dynamicCost(16, 10), 4, EquipmentSlotGroup.HAND)));
+                Enchantment.dynamicCost(16, 10), 4, EquipmentSlotGroup.HAND))
+                .withEffect(TAEnchantmentEffectComponents.ITEM_USE.get(), new RoundaboutThrowEffect(Unit.INSTANCE)));
         register(context, LIGHTNING_DAMAGE, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
                 2, 4, Enchantment.dynamicCost(5, 15),

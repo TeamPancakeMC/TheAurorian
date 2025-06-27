@@ -3,6 +3,16 @@
   "description": {
     "translate": "enchantment.theaurorian.roundabout_throw"
   },
+  "effects": {
+    "theaurorian:item_use": [
+      {
+        "effect": {
+          "type": "theaurorian:roundabout_throw",
+          "unit": {}
+        }
+      }
+    ]
+  },
   "max_cost": {
     "base": 16,
     "per_level_above_first": 10

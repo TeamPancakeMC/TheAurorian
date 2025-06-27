@@ -3,6 +3,16 @@
   "description": {
     "translate": "enchantment.theaurorian.source_of_terra"
   },
+  "effects": {
+    "theaurorian:block_use": [
+      {
+        "effect": {
+          "type": "theaurorian:source_of_terra",
+          "unit": {}
+        }
+      }
+    ]
+  },
   "max_cost": {
     "base": 80,
     "per_level_above_first": 0

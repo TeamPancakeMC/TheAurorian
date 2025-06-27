@@ -31,7 +31,7 @@ public class KnightArmor extends BaseArmor<KnightArmorModel> {
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        if (entity instanceof Player player && !player.hasEffect(MobEffects.DAMAGE_BOOST) && TAInventoryUtils.isWearFullArmor(player, this.material)) {
+        if (entity instanceof Player player && !player.hasEffect(MobEffects.DAMAGE_BOOST) && TAInventoryUtils.isWearFullArmor(player, this.getClass())) {
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200));
         }
     }

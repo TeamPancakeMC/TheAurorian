@@ -13,7 +13,6 @@ import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
-import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import cn.teampancake.theaurorian.common.level.TAServerPlayer;
 import cn.teampancake.theaurorian.common.level.effect.CorruptionEffectInstance;
@@ -60,6 +59,7 @@ import net.minecraft.world.entity.projectile.ThrownEgg;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -103,7 +103,7 @@ public class EntityEventSubscriber {
                 boolean noImmuneEffect = !player.hasEffect(TAMobEffects.WARM) && !player.hasEffect(TAMobEffects.FROSTBITE);
                 boolean isInSnowField = level.getBiome(player.blockPosition()).is(TABiomeTags.IS_FILTHY_ICE);
                 if (noImmuneEffect && isInSnowField && !player.isCreative()
-                        && !MysteriumWoolArmor.isWearFullArmor(player) && player.tickCount % 60 == 0) {
+                        && !TAInventoryUtils.isWearFullArmor(player, ArmorMaterials.LEATHER) && player.tickCount % 60 == 0) {
                     player.setData(TAAttachmentTypes.TICKS_FROSTBITE, player.getTicksRequiredToFreeze());
                     player.hurt(player.damageSources().freeze(), 1.0F);
                     player.setSharedFlagOnFire(false);

@@ -6,14 +6,19 @@ import cn.teampancake.theaurorian.common.level.alchemy.PotionDecaySystem;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TADataMaps;
 import com.google.common.collect.Lists;
+import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -24,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+/** @noinspection deprecation*/
 public class TAInventoryUtils {
 
     public static List<ItemStack> getInventoryItems(Inventory inventory, Function<ItemStack, Boolean> function) {
@@ -81,6 +87,21 @@ public class TAInventoryUtils {
                 }
             }
         }
+    }
+
+    public static boolean isWearFullArmor(LivingEntity entity, Holder<ArmorMaterial> material) {
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
+                ItemStack stack = entity.getItemBySlot(slot);
+                if (!(stack.getItem() instanceof ArmorItem armor
+                        && !armor.getMaterial().is(material))
+                        || armor.getType().getSlot() != slot) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 }

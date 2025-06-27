@@ -9,29 +9,15 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashSet;
-
 public class MysteriumWoolArmor extends BaseArmor<MysteriumWoolArmorModel> {
 
     public MysteriumWoolArmor(Type type) {
         super(ArmorMaterials.LEATHER, type, new Item.Properties().rarity(Rarity.RARE));
-    }
-
-    public static boolean isWearFullArmor(LivingEntity entity) {
-        HashSet<Item> set = new HashSet<>();
-        entity.getArmorSlots().forEach(stack -> {
-            if (stack.getItem() instanceof MysteriumWoolArmor) {
-                set.add(stack.getItem());
-            }
-        });
-
-        return set.size() == 4;
     }
 
     @Override

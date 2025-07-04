@@ -17,7 +17,6 @@ import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import cn.teampancake.theaurorian.common.level.TAServerPlayer;
-import cn.teampancake.theaurorian.common.level.effect.CorruptionEffectInstance;
 import cn.teampancake.theaurorian.common.network.FrostbiteS2CPacket;
 import cn.teampancake.theaurorian.common.network.ShowStunScreenS2CPacket;
 import cn.teampancake.theaurorian.common.registry.*;
@@ -78,7 +77,6 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.List;
 import java.util.function.Predicate;
@@ -323,23 +321,12 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onMobEffectAdded(MobEffectEvent.Added event) {
-        try {
-            Class<MobEffectEvent> clazz = MobEffectEvent.class;
-            Field field = clazz.getDeclaredField("effectInstance");
-            field.setAccessible(true);
-            if (field.get(event) instanceof MobEffectInstance instance) {
-                if (instance.is(TAMobEffects.CORRUPTION)) {
-                    field.set(event, new CorruptionEffectInstance(instance));
-                }
-
-                if (instance.is(TAMobEffects.STUN) && event.getEntity() instanceof ServerPlayer player) {
-                    PacketDistributor.sendToPlayer(player, new ShowStunScreenS2CPacket(instance.duration));
-                    instance.showIcon = false;
-                    instance.visible = false;
-                }
-            }
-
-        } catch (Exception ignored) {}
+        MobEffectInstance instance = event.getEffectInstance();
+        if (instance != null && instance.is(TAMobEffects.STUN) && event.getEntity() instanceof ServerPlayer player) {
+            PacketDistributor.sendToPlayer(player, new ShowStunScreenS2CPacket(instance.duration));
+            instance.showIcon = false;
+            instance.visible = false;
+        }
     }
 
     @SubscribeEvent

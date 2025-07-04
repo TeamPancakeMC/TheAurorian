@@ -17,8 +17,15 @@ public class QueensChipper extends PickaxeItem {
 
     public QueensChipper() {
         super(TAToolTiers.AURORIAN_STEEL, new Item.Properties().rarity(Rarity.RARE)
-                .attributes(createAttributes(TAToolTiers.AURORIAN_STEEL, (5), (-1.2f)))
+                .attributes(createAttributes(TAToolTiers.AURORIAN_STEEL, 5, -1.2F))
                 .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES, TAItemTags.IS_EPIC)));
+    }
+
+    @Override
+    public float getDestroySpeed(ItemStack stack, BlockState state) {
+        boolean flag = state.is(TABlockTags.DUNGEON_BLOCKS);
+        float destroySpeed = super.getDestroySpeed(stack, state);
+        return flag ? destroySpeed * 16.0F : destroySpeed;
     }
 
     @Override

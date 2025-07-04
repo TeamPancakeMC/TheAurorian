@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -35,7 +36,7 @@ public class UmbraPickaxe extends PickaxeItem {
 
     public UmbraPickaxe() {
         super(TAToolTiers.UMBRA, new Item.Properties().rarity(Rarity.EPIC)
-                .attributes(createAttributes(TAToolTiers.UMBRA, (5), (1.2F)))
+                .attributes(createAttributes(TAToolTiers.UMBRA, 5, 1.2F))
                 .component(DataComponents.CUSTOM_DATA, getDefaultSelectedBlock())
                 .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES, TAItemTags.IS_EPIC))
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
@@ -47,6 +48,17 @@ public class UmbraPickaxe extends PickaxeItem {
         CompoundTag compoundTag = NbtUtils.writeBlockState(state);
         selectedBlock.put("selected_block", compoundTag);
         return CustomData.of(selectedBlock);
+    }
+
+    @Override
+    public float getDestroySpeed(ItemStack stack, BlockState state) {
+        CustomData customData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        CompoundTag compoundTag = customData.copyTag().getCompound("selected_block");
+        HolderLookup<Block> blockGetter = BuiltInRegistries.BLOCK.asLookup();
+        BlockState selected = NbtUtils.readBlockState(blockGetter, compoundTag);
+        boolean flag = state.is(selected.getBlock()) && !state.isAir();
+        float destroySpeed = super.getDestroySpeed(stack, state);
+        return flag ? destroySpeed * 2.0F : destroySpeed;
     }
 
     @Override

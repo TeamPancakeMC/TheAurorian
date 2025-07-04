@@ -15,7 +15,6 @@ public class TAItemTags {
     public static final TagKey<Item> COOKED_MEAT = create("cooked_meat");
     public static final TagKey<Item> DUNGEON_KEY = create("dungeon_key");
     public static final TagKey<Item> THROWABLE_WEAPONS = create("throwable_weapons");
-    public static final TagKey<Item> SPECTRAL_ARMOR = create("spectral_armor");
     public static final TagKey<Item> VERTICAL_STAIRS = create("vertical_stairs");
     public static final TagKey<Item> VERTICAL_SLABS = create("vertical_slabs");
     public static final TagKey<Item> DUNGEON_BRICKS = create("dungeon_bricks");

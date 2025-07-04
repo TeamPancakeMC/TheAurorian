@@ -4,11 +4,8 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAStructureTags;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
-import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Vec3i;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
@@ -17,8 +14,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -67,21 +62,6 @@ public class TAEntityUtils {
                 }
             }
         }
-    }
-
-    public static boolean canArmorTriggerEnchantmentEffect(LivingEntity entity, ResourceKey<Enchantment> key) {
-        Holder<Enchantment> holder = TAEnchantments.get(entity.level(), key);
-        double totalProbability = 1.0D;
-        for (ItemStack stack : entity.getArmorSlots()) {
-            if (!stack.isEmpty()) {
-                int level = stack.getEnchantmentLevel(holder);
-                double p1 = level * 0.01D;
-                double p2 = 1.0D - p1;
-                totalProbability *= p2;
-            }
-        }
-
-        return Math.random() < 1.0D - totalProbability;
     }
 
     public static void teleportToAurorian(ServerPlayer player, @Nullable ServerLevel aurorian) {

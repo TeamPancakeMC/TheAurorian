@@ -1,7 +1,9 @@
 package cn.teampancake.theaurorian.common.utils;
 
+import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import com.google.common.collect.Maps;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
@@ -49,6 +51,21 @@ public class EnchantmentUtils {
         }
 
         return false;
+    }
+
+    public static boolean canArmorTriggerEnchantmentEffect(LivingEntity entity, ResourceKey<Enchantment> key) {
+        Holder<Enchantment> holder = TAEnchantments.get(entity.level(), key);
+        double totalProbability = 1.0D;
+        for (ItemStack stack : entity.getArmorSlots()) {
+            if (!stack.isEmpty()) {
+                int level = stack.getEnchantmentLevel(holder);
+                double p1 = level * 0.01D;
+                double p2 = 1.0D - p1;
+                totalProbability *= p2;
+            }
+        }
+
+        return Math.random() < 1.0D - totalProbability;
     }
 
 }

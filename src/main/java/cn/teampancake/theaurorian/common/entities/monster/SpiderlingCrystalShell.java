@@ -1,6 +1,8 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
+import cn.teampancake.theaurorian.common.entities.ai.goal.SpiderDefendPlayerTargetGoal;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -36,6 +38,7 @@ public class SpiderlingCrystalShell extends TASpider {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, Boolean.FALSE));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, Boolean.FALSE));
+        this.targetSelector.addGoal(4, new SpiderDefendPlayerTargetGoal(this, LivingEntity.class, Boolean.FALSE));
     }
 
     public static AttributeSupplier.Builder createAttributes() {

@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.components.SourceOfTerra;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TAArmorMaterials;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -15,7 +14,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
@@ -30,7 +28,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
@@ -108,24 +105,6 @@ public class ItemEventSubscriber {
         if (repairItem == Ingredient.of(TAItems.CRYSTALLINE_INGOT.get())) {
             //TODO CRYSTALLINE_INGOT TOOLTIP
         }
-    }
-
-    @SubscribeEvent
-    public static void onSpectralSuit(LivingIncomingDamageEvent event) {
-        LivingEntity entity = event.getEntity();
-        Level level = entity.level();
-        if (level.isClientSide()) return;
-        entity.getArmorSlots().forEach(itemStack -> {
-            if (itemStack.is(TAItemTags.SPECTRAL_ARMOR)
-                    && level.random.nextDouble() <= 0.06F
-                    && entity instanceof Player player) {
-                player.getActiveEffects().forEach(effectInstance -> {
-                    if (!effectInstance.getEffect().value().isBeneficial()) {
-                        player.removeEffect(effectInstance.getEffect());
-                    }
-                });
-            }
-        });
     }
 
     @SubscribeEvent

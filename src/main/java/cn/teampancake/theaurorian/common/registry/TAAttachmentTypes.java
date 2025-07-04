@@ -18,6 +18,7 @@ public class TAAttachmentTypes {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, TheAurorian.MOD_ID);
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TICKS_FROSTBITE = registerInteger("ticks_frostbite");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TICKS_THERMAL_ENHANCEMENT = registerInteger("ticks_thermal_enhancement");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TRIGGER_CORRUPTION_COOLDOWN = registerInteger("trigger_corruption_cooldown");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TIME_UNTIL_PLAYER_CAN_PICKUP = registerInteger("time_until_player_can_pickup");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> UNINTERRUPTED_HURT_BY_MOON_QUEEN_COUNT = registerInteger("uninterrupted_hurt_by_moon_queen_count");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TELEPORT_TO_AURORIAN_COUNT =

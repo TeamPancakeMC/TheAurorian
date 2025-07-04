@@ -4,14 +4,15 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import cn.teampancake.theaurorian.common.blocks.MysteriumWoolBed;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAMobEffectTags;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
+import cn.teampancake.theaurorian.common.entities.ai.goal.SpiderIgnoreSpectralArmorGoal;
 import cn.teampancake.theaurorian.common.entities.boss.AbstractAurorianBoss;
 import cn.teampancake.theaurorian.common.entities.boss.MoonQueen;
 import cn.teampancake.theaurorian.common.entities.boss.SpiderMother;
 import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
+import cn.teampancake.theaurorian.common.entities.monster.SpiderlingCrystalShell;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
@@ -25,12 +26,7 @@ import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -51,6 +47,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -61,22 +58,17 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.portal.DimensionTransition;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
@@ -165,6 +157,10 @@ public class EntityEventSubscriber {
             TemptGoal temptGoal = new TemptGoal(cat, 1.25F, items, Boolean.FALSE);
             cat.goalSelector.addGoal(0, temptGoal);
         }
+
+        if (event.getEntity() instanceof Spider spider) {
+            spider.targetSelector.addGoal(0, new SpiderIgnoreSpectralArmorGoal<>(spider, Mob.class));
+        }
     }
 
     @SubscribeEvent
@@ -210,6 +206,14 @@ public class EntityEventSubscriber {
                     entity.setData(TAAttachmentTypes.TICKS_FROSTBITE, Math.max(0, i - 10));
                     if (entity instanceof ServerPlayer serverPlayer) {
                         PacketDistributor.sendToPlayer(serverPlayer, new FrostbiteS2CPacket(i));
+                    }
+                }
+
+                if (entity instanceof Player player) {
+                    AttachmentType<Integer> attachment = TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN.get();
+                    int cooldown = player.getData(attachment);
+                    if (cooldown > 0) {
+                        player.setData(attachment, cooldown - 1);
                     }
                 }
             }
@@ -360,7 +364,7 @@ public class EntityEventSubscriber {
         DamageSource source = event.getSource();
         LivingEntity entity = event.getEntity();
         boolean isHarmfulEffect = source.is(DamageTypes.INDIRECT_MAGIC) || source.is(DamageTypes.MAGIC);
-        boolean enchantmentFlag = TAEntityUtils.canArmorTriggerEnchantmentEffect(entity, TAEnchantments.VIRTUALIZATION);
+        boolean enchantmentFlag = EnchantmentUtils.canArmorTriggerEnchantmentEffect(entity, TAEnchantments.VIRTUALIZATION);
         if (isHarmfulEffect && entity.hasEffect(TAMobEffects.HOLINESS) || enchantmentFlag) {
             event.setNewDamage(0.0F);
         }
@@ -398,6 +402,7 @@ public class EntityEventSubscriber {
         DamageSource source = event.getSource();
         Entity sourceEntity = source.getEntity();
         Holder<MobEffect> effect = TAMobEffects.CORRUPTION;
+        if (event.getNewDamage() <= 0.0F) return;
         if (target.hasEffect(effect)) {
             AttachmentType<Float> type = TAAttachmentTypes.DAMAGE_ACCUMULATION.get();
             target.setData(type, target.getData(type) + event.getNewDamage());
@@ -407,8 +412,34 @@ public class EntityEventSubscriber {
             }
         }
 
+        if (target instanceof Player player) {
+            double d0 = Double.MAX_VALUE;
+            SpiderlingCrystalShell crystalShell = null;
+            AABB aabb = player.getBoundingBox().inflate(32.0D);
+            List<SpiderlingCrystalShell> list = player.level().getEntitiesOfClass(SpiderlingCrystalShell.class, aabb);
+            for (SpiderlingCrystalShell entity : list) {
+                UUID uuid = entity.getOwnerUUID();
+                if (uuid != null && uuid.equals(player.getUUID())) {
+                    double d1 = entity.distanceToSqr(player);
+                    if (d1 < d0) {
+                        d0 = d1;
+                        crystalShell = entity;
+                    }
+                }
+            }
+
+            if (crystalShell != null) {
+                float amount = event.getNewDamage();
+                crystalShell.getCombatTracker().recordDamage(source, amount);
+                crystalShell.setHealth(crystalShell.getHealth() - amount);
+                crystalShell.setAbsorptionAmount(crystalShell.getAbsorptionAmount() - amount);
+                crystalShell.gameEvent(GameEvent.ENTITY_DAMAGE);
+                event.setNewDamage(0.0F);
+            }
+        }
+
         if (sourceEntity instanceof LivingEntity entity) {
-            if (TAEntityUtils.canArmorTriggerEnchantmentEffect(target, TAEnchantments.REFLECT_AURA)) {
+            if (EnchantmentUtils.canArmorTriggerEnchantmentEffect(target, TAEnchantments.REFLECT_AURA)) {
                 float amount = event.getNewDamage();
                 entity.getCombatTracker().recordDamage(source, amount);
                 entity.setHealth(entity.getHealth() - amount);
@@ -434,13 +465,22 @@ public class EntityEventSubscriber {
         LivingEntity entity = event.getEntity();
         if (entity instanceof ServerPlayer player) {
             Level level = player.level();
-            ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
-            Holder<Enchantment> enchantment = TAEnchantments.get(level, TAEnchantments.GUARDIAN);
-            int enchantmentLevel = chestItem.getEnchantmentLevel(enchantment);
-            if (enchantmentLevel > 0 && !player.getAbilities().instabuild) {
-                player.setHealth(player.getMaxHealth());
-                chestItem.setCount(0);
-                event.setCanceled(true);
+            if (!player.getAbilities().instabuild) {
+                ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
+                Holder<Enchantment> enchantment = TAEnchantments.get(level, TAEnchantments.GUARDIAN);
+                if (chestItem.getEnchantmentLevel(enchantment) > 0) {
+                    player.setHealth(player.getMaxHealth());
+                    chestItem.setCount(0);
+                    event.setCanceled(true);
+                }
+
+                AttachmentType<Integer> attachment = TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN.get();
+                if (TAInventoryUtils.isWearFullArmor(player, SpectralArmor.class) && player.getData(attachment) < 0) {
+                    player.addEffect(new MobEffectInstance(TAMobEffects.CORRUPTION, 200));
+                    player.setData(attachment, 6000);
+                    player.setHealth(1.0F);
+                    event.setCanceled(true);
+                }
             }
 
             if (level.dimension() == TADimensions.AURORIAN_DIMENSION) {
@@ -495,6 +535,15 @@ public class EntityEventSubscriber {
             event.setCanceled(true);
         }
 
+        if (TAInventoryUtils.canArmorTriggerEffect(target, SpectralArmor.class, 0.06D)) {
+            target.getActiveEffects().forEach(effectInstance -> {
+                Holder<MobEffect> holder = effectInstance.getEffect();
+                if (holder.value().getCategory() == MobEffectCategory.HARMFUL) {
+                    target.removeEffect(holder);
+                }
+            });
+        }
+
         if (target.isAlive() && source.getEntity() instanceof Player player) {
             ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
             if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(source)) {
@@ -513,8 +562,8 @@ public class EntityEventSubscriber {
                 damage += event.getOriginalDamage(slot);
             }
 
-            AttachmentType<Float> type = TAAttachmentTypes.ARMOR_HURT_ACCUMULATION.get();
-            entity.setData(type, entity.getData(type) + damage);
+            AttachmentType<Float> attachment = TAAttachmentTypes.ARMOR_HURT_ACCUMULATION.get();
+            entity.setData(attachment, entity.getData(attachment) + damage);
             event.setCanceled(true);
         }
 
@@ -635,23 +684,19 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void playerBreakSpeed(PlayerEvent.BreakSpeed event) {
+    public static void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
-        BlockState state = event.getState();
-        ItemStack blockStack = new ItemStack(state.getBlock());
-        ItemStack handStack = player.getItemInHand(player.getUsedItemHand());
-        if (blockStack.is(Tags.Items.ORES) && handStack.is(TAItems.AURORIANITE_PICKAXE.get())) {
-            event.setNewSpeed(event.getOriginalSpeed() * 1.4F);
-        } else if (state.is(TABlockTags.DUNGEON_BLOCKS)) {
-            boolean flag = handStack.is(TAItems.QUEENS_CHIPPER.get());
-            event.setNewSpeed(flag ? event.getOriginalSpeed() * 16.0F : 0.0F);
-        } else if (handStack.is(TAItems.UMBRA_PICKAXE.get())) {
-            CustomData customData = handStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
-            CompoundTag compoundTag = customData.copyTag().getCompound("selected_block");
-            HolderLookup<Block> blockGetter = player.level().holderLookup(Registries.BLOCK);
-            BlockState selected = NbtUtils.readBlockState(blockGetter, compoundTag);
-            if (state.is(selected.getBlock()) && !state.isAir()) {
-                event.setNewSpeed(event.getOriginalSpeed() * 2.0F);
+        ItemStack handStack = player.getUseItem();
+        if (handStack.is(TAItems.AURORIANITE_PICKAXE.get())) {
+            Optional<BlockPos> position = event.getPosition();
+            if (position.isPresent()) {
+                BlockPos blockPos = position.get();
+                BlockState state = event.getState();
+                Level level = player.level();
+                BlockEntity blockEntity = level.getBlockEntity(blockPos);
+                if (state.getExpDrop(level, blockPos, blockEntity, player, handStack) > 0) {
+                    event.setNewSpeed(event.getOriginalSpeed() * 1.4F);
+                }
             }
         }
     }

@@ -17,8 +17,7 @@ import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import cn.teampancake.theaurorian.common.level.TAServerPlayer;
-import cn.teampancake.theaurorian.common.network.FrostbiteS2CPacket;
-import cn.teampancake.theaurorian.common.network.ShowStunScreenS2CPacket;
+import cn.teampancake.theaurorian.common.network.*;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
@@ -33,7 +32,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -60,7 +58,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.portal.DimensionTransition;
@@ -103,20 +100,20 @@ public class EntityEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onPlayerPickupXp(PlayerXpEvent.PickupXp event) {
-        Player player = event.getEntity();
-        ExperienceOrb orb = event.getOrb();
-        Holder<Enchantment> enchantment = TAEnchantments.get(player.level(), TAEnchantments.EXPERIENCE_ORE);
-        int i = EnchantmentUtils.getEnchantmentLevel(enchantment, player);
-        if (orb.value > 0 && i > 0 && player.getRandom().nextFloat() < i * 0.08F) {
-            orb.value *= 2;
-        }
-    }
-
-    @SubscribeEvent
     public static void onPlayerXpChange(PlayerXpEvent.XpChange event) {
         Player player = event.getEntity();
         int amount = event.getAmount();
+        ItemStack offhandItem = player.getOffhandItem();
+        if (offhandItem.is(TAItems.BOOK_OF_SIN)) {
+            DataComponentType<Integer> component = TADataComponents.ABSORBED_EXPERIENCE.get();
+            Integer i = offhandItem.get(component);
+            if (amount > 0 && i != null) {
+                offhandItem.set(component, i + amount);
+                event.setAmount(0);
+                return;
+            }
+        }
+
         Holder<Enchantment> enchantment = TAEnchantments.get(player.level(), TAEnchantments.CLEAR_MIND);
         int i = EnchantmentUtils.getEnchantmentLevel(enchantment, player);
         if (amount > 0 && i > 0 && player.experienceLevel < 30) {
@@ -191,7 +188,6 @@ public class EntityEventSubscriber {
         if (event.getEntity() instanceof LivingEntity entity) {
             Level level = entity.level();
             if (!level.isClientSide()) {
-                int i = entity.getData(TAAttachmentTypes.TICKS_FROSTBITE);
                 boolean flag = entity.hasEffect(TAMobEffects.PARALYSIS) || entity.hasEffect(TAMobEffects.STUN);
                 if (flag && entity.getVehicle() == null) {
                     SitEntity sitEntity = new SitEntity(level);
@@ -200,18 +196,22 @@ public class EntityEventSubscriber {
                     entity.startRiding(sitEntity);
                 }
 
-                if (i > -1) {
-                    entity.setData(TAAttachmentTypes.TICKS_FROSTBITE, Math.max(0, i - 10));
-                    if (entity instanceof ServerPlayer serverPlayer) {
-                        PacketDistributor.sendToPlayer(serverPlayer, new FrostbiteS2CPacket(i));
+                if (entity instanceof ServerPlayer player) {
+                    int i = entity.getData(TAAttachmentTypes.TICKS_FROSTBITE);
+                    int j = entity.getData(TAAttachmentTypes.ACTIVATION_TICKS);
+                    int k = player.getData(TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN);
+                    if (i > -1) {
+                        player.setData(TAAttachmentTypes.TICKS_FROSTBITE, Math.max(0, i - 10));
+                        PacketDistributor.sendToPlayer(player, new FrostbiteS2CPacket(i));
                     }
-                }
 
-                if (entity instanceof Player player) {
-                    AttachmentType<Integer> attachment = TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN.get();
-                    int cooldown = player.getData(attachment);
-                    if (cooldown > 0) {
-                        player.setData(attachment, cooldown - 1);
+                    if (j > -1) {
+                        player.setData(TAAttachmentTypes.ACTIVATION_TICKS, j - 1);
+                        PacketDistributor.sendToPlayer(player, new DisplayActivationTickS2CPacket(j));
+                    }
+
+                    if (k > 0) {
+                        player.setData(TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN, k - 1);
                     }
                 }
             }
@@ -220,45 +220,11 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onEntityPostTick(EntityTickEvent.Post event) {
-        if (event.getEntity() instanceof AbstractArrow arrow) {
-            AttachmentType<Boolean> type1 = TAAttachmentTypes.CAN_SUMMON_OTHER_ARROW.get();
-            AttachmentType<Boolean> type2 = TAAttachmentTypes.SUMMONED_BY_SILENT_BOW.get();
-            Level level = arrow.level();
-            int universalLife = arrow.life;
-            ItemStack weaponItem = arrow.getWeaponItem();
-            boolean flag = arrow.getData(type1);
-            if (!level.isClientSide && flag && !arrow.getData(type2)) {
-                arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
-                List<Vec3> vec3s = arrow.getData(TAAttachmentTypes.ARROWS_SPAWN_VEC3);
-                if (!vec3s.isEmpty() && arrow.life < vec3s.size()) {
-                    Vec3 vec3 = vec3s.get(arrow.life);
-                    if (vec3.x > 0.0F || vec3.y > 0.0F || vec3.z > 0.0F) {
-                        Entity entity = arrow.getType().create(level);
-                        if (entity instanceof AbstractArrow copyOfArrow) {
-                            copyOfArrow.setUUID(Mth.createInsecureUUID());
-                            copyOfArrow.setDeltaMovement(0, -3.0D, 0);
-                            copyOfArrow.setPos(vec3);
-                            copyOfArrow.setCritArrow(true);
-                            copyOfArrow.setData(type2, true);
-                            copyOfArrow.firedFromWeapon = weaponItem;
-                            copyOfArrow.life = 1100;
-                            level.addFreshEntity(copyOfArrow);
-                            vec3s.set(arrow.life, Vec3.ZERO);
-                        }
-                    }
-                }
-            }
-
-            if (!level.isClientSide && weaponItem != null && !weaponItem.is(TAItems.SILENT_WOOD_BOW)) {
-                if (flag && universalLife > arrow.getData(TAAttachmentTypes.TIME_UNTIL_PLAYER_CAN_PICKUP)) {
-                    arrow.pickup = AbstractArrow.Pickup.ALLOWED;
-                } else {
-                    arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
-                }
-
-                if (arrow.getData(type2)) {
-                    arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
-                }
+        if (event.getEntity() instanceof Projectile projectile) {
+            Level level = projectile.level();
+            Entity owner = projectile.getOwner();
+            if (!level.isClientSide && level instanceof ServerLevel serverLevel && owner instanceof LivingEntity entity) {
+                TAEnchantmentEffectComponents.onProjectileTick(serverLevel, entity, projectile);
             }
         }
     }
@@ -375,11 +341,6 @@ public class EntityEventSubscriber {
                         e -> e instanceof Player && e != player || e instanceof Villager);
                 event.setNewDamage(event.getNewDamage() + Math.min(entities.size(), 10));
             }
-
-            if (entity.getAttributeValue(Attributes.ARMOR_TOUGHNESS) > 0.0D) {
-                Holder<Enchantment> holder = TAEnchantments.get(player.level(), TAEnchantments.SUNDER_ARMOR_SLASH);
-                event.setNewDamage(event.getNewDamage() + event.getNewDamage() * itemInHand.getEnchantmentLevel(holder) * 0.1F);
-            }
         }
     }
 
@@ -454,8 +415,8 @@ public class EntityEventSubscriber {
             Level level = player.level();
             if (!player.getAbilities().instabuild) {
                 ItemStack chestItem = player.getItemBySlot(EquipmentSlot.CHEST);
-                Holder<Enchantment> enchantment = TAEnchantments.get(level, TAEnchantments.GUARDIAN);
-                if (chestItem.getEnchantmentLevel(enchantment) > 0) {
+                if (chestItem.getEnchantmentLevel(TAEnchantments.get(level, TAEnchantments.GUARDIAN)) > 0) {
+                    PacketDistributor.sendToPlayer(player, new DisplayItemActivationS2CPacket(chestItem));
                     player.setHealth(player.getMaxHealth());
                     chestItem.setCount(0);
                     event.setCanceled(true);
@@ -463,6 +424,8 @@ public class EntityEventSubscriber {
 
                 AttachmentType<Integer> attachment = TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN.get();
                 if (TAInventoryUtils.isWearFullArmor(player, SpectralArmor.class) && player.getData(attachment) < 0) {
+                    ResourceLocation texture = TheAurorian.prefix("textures/mob_effect/corruption.png");
+                    PacketDistributor.sendToPlayer(player, new DisplayTextureActivationS2CPacket(texture, 40));
                     player.addEffect(new MobEffectInstance(TAMobEffects.CORRUPTION, 200));
                     player.setData(attachment, 6000);
                     player.setHealth(1.0F);
@@ -499,18 +462,9 @@ public class EntityEventSubscriber {
 
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {
-        LivingEntity entity = event.getEntity();
         Entity sourceEntity = event.getSource().getEntity();
         if (sourceEntity instanceof MoonQueen) {
             event.setCanceled(true);
-        }
-
-        if ((entity instanceof AgeableMob || entity instanceof NeutralMob) && sourceEntity instanceof Player player) {
-            Holder<Enchantment> enchantment = TAEnchantments.get(entity.level(), TAEnchantments.SAVAGE);
-            int level = EnchantmentUtils.getEnchantmentLevel(enchantment, player);
-            if (level > 0 && player.getRandom().nextFloat() <= level * 0.1F) {
-                event.getDrops().forEach(itemEntity -> entity.level().addFreshEntity(itemEntity));
-            }
         }
     }
 
@@ -536,6 +490,19 @@ public class EntityEventSubscriber {
             if (stack.is(TAItems.TSLAT_SWORD.get()) && !target.isDamageSourceBlocked(source)) {
                 int count = Mth.clamp(stack.getOrDefault(TADataComponents.KILL_COUNT, 0), 0, 20);
                 target.setHealth(target.getHealth() - count * 0.05F);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
+        if (event.getEntity() instanceof Player player && player.isShiftKeyDown() && player.onGround()) {
+            ItemStack stack = player.getItemBySlot(EquipmentSlot.FEET);
+            if (stack.is(TAItems.AURORIAN_SLIME_BOOTS) && !player.getCooldowns().isOnCooldown(stack.getItem())) {
+                float jumpPower = player.getJumpPower(2.0F);
+                Vec3 vec3 = player.getDeltaMovement();
+                player.setDeltaMovement(vec3.x, jumpPower, vec3.z);
+                player.getCooldowns().addCooldown(stack.getItem(), 100);
             }
         }
     }
@@ -575,36 +542,6 @@ public class EntityEventSubscriber {
                     if (weaponItem != null && weaponItem.is(TAItems.KEEPERS_BOW)) {
                         livingEntity.invulnerableTime = 0;
                     }
-                }
-            }
-        }
-
-        if (rayTraceResult instanceof BlockHitResult result) {
-            Projectile projectile = event.getProjectile();
-            if (projectile instanceof AbstractArrow arrow) {
-                ItemStack weaponItem = arrow.getWeaponItem();
-                if (weaponItem != null && weaponItem.is(TAItems.SILENT_WOOD_BOW)) {
-                    List<Vec3> list = new ArrayList<>(20);
-                    RandomSource random = arrow.level().random;
-                    Vec3 hitVec = result.getLocation();
-                    int index = 0;
-                    for (int i = 0; i < 50; i++) {
-                        index += random.nextInt(2) + 1;
-                        double angle = random.nextDouble() * Math.PI * 2;
-                        double distance = random.nextDouble() * 5.0D;
-                        double x = hitVec.x + Math.cos(angle) * distance;
-                        double z = hitVec.z + Math.sin(angle) * distance;
-                        double y = hitVec.y + 10.0D;
-                        while (list.size() <= index) {
-                            list.add(Vec3.ZERO);
-                        }
-
-                        list.set(index, new Vec3(x, y, z));
-                    }
-
-                    arrow.setData(TAAttachmentTypes.TIME_UNTIL_PLAYER_CAN_PICKUP, index);
-                    arrow.setData(TAAttachmentTypes.CAN_SUMMON_OTHER_ARROW, true);
-                    arrow.setData(TAAttachmentTypes.ARROWS_SPAWN_VEC3, list);
                 }
             }
         }
@@ -680,8 +617,7 @@ public class EntityEventSubscriber {
                 BlockPos blockPos = position.get();
                 BlockState state = event.getState();
                 Level level = player.level();
-                BlockEntity blockEntity = level.getBlockEntity(blockPos);
-                if (state.getExpDrop(level, blockPos, blockEntity, player, handStack) > 0) {
+                if (state.getExpDrop(level, blockPos, null, player, handStack) > 0) {
                     event.setNewSpeed(event.getOriginalSpeed() * 1.4F);
                 }
             }

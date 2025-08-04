@@ -383,6 +383,7 @@ public class TAItems {
             () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.HAS_CUSTOM_TOOLTIPS)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> WORLD_SCROLL_FRAGMENT = normal("world_scroll_fragment", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)));
     public static final DeferredHolder<Item, Item> WORLD_SCROLL = ITEMS.register("world_scroll", WorldScroll::new);
+    public static final DeferredHolder<Item, Item> BOOK_OF_SIN = ITEMS.register("book_of_sin", BookOfSin::new);
     public static final DeferredHolder<Item, Item> DUNGEON_LOCATOR = ITEMS.register("dungeon_locator", DungeonLocator::new);
     public static final DeferredHolder<Item, Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(
             new Item.Properties(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.WEBBING::get, 0.5F));

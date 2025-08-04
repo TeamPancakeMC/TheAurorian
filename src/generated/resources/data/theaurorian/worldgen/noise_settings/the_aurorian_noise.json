@@ -12,58 +12,16 @@
   "disable_mob_generation": false,
   "legacy_random_source": false,
   "noise": {
-    "height": 448,
+    "height": 384,
     "min_y": -64,
     "size_horizontal": 1,
     "size_vertical": 2
   },
   "noise_router": {
     "barrier": 0.0,
-    "continents": {
-      "type": "minecraft:add",
-      "argument1": 0.1,
-      "argument2": {
-        "type": "minecraft:mul",
-        "argument1": {
-          "type": "minecraft:y_clamped_gradient",
-          "from_y": 100,
-          "to_y": 200,
-          "from_value": 0.0,
-          "to_value": 1.0
-        },
-        "argument2": {
-          "type": "minecraft:add",
-          "argument1": -0.1,
-          "argument2": {
-            "type": "minecraft:noise",
-            "noise": "minecraft:continentalness",
-            "xz_scale": 0.5,
-            "y_scale": 0.1
-          }
-        }
-      }
-    },
+    "continents": 0.0,
     "depth": 0.0,
-    "erosion": {
-      "type": "minecraft:mul",
-      "argument1": {
-        "type": "minecraft:y_clamped_gradient",
-        "from_y": 110,
-        "to_y": 190,
-        "from_value": 0.0,
-        "to_value": 1.0
-      },
-      "argument2": {
-        "type": "minecraft:add",
-        "argument1": 0.2,
-        "argument2": {
-          "type": "minecraft:noise",
-          "noise": "minecraft:erosion",
-          "xz_scale": 0.7,
-          "y_scale": 0.15
-        }
-      }
-    },
+    "erosion": 0.0,
     "final_density": {
       "type": "minecraft:min",
       "argument1": {

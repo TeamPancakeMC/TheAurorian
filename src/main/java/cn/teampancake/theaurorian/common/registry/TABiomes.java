@@ -217,9 +217,11 @@ public class TABiomes {
 
     private static MobSpawnSettings.Builder defaultFishSpawning() {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
-        spawnInfo.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_FISH.get(), 5, 2, 4));
-        spawnInfo.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_WINGED_FISH.get(), 5, 2, 4));
-        return spawnInfo;
+        spawnInfo.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.MOON_FISH.get(), 45, 1, 1));
+        spawnInfo.addMobCharge(TAEntityTypes.MOON_FISH.get(), 0.7F,0.1F);
+        spawnInfo.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(TAEntityTypes.AURORIAN_WINGED_FISH.get(), 45, 1, 1));
+        spawnInfo.addMobCharge(TAEntityTypes.AURORIAN_WINGED_FISH.get(), 0.7F,0.1F);
+        return spawnInfo.creatureGenerationProbability(0.1F);
     }
 
     private static MobSpawnSettings.Builder defaultForestAndPlainSpawning() {

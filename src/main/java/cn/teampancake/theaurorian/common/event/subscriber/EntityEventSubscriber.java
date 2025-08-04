@@ -109,8 +109,7 @@ public class EntityEventSubscriber {
             Integer i = offhandItem.get(component);
             if (amount > 0 && i != null) {
                 offhandItem.set(component, i + amount);
-                event.setAmount(0);
-                return;
+                event.setCanceled(true);
             }
         }
 

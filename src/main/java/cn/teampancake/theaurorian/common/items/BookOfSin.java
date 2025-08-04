@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -23,9 +24,10 @@ import java.util.List;
 public class BookOfSin extends Item {
 
     public BookOfSin() {
-        super(new Item.Properties().rarity(Rarity.RARE)
+        super(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)
                 .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)
+                .component(TADataComponents.ABSORBED_EXPERIENCE, 0));
     }
 
     @Override
@@ -43,6 +45,7 @@ public class BookOfSin extends Item {
                         0.1F, pitch, Boolean.FALSE);
             } else {
                 player.giveExperiencePoints(i);
+                itemInHand.set(component, 0);
             }
         }
 
@@ -51,11 +54,9 @@ public class BookOfSin extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        Integer absorbedExperiences = stack.get(TADataComponents.ABSORBED_EXPERIENCE);
-        if (absorbedExperiences != null) {
-            String key = "tooltips.item.theaurorian.book_of_sin.absorbed_experiences";
-            tooltipComponents.add(Component.translatable(key, absorbedExperiences));
-        }
+        Integer i = stack.getOrDefault(TADataComponents.ABSORBED_EXPERIENCE, 0);
+        String key = "tooltips.item.theaurorian.book_of_sin.absorbed_experiences";
+        tooltipComponents.add(Component.translatable(key, i).withStyle(ChatFormatting.YELLOW));
     }
 
 }

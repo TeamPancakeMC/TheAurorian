@@ -86,6 +86,15 @@ public class ModBusEventSubscriber {
         registrar.playToClient(ShowStunScreenS2CPacket.TYPE,
                 ShowStunScreenS2CPacket.STREAM_CODEC,
                 ShowStunScreenS2CPacket::handle);
+        registrar.playToClient(DisplayTextureActivationS2CPacket.TYPE,
+                DisplayTextureActivationS2CPacket.STREAM_CODEC,
+                DisplayTextureActivationS2CPacket::handle);
+        registrar.playToClient(DisplayItemActivationS2CPacket.TYPE,
+                DisplayItemActivationS2CPacket.STREAM_CODEC,
+                DisplayItemActivationS2CPacket::handle);
+        registrar.playToClient(DisplayActivationTickS2CPacket.TYPE,
+                DisplayActivationTickS2CPacket.STREAM_CODEC,
+                DisplayActivationTickS2CPacket::handle);
     }
 
     @OnlyIn(Dist.CLIENT)

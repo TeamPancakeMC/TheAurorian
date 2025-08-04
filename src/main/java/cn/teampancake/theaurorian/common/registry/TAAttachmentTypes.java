@@ -10,12 +10,15 @@ import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
 public class TAAttachmentTypes {
 
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, TheAurorian.MOD_ID);
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> ACTIVATION_TICKS = registerInteger("activation_ticks");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> MAX_ACTIVATION_TICKS = registerInteger("max_activation_ticks");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TICKS_FROSTBITE = registerInteger("ticks_frostbite");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TICKS_THERMAL_ENHANCEMENT = registerInteger("ticks_thermal_enhancement");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TRIGGER_CORRUPTION_COOLDOWN = registerInteger("trigger_corruption_cooldown");
@@ -50,6 +53,10 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<List<Vec3>>> ARROWS_SPAWN_VEC3 =
             ATTACHMENT_TYPES.register("arrows_spawn_vec3", () -> AttachmentType.<List<Vec3>>builder(
                     () -> new ArrayList<>()).serialize(Vec3.CODEC.listOf()).build());
+
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<ResourceLocation>> ANIMATION_TEXTURE =
+            ATTACHMENT_TYPES.register("animation_texture", () -> AttachmentType.builder(
+                    () -> ResourceLocation.tryParse(StringUtils.EMPTY)).build());
 
     private static DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> registerInteger(String name) {
         return ATTACHMENT_TYPES.register(name, () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).build());

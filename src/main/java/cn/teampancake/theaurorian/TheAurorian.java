@@ -93,7 +93,7 @@ public class TheAurorian {
 //            modEventBus.addListener(ShieldHudRenderer::registerShieldOverlay);
             modEventBus.addListener(ProgressBarRenderer::registerProgressBarOverlay);
             modEventBus.addListener(FrostbiteOutlineRender::registerFrostbiteOverlay);
-//            modEventBus.addListener(ActivationAnimationRender::registerAnimationOverlay);
+            modEventBus.addListener(ActivationAnimationRender::registerAnimationOverlay);
         }
     }
 

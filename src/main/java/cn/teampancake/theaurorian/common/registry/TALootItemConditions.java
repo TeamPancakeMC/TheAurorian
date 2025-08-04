@@ -19,6 +19,8 @@ public class TALootItemConditions {
             register("night_walker_enchantment", NightWalkerEnchantmentCondition.CODEC);
     public static final DeferredHolder<LootItemConditionType, LootItemConditionType> MOLTEN_CORE_ENCHANTMENT =
             register("molten_core_enchantment", MoltenCoreEnchantmentCondition.CODEC);
+    public static final DeferredHolder<LootItemConditionType, LootItemConditionType> SUNDER_ARMOR_SLASH_ENCHANTMENT =
+            register("sunder_armor_slash_enchantment", SunderArmorSlashEnchantmentCondition.CODEC);
 
     private static DeferredHolder<LootItemConditionType, LootItemConditionType> register(String name, MapCodec<? extends LootItemCondition> codec) {
         return LOOT_CONDITION_TYPES.register(name, () -> new LootItemConditionType(codec));

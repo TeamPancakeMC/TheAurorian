@@ -22,9 +22,8 @@ public record MoltenCoreEffect(int placeholder) implements EnchantmentEntityEffe
     public void apply(ServerLevel level, int enchantmentLevel, EnchantedItemInUse item, Entity entity, Vec3 origin) {
         if (entity instanceof LivingEntity) {
             AttachmentType<Integer> type = TAAttachmentTypes.TICKS_THERMAL_ENHANCEMENT.get();
-            boolean isInNether = level.dimension() == Level.NETHER;
-            boolean flag = entity.isOnFire() || entity.isInLava() || isInNether;
-            entity.setData(type, flag ? 80 : Math.max(entity.getData(type) - 1, 0));
+            boolean flag = entity.isOnFire() || entity.isInLava() || level.dimension() == Level.NETHER;
+            entity.setData(type, flag ? enchantmentLevel * 40 : Math.max(entity.getData(type) - 1, 0));
         }
     }
 

@@ -3,6 +3,34 @@
   "description": {
     "translate": "enchantment.theaurorian.sunder_armor_slash"
   },
+  "effects": {
+    "minecraft:damage": [
+      {
+        "effect": {
+          "type": "theaurorian:sunder_armor_slash",
+          "unit": {}
+        },
+        "requirements": {
+          "condition": "theaurorian:sunder_armor_slash_enchantment",
+          "entity": "this"
+        }
+      }
+    ],
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "theaurorian:savage",
+          "unit": {}
+        },
+        "enchanted": "attacker",
+        "requirements": {
+          "condition": "theaurorian:savage_enchantment",
+          "entity": "this"
+        }
+      }
+    ]
+  },
   "max_cost": {
     "base": 25,
     "per_level_above_first": 8

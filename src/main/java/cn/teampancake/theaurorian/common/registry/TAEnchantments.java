@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.common.enchantments.*;
 import cn.teampancake.theaurorian.common.level.storage.predicate.MoltenCoreEnchantmentCondition;
 import cn.teampancake.theaurorian.common.level.storage.predicate.NightWalkerEnchantmentCondition;
 import cn.teampancake.theaurorian.common.level.storage.predicate.SavageEnchantmentCondition;
+import cn.teampancake.theaurorian.common.level.storage.predicate.SunderArmorSlashEnchantmentCondition;
 import net.minecraft.advancements.critereon.DamageSourcePredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -35,6 +36,7 @@ public class TAEnchantments {
     public static final ResourceKey<Enchantment> MOONLIGHT = createKey("moonlight");
     public static final ResourceKey<Enchantment> SOUL_SLASH = createKey("soul_slash");
     public static final ResourceKey<Enchantment> CLEAR_MIND = createKey("clear_mind");
+    public static final ResourceKey<Enchantment> ARROW_RAIN = createKey("arrow_rain");
     public static final ResourceKey<Enchantment> WIND_RUNNER = createKey("wind_runner");
     public static final ResourceKey<Enchantment> MOLTEN_CORE = createKey("molten_core");
     public static final ResourceKey<Enchantment> NIGHT_WALKER = createKey("night_walker");
@@ -98,6 +100,12 @@ public class TAEnchantments {
                 itemLookup.getOrThrow(ItemTags.HEAD_ARMOR_ENCHANTABLE),
                 2, 4, Enchantment.dynamicCost(5, 10),
                 Enchantment.dynamicCost(15, 10), 4, EquipmentSlotGroup.HEAD)));
+        register(context, ARROW_RAIN, Enchantment.enchantment(Enchantment.definition(
+                itemLookup.getOrThrow(ItemTags.BOW_ENCHANTABLE),
+                1, 5, Enchantment.dynamicCost(10, 10),
+                Enchantment.dynamicCost(15, 20), 4, EquipmentSlotGroup.HAND))
+                .withEffect(EnchantmentEffectComponents.HIT_BLOCK, new ArrowRainStorePosEffect(Unit.INSTANCE))
+                .withEffect(TAEnchantmentEffectComponents.PROJECTILE_TICK.get(), new ArrowRainSummonArrowEffect(Unit.INSTANCE)));
         register(context, WIND_RUNNER, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
                 2, 1, Enchantment.constantCost(30),
@@ -141,7 +149,8 @@ public class TAEnchantments {
         register(context, EXPERIENCE_ORE, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.MINING_LOOT_ENCHANTABLE),
                 2, 4, Enchantment.dynamicCost(15, 10),
-                Enchantment.dynamicCost(65, 10), 4, EquipmentSlotGroup.HAND)));
+                Enchantment.dynamicCost(65, 10), 4, EquipmentSlotGroup.HAND))
+                .withEffect(EnchantmentEffectComponents.BLOCK_EXPERIENCE, new ExperienceOreEffect(Unit.INSTANCE)));
         register(context, LEGENDARY_HERO, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                 2, 1, Enchantment.constantCost(30),
@@ -173,7 +182,13 @@ public class TAEnchantments {
         register(context, SUNDER_ARMOR_SLASH, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.AXES),
                 2, 5, Enchantment.dynamicCost(5, 8),
-                Enchantment.dynamicCost(25, 8), 4, EquipmentSlotGroup.HAND)));
+                Enchantment.dynamicCost(25, 8), 4, EquipmentSlotGroup.HAND))
+                .withEffect(EnchantmentEffectComponents.DAMAGE,
+                        new SunderArmorSlashEffect(Unit.INSTANCE),
+                        SunderArmorSlashEnchantmentCondition.get())
+                .withEffect(EnchantmentEffectComponents.POST_ATTACK,
+                        EnchantmentTarget.ATTACKER, EnchantmentTarget.VICTIM,
+                        new SavageEffect(Unit.INSTANCE), SavageEnchantmentCondition.get()));
         register(context, LIGHTNING_RESISTANCE, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
                 2, 4, Enchantment.dynamicCost(10, 15),

@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian;
 
+import cn.teampancake.theaurorian.client.gui.hud.ActivationAnimationRender;
 import cn.teampancake.theaurorian.client.gui.hud.FrostbiteOutlineRender;
 import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.client.gui.hud.ProgressBarRenderer;
@@ -65,6 +66,7 @@ public class TheAurorian {
         TAStructureProcessors.STRUCTURE_PROCESSORS.register(modEventBus);
         TAStructurePieceTypes.STRUCTURE_PIECE_TYPES.register(modEventBus);
         TAStructurePlacementTypes.STRUCTURE_PLACEMENT_TYPES.register(modEventBus);
+        TAEnchantmentEffectTypes.ENCHANTMENT_VALUE_EFFECT_TYPES.register(modEventBus);
         TAEnchantmentEffectTypes.ENCHANTMENT_ENTITY_EFFECT_TYPES.register(modEventBus);
         TAEnchantmentEffectComponents.ENCHANTMENT_EFFECT_COMPONENT_TYPES.register(modEventBus);
         TALootItemConditions.LOOT_CONDITION_TYPES.register(modEventBus);
@@ -91,6 +93,7 @@ public class TheAurorian {
 //            modEventBus.addListener(ShieldHudRenderer::registerShieldOverlay);
             modEventBus.addListener(ProgressBarRenderer::registerProgressBarOverlay);
             modEventBus.addListener(FrostbiteOutlineRender::registerFrostbiteOverlay);
+//            modEventBus.addListener(ActivationAnimationRender::registerAnimationOverlay);
         }
     }
 

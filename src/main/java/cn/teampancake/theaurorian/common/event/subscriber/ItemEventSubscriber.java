@@ -13,7 +13,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
@@ -23,11 +22,9 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
-import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
@@ -104,19 +101,6 @@ public class ItemEventSubscriber {
 
         if (repairItem == Ingredient.of(TAItems.CRYSTALLINE_INGOT.get())) {
             //TODO CRYSTALLINE_INGOT TOOLTIP
-        }
-    }
-
-    @SubscribeEvent
-    public static void onLivingJump(LivingEvent.LivingJumpEvent event) {
-        if (event.getEntity() instanceof Player player && player.isShiftKeyDown() && player.onGround()) {
-            ItemStack stack = player.getItemBySlot(EquipmentSlot.FEET);
-            if (stack.is(TAItems.AURORIAN_SLIME_BOOTS) && !player.getCooldowns().isOnCooldown(stack.getItem())) {
-                float jumpPower = player.getJumpPower(2.0F);
-                Vec3 vec3 = player.getDeltaMovement();
-                player.setDeltaMovement(vec3.x, jumpPower, vec3.z);
-                player.getCooldowns().addCooldown(stack.getItem(), 100);
-            }
         }
     }
 

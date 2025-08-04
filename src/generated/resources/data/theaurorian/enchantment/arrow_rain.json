@@ -1,0 +1,38 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.theaurorian.arrow_rain"
+  },
+  "effects": {
+    "minecraft:hit_block": [
+      {
+        "effect": {
+          "type": "theaurorian:arrow_rain_store_pos",
+          "unit": {}
+        }
+      }
+    ],
+    "theaurorian:projectile_tick": [
+      {
+        "effect": {
+          "type": "theaurorian:arrow_rain_summon_arrow",
+          "unit": {}
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 15,
+    "per_level_above_first": 20
+  },
+  "max_level": 5,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 10
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#minecraft:enchantable/bow",
+  "weight": 1
+}

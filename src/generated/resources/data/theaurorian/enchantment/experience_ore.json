@@ -3,6 +3,16 @@
   "description": {
     "translate": "enchantment.theaurorian.experience_ore"
   },
+  "effects": {
+    "minecraft:block_experience": [
+      {
+        "effect": {
+          "type": "theaurorian:experience_ore",
+          "unit": {}
+        }
+      }
+    ]
+  },
   "max_cost": {
     "base": 65,
     "per_level_above_first": 10

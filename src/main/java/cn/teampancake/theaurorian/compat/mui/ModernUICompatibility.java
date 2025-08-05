@@ -2,7 +2,7 @@ package cn.teampancake.theaurorian.compat.mui;
 
 import icyllis.modernui.mc.TooltipRenderer;
 
-public class ModernUICompat {
+public class ModernUICompatibility {
 
     public static boolean LOADED;
 

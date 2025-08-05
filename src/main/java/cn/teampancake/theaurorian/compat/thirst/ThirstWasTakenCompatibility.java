@@ -5,10 +5,10 @@ import dev.ghen.thirst.foundation.common.event.RegisterThirstValueEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
-public class ThirstWasTakenCompat {
+public class ThirstWasTakenCompatibility {
 
     public static void init() {
-        NeoForge.EVENT_BUS.register(ThirstWasTakenCompat.class);
+        NeoForge.EVENT_BUS.register(ThirstWasTakenCompatibility.class);
     }
 
     /**

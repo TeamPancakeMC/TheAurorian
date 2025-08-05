@@ -88,7 +88,7 @@ public class TANoiseSampler {
             // 计算到黯晶区域中心的距离
             double distanceToCenter = Math.sqrt(Math.pow(x - CENTER_X, 2) + Math.pow(z - CENTER_Z, 2));
             
-            // 临近方块采样半径
+            // 临近方块采样半径，增加采样范围以获得更平滑的结果
             final int SAMPLE_RADIUS = 2;
             
             for (int offX = -SAMPLE_RADIUS; offX <= SAMPLE_RADIUS; ++offX) {
@@ -98,7 +98,7 @@ public class TANoiseSampler {
                     float neighborDepth = terrainColumn.get().depth();
                     float neighborScale = terrainColumn.get().scale();
                     
-                    // 计算平滑权重
+                    // 改进平滑权重计算
                     float distanceFactor = (float)Math.sqrt(offX * offX + offZ * offZ);
                     float topographicContribution = neighborDepth > centerDepth ? 0.95F : 1.0F;
                     
@@ -137,39 +137,59 @@ public class TANoiseSampler {
                     double noise = blend.sampleAndClampNoise(x, y, z, scaleXZ, scaleY, factorXZ, factorY);
                     double totalDensity = this.computeInitialDensity(y, offset, factor, density) + noise;
                     
-                    // 判断是否在黯晶区域内
-                    if (distanceToCenter <= SNOWFIELD_RADIUS) {
-                        // 根据生物群系类型应用高度处理
+                    // 根据生物群系和高度应用特殊处理
+                    if (isInFilthyIceRegion(distanceToCenter)) {
+                        // 黯晶区域的高度处理
+                        
                         if (isMountainBiome) {
                             // 黯晶雪山 - 高度设置为210
-                            totalDensity = applyMountainHeight(y, totalDensity);
+                            if (y < MOUNTAIN_HEIGHT) {
+                                // 在目标高度以下增强密度，使地形更高
+                                totalDensity += (MOUNTAIN_HEIGHT - y) * MOUNTAIN_HEIGHT_FACTOR;
+                            } else {
+                                // 在目标高度以上减少密度，创造山顶
+                                totalDensity -= (y - MOUNTAIN_HEIGHT) * MOUNTAIN_HEIGHT_FACTOR * 2;
+                            }
+                            
+                            // 平滑山顶
+                            if (y > MOUNTAIN_HEIGHT - 10 && y < MOUNTAIN_HEIGHT + 10) {
+                                double flattenFactor = 1.0 - Math.abs(y - MOUNTAIN_HEIGHT) / 10.0;
+                                totalDensity = totalDensity * (1 - flattenFactor * 0.5) + 0.2 * flattenFactor;
+                            }
+                            
+                            // 处理山坡过渡到丘陵
+                            double distFromMountainEdge = MOUNTAIN_RADIUS - distanceToCenter;
+                            if (distFromMountainEdge < TRANSITION_WIDTH && distFromMountainEdge > 0) {
+                                // 在山脚和丘陵之间平滑过渡
+                                double transitionFactor = distFromMountainEdge / TRANSITION_WIDTH;
+                                transitionFactor = smoothStep(transitionFactor);
+                                
+                                if (y > HILLS_HEIGHT) {
+                                    // 高度超过丘陵高度时，根据过渡因子调整密度
+                                    totalDensity = totalDensity * transitionFactor + 
+                                                  (computeHillsDensity(y) * (1 - transitionFactor));
+                                }
+                            }
                         } else if (isHillsBiome) {
                             // 黯晶丘陵 - 高度设置为130
-                            totalDensity = applyHillsHeight(y, totalDensity);
+                            totalDensity = computeHillsDensity(y);
+                            
+                            // 处理丘陵过渡到雪原
+                            double distFromHillsEdge = HILLS_RADIUS - distanceToCenter;
+                            if (distFromHillsEdge < TRANSITION_WIDTH && distFromHillsEdge > 0) {
+                                // 在丘陵边缘和雪原之间平滑过渡
+                                double transitionFactor = distFromHillsEdge / TRANSITION_WIDTH;
+                                transitionFactor = smoothStep(transitionFactor);
+                                
+                                if (y > SNOWFIELD_HEIGHT) {
+                                    // 高度超过雪原高度时，根据过渡因子调整密度
+                                    totalDensity = totalDensity * transitionFactor + 
+                                                  (computeSnowfieldDensity(y) * (1 - transitionFactor));
+                                }
+                            }
                         } else if (isSnowfieldBiome) {
                             // 黯晶雪原 - 高度设置为70
-                            totalDensity = applySnowfieldHeight(y, totalDensity);
-                        }
-                        
-                        // 处理过渡区域
-                        if (distanceToCenter > MOUNTAIN_RADIUS && distanceToCenter <= MOUNTAIN_RADIUS + TRANSITION_WIDTH) {
-                            // 雪山到丘陵过渡区
-                            double transitionFactor = (distanceToCenter - MOUNTAIN_RADIUS) / TRANSITION_WIDTH;
-                            transitionFactor = smoothStep(transitionFactor);
-                            
-                            // 混合雪山和丘陵的高度
-                            double mountainDensity = applyMountainHeight(y, totalDensity);
-                            double hillsDensity = applyHillsHeight(y, totalDensity);
-                            totalDensity = mountainDensity * (1 - transitionFactor) + hillsDensity * transitionFactor;
-                        } else if (distanceToCenter > HILLS_RADIUS && distanceToCenter <= HILLS_RADIUS + TRANSITION_WIDTH) {
-                            // 丘陵到雪原过渡区
-                            double transitionFactor = (distanceToCenter - HILLS_RADIUS) / TRANSITION_WIDTH;
-                            transitionFactor = smoothStep(transitionFactor);
-                            
-                            // 混合丘陵和雪原的高度
-                            double hillsDensity = applyHillsHeight(y, totalDensity);
-                            double snowfieldDensity = applySnowfieldHeight(y, totalDensity);
-                            totalDensity = hillsDensity * (1 - transitionFactor) + snowfieldDensity * transitionFactor;
+                            totalDensity = computeSnowfieldDensity(y);
                         }
                     }
                     
@@ -189,7 +209,7 @@ public class TANoiseSampler {
                     prevDensity = totalDensity;
                 }
                 
-                // 额外垂直平滑处理
+                // 额外垂直平滑处理：自顶向下和自底向上双向平滑
                 if (isMountainBiome || isHillsBiome || isSnowfieldBiome) {
                     // 多次应用平滑以获得更好的效果
                     for (int pass = 0; pass < 3; pass++) {
@@ -211,37 +231,35 @@ public class TANoiseSampler {
             }
         }
     }
-    
-    // 应用雪山高度
-    private double applyMountainHeight(int y, double density) {
-        if (y < MOUNTAIN_HEIGHT) {
-            // 在目标高度以下增强密度，使地形更高
-            return density + (MOUNTAIN_HEIGHT - y) * 0.05;
-        } else {
-            // 在目标高度以上减少密度，创造山顶
-            return density - (y - MOUNTAIN_HEIGHT) * 0.1;
-        }
+
+    // 判断坐标是否在黯晶区域内
+    private boolean isInFilthyIceRegion(double distanceToCenter) {
+        return distanceToCenter <= SNOWFIELD_RADIUS;
     }
     
-    // 应用丘陵高度
-    private double applyHillsHeight(int y, double density) {
-        if (y < HILLS_HEIGHT) {
-            // 在目标高度以下增强密度，使地形更高
-            return density + (HILLS_HEIGHT - y) * 0.03;
-        } else {
-            // 在目标高度以上减少密度，创造丘陵顶
-            return density - (y - HILLS_HEIGHT) * 0.1;
-        }
-    }
-    
-    // 应用雪原高度
-    private double applySnowfieldHeight(int y, double density) {
+    // 计算黯晶丘陵的密度值
+    private double computeHillsDensity(int y) {
         if (y < SNOWFIELD_HEIGHT) {
-            // 在目标高度以下增强密度，使地形更高
-            return density + (SNOWFIELD_HEIGHT - y) * 0.02;
+            // 在雪原高度以下保持正常密度
+            return 0.2;
+        } else if (y < HILLS_HEIGHT) {
+            // 在雪原和丘陵高度之间线性增强密度
+            double heightFactor = (double)(y - SNOWFIELD_HEIGHT) / (HILLS_HEIGHT - SNOWFIELD_HEIGHT);
+            return 0.2 + heightFactor * HILLS_HEIGHT_FACTOR * 100;
         } else {
-            // 在目标高度以上减少密度，创造平坦雪原
-            return density - (y - SNOWFIELD_HEIGHT) * 0.15;
+            // 在丘陵高度以上减少密度，创造平顶
+            return 0.2 - (y - HILLS_HEIGHT) * HILLS_HEIGHT_FACTOR * 2;
+        }
+    }
+    
+    // 计算黯晶雪原的密度值
+    private double computeSnowfieldDensity(int y) {
+        if (y < SNOWFIELD_HEIGHT) {
+            // 在雪原高度以下保持正常密度
+            return 0.2;
+        } else {
+            // 在雪原高度以上减少密度，创造平顶
+            return 0.2 - (y - SNOWFIELD_HEIGHT) * 0.01;
         }
     }
     

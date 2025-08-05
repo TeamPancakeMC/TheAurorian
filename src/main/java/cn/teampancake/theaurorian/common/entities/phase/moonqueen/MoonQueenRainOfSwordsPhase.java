@@ -19,7 +19,7 @@ public class MoonQueenRainOfSwordsPhase extends AttackPhase<MoonQueen> {
     private List<Vec3> swordPosListInFixedAngle = new ArrayList<>();
 
     public MoonQueenRainOfSwordsPhase() {
-        super(6, 2, 200, 500);
+        super(6, 2, 200, 500); // 25秒冷却时间 = 500 ticks
         this.floatTime = 10;
     }
 
@@ -30,9 +30,23 @@ public class MoonQueenRainOfSwordsPhase extends AttackPhase<MoonQueen> {
 
     @Override
     public boolean canStart(MoonQueen entity, boolean coolDownOver) {
+        // 基础条件检查
+        if (!entity.isAlive() || !entity.onGround() || !coolDownOver) {
+            return false;
+        }
+
         LivingEntity target = entity.getTarget();
-        boolean flag = target != null && entity.distanceToSqr(target) >= 100.0D;
-        return entity.isAlive() && entity.onGround() && flag && TAEntityUtils.canReachTarget(entity, 24.0D) && coolDownOver;
+        if (target == null) {
+            return false;
+        }
+
+        // 检查目标是否在有效范围内
+        if (!TAEntityUtils.canReachTarget(entity, 24.0D)) {
+            return false;
+        }
+
+        // 使用新的剑雨条件检查
+        return entity.canUseRainOfSwords(target);
     }
 
     @Override

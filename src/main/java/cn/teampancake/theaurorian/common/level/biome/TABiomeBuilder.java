@@ -19,7 +19,7 @@ public class TABiomeBuilder {
                 // 黯晶雪原 - 基础高度设为70
                 biomeColumnWithUnderground(9.0F + 0.5F, 0.5F, biomeRegistry, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD, TABiomes.UNDERGROUND),
                 // 黯晶雪山 - 高度设为210
-                biomeColumnWithUnderground(9.0F + 10.0F, 0.7F, biomeRegistry, TABiomes.FILTHY_ICE_MOUNTAIN, TABiomes.UNDERGROUND),
+                biomeColumnWithUnderground(9.0F + 12.0F, 0.8F, biomeRegistry, TABiomes.FILTHY_ICE_MOUNTAIN, TABiomes.UNDERGROUND),
                 // 黯晶丘陵 - 高度设为130
                 biomeColumnWithUnderground(9.0F + 5.0F, 0.6F, biomeRegistry, TABiomes.FILTHY_ICE_HILLS, TABiomes.UNDERGROUND),
                 biomeColumnWithUnderground(9.0F + 0.5F, 0.4F, biomeRegistry, TABiomes.AURORIAN_PLAINS, TABiomes.UNDERGROUND),

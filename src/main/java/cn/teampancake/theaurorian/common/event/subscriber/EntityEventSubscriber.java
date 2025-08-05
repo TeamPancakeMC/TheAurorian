@@ -279,7 +279,13 @@ public class EntityEventSubscriber {
         boolean flag2 = effect.value().isBeneficial() && entity.hasEffect(TAMobEffects.INCANTATION);
         boolean flag3 = effect.is(TAMobEffects.PARALYSIS) && !(entity instanceof Player);
         boolean flag4 = effect.is(TAMobEffectTags.MOON_QUEEN_ONLY) && !(entity instanceof MoonQueen);
-        if (flag1 || flag2 || flag3 || flag4) {
+
+        // 皎月女王中毒和凋零免疫
+        boolean flag5 = entity instanceof cn.teampancake.theaurorian.common.entities.boss.MoonQueen &&
+                       (effect.value() == net.minecraft.world.effect.MobEffects.POISON ||
+                        effect.value() == net.minecraft.world.effect.MobEffects.WITHER);
+
+        if (flag1 || flag2 || flag3 || flag4 || flag5) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
         }
     }

@@ -213,6 +213,8 @@ public class TARecipeProvider extends RecipeProvider {
         //Vanilla Shapeless Recipes
         oneToOneConversionRecipe(recipeOutput, Items.ROTTEN_FLESH, TAItems.SOULLESS_FLESH.get(), null);
         oneToOneConversionRecipe(recipeOutput, Items.PINK_DYE, TABlocks.PETUNIA_PLANT.get(), null);
+        //Vanilla Other Recipes
+        netheriteSmithing(recipeOutput, TAItems.AURORIAN_STEEL_SWORD.get(), RecipeCategory.COMBAT, TAItems.AURORIAN_ALLOY_STEEL_SWORD.get());
         //Mod Simple Cooking Recipes
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(TABlocks.AURORIAN_COBBLESTONE.get()),
                         RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_STONE.get(), (0.1F), (200))

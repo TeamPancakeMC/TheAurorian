@@ -6,6 +6,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -28,6 +29,7 @@ public class TAToolTiers {
     public static final Tier UMBRA = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.UMBRA_INGOT.get()));
     public static final Tier CRYSTALLINE = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.CRYSTALLINE_INGOT.get()));
     public static final Tier AURORIAN_STEEL = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 8.5F, 3.5F, 10, () -> Ingredient.of(TAItems.AURORIAN_STEEL.get()));
+    public static final Tier AURORIAN_ALLOY_STEEL = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 2100, 9.0F, 0.0F, 15, () -> Ingredient.of(Items.NETHERITE_INGOT));
     public static final Tier TSLAT = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 2000, 1.9F, 7.0F, 15, Ingredient::of);
 
     public static Map<Tier, Consumer<ItemStack>> getTierSpecialties() {

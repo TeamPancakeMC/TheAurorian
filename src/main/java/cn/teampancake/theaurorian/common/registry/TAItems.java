@@ -93,6 +93,10 @@ public class TAItems {
      * SwordItem
      */
     public static final DeferredHolder<Item, Item> AURORIAN_STEEL_SWORD = ITEMS.register("aurorian_steel_sword", AurorianSteelSword::new);
+    public static final DeferredHolder<Item, Item> AURORIAN_ALLOY_STEEL_SWORD = ITEMS.register("aurorian_alloy_steel_sword",
+            () -> new SwordItem(TAToolTiers.AURORIAN_ALLOY_STEEL, new Item.Properties().fireResistant().attributes(
+                    SwordItem.createAttributes(TAToolTiers.AURORIAN_ALLOY_STEEL, 0, -2.4F))
+                    .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS, TAItemTags.IS_EPIC))));
     public static final DeferredHolder<Item, Item> AURORIAN_STONE_SWORD = ITEMS.register("aurorian_stone_sword",
             () -> new SwordItem(TAToolTiers.AURORIAN_STONE, new Item.Properties().attributes(
                     SwordItem.createAttributes(TAToolTiers.AURORIAN_STONE, 3, -2.4F))

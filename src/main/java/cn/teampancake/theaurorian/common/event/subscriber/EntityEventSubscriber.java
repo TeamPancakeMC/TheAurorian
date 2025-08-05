@@ -490,6 +490,11 @@ public class EntityEventSubscriber {
                 int count = Mth.clamp(stack.getOrDefault(TADataComponents.KILL_COUNT, 0), 0, 20);
                 target.setHealth(target.getHealth() - count * 0.05F);
             }
+
+            if (stack.is(TAItems.AURORIAN_ALLOY_STEEL_SWORD)) {
+                target.setHealth(target.getHealth() * 0.9F);
+                event.setCanceled(true);
+            }
         }
     }
 

@@ -12,7 +12,11 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentContents;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
@@ -88,6 +92,25 @@ public class ItemEventSubscriber {
 
         if (sourceOfTerra != null) {
             sourceOfTerra.addToTooltip(event.getContext(), tooltip::add, event.getFlags());
+        }
+
+        if (stack.is(TAItems.AURORIAN_ALLOY_STEEL_SWORD)) {
+            for (Component component : tooltip) {
+                List<Component> siblings = component.getSiblings();
+                if (siblings.isEmpty()) continue;
+                ComponentContents contents1 = siblings.getFirst().getContents();
+                if (contents1 instanceof TranslatableContents tc1) {
+                    Object[] args = tc1.getArgs();
+                    boolean flag = tc1.getKey().equals("attribute.modifier.equals.0");
+                    if (flag && args.length == 2 && args[1] instanceof MutableComponent mutableComponent) {
+                        ComponentContents contents2 = mutableComponent.getContents();
+                        String id = Attributes.ATTACK_DAMAGE.value().getDescriptionId();
+                        if (contents2 instanceof TranslatableContents tc2 && tc2.getKey().equals(id)) {
+                            args[0] = "?"; break;
+                        }
+                    }
+                }
+            }
         }
 
         Ingredient repairItem = null;

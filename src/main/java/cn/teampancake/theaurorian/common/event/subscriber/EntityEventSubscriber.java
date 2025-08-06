@@ -429,6 +429,11 @@ public class EntityEventSubscriber {
                         player.setHealth(health + damage * 0.25F);
                     }
                 }
+
+                ItemStack mainHandItem = player.getMainHandItem();
+                if (mainHandItem.is(TAItems.AURORIAN_ALLOY_STEEL_SWORD)) {
+                    event.setNewDamage(0.0F);
+                }
             }
         }
     }
@@ -547,11 +552,13 @@ public class EntityEventSubscriber {
             if (stack.is(TAItems.AURORIAN_ALLOY_STEEL_SWORD)) {
                 float health = target.getHealth();
                 float damage = health * 0.1F;
-                DamageSource playerAttack = target.level().damageSources().playerAttack(player);
-                target.getCombatTracker().recordDamage(playerAttack, damage);
+                target.getCombatTracker().recordDamage(source, damage);
                 target.setHealth(health - damage);
                 target.gameEvent(GameEvent.ENTITY_DAMAGE);
-                event.setCanceled(true);
+                target.lastHurt = damage;
+                target.invulnerableTime = 20;
+                target.hurtDuration = 10;
+                target.hurtTime = target.hurtDuration;
             }
         }
     }

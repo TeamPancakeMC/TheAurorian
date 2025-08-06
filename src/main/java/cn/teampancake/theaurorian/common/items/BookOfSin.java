@@ -31,6 +31,11 @@ public class BookOfSin extends Item {
     }
 
     @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return false;
+    }
+
+    @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         DataComponentType<Integer> component = TADataComponents.ABSORBED_EXPERIENCE.get();
         ItemStack itemInHand = player.getItemInHand(usedHand);

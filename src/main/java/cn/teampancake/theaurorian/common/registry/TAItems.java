@@ -416,7 +416,7 @@ public class TAItems {
         Item.Properties properties = new Item.Properties().stacksTo(1)
                 .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_EPIC)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)
                 .attributes(ItemAttributeModifiers.builder().add(Attributes.MAX_HEALTH, new AttributeModifier(TheAurorian.prefix("base_max_heath"),
-                        0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.OFFHAND).build());
+                        -0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.OFFHAND).build());
         return ModList.get().isLoaded("curios") ? new CrimsonPactPendant(properties) : new Item(properties);
     });
 

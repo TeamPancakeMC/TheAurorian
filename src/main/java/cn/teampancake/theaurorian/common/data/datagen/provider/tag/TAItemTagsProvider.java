@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
+import top.theillusivec4.curios.api.CuriosTags;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -40,6 +42,7 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.tag(TAItemTags.HAS_CUSTOM_TOOLTIPS).addTag(TAItemTags.BUILDING_BLOCK).addTag(TAItemTags.IS_RARE)
                 .addTag(TAItemTags.IS_EPIC).addTag(TAItemTags.IS_LEGENDARY).addTag(TAItemTags.IS_MYTHICAL);
         this.tag(TAItemTags.IS_RARE).addTag(TAItemTags.DUNGEON_KEY);
+        this.tag(CuriosTags.NECKLACE).add(TAItems.CRIMSON_PACT_PENDANT.get());
         for (Item item : TACommonUtils.getKnownItems()) {
             ItemStack stack = item.getDefaultInstance();
             if (stack.has(TADataComponents.ITEM_TAGS)) {

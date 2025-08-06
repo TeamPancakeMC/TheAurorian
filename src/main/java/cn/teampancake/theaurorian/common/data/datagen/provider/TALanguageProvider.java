@@ -668,6 +668,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAItems.WEEPING_WILLOW_SAP, "垂柳树汁");
         this.addKey(TAItems.WEBBING, "蛛网");
         this.addKey(TAItems.BOOK_OF_SIN, "罪恶之书");
+        this.addKey(TAItems.CRIMSON_PACT_PENDANT, "血契坠饰");
 
         //MOD ENTITY
         this.addKey(TAEntityTypes.CRYSTALLINE_BEAM, "月凝晶射线");

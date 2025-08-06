@@ -63,6 +63,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.*;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.util.TriState;
@@ -73,9 +74,13 @@ import net.neoforged.neoforge.event.entity.player.*;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 import java.util.*;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /** @noinspection deprecation*/
@@ -403,6 +408,28 @@ public class EntityEventSubscriber {
             if (entity instanceof MoonQueen) {
                 event.setNewDamage(Math.max(1.0F, event.getNewDamage()));
             }
+
+            if (entity instanceof Player player) {
+                float damage = event.getNewDamage();
+                float health = player.getHealth();
+                if (ModList.get().isLoaded("curios")) {
+                    Optional<ICuriosItemHandler> maybeCuriosInventory = CuriosApi.getCuriosInventory(player);
+                    maybeCuriosInventory.flatMap(o -> o.getStacksHandler("necklace")).ifPresent(stacksHandler -> {
+                        IDynamicStackHandler stacks = stacksHandler.getStacks();
+                        for (int i = 0; i < stacks.getSlots(); i++) {
+                            ItemStack itemStack = stacks.getStackInSlot(i);
+                            if (itemStack.is(TAItems.CRIMSON_PACT_PENDANT)) {
+                                player.setHealth(health + damage * 0.25F); break;
+                            }
+                        }
+                    });
+                } else {
+                    ItemStack offhandItem = player.getOffhandItem();
+                    if (offhandItem.is(TAItems.CRIMSON_PACT_PENDANT)) {
+                        player.setHealth(health + damage * 0.25F);
+                    }
+                }
+            }
         }
     }
 
@@ -429,6 +456,32 @@ public class EntityEventSubscriber {
                     player.setData(attachment, 6000);
                     player.setHealth(1.0F);
                     event.setCanceled(true);
+                }
+
+                Consumer<ItemStack> triggerCrimsonPact = itemStack -> {
+                    PacketDistributor.sendToPlayer(player, new DisplayItemActivationS2CPacket(itemStack));
+                    player.addEffect(new MobEffectInstance(TAMobEffects.CORRUPTION, 200));
+                    player.setHealth(1.0F);
+                    itemStack.setCount(0);
+                    event.setCanceled(true);
+                };
+
+                if (ModList.get().isLoaded("curios")) {
+                    Optional<ICuriosItemHandler> maybeCuriosInventory = CuriosApi.getCuriosInventory(player);
+                    maybeCuriosInventory.flatMap(o -> o.getStacksHandler("necklace")).ifPresent(stacksHandler -> {
+                        IDynamicStackHandler stacks = stacksHandler.getStacks();
+                        for (int i = 0; i < stacks.getSlots(); i++) {
+                            ItemStack itemStack = stacks.getStackInSlot(i);
+                            if (itemStack.is(TAItems.CRIMSON_PACT_PENDANT)) {
+                                triggerCrimsonPact.accept(itemStack); break;
+                            }
+                        }
+                    });
+                } else {
+                    ItemStack offhandItem = player.getOffhandItem();
+                    if (offhandItem.is(TAItems.CRIMSON_PACT_PENDANT)) {
+                        triggerCrimsonPact.accept(offhandItem);
+                    }
                 }
             }
 
@@ -492,7 +545,12 @@ public class EntityEventSubscriber {
             }
 
             if (stack.is(TAItems.AURORIAN_ALLOY_STEEL_SWORD)) {
-                target.setHealth(target.getHealth() * 0.9F);
+                float health = target.getHealth();
+                float damage = health * 0.1F;
+                DamageSource playerAttack = target.level().damageSources().playerAttack(player);
+                target.getCombatTracker().recordDamage(playerAttack, damage);
+                target.setHealth(health - damage);
+                target.gameEvent(GameEvent.ENTITY_DAMAGE);
                 event.setCanceled(true);
             }
         }

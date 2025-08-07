@@ -17,7 +17,8 @@ public class TACuriosDataProvider extends CuriosDataProvider {
 
     @Override
     public void generate(HolderLookup.Provider registries, ExistingFileHelper fileHelper) {
-        this.createSlot("necklace").size(4).dropRule(ICurio.DropRule.ALWAYS_DROP).addCosmetic(true);
+        this.createSlot("necklace").size(4).dropRule(ICurio.DropRule.ALWAYS_DROP);
+        this.createEntities("entities").addPlayer().addSlots("necklace");
     }
 
 }

@@ -8,8 +8,8 @@ import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
 import cn.teampancake.theaurorian.common.registry.*;
-import cn.teampancake.theaurorian.compat.mui.ModernUICompat;
-import cn.teampancake.theaurorian.compat.thirst.ThirstWasTakenCompat;
+import cn.teampancake.theaurorian.compat.mui.ModernUICompatibility;
+import cn.teampancake.theaurorian.compat.thirst.ThirstWasTakenCompatibility;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -80,11 +80,11 @@ public class TheAurorian {
         modEventBus.addListener(this::setRegistriesForDatapack);
         TAGameRules.register();
         if (ModList.get().isLoaded("thirst")) {
-            ThirstWasTakenCompat.init();
+            ThirstWasTakenCompatibility.init();
         }
 
         if (ModList.get().isLoaded("modernui")){
-            ModernUICompat.LOADED = true;
+            ModernUICompatibility.LOADED = true;
         }
 
         if (FMLEnvironment.dist.isClient()) {

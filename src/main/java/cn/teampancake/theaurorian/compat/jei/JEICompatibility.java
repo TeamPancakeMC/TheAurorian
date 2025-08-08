@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Objects;
 
 @JeiPlugin
-public class JEICompat implements IModPlugin {
+public class JEICompatibility implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {

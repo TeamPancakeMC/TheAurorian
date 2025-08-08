@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.items.*;
 import cn.teampancake.theaurorian.common.items.armor.*;
+import cn.teampancake.theaurorian.common.items.curio.CrimsonPactPendant;
 import cn.teampancake.theaurorian.common.items.developer.*;
 import cn.teampancake.theaurorian.common.items.shield.CeruleanShield;
 import cn.teampancake.theaurorian.common.items.shield.CrystallineShield;
@@ -17,10 +18,15 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.material.Fluids;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -382,10 +388,13 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> AURORIAN_CHAIN = normal("aurorian_chain", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)));
     public static final DeferredHolder<Item, Item> AURORIAN_BERRY = normal("aurorian_berry", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)));
     public static final DeferredHolder<Item, Item> AURORIAN_CRYSTAL = ITEMS.register("aurorian_crystal", AurorianCrystal::new);
-    public static final DeferredHolder<Item, Item> EQUINOX_MUSHROOM = normal("equinox_mushroom", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)));
+    public static final DeferredHolder<Item, Item> EQUINOX_MUSHROOM = normal("equinox_mushroom",
+            () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)));
     public static final DeferredHolder<Item, Item> DREAM_DYEING_CRYSTAL_FRAGMENT = normal("dream_dyeing_crystal_fragment",
-            () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.HAS_CUSTOM_TOOLTIPS)).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
-    public static final DeferredHolder<Item, Item> WORLD_SCROLL_FRAGMENT = normal("world_scroll_fragment", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)));
+            () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.HAS_CUSTOM_TOOLTIPS))
+                    .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
+    public static final DeferredHolder<Item, Item> WORLD_SCROLL_FRAGMENT = normal("world_scroll_fragment",
+            () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)));
     public static final DeferredHolder<Item, Item> WORLD_SCROLL = ITEMS.register("world_scroll", WorldScroll::new);
     public static final DeferredHolder<Item, Item> BOOK_OF_SIN = ITEMS.register("book_of_sin", BookOfSin::new);
     public static final DeferredHolder<Item, Item> DUNGEON_LOCATOR = ITEMS.register("dungeon_locator", DungeonLocator::new);
@@ -394,9 +403,8 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> LIVING_DIVINING_ROD = ITEMS.register("living_divining_rod", LivingDiviningRod::new);
     public static final DeferredHolder<Item, Item> LOCK_PICKS = ITEMS.register("lock_picks", () -> new Item(new Item.Properties()
             .durability(10).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_EPIC)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
-    public static final DeferredHolder<Item, Item> MOON_WATER_BUCKET = ITEMS.register("moon_water_bucket", () -> new BucketItem(
-            TAFluids.MOON_WATER_STILL.get(), new Item.Properties().stacksTo(1)
-            .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+    public static final DeferredHolder<Item, Item> MOON_WATER_BUCKET = ITEMS.register("moon_water_bucket", () -> new BucketItem(TAFluids.MOON_WATER_STILL.get(),
+            new Item.Properties().stacksTo(1).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> AURORIAN_WINGED_FISH_BUCKET = ITEMS.register("aurorian_winged_fish_bucket", () -> new MobBucketItem(
             TAEntityTypes.AURORIAN_WINGED_FISH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)
             .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
@@ -404,6 +412,13 @@ public class TAItems {
             TAEntityTypes.MOON_FISH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)
             .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> DEVELOPER_GIFT = ITEMS.register("developer_gift", DeveloperGift::new);
+    public static final DeferredHolder<Item, Item> CRIMSON_PACT_PENDANT = ITEMS.register("crimson_pact_pendant", () -> {
+        Item.Properties properties = new Item.Properties().stacksTo(1)
+                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_EPIC)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)
+                .attributes(ItemAttributeModifiers.builder().add(Attributes.MAX_HEALTH, new AttributeModifier(TheAurorian.prefix("base_max_heath"),
+                        -0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.OFFHAND).build());
+        return ModList.get().isLoaded("curios") ? new CrimsonPactPendant(properties) : new Item(properties);
+    });
 
     /**
      * Developer Item

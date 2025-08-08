@@ -142,6 +142,9 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         List<AttackPhase<MoonQueen>> phaseList = Lists.newArrayList(
                 new MoonQueenMeleePhase(),
                 new MoonQueenRangedPhase(),
+                new MoonQueenAssaultCyclePhase(),
+                new MoonQueenMeleePhase(),
+                new MoonQueenRangedPhase(),
                 new MoonQueenBackAttackPhase(),
                 new MoonQueenMoonBefallPhase(),
                 new MoonQueenRainOfSwordsPhase());
@@ -194,6 +197,11 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         super.defineSynchedData(builder);
         builder.define(ATTACK_Y_ROT, 0.0F);
     }
+    // 仅用于限制“战斗奔跑”时的速度加成启用
+    private boolean combatRunActive = false;
+    public void setCombatRunActive(boolean v){ this.combatRunActive = v; }
+    public boolean isCombatRunActive(){ return this.combatRunActive; }
+
 
     @Override
     protected BodyRotationControl createBodyControl() {
@@ -573,6 +581,11 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
             return false;
         }
 
+        // 使用实体碰撞盒进行无碰撞检测，确保可站立
+        if (!this.level().noCollision(this.getDimensions(this.getPose()).makeBoundingBox(pos.x, pos.y, pos.z))) {
+            return false;
+        }
+
         // 检查脚下是否有支撑（避免掉入虚空）
         BlockPos belowPos = blockPos.below();
         if (this.level().getBlockState(belowPos).isAir() &&
@@ -943,43 +956,53 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         if (this.level() instanceof ServerLevel serverLevel) {
             float maxHealth = this.getMaxHealth();
             LivingEntity target = this.getTarget();
-            AABB aabb = this.getBoundingBox().inflate(24.0D);
-            List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
-            AttributeInstance health = this.getAttribute(TAAttributes.MAX_BOSS_HEALTH);
-            serverLevel.players().forEach(player -> this.currentSavedName.add(player.getName().getString()));
-            int size = this.currentSavedName.size() - this.playerAlreadyHealFor.size() - 1;
+
+            // 仅每40tick刷新一次玩家相关的累计数据，降低开销
+            if ((this.tickCount & 39) == 0) {
+                serverLevel.players().forEach(player -> this.currentSavedName.add(player.getName().getString()));
+                this.playerAlreadyHealFor.addAll(this.currentSavedName);
+            }
+
+            // 决斗触发检查
             boolean isHalfHealth = this.getHealth() < this.getMaxHealth() * 0.5F;
             if (isHalfHealth && !this.duelingMoment && this.ticksDueling == 2400) {
                 this.selectDuelistFromNearestTarget();
             }
 
+            // 战斗/非战斗移动
             if (target != null) {
                 this.handleCombatMovement(target);
-//                this.destroyHorizontalBlock();
             } else {
                 this.handleNonCombatMovement();
             }
 
-            if (health != null && size > 0) {
-                float extraValue = size * 200.0F;
-                health.setBaseValue(maxHealth + extraValue);
-                if (this.lastHurtByPlayer == null) {
-                    this.setBossHealth((float) health.getBaseValue());
-                } else {
-                    this.heal(extraValue);
+            // Boss生命值扩展逻辑
+            AttributeInstance health = this.getAttribute(TAAttributes.MAX_BOSS_HEALTH);
+            if (health != null) {
+                int size = this.currentSavedName.size() - this.playerAlreadyHealFor.size() - 1;
+                if (size > 0) {
+                    float extraValue = size * 200.0F;
+                    health.setBaseValue(maxHealth + extraValue);
+                    if (this.lastHurtByPlayer == null) {
+                        this.setBossHealth((float) health.getBaseValue());
+                    } else {
+                        this.heal(extraValue);
+                    }
                 }
             }
 
+            // 自愈逻辑
+            AABB aabb = this.getBoundingBox().inflate(24.0D);
+            List<Player> playerList = this.level().getEntitiesOfClass(Player.class, aabb);
             this.safeTime = playerList.isEmpty() ? this.safeTime + 1 : 0;
             if (this.safeTime > 100 && this.tickCount % 20 == 0) {
                 this.heal((maxHealth * 0.05F));
             }
 
+            // 重力开关
             if (this.getAttackState() == 0) {
                 this.setNoGravity(false);
             }
-
-            this.playerAlreadyHealFor.addAll(this.currentSavedName);
         }
     }
 
@@ -1034,11 +1057,13 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         double distance = this.distanceToSqr(target);
         boolean shouldSprint = this.shouldSprintToTarget(target, distance);
 
-        // 设置冲刺状态
+        // 设置冲刺状态：仅在战斗奔跑阶段允许提速
         this.setSprinting(shouldSprint);
-
-        // 添加战斗速度加成
-        this.addSpeedWhenFoundTarget();
+        if (shouldSprint && this.isCombatRunActive()) {
+            this.addSpeedWhenFoundTarget();
+        } else {
+            this.removeSpeedWhenNoTarget();
+        }
     }
 
     /**
@@ -1674,13 +1699,15 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
         } else if (entity instanceof Player player && this.duelingMoment && this.triggerDuelingCount > 0
                 && !this.currentDuelistName.equals(player.getName().getString())) {
             return false;
-        } else if (entity instanceof LivingEntity livingEntity && !this.isValidTarget(livingEntity)) {
-            this.setTarget(null);
-            return false;
         } else {
-            // 处理玩家攻击触发敌对状态
+            // 若为玩家，先加入敌对列表（允许第一下造成伤害）
             if (entity instanceof Player player) {
                 this.addHostilePlayer(player);
+            }
+            // 非玩家且不在有效目标列表，则拒绝伤害
+            if (entity instanceof LivingEntity livingEntity && !(livingEntity instanceof Player) && !this.isValidTarget(livingEntity)) {
+                this.setTarget(null);
+                return false;
             }
 
             this.isNeutral = false;

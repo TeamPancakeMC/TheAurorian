@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.common.entities.phase.AttackPhase;
 import cn.teampancake.theaurorian.common.entities.projectile.MoonQueenSword;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -54,7 +55,9 @@ public class MoonQueenRainOfSwordsPhase extends AttackPhase<MoonQueen> {
         LivingEntity target = entity.getTarget();
         entity.setNoGravity(true);
         if (target != null) {
-            target.setGlowingTag(true);
+            if (!entity.level().isClientSide()) {
+                target.setGlowingTag(true);
+            }
             entity.setDeltaMovement(0.0D, 1.0D, 0.0D);
             this.doOnStart(entity, target);
         }
@@ -75,7 +78,9 @@ public class MoonQueenRainOfSwordsPhase extends AttackPhase<MoonQueen> {
             Vec3 direction = entity.getLookAngle();
             this.swordPosListInFixedAngle = getCirclePointsWhenShootInFixedAngle(entity.position(), direction, 3.0D, count);
         } else if (i > this.floatTime && i < maxTime) {
+            // 仅服务端生成，且每tick最多生成两把
             if (!level.isClientSide() && this.countingSwordNum < count / 2) {
+                // 为保持视觉一致，圆阵不随朝向刷新
                 int index1 = this.countingSwordNum;
                 int index2 = count - 1 - this.countingSwordNum;
 
@@ -88,7 +93,7 @@ public class MoonQueenRainOfSwordsPhase extends AttackPhase<MoonQueen> {
                 sword1.setSwordType(0);
                 sword1.setOwner(entity);
                 level.addFreshEntity(sword1);
-                
+
                 MoonQueenSword sword2 = new MoonQueenSword(level, entity);
                 sword2.setPos(this.swordPosListInFixedAngle.get(index2));
                 sword2.shootFromRotation(entity, entity.getXRot(), entity.getYRot(), -1.5F, 0.001F, 1.0F);
@@ -98,8 +103,14 @@ public class MoonQueenRainOfSwordsPhase extends AttackPhase<MoonQueen> {
                 sword2.setSwordType(0);
                 sword2.setOwner(entity);
                 level.addFreshEntity(sword2);
-                
+
                 this.countingSwordNum++;
+            }
+
+            // 同步绘制大型魔法阵（随阶段持续）
+            if (!level.isClientSide()) {
+                float progress = (i - this.floatTime) / (float)this.getDuration(entity);
+                this.spawnRainOfSwordsMagicCircle(level, entity.position(), progress, entity.getYRot(), entity.getLookAngle());
             }
         } else if (i > maxTime) {
             this.countingSwordNum = 0;
@@ -110,13 +121,19 @@ public class MoonQueenRainOfSwordsPhase extends AttackPhase<MoonQueen> {
 
     @Override
     public boolean canContinue(MoonQueen entity) {
-        return true;
+        LivingEntity t = entity.getTarget();
+        // 目标死亡/消失则提前结束；若实体已不在存活或被外部打断也结束
+        return entity.isAlive() && t != null && t.isAlive();
     }
 
     @Override
     public void onStop(MoonQueen entity) {
         entity.resetFallDistance();
         entity.setNoGravity(false);
+        LivingEntity target = entity.getTarget();
+        if (target != null && !entity.level().isClientSide()) {
+            target.setGlowingTag(false);
+        }
         this.countingSwordNum = 0;
         this.swordPosListInFixedAngle.clear();
         entity.setDeltaMovement(0.0D, -2.0D, 0.0D);
@@ -157,6 +174,106 @@ public class MoonQueenRainOfSwordsPhase extends AttackPhase<MoonQueen> {
         }
 
         return points;
+    }
+
+    /**
+     * 在女王位置生成大型魔法阵，持续整个剑雨阶段
+     * 参考 WorldScroll/HolinessEffect 的写法，做轻量化
+     * progress: 0~1 随时间推进逐渐完整
+     */
+    private void spawnRainOfSwordsMagicCircle(Level level, Vec3 center, float progress, float rotationDeg, Vec3 lookDir) {
+        // 防御
+        if (progress < 0) progress = 0;
+        if (progress > 1) progress = 1;
+
+        // 将魔法阵平面对齐到“朝向”lookDir
+        Vec3 dir = lookDir.normalize();
+        Vec3 up = Math.abs(dir.y) > 0.99 ? new Vec3(1,0,0) : new Vec3(0,1,0);
+        Vec3 right = dir.cross(up).normalize();
+        Vec3 forward = dir.cross(right).normalize();
+
+        double radius = 4.0D + 8.0D * progress; // 半径随进度从4增长到12
+        int outerPts = (int)(120 * (0.5 + 0.5 * progress)); // 更高密度
+        double rot = Math.toRadians(rotationDeg + (level.getGameTime() * 3 % 360)); // 稍快旋转
+
+        // 外圈（以right/forward为平面基向量）
+        for (int i = 0; i < outerPts; i++) {
+            double a = rot + i * (2 * Math.PI / outerPts);
+            double px = Math.cos(a) * radius;
+            double pz = Math.sin(a) * radius;
+            Vec3 p = center.add(right.scale(px)).add(forward.scale(pz));
+            ((net.minecraft.server.level.ServerLevel)level).sendParticles(ParticleTypes.END_ROD, p.x, p.y, p.z, 1, 0, 0, 0, 0);
+        }
+
+        // 中圈（0.7R）
+        int midPts = (int)(90 * (0.5 + 0.5 * progress));
+        double rMid = radius * 0.7;
+        for (int i = 0; i < midPts; i++) {
+            double a = -rot + i * (2 * Math.PI / midPts);
+            double px = Math.cos(a) * rMid;
+            double pz = Math.sin(a) * rMid;
+            Vec3 p = center.add(right.scale(px)).add(forward.scale(pz));
+            ((net.minecraft.server.level.ServerLevel)level).sendParticles(ParticleTypes.END_ROD, p.x, p.y, p.z, 1, 0, 0, 0, 0);
+        }
+
+        // 内圈五角星（对齐方向平面）
+        double rInner = radius * 0.42;
+        int starPts = 5;
+        for (int k = 0; k < starPts; k++) {
+            int next = (k * 2) % starPts;
+            double a1 = rot + k * 2 * Math.PI / starPts;
+            double a2 = rot + next * 2 * Math.PI / starPts;
+            Vec3 A = center.add(right.scale(Math.cos(a1) * rInner)).add(forward.scale(Math.sin(a1) * rInner));
+            Vec3 B = center.add(right.scale(Math.cos(a2) * rInner)).add(forward.scale(Math.sin(a2) * rInner));
+            drawParticleLine((net.minecraft.server.level.ServerLevel) level, A.x, A.y, A.z, B.x, B.y, B.z, 36);
+        }
+
+        // 卫星小阵（进度>0.5）
+        if (progress > 0.5F) {
+            int satellites = 6;
+            double rSat = radius * 1.25;
+            for (int s = 0; s < satellites; s++) {
+                double a = rot + s * 2 * Math.PI / satellites;
+                Vec3 C = center.add(right.scale(Math.cos(a) * rSat)).add(forward.scale(Math.sin(a) * rSat));
+                spawnMiniRune((net.minecraft.server.level.ServerLevel) level, C.x, C.y, C.z, 0.6 + 0.2 * progress, a);
+                // 光束（连到主阵外圈）
+                Vec3 M = center.add(right.scale(Math.cos(a) * radius)).add(forward.scale(Math.sin(a) * radius));
+                drawParticleLine((net.minecraft.server.level.ServerLevel) level, C.x, C.y, C.z, M.x, M.y, M.z, 28);
+            }
+        }
+    }
+
+    private void drawParticleLine(net.minecraft.server.level.ServerLevel level, double x1, double y1, double z1,
+                                  double x2, double y2, double z2, int steps) {
+        for (int i = 0; i <= steps; i++) {
+            double t = i / (double) steps;
+            double x = x1 + (x2 - x1) * t;
+            double y = y1 + (y2 - y1) * t;
+            double z = z1 + (z2 - z1) * t;
+            // 寿命=1tick：使用速度将粒子快速移动并让其立即消散的视觉（END_ROD本身寿命较短）
+            level.sendParticles(ParticleTypes.END_ROD, x, y, z, 1, 0.0, 0.0, 0.0, 0.0);
+        }
+    }
+
+    private void spawnMiniRune(net.minecraft.server.level.ServerLevel level, double cx, double y, double cz,
+                               double size, double rot) {
+        int pts = 24;
+        for (int i = 0; i < pts; i++) {
+            double a = rot + i * (2 * Math.PI / pts);
+            double x = cx + Math.cos(a) * size;
+            double z = cz + Math.sin(a) * size;
+            level.sendParticles(ParticleTypes.END_ROD, x, y, z, 1, 0, 0, 0, 0);
+        }
+        // 小五角
+        double rIn = size * 0.45;
+        for (int k = 0; k < 5; k++) {
+            int n = (k * 2) % 5;
+            double ax = cx + Math.cos(rot + k * 2 * Math.PI / 5) * rIn;
+            double az = cz + Math.sin(rot + k * 2 * Math.PI / 5) * rIn;
+            double bx = cx + Math.cos(rot + n * 2 * Math.PI / 5) * rIn;
+            double bz = cz + Math.sin(rot + n * 2 * Math.PI / 5) * rIn;
+            drawParticleLine(level, ax, y, az, bx, y, bz, 12);
+        }
     }
 
 }

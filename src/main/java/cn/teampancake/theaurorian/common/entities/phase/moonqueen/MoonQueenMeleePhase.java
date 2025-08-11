@@ -31,25 +31,18 @@ public class MoonQueenMeleePhase extends AttackPhase<MoonQueen> {
 
     @Override
     public void onStart(MoonQueen entity) {
-        LivingEntity target = entity.getTarget();
-
-        // 检查是否应该使用burst攻击
-        if (target != null && entity.shouldUseBurstAttack(target)) {
-            // 使用burst攻击
-            this.randomIndex = 2; // burst的索引
-            entity.incrementBurstAttackCount(target); // 增加burst攻击计数
-        } else {
-            // 50%概率选择swing或swing_2
-            this.randomIndex = entity.getRandom().nextBoolean() ? 0 : 1;
-        }
-
-        this.lastIndex = this.randomIndex;
-
+        RandomSource random = RandomSource.create();
+        int newIndex;
+        do {
+            newIndex = random.nextInt(3);
+        } while (newIndex == lastIndex);
+        this.randomIndex = newIndex;
+        this.lastIndex = newIndex;
         String part = this.parts[this.randomIndex];
         String controller = part + "_controller";
         String animation = part + "_animation";
         entity.triggerAnim(controller, animation);
-
+        LivingEntity target = entity.getTarget();
         entity.setSprinting(false);
         if (target != null) {
             entity.getLookControl().setLookAt(target.getX(), target.getEyeY(), target.getZ());
@@ -81,31 +74,18 @@ public class MoonQueenMeleePhase extends AttackPhase<MoonQueen> {
                 entity.setAttackYRot(yRot);
                 entity.getNavigation().stop();
                 entity.getLookControl().setLookAt(target, 360f, 360f);
-
-                boolean hitTarget = false;
                 for (LivingEntity livingEntity : level.getNearbyEntities(LivingEntity.class,
                         TargetingConditions.DEFAULT, entity, selfInflate)) {
                     if (livingEntity.getUUID().equals(target.getUUID())) {
                         livingEntity.invulnerableTime = 0;
                         entity.doHurtTarget(livingEntity);
-                        hitTarget = true;
-
-                        // burst攻击的特殊效果
-                        if (i == 2) { // burst攻击
+                        if (i == 2) {
                             livingEntity.hurt(entity.damageSources().mobAttack(entity), 6.0F);
                             livingEntity.knockback(1.0F, Mth.sin(value), -Mth.cos(value));
                         }
                     }
                 }
 
-                // 记录对主要目标的攻击
-                if (hitTarget) {
-                    // 区分swing攻击和burst攻击
-                    boolean isSwingAttack = (i == 0 || i == 1); // swing和swing_2是swing攻击，burst不是
-                    entity.recordMeleeAttack(target, isSwingAttack);
-                }
-
-                // swing和swing_2有范围攻击效果，burst没有
                 if (i == 0 || i == 1) {
                     for (LivingEntity livingEntity : level.getEntitiesOfClass(LivingEntity.class, targetInflate)) {
                         double distance = entity.distanceToSqr(livingEntity);

@@ -17,64 +17,23 @@ public class MoonQueenBackAttackPhase extends AttackPhase<MoonQueen> {
 
     @Override
     public boolean canStart(MoonQueen entity, boolean coolDownOver) {
-        // 基础条件检查
-        if (!entity.getRandom().nextBoolean() || !entity.isAlive() || entity.preparationTime > 0 || !coolDownOver) {
-            return false;
-        }
-
-        LivingEntity target = entity.getTarget();
-
-        // 目标必须是玩家
-        if (!(target instanceof Player player)) {
-            return false;
-        }
-
-        // 玩家必须是真实玩家（非创造模式/观察者模式）
-        if (!entity.isTruePlayer(player)) {
-            return false;
-        }
-
-        // 距离检查：10格 < 距离 ≤ 60格
-        double distance = entity.distanceTo(target);
-        if (distance <= 10.0D || distance > 60.0D) {
-            return false;
-        }
-
-        // 检查瞬移位置是否安全
-        return entity.isTeleportPositionSafe(target);
+        return entity.getRandom().nextBoolean() && entity.isAlive() && entity.preparationTime <= 0
+                && entity.getTarget() != null && coolDownOver;
     }
 
     @Override
     public void onStart(MoonQueen entity) {
         LivingEntity target = entity.getTarget();
-
-        // 确保目标是玩家
-        if (target instanceof Player player && entity.isTruePlayer(player)) {
-            // 再次检查距离和安全性
-            double distance = entity.distanceTo(player);
-            if (distance > 10.0D && distance <= 60.0D && entity.isTeleportPositionSafe(player)) {
-                entity.teleportToTheBackOfTheTarget(player);
-                return;
-            }
-        }
-
-        // 如果当前目标不合适，寻找合适的玩家目标
-        if (!entity.level().isClientSide()) {
-            List<Player> nearbyPlayers = entity.getPlayerInBoundingBoxWithInflate(60.0D);
-            List<Player> validPlayers = nearbyPlayers.stream()
-                .filter(entity::isTruePlayer)
-                .filter(player -> {
-                    double distance = entity.distanceTo(player);
-                    return distance > 10.0D && distance <= 60.0D;
-                })
-                .filter(entity::isTeleportPositionSafe)
-                .toList();
-
-            if (!validPlayers.isEmpty()) {
-                List<Player> sortedPlayers = validPlayers.size() > 1 ? getPlayers(entity, validPlayers) : validPlayers;
-                Player selectedPlayer = sortedPlayers.getFirst();
-                entity.setTarget(selectedPlayer);
-                entity.teleportToTheBackOfTheTarget(selectedPlayer);
+        if (target != null) {
+            entity.teleportToTheBackOfTheTarget(target);
+        } else {
+            if (!entity.level().isClientSide()) {
+                List<Player> list = entity.getPlayerInBoundingBoxWithInflate(30.0D);
+                if (!list.isEmpty()) {
+                    List<Player> playerList = list.size() > 1 ? getPlayers(entity, list) : list;
+                    entity.setTarget(playerList.getFirst());
+                    entity.teleportToTheBackOfTheTarget(playerList.getFirst());
+                }
             }
         }
     }

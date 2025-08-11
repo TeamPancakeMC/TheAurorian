@@ -444,7 +444,7 @@ public class EntityEventSubscriber {
                 }
 
                 AttachmentType<Integer> attachment = TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN.get();
-                if (TAInventoryUtils.isWearFullArmor(player, SpectralArmor.class) && player.getData(attachment) < 0) {
+                if (TAInventoryUtils.isWearFullArmor(player, SpectralArmor.class) && player.getData(attachment) <= 0) {
                     ResourceLocation texture = TheAurorian.prefix("textures/mob_effect/corruption.png");
                     PacketDistributor.sendToPlayer(player, new DisplayTextureActivationS2CPacket(texture, 40));
                     player.addEffect(new MobEffectInstance(TAMobEffects.CORRUPTION, 200));

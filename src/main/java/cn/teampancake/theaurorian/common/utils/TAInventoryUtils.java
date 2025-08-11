@@ -87,18 +87,19 @@ public class TAInventoryUtils {
     }
 
     public static boolean isWearFullArmor(LivingEntity entity, Class<?> armorClass) {
+        int armorCount = 0;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
                 ItemStack stack = entity.getItemBySlot(slot);
                 if (!(stack.getItem() instanceof ArmorItem armor
                         && armor.getClass().isInstance(armorClass))
                         || armor.getType().getSlot() != slot) {
-                    return false;
+                    armorCount++;
                 }
             }
         }
 
-        return true;
+        return armorCount == 4;
     }
 
     public static boolean canArmorTriggerEffect(LivingEntity entity, Class<?> armorClass, double probability) {

@@ -20,7 +20,7 @@ public class CorruptionEffect extends IncurableEffect {
     private static final EquipmentSlot[] ARMOR_SLOTS = new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
 
     public CorruptionEffect() {
-        super(MobEffectCategory.HARMFUL, 0x570e20);
+        super(MobEffectCategory.NEUTRAL, 0x570e20);
     }
 
     @Override

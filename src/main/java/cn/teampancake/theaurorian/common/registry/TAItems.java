@@ -18,13 +18,9 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlotGroup;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.Tags;
@@ -248,14 +244,14 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> AURORIAN_PORK = ITEMS.register("aurorian_pork", () -> new Item(new Item.Properties().food(Foods.PORKCHOP).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> AURORIAN_MUTTON = ITEMS.register("aurorian_mutton", () -> new Item(new Item.Properties().food(Foods.MUTTON).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> AURORIAN_RABBIT = ITEMS.register("aurorian_rabbit", () -> new Item(new Item.Properties().food(Foods.RABBIT).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
-    public static final DeferredHolder<Item, Item> COOKED_AURORIAN_BEEF = ITEMS.register("cooked_aurorian_beef", () -> new Item(new Item.Properties().food(Foods.COOKED_BEEF)
-            .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.COOKED_MEAT)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
-    public static final DeferredHolder<Item, Item> COOKED_AURORIAN_PORK = ITEMS.register("cooked_aurorian_pork", () -> new Item(new Item.Properties().food(Foods.COOKED_PORKCHOP)
-            .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.COOKED_MEAT)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
-    public static final DeferredHolder<Item, Item> COOKED_AURORIAN_MUTTON = ITEMS.register("cooked_aurorian_mutton", () -> new Item(new Item.Properties().food(Foods.COOKED_MUTTON)
-            .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.COOKED_MEAT)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
-    public static final DeferredHolder<Item, Item> COOKED_AURORIAN_RABBIT = ITEMS.register("cooked_aurorian_rabbit", () -> new Item(new Item.Properties().food(Foods.COOKED_RABBIT)
-            .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.COOKED_MEAT)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+    public static final DeferredHolder<Item, Item> COOKED_AURORIAN_BEEF = ITEMS.register("cooked_aurorian_beef", () -> new Item(new Item.Properties()
+            .food(Foods.COOKED_BEEF).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.COOKED_MEAT)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+    public static final DeferredHolder<Item, Item> COOKED_AURORIAN_PORK = ITEMS.register("cooked_aurorian_pork", () -> new Item(new Item.Properties()
+            .food(Foods.COOKED_PORKCHOP).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.COOKED_MEAT)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+    public static final DeferredHolder<Item, Item> COOKED_AURORIAN_MUTTON = ITEMS.register("cooked_aurorian_mutton", () -> new Item(new Item.Properties()
+            .food(Foods.COOKED_MUTTON).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.COOKED_MEAT)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+    public static final DeferredHolder<Item, Item> COOKED_AURORIAN_RABBIT = ITEMS.register("cooked_aurorian_rabbit", () -> new Item(new Item.Properties()
+            .food(Foods.COOKED_RABBIT).component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.COOKED_MEAT)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> WEEPING_WILLOW_SAP = ITEMS.register("weeping_willow_sap", WeepingWillowSap::new);
     public static final DeferredHolder<Item, Item> SILK_BERRY_JAM = food("silk_berry_jam", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)), 2, 0.5F);
     public static final DeferredHolder<Item, Item> SILK_BERRY_JAM_SANDWICH = food("silk_berry_jam_sandwich", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE)), 6, 0.9F);
@@ -414,10 +410,10 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> DEVELOPER_GIFT = ITEMS.register("developer_gift", DeveloperGift::new);
     public static final DeferredHolder<Item, Item> CRIMSON_PACT_PENDANT = ITEMS.register("crimson_pact_pendant", () -> {
         Item.Properties properties = new Item.Properties().stacksTo(1)
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_EPIC)).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)
-                .attributes(ItemAttributeModifiers.builder().add(Attributes.MAX_HEALTH, new AttributeModifier(TheAurorian.prefix("base_max_heath"),
-                        -0.5D, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.OFFHAND).build());
-        return ModList.get().isLoaded("curios") ? new CrimsonPactPendant(properties) : new Item(properties);
+                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_EPIC))
+                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE);
+        return ModList.get().isLoaded("curios") ? new CrimsonPactPendant(properties) :
+                new Item(properties.attributes(CrimsonPactPendant.ATTRIBUTES));
     });
 
     /**

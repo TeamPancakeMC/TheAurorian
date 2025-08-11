@@ -16,6 +16,7 @@ import cn.teampancake.theaurorian.common.entities.monster.SpiderlingCrystalShell
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
+import cn.teampancake.theaurorian.common.items.curio.CrimsonPactPendant;
 import cn.teampancake.theaurorian.common.level.TAServerPlayer;
 import cn.teampancake.theaurorian.common.network.*;
 import cn.teampancake.theaurorian.common.registry.*;
@@ -74,9 +75,6 @@ import net.neoforged.neoforge.event.entity.player.*;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 import java.util.*;
 import java.util.List;
@@ -284,13 +282,7 @@ public class EntityEventSubscriber {
         boolean flag2 = effect.value().isBeneficial() && entity.hasEffect(TAMobEffects.INCANTATION);
         boolean flag3 = effect.is(TAMobEffects.PARALYSIS) && !(entity instanceof Player);
         boolean flag4 = effect.is(TAMobEffectTags.MOON_QUEEN_ONLY) && !(entity instanceof MoonQueen);
-
-        // 皎月女王中毒和凋零免疫
-        boolean flag5 = entity instanceof cn.teampancake.theaurorian.common.entities.boss.MoonQueen &&
-                       (effect.value() == net.minecraft.world.effect.MobEffects.POISON ||
-                        effect.value() == net.minecraft.world.effect.MobEffects.WITHER);
-
-        if (flag1 || flag2 || flag3 || flag4 || flag5) {
+        if (flag1 || flag2 || flag3 || flag4) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
         }
     }
@@ -419,16 +411,8 @@ public class EntityEventSubscriber {
                 float damage = event.getNewDamage();
                 float health = player.getHealth();
                 if (ModList.get().isLoaded("curios")) {
-                    Optional<ICuriosItemHandler> maybeCuriosInventory = CuriosApi.getCuriosInventory(player);
-                    maybeCuriosInventory.flatMap(o -> o.getStacksHandler("necklace")).ifPresent(stacksHandler -> {
-                        IDynamicStackHandler stacks = stacksHandler.getStacks();
-                        for (int i = 0; i < stacks.getSlots(); i++) {
-                            ItemStack itemStack = stacks.getStackInSlot(i);
-                            if (itemStack.is(TAItems.CRIMSON_PACT_PENDANT)) {
-                                player.setHealth(health + damage * 0.25F); break;
-                            }
-                        }
-                    });
+                    Consumer<ItemStack> consumer = itemStack -> player.setHealth(health + damage * 0.25F);
+                    CrimsonPactPendant.checkFirstCurio(player, TAItems.CRIMSON_PACT_PENDANT.get(), "necklace", consumer);
                 } else {
                     ItemStack offhandItem = player.getOffhandItem();
                     if (offhandItem.is(TAItems.CRIMSON_PACT_PENDANT)) {
@@ -478,16 +462,7 @@ public class EntityEventSubscriber {
                 };
 
                 if (ModList.get().isLoaded("curios")) {
-                    Optional<ICuriosItemHandler> maybeCuriosInventory = CuriosApi.getCuriosInventory(player);
-                    maybeCuriosInventory.flatMap(o -> o.getStacksHandler("necklace")).ifPresent(stacksHandler -> {
-                        IDynamicStackHandler stacks = stacksHandler.getStacks();
-                        for (int i = 0; i < stacks.getSlots(); i++) {
-                            ItemStack itemStack = stacks.getStackInSlot(i);
-                            if (itemStack.is(TAItems.CRIMSON_PACT_PENDANT)) {
-                                triggerCrimsonPact.accept(itemStack); break;
-                            }
-                        }
-                    });
+                    CrimsonPactPendant.checkFirstCurio(player, TAItems.CRIMSON_PACT_PENDANT.get(), "necklace", triggerCrimsonPact);
                 } else {
                     ItemStack offhandItem = player.getOffhandItem();
                     if (offhandItem.is(TAItems.CRIMSON_PACT_PENDANT)) {
@@ -561,10 +536,6 @@ public class EntityEventSubscriber {
                 target.getCombatTracker().recordDamage(source, damage);
                 target.setHealth(health - damage);
                 target.gameEvent(GameEvent.ENTITY_DAMAGE);
-                target.lastHurt = damage;
-                target.invulnerableTime = 20;
-                target.hurtDuration = 10;
-                target.hurtTime = target.hurtDuration;
             }
         }
     }

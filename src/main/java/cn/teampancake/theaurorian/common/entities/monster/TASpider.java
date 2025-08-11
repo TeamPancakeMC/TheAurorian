@@ -44,6 +44,7 @@ public abstract class TASpider extends Spider implements GeoEntity, MultiPhaseAt
         super.defineSynchedData(builder);
         builder.define(ATTACK_STATE, 0);
         builder.define(ATTACK_TICKS, 0);
+        builder.define(OWNER_UUID, Optional.empty());
     }
 
     @Override

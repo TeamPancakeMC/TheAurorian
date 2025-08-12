@@ -11,6 +11,7 @@ public class TAStructureTags {
     public static final TagKey<Structure> RUNESTONE_DUNGEON = create("runestone_dungeon");
     public static final TagKey<Structure> DARKSTONE_DUNGEON = create("darkstone_dungeon");
     public static final TagKey<Structure> MOON_TEMPLE = create("moon_temple");
+    public static final TagKey<Structure> WORLD_TREE = create("worldtree");
 
     private static TagKey<Structure> create(String name) {
         return TagKey.create(Registries.STRUCTURE, TheAurorian.prefix(name));

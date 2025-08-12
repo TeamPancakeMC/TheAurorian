@@ -34,6 +34,7 @@ public class TAStructures {
     public static final ResourceKey<Structure> RUINS_ALTAR = createKey("ruins_altar");
     public static final ResourceKey<Structure> AURORIAN_VILLAGE = createKey("aurorian_village");
     public static final ResourceKey<Structure> RUNESTONE_DUNGEON = createKey("runestone_dungeon");
+    public static final ResourceKey<Structure> WORLD_TREE = createKey("worldtree");
 
     private static ResourceKey<Structure> createKey(String name) {
         return ResourceKey.create(Registries.STRUCTURE, TheAurorian.prefix(name));
@@ -62,6 +63,14 @@ public class TAStructures {
                 templatePools.getOrThrow(TATemplatePools.RUNESTONE_DUNGEON_START), (Optional.empty()), 7,
                 ConstantHeight.of(VerticalAnchor.absolute(0)), Boolean.FALSE,
                 Optional.of(Heightmap.Types.WORLD_SURFACE_WG), (348), List.of(),
+                DimensionPadding.ZERO, LiquidSettings.APPLY_WATERLOGGING));
+        context.register(WORLD_TREE, new JigsawStructure(new Structure.StructureSettings.Builder(
+                HolderSet.direct(biomes.getOrThrow(TABiomes.AURORIAN_PLAINS)))
+                .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
+                .terrainAdapation(TerrainAdjustment.BEARD_THIN).build(),
+                templatePools.getOrThrow(TATemplatePools.WORLD_TREE_START), (Optional.empty()), 6,
+                ConstantHeight.of(VerticalAnchor.absolute(-8)), Boolean.FALSE,
+                Optional.of(Heightmap.Types.WORLD_SURFACE_WG), (100), List.of(),
                 DimensionPadding.ZERO, LiquidSettings.APPLY_WATERLOGGING));
     }
 

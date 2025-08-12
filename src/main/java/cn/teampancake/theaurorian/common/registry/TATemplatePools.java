@@ -22,6 +22,8 @@ public class TATemplatePools {
     public static final ResourceKey<StructureTemplatePool> AURORIAN_VILLAGE_GATE = createKey("aurorian_village/gate");
     public static final ResourceKey<StructureTemplatePool> AURORIAN_VILLAGE_SET = createKey("aurorian_village/set");
     public static final ResourceKey<StructureTemplatePool> RUNESTONE_DUNGEON_START = createKey("runestone_dungeon/part_5");
+    public static final ResourceKey<StructureTemplatePool> WORLD_TREE_START = createKey("worldtree/p5");
+    public static final List<ResourceKey<StructureTemplatePool>> WORLD_TREE_PART = new ArrayList<>();
     public static final List<ResourceKey<StructureTemplatePool>> RUNESTONE_DUNGEON_PARTS = new ArrayList<>();
 
     private static ResourceKey<StructureTemplatePool> createKey(String name) {
@@ -47,12 +49,18 @@ public class TATemplatePools {
                 Pair.of(StructurePoolElement.single("theaurorian:village/set/village_preset_8", emptyPL), 50)
         ), StructureTemplatePool.Projection.RIGID));
         RUNESTONE_DUNGEON_PARTS.forEach(key -> context.register(key, new StructureTemplatePool(emptyPool, ImmutableList.of(Pair.of(
-                StructurePoolElement.single(key.registry().toString(), emptyPL), 50)), StructureTemplatePool.Projection.RIGID)));
+                StructurePoolElement.single(key.location().toString(), emptyPL), 50)), StructureTemplatePool.Projection.RIGID)));
+
+        WORLD_TREE_PART.forEach(key -> context.register(key, new StructureTemplatePool(emptyPool, ImmutableList.of(Pair.of(
+                StructurePoolElement.single(key.location().toString(), emptyPL), 50)), StructureTemplatePool.Projection.RIGID)));
     }
 
     static {
         for (int i = 1; i < 10; i++) {
             RUNESTONE_DUNGEON_PARTS.add(createKey("runestone_dungeon/part_" + i));
+        }
+        for (int i = 1; i < 10; i++) {
+            WORLD_TREE_PART.add(createKey("worldtree/p" + i));
         }
     }
 

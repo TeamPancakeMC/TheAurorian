@@ -23,6 +23,7 @@ public class TAStructureTagsProvider extends StructureTagsProvider {
         this.tag(TAStructureTags.RUNESTONE_DUNGEON).add(TAStructures.RUNESTONE_DUNGEON);
         this.tag(TAStructureTags.DARKSTONE_DUNGEON).addOptional(TheAurorian.prefix("darkstone_dungeon"));
         this.tag(TAStructureTags.MOON_TEMPLE).addOptional(TheAurorian.prefix("moon_temple"));
+        this.tag(TAStructureTags.WORLD_TREE).add(TAStructures.WORLD_TREE);
     }
 
 }

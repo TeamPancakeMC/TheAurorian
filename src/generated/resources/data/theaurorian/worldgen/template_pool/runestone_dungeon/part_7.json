@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "minecraft:worldgen/template_pool",
+        "location": "theaurorian:runestone_dungeon/part_7",
         "processors": "minecraft:empty",
         "projection": "rigid"
       },

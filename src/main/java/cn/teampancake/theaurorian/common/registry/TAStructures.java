@@ -64,7 +64,7 @@ public class TAStructures {
                 ConstantHeight.of(VerticalAnchor.absolute(0)), Boolean.FALSE,
                 Optional.of(Heightmap.Types.WORLD_SURFACE_WG), (348), List.of(),
                 DimensionPadding.ZERO, LiquidSettings.APPLY_WATERLOGGING));
-        context.register(WORLD_TREE, new JigsawStructure(new Structure.StructureSettings.Builder(
+        context.register(WORLD_TREE, new LargeJigsawStructure(new Structure.StructureSettings.Builder(
                 HolderSet.direct(biomes.getOrThrow(TABiomes.AURORIAN_PLAINS)))
                 .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
                 .terrainAdapation(TerrainAdjustment.BEARD_THIN).build(),

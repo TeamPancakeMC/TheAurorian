@@ -156,7 +156,7 @@ public class EntityEventSubscriber {
         }
 
         if (event.getEntity() instanceof Spider spider) {
-            spider.targetSelector.addGoal(0, new SpiderIgnoreSpectralArmorGoal<>(spider, Mob.class));
+            spider.targetSelector.addGoal(0, new SpiderIgnoreSpectralArmorGoal<>(spider, Player.class));
         }
     }
 

@@ -38,7 +38,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-@EventBusSubscriber(modid = TheAurorian.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class TAEntityTypes {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, TheAurorian.MOD_ID);
@@ -77,7 +77,7 @@ public class TAEntityTypes {
             () -> EntityType.Builder.<ThrownSlateBrick>of(ThrownSlateBrick::new, MobCategory.MISC).sized(0.25F, 0.25F)
                     .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("thrown_slate_brick"));
     public static final DeferredHolder<EntityType<?>, EntityType<UnstableCrystal>> UNSTABLE_CRYSTAL = ENTITY_TYPES.register("unstable_crystal",
-            () -> EntityType.Builder.<UnstableCrystal>of(UnstableCrystal::new, MobCategory.MISC).sized(0.25F, 0.25F)
+            () -> EntityType.Builder.of(UnstableCrystal::new, MobCategory.MISC).sized(0.25F, 0.25F)
                     .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("unstable_crystal"));
     public static final DeferredHolder<EntityType<?>, EntityType<BladeWave>> BLADE_WAVE = ENTITY_TYPES.register("blade_wave",
             () -> EntityType.Builder.<BladeWave>of(BladeWave::new, MobCategory.MISC).sized(5.5F, 1.5F)

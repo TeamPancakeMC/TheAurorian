@@ -19,6 +19,7 @@ public class TAStructureSets {
     public static final ResourceKey<StructureSet> RUINS_ALTAR = createKey("ruins_altar");
     public static final ResourceKey<StructureSet> AURORIAN_VILLAGE = createKey("aurorian_village");
     public static final ResourceKey<StructureSet> RUNESTONE_DUNGEON = createKey("runestone_dungeon");
+    public static final ResourceKey<StructureSet> WORLD_TREE = createKey("worldtree");
 
     private static ResourceKey<StructureSet> createKey(String name) {
         return ResourceKey.create(Registries.STRUCTURE_SET, TheAurorian.prefix(name));
@@ -34,6 +35,9 @@ public class TAStructureSets {
         context.register(RUNESTONE_DUNGEON, new StructureSet(structures.getOrThrow(TAStructures.RUNESTONE_DUNGEON),
                 new RandomSpreadStructurePlacement(Vec3i.ZERO, StructurePlacement.FrequencyReductionMethod.DEFAULT,
                         (0.4F), (1919810), (Optional.empty()), (64), (20), RandomSpreadType.LINEAR)));
+        context.register(WORLD_TREE, new StructureSet(structures.getOrThrow(TAStructures.WORLD_TREE),
+                new RandomSpreadStructurePlacement(Vec3i.ZERO, StructurePlacement.FrequencyReductionMethod.DEFAULT,
+                        (0.5F),(7210721),(Optional.empty()),(64),(20),RandomSpreadType.LINEAR)));
     }
 
 }

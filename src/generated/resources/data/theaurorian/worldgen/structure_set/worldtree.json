@@ -1,0 +1,15 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.5,
+    "salt": 7210721,
+    "separation": 20,
+    "spacing": 64
+  },
+  "structures": [
+    {
+      "structure": "theaurorian:worldtree",
+      "weight": 1
+    }
+  ]
+}

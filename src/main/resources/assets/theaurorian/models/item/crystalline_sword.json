@@ -9,6 +9,18 @@
             "predicate": {
                 "theaurorian:shoot": 1.0
             }
+        },
+        {
+            "model": "theaurorian:item/crystalline_sword_hp",
+            "predicate": {
+                "theaurorian:hp": 1.0
+            }
+        },
+        {
+            "model": "theaurorian:item/crystalline_sword_hp_shoot",
+            "predicate": {
+                "theaurorian:hp_shoot": 1.0
+            }
         }
     ]
 }

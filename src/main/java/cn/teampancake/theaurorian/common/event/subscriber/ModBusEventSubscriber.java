@@ -14,6 +14,7 @@ import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -38,6 +39,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
+/** @noinspection deprecation*/
 @EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class ModBusEventSubscriber {
 
@@ -95,6 +97,9 @@ public class ModBusEventSubscriber {
         registrar.playToClient(DisplayActivationTickS2CPacket.TYPE,
                 DisplayActivationTickS2CPacket.STREAM_CODEC,
                 DisplayActivationTickS2CPacket::handle);
+        registrar.playToClient(SylvanisProgressS2CPacket.TYPE,
+                SylvanisProgressS2CPacket.STREAM_CODEC,
+                SylvanisProgressS2CPacket::handle);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -200,20 +205,32 @@ public class ModBusEventSubscriber {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public static void registerItemProperties(FMLClientSetupEvent event) {
-        ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), TheAurorian.prefix("pull"), ((stack, level, entity, seed) ->
-                entity == null || entity.getUseItem() != stack ? 0.0F : (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 20.0F));
-        ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), TheAurorian.prefix("pulling"), ((stack, level, entity, seed) ->
-                entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
-        ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pull"), ((stack, level, entity, seed) ->
-                entity == null || entity.getUseItem() != stack ? 0.0F : (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 20.0F));
-        ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pulling"), ((stack, level, entity, seed) ->
-                entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
-        ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), TheAurorian.prefix("shoot"), ((stack, level, entity, seed) ->
-                entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
+        ItemPropertyFunction pullFunction = (stack, level, entity, seed) ->
+                entity == null || entity.getUseItem() != stack ? 0.0F :
+                        (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 20.0F;
+        ItemPropertyFunction usingFunction = (stack, level, entity, seed) ->
+                entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
+        ItemPropertyFunction hpFunction = (stack, level, entity, seed) -> {
+            Boolean highPrecision = stack.get(TADataComponents.HIGH_PRECISION.get());
+            return highPrecision != null && highPrecision ? 1.0F : 0.0F;
+        };
+
+        ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), TheAurorian.prefix("pull"), pullFunction);
+        ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), TheAurorian.prefix("pulling"), usingFunction);
+        ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pull"), pullFunction);
+        ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pulling"), usingFunction);
+        ItemProperties.register(TAItems.AURORIAN_STEEL_SWORD.get(), TheAurorian.prefix("hp"), hpFunction);
+        ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), TheAurorian.prefix("shoot"), usingFunction);
+        ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), TheAurorian.prefix("hp"), hpFunction);
+        ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), TheAurorian.prefix("hp_shoot"), ((stack, level, entity, seed) -> {
+            boolean flag = entity != null && entity.isUsingItem() && entity.getUseItem() == stack;
+            Boolean highPrecision = stack.get(TADataComponents.HIGH_PRECISION.get());
+            return flag && highPrecision != null && highPrecision ? 1.0F : 0.0F;
+        }));
+
         for (Item item : TACommonUtils.getKnownItems()) {
             if (item instanceof ShieldItem) {
-                ItemProperties.register(item, TheAurorian.prefix("blocking"), ((stack, level, entity, seed) ->
-                        entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F));
+                ItemProperties.register(item, TheAurorian.prefix("blocking"), usingFunction);
             }
         }
     }

@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "theaurorian:item/aurorian_steel_sword"
+  },
+  "overrides": [
+    {
+      "model": "theaurorian:item/aurorian_steel_sword_hp",
+      "predicate": {
+        "theaurorian:hp": 1.0
+      }
+    }
+  ]
+}

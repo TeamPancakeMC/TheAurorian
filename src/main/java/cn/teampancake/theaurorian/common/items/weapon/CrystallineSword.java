@@ -1,11 +1,13 @@
 package cn.teampancake.theaurorian.common.items.weapon;
 
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.*;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -36,44 +38,60 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
+
 import net.minecraft.util.RandomSource;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.DustParticleOptions;
 import org.joml.Vector3f;
-import net.minecraft.network.chat.Component;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.client.GeoRenderProvider;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.model.DefaultedItemGeoModel;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
 
-public class CrystallineSword extends SwordItem {
+public class CrystallineSword extends SwordItem implements GeoItem {
 
-    // 常量定义
-    private static final int COOLDOWN_TICKS = 600; // 30秒冷却
-    private static final int MIN_CHARGE_TIME = 5;
-    private static final int CHARGE_SOUND_INTERVAL = 100; // 每5秒播放一次充能音效
-    private static final int DAMAGE_INTERVAL = 20; // 每1秒伤害一次
-    private static final int DAMAGE_START_TIME = 120; // 6秒后开始伤害
-    private static final float SELF_DAMAGE = 1.0F;
+    private static final int DAMAGE_START_TIME = 120;
     private static final float BEAM_MIN_DAMAGE = 5.0F;
-    private static final float BEAM_MAX_DAMAGE = 20.0F; // 最大伤害提升至20
-    private static final int MAX_CHARGE_TIME = 60; // 最大蓄力时长3秒(60刻)
-    private static final int BEAM_DURATION = 40; // 光束持续时间2秒(40刻)
-    private static final int BEAM_DISTANCE = 70; // 光束最大距离，从50增加到70
-    private static final int PARTICLES_PER_BLOCK = 25; // 每个方块的粒子数量
-    private static final float BEAM_WIDTH = 1.2F; // 光束宽度
-    
-    // 超级蓄力相关常量
-    private static final int SUPER_CHARGE_TIME = 120; // 超级蓄力时间6秒(120刻)
-    private static final float SUPER_BEAM_DAMAGE = 50.0F; // 超级蓄力伤害
-    private static final float SUPER_BEAM_WIDTH = 2.5F; // 超级光束宽度
-    private static final int SUPER_PARTICLES_PER_BLOCK = 40; // 超级光束每方块粒子数量
-    private static final float EXPLOSION_POWER = 3.0F; // 爆炸威力
+    private static final float BEAM_MAX_DAMAGE = 20.0F;
+    private static final int MAX_CHARGE_TIME = 60;
+    private static final int BEAM_DURATION = 40;
+    private static final int BEAM_DISTANCE = 70;
+    private static final int PARTICLES_PER_BLOCK = 25;
+    private static final float BEAM_WIDTH = 1.2F;
 
-    // 存储活跃的光束信息
+    private static final int SUPER_CHARGE_TIME = 120;
+    private static final float SUPER_BEAM_DAMAGE = 50.0F;
+    private static final float SUPER_BEAM_WIDTH = 2.5F;
+    private static final int SUPER_PARTICLES_PER_BLOCK = 40;
+
+    private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+
     private static final ConcurrentHashMap<UUID, BeamInfo> ACTIVE_BEAMS = new ConcurrentHashMap<>();
 
     public CrystallineSword() {
-        super(TAToolTiers.CRYSTALLINE, new Item.Properties().rarity(Rarity.EPIC).durability(512)
+        super(TAToolTiers.CRYSTALLINE, new Item.Properties().rarity(Rarity.EPIC)
                 .attributes(createAttributes(TAToolTiers.CRYSTALLINE, 3, -2.4F))
                 .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS, TAItemTags.IS_EPIC))
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
+                .component(TADataComponents.HIGH_PRECISION, Boolean.FALSE));
+    }
+
+    @Override
+    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+        Boolean highPrecision = this.components().get(TADataComponents.HIGH_PRECISION.get());
+        if (highPrecision != null && highPrecision) consumer.accept(new CustomItemModel());
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {}
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 
     @Override
@@ -95,10 +113,7 @@ public class CrystallineSword extends SwordItem {
         if (ticksUsed >= SUPER_CHARGE_TIME) {
             int remainingDurability = stack.getMaxDamage() - stack.getDamageValue();
             if (remainingDurability <= 15) {
-                // 每10刻显示一次提示
                 if (ticksUsed % 10 == 0 && level.isClientSide) {
-                    player.displayClientMessage(Component.translatable("message.theaurorian.crystalline_sword.charging_low_durability"), true);
-                    
                     // 添加红色警告粒子
                     Vec3 pos = player.getEyePosition();
                     Vec3 look = player.getLookAngle();
@@ -133,12 +148,12 @@ public class CrystallineSword extends SwordItem {
 
         // 显示魔法阵粒子效果
         if (level.isClientSide) {
-            spawnMagicCircleParticles(level, player, ticksUsed);
+            this.spawnMagicCircleParticles(level, player, ticksUsed);
         }
 
         // 过度充能会伤害玩家
-        if (!level.isClientSide && ticksUsed > DAMAGE_START_TIME && player.tickCount % DAMAGE_INTERVAL == 0) {
-            player.hurt(level.damageSources().magic(), SELF_DAMAGE);
+        if (!level.isClientSide && ticksUsed > DAMAGE_START_TIME && player.tickCount % 20 == 0) {
+            player.hurt(level.damageSources().magic(), 1.0F);
         }
     }
 
@@ -149,34 +164,22 @@ public class CrystallineSword extends SwordItem {
         }
 
         int chargeTime = getUseDuration(stack, player) - timeLeft;
-        if (chargeTime < MIN_CHARGE_TIME) {
+        if (chargeTime < 5) {
             return;
         }
 
-        // 停止所有之前的音效
-        stopChargingSound(player);
-
-        // 播放发射音效
+        this.stopChargingSound(player);
         player.playSound(TASoundEvents.CRYSTALLINE_SWORD_SHOOT.get(), 1.0F, 1.0F);
-
-        // 发射光束
-        fireBeam(stack, level, player, chargeTime);
+        this.fireBeam(stack, level, player, chargeTime);
     }
 
-    /**
-     * 停止充能音效
-     */
     private void stopChargingSound(Player player) {
         if (player instanceof ServerPlayer serverPlayer) {
-            // 只需要停止CHARGING音效，因为现在只使用这一种音效
             ResourceLocation chargingId = TASoundEvents.CRYSTALLINE_SWORD_CHARGING.getId();
             serverPlayer.connection.send(new ClientboundStopSoundPacket(chargingId, SoundSource.PLAYERS));
         }
     }
 
-    /**
-     * 发射结晶光束
-     */
     private void fireBeam(ItemStack stack, Level level, Player player, int chargeTime) {
         // 判断是否达到超级蓄力时间
         boolean isSuperBeam = chargeTime >= SUPER_CHARGE_TIME;
@@ -186,18 +189,13 @@ public class CrystallineSword extends SwordItem {
         if (isSuperBeam && remainingDurability <= 15) {
             // 耐久不足，降级为普通光束
             isSuperBeam = false;
-            
-            // 通知玩家
-            if (!level.isClientSide) {
-                player.displayClientMessage(Component.translatable("message.theaurorian.crystalline_sword.low_durability"), true);
-            }
         }
         
         // 消耗耐久度
         stack.consume(1, player);
         
         // 超级光束额外消耗15点耐久
-        if (isSuperBeam) {
+        if (isSuperBeam && !player.getAbilities().instabuild) {
             // 使用循环单独扣除15点耐久，避免触发多次onBroken回调
             for (int i = 0; i < 15; i++) {
                 if (stack.getDamageValue() >= stack.getMaxDamage() - 1) {
@@ -229,7 +227,7 @@ public class CrystallineSword extends SwordItem {
 
         // 应用冷却
         if (!player.getAbilities().instabuild) {
-            player.getCooldowns().addCooldown(TAItems.CRYSTALLINE_SWORD.get(), COOLDOWN_TICKS);
+            player.getCooldowns().addCooldown(TAItems.CRYSTALLINE_SWORD.get(), 600);
         }
 
         // 在服务器端触发光束效果
@@ -239,9 +237,6 @@ public class CrystallineSword extends SwordItem {
         }
     }
 
-    /**
-     * 生成光束粒子效果
-     */
     private static void spawnBeamParticles(ServerLevel level, BeamInfo beamInfo) {
         Vec3 start = beamInfo.startPos;
         Vec3 direction = beamInfo.direction;
@@ -327,14 +322,11 @@ public class CrystallineSword extends SwordItem {
             
             // 如果是超级光束且击中了方块或实体，产生爆炸
             if (isSuperBeam) {
-                level.explode(null, end.x, end.y, end.z, EXPLOSION_POWER, Level.ExplosionInteraction.BLOCK);
+                level.explode(null, end.x, end.y, end.z, 3.0F, Level.ExplosionInteraction.BLOCK);
             }
         }
     }
-    
-    /**
-     * 添加光束螺旋效果
-     */
+
     private static void addBeamSpiralEffect(ServerLevel level, Vec3 start, Vec3 direction, double distance, BeamInfo beamInfo) {
         boolean isSuperBeam = beamInfo.isSuperBeam;
         RandomSource random = level.getRandom();
@@ -451,10 +443,10 @@ public class CrystallineSword extends SwordItem {
                     double vz = perpendicular1.z * x * 0.02;
                     
                     // 使用不同的粒子
+                    level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(),
+                            pos.x, pos.y, pos.z, 1, vx, vy, vz, 0.03);
                     if (helix == 0) {
-                        level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(),
-                                pos.x, pos.y, pos.z, 1, vx, vy, vz, 0.03);
-                        
+
                         // 添加额外粒子使双螺旋更粗
                         if (random.nextDouble() < 0.5) {
                             double offsetScale = 0.6;
@@ -466,11 +458,7 @@ public class CrystallineSword extends SwordItem {
                                     1, vx * 0.7, vy * 0.7, vz * 0.7, 0.02);
                         }
                     } else {
-                        level.sendParticles(
-                                TAParticleTypes.MAGIC_PURPLE.get(),
-                                pos.x, pos.y, pos.z,
-                                1, vx, vy, vz, 0.03);
-                        
+
                         // 添加额外粒子使双螺旋更粗
                         if (random.nextDouble() < 0.5) {
                             double offsetScale = 0.6;
@@ -526,10 +514,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 添加光束撞击效果
-     */
+
     private static void addBeamImpactEffect(ServerLevel level, Vec3 impactPos, Vec3 direction) {
         RandomSource random = level.getRandom();
         
@@ -649,10 +634,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 添加光束起点效果
-     */
+
     private static void addBeamOriginEffect(ServerLevel level, Vec3 origin, Vec3 direction) {
         RandomSource random = level.getRandom();
         
@@ -717,9 +699,6 @@ public class CrystallineSword extends SwordItem {
         }
     }
 
-    /**
-     * 应用光束伤害
-     */
     private static void applyBeamDamage(ServerLevel level, BeamInfo beamInfo) {
         Vec3 start = beamInfo.startPos;
         Vec3 direction = beamInfo.direction;
@@ -773,10 +752,6 @@ public class CrystallineSword extends SwordItem {
         }
     }
 
-    /**
-     * 智能应用眩晕效果
-     * 根据目标类型和强度调整眩晕效果
-     */
     private static void applyStunEffect(LivingEntity target, int baseDuration, boolean isSuperBeam) {
         // BOSS级实体眩晕时间减半
         if (target instanceof EnderDragon || target instanceof WitherBoss || 
@@ -808,9 +783,6 @@ public class CrystallineSword extends SwordItem {
         target.addEffect(new MobEffectInstance(TAMobEffects.STUN, baseDuration));
     }
 
-    /**
-     * 获取光束路径上的实体
-     */
     private static List<Entity> getEntitiesInBeamPath(Level level, Vec3 start, Vec3 direction, double maxDistance, UUID ownerUUID) {
         // 计算光束终点
         HitResult hitResult = rayTraceBeam(level, start, direction, maxDistance, ownerUUID);
@@ -846,9 +818,6 @@ public class CrystallineSword extends SwordItem {
                 });
     }
 
-    /**
-     * 光束射线追踪
-     */
     private static HitResult rayTraceBeam(Level level, Vec3 start, Vec3 direction, double maxDistance, UUID ownerUUID) {
         Vec3 end = start.add(direction.scale(maxDistance));
 
@@ -907,9 +876,6 @@ public class CrystallineSword extends SwordItem {
         return blockHit;
     }
 
-    /**
-     * 计算点到线段的距离
-     */
     private static double distanceToLine(Vec3 lineStart, Vec3 lineEnd, Vec3 point) {
         Vec3 line = lineEnd.subtract(lineStart);
         double len = line.length();
@@ -921,14 +887,12 @@ public class CrystallineSword extends SwordItem {
         return point.distanceTo(projection);
     }
 
-    /**
-     * 根据充能时间计算光束伤害
-     */
     private float calculateBeamDamage(int chargeTime) {
         // 超级蓄力状态
         if (chargeTime >= SUPER_CHARGE_TIME) {
             return SUPER_BEAM_DAMAGE;
         }
+
         // 普通蓄力状态
         float chargeRatio = Math.min(1.0F, chargeTime / (float)MAX_CHARGE_TIME);
         return BEAM_MIN_DAMAGE + (BEAM_MAX_DAMAGE - BEAM_MIN_DAMAGE) * chargeRatio;
@@ -954,9 +918,15 @@ public class CrystallineSword extends SwordItem {
         return result;
     }
 
-    /**
-     * 光束信息类
-     */
+    private static class CustomItemModel implements GeoRenderProvider {
+
+        @Override
+        public @Nullable BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
+            return new GeoItemRenderer<CrystallineSword>(new DefaultedItemGeoModel<>(TheAurorian.prefix("crystalline_sword_hp")));
+        }
+
+    }
+
     private static class BeamInfo {
         final UUID owner;
         final Vec3 startPos;
@@ -964,7 +934,7 @@ public class CrystallineSword extends SwordItem {
         final float damage;
         final long startTime;
         final int duration;
-        final boolean isSuperBeam; // 是否为超级光束
+        final boolean isSuperBeam;
 
         BeamInfo(UUID owner, Vec3 startPos, Vec3 direction, float damage, long startTime, int duration) {
             this(owner, startPos, direction, damage, startTime, duration, false);
@@ -985,9 +955,6 @@ public class CrystallineSword extends SwordItem {
         }
     }
 
-    /**
-     * 月凝晶剑使用动画实现
-     */
     public static class CrystallineSwordUseAnim implements IClientItemExtensions {
 
         public static final EnumProxy<HumanoidModel.ArmPose> CRYSTALLINE_SWORD_SHOOT = new EnumProxy<>(
@@ -1011,21 +978,14 @@ public class CrystallineSword extends SwordItem {
 
         @Override
         public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
-            if (!(player.getUseItem() == itemInHand && player.isUsingItem())) {
-                return false;
-            }
-
+            if (!(player.getUseItem() == itemInHand && player.isUsingItem())) return false;
             int i = arm == HumanoidArm.RIGHT ? 1 : -1;
             float useDuration = (float) itemInHand.getUseDuration(player);
             float remainingTicks = (float) player.getUseItemRemainingTicks();
-
-            // 计算动画进度
             float animProgress = useDuration - (remainingTicks - partialTick + 1.0F);
             float normalizedProgress = animProgress / 20.0F;
             normalizedProgress = (normalizedProgress * normalizedProgress + normalizedProgress * 2.0F) / 3.0F;
             normalizedProgress = Math.min(normalizedProgress, 1.0F);
-
-            // 应用变换
             float limit = (float)i * -0.641864F;
             poseStack.translate(i * 0.56F, -0.52F, -0.72F);
             poseStack.translate(Math.max(limit, limit * 3.0F * normalizedProgress), 0.05F, 0.0F);
@@ -1035,28 +995,6 @@ public class CrystallineSword extends SwordItem {
         }
     }
 
-    /**
-     * 服务器tick事件处理
-     * 注意：此方法应该在ServerTickEvent中调用
-     */
-    public static void serverTick(ServerLevel level) {
-        // 清理过期的光束
-        ACTIVE_BEAMS.entrySet().removeIf(entry -> {
-            BeamInfo beamInfo = entry.getValue();
-            if (beamInfo.isExpired()) {
-                return true;
-            }
-
-            // 继续生成粒子和应用伤害
-            spawnBeamParticles(level, beamInfo);
-            applyBeamDamage(level, beamInfo);  // 添加持续伤害效果
-            return false;
-        });
-    }
-
-    /**
-     * 生成六芒星魔法阵粒子效果
-     */
     private void spawnMagicCircleParticles(Level level, Player player, int ticksUsed) {
         // 计算魔法阵完成度 (0.0 - 1.0)
         float progress = Math.min(1.0F, ticksUsed / (float)MAX_CHARGE_TIME);
@@ -1175,34 +1113,31 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 生成外部装饰环
-     */
+
     private void generateOuterRing(Level level, Vec3 center, float size, double rotation, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够时才显示
         if (progress < 0.5F) return;
-        
+
         // 计算外环上的点
         int pointCount = 72; // 增加点数，使环更密集
         boolean isSuperCharge = progress >= 1.0F; // 判断是否为超级蓄力状态
-        
+
         // 超级蓄力时环更粗
         int skipFactor = isSuperCharge ? 2 : 3; // 超级蓄力时每2个点生成一个，否则每3个点生成一个
-        
+
         for (int i = 0; i < pointCount; i++) {
             // 只绘制部分点，形成断开的环
             if (i % skipFactor != 0) continue;
-            
+
             double angle = Math.toRadians(360.0 / pointCount * i + rotation);
             double sin = Math.sin(angle);
             double cos = Math.cos(angle);
-            
+
             // 在垂直于玩家视线的平面上计算点的位置
             Vec3 point = center.add(
                 right.scale(sin * size).add(
                 up.scale(cos * size)));
-            
+
             // 使用紫色魔法粒子，添加一些随机速度使其更动态
             double speedFactor = 0.002;
             level.addParticle(
@@ -1211,7 +1146,7 @@ public class CrystallineSword extends SwordItem {
                     (level.getRandom().nextDouble() - 0.5) * speedFactor,
                     (level.getRandom().nextDouble() - 0.5) * speedFactor,
                     (level.getRandom().nextDouble() - 0.5) * speedFactor);
-            
+
             // 超级蓄力状态下，添加额外的粒子使环更粗
             if (isSuperCharge) {
                 // 向内侧添加粒子
@@ -1219,20 +1154,20 @@ public class CrystallineSword extends SwordItem {
                 Vec3 innerPoint = center.add(
                     right.scale(sin * size * innerFactor).add(
                     up.scale(cos * size * innerFactor)));
-                
+
                 level.addParticle(
                         TAParticleTypes.MAGIC_PURPLE.get(),
                         innerPoint.x, innerPoint.y, innerPoint.z,
                         (level.getRandom().nextDouble() - 0.5) * speedFactor,
                         (level.getRandom().nextDouble() - 0.5) * speedFactor,
                         (level.getRandom().nextDouble() - 0.5) * speedFactor);
-                
+
                 // 向外侧添加粒子
                 double outerFactor = 1.1;
                 Vec3 outerPoint = center.add(
                     right.scale(sin * size * outerFactor).add(
                     up.scale(cos * size * outerFactor)));
-                
+
                 level.addParticle(
                         TAParticleTypes.MAGIC_PURPLE.get(),
                         outerPoint.x, outerPoint.y, outerPoint.z,
@@ -1242,10 +1177,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 生成外部光环效果
-     */
+
     private void generateAura(Level level, Vec3 center, float size, double rotation, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够时才显示
         if (progress < 0.6F) return;
@@ -1284,10 +1216,7 @@ public class CrystallineSword extends SwordItem {
                     (random.nextDouble() - 0.5) * speedFactor);
         }
     }
-    
-    /**
-     * 生成魔法符文
-     */
+
     private void generateMagicRunes(Level level, Vec3 center, float size, double rotation, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够时才显示
         if (progress < 0.4F) return;
@@ -1328,10 +1257,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 生成三角形符文
-     */
+
     private void generateTriangleRune(Level level, Vec3 center, float size, double rotation, Vec3 forward, Vec3 right, Vec3 up) {
         // 三角形的三个顶点
         for (int i = 0; i < 3; i++) {
@@ -1366,10 +1292,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 生成方形符文
-     */
+
     private void generateSquareRune(Level level, Vec3 center, float size, double rotation, Vec3 forward, Vec3 right, Vec3 up) {
         // 方形的四个顶点
         for (int i = 0; i < 4; i++) {
@@ -1404,10 +1327,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 生成圆形符文
-     */
+
     private void generateCircleRune(Level level, Vec3 center, float size, double rotation, Vec3 forward, Vec3 right, Vec3 up) {
         // 圆形的点
         int points = 8;
@@ -1427,10 +1347,7 @@ public class CrystallineSword extends SwordItem {
                     0, 0.005, 0);
         }
     }
-    
-    /**
-     * 生成能量波纹
-     */
+
     private void generateEnergyRipple(Level level, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 波纹从中心向外扩散
         RandomSource random = level.getRandom();
@@ -1469,9 +1386,6 @@ public class CrystallineSword extends SwordItem {
         }
     }
 
-    /**
-     * 生成附魔粒子效果
-     */
     private void generateEnchantParticles(Level level, Player player, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够时才显示
         if (progress < 0.3F) return;
@@ -1516,10 +1430,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 生成高充能阶段特效
-     */
+
     private void generateHighChargeEffects(Level level, Vec3 center, float size, float progress) {
         RandomSource random = level.getRandom();
         
@@ -1540,9 +1451,6 @@ public class CrystallineSword extends SwordItem {
         }
     }
 
-    /**
-     * 生成六芒星图案
-     */
     private void generateHexagram(Level level, Vec3 center, float size, double rotation, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够时才显示
         if (progress < 0.2F) return;
@@ -1606,9 +1514,6 @@ public class CrystallineSword extends SwordItem {
         }
     }
 
-    /**
-     * 生成符文圈
-     */
     private void generateRunicCircle(Level level, Vec3 center, float size, double rotation, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够时才显示
         if (progress < 0.4F) return;
@@ -1643,10 +1548,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 生成能量射线
-     */
+
     private void generateEnergyRays(Level level, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够高时才显示
         if (progress < 0.7F) return;
@@ -1685,10 +1587,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 新增：生成闪电效果
-     */
+
     private void generateLightningEffects(Level level, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         RandomSource random = level.getRandom();
         
@@ -1750,10 +1649,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 新增：生成星辰爆发效果
-     */
+
     private void generateStarburstEffects(Level level, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只在特定充能阶段生成
         if (progress < 0.3F || level.getRandom().nextInt(4) != 0) return;
@@ -1793,10 +1689,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 新增：生成符文轨迹
-     */
+
     private void generateRunicTrails(Level level, Vec3 center, float size, double rotation, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         RandomSource random = level.getRandom();
         
@@ -1837,10 +1730,7 @@ public class CrystallineSword extends SwordItem {
             }
         }
     }
-    
-    /**
-     * 新增：生成能量漩涡
-     */
+
     private void generateEnergyVortex(Level level, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         RandomSource random = level.getRandom();
         

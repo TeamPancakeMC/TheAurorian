@@ -3,6 +3,18 @@
   "textures": {
     "layer0": "theaurorian:item/aurorian_steel_sword"
   },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [ 0, -90, 55 ],
+      "translation": [ 0, 4.0, 0.5 ],
+      "scale": [1.5, 1.5, 1.5]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 0, 90, -55 ],
+      "translation": [ 0, 4.0, 0.5 ],
+      "scale": [1.5, 1.5, 1.5]
+    }
+  },
   "overrides": [
     {
       "model": "theaurorian:item/aurorian_steel_sword_hp",

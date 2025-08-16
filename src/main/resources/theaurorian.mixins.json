@@ -11,10 +11,12 @@
         "MixinLivingEntity",
         "MixinPlayer",
         "MixinPlayerList",
-        "MixinServerLevel"
+        "MixinServerLevel",
+        "MixinServerPlayer"
     ],
     "client": [
         "MixinClientPacketListener",
+        "MixinFogRenderer",
         "MixinItemColors",
         "MixinLevelRenderer",
         "MixinMinecraft",

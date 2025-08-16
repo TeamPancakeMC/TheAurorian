@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -17,6 +18,8 @@ import java.util.*;
 public class TAAttachmentTypes {
 
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, TheAurorian.MOD_ID);
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TICKS_IN_FOREST = registerInteger("ticks_in_forest");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TICKS_STAND_STILL = registerInteger("ticks_stand_still");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> ACTIVATION_TICKS = registerInteger("activation_ticks");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> MAX_ACTIVATION_TICKS = registerInteger("max_activation_ticks");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TICKS_FROSTBITE = registerInteger("ticks_frostbite");
@@ -30,10 +33,15 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> DAMAGE_ACCUMULATION = registerFloat("damage_accumulation");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> EXHAUSTION_ACCUMULATION = registerFloat("exhaustion_accumulation");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> ARMOR_HURT_ACCUMULATION = registerFloat("armor_hurt_accumulation");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> SYLVANIS_PROGRESS =
+            ATTACHMENT_TYPES.register("sylvanis_progress", () -> AttachmentType.builder(() -> 0.0F)
+                    .serialize(Codec.FLOAT).sync(ByteBufCodecs.FLOAT).build());
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SHOULD_SPAWN_IN_AURORIAN = registerBoolean("should_spawn_in_aurorain");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> CAN_SUMMON_OTHER_ARROW = registerBoolean("can_summon_other_arrow");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SUMMONED_BY_SILENT_BOW = registerBoolean("summoned_by_silent_bow");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> LOST_IN_FOREST = registerBoolean("lost_in_forest");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SOUND_PLAYED_FLAG = registerBoolean("sound_played_flag");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IMMUNE_TO_PRESSURE =
             ATTACHMENT_TYPES.register("immune_to_pressure", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
 

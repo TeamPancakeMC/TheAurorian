@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
+import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
@@ -109,6 +110,7 @@ public class ClientEventSubscriber {
         ClientLevel level = Minecraft.getInstance().level;
         if (camera.getEntity() instanceof LocalPlayer localPlayer) {
             boolean flag = localPlayer.hasEffect(TAMobEffects.EIDOLON_POISON);
+            float sylvanis = localPlayer.getData(TAAttachmentTypes.SYLVANIS_PROGRESS);
             if (level != null && level.dimension() == TADimensions.AURORIAN_DIMENSION) {
                 Vec3 vec3 = TASkyRenderer.getSkyColor(level, camera.getPosition());
                 if (camera.getFluidInCamera() == FogType.NONE && !flag) {
@@ -118,7 +120,7 @@ public class ClientEventSubscriber {
                 }
             }
 
-            if (flag) {
+            if (flag || sylvanis > 80.0F) {
                 event.setRed(Color.WHITE.getRed());
                 event.setGreen(Color.WHITE.getGreen());
                 event.setBlue(Color.WHITE.getBlue());
@@ -134,6 +136,7 @@ public class ClientEventSubscriber {
     public static void onRenderFog(ViewportEvent.RenderFog event) {
         if (event.getCamera().getEntity() instanceof LocalPlayer localPlayer) {
             float renderDistance = Minecraft.getInstance().gameRenderer.getRenderDistance();
+            float sylvanis = localPlayer.getData(TAAttachmentTypes.SYLVANIS_PROGRESS);
             if (localPlayer.hasEffect(TAMobEffects.EIDOLON_POISON)) {
                 event.setNearPlaneDistance(0.0F);
                 event.setFarPlaneDistance(renderDistance);
@@ -142,6 +145,11 @@ public class ClientEventSubscriber {
             } else if (localPlayer.hasEffect(TAMobEffects.FROSTBITE)) {
                 event.setNearPlaneDistance(0.0F);
                 event.setFarPlaneDistance(4.0F);
+                event.setFogShape(FogShape.CYLINDER);
+                event.setCanceled(true);
+            } else if (sylvanis > 80.0F) {
+                event.setNearPlaneDistance(-8.0F);
+                event.setFarPlaneDistance(32.0F);
                 event.setFogShape(FogShape.CYLINDER);
                 event.setCanceled(true);
             }
@@ -167,8 +175,9 @@ public class ClientEventSubscriber {
         }
     }
 
-    private static void renderBossBar(CustomizeGuiOverlayEvent.BossEventProgress event, ResourceLocation atlasLocation, Component description,
-                                      int frameHeight, int frameYOffset, int barHeight, int barYOffset, int textYOffset, int textColor) {
+    private static void renderBossBar(
+            CustomizeGuiOverlayEvent.BossEventProgress event, ResourceLocation atlasLocation, Component description,
+            int frameHeight, int frameYOffset, int barHeight, int barYOffset, int textYOffset, int textColor) {
         event.setCanceled(true);
         Font font = Minecraft.getInstance().font;
         GuiGraphics graphics = event.getGuiGraphics();

@@ -67,6 +67,8 @@ public class ModBusEventSubscriber {
         registrar.playToClient(DisplayTextureActivationS2CPacket.TYPE, DisplayTextureActivationS2CPacket.STREAM_CODEC, DisplayTextureActivationS2CPacket::handle);
         registrar.playToClient(DisplayItemActivationS2CPacket.TYPE, DisplayItemActivationS2CPacket.STREAM_CODEC, DisplayItemActivationS2CPacket::handle);
         registrar.playToClient(DisplayActivationTickS2CPacket.TYPE, DisplayActivationTickS2CPacket.STREAM_CODEC, DisplayActivationTickS2CPacket::handle);
+        registrar.playToClient(SylvanisProgressS2CPacket.TYPE, SylvanisProgressS2CPacket.STREAM_CODEC, SylvanisProgressS2CPacket::handle);
+        registrar.playToClient(PlayerLostInForestS2CPacket.TYPE, PlayerLostInForestS2CPacket.STREAM_CODEC, PlayerLostInForestS2CPacket::handle);
     }
 
     @OnlyIn(Dist.CLIENT)

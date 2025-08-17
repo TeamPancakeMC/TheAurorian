@@ -4,9 +4,13 @@ import cn.teampancake.theaurorian.common.network.PlayerLostInForestS2CPacket;
 import cn.teampancake.theaurorian.common.network.SylvanisProgressS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
+import cn.teampancake.theaurorian.common.registry.TASoundEvents;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -17,8 +21,12 @@ import net.minecraft.core.Holder;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
@@ -38,16 +46,17 @@ public class SylvanisHandler {
     public static void checkSylvanisToTeleport(Player player, Level level, boolean otherCondition) {
         AttachmentType<Float> sylvanisAttachment = TAAttachmentTypes.SYLVANIS_PROGRESS.get();
         AttachmentType<Boolean> soundFlagAttachment = TAAttachmentTypes.SOUND_PLAYED_FLAG.get();
-        AttachmentType<Integer> attachment2 = TAAttachmentTypes.TICKS_IN_FOREST.get();
-        AttachmentType<Integer> attachment3 = TAAttachmentTypes.TICKS_STAND_STILL.get();
+        AttachmentType<Boolean> firstEnterAttachment = TAAttachmentTypes.FIRST_ENTER_AURORIAN.get();
+        AttachmentType<Integer> ticksInForestAttachment = TAAttachmentTypes.TICKS_IN_FOREST.get();
+        AttachmentType<Integer> ticksStandStillAttachment = TAAttachmentTypes.TICKS_STAND_STILL.get();
         float sylvanis = player.getData(sylvanisAttachment);
-        int ticksInForest = player.getData(attachment2);
+        int ticksInForest = player.getData(ticksInForestAttachment);
         BlockPos pos = player.blockPosition().below();
         BlockState state = level.getBlockState(pos);
         Holder<Biome> biome = level.getBiome(player.blockPosition());
         boolean inCorrectBiomes = biome.is(BiomeTags.IS_FOREST) || biome.is(BiomeTags.IS_TAIGA) || biome.is(BiomeTags.IS_JUNGLE);
         if (level.dimension() == Level.OVERWORLD && inCorrectBiomes && state.isFaceSturdy(level, pos, Direction.UP)) {
-            if (!otherCondition) return;
+            if (!otherCondition && sylvanis < FOG_VISIBLE) return;
             int lightLevel = state.getLightEmission(level, pos);
             boolean isRaining = level.isRaining() || level.isThundering();
             boolean isFullMoon = level.isNight() && level.getMoonBrightness() > 0.9F;
@@ -65,10 +74,10 @@ public class SylvanisHandler {
                     * moonMod * timeMod * stageMod * initMod;
             sylvanis += increaseRate;
             player.setData(sylvanisAttachment, Math.min(100.0f, sylvanis));
-            player.setData(attachment2, ticksInForest + 1);
-            player.setData(attachment3, 0);
+            player.setData(ticksInForestAttachment, ticksInForest + 1);
+            player.setData(ticksStandStillAttachment, 0);
             boolean soundPlayed = player.getData(soundFlagAttachment);
-            if (!soundPlayed && sylvanis >= 68.0f && sylvanis <= 72.0f) {
+            if (!soundPlayed && sylvanis >= 58.0f && sylvanis <= 63.0f) {
                 playAmbientMoodSound();
                 player.setData(soundFlagAttachment, true);
             }
@@ -81,17 +90,25 @@ public class SylvanisHandler {
                     ServerLevel toLevel = server.getLevel(TADimensions.AURORIAN_DIMENSION);
                     TAEntityUtils.teleportToAurorian(serverPlayer, toLevel);
                     syncLostInfoToClient(serverPlayer, false);
-                    player.setData(attachment2, 0);
+                    player.setData(ticksInForestAttachment, 0);
+                    if (player.getData(firstEnterAttachment)) {
+                        player.setData(firstEnterAttachment, false);
+                        Minecraft minecraft = Minecraft.getInstance();
+                        ClientLevel clientLevel = minecraft.level;
+                        if (clientLevel != null && clientLevel.isClientSide) {
+                            minecraft.getMusicManager().stopPlaying();
+                            SoundManager soundManager = minecraft.getSoundManager();
+                            SoundEvent soundEvent = TASoundEvents.AURORIAN_FOREST.get();
+                            soundManager.play(SimpleSoundInstance.forAmbientAddition(soundEvent));
+                        }
+                    }
                 }
             }
         } else {
             float i = Math.max(0, sylvanis - 0.5F);
             player.setData(sylvanisAttachment, i);
-            player.setData(attachment2, 0);
-            if (i < 50.0F) {
-                player.setData(soundFlagAttachment, false);
-            }
-            
+            player.setData(ticksInForestAttachment, 0);
+            if (i < 50.0F) player.setData(soundFlagAttachment, false);
             if (player instanceof ServerPlayer serverPlayer) {
                 syncSylvanisToClient(serverPlayer, i);
             }
@@ -100,14 +117,15 @@ public class SylvanisHandler {
 
     public static void checkNotMoving(Player player, double dx, double dy, double dz) {
         if (player.isPassenger() || ServerPlayer.didNotMove(dx, dy, dz)) {
-            AttachmentType<Float> attachment1 = TAAttachmentTypes.SYLVANIS_PROGRESS.get();
-            AttachmentType<Integer> attachment2 = TAAttachmentTypes.TICKS_STAND_STILL.get();
-            float sylvanis = player.getData(attachment1);
-            int standStillTicks = player.getData(attachment2);
-            player.setData(attachment2, standStillTicks + 1);
-            if (standStillTicks > 40) {
+            AttachmentType<Float> sylvanisAttachment = TAAttachmentTypes.SYLVANIS_PROGRESS.get();
+            AttachmentType<Integer> ticksStandStillAttachment = TAAttachmentTypes.TICKS_STAND_STILL.get();
+            boolean inAurorian = player.level().dimension() == TADimensions.AURORIAN_DIMENSION;
+            float sylvanis = player.getData(sylvanisAttachment);
+            int standStillTicks = player.getData(ticksStandStillAttachment);
+            player.setData(ticksStandStillAttachment, standStillTicks + 1);
+            if (standStillTicks > 40 && sylvanis < FOG_VISIBLE || inAurorian) {
                 float i = Math.max(0, sylvanis - 0.5F);
-                player.setData(attachment1, i);
+                player.setData(sylvanisAttachment, i);
                 if (player instanceof ServerPlayer serverPlayer) {
                     SylvanisHandler.syncSylvanisToClient(serverPlayer, i);
                 }
@@ -123,12 +141,11 @@ public class SylvanisHandler {
             SoundManager soundManager = minecraft.getSoundManager();
             Holder<Biome> biome = level.getBiome(player.blockPosition());
             biome.value().getAmbientMood().ifPresent(settings -> {
-                double i = settings.getBlockSearchExtent();
-                int j = settings.getBlockSearchExtent() * 2 + 1;
+                int i = settings.getBlockSearchExtent() * 2 + 1;
                 BlockPos blockPos = BlockPos.containing(
-                        player.getX() + (double)level.random.nextInt(j) - i,
-                        player.getEyeY() + (double)level.random.nextInt(j) - i,
-                        player.getZ() + (double)level.random.nextInt(j) - i);
+                        player.getX() + (double)level.random.nextInt(i) - (double)settings.getBlockSearchExtent(),
+                        player.getEyeY() + (double)level.random.nextInt(i) - (double)settings.getBlockSearchExtent(),
+                        player.getZ() + (double)level.random.nextInt(i) - (double)settings.getBlockSearchExtent());
                 double d0 = (double)blockPos.getX() + 0.5F;
                 double d1 = (double)blockPos.getY() + 0.5F;
                 double d2 = (double)blockPos.getZ() + 0.5F;
@@ -157,6 +174,13 @@ public class SylvanisHandler {
         PacketDistributor.sendToPlayer(player, packet);
     }
 
+    public static<T extends LivingEntity, M extends EntityModel<T>> void setPlayerRenderTransparency(
+            M model, PoseStack poseStack, int packedLight, int packedOverlay, LocalPlayer player, VertexConsumer buffer) {
+        float alpha = 1.0F - calculateFog(player.getData(TAAttachmentTypes.SYLVANIS_PROGRESS));
+        int newColor = FastColor.ARGB32.colorFromFloat(alpha, 1.0F, 1.0F, 1.0F);
+        model.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, newColor);
+    }
+
     public static void levelFogColorAlpha(float red, float green, float blue, CallbackInfo ci) {
         Minecraft minecraft = Minecraft.getInstance();
         Entity cameraEntity = minecraft.getCameraEntity();
@@ -170,23 +194,23 @@ public class SylvanisHandler {
         }
     }
 
-    private static float getTimeFactor(Level level) {
-        float dayTime = (float)(level.getDayTime() % 24000);
-        return 1.0f - Math.abs(dayTime - 12000f) / 12000f;
+    public static float getTimeFactor(Level level) {
+        float dayTime = level.getDayTime() % 24000.0f;
+        return 1.0f - Math.abs(dayTime - 12000.0f) / 12000.0f;
     }
 
-    private static float calculateFog(float sylvanisValue) {
+    public static float calculateFog(float sylvanisValue) {
         float alpha = 0f;
         if (sylvanisValue >= FOG_START) {
             if (sylvanisValue <= FOG_VISIBLE) {
                 float progress = (sylvanisValue - FOG_START) / (FOG_VISIBLE - FOG_START);
-                alpha = MIN_ALPHA + (MAX_ALPHA * 0.2f) * (float)Math.pow(progress, 3);
+                alpha = MIN_ALPHA + (MAX_ALPHA * 0.2f) * (float) Math.pow(progress, 3);
             } else if (sylvanisValue <= FOG_PEAK) {
                 float progress = (sylvanisValue - FOG_VISIBLE) / (FOG_PEAK - FOG_VISIBLE);
                 alpha = MAX_ALPHA * 0.2f + (MAX_ALPHA * 0.6f) * progress;
             } else {
                 float base = MAX_ALPHA * 0.8f;
-                float pulse = (float)Math.sin(System.currentTimeMillis() / 1500.0) * 0.05f;
+                float pulse = Mth.sin(System.currentTimeMillis() / 1500.0f) * 0.05f;
                 alpha = Math.min(MAX_ALPHA, base + pulse);
             }
         }

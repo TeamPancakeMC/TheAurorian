@@ -19,6 +19,7 @@
         "MixinFogRenderer",
         "MixinItemColors",
         "MixinLevelRenderer",
+        "MixinLivingEntityRenderer",
         "MixinMinecraft",
         "MixinMouseHandler"
     ],

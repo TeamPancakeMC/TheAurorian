@@ -33,9 +33,7 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> DAMAGE_ACCUMULATION = registerFloat("damage_accumulation");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> EXHAUSTION_ACCUMULATION = registerFloat("exhaustion_accumulation");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> ARMOR_HURT_ACCUMULATION = registerFloat("armor_hurt_accumulation");
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> SYLVANIS_PROGRESS =
-            ATTACHMENT_TYPES.register("sylvanis_progress", () -> AttachmentType.builder(() -> 0.0F)
-                    .serialize(Codec.FLOAT).sync(ByteBufCodecs.FLOAT).build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> SYLVANIS_PROGRESS = registerFloat("sylvanis_progress");
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SHOULD_SPAWN_IN_AURORIAN = registerBoolean("should_spawn_in_aurorain");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> CAN_SUMMON_OTHER_ARROW = registerBoolean("can_summon_other_arrow");
@@ -44,6 +42,8 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SOUND_PLAYED_FLAG = registerBoolean("sound_played_flag");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IMMUNE_TO_PRESSURE =
             ATTACHMENT_TYPES.register("immune_to_pressure", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> FIRST_ENTER_AURORIAN =
+            ATTACHMENT_TYPES.register("first_enter_aurorian", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<BlockPos>> LAST_POS_OF_LEAVE_AURORIAN = registerBlockPos("last_pos_of_leave_aurorain");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<BlockPos>> LAST_POS_OF_LEAVE_OVERWORLD = registerBlockPos("last_pos_of_leave_overworld");
@@ -71,7 +71,7 @@ public class TAAttachmentTypes {
     }
 
     private static DeferredHolder<AttachmentType<?>, AttachmentType<Float>> registerFloat(String name) {
-        return ATTACHMENT_TYPES.register(name, () -> AttachmentType.builder(() -> 0.0F).serialize(Codec.FLOAT).build());
+        return ATTACHMENT_TYPES.register(name, () -> AttachmentType.builder(() -> 0.0F).serialize(Codec.FLOAT).sync(ByteBufCodecs.FLOAT).build());
     }
 
     private static DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> registerBoolean(String name) {

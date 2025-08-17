@@ -34,18 +34,14 @@ public abstract class MixinPlayer extends LivingEntity {
 
     @Inject(method = "wantsToStopRiding", at = @At(value = "HEAD"), cancellable = true)
     protected void wantsToStopRiding(CallbackInfoReturnable<Boolean> cir) {
-        if (this.isPassenger() && this.hasEffect(TAMobEffects.PARALYSIS)) {
-            cir.setReturnValue(false);
-        }
+        if (this.isPassenger() && this.hasEffect(TAMobEffects.PARALYSIS)) cir.setReturnValue(false);
     }
 
     @Inject(method = "makeStuckInBlock", at = @At(value = "HEAD"), cancellable = true)
     public void makeStuckInBlock(BlockState state, Vec3 motionMultiplier, CallbackInfo ci) {
         Holder<Enchantment> enchantment = TAEnchantments.get(this.level(), TAEnchantments.COBWEB_CROSSING);
         int i = EnchantmentHelper.getEnchantmentLevel(enchantment, this);
-        if (state.getBlock() instanceof WebBlock && i > 0) {
-            ci.cancel();
-        }
+        if (state.getBlock() instanceof WebBlock && i > 0) ci.cancel();
     }
 
     @Inject(method = "causeFoodExhaustion", at = @At(value = "HEAD"), cancellable = true)

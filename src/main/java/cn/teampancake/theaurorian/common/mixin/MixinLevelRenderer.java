@@ -26,17 +26,13 @@ public class MixinLevelRenderer {
 
     @Inject(method = "renderEntity", at = @At(value = "HEAD"), cancellable = true)
     private void renderEntity(Entity entity, double camX, double camY, double camZ, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, CallbackInfo ci) {
-        if (Minecraft.getInstance().getCameraEntity() instanceof LocalPlayer player && player.hasEffect(TAMobEffects.SHADOWED_SIGHT) && entity != player) {
-            ci.cancel();
-        }
+        if (Minecraft.getInstance().getCameraEntity() instanceof LocalPlayer player && player.hasEffect(TAMobEffects.SHADOWED_SIGHT) && entity != player) ci.cancel();
     }
 
     @Inject(method = "addParticle(Lnet/minecraft/core/particles/ParticleOptions;ZDDDDDD)V", at = @At(value = "HEAD"), cancellable = true)
     public void addParticle(ParticleOptions options, boolean force, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, CallbackInfo ci) {
         if (Minecraft.getInstance().getCameraEntity() instanceof LocalPlayer player && player.hasEffect(TAMobEffects.SHADOWED_SIGHT)) {
-            if (options.getType() == ParticleTypes.ENTITY_EFFECT) {
-                ci.cancel();
-            }
+            if (options.getType() == ParticleTypes.ENTITY_EFFECT) ci.cancel();
         }
     }
 

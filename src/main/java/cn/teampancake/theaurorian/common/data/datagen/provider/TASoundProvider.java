@@ -17,6 +17,12 @@ public class TASoundProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
+        SoundDefinition.Sound[] universalBGM = {
+                sound(TheAurorian.prefix("music/aurorian_1")).stream(),
+                sound(TheAurorian.prefix("music/aurorian_2")).stream(),
+                sound(TheAurorian.prefix("music/aurorian_3")).stream(),
+                sound(TheAurorian.prefix("music/aurorian_4")).stream(),
+                sound(TheAurorian.prefix("music/aurorian_5")).stream()};
         this.register(TASoundEvents.CRYSTALLINE_SWORD_USE);
         this.register(TASoundEvents.CRYSTALLINE_SWORD_CHARGING);
         this.register(TASoundEvents.CRYSTALLINE_SWORD_SHOOT);
@@ -25,19 +31,16 @@ public class TASoundProvider extends SoundDefinitionsProvider {
         this.register(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_DEATH, 2);
         this.register(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_HURT, 3);
         this.register(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_STEP, 2);
-        this.add(TASoundEvents.BACKGROUND_MUSIC, definition().with(
-                sound(TheAurorian.prefix("music/aurorian_1"), SoundDefinition.SoundType.SOUND).stream(),
-                sound(TheAurorian.prefix("music/aurorian_2"), SoundDefinition.SoundType.SOUND).stream(),
-                sound(TheAurorian.prefix("music/aurorian_3"), SoundDefinition.SoundType.SOUND).stream(),
-                sound(TheAurorian.prefix("music/aurorian_4"), SoundDefinition.SoundType.SOUND).stream(),
-                sound(TheAurorian.prefix("music/aurorian_5"), SoundDefinition.SoundType.SOUND).stream()));
+        this.add(TASoundEvents.BACKGROUND_MUSIC, definition().with(universalBGM));
+        this.add(TASoundEvents.AURORIAN_FOREST, definition().with(universalBGM)
+                .with(sound(TheAurorian.prefix("aurorian_forest")).stream()));
     }
 
     private void register(DeferredHolder<SoundEvent, SoundEvent> soundEvent){
         this.add(soundEvent, definition().with(sound(soundEvent.getId())));
     }
 
-    public void register(DeferredHolder<SoundEvent, SoundEvent> soundEvent,int variantType){
+    public void register(DeferredHolder<SoundEvent, SoundEvent> soundEvent, int variantType) {
         SoundDefinition definition = definition();
         for (int i = 1; i <= variantType; i++) {
             definition.with(sound(soundEvent.getId() + "_" + i));

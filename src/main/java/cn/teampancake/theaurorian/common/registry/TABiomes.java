@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -8,6 +9,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Music;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
@@ -73,7 +75,7 @@ public class TABiomes {
                 .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
                 .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_FLOWER_SNOWFIELD))
-                .mobSpawnSettings(snowfieldMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature((-0.7F)).build());
+                .mobSpawnSettings(snowfieldMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature(-0.7F).build());
         context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
                 .mobSpawnSettings(desertMobSpawning().build()).hasPrecipitation(Boolean.FALSE).build());
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
@@ -83,19 +85,19 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_LIGHT_FOREST)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_CURSED_FROST_FOREST)
                 .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER))
-                .mobSpawnSettings(defaultMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature((-0.5F)).build());
+                .mobSpawnSettings(defaultMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature(-0.5F).build());
         context.register(FILTHY_ICE_MOUNTAIN, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
                 .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_FLOWER_MOUNTAINS))
-                .mobSpawnSettings(snowfieldMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature((-1.0F)).build());
+                .mobSpawnSettings(snowfieldMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature(-1.0F).build());
         context.register(FILTHY_ICE_HILLS, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
                 .addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, TAPlacedFeatures.FILTHY_FREEZE_TOP_LAYER)
                 .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_FLOWER_HILLS))
                 .mobSpawnSettings(snowfieldMobSpawning().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(
                         TAEntityTypes.ICEFIELD_DEER.get(), 30, 2, 4)).build())
-                .hasPrecipitation(Boolean.TRUE).temperature((-0.8F)).build());
+                .hasPrecipitation(Boolean.TRUE).temperature(-0.8F).build());
     }
 
     private static Biome.BiomeBuilder biomeOfNormalForests(BiomeGenerationSettings.Builder biomeGenerationSettings) {
@@ -108,8 +110,10 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_FALLEN_SILENT_LOG)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_AURORIAN_FOREST)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_CRYSTAL_CLUSTER)
-                .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_WEAK_GRASS)).mobSpawnSettings(defaultMobSpawning()
-                .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.ALLAY, 1, 1, 2)).build());
+                .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_WEAK_GRASS))
+                .specialEffects(defaultAmbientBuilder(TASoundEvents.AURORIAN_FOREST).build())
+                .mobSpawnSettings(defaultMobSpawning().addSpawn(MobCategory.CREATURE,
+                        new MobSpawnSettings.SpawnerData(EntityType.ALLAY, 1, 1, 2)).build());
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings) {
@@ -118,13 +122,13 @@ public class TABiomes {
     }
 
     private static Biome.BiomeBuilder biomeWithDefaults(BiomeGenerationSettings.Builder biomeGenerationSettings, MobSpawnSettings mobSpawnSettings) {
-        return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature((0.2F)).downfall((0.0F))
+        return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature(0.2F).downfall(0.0F)
                 .specialEffects(defaultAmbientBuilder().build()).mobSpawnSettings(mobSpawnSettings)
                 .generationSettings(defaultOreBuilder(biomeGenerationSettings).build());
     }
 
     private static Biome.BiomeBuilder biomeWithParticle(BiomeGenerationSettings.Builder biomeGenerationSettings, ParticleOptions options,MobSpawnSettings mobSpawnSettings, float probability) {
-        return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature((0.2F)).downfall((0.0F))
+        return new Biome.BiomeBuilder().hasPrecipitation(Boolean.FALSE).temperature(0.2F).downfall(0.0F)
                 .specialEffects(defaultAmbientWithParticleBuilder(options, probability).build()).mobSpawnSettings(mobSpawnSettings)
                 .generationSettings(defaultOreBuilder(biomeGenerationSettings).build());
     }
@@ -165,10 +169,13 @@ public class TABiomes {
     }
 
     private static BiomeSpecialEffects.Builder defaultAmbientBuilder() {
-        return new BiomeSpecialEffects.Builder().fogColor((0xC0FFD8)).waterColor(Color.WHITE.getRGB())
-                .waterFogColor(Color.WHITE.getRGB()).skyColor((0x010e34))
-                .backgroundMusic(new Music(TASoundEvents.BACKGROUND_MUSIC,
-                        600, 12000, Boolean.FALSE));
+        return defaultAmbientBuilder(TASoundEvents.BACKGROUND_MUSIC);
+    }
+
+    private static BiomeSpecialEffects.Builder defaultAmbientBuilder(Holder<SoundEvent> event) {
+        return new BiomeSpecialEffects.Builder().fogColor(0xC0FFD8).waterColor(Color.WHITE.getRGB())
+                .waterFogColor(Color.WHITE.getRGB()).skyColor(0x010e34)
+                .backgroundMusic(new Music(event, 6000, 24000, Boolean.FALSE));
     }
 
     private static BiomeSpecialEffects.Builder defaultAmbientWithParticleBuilder(ParticleOptions options, float probability) {

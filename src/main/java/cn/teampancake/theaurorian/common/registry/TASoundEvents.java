@@ -17,8 +17,9 @@ public class TASoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> SNOW_TUNDRA_GIANT_CRAB_STEP = register("snow_tundra_giant_crab/step");
     public static final DeferredHolder<SoundEvent, SoundEvent> SNOW_TUNDRA_GIANT_CRAB_HURT = register("snow_tundra_giant_crab/hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> SNOW_TUNDRA_GIANT_CRAB_DEATH = register("snow_tundra_giant_crab/death");
+    public static final DeferredHolder<SoundEvent, SoundEvent> FOREST_BACKGROUND_MUSIC = register("forest_music");
+    public static final DeferredHolder<SoundEvent, SoundEvent> UNIVERSAL_BACKGROUND_MUSIC = register("universal_music");
     public static final DeferredHolder<SoundEvent, SoundEvent> AURORIAN_FOREST = register("aurorian_forest");
-    public static final DeferredHolder<SoundEvent, SoundEvent> BACKGROUND_MUSIC = register("music");
     public static final DeferredHolder<SoundEvent, SoundEvent> EMPTY = register("empty");
 
     private static DeferredHolder<SoundEvent, SoundEvent> register(String sound) {

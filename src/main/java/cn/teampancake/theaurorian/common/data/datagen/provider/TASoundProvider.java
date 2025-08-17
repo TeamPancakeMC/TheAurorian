@@ -27,12 +27,13 @@ public class TASoundProvider extends SoundDefinitionsProvider {
         this.register(TASoundEvents.CRYSTALLINE_SWORD_CHARGING);
         this.register(TASoundEvents.CRYSTALLINE_SWORD_SHOOT);
         this.register(TASoundEvents.WEEPING_WILLOW_BELL);
+        this.register(TASoundEvents.AURORIAN_FOREST);
         this.register(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_AMBIENT, 2);
         this.register(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_DEATH, 2);
         this.register(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_HURT, 3);
         this.register(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_STEP, 2);
-        this.add(TASoundEvents.BACKGROUND_MUSIC, definition().with(universalBGM));
-        this.add(TASoundEvents.AURORIAN_FOREST, definition().with(universalBGM)
+        this.add(TASoundEvents.UNIVERSAL_BACKGROUND_MUSIC, definition().with(universalBGM));
+        this.add(TASoundEvents.FOREST_BACKGROUND_MUSIC, definition().with(universalBGM)
                 .with(sound(TheAurorian.prefix("aurorian_forest")).stream()));
     }
 

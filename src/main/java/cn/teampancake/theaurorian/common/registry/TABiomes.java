@@ -111,7 +111,7 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacedFeatures.TREES_AURORIAN_FOREST)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_CRYSTAL_CLUSTER)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_WEAK_GRASS))
-                .specialEffects(defaultAmbientBuilder(TASoundEvents.AURORIAN_FOREST).build())
+                .specialEffects(defaultAmbientBuilder(TASoundEvents.FOREST_BACKGROUND_MUSIC).build())
                 .mobSpawnSettings(defaultMobSpawning().addSpawn(MobCategory.CREATURE,
                         new MobSpawnSettings.SpawnerData(EntityType.ALLAY, 1, 1, 2)).build());
     }
@@ -169,7 +169,7 @@ public class TABiomes {
     }
 
     private static BiomeSpecialEffects.Builder defaultAmbientBuilder() {
-        return defaultAmbientBuilder(TASoundEvents.BACKGROUND_MUSIC);
+        return defaultAmbientBuilder(TASoundEvents.UNIVERSAL_BACKGROUND_MUSIC);
     }
 
     private static BiomeSpecialEffects.Builder defaultAmbientBuilder(Holder<SoundEvent> event) {

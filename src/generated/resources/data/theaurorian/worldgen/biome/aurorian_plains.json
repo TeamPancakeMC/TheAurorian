@@ -12,7 +12,7 @@
       "max_delay": 24000,
       "min_delay": 6000,
       "replace_current_music": false,
-      "sound": "theaurorian:music"
+      "sound": "theaurorian:universal_music"
     },
     "particle": {
       "options": {

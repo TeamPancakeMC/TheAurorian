@@ -1,26 +1,36 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "theaurorian:item/aurorian_steel_sword"
-  },
-  "display": {
-    "thirdperson_righthand": {
-      "rotation": [ 0, -90, 55 ],
-      "translation": [ 0, 4.0, 0.5 ],
-      "scale": [1.5, 1.5, 1.5]
+    "parent": "minecraft:item/handheld",
+    "textures": {
+        "layer0": "theaurorian:item/aurorian_steel_sword"
     },
-    "thirdperson_lefthand": {
-      "rotation": [ 0, 90, -55 ],
-      "translation": [ 0, 4.0, 0.5 ],
-      "scale": [1.5, 1.5, 1.5]
-    }
-  },
-  "overrides": [
-    {
-      "model": "theaurorian:item/aurorian_steel_sword_hp",
-      "predicate": {
-        "theaurorian:hp": 1.0
-      }
-    }
-  ]
+    "display": {
+        "thirdperson_righthand": {
+            "rotation": [ 0, -90, 55 ],
+            "translation": [ 0, 4.0, 0.5 ],
+            "scale": [1.5, 1.5, 1.5]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ 0, 90, -55 ],
+            "translation": [ 0, 4.0, 0.5 ],
+            "scale": [1.5, 1.5, 1.5]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, -90, 25 ],
+            "translation": [ 1.13, 3.2, 1.13 ],
+            "scale": [1.5, 1.5, 1.5]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 90, -25 ],
+            "translation": [ 1.13, 3.2, 1.13 ],
+            "scale": [1.5, 1.5, 1.5]
+        }
+    },
+    "overrides": [
+        {
+            "model": "theaurorian:item/aurorian_steel_sword_hp",
+            "predicate": {
+                "theaurorian:hp": 1.0
+            }
+        }
+    ]
 }

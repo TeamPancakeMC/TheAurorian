@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.network;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.client.gui.SelenaInitialScreen;
+import cn.teampancake.theaurorian.client.gui.screens.SelenaInitialScreen;
 import cn.teampancake.theaurorian.common.entities.npc.Selena;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;

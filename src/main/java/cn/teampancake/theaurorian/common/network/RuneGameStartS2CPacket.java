@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.network;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.client.gui.RuneGameScreen;
+import cn.teampancake.theaurorian.client.gui.screens.RuneGameScreen;
 import cn.teampancake.theaurorian.common.utils.AlgorithmUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;

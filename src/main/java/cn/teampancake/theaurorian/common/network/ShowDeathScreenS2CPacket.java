@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.network;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.client.gui.TADeathScreen;
+import cn.teampancake.theaurorian.client.gui.screens.TADeathScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;

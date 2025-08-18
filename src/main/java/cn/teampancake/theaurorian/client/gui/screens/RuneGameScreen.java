@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.client.gui;
+package cn.teampancake.theaurorian.client.gui.screens;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.rune_game.RuneGameBrand;

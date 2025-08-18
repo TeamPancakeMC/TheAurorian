@@ -1,9 +1,9 @@
 package cn.teampancake.theaurorian.compat.jei;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.client.gui.AlchemyTableScreen;
-import cn.teampancake.theaurorian.client.gui.MoonlightForgeScreen;
-import cn.teampancake.theaurorian.client.gui.ScrapperScreen;
+import cn.teampancake.theaurorian.client.gui.screens.AlchemyTableScreen;
+import cn.teampancake.theaurorian.client.gui.screens.MoonlightForgeScreen;
+import cn.teampancake.theaurorian.client.gui.screens.ScrapperScreen;
 import cn.teampancake.theaurorian.common.items.crafting.AlchemyTableRecipe;
 import cn.teampancake.theaurorian.common.items.crafting.MoonlightForgeRecipe;
 import cn.teampancake.theaurorian.common.items.crafting.ScrapperRecipe;

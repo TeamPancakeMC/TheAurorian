@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.stats;
 
-import cn.teampancake.theaurorian.client.gui.RuneGameScreen;
+import cn.teampancake.theaurorian.client.gui.screens.RuneGameScreen;
 import net.minecraft.stats.StatFormatter;
 
 public interface TAStatFormatter extends StatFormatter {

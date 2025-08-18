@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.network;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.client.gui.StunEffectScreen;
+import cn.teampancake.theaurorian.client.gui.screens.StunEffectScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

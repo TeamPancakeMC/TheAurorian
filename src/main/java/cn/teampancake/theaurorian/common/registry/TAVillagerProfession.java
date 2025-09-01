@@ -2,12 +2,13 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
@@ -18,14 +19,18 @@ import java.util.Collection;
 
 public class TAVillagerProfession {
 
-    public static final DeferredRegister<PoiType> POINTS_OF_INTEREST = DeferredRegister.create(Registries.POINT_OF_INTEREST_TYPE, TheAurorian.MOD_ID);
-    public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(Registries.VILLAGER_PROFESSION, TheAurorian.MOD_ID);
+    public static final DeferredRegister<PoiType> POINTS_OF_INTEREST = DeferredRegister.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE, TheAurorian.MOD_ID);
+    public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(BuiltInRegistries.VILLAGER_PROFESSION, TheAurorian.MOD_ID);
+    public static final DeferredRegister<VillagerType> VILLAGER_TYPES = DeferredRegister.create(BuiltInRegistries.VILLAGER_TYPE, TheAurorian.MOD_ID);
 
     public static final DeferredHolder<PoiType, PoiType> POI_ASTROLOGY_TABLE = POINTS_OF_INTEREST.register(
             "astrology_table", () -> createPOI(assembleStates(TABlocks.ASTROLOGY_TABLE.get())));
 
     public static final DeferredHolder<VillagerProfession, VillagerProfession> PROF_ASTROLOGER = PROFESSIONS.register(
             "astrologer", () -> createProf("astrologer", POI_ASTROLOGY_TABLE, SoundEvents.VILLAGER_WORK_CARTOGRAPHER));
+
+    public static final DeferredHolder<VillagerType, VillagerType> AURORIAN_FOREST = VILLAGER_TYPES.register(
+            "aurorian_forest", () -> new VillagerType("aurorian_forest"));
 
     private static Collection<BlockState> assembleStates(Block block) {
         return block.getStateDefinition().getPossibleStates();
@@ -37,12 +42,13 @@ public class TAVillagerProfession {
 
     private static VillagerProfession createProf(String name, DeferredHolder<PoiType, PoiType> poi, SoundEvent sound) {
         ResourceLocation poiName = poi.getId();
-        return new VillagerProfession(name, (p) -> p.is(poiName), (p) -> p.is(poiName), ImmutableSet.of(), ImmutableSet.of(), sound);
+        return new VillagerProfession(name, p -> p.is(poiName), p -> p.is(poiName), ImmutableSet.of(), ImmutableSet.of(), sound);
     }
 
     public static void register(IEventBus bus){
         POINTS_OF_INTEREST.register(bus);
         PROFESSIONS.register(bus);
+        VILLAGER_TYPES.register(bus);
     }
 
 }

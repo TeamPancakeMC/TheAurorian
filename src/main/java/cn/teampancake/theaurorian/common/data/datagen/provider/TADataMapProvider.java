@@ -1,18 +1,20 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider;
 
 import cn.teampancake.theaurorian.common.datamaps.AlchemyTableMaterial;
-import cn.teampancake.theaurorian.common.registry.TABlocks;
-import cn.teampancake.theaurorian.common.registry.TADataMaps;
-import cn.teampancake.theaurorian.common.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.biome.Biome;
 import net.neoforged.neoforge.common.data.DataMapProvider;
+import net.neoforged.neoforge.registries.datamaps.builtin.BiomeVillagerType;
 import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
 import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
@@ -59,6 +61,8 @@ public class TADataMapProvider extends DataMapProvider {
         this.addFurnaceFuel(TAItems.SILENT_WOOD_STICK.get(), 100);
         this.addFurnaceFuel(TAItems.SILENT_WOOD_BOW.get(), 300);
         this.addFurnaceFuel(TAItems.AURORIAN_COAL.get(), 1500);
+        // Villager Type
+        this.addVillagerType(TABiomes.AURORIAN_FOREST, TAVillagerProfession.AURORIAN_FOREST.get());
         // Alchemy Table Usable Effects
         this.addUsableEffects(MobEffects.MOVEMENT_SPEED, "!10 & !4 & 5*2+0 & >1 | !7 & !4 & 5*2+0 & >1");
         this.addUsableEffects(MobEffects.MOVEMENT_SLOWDOWN, "10 & 7 & !4 & 7+5+1-0");
@@ -153,6 +157,11 @@ public class TADataMapProvider extends DataMapProvider {
     private void addFurnaceFuel(ItemLike item, int burnTime) {
         Builder<FurnaceFuel, Item> builder = this.builder(NeoForgeDataMaps.FURNACE_FUELS);
         builder.add(item.asItem().builtInRegistryHolder(), new FurnaceFuel(burnTime), false);
+    }
+
+    private void addVillagerType(ResourceKey<Biome> biome, VillagerType type) {
+        Builder<BiomeVillagerType, Biome> builder = this.builder(NeoForgeDataMaps.VILLAGER_TYPES);
+        builder.add(biome, new BiomeVillagerType(type), false);
     }
 
     private void addUsableEffects(Holder<MobEffect> effect, String formula) {

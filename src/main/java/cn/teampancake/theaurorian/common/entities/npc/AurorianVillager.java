@@ -2,13 +2,17 @@ package cn.teampancake.theaurorian.common.entities.npc;
 
 import cn.teampancake.theaurorian.common.entities.monster.Spirit;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
+import cn.teampancake.theaurorian.common.registry.TAVillagerProfession;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class AurorianVillager extends Villager {
 
@@ -18,6 +22,20 @@ public class AurorianVillager extends Villager {
 
     public static AttributeSupplier.@NotNull Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.5D).add(Attributes.FOLLOW_RANGE, 48.0D);
+    }
+
+    @Override
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        this.setVillagerData(this.getVillagerData().setType(TAVillagerProfession.AURORIAN_FOREST.get()));
+        if (spawnType == MobSpawnType.STRUCTURE) this.assignProfessionWhenSpawned = true;
+        if (spawnGroupData == null) spawnGroupData = new AgeableMob.AgeableMobGroupData(false);
+        if (spawnGroupData instanceof AgeableMob.AgeableMobGroupData ageableMobGroupData && ageableMobGroupData.isShouldSpawnBaby()
+                && ageableMobGroupData.getGroupSize() > 0 && level.getRandom().nextFloat() <= ageableMobGroupData.getBabySpawnChance()) {
+            ageableMobGroupData.increaseGroupSizeByOne();
+            this.setAge(-24000);
+        }
+
+        return spawnGroupData;
     }
 
     @Override

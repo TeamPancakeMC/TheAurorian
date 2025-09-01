@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items.shield;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Unit;
@@ -17,7 +17,8 @@ public class CeruleanShield extends ShieldItem {
 
     public CeruleanShield() {
         super(new Item.Properties().durability(512)
-                .component(TADataComponents.ITEM_TAGS, List.of(Tags.Items.TOOLS_SHIELD, ItemTags.DURABILITY_ENCHANTABLE, TAItemTags.IS_EPIC))
+                .component(TADataComponents.ITEM_TAGS, List.of(Tags.Items.TOOLS_SHIELD, ItemTags.DURABILITY_ENCHANTABLE))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }
 

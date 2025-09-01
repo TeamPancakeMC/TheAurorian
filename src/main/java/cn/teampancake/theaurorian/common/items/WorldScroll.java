@@ -1,10 +1,8 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
-import com.mojang.math.Axis;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
@@ -16,27 +14,22 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 
-import java.util.List;
 import java.util.Random;
 
 public class WorldScroll extends Item {
 
-    // 基本常量
     private static final int MAX_CHARGE_TIME = 140; // 7秒的最大蓄力时间
     private static final int PARTICLE_DENSITY = 2; // 粒子密度系数
     private static final float MAX_RADIUS = 32.0F; // 最大半径(32个方块)
     private static final int LAYER_COUNT = 5; // 魔法阵层数
-    
-    // 随机数生成器
     private final Random random = new Random();
 
     public WorldScroll() {
         super(new Item.Properties()
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)
-                .durability(100)); // 添加耐久度
+                .durability(100));
     }
 
     @Override
@@ -69,27 +62,20 @@ public class WorldScroll extends Item {
                 }
             }
         }
-        
-        // 粒子效果应该在客户端生成
+
         if (level.isClientSide) {
-            // 输出调试信息 - 仅在本地调试时使用
-            if (chargeTime % 20 == 0) {
-                player.displayClientMessage(Component.literal("蓄力进度: " + (int)(chargeProgress * 100) + "%"), true);
-            }
-            
-            // 生成魔法阵
             generateWorldMagicCircle(level, player, chargeProgress);
         }
     }
 
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        return 72000; // 最大使用时间
+        return 72000;
     }
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.BOW; // 使用弓的动画
+        return UseAnim.BOW;
     }
     
     @Override
@@ -106,679 +92,440 @@ public class WorldScroll extends Item {
         }
     }
 
-    /**
-     * 生成垂直型魔法阵
-     */
     private void generateWorldMagicCircle(Level level, Player player, float chargeProgress) {
-        // 基础位置为玩家脚底
         Vec3 basePos = player.position();
-        
-        // 生成垂直分布的同心圆环
         generateVerticalMagicCircles(level, basePos, chargeProgress);
-        
-        // 生成中心几何图案
         generateCenterGeometricPattern(level, basePos, chargeProgress);
     }
 
-    /**
-     * 生成垂直分布的同心圆环
-     */
     private void generateVerticalMagicCircles(Level level, Vec3 basePos, float progress) {
-        // 总高度：从玩家脚底到头顶上方
         float totalHeight = 12.0F;
-        // 圆环数量
-        int ringCount = 10; // 增加到10层
-        // 基准高度（从地面开始向上）
+        int ringCount = 10;
         float baseHeight = 0.1F;
-        float layerHeight = 3.0F; // 设置层间距为3格
-        
+        float layerHeight = 3.0F;
         long gameTime = level.getGameTime();
-        
-        // 根据进度计算当前应该显示多少层圆环
-        int visibleRings = Math.min(ringCount, Math.max(3, (int)(ringCount * progress * 2.0))); // 增加可见层数
-        
-        // 脚底特效魔法阵 - 只在第一层可见时生成
+        int visibleRings = Math.min(ringCount, Math.max(3, (int)(ringCount * progress * 2.0)));
         if (progress > 0.1F) {
             generateFootCircle(level, basePos, progress, gameTime);
         }
-        
-        // 沿着垂直轴生成多个圆环
+
         float[] customRadii = new float[] {20.0F, 10.0F, 20.0F, 40.0F, 50.0F, 70.0F, 40.0F, 30.0F, 40.0F, 50.0F};
         for (int ring = 0; ring < visibleRings; ring++) {
-            // 计算当前环的高度
             float height = baseHeight + ring * layerHeight;
-            
-            // 每层的半径使用自定义数组
             float radius = customRadii[ring % customRadii.length];
-            
-            // 每层的旋转速度和方向
             float rotationSpeed = 0.02F * (ring % 2 == 0 ? 1 : -1);
             float rotation = gameTime * rotationSpeed;
-            
-            // 粒子密度根据进度和环的位置调整
-            float ringVisibility = Math.min(1.0F, (progress * ringCount - ring * 0.5F) * 2); // 降低衰减系数，使更多层可见
+            float ringVisibility = Math.min(1.0F, (progress * ringCount - ring * 0.5F) * 2);
             if (ringVisibility <= 0) continue;
-            
             int particles = (int)(120 * ringVisibility);
-            
-            // 生成主圆环
             generateRing(level, basePos.add(0, height, 0), radius, particles, rotation);
-            
-            // 生成装饰性内环
-            if (ringVisibility > 0.3F) { // 降低内环显示阈值
+            if (ringVisibility > 0.3F) {
                 generateRing(level, basePos.add(0, height, 0), radius * 0.7F, (int)(particles * 0.7F), -rotation * 1.5F);
             }
-            
-            // 每层添加不同的中心图案
-            if (ringVisibility > 0.4F) { // 降低中心图案显示阈值
+
+            if (ringVisibility > 0.4F) {
                 generateLayerPattern(level, basePos.add(0, height, 0), ring, radius * 0.8F, rotation, ringVisibility);
             }
-            
-            // 在第5层外围生成小型魔法阵
-            if (ring == 4 && ringVisibility > 0.2F) { // 大幅降低卫星魔法阵显示阈值
-                // 使卫星魔法阵更大更明显
+
+            if (ring == 4 && ringVisibility > 0.2F) {
                 generateSatelliteRunes(level, basePos.add(0, height, 0), radius, gameTime, Math.max(progress, 0.5F));
             }
-            
-            // 第9层和第10层的几何图案动态生成
-            if ((ring == 8 || ring == 9) && ringVisibility > 0.2F) { // 降低高层图案显示阈值
-                // 加快动画进度，使效果更明显
+
+            if ((ring == 8 || ring == 9) && ringVisibility > 0.2F) {
                 float animationProgress = Math.min(1.0F, (progress * 3.0F - 0.3F));
                 generateAnimatedGeometry(level, basePos.add(0, height, 0), radius, gameTime, ring, Math.max(animationProgress, 0.3F));
             }
         }
     }
-    
-    /**
-     * 为每层生成不同的中心图案
-     */
+
     private void generateLayerPattern(Level level, Vec3 center, int layer, float size, float rotation, float visibility) {
         switch (layer % 8) {
             case 0:
-                // 月牙图案
                 generateCrescent(level, center, size, rotation, visibility);
                 break;
             case 1:
-                // 五芒星
                 generateMagicStar(level, center, size, 5, visibility, rotation);
                 break;
             case 2:
-                // 六芒星
                 generateMagicStar(level, center, size, 6, visibility, rotation);
                 break;
             case 3:
-                // 螺旋图案
                 generateSpiral(level, center, size, rotation, visibility);
                 break;
             case 4:
-                // 三角形
                 generateTriangle(level, center, size, rotation, visibility);
                 break;
             case 5:
-                // 八芒星
                 generateMagicStar(level, center, size, 8, visibility, rotation);
                 break;
             case 6:
-                // 四方形
                 generateSquare(level, center, size, rotation, visibility);
                 break;
             case 7:
-                // 十二芒星
                 generateMagicStar(level, center, size, 12, visibility, rotation);
                 break;
         }
     }
-    
-    /**
-     * 生成月牙图案
-     */
+
     private void generateCrescent(Level level, Vec3 center, float size, float rotation, float visibility) {
-        // 外圆
-        double outerRadius = size;
         int particlesOuter = (int)(60 * visibility);
-        
-        // 内圆（偏移形成月牙）
         double innerRadius = size * 0.8;
-        double offsetX = size * 0.4; // 水平偏移
+        double offsetX = size * 0.4;
         int particlesInner = (int)(50 * visibility);
-        
-        // 绘制外圆
         for (int i = 0; i < particlesOuter; i++) {
             double angle = Math.toRadians(i * (360.0 / particlesOuter) + rotation * 10);
-            double x = center.x + Math.cos(angle) * outerRadius;
-            double z = center.z + Math.sin(angle) * outerRadius;
-            
-            level.addParticle(ParticleTypes.END_ROD, 
-                    x, center.y, z, 
-                    0, 0, 0);
+            double x = center.x + Math.cos(angle) * (double) size;
+            double z = center.z + Math.sin(angle) * (double) size;
+            level.addParticle(ParticleTypes.END_ROD, x, center.y, z, 0, 0, 0);
         }
-        
-        // 绘制内圆（只绘制部分形成月牙）
+
         for (int i = 0; i < particlesInner; i++) {
             double angle = Math.toRadians(i * (360.0 / particlesInner) + rotation * 10);
             double x = center.x + offsetX + Math.cos(angle) * innerRadius;
             double z = center.z + Math.sin(angle) * innerRadius;
-            
-            // 在月牙的弧线上添加粒子
             if (x > center.x) {
-                level.addParticle(ParticleTypes.END_ROD, 
-                        x, center.y, z, 
-                        0, 0, 0);
+                level.addParticle(ParticleTypes.END_ROD, x, center.y, z, 0, 0, 0);
             }
         }
-        
-        // 添加一些装饰粒子
+
         if (visibility > 0.8) {
             for (int i = 0; i < 5; i++) {
                 double angle = Math.toRadians(i * 30 + rotation * 5);
                 double starX = center.x - size * 0.3 + Math.cos(angle) * (size * 0.15);
                 double starZ = center.z + Math.sin(angle) * (size * 0.15);
-                
-                level.addParticle(ParticleTypes.END_ROD, 
-                        starX, center.y, starZ, 
-                        0, 0, 0);
+                level.addParticle(ParticleTypes.END_ROD, starX, center.y, starZ, 0, 0, 0);
             }
         }
     }
-    
-    /**
-     * 生成三角形图案
-     */
+
     private void generateTriangle(Level level, Vec3 center, float size, float rotation, float visibility) {
-        // 三角形的三个顶点
         int points = 3;
         Vec3[] vertices = new Vec3[points];
-        
-        // 计算三角形顶点
         for (int i = 0; i < points; i++) {
             double angle = Math.toRadians(i * (360.0 / points) + rotation * 10);
             double x = center.x + Math.cos(angle) * size;
             double z = center.z + Math.sin(angle) * size;
             vertices[i] = new Vec3(x, center.y, z);
         }
-        
-        // 绘制三角形的边
+
         for (int i = 0; i < points; i++) {
             drawLine(level, vertices[i], vertices[(i + 1) % points], (int)(15 * visibility));
         }
-        
-        // 内部三角形
+
         if (visibility > 0.6) {
-            // 内三角形顶点
             Vec3[] innerVertices = new Vec3[points];
             float innerSize = size * 0.5f;
-            
             for (int i = 0; i < points; i++) {
                 double angle = Math.toRadians(i * (360.0 / points) + rotation * 10 + Math.PI);
                 double x = center.x + Math.cos(angle) * innerSize;
                 double z = center.z + Math.sin(angle) * innerSize;
                 innerVertices[i] = new Vec3(x, center.y, z);
             }
-            
-            // 绘制内三角形边
+
             for (int i = 0; i < points; i++) {
                 drawLine(level, innerVertices[i], innerVertices[(i + 1) % points], (int)(10 * visibility));
             }
-            
-            // 连接内外三角形
+
             if (visibility > 0.8) {
                 for (int i = 0; i < points; i++) {
                     drawLine(level, vertices[i], innerVertices[i], (int)(8 * visibility));
                 }
             }
         }
-        
-        // 中心点
+
         if (visibility > 0.7) {
-            level.addParticle(ParticleTypes.END_ROD, 
-                    center.x, center.y, center.z, 
-                    0, 0, 0);
+            level.addParticle(ParticleTypes.END_ROD, center.x, center.y, center.z, 0, 0, 0);
         }
     }
-    
-    /**
-     * 生成正方形图案
-     */
+
     private void generateSquare(Level level, Vec3 center, float size, float rotation, float visibility) {
-        // 方形的四个顶点
         int points = 4;
         Vec3[] vertices = new Vec3[points];
-        
-        // 计算正方形顶点
         for (int i = 0; i < points; i++) {
             double angle = Math.toRadians(i * (360.0 / points) + rotation * 10 + Math.PI/4); // 旋转45度
             double x = center.x + Math.cos(angle) * size;
             double z = center.z + Math.sin(angle) * size;
             vertices[i] = new Vec3(x, center.y, z);
         }
-        
-        // 绘制正方形的边
+
         for (int i = 0; i < points; i++) {
             drawLine(level, vertices[i], vertices[(i + 1) % points], (int)(15 * visibility));
         }
-        
-        // 绘制内部十字
+
         if (visibility > 0.7) {
             drawLine(level, vertices[0], vertices[2], (int)(10 * visibility));
             drawLine(level, vertices[1], vertices[3], (int)(10 * visibility));
         }
-        
-        // 内部小方形
+
         if (visibility > 0.8) {
             float innerSize = size * 0.4f;
             Vec3[] innerVertices = new Vec3[points];
-            
             for (int i = 0; i < points; i++) {
                 double angle = Math.toRadians(i * (360.0 / points) + rotation * 10 + Math.PI/4);
                 double x = center.x + Math.cos(angle) * innerSize;
                 double z = center.z + Math.sin(angle) * innerSize;
                 innerVertices[i] = new Vec3(x, center.y, z);
             }
-            
-            // 绘制内部方形
+
             for (int i = 0; i < points; i++) {
                 drawLine(level, innerVertices[i], innerVertices[(i + 1) % points], (int)(8 * visibility));
             }
         }
     }
-    
-    /**
-     * 生成螺旋图案
-     */
+
     private void generateSpiral(Level level, Vec3 center, float size, float rotation, float visibility) {
-        // 螺旋的旋转圈数
         int turns = 3;
-        // 粒子密度
         int particles = (int)(100 * visibility);
-        
-        // 生成外环
         int outerParticles = (int)(40 * visibility);
         for (int i = 0; i < outerParticles; i++) {
             double angle = Math.toRadians(i * (360.0 / outerParticles) + rotation * 10);
             double x = center.x + Math.cos(angle) * size;
             double z = center.z + Math.sin(angle) * size;
-            
-            level.addParticle(ParticleTypes.END_ROD, 
-                    x, center.y, z, 
-                    0, 0, 0);
+            level.addParticle(ParticleTypes.END_ROD, x, center.y, z, 0, 0, 0);
         }
-        
-        // 绘制螺旋
+
         for (int i = 0; i < particles; i++) {
-            // 计算螺旋中的位置 (从外向内)
             double progress = (double)i / particles;
             double spiralRadius = size * (1.0 - progress);
             double angle = Math.toRadians(progress * turns * 360.0 + rotation * 10);
-            
             double x = center.x + Math.cos(angle) * spiralRadius;
             double z = center.z + Math.sin(angle) * spiralRadius;
-            
-            level.addParticle(ParticleTypes.END_ROD, 
-                    x, center.y, z, 
-                    0, 0, 0);
+            level.addParticle(ParticleTypes.END_ROD, x, center.y, z, 0, 0, 0);
         }
-        
-        // 反向螺旋（如果可见度高）
+
         if (visibility > 0.7) {
             for (int i = 0; i < particles / 2; i++) {
-                double progress = (double)i / (particles / 2);
+                double progress = (double)i / (particles / 2.0D);
                 double spiralRadius = size * (1.0 - progress);
-                double angle = Math.toRadians(progress * turns * 360.0 + rotation * 10 + 180); // 反向
-                
+                double angle = Math.toRadians(progress * turns * 360.0 + rotation * 10 + 180);
                 double x = center.x + Math.cos(angle) * spiralRadius;
                 double z = center.z + Math.sin(angle) * spiralRadius;
-                
-                level.addParticle(ParticleTypes.END_ROD, 
-                        x, center.y, z, 
-                        0, 0, 0);
+                level.addParticle(ParticleTypes.END_ROD, x, center.y, z, 0, 0, 0);
             }
         }
-        
-        // 中心点
+
         if (visibility > 0.5) {
-            level.addParticle(ParticleTypes.END_ROD, 
-                    center.x, center.y, center.z, 
-                    0, 0, 0);
+            level.addParticle(ParticleTypes.END_ROD, center.x, center.y, center.z, 0, 0, 0);
         }
     }
-    
-    /**
-     * 生成单个圆环
-     */
+
     private void generateRing(Level level, Vec3 center, float radius, int particles, float rotation) {
-        int denseParticles = Math.max((int)(radius * 20), particles); // 保证粒子数足够高
+        int denseParticles = Math.max((int)(radius * 20), particles);
         for (int i = 0; i < denseParticles; i++) {
             double angle = Math.toRadians(i * (360.0 / denseParticles) + rotation * 10);
             double x = center.x + Math.cos(angle) * radius;
             double z = center.z + Math.sin(angle) * radius;
-            // 添加基础圆环粒子
-            level.addParticle(ParticleTypes.END_ROD, 
-                    x, center.y, z, 
-                    0, 0, 0);
-            // 在特定点添加细节
+            level.addParticle(ParticleTypes.END_ROD, x, center.y, z, 0, 0, 0);
             if (i % 30 == 0) {
-                // 向上的小光柱
                 for (int h = 1; h <= 3; h++) {
-                    level.addParticle(ParticleTypes.END_ROD, 
-                            x, center.y + h * 0.15, z, 
-                            0, 0, 0);
+                    level.addParticle(ParticleTypes.END_ROD, x, center.y + h * 0.15, z, 0, 0, 0);
                 }
             }
         }
     }
-    
 
-    
-    /**
-     * 生成中心几何图案 - 这个方法已被每层独立图案替代，保留作为备用
-     */
     private void generateCenterGeometricPattern(Level level, Vec3 basePos, float progress) {
         // 由于现在每层魔法阵都有自己的图案，这个方法不再需要生成任何内容
     }
-    
-    /**
-     * 生成魔法星形图案
-     */
+
     private void generateMagicStar(Level level, Vec3 center, float size, int points, float visibility, float rotation) {
-        // 限制可见度和点数
         visibility = Math.min(1.0F, visibility);
         points = Math.max(3, points);
-        
-        // 缩放尺寸
         size = size * visibility;
-        
-        // 生成外圆环
         int particlesOuter = (int)(60 * visibility);
         for (int i = 0; i < particlesOuter; i++) {
             double angle = Math.toRadians(i * (360.0 / particlesOuter) + rotation * 0.01);
             double x = center.x + Math.cos(angle) * size;
             double z = center.z + Math.sin(angle) * size;
-            
-            level.addParticle(ParticleTypes.END_ROD, 
-                    x, center.y, z, 
-                    0, 0, 0);
+            level.addParticle(ParticleTypes.END_ROD, x, center.y, z, 0, 0, 0);
         }
-        
-        // 生成星形
-        double starInnerRadius = size * 0.4; // 内圆半径
-        
+
+        double starInnerRadius = size * 0.4;
         for (int point = 0; point < points; point++) {
             double outerAngle1 = Math.toRadians(point * (360.0 / points) + rotation * 0.01);
             double outerAngle2 = Math.toRadians(((point + 1) % points) * (360.0 / points) + rotation * 0.01);
-            
-            // 外部点
             double x1 = center.x + Math.cos(outerAngle1) * size;
             double z1 = center.z + Math.sin(outerAngle1) * size;
-            
-            // 内部点（错开角度）
             double innerAngle = Math.toRadians((point + 0.5) * (360.0 / points) + rotation * 0.01);
             double x2 = center.x + Math.cos(innerAngle) * starInnerRadius;
             double z2 = center.z + Math.sin(innerAngle) * starInnerRadius;
-            
-            // 下一个外部点
             double x3 = center.x + Math.cos(outerAngle2) * size;
             double z3 = center.z + Math.sin(outerAngle2) * size;
-            
-            // 画线：外部点1 -> 内部点
             drawLine(level, new Vec3(x1, center.y, z1), new Vec3(x2, center.y, z2), 8);
-            // 画线：内部点 -> 外部点2
             drawLine(level, new Vec3(x2, center.y, z2), new Vec3(x3, center.y, z3), 8);
-            
-            // 从星尖向外的装饰光线
             if (visibility > 0.7 && point % 2 == 0) {
                 Vec3 outerPoint = new Vec3(
                         center.x + Math.cos(outerAngle1) * (size * 1.3),
                         center.y,
-                        center.z + Math.sin(outerAngle1) * (size * 1.3)
-                );
+                        center.z + Math.sin(outerAngle1) * (size * 1.3));
                 drawLine(level, new Vec3(x1, center.y, z1), outerPoint, 5);
             }
         }
-        
-        // 生成中心圆
+
         double centerRadius = size * 0.2;
         int particlesCenter = (int)(30 * visibility);
         for (int i = 0; i < particlesCenter; i++) {
             double angle = Math.toRadians(i * (360.0 / particlesCenter) + rotation * 0.02);
             double x = center.x + Math.cos(angle) * centerRadius;
             double z = center.z + Math.sin(angle) * centerRadius;
-            
-            level.addParticle(ParticleTypes.END_ROD, 
-                    x, center.y, z, 
-                    0, 0, 0);
+            level.addParticle(ParticleTypes.END_ROD, x, center.y, z, 0, 0, 0);
         }
-        
-        // 添加浮动装饰符文
+
         if (visibility > 0.8) {
             for (int i = 0; i < points; i++) {
                 double angle = Math.toRadians(i * (360.0 / points) + rotation * 0.015);
                 double runeDistance = size * 0.6;
                 double x = center.x + Math.cos(angle) * runeDistance;
                 double z = center.z + Math.sin(angle) * runeDistance;
-                
-                // 小型圆形符文
                 generateSmallRune(level, new Vec3(x, center.y, z), 0.3F, angle);
             }
         }
     }
-    
-    /**
-     * 生成小型符文
-     */
+
     private void generateSmallRune(Level level, Vec3 center, float size, double rotation) {
         int particles = 8;
         for (int i = 0; i < particles; i++) {
             double angle = Math.toRadians(i * (360.0 / particles)) + rotation;
             double x = center.x + Math.cos(angle) * size;
             double z = center.z + Math.sin(angle) * size;
-            
-            level.addParticle(ParticleTypes.END_ROD, 
-                    x, center.y, z, 
-                    0, 0, 0);
+            level.addParticle(ParticleTypes.END_ROD, x, center.y, z, 0, 0, 0);
         }
     }
-    
-    /**
-     * 画一条粒子线
-     */
+
     private void drawLine(Level level, Vec3 start, Vec3 end, int points) {
-        int densePoints = Math.max((int)(start.distanceTo(end) * 3.5), points); // 线段每格3.5个粒子
+        int densePoints = Math.max((int)(start.distanceTo(end) * 3.5), points);
         for (int i = 0; i <= densePoints; i++) {
             double t = i / (double)densePoints;
             double x = start.x + (end.x - start.x) * t;
             double y = start.y + (end.y - start.y) * t;
             double z = start.z + (end.z - start.z) * t;
-            level.addParticle(ParticleTypes.END_ROD, 
-                    x, y, z, 
-                    0, 0, 0);
+            level.addParticle(ParticleTypes.END_ROD, x, y, z, 0, 0, 0);
         }
     }
 
-    /**
-     * 生成巨型外环
-     */
     private void generateOuterRing(Level level, Vec3 center, float progress) {
         float radius = MAX_RADIUS * progress;
         int particles = (int)(360 * PARTICLE_DENSITY * progress);
-        
-        // 生成主环
         for (int i = 0; i < particles; i++) {
             double angle = Math.toRadians(i * (360.0 / particles));
             double x = center.x + Math.cos(angle) * radius;
             double z = center.z + Math.sin(angle) * radius;
-            
-            // 主环上的粒子高度变化
             double heightOffset = Math.sin(angle * 4) * 2.0 * progress;
             double y = center.y + heightOffset;
-            
-            // 添加主环粒子
-            level.addParticle(ParticleTypes.END_ROD, 
-                    x, y, z, 
-                    0, 0, 0);
-            
-            // 在主环上添加向上延伸的光柱
+            level.addParticle(ParticleTypes.END_ROD, x, y, z, 0, 0, 0);
             if (i % (10 / Math.max(1, (int)(progress * 5))) == 0) {
                 for (int h = 0; h < 10 * progress; h++) {
                     double pillarHeight = y + h * 0.5;
-                    level.addParticle(ParticleTypes.END_ROD, 
-                            x, pillarHeight, z, 
-                            0, 0.02, 0);
+                    level.addParticle(ParticleTypes.END_ROD, x, pillarHeight, z, 0, 0.02, 0);
                 }
             }
         }
-        
-        // 生成次级交叉环
+
         double tiltAngle = Math.toRadians(30); // 倾斜角度
         for (int i = 0; i < particles / 2; i++) {
-            double angle = Math.toRadians(i * (360.0 / (particles / 2))) + level.getGameTime() * 0.01;
-            
-            // 计算倾斜环上的点
+            double angle = Math.toRadians(i * (360.0 / (particles / 2.0D))) + level.getGameTime() * 0.01;
             double x = center.x + Math.cos(angle) * radius * Math.cos(tiltAngle);
             double y = center.y + Math.sin(tiltAngle) * Math.cos(angle) * radius;
             double z = center.z + Math.sin(angle) * radius;
-            
-            level.addParticle(ParticleTypes.END_ROD, 
-                    x, y, z, 
-                    0, 0, 0);
+            level.addParticle(ParticleTypes.END_ROD, x, y, z, 0, 0, 0);
         }
     }
 
-    /**
-     * 生成多重旋转环
-     */
     private void generateRotatingRings(Level level, Vec3 center, float progress) {
         long gameTime = level.getGameTime();
         float maxRadius = MAX_RADIUS * 0.8f * progress;
-        
-        // 生成多个同心旋转环
         for (int ring = 0; ring < 5; ring++) {
             float ringRadius = maxRadius * (0.4f + ring * 0.15f);
             float rotationSpeed = 0.02f * (ring % 2 == 0 ? 1 : -1);
             float particleDensity = PARTICLE_DENSITY * (5 - ring) * progress;
-            
             int particles = (int)(180 * particleDensity);
             for (int i = 0; i < particles; i++) {
-                if (i % 2 != 0 && progress < 0.5) continue; // 进度低时显示更少粒子
-                
+                if (i % 2 != 0 && progress < 0.5) continue;
                 double angle = Math.toRadians(i * (360.0 / particles) + gameTime * rotationSpeed);
                 double x = center.x + Math.cos(angle) * ringRadius;
                 double z = center.z + Math.sin(angle) * ringRadius;
-                
-                // 波浪形变化
                 double waveOffset = Math.sin(angle * (ring + 1) * 2) * ring * progress;
                 double y = center.y + waveOffset;
-                
-                level.addParticle(ParticleTypes.END_ROD, 
-                        x, y, z, 
-                        0, 0, 0);
+                level.addParticle(ParticleTypes.END_ROD, x, y, z, 0, 0, 0);
             }
         }
-        
-        // 添加螺旋上升线
+
         for (int spiral = 0; spiral < 3; spiral++) {
             double spiralOffset = Math.PI * 2 / 3 * spiral;
             for (int i = 0; i < 120 * progress; i++) {
-                double angle = Math.toRadians(i * 6 + gameTime * 2) + spiralOffset;
+                double angle = Math.toRadians(i * 6L + gameTime * 2) + spiralOffset;
                 double spiralRadius = maxRadius * 0.3 * (1 - i / (120.0 * progress));
                 double x = center.x + Math.cos(angle) * spiralRadius;
                 double z = center.z + Math.sin(angle) * spiralRadius;
                 double y = center.y + i * 0.2 * progress;
-                
-                level.addParticle(ParticleTypes.END_ROD, 
-                        x, y, z, 
-                        0, 0.01, 0);
+                level.addParticle(ParticleTypes.END_ROD, x, y, z, 0, 0.01, 0);
             }
         }
     }
 
-    /**
-     * 生成垂直立面魔法阵
-     */
     private void generateVerticalCircles(Level level, Vec3 center, float progress) {
         long gameTime = level.getGameTime();
         float maxRadius = MAX_RADIUS * 0.7f * progress;
-        
-        // 三个正交平面上的魔法圆环
         for (int plane = 0; plane < 3; plane++) {
             double rotationAngle = gameTime * 0.01 * (plane == 0 ? 1 : plane == 1 ? -1 : 0.5);
             int particles = (int)(240 * PARTICLE_DENSITY * progress);
-            
             for (int i = 0; i < particles; i++) {
                 double angle = Math.toRadians(i * (360.0 / particles) + rotationAngle * 10);
                 double ringRadius = maxRadius * (0.8 + Math.sin(angle * 8) * 0.2 * progress);
-                
                 double x, y, z;
-                
-                // 根据平面选择坐标计算方式
+                double x1 = center.x + Math.cos(angle) * ringRadius;
+                double z1 = center.z + Math.sin(angle) * ringRadius;
                 switch (plane) {
-                    case 0: // XY平面
-                        x = center.x + Math.cos(angle) * ringRadius;
+                    case 0:
+                        x = x1;
                         y = center.y + Math.sin(angle) * ringRadius;
                         z = center.z;
                         break;
-                    case 1: // YZ平面
+                    case 1:
                         x = center.x;
                         y = center.y + Math.cos(angle) * ringRadius;
-                        z = center.z + Math.sin(angle) * ringRadius;
+                        z = z1;
                         break;
-                    default: // XZ平面
-                        x = center.x + Math.cos(angle) * ringRadius;
+                    default:
+                        x = x1;
                         y = center.y;
-                        z = center.z + Math.sin(angle) * ringRadius;
+                        z = z1;
                         break;
                 }
-                
-                // 添加符文效果
+
                 if (i % 15 == 0 && progress > 0.6) {
                     generateRune(level, new Vec3(x, y, z), plane, progress);
                 }
                 
-                level.addParticle(ParticleTypes.END_ROD, 
-                        x, y, z, 
-                        0, 0, 0);
+                level.addParticle(ParticleTypes.END_ROD, x, y, z, 0, 0, 0);
             }
         }
-        
-        // 添加连接线
+
         if (progress > 0.5) {
             int connectionLines = (int)(20 * progress);
             for (int i = 0; i < connectionLines; i++) {
-                // 随机选择两点连接
                 double angle1 = random.nextDouble() * Math.PI * 2;
                 double angle2 = random.nextDouble() * Math.PI * 2;
-                
                 double radius1 = maxRadius * (0.3 + random.nextDouble() * 0.7);
                 double radius2 = maxRadius * (0.3 + random.nextDouble() * 0.7);
-                
-                // 随机选择平面
                 int plane1 = random.nextInt(3);
                 int plane2 = random.nextInt(3);
-                
                 Vec3 point1 = getPointOnPlane(center, angle1, radius1, plane1);
                 Vec3 point2 = getPointOnPlane(center, angle2, radius2, plane2);
-                
-                // 绘制连接线
                 int linePoints = (int)(20 * progress);
                 for (int j = 0; j < linePoints; j++) {
                     double t = j / (double)linePoints;
                     double x = point1.x + (point2.x - point1.x) * t;
                     double y = point1.y + (point2.y - point1.y) * t;
                     double z = point1.z + (point2.z - point1.z) * t;
-                    
-                    level.addParticle(ParticleTypes.END_ROD, 
-                            x, y, z, 
-                            0, 0, 0);
+                    level.addParticle(ParticleTypes.END_ROD, x, y, z, 0, 0, 0);
                 }
             }
         }
     }
 
-    /**
-     * 在指定平面上获取点
-     */
     private Vec3 getPointOnPlane(Vec3 center, double angle, double radius, int plane) {
         double x, y, z;
-        
         switch (plane) {
             case 0: // XY平面
                 x = center.x + Math.cos(angle) * radius;
@@ -800,36 +547,26 @@ public class WorldScroll extends Item {
         return new Vec3(x, y, z);
     }
 
-    /**
-     * 生成符文
-     */
     private void generateRune(Level level, Vec3 position, int plane, float progress) {
-        // 确定符文大小
         double runeSize = 1.0 + progress * 2.0;
-        int runeType = random.nextInt(3); // 0=三角形, 1=方形, 2=圆形
-        
-        // 根据符文类型生成不同形状
+        int runeType = random.nextInt(3);
         switch (runeType) {
-            case 0: // 三角形
+            case 0:
                 generateTriangleRune(level, position, runeSize, plane);
                 break;
-            case 1: // 方形
+            case 1:
                 generateSquareRune(level, position, runeSize, plane);
                 break;
-            case 2: // 圆形
+            case 2:
                 generateCircleRune(level, position, runeSize, plane);
                 break;
         }
     }
 
-    /**
-     * 生成三角形符文
-     */
     private void generateTriangleRune(Level level, Vec3 center, double size, int plane) {
         // 三角形的三个顶点
         for (int i = 0; i < 3; i++) {
             double angle = Math.toRadians(i * 120);
-            
             // 根据平面确定点的坐标
             double x, y, z;
             switch (plane) {

@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -17,13 +17,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
-
 public class AurorianCrystal extends Item {
 
     public AurorianCrystal() {
         super(new Item.Properties().durability(1)
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_LEGENDARY))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }

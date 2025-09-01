@@ -1,10 +1,10 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.common.components.RuneGame;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.data.pack.RuneGameLoader;
 import cn.teampancake.theaurorian.common.network.RuneGameStartS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.utils.AlgorithmUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -27,7 +27,7 @@ public class RuneKnowledgeFragment extends Item {
 
     public RuneKnowledgeFragment() {
         super(new Item.Properties().stacksTo(1)
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_LEGENDARY))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)
                 .component(TADataComponents.RUNE_GAME, RuneGame.EMPTY)
                 .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, Boolean.FALSE));

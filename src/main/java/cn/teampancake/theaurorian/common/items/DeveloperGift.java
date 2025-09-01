@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
@@ -23,7 +23,7 @@ public class DeveloperGift extends Item {
 
     public DeveloperGift() {
         super(new Item.Properties().fireResistant()
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_LEGENDARY))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 

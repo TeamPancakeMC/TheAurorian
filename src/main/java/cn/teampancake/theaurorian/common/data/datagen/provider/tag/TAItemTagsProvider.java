@@ -39,9 +39,6 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.copy(TABlockTags.AURORIAN_GRASS_BLOCK, TAItemTags.AURORIAN_GRASS_BLOCK);
         this.copy(TABlockTags.AURORIAN_CARVER_REPLACEABLES, TAItemTags.AURORIAN_CARVER_REPLACEABLES);
         this.copy(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, TAItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
-        this.tag(TAItemTags.HAS_CUSTOM_TOOLTIPS).addTag(TAItemTags.BUILDING_BLOCK).addTag(TAItemTags.IS_RARE)
-                .addTag(TAItemTags.IS_EPIC).addTag(TAItemTags.IS_LEGENDARY).addTag(TAItemTags.IS_MYTHICAL);
-        this.tag(TAItemTags.IS_RARE).addTag(TAItemTags.DUNGEON_KEY);
         this.tag(CuriosTags.NECKLACE).add(TAItems.CRIMSON_PACT_PENDANT.get());
         for (Item item : TACommonUtils.getKnownItems()) {
             ItemStack stack = item.getDefaultInstance();

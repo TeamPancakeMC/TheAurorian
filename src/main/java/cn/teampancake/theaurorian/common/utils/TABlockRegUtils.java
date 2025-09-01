@@ -5,9 +5,9 @@ import cn.teampancake.theaurorian.common.blocks.modified.AxeStrippableBlock;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.blocks.state.TALootType;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -23,7 +23,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 public class TABlockRegUtils {
@@ -31,7 +30,7 @@ public class TABlockRegUtils {
     public static DeferredHolder<Block, Block> register(String name, Supplier<Block> block) {
         DeferredHolder<Block, Block> register = TABlocks.BLOCKS.register(name, block);
         Supplier<Item.Properties> itemProperties = () -> new Item.Properties()
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.BUILDING_BLOCK));
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON);
         TAItems.ITEMS.register(name, () -> new BlockItem(register.get(), itemProperties.get()));
         return register;
     }

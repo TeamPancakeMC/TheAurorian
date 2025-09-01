@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -15,7 +15,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
@@ -28,7 +27,7 @@ public class SimpleThrowProjectProjectile extends Item {
     float inaccuracy;
 
     public SimpleThrowProjectProjectile(Item.Properties properties, SoundEvent soundEvent, SoundSource soundSource, Supplier<EntityType<?>> projectile, float velocity, float inaccuracy) {
-        super(properties.component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+        super(properties.component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
         this.soundEvent = soundEvent;

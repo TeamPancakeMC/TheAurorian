@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.tags.ItemTags;
@@ -18,7 +18,8 @@ public class QueensChipper extends PickaxeItem {
     public QueensChipper() {
         super(TAToolTiers.AURORIAN_STEEL, new Item.Properties().rarity(Rarity.RARE)
                 .attributes(createAttributes(TAToolTiers.AURORIAN_STEEL, 5, -1.2F))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES, TAItemTags.IS_EPIC)));
+                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     @Override

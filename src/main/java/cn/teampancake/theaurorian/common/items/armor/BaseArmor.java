@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items.armor;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Holder;
 import net.minecraft.util.Unit;
@@ -16,7 +16,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 @SuppressWarnings("removal")
@@ -26,7 +25,7 @@ public abstract class BaseArmor<T extends HumanoidModel<?>> extends ArmorItem {
 
     public BaseArmor(Holder<ArmorMaterial> material, Type type, Item.Properties properties) {
         super(material, type, properties
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_EPIC))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }

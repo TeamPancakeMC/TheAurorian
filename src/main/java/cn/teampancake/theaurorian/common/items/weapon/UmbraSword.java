@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.items.weapon;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.entities.monster.TASpider;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.core.Holder;
@@ -32,8 +32,10 @@ public class UmbraSword extends SwordItem {
     public UmbraSword() {
         super(TAToolTiers.UMBRA, new Item.Properties().rarity(Rarity.EPIC)
                 .attributes(createAttributes(TAToolTiers.UMBRA, 7, 1.6F))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS, TAItemTags.IS_EPIC))
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
+                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
+                .component(TADataComponents.NO_RUN_DATA, Unit.INSTANCE));
     }
 
     @Override

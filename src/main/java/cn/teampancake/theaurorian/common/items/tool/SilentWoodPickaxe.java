@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.tags.BlockTags;
@@ -15,8 +15,8 @@ import java.util.List;
 public class SilentWoodPickaxe extends PickaxeItem {
 
     public SilentWoodPickaxe() {
-        super(TAToolTiers.SILENT_WOOD, new Item.Properties().attributes(createAttributes(TAToolTiers.SILENT_WOOD, (2), (-1.2F)))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES, TAItemTags.IS_EPIC)));
+        super(TAToolTiers.SILENT_WOOD, new Item.Properties().attributes(createAttributes(TAToolTiers.SILENT_WOOD, 1, -1.2F))
+                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     @Override

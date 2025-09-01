@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAStructureTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -33,14 +33,13 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Optional;
 
 public class DungeonLocator extends Item {
 
     public DungeonLocator() {
         super(new Item.Properties().durability(30).rarity(Rarity.RARE)
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }

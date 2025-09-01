@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.weapon;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.server.level.ServerLevel;
@@ -32,9 +32,11 @@ public class AurorianiteSword extends SwordItem {
 
     public AurorianiteSword() {
         super(TAToolTiers.AURORIANITE, new Item.Properties().rarity(Rarity.EPIC)
-                .attributes(createAttributes(TAToolTiers.AURORIANITE, (4), (-2.4F)))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS, TAItemTags.IS_EPIC))
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
+                .attributes(createAttributes(TAToolTiers.AURORIANITE, 4, -2.4F))
+                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
+                .component(TADataComponents.NO_RUN_DATA, Unit.INSTANCE));
     }
 
     @Override

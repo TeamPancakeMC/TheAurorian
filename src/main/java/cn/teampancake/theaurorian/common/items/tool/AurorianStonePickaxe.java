@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
@@ -19,8 +19,8 @@ import java.util.List;
 public class AurorianStonePickaxe extends PickaxeItem {
 
     public AurorianStonePickaxe() {
-        super(TAToolTiers.AURORIAN_STONE, new Item.Properties().attributes(createAttributes(TAToolTiers.AURORIAN_STONE, (1), (-2.8F)))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES, TAItemTags.IS_EPIC)));
+        super(TAToolTiers.AURORIAN_STONE, new Item.Properties().attributes(createAttributes(TAToolTiers.AURORIAN_STONE, 1, -2.8F))
+                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     @Override

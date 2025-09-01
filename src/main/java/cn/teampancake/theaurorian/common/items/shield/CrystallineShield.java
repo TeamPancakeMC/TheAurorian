@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items.shield;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +17,8 @@ public class CrystallineShield extends ShieldItem {
 
     public CrystallineShield() {
         super(new Item.Properties().rarity(Rarity.EPIC).durability(512)
-                .component(TADataComponents.ITEM_TAGS, List.of(Tags.Items.TOOLS_SHIELD, ItemTags.DURABILITY_ENCHANTABLE, TAItemTags.IS_EPIC))
+                .component(TADataComponents.ITEM_TAGS, List.of(Tags.Items.TOOLS_SHIELD, ItemTags.DURABILITY_ENCHANTABLE))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }
 

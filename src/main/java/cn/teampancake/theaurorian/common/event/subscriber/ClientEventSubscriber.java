@@ -1,12 +1,11 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.client.gui.tooltips.ItemTooltip;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
-import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
-import cn.teampancake.theaurorian.common.registry.TADimensions;
-import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
-import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import cn.teampancake.theaurorian.common.registry.*;
+import cn.teampancake.theaurorian.compat.mui.ModernUICompatibility;
 import com.mojang.blaze3d.shaders.FogShape;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -14,14 +13,17 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
@@ -153,6 +155,18 @@ public class ClientEventSubscriber {
                 event.setFogShape(FogShape.CYLINDER);
                 event.setCanceled(true);
             }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onRenderTooltips(RenderTooltipEvent.Pre event) {
+        ModernUICompatibility.toggleModernUITooltipRenderer(true);
+        ItemStack itemStack = event.getItemStack();
+        Holder<ItemTooltip> tooltip = itemStack.get(TADataComponents.ITEM_TOOLTIP);
+        if (tooltip != null) {
+            ModernUICompatibility.toggleModernUITooltipRenderer(false);
+            tooltip.value().renderTooltips(event);
+            event.setCanceled(true);
         }
     }
 

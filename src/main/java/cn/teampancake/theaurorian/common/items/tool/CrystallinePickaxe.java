@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.tool;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.core.BlockPos;
@@ -28,8 +28,9 @@ public class CrystallinePickaxe extends PickaxeItem {
 
     public CrystallinePickaxe() {
         super(TAToolTiers.CRYSTALLINE, new Item.Properties().rarity(Rarity.EPIC)
-                .attributes(createAttributes(TAToolTiers.CRYSTALLINE, (1), (-2.8F)))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES, TAItemTags.IS_EPIC))
+                .attributes(createAttributes(TAToolTiers.CRYSTALLINE, 1, -2.8F))
+                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }
 

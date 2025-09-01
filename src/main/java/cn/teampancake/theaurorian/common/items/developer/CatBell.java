@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items.developer;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAParticleTypes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -26,8 +26,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.List;
-
 public class CatBell extends Item {
 
     private static final int BASE_DURATION = 200;
@@ -36,7 +34,7 @@ public class CatBell extends Item {
 
     public CatBell() {
         super(new Item.Properties().durability(300).rarity(Rarity.EPIC)
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.HAS_CUSTOM_TOOLTIPS))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.CAT_BELL)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.DEVELOPER, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
@@ -25,7 +25,7 @@ public class BookOfSin extends Item {
 
     public BookOfSin() {
         super(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)
                 .component(TADataComponents.ABSORBED_EXPERIENCE, 0));
     }

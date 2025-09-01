@@ -16,7 +16,6 @@ import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import software.bernie.geckolib.animatable.GeoItem;
 
 @SuppressWarnings("ConstantConditions")
 public class TAItemModelProvider extends ItemModelProvider {
@@ -112,9 +111,12 @@ public class TAItemModelProvider extends ItemModelProvider {
                 .texture("layer0", this.modLoc("block/" + this.blockName(TABlocks.TALL_AURORIAN_WATER_GRASS.get()) + "_upper"));
         this.withExistingParent(this.blockName(TABlocks.TALL_AURORIAN_GRASS_LIGHT.get()), this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("block/" + this.blockName(TABlocks.TALL_AURORIAN_GRASS_LIGHT.get()) + "_upper"));
-        TACommonUtils.getKnownBlockStream().filter(block -> block.properties() instanceof TABlockProperties properties && properties.useSimpleBlockItem).forEach(this::simpleBlockItem);
-        TACommonUtils.getKnownBlockStream().filter(block -> block instanceof DoorBlock).forEach(block -> this.basicItem(block.asItem()));
-        TACommonUtils.getKnownItemStream().filter(item -> item instanceof TieredItem && !(item instanceof GeoItem)).forEach(item ->
+        TACommonUtils.getKnownBlockStream().filter(block -> block.properties() instanceof TABlockProperties properties &&
+                properties.useSimpleBlockItem).forEach(this::simpleBlockItem);
+        TACommonUtils.getKnownBlockStream().filter(block -> block instanceof DoorBlock)
+                .forEach(block -> this.basicItem(block.asItem()));
+        TACommonUtils.getKnownItemStream().filter(item -> item instanceof TieredItem &&
+                !item.components().has(TADataComponents.NO_RUN_DATA.get())).forEach(item ->
                 this.withExistingParent(this.itemName(item), this.mcLoc("item/handheld"))
                         .texture("layer0", this.modLoc("item/" + this.itemName(item))));
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof DeferredSpawnEggItem).forEach(item ->

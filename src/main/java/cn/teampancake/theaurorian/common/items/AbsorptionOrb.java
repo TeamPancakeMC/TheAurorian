@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.items;
 
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,7 +23,7 @@ public class AbsorptionOrb extends Item {
 
     public AbsorptionOrb() {
         super(new Item.Properties().rarity(Rarity.EPIC).durability(250)
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items.weapon;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
@@ -44,8 +44,10 @@ public class AurorianSteelSword extends SwordItem implements GeoItem {
     public AurorianSteelSword() {
         super(TAToolTiers.AURORIAN_STEEL, new Item.Properties().rarity(Rarity.RARE)
                 .attributes(createAttributes(TAToolTiers.AURORIAN_STEEL, 3, -2.4F))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS, TAItemTags.IS_EPIC))
+                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
+                .component(TADataComponents.NO_RUN_DATA, Unit.INSTANCE)
                 .component(TADataComponents.HIGH_PRECISION, Boolean.FALSE));
     }
 

@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -30,7 +30,7 @@ public class StrangeMeat extends Item {
     public StrangeMeat() {
         super(new Item.Properties().rarity(Rarity.EPIC).durability(10)
                 .food(new FoodProperties.Builder().nutrition(8).saturationModifier((0.9F)).alwaysEdible().build())
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.IS_RARE))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }

@@ -8,21 +8,23 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.StructureManager;
-import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.PiecesContainer;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Optional;
+
+import net.minecraft.server.level.ServerLevel;
 
 public class RuinsAltarStructure extends Structure {
 
@@ -76,6 +78,19 @@ public class RuinsAltarStructure extends Structure {
     @Override
     public StructureType<?> type() {
         return TAStructureTypes.RUINS_ALTAR.get();
+    }
+
+    public static boolean isPositionInStructure(LevelAccessor level, BlockPos pos) {
+        if (!(level instanceof ServerLevel serverLevel)) return false;
+        List<StructureStart> structureStarts = serverLevel.structureManager().startsForStructure(
+                new ChunkPos(pos), structure -> structure instanceof RuinsAltarStructure);
+        for (StructureStart structureStart : structureStarts) {
+            if (structureStart.getBoundingBox().isInside(pos)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
 }

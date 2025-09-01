@@ -1,7 +1,7 @@
 {
     "parent": "minecraft:item/handheld",
     "textures": {
-        "layer0": "theaurorian:item/aurorian_steel_sword"
+        "layer0": "theaurorian:item/umbra_sword"
     },
     "display": {
         "thirdperson_righthand": {
@@ -14,13 +14,5 @@
             "translation": [ 0, 4.0, 0.5 ],
             "scale": [1.5, 1.5, 1.5]
         }
-    },
-    "overrides": [
-        {
-            "model": "theaurorian:item/aurorian_steel_sword_hp",
-            "predicate": {
-                "theaurorian:hp": 1.0
-            }
-        }
-    ]
+    }
 }

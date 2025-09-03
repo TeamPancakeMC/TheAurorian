@@ -23,8 +23,8 @@ public class TAMobEffects {
             .addAttributeModifier(Attributes.MINING_EFFICIENCY, TheAurorian.prefix("stun_me"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
             .addAttributeModifier(Attributes.ATTACK_SPEED, TheAurorian.prefix("stun_as"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
     public static final DeferredHolder<MobEffect, MobEffect> PARALYSIS = MOB_EFFECTS.register("paralysis", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0xc09c72)
-            .addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("paralysis_ms"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-            .addAttributeModifier(Attributes.JUMP_STRENGTH, TheAurorian.prefix("paralysis_js"), -1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+            .addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("paralysis_ms"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+            .addAttributeModifier(Attributes.JUMP_STRENGTH, TheAurorian.prefix("paralysis_js"), -1.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
     public static final DeferredHolder<MobEffect, MobEffect> OVERHEATING = MOB_EFFECTS.register("overheating", () -> new TAMobEffect(MobEffectCategory.HARMFUL, 0xdb5f39)
             .addAttributeModifier(Attributes.MOVEMENT_SPEED, TheAurorian.prefix("overheating_ms"), -0.05D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
             .addAttributeModifier(Attributes.ATTACK_SPEED, TheAurorian.prefix("overheating_as"), -0.2D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));

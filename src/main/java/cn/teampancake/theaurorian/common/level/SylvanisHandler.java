@@ -108,7 +108,7 @@ public class SylvanisHandler {
             float i = Math.max(0, sylvanis - 0.5F);
             player.setData(sylvanisAttachment, i);
             player.setData(ticksInForestAttachment, 0);
-            if (i < 50.0F) player.setData(soundFlagAttachment, false);
+            if (i < 40.0F) player.setData(soundFlagAttachment, false);
             if (player instanceof ServerPlayer serverPlayer) {
                 syncSylvanisToClient(serverPlayer, i);
             }
@@ -142,10 +142,10 @@ public class SylvanisHandler {
             Holder<Biome> biome = level.getBiome(player.blockPosition());
             biome.value().getAmbientMood().ifPresent(settings -> {
                 int i = settings.getBlockSearchExtent() * 2 + 1;
-                BlockPos blockPos = BlockPos.containing(
-                        player.getX() + (double)level.random.nextInt(i) - (double)settings.getBlockSearchExtent(),
-                        player.getEyeY() + (double)level.random.nextInt(i) - (double)settings.getBlockSearchExtent(),
-                        player.getZ() + (double)level.random.nextInt(i) - (double)settings.getBlockSearchExtent());
+                double x = player.getX() + (double)level.random.nextInt(i) - (double)settings.getBlockSearchExtent();
+                double y = player.getEyeY() + (double)level.random.nextInt(i) - (double)settings.getBlockSearchExtent();
+                double z = player.getZ() + (double)level.random.nextInt(i) - (double)settings.getBlockSearchExtent();
+                BlockPos blockPos = BlockPos.containing(x, y, z);
                 double d0 = (double)blockPos.getX() + 0.5F;
                 double d1 = (double)blockPos.getY() + 0.5F;
                 double d2 = (double)blockPos.getZ() + 0.5F;
@@ -177,8 +177,8 @@ public class SylvanisHandler {
     public static<T extends LivingEntity, M extends EntityModel<T>> void setPlayerRenderTransparency(
             M model, PoseStack poseStack, int packedLight, int packedOverlay, LocalPlayer player, VertexConsumer buffer) {
         float alpha = 1.0F - calculateFog(player.getData(TAAttachmentTypes.SYLVANIS_PROGRESS));
-        int newColor = FastColor.ARGB32.colorFromFloat(alpha, 1.0F, 1.0F, 1.0F);
-        model.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, newColor);
+        int color = FastColor.ARGB32.colorFromFloat(alpha, 1.0F, 1.0F, 1.0F);
+        model.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, color);
     }
 
     public static void levelFogColorAlpha(float red, float green, float blue, CallbackInfo ci) {
@@ -194,12 +194,12 @@ public class SylvanisHandler {
         }
     }
 
-    public static float getTimeFactor(Level level) {
+    private static float getTimeFactor(Level level) {
         float dayTime = level.getDayTime() % 24000.0f;
         return 1.0f - Math.abs(dayTime - 12000.0f) / 12000.0f;
     }
 
-    public static float calculateFog(float sylvanisValue) {
+    private static float calculateFog(float sylvanisValue) {
         float alpha = 0f;
         if (sylvanisValue >= FOG_START) {
             if (sylvanisValue <= FOG_VISIBLE) {

@@ -130,11 +130,9 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> AURORIAN_STONE_SHOVEL = ITEMS.register("aurorian_stone_shovel", () -> new ShovelItem(TAToolTiers.AURORIAN_STONE, new Item.Properties().attributes(
             ShovelItem.createAttributes(TAToolTiers.AURORIAN_STONE, 1.5F, -3.0F)).component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SHOVELS))));
     public static final DeferredHolder<Item, Item> SILENT_WOOD_SHOVEL = ITEMS.register("silent_wood_shovel", () -> new ShovelItem(TAToolTiers.SILENT_WOOD, new Item.Properties().attributes(
-            ShovelItem.createAttributes(TAToolTiers.SILENT_WOOD, 1.5F, -3.0F)).component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SHOVELS))
-            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
+            ShovelItem.createAttributes(TAToolTiers.SILENT_WOOD, 1.5F, -3.0F)).component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SHOVELS)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
     public static final DeferredHolder<Item, Item> MOONSTONE_SHOVEL = ITEMS.register("moonstone_shovel", () -> new ShovelItem(TAToolTiers.SILENT_WOOD, new Item.Properties().attributes(
-            ShovelItem.createAttributes(TAToolTiers.SILENT_WOOD, 1.5F, -3.0F)).component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SHOVELS))
-            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
+            ShovelItem.createAttributes(TAToolTiers.SILENT_WOOD, 1.5F, -3.0F)).component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SHOVELS)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
 
     /**
      * AxeItem

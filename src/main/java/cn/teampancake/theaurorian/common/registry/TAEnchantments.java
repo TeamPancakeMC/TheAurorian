@@ -105,7 +105,8 @@ public class TAEnchantments {
                 1, 5, Enchantment.dynamicCost(10, 10),
                 Enchantment.dynamicCost(15, 20), 4, EquipmentSlotGroup.HAND))
                 .withEffect(EnchantmentEffectComponents.HIT_BLOCK, new ArrowRainStorePosEffect(Unit.INSTANCE))
-                .withEffect(TAEnchantmentEffectComponents.PROJECTILE_TICK.get(), new ArrowRainSummonArrowEffect(Unit.INSTANCE)));
+                .withEffect(TAEnchantmentEffectComponents.PROJECTILE_TICK.get(),
+                        new ArrowRainSummonArrowEffect(Unit.INSTANCE)));
         register(context, WIND_RUNNER, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
                 2, 1, Enchantment.constantCost(30),

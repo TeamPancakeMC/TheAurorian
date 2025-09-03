@@ -207,9 +207,7 @@ public class LivingEventSubscriber {
         boolean flag2 = effect.value().isBeneficial() && entity.hasEffect(TAMobEffects.INCANTATION);
         boolean flag3 = effect.is(TAMobEffects.PARALYSIS) && !(entity instanceof Player);
         boolean flag4 = effect.is(TAMobEffectTags.MOON_QUEEN_ONLY) && !(entity instanceof MoonQueen);
-        if (flag1 || flag2 || flag3 || flag4) {
-            event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
-        }
+        if (flag1 || flag2 || flag3 || flag4) event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
     }
 
     @SubscribeEvent
@@ -229,9 +227,9 @@ public class LivingEventSubscriber {
             LivingEntity entity = event.getEntity();
             effect.onEffectExpired(entity, instance.getAmplifier());
             if (instance.is(TAMobEffects.PARALYSIS) || instance.is(TAMobEffects.STUN)) {
-                BlockPos pos = entity.getOnPos();
+                BlockPos pos = entity.getOnPos().above();
                 if (entity.getVehicle() instanceof SitEntity sitEntity) {
-                    entity.moveTo(pos.getX(), pos.above().getY(), pos.getZ());
+                    entity.moveTo(pos.getX(), pos.getY(), pos.getZ());
                     sitEntity.ejectPassengers();
                     sitEntity.discard();
                 }
@@ -266,7 +264,7 @@ public class LivingEventSubscriber {
                 List<LivingEntity> entities = player.level().getEntitiesOfClass(
                         LivingEntity.class, player.getBoundingBox().inflate(20.0D),
                         e -> e instanceof Player && e != player || e instanceof Villager);
-                event.setNewDamage(event.getNewDamage() + Math.min(entities.size(), 10));
+                event.setNewDamage(event.getOriginalDamage() + Math.min(entities.size(), 10));
             }
         }
     }
@@ -291,7 +289,8 @@ public class LivingEventSubscriber {
             double d0 = Double.MAX_VALUE;
             SpiderlingCrystalShell crystalShell = null;
             AABB aabb = player.getBoundingBox().inflate(32.0D);
-            List<SpiderlingCrystalShell> list = player.level().getEntitiesOfClass(SpiderlingCrystalShell.class, aabb);
+            List<SpiderlingCrystalShell> list = player.level()
+                    .getEntitiesOfClass(SpiderlingCrystalShell.class, aabb);
             for (SpiderlingCrystalShell entity : list) {
                 UUID uuid = entity.getOwnerUUID();
                 if (uuid != null && uuid.equals(player.getUUID())) {
@@ -326,10 +325,6 @@ public class LivingEventSubscriber {
                 if (spiderMother.getHealth() < spiderMother.getMaxHealth() * 0.5F) {
                     spiderMother.heal(event.getNewDamage());
                 }
-            }
-
-            if (entity instanceof MoonQueen) {
-                event.setNewDamage(Math.max(1.0F, event.getNewDamage()));
             }
 
             if (entity instanceof Player player) {
@@ -426,26 +421,18 @@ public class LivingEventSubscriber {
     @SubscribeEvent
     public static void onLivingDrops(LivingDropsEvent event) {
         Entity sourceEntity = event.getSource().getEntity();
-        if (sourceEntity instanceof MoonQueen) {
-            event.setCanceled(true);
-        }
+        if (sourceEntity instanceof MoonQueen) event.setCanceled(true);
     }
 
     @SubscribeEvent
     public static void onLivingAttacked(LivingIncomingDamageEvent event) {
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
-        if (source.is(DamageTypes.FREEZE) && target.hasEffect(TAMobEffects.WARM)) {
-            event.setCanceled(true);
-        }
-
+        if (source.is(DamageTypes.FREEZE) && target.hasEffect(TAMobEffects.WARM)) event.setCanceled(true);
         if (TAInventoryUtils.canArmorTriggerEffect(target, SpectralArmor.class, 0.06D)) {
-            target.getActiveEffects().forEach(effectInstance -> {
-                Holder<MobEffect> holder = effectInstance.getEffect();
-                if (holder.value().getCategory() == MobEffectCategory.HARMFUL) {
-                    target.removeEffect(holder);
-                }
-            });
+            target.getActiveEffects().stream().map(MobEffectInstance::getEffect)
+                    .filter(effect -> effect.value().getCategory() == MobEffectCategory.HARMFUL)
+                    .forEach(target::removeEffect);
         }
 
         if (target.isAlive() && source.getEntity() instanceof Player player) {

@@ -53,6 +53,12 @@ public class PlayerEventSubscriber {
                     player.hurt(player.damageSources().freeze(), 1.0F);
                     player.setSharedFlagOnFire(false);
                 }
+
+                if (player.isFallFlying() && TAEntityUtils.isPlayerNearStructure(
+                        player, TAStructures.RUNESTONE_DUNGEON, 300.0F)) {
+                    player.stopFallFlying();
+                    player.resetFallDistance();
+                }
             }
         }
     }

@@ -2,6 +2,8 @@ package cn.teampancake.theaurorian.common.mixin;
 
 import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import cn.teampancake.theaurorian.common.registry.TAStructures;
+import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,6 +24,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@SuppressWarnings("DiscouragedShift")
 @Mixin(Player.class)
 public abstract class MixinPlayer extends LivingEntity {
 
@@ -35,6 +38,13 @@ public abstract class MixinPlayer extends LivingEntity {
     @Inject(method = "wantsToStopRiding", at = @At(value = "HEAD"), cancellable = true)
     protected void wantsToStopRiding(CallbackInfoReturnable<Boolean> cir) {
         if (this.isPassenger() && this.hasEffect(TAMobEffects.PARALYSIS)) cir.setReturnValue(false);
+    }
+
+    @Inject(method = "tryToStartFallFlying", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/world/entity/player/Player;startFallFlying()V",
+            shift = At.Shift.BEFORE), cancellable = true)
+    public void tryToStartFallFlying(CallbackInfoReturnable<Boolean> cir) {
+        if (TAEntityUtils.isPlayerNearStructure(this, TAStructures.RUNESTONE_DUNGEON, 300.0F)) cir.setReturnValue(false);
     }
 
     @Inject(method = "makeStuckInBlock", at = @At(value = "HEAD"), cancellable = true)

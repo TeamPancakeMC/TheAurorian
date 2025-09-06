@@ -20,7 +20,7 @@ public class TallWickGrass extends TallFlowerBlock {
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL;
 
     public TallWickGrass() {
-        super(Properties.ofFullCopy(Blocks.SUNFLOWER).lightLevel((state) -> state.getValue(LEVEL)));
+        super(Properties.ofFullCopy(Blocks.SUNFLOWER).lightLevel(state -> state.getValue(LEVEL)));
         this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(LEVEL, 15));
     }
 

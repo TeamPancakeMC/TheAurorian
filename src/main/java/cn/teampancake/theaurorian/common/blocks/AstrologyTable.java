@@ -16,7 +16,7 @@ public class AstrologyTable extends HorizontalDirectionalBlock implements Entity
 
     public AstrologyTable() {
         super(TABlockProperties.get().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE)
-                .requiresCorrectToolForDrops().strength((5.0F), (6.0F)).sound(SoundType.METAL).lootType(TALootType.SELF).noOcclusion());
+                .requiresCorrectToolForDrops().strength(6.0F).sound(SoundType.METAL).lootType(TALootType.SELF).noOcclusion());
     }
 
     @Override

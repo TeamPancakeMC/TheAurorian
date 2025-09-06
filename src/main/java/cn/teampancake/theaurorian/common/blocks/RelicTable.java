@@ -23,7 +23,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings({"deprecation", "NullableProblems"})
+@SuppressWarnings("NullableProblems")
 public class RelicTable extends HorizontalDirectionalBlock implements EntityBlock {
 
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;

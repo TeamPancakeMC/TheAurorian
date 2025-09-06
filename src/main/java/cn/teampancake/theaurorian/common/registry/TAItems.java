@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.items.*;
 import cn.teampancake.theaurorian.common.items.armor.*;
+import cn.teampancake.theaurorian.common.items.block.SacrificeTable;
 import cn.teampancake.theaurorian.common.items.curio.CrimsonPactPendant;
 import cn.teampancake.theaurorian.common.items.developer.*;
 import cn.teampancake.theaurorian.common.items.shield.CeruleanShield;
@@ -305,7 +306,7 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> FAKE_ALGAL_PIT_FISH = ITEMS.register("fake_algal_pit_fish", () -> new Item(new Item.Properties()
             .food(new FoodProperties.Builder().nutrition(4).saturationModifier(5.0F).build()).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
             .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
-    public static final DeferredHolder<Item, Item> SASHIMI = ITEMS.register("sashimi", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationModifier(2.0F)
+    public static final DeferredHolder<Item, Item> SASHIMI = ITEMS.register("sashimi", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.1F)
             .effect(() -> new MobEffectInstance(MobEffects.LUCK, 400), 1.0F).build()).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
             .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> SILENT_WOOD_FRUIT = ITEMS.register("silent_wood_fruit", () -> new Item(new Item.Properties()
@@ -509,6 +510,7 @@ public class TAItems {
             () -> new PlaceOnWaterBlockItem(TABlocks.AURORIAN_WATER_MUSHROOM.get(), new Item.Properties()
                     .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON)));
     public static final DeferredHolder<Item, Item> AURORIAN_CHEST = ITEMS.register("aurorian_chest", AurorianChestItem::new);
+    public static final DeferredHolder<Item, Item> SACRIFICE_TABLE = ITEMS.register("sacrifice_table", SacrificeTable::new);
     public static final DeferredHolder<Item, Item> MOON_TORCH = ITEMS.register("moon_torch", () -> new StandingAndWallBlockItem(
             TABlocks.MOON_TORCH.get(), TABlocks.MOON_WALL_TORCH.get(), new Item.Properties()
             .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON), Direction.DOWN));

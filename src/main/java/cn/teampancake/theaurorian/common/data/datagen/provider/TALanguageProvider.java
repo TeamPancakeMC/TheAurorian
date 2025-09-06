@@ -445,6 +445,7 @@ public class TALanguageProvider extends LanguageProvider {
         //MISC
         this.addKey(TABlocks.ALCHEMY_TABLE, "炼药桌");
         this.addKey(TABlocks.RELIC_TABLE, "圣物台");
+        this.addKey(TABlocks.SACRIFICE_TABLE, "祭品桌");
         this.addKey(TABlocks.ASTROLOGY_TABLE, "占星仪");
         this.addKey(TABlocks.MYSTERIUM_WOOL_BED, "秘境羊毛床");
         this.addKey(TABlocks.SILENT_CAMPFIRE, "静谧营火");

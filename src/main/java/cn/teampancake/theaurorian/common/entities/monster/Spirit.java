@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.blocks.entity.SacrificeTableBlockEntity;
 import cn.teampancake.theaurorian.common.entities.ai.control.SpiritMoveControl;
 import cn.teampancake.theaurorian.common.entities.ai.goal.SpiritChargeAttackGoal;
 import cn.teampancake.theaurorian.common.entities.ai.goal.SpiritRandomMoveGoal;
@@ -38,7 +39,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -73,19 +76,12 @@ public class Spirit extends TAMonster {
     }
 
     public static boolean checkSpawnRules(EntityType<Spirit> spirit, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        if (random.nextInt(20) != 0) {
-            return false;
+        for (BlockPos blockPos : BlockPos.betweenClosedStream(new AABB(pos).inflate(128.0D)).toList()) {
+            BlockEntity blockEntity = level.getLevel().getBlockEntity(blockPos);
+            if (blockEntity instanceof SacrificeTableBlockEntity sacrificeTable && sacrificeTable.guardTime > 0) return false;
         }
-        
-        double inflateDistance = 24.0D;
-        if (!level.getEntitiesOfClass(Player.class, 
-                new net.minecraft.world.phys.AABB(
-                    pos.getX() - inflateDistance, pos.getY() - inflateDistance, pos.getZ() - inflateDistance, 
-                    pos.getX() + inflateDistance, pos.getY() + inflateDistance, pos.getZ() + inflateDistance
-                )).isEmpty()) {
-            return false;
-        }
-        
+
+        if (random.nextInt(20) != 0 || !level.getEntitiesOfClass(Player.class, new AABB(pos).inflate(24.0D)).isEmpty()) return false;
         return level.getBlockState(pos.below()).is(TABlocks.AURORIAN_GRASS_BLOCK.get()) && checkAnyLightMonsterSpawnRules(spirit, level, spawnType, pos, random);
     }
 

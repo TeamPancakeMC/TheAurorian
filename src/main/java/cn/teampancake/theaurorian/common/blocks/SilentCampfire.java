@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Nullable;
 
-public class SilentCampfireBlock extends CampfireBlock {
+public class SilentCampfire extends CampfireBlock {
 
-    public SilentCampfireBlock() {
+    public SilentCampfire() {
         super(Boolean.TRUE, 1, TABlockProperties.get().mapColor(MapColor.PODZOL)
                 .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD)
                 .lightLevel(state -> state.getValue(BlockStateProperties.LIT) ? 15 : 0)

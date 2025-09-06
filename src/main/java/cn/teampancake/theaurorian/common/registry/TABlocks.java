@@ -527,15 +527,16 @@ public class TABlocks {
      */
     public static final DeferredHolder<Block, Block> TEMP_BARRIER = BLOCKS.register("temp_barrier", TempBarrier::new);
     public static final DeferredHolder<Block, Block> TRAP_HOLE_RESTORER = BLOCKS.register("trap_hole_restorer", TrapHoleRestorer::new);
+    public static final DeferredHolder<Block, Block> SACRIFICE_TABLE = BLOCKS.register("sacrifice_table", SacrificeTable::new);
     public static final DeferredHolder<Block, Block> MYSTERIUM_WOOL_BED = register("mysterium_wool_bed", MysteriumWoolBed::new);
-    public static final DeferredHolder<Block, Block> SILENT_CAMPFIRE = register("silent_campfire", SilentCampfireBlock::new);
+    public static final DeferredHolder<Block, Block> SILENT_CAMPFIRE = register("silent_campfire", SilentCampfire::new);
+    public static final DeferredHolder<Block, Block> ASTROLOGY_TABLE = register("astrology_table", AstrologyTable::new);
     public static final DeferredHolder<Block, Block> ALCHEMY_TABLE = register("alchemy_table", AlchemyTable::new);
     public static final DeferredHolder<Block, Block> RELIC_TABLE = register("relic_table", RelicTable::new);
-    public static final DeferredHolder<Block, Block> ASTROLOGY_TABLE = register("astrology_table", AstrologyTable::new);
 
     public static TABlockProperties defaultStoneProperties(float destroyTime) {
         return get().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE)
-                .requiresCorrectToolForDrops().strength(destroyTime, (destroyTime * 5.0F));
+                .requiresCorrectToolForDrops().strength(destroyTime, destroyTime * 5.0F);
     }
 
     @SafeVarargs

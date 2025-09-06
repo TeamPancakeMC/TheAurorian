@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.renderer.block.MoonlightForgeRenderer;
+import cn.teampancake.theaurorian.client.renderer.block.SacrificeTableRenderer;
 import cn.teampancake.theaurorian.client.renderer.block.SilentCampfireRender;
 import cn.teampancake.theaurorian.client.renderer.block.AurorianChestRenderer;
 import cn.teampancake.theaurorian.common.blocks.entity.*;
@@ -35,6 +36,8 @@ public class TABlockEntityTypes {
             () -> BlockEntityType.Builder.of(SilentCampfireBlockEntity::new, TABlocks.SILENT_CAMPFIRE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemyTableBlockEntity>> ALCHEMY_TABLE =  BLOCK_ENTITY_TYPES.register("alchemy_table",
             () -> BlockEntityType.Builder.of(AlchemyTableBlockEntity::new, TABlocks.ALCHEMY_TABLE.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SacrificeTableBlockEntity>> SACRIFICE_TABLE =  BLOCK_ENTITY_TYPES.register("sacrifice_table",
+            () -> BlockEntityType.Builder.of(SacrificeTableBlockEntity::new, TABlocks.SACRIFICE_TABLE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MysteriumWoolBedBlockEntity>> MYSTERIUM_WOOL_BED = BLOCK_ENTITY_TYPES.register("mysterium_wool_bed",
             () -> BlockEntityType.Builder.of(MysteriumWoolBedBlockEntity::new, TABlocks.MYSTERIUM_WOOL_BED.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DungeonStoneGateBlockEntity>> DUNGEON_STONE_GATE = BLOCK_ENTITY_TYPES.register("dungeon_stone_gate",
@@ -58,6 +61,7 @@ public class TABlockEntityTypes {
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(SACRIFICE_TABLE.get(), SacrificeTableRenderer::new);
         event.registerBlockEntityRenderer(AURORIAN_CHEST.get(), AurorianChestRenderer::new);
         event.registerBlockEntityRenderer(MOONLIGHT_FORGE.get(), MoonlightForgeRenderer::new);
         event.registerBlockEntityRenderer(SILENT_CAMPFIRE.get(), SilentCampfireRender::new);

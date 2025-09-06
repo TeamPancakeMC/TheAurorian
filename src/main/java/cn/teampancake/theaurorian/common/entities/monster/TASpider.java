@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.entities.monster;
 
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -18,7 +19,6 @@ import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
 import software.bernie.geckolib.animatable.GeoEntity;
 
 import javax.annotation.Nullable;
@@ -104,7 +104,8 @@ public abstract class TASpider extends Spider implements GeoEntity, MultiPhaseAt
     @Override
     protected void actuallyHurt(DamageSource damageSource, float damageAmount) {
         if (!this.isInvulnerableTo(damageSource)) {
-            SpiderlingCrystalShell crystalShell = this.getNearestCrystalShell();
+            SpiderlingCrystalShell crystalShell = TAEntityUtils.getNearestEntity(
+                    this, SpiderlingCrystalShell.class, 32.0D);
             damageAmount = this.getDamageAfterArmorAbsorb(damageSource, damageAmount);
             damageAmount = this.getDamageAfterMagicAbsorb(damageSource, damageAmount);
             float f1 = Math.max(damageAmount - this.getAbsorptionAmount(), 0.0F);
@@ -143,23 +144,6 @@ public abstract class TASpider extends Spider implements GeoEntity, MultiPhaseAt
 
     protected boolean isCrystalShell() {
         return false;
-    }
-
-    @Nullable
-    private SpiderlingCrystalShell getNearestCrystalShell() {
-        double d0 = Double.MAX_VALUE;
-        SpiderlingCrystalShell crystalShell = null;
-        AABB aabb = this.getBoundingBox().inflate(32.0D);
-        List<SpiderlingCrystalShell> list = this.level().getEntitiesOfClass(SpiderlingCrystalShell.class, aabb);
-        for (SpiderlingCrystalShell entity : list) {
-            double d1 = entity.distanceToSqr(this);
-            if (d1 < d0) {
-                d0 = d1;
-                crystalShell = entity;
-            }
-        }
-
-        return crystalShell;
     }
 
     @Override

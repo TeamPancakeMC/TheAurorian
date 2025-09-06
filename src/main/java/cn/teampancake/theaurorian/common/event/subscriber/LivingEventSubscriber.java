@@ -17,6 +17,7 @@ import cn.teampancake.theaurorian.common.level.TAServerPlayer;
 import cn.teampancake.theaurorian.common.network.*;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
+import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -286,22 +287,8 @@ public class LivingEventSubscriber {
         }
 
         if (target instanceof Player player) {
-            double d0 = Double.MAX_VALUE;
-            SpiderlingCrystalShell crystalShell = null;
-            AABB aabb = player.getBoundingBox().inflate(32.0D);
-            List<SpiderlingCrystalShell> list = player.level()
-                    .getEntitiesOfClass(SpiderlingCrystalShell.class, aabb);
-            for (SpiderlingCrystalShell entity : list) {
-                UUID uuid = entity.getOwnerUUID();
-                if (uuid != null && uuid.equals(player.getUUID())) {
-                    double d1 = entity.distanceToSqr(player);
-                    if (d1 < d0) {
-                        d0 = d1;
-                        crystalShell = entity;
-                    }
-                }
-            }
-
+            SpiderlingCrystalShell crystalShell = TAEntityUtils.getNearestEntity(
+                    player, SpiderlingCrystalShell.class, 32.0D);
             if (crystalShell != null) {
                 float amount = event.getNewDamage();
                 crystalShell.getCombatTracker().recordDamage(source, amount);

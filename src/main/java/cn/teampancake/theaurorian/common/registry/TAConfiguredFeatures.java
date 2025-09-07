@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.blocks.SilentWoodStick;
 import cn.teampancake.theaurorian.common.blocks.AurorianWaterSurfacePlant;
 import cn.teampancake.theaurorian.common.blocks.BlueberryBush;
 import cn.teampancake.theaurorian.common.blocks.TAClusterBlock;
@@ -62,6 +63,7 @@ import java.util.List;
 @SuppressWarnings("SpellCheckingInspection")
 public class TAConfiguredFeatures {
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_BRANCH = createKey("patch_aurorian_branch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_GRASS = createKey("patch_aurorian_grass");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_GRASS_LIGHT = createKey("patch_aurorian_grass_light");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AURORIAN_FLOWER_FOREST = createKey("patch_aurorian_flower_forest");
@@ -133,7 +135,7 @@ public class TAConfiguredFeatures {
                                 .add(ConstantInt.of(1), 1)
                                 .add(ConstantInt.of(2), 1)
                                 .add(ConstantInt.of(3), 1).build()),
-                        UniformInt.of((2), (4)), UniformInt.of((-4), (-3)), UniformInt.of((-1), (0))),
+                        UniformInt.of(2, 4), UniformInt.of(-4, -3), UniformInt.of(-1, 0)),
                 BlockStateProvider.simple(TABlocks.SILENT_TREE_LEAVES.get()),
                 new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.ZERO,
                         ConstantInt.of(5), (0.25F), (0.5F), (0.16666667F), (0.33333334F)),
@@ -144,15 +146,14 @@ public class TAConfiguredFeatures {
         return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.CURSED_FROST_TREE_LOG.get()),
                 new StraightTrunkPlacer(5, 3, 0), 
                 BlockStateProvider.simple(TABlocks.CURSED_FROST_TREE_LEAVES.get()),
-                new SpruceFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 
-                        ConstantInt.of(1)), 
+                new SpruceFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(1)),
                 new TwoLayersFeatureSize(2, 0, 2)));
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder weepingWillowTree() {
         return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(TABlocks.WEEPING_WILLOW_LOG.get()),
-                new StraightTrunkPlacer((8), (5), (0)), BlockStateProvider.simple(TABlocks.WEEPING_WILLOW_LEAVES.get()),
-                new HemisphereFoliagePlacer(ConstantInt.ZERO, ConstantInt.ZERO), new TwoLayersFeatureSize((1), (0), (2))));
+                new StraightTrunkPlacer(8, 5, 0), BlockStateProvider.simple(TABlocks.WEEPING_WILLOW_LEAVES.get()),
+                new HemisphereFoliagePlacer(ConstantInt.ZERO, ConstantInt.ZERO), new TwoLayersFeatureSize(1, 0, 2)));
     }
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
@@ -177,6 +178,7 @@ public class TAConfiguredFeatures {
 
         BlockState wickGrass = TABlocks.WICK_GRASS.get().defaultBlockState();
         BlockState tallWickGrass = TABlocks.TALL_WICK_GRASS.get().defaultBlockState();
+        BlockState aurorianBranch = TABlocks.SILENT_WOOD_STICK.get().defaultBlockState();
         BlockState blueberryBush = TABlocks.BLUEBERRY_BUSH.get().defaultBlockState();
         SimpleWeightedRandomList.Builder<BlockState> wickGrassBuilder = SimpleWeightedRandomList.builder();
         levelValues.forEach(level -> wickGrassBuilder.add(wickGrass.setValue(levelProperty, level), 2));
@@ -215,6 +217,12 @@ public class TAConfiguredFeatures {
             }
         }
 
+        FeatureUtils.register(context, PATCH_AURORIAN_BRANCH, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(
+                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                        .add(aurorianBranch.setValue(SilentWoodStick.FACING, Direction.NORTH))
+                        .add(aurorianBranch.setValue(SilentWoodStick.FACING, Direction.SOUTH))
+                        .add(aurorianBranch.setValue(SilentWoodStick.FACING, Direction.EAST))
+                        .add(aurorianBranch.setValue(SilentWoodStick.FACING, Direction.WEST)).build()), 3));
         FeatureUtils.register(context, PATCH_AURORIAN_GRASS, Feature.RANDOM_PATCH, VegetationFeatures.grassPatch(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(TABlocks.AURORIAN_GRASS.get().defaultBlockState(), 7)

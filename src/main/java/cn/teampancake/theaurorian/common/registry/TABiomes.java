@@ -105,6 +105,7 @@ public class TABiomes {
         return biomeWithDefaults(biomeGenerationSettings
                 .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.SMALL_AURORIAN_FOREST_RUINS)
                 .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, TAPlacedFeatures.MEDIUM_AURORIAN_FOREST_RUINS)
+                .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_BRANCH)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_FLOWER_FOREST)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_AURORIAN_GRASS_FOREST)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.RANDOM_FALLEN_SILENT_LOG)

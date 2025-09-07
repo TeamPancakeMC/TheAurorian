@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=east": {
+            "model": "theaurorian:block/silent_wood_stick",
+            "y": 270
+        },
+        "facing=north": {
+            "model": "theaurorian:block/silent_wood_stick",
+            "y": 180
+        },
+        "facing=south": {
+            "model": "theaurorian:block/silent_wood_stick"
+        },
+        "facing=west": {
+            "model": "theaurorian:block/silent_wood_stick",
+            "y": 90
+        }
+    }
+}

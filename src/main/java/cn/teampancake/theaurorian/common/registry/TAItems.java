@@ -360,12 +360,12 @@ public class TAItems {
      * Tool
      */
     public static final DeferredHolder<Item, Item> ABSORPTION_ORB = ITEMS.register("absorption_orb", AbsorptionOrb::new);
-    public static final DeferredHolder<Item, Item> SILENT_WOOD_STICK = ITEMS.register("silent_wood_stick", () -> new Item(new Item.Properties()
-            .component(TADataComponents.ITEM_TAGS, List.of(Tags.Items.RODS_WOODEN)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-            .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> STICKY_SPIKER = ITEMS.register("sticky_spiker", () -> new SimpleThrowProjectProjectile(new Item.Properties()
             .rarity(Rarity.EPIC).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE),
             SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.STICKY_SPIKER::get, 1.5F, 1.0F));
+    public static final DeferredHolder<Item, Item> SILENT_WOOD_STICK = alias("silent_wood_stick", TABlocks.SILENT_WOOD_STICK, () -> new Item.Properties()
+            .component(TADataComponents.ITEM_TAGS, List.of(Tags.Items.RODS_WOODEN)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
+            .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
 
     /**
      * Loot

@@ -57,6 +57,7 @@
     [],
     [],
     [
+      "theaurorian:patch_aurorian_branch",
       "theaurorian:patch_aurorian_flower_forest",
       "theaurorian:patch_aurorian_grass_forest",
       "theaurorian:random_fallen_silent_log",

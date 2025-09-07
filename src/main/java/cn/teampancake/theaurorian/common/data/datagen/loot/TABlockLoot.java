@@ -70,6 +70,7 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.dropNuggets(TABlocks.LARGE_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 5.0F, 6.0F);
         this.dropNuggets(TABlocks.MEDIUM_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 3.0F, 4.0F);
         this.dropNuggets(TABlocks.SMALL_MOONSTONE_BUD.get(), TAItems.MOONSTONE_NUGGET.get(), 0.0F, 2.0F);
+        this.add(TABlocks.SILENT_WOOD_STICK.get(), block -> this.createSingleItemTable(TAItems.SILENT_WOOD_STICK.get()));
         this.add(TABlocks.SILENT_WOOD_SIGN.get(), block -> this.createSingleItemTable(TAItems.SILENT_WOOD_SIGN.get()));
         this.add(TABlocks.SILENT_WOOD_WALL_SIGN.get(), block -> this.createSingleItemTable(TAItems.SILENT_WOOD_SIGN.get()));
         this.add(TABlocks.SILENT_WOOD_HANGING_SIGN.get(), block -> this.createSingleItemTable(TAItems.SILENT_WOOD_HANGING_SIGN.get()));

@@ -29,6 +29,7 @@ public class TAItemModelProvider extends ItemModelProvider {
         this.simpleItem(TAItems.SILK_BERRY.get());
         this.simpleItem(TAItems.BLUEBERRY.get());
         this.simpleItem(TAItems.LAVENDER_SEEDS.get());
+        this.simpleItem(TAItems.SILENT_WOOD_STICK.get());
         this.simpleItem(TAItems.SILENT_WOOD_SIGN.get());
         this.simpleItem(TAItems.WEEPING_WILLOW_WOOD_SIGN.get());
         this.simpleItem(TAItems.CURTAIN_WOOD_SIGN.get());

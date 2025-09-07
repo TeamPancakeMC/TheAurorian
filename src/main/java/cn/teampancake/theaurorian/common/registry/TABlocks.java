@@ -21,6 +21,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -82,6 +83,7 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> WICK_GRASS = BLOCKS.register("wick_grass", WickGrass::new);
     public static final DeferredHolder<Block, Block> TALL_WICK_GRASS = BLOCKS.register("tall_wick_grass", TallWickGrass::new);
     public static final DeferredHolder<Block, Block> BLUEBERRY_BUSH = BLOCKS.register("blueberry_bush", BlueberryBush::new);
+    public static final DeferredHolder<Block, Block> SILENT_WOOD_STICK = BLOCKS.register("silent_wood_stick", () -> new SilentWoodStick(ofFullCopy(Blocks.OAK_PLANKS).instabreak().pushReaction(PushReaction.DESTROY)));
     public static final DeferredHolder<Block, Block> LAVENDER_CROP = BLOCKS.register("lavender_crop", () -> new TACropBlock(ofFullCopy(Blocks.SHORT_GRASS).addBlockTag(BlockTags.CROPS), TAItems.LAVENDER_SEEDS));
     public static final DeferredHolder<Block, Block> SILK_BERRY_CROP = BLOCKS.register("silk_berry_crop", () -> new TACropBlock(ofFullCopy(Blocks.SHORT_GRASS).addBlockTag(BlockTags.CROPS), TAItems.SILK_BERRY));
     public static final DeferredHolder<Block, Block> LAVENDER_PLANT = register("lavender_plant", () -> new DeadBushBlock(ofFullCopy(Blocks.SHORT_GRASS)));
@@ -106,20 +108,20 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> EROSIVE_CERULEAN_ORE = ore("erosive_cerulean_ore", ConstantInt.ZERO, defaultStoneProperties(2.0F).addBlockTag(BlockTags.NEEDS_STONE_TOOL));
     public static final DeferredHolder<Block, Block> GEODE_ORE = ore("geode_ore", ConstantInt.ZERO, defaultStoneProperties(2.0F).addBlockTag(BlockTags.NEEDS_IRON_TOOL));
     public static final DeferredHolder<Block, Block> EROSIVE_GEODE_ORE = ore("erosive_geode_ore", ConstantInt.ZERO, defaultStoneProperties(2.0F).addBlockTag(BlockTags.NEEDS_IRON_TOOL));
-    public static final DeferredHolder<Block, Block> AURORIAN_COAL_ORE = ore("aurorian_coal_ore", UniformInt.of((0), (2)), ofFullCopy(Blocks.COAL_ORE).addBlockTag(BlockTags.COAL_ORES));
+    public static final DeferredHolder<Block, Block> AURORIAN_COAL_ORE = ore("aurorian_coal_ore", UniformInt.of(0, 2), ofFullCopy(Blocks.COAL_ORE).addBlockTag(BlockTags.COAL_ORES));
     public static final DeferredHolder<Block, Block> AURORIAN_GOLD_ORE = ore("aurorian_gold_ore", ConstantInt.ZERO, ofFullCopy(Blocks.GOLD_ORE).addBlockTag(BlockTags.GOLD_ORES, BlockTags.NEEDS_IRON_TOOL));
     public static final DeferredHolder<Block, Block> AURORIAN_IRON_ORE = ore("aurorian_iron_ore", ConstantInt.ZERO, ofFullCopy(Blocks.IRON_ORE).addBlockTag(BlockTags.IRON_ORES, BlockTags.NEEDS_STONE_TOOL));
-    public static final DeferredHolder<Block, Block> AURORIAN_LAPIS_ORE = ore("aurorian_lapis_ore", UniformInt.of((2), (5)), ofFullCopy(Blocks.LAPIS_ORE).addBlockTag(BlockTags.LAPIS_ORES, BlockTags.NEEDS_STONE_TOOL));
+    public static final DeferredHolder<Block, Block> AURORIAN_LAPIS_ORE = ore("aurorian_lapis_ore", UniformInt.of(2, 5), ofFullCopy(Blocks.LAPIS_ORE).addBlockTag(BlockTags.LAPIS_ORES, BlockTags.NEEDS_STONE_TOOL));
     public static final DeferredHolder<Block, Block> AURORIAN_COPPER_ORE = ore("aurorian_copper_ore", ConstantInt.ZERO, ofFullCopy(Blocks.COPPER_ORE).addBlockTag(BlockTags.COPPER_ORES, BlockTags.NEEDS_STONE_TOOL));
-    public static final DeferredHolder<Block, Block> AURORIAN_DIAMOND_ORE = ore("aurorian_diamond_ore", UniformInt.of((3), (7)), ofFullCopy(Blocks.DIAMOND_ORE).addBlockTag(BlockTags.DIAMOND_ORES, BlockTags.NEEDS_IRON_TOOL));
-    public static final DeferredHolder<Block, Block> AURORIAN_EMERALD_ORE = ore("aurorian_emerald_ore", UniformInt.of((3), (7)), ofFullCopy(Blocks.EMERALD_ORE).addBlockTag(BlockTags.EMERALD_ORES, BlockTags.NEEDS_IRON_TOOL));
+    public static final DeferredHolder<Block, Block> AURORIAN_DIAMOND_ORE = ore("aurorian_diamond_ore", UniformInt.of(3, 7), ofFullCopy(Blocks.DIAMOND_ORE).addBlockTag(BlockTags.DIAMOND_ORES, BlockTags.NEEDS_IRON_TOOL));
+    public static final DeferredHolder<Block, Block> AURORIAN_EMERALD_ORE = ore("aurorian_emerald_ore", UniformInt.of(3, 7), ofFullCopy(Blocks.EMERALD_ORE).addBlockTag(BlockTags.EMERALD_ORES, BlockTags.NEEDS_IRON_TOOL));
     public static final DeferredHolder<Block, Block> AURORIAN_REDSTONE_ORE = register("aurorian_redstone_ore", () -> new RedStoneOreBlock(ofFullCopy(Blocks.REDSTONE_ORE).addBlockTag(BlockTags.REDSTONE_ORES, BlockTags.NEEDS_IRON_TOOL).isSimpleModelBlock().useSimpleBlockItem()));
     public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_GOLD_ORE = ore("erosive_aurorian_gold_ore", ConstantInt.ZERO, ofFullCopy(Blocks.DEEPSLATE_GOLD_ORE).addBlockTag(BlockTags.GOLD_ORES, BlockTags.NEEDS_IRON_TOOL));
     public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_IRON_ORE = ore("erosive_aurorian_iron_ore", ConstantInt.ZERO, ofFullCopy(Blocks.DEEPSLATE_IRON_ORE).addBlockTag(BlockTags.IRON_ORES, BlockTags.NEEDS_STONE_TOOL));
-    public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_LAPIS_ORE = ore("erosive_aurorian_lapis_ore", UniformInt.of((2), (5)), ofFullCopy(Blocks.DEEPSLATE_LAPIS_ORE).addBlockTag(BlockTags.LAPIS_ORES, BlockTags.NEEDS_STONE_TOOL));
+    public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_LAPIS_ORE = ore("erosive_aurorian_lapis_ore", UniformInt.of(2, 5), ofFullCopy(Blocks.DEEPSLATE_LAPIS_ORE).addBlockTag(BlockTags.LAPIS_ORES, BlockTags.NEEDS_STONE_TOOL));
     public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_COPPER_ORE = ore("erosive_aurorian_copper_ore", ConstantInt.ZERO, ofFullCopy(Blocks.DEEPSLATE_COPPER_ORE).addBlockTag(BlockTags.COPPER_ORES, BlockTags.NEEDS_STONE_TOOL));
-    public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_DIAMOND_ORE = ore("erosive_aurorian_diamond_ore", UniformInt.of((3), (7)), ofFullCopy(Blocks.DEEPSLATE_DIAMOND_ORE).addBlockTag(BlockTags.DIAMOND_ORES, BlockTags.NEEDS_IRON_TOOL));
-    public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_EMERALD_ORE = ore("erosive_aurorian_emerald_ore", UniformInt.of((3), (7)), ofFullCopy(Blocks.DEEPSLATE_EMERALD_ORE).addBlockTag(BlockTags.EMERALD_ORES, BlockTags.NEEDS_IRON_TOOL));
+    public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_DIAMOND_ORE = ore("erosive_aurorian_diamond_ore", UniformInt.of(3, 7), ofFullCopy(Blocks.DEEPSLATE_DIAMOND_ORE).addBlockTag(BlockTags.DIAMOND_ORES, BlockTags.NEEDS_IRON_TOOL));
+    public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_EMERALD_ORE = ore("erosive_aurorian_emerald_ore", UniformInt.of(3, 7), ofFullCopy(Blocks.DEEPSLATE_EMERALD_ORE).addBlockTag(BlockTags.EMERALD_ORES, BlockTags.NEEDS_IRON_TOOL));
     public static final DeferredHolder<Block, Block> EROSIVE_AURORIAN_REDSTONE_ORE = register("erosive_aurorian_redstone_ore", () -> new RedStoneOreBlock(ofFullCopy(Blocks.DEEPSLATE_REDSTONE_ORE).addBlockTag(BlockTags.REDSTONE_ORES, BlockTags.NEEDS_IRON_TOOL).isSimpleModelBlock().useSimpleBlockItem()));
 
     public static final DeferredHolder<Block, Block> RUNE_STONE = normal("rune_stone", dungeonBlockProperties().addBlockTag(TABlockTags.RUNE_STONE_BLOCK, TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON).isSimpleModelBlock().useSimpleBlockItem());

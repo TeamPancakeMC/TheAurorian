@@ -26,6 +26,7 @@ import java.util.List;
 
 public class TAPlacedFeatures {
 
+    public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_BRANCH = createKey("patch_aurorian_branch");
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_GRASS_PLAINS = createKey("patch_aurorian_grass_plains");
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_GRASS_FOREST = createKey("patch_aurorian_grass_forest");
     public static final ResourceKey<PlacedFeature> PATCH_AURORIAN_GRASS_LIGHT_FOREST = createKey("patch_aurorian_grass_light_forest");
@@ -106,23 +107,24 @@ public class TAPlacedFeatures {
 
         List<ResourceKey<ConfiguredFeature<?, ?>>> smallRuinConfigList = TAConfiguredFeatures.AURORIAN_FOREST_SMALL_RUINS;
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeature = context.lookup(Registries.CONFIGURED_FEATURE);
+        Holder<ConfiguredFeature<?, ?>> patchAurorianBranchHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_BRANCH);
         Holder<ConfiguredFeature<?, ?>> patchAurorianGrassHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_GRASS);
         Holder<ConfiguredFeature<?, ?>> patchAurorianGrassLightHolder = configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_GRASS_LIGHT);
-        PlacementUtils.register(context, PATCH_AURORIAN_GRASS_PLAINS, patchAurorianGrassHolder, NoiseThresholdCountPlacement.of((-0.8D), (5), (10)),
+        PlacementUtils.register(context, PATCH_AURORIAN_BRANCH, patchAurorianBranchHolder, VegetationPlacements.worldSurfaceSquaredWithCount(2));
+        PlacementUtils.register(context, PATCH_AURORIAN_GRASS_PLAINS, patchAurorianGrassHolder, NoiseThresholdCountPlacement.of(-0.8D, 5, 10),
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_FOREST, patchAurorianGrassHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_AURORIAN_GRASS_LIGHT_FOREST, patchAurorianGrassLightHolder, VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_FLOWER_FOREST), VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_AURORIAN_FLOWER_PLAINS, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_AURORIAN_FLOWER_PLAINS), VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_FLOWER_SNOWFIELD, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_FLOWER_SNOWFIELD), 
-                CountPlacement.of(6), 
-                InSquarePlacement.spread(), 
-                HeightRangePlacement.uniform(VerticalAnchor.absolute(90), VerticalAnchor.absolute(110)), 
-                BiomeFilter.biome());
+                CountPlacement.of(6), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(90), VerticalAnchor.absolute(110)), BiomeFilter.biome());
         PlacementUtils.register(context, PATCH_EQUINOX_FLOWER, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_EQUINOX_FLOWER), VegetationPlacements.worldSurfaceSquaredWithCount(3));
         PlacementUtils.register(context, PATCH_LAVENDER, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_LAVENDER), VegetationPlacements.worldSurfaceSquaredWithCount(4));
-        PlacementUtils.register(context, TREES_AURORIAN_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_AURORIAN_FOREST), VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
-        PlacementUtils.register(context, TREES_WEEPING_WILLOW_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_WEEPING_WILLOW_FOREST), VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
+        PlacementUtils.register(context, TREES_AURORIAN_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_AURORIAN_FOREST),
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(5, 0.1F, 1)));
+        PlacementUtils.register(context, TREES_WEEPING_WILLOW_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_WEEPING_WILLOW_FOREST),
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(5, 0.1F, 1)));
         PlacementUtils.register(context, SMALL_AURORIAN_FOREST_RUINS, configuredFeature.getOrThrow(TAConfiguredFeatures.SMALL_AURORIAN_FOREST_RUINS), ImmutableList.<PlacementModifier>builder()
                 .add(RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
         PlacementUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, configuredFeature.getOrThrow(TAConfiguredFeatures.MEDIUM_AURORIAN_FOREST_RUINS), ImmutableList.<PlacementModifier>builder()
@@ -201,20 +203,15 @@ public class TAPlacedFeatures {
                 OrePlacements.commonOrePlacement(16, HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(112))));
         PlacementUtils.register(context, RANDOM_URNS, configuredFeature.getOrThrow(TAConfiguredFeatures.RANDOM_URN));
         PlacementUtils.register(context, TREES_CURSED_FROST_FOREST, configuredFeature.getOrThrow(TAConfiguredFeatures.TREES_CURSED_FROST_FOREST), 
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra((5), (0.1F), (1))));
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(5, 0.1F, 1)));
         PlacementUtils.register(context, ICE_SPIKE_FEATURE, configuredFeature.getOrThrow(TAConfiguredFeatures.ICE_SPIKE),
-                CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
-                BiomeFilter.biome());
+                CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
         PlacementUtils.register(context, PATCH_FLOWER_HILLS, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_FLOWER_HILLS), 
-                CountPlacement.of(5), 
-                InSquarePlacement.spread(), 
-                HeightRangePlacement.uniform(VerticalAnchor.absolute(95), VerticalAnchor.absolute(120)), 
-                BiomeFilter.biome());
+                CountPlacement.of(5), InSquarePlacement.spread(), HeightRangePlacement.uniform(
+                        VerticalAnchor.absolute(95), VerticalAnchor.absolute(120)), BiomeFilter.biome());
         PlacementUtils.register(context, PATCH_FLOWER_MOUNTAINS, configuredFeature.getOrThrow(TAConfiguredFeatures.PATCH_FLOWER_MOUNTAINS), 
-                CountPlacement.of(3), 
-                InSquarePlacement.spread(), 
-                HeightRangePlacement.uniform(VerticalAnchor.absolute(100), VerticalAnchor.absolute(140)), 
-                BiomeFilter.biome());
+                CountPlacement.of(3), InSquarePlacement.spread(), HeightRangePlacement.uniform(
+                        VerticalAnchor.absolute(100), VerticalAnchor.absolute(140)), BiomeFilter.biome());
         if (!smallRuinConfigList.isEmpty() && !AURORIAN_FOREST_SMALL_RUINS.isEmpty()) {
             for (int i = 0; i < AURORIAN_FOREST_SMALL_RUINS.size(); i++) {
                 Holder<ConfiguredFeature<?, ?>> smallRuinHolder = configuredFeature.getOrThrow(smallRuinConfigList.get(i));

@@ -9,6 +9,7 @@ import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.SpiritMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -42,6 +43,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.level.chunk.LevelChunk;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -76,13 +78,34 @@ public class Spirit extends TAMonster {
     }
 
     public static boolean checkSpawnRules(EntityType<Spirit> spirit, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        for (BlockPos blockPos : BlockPos.betweenClosedStream(new AABB(pos).inflate(128.0D)).toList()) {
-            BlockEntity blockEntity = level.getLevel().getBlockEntity(blockPos);
-            if (blockEntity instanceof SacrificeTableBlockEntity sacrificeTable && sacrificeTable.guardTime > 0) return false;
-        }
+        if (hasActiveSacrificeTableNearby(level, pos, 128)) return false;
 
         if (random.nextInt(20) != 0 || !level.getEntitiesOfClass(Player.class, new AABB(pos).inflate(24.0D)).isEmpty()) return false;
         return level.getBlockState(pos.below()).is(TABlocks.AURORIAN_GRASS_BLOCK.get()) && checkAnyLightMonsterSpawnRules(spirit, level, spawnType, pos, random);
+    }
+
+    private static boolean hasActiveSacrificeTableNearby(ServerLevelAccessor accessor, BlockPos pos, int range) {
+        ServerLevel serverLevel = accessor.getLevel();
+        int minChunkX = (pos.getX() - range) >> 4;
+        int maxChunkX = (pos.getX() + range) >> 4;
+        int minChunkZ = (pos.getZ() - range) >> 4;
+        int maxChunkZ = (pos.getZ() + range) >> 4;
+
+        for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+            for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+                LevelChunk chunk = serverLevel.getChunkSource().getChunkNow(cx, cz);
+                if (chunk == null) continue; // only consider loaded chunks
+                for (BlockEntity be : chunk.getBlockEntities().values()) {
+                    if (be instanceof SacrificeTableBlockEntity table && table.guardTime > 0) {
+                        if (be.getBlockPos().closerThan(pos, range + 0.5)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     public static AttributeSupplier.Builder createAttributes() {

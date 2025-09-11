@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.level;
 
 import cn.teampancake.theaurorian.common.network.PlayerLostInForestS2CPacket;
+import cn.teampancake.theaurorian.common.network.PlayAurorianMusicS2CPacket;
 import cn.teampancake.theaurorian.common.network.SylvanisProgressS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
@@ -37,6 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 public class SylvanisHandler {
 
+    // 迷雾出现、可见与峰值的阈值（用于渲染与传送逻辑）
     private static final float FOG_START = 80.0f;
     private static final float FOG_VISIBLE = 90.0f;
     private static final float FOG_PEAK = 100.0f;
@@ -55,9 +57,12 @@ public class SylvanisHandler {
         BlockState state = level.getBlockState(pos);
         Holder<Biome> biome = level.getBiome(player.blockPosition());
         boolean inCorrectBiomes = biome.is(BiomeTags.IS_FOREST) || biome.is(BiomeTags.IS_TAIGA) || biome.is(BiomeTags.IS_JUNGLE);
+        // 仅在主世界 + 指定森林类群系 + 脚下有可站立方块时，才累积“迷失值”
         if (level.dimension() == Level.OVERWORLD && inCorrectBiomes && state.isFaceSturdy(level, pos, Direction.UP)) {
+            // 如果未满足其它条件（如你需要的剧情/进度等），则至少需要达到可见雾阈值才继续推进
             if (!otherCondition && sylvanis < FOG_VISIBLE) return;
-            int lightLevel = state.getLightEmission(level, pos);
+            // 使用整体的局部亮度，而非仅脚下方块自发光：更贴近玩家周围真实光照（天空光 + 方块光）
+            int lightLevel = level.getMaxLocalRawBrightness(player.blockPosition());
             boolean isRaining = level.isRaining() || level.isThundering();
             boolean isFullMoon = level.isNight() && level.getMoonBrightness() > 0.9F;
             float timeFactor = getTimeFactor(level);
@@ -70,15 +75,18 @@ public class SylvanisHandler {
             if (sylvanis > 60.0f) stageMod = 1.5f;
             if (sylvanis > 90.0f) stageMod = 2.0f;
             float initMod = ticksInForest < 200 ? 0.5f : 1.0f;
-            float increaseRate = 0.8f * lightMod * weatherMod
-                    * moonMod * timeMod * stageMod * initMod;
+            // 迷失值增长速率：受光照/天气/满月/时间曲线/阶段增强/初入森林缓冲等因素影响
+            float increaseRate = 0.8f * lightMod * weatherMod * moonMod * timeMod * stageMod * initMod;
             sylvanis += increaseRate;
             player.setData(sylvanisAttachment, Math.min(100.0f, sylvanis));
             player.setData(ticksInForestAttachment, ticksInForest + 1);
             player.setData(ticksStandStillAttachment, 0);
             boolean soundPlayed = player.getData(soundFlagAttachment);
             if (!soundPlayed && sylvanis >= 58.0f && sylvanis <= 63.0f) {
-                playAmbientMoodSound();
+                // 仅客户端播放一次性环境音，避免服务端加载客户端类
+                if (level.isClientSide) {
+                    playAmbientMoodSound();
+                }
                 player.setData(soundFlagAttachment, true);
             }
             
@@ -88,19 +96,15 @@ public class SylvanisHandler {
                 if (sylvanis >= 100.0f && server != null) {
                     syncLostInfoToClient(serverPlayer, true);
                     ServerLevel toLevel = server.getLevel(TADimensions.AURORIAN_DIMENSION);
-                    TAEntityUtils.teleportToAurorian(serverPlayer, toLevel);
+                    if (toLevel != null) {
+                        TAEntityUtils.teleportToAurorian(serverPlayer, toLevel);
+                    }
                     syncLostInfoToClient(serverPlayer, false);
                     player.setData(ticksInForestAttachment, 0);
+                    // 首次进入维度：仅向该玩家发送客户端音乐包，播放奥罗瑞安音乐
                     if (player.getData(firstEnterAttachment)) {
                         player.setData(firstEnterAttachment, false);
-                        Minecraft minecraft = Minecraft.getInstance();
-                        ClientLevel clientLevel = minecraft.level;
-                        if (clientLevel != null && clientLevel.isClientSide) {
-                            minecraft.getMusicManager().stopPlaying();
-                            SoundManager soundManager = minecraft.getSoundManager();
-                            SoundEvent soundEvent = TASoundEvents.AURORIAN_FOREST.get();
-                            soundManager.play(SimpleSoundInstance.forAmbientAddition(soundEvent));
-                        }
+                        PacketDistributor.sendToPlayer(serverPlayer, new PlayAurorianMusicS2CPacket());
                     }
                 }
             }
@@ -116,6 +120,7 @@ public class SylvanisHandler {
     }
 
     public static void checkNotMoving(Player player, double dx, double dy, double dz) {
+        // 玩家站立不动（或作为乘客）时，低迷失值下逐步回落；在新维度中也持续回落
         if (player.isPassenger() || ServerPlayer.didNotMove(dx, dy, dz)) {
             AttachmentType<Float> sylvanisAttachment = TAAttachmentTypes.SYLVANIS_PROGRESS.get();
             AttachmentType<Integer> ticksStandStillAttachment = TAAttachmentTypes.TICKS_STAND_STILL.get();
@@ -123,7 +128,8 @@ public class SylvanisHandler {
             float sylvanis = player.getData(sylvanisAttachment);
             int standStillTicks = player.getData(ticksStandStillAttachment);
             player.setData(ticksStandStillAttachment, standStillTicks + 1);
-            if (standStillTicks > 40 && sylvanis < FOG_VISIBLE || inAurorian) {
+            // 括号明确优先级：超过40tick站立且低于可见阈值，或在新维度中 -> 回落
+            if ((standStillTicks > 40 && sylvanis < FOG_VISIBLE) || inAurorian) {
                 float i = Math.max(0, sylvanis - 0.5F);
                 player.setData(sylvanisAttachment, i);
                 if (player instanceof ServerPlayer serverPlayer) {
@@ -133,6 +139,7 @@ public class SylvanisHandler {
         }
     }
 
+    // 客户端：在玩家周围随机位置播放当前生物群系的环境音（与迷失进度相关的“预示”）
     private static void playAmbientMoodSound() {
         Minecraft minecraft = Minecraft.getInstance();
         ClientLevel level = minecraft.level;

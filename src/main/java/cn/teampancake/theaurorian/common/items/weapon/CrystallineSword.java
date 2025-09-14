@@ -109,7 +109,7 @@ public class CrystallineSword extends SwordItem implements GeoItem {
         }
 
         int ticksUsed = player.getTicksUsingItem();
-        
+
         // 检查是否达到超级充能阈值且武器耐久不足
         if (ticksUsed >= SUPER_CHARGE_TIME) {
             int remainingDurability = stack.getMaxDamage() - stack.getDamageValue();
@@ -126,9 +126,9 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                         double offsetZ = level.getRandom().nextDouble() - 0.5;
 
                         level.addParticle(
-                            new DustParticleOptions(new Vector3f(1.0F, 0.2F, 0.2F), 1.0F), // 红色粒子
-                            particlePos.x + offsetX, particlePos.y + offsetY, particlePos.z + offsetZ,
-                            0, 0, 0);
+                                new DustParticleOptions(new Vector3f(1.0F, 0.2F, 0.2F), 1.0F), // 红色粒子
+                                particlePos.x + offsetX, particlePos.y + offsetY, particlePos.z + offsetZ,
+                                0, 0, 0);
                     }
                 }
             }
@@ -184,17 +184,17 @@ public class CrystallineSword extends SwordItem implements GeoItem {
     private void fireBeam(ItemStack stack, Level level, Player player, int chargeTime) {
         // 判断是否达到超级蓄力时间
         boolean isSuperBeam = chargeTime >= SUPER_CHARGE_TIME;
-        
+
         // 检查耐久度是否足够使用超级光束
         int remainingDurability = stack.getMaxDamage() - stack.getDamageValue();
         if (isSuperBeam && remainingDurability <= 15) {
             // 耐久不足，降级为普通光束
             isSuperBeam = false;
         }
-        
+
         // 消耗耐久度
         stack.consume(1, player);
-        
+
         // 超级光束额外消耗15点耐久
         if (isSuperBeam && !player.getAbilities().instabuild) {
             // 使用循环单独扣除15点耐久，避免触发多次onBroken回调
@@ -242,7 +242,7 @@ public class CrystallineSword extends SwordItem implements GeoItem {
         Vec3 start = beamInfo.startPos;
         Vec3 direction = beamInfo.direction;
         boolean isSuperBeam = beamInfo.isSuperBeam;
-        
+
         // 根据是否为超级光束选择光束宽度
         float beamWidth = isSuperBeam ? SUPER_BEAM_WIDTH : BEAM_WIDTH;
 
@@ -263,7 +263,7 @@ public class CrystallineSword extends SwordItem implements GeoItem {
 
         // 获取随机源
         RandomSource random = level.getRandom();
-        
+
         // 生成主光束粒子
         for (int i = 0; i < particleCount; i++) {
             double t = i / (double)particleCount;
@@ -310,17 +310,17 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                         isSuperBeam ? 0.02 : 0.01);
             }
         }
-        
+
         // 添加螺旋效果
         addBeamSpiralEffect(level, start, direction, distance, beamInfo);
-        
+
         // 添加光束起点效果
         addBeamOriginEffect(level, start, direction);
-        
+
         // 添加光束撞击效果
         if (hitResult.getType() != HitResult.Type.MISS) {
             addBeamImpactEffect(level, end, direction);
-            
+
             // 如果是超级光束且击中了方块或实体，产生爆炸
             if (isSuperBeam) {
                 level.explode(null, end.x, end.y, end.z, 3.0F, Level.ExplosionInteraction.BLOCK);
@@ -331,14 +331,14 @@ public class CrystallineSword extends SwordItem implements GeoItem {
     private static void addBeamSpiralEffect(ServerLevel level, Vec3 start, Vec3 direction, double distance, BeamInfo beamInfo) {
         boolean isSuperBeam = beamInfo.isSuperBeam;
         RandomSource random = level.getRandom();
-        
+
         // 螺旋半径 - 超级光束螺旋更粗
         float spiralRadius = isSuperBeam ? 3.0F : 0.8F; // 增加超级光束螺旋半径从2.5F到3.0F
         // 螺旋密度
         int spiralSegments = isSuperBeam ? 60 : 20; // 增加超级光束螺旋密度从40到60
         // 螺旋数量
         int spiralCount = isSuperBeam ? 6 : 2; // 增加超级光束螺旋数量从5到6
-        
+
         // 计算垂直于光束方向的两个向量
         Vec3 perpendicular1;
         if (Math.abs(direction.y) < 0.9) {
@@ -347,29 +347,29 @@ public class CrystallineSword extends SwordItem implements GeoItem {
             perpendicular1 = new Vec3(1, 0, 0).normalize();
         }
         Vec3 perpendicular2 = direction.cross(perpendicular1).normalize();
-        
+
         // 生成螺旋效果
         for (int spiral = 0; spiral < spiralCount; spiral++) {
             double spiralOffset = (double)spiral / spiralCount * Math.PI * 2.0;
-            
+
             for (int i = 0; i < spiralSegments; i++) {
                 double t = (double)i / spiralSegments;
                 double angle = t * Math.PI * (isSuperBeam ? 15.0 : 10.0) + spiralOffset;
-                
+
                 // 计算螺旋位置
                 double x = Math.cos(angle) * spiralRadius;
                 double y = Math.sin(angle) * spiralRadius;
-                
+
                 // 计算在光束上的位置
                 Vec3 pos = start.add(direction.scale(t * distance))
                         .add(perpendicular1.scale(x))
                         .add(perpendicular2.scale(y));
-                
+
                 // 计算粒子速度
                 double vx = perpendicular1.x * x * 0.01 + perpendicular2.x * y * 0.01;
                 double vy = perpendicular1.y * x * 0.01 + perpendicular2.y * y * 0.01;
                 double vz = perpendicular1.z * x * 0.01 + perpendicular2.z * y * 0.01;
-                
+
                 // 根据是否为超级光束选择不同的粒子
                 if (isSuperBeam) {
                     // 超级光束使用更炫酷的粒子
@@ -377,15 +377,15 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                         // 主螺旋粒子
                         level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(),
                                 pos.x, pos.y, pos.z, 1, vx, vy, vz, 0.02);
-                        
+
                         // 超级光束增加额外粒子使螺旋更粗
                         if (random.nextDouble() < 0.6) {
                             // 添加周围的粒子，使螺旋看起来更粗
                             double offsetScale = 0.5 + random.nextDouble() * 0.3; // 0.5-0.8的随机偏移
                             Vec3 offsetPos = pos.add(
-                                perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
-                                .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
-                            
+                                    perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
+                                            .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
+
                             level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), offsetPos.x, offsetPos.y, offsetPos.z,
                                     1, vx * 0.8, vy * 0.8, vz * 0.8, 0.015);
                         }
@@ -396,8 +396,8 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                     } else {
                         // 闪光粒子
                         level.sendParticles(
-                            ParticleTypes.END_ROD, pos.x, pos.y, pos.z,
-                            1, 0, 0, 0, 0);
+                                ParticleTypes.END_ROD, pos.x, pos.y, pos.z,
+                                1, 0, 0, 0, 0);
                     }
                 } else {
                     // 普通光束粒子
@@ -414,35 +414,35 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 }
             }
         }
-        
+
         // 超级光束额外添加双螺旋效果
         if (isSuperBeam) {
             // 双螺旋参数 - 增加半径使其更粗
             float doubleHelixRadius = 3.5F; // 从3.0F增加到3.5F
             int doubleHelixSegments = 60; // 从50增加到60
-            
+
             // 生成双螺旋
             for (int helix = 0; helix < 2; helix++) {
                 double helixOffset = helix * Math.PI; // 两条螺旋相差180度
-                
+
                 for (int i = 0; i < doubleHelixSegments; i++) {
                     double t = (double)i / doubleHelixSegments;
                     double angle = t * Math.PI * 20.0 + helixOffset;
-                    
+
                     // 计算螺旋位置
                     double x = Math.cos(angle) * doubleHelixRadius;
                     double y = Math.sin(angle) * doubleHelixRadius;
-                    
+
                     // 计算在光束上的位置
                     Vec3 pos = start.add(direction.scale(t * distance))
                             .add(perpendicular1.scale(x))
                             .add(perpendicular2.scale(y));
-                    
+
                     // 计算粒子速度
                     double vx = perpendicular1.x * x * 0.02;
                     double vy = perpendicular1.y * x * 0.02;
                     double vz = perpendicular1.z * x * 0.02;
-                    
+
                     // 使用不同的粒子
                     level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(),
                             pos.x, pos.y, pos.z, 1, vx, vy, vz, 0.03);
@@ -452,9 +452,9 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                         if (random.nextDouble() < 0.5) {
                             double offsetScale = 0.6;
                             Vec3 offsetPos = pos.add(
-                                perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
-                                .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
-                            
+                                    perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
+                                            .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
+
                             level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), offsetPos.x, offsetPos.y, offsetPos.z,
                                     1, vx * 0.7, vy * 0.7, vz * 0.7, 0.02);
                         }
@@ -464,51 +464,51 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                         if (random.nextDouble() < 0.5) {
                             double offsetScale = 0.6;
                             Vec3 offsetPos = pos.add(
-                                perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
-                                .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
-                            
+                                    perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
+                                            .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
+
                             level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), offsetPos.x, offsetPos.y, offsetPos.z,
                                     1, vx * 0.7, vy * 0.7, vz * 0.7, 0.02);
                         }
                     }
                 }
             }
-            
+
             // 添加第三条更粗的中心螺旋
             float centerSpiralRadius = 1.8F;
             int centerSpiralSegments = 40;
-            
+
             for (int i = 0; i < centerSpiralSegments; i++) {
                 double t = (double)i / centerSpiralSegments;
                 double angle = t * Math.PI * 12.0;
-                
+
                 // 计算螺旋位置
                 double x = Math.cos(angle) * centerSpiralRadius;
                 double y = Math.sin(angle) * centerSpiralRadius;
-                
+
                 // 计算在光束上的位置
                 Vec3 pos = start.add(direction.scale(t * distance))
                         .add(perpendicular1.scale(x))
                         .add(perpendicular2.scale(y));
-                
+
                 // 计算粒子速度
                 double vx = perpendicular1.x * x * 0.015;
                 double vy = perpendicular1.y * x * 0.015;
                 double vz = perpendicular1.z * x * 0.015;
-                
+
                 // 生成中心螺旋粒子
                 level.sendParticles(
                         TAParticleTypes.MAGIC_PURPLE.get(),
                         pos.x, pos.y, pos.z,
                         1, vx, vy, vz, 0.025);
-                
+
                 // 添加额外粒子使中心螺旋更粗
                 if (random.nextDouble() < 0.7) {
                     double offsetScale = 0.8;
                     Vec3 offsetPos = pos.add(
-                        perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
-                        .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
-                    
+                            perpendicular1.scale((random.nextDouble() - 0.5) * offsetScale)
+                                    .add(perpendicular2.scale((random.nextDouble() - 0.5) * offsetScale)));
+
                     level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), offsetPos.x, offsetPos.y, offsetPos.z,
                             1, vx * 0.6, vy * 0.6, vz * 0.6, 0.02);
                 }
@@ -518,7 +518,7 @@ public class CrystallineSword extends SwordItem implements GeoItem {
 
     private static void addBeamImpactEffect(ServerLevel level, Vec3 impactPos, Vec3 direction) {
         RandomSource random = level.getRandom();
-        
+
         // 获取光束信息
         BeamInfo beamInfo = null;
         for (BeamInfo info : ACTIVE_BEAMS.values()) {
@@ -527,43 +527,43 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 break;
             }
         }
-        
+
         // 判断是否为超级光束
         boolean isSuperBeam = beamInfo != null && beamInfo.isSuperBeam;
-        
+
         // 撞击效果的粒子数量
         int particleCount = isSuperBeam ? 150 : 60;
-        
+
         // 撞击范围
         float impactRadius = isSuperBeam ? 2.5F : 1.2F;
-        
+
         // 生成撞击粒子
         for (int i = 0; i < particleCount; i++) {
             // 计算随机方向
             double theta = random.nextDouble() * Math.PI * 2;
             double phi = random.nextDouble() * Math.PI;
-            
+
             double x = Math.sin(phi) * Math.cos(theta);
             double y = Math.sin(phi) * Math.sin(theta);
             double z = Math.cos(phi);
-            
+
             // 反向方向更多粒子
             Vec3 particleDir = new Vec3(x, y, z);
             double dotProduct = particleDir.dot(direction);
             if (dotProduct > 0 && random.nextDouble() > 0.3) {
                 continue; // 70%的概率跳过朝向光束方向的粒子
             }
-            
+
             // 计算粒子位置
             double distance = random.nextDouble() * impactRadius;
             Vec3 pos = impactPos.add(x * distance, y * distance, z * distance);
-            
+
             // 计算粒子速度
             double speed = isSuperBeam ? 0.2 : 0.1;
             double vx = x * speed * (1.0 - random.nextDouble() * 0.3);
             double vy = y * speed * (1.0 - random.nextDouble() * 0.3);
             double vz = z * speed * (1.0 - random.nextDouble() * 0.3);
-            
+
             // 根据是否为超级光束选择不同的粒子
             if (isSuperBeam) {
                 // 超级光束撞击效果
@@ -602,7 +602,7 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 }
             }
         }
-        
+
         // 超级光束的额外效果 - 冲击波
         if (isSuperBeam) {
             // 生成圆形冲击波
@@ -610,7 +610,7 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 double radius = i == 0 ? 0.5 : 1.0;
                 double speed = i == 0 ? 0.15 : 0.1;
                 int ringParticles = i == 0 ? 20 : 30;
-                
+
                 // 计算冲击波平面
                 Vec3 up = new Vec3(0, 1, 0);
                 if (Math.abs(direction.dot(up)) > 0.9) {
@@ -618,17 +618,17 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 }
                 Vec3 right = direction.cross(up).normalize();
                 Vec3 planeNormal = right.cross(direction).normalize();
-                
+
                 // 生成圆形冲击波
                 for (int j = 0; j < ringParticles; j++) {
                     double angle = j * Math.PI * 2 / ringParticles;
                     Vec3 ringPos = impactPos.add(
                             right.scale(Math.cos(angle) * radius).add(
-                            planeNormal.scale(Math.sin(angle) * radius)));
-                    
+                                    planeNormal.scale(Math.sin(angle) * radius)));
+
                     Vec3 ringVelocity = right.scale(Math.cos(angle) * speed).add(
                             planeNormal.scale(Math.sin(angle) * speed));
-                    
+
                     level.sendParticles(TAParticleTypes.MAGIC_PURPLE.get(), ringPos.x, ringPos.y, ringPos.z,
                             1, ringVelocity.x, ringVelocity.y, ringVelocity.z, 0.02);
                 }
@@ -638,15 +638,15 @@ public class CrystallineSword extends SwordItem implements GeoItem {
 
     private static void addBeamOriginEffect(ServerLevel level, Vec3 origin, Vec3 direction) {
         RandomSource random = level.getRandom();
-        
+
         // 起点光环效果
         int originParticles = 20;
         double originRadius = 0.8;
-        
+
         for (int i = 0; i < originParticles; i++) {
             // 随机角度
             double angle = random.nextDouble() * Math.PI * 2;
-            
+
             // 计算环上的点
             Vec3 up = new Vec3(0, 1, 0);
             Vec3 right = direction.cross(up).normalize();
@@ -654,16 +654,16 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 right = new Vec3(1, 0, 0);
             }
             Vec3 newUp = right.cross(direction).normalize();
-            
+
             double r = originRadius * (0.8 + random.nextDouble() * 0.4);
             Vec3 ringPos = origin.add(
-                right.scale(Math.cos(angle) * r).add(
-                newUp.scale(Math.sin(angle) * r)));
-            
+                    right.scale(Math.cos(angle) * r).add(
+                            newUp.scale(Math.sin(angle) * r)));
+
             // 向外的速度
             double speed = 0.02;
             Vec3 outDir = ringPos.subtract(origin).normalize();
-            
+
             // 生成起点光环粒子
             level.sendParticles(
                     TAParticleTypes.MAGIC_PURPLE.get(),
@@ -674,20 +674,20 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                     outDir.z * speed,
                     0.01);
         }
-        
+
         // 添加一些向前的粒子
         int forwardParticles = 15;
         for (int i = 0; i < forwardParticles; i++) {
             double dist = random.nextDouble() * 2;
-            
+
             // 随机偏移
             double offsetX = (random.nextDouble() - 0.5) * 0.5;
             double offsetY = (random.nextDouble() - 0.5) * 0.5;
             double offsetZ = (random.nextDouble() - 0.5) * 0.5;
-            
+
             Vec3 pos = origin.add(direction.scale(dist))
-                     .add(offsetX, offsetY, offsetZ);
-            
+                    .add(offsetX, offsetY, offsetZ);
+
             // 生成向前的粒子
             level.sendParticles(
                     ParticleTypes.END_ROD,
@@ -709,17 +709,17 @@ public class CrystallineSword extends SwordItem implements GeoItem {
         // 获取光束路径上的实体
         List<Entity> entities = getEntitiesInBeamPath(level, start, direction, BEAM_DISTANCE, beamInfo.owner);
         Player player = level.getPlayerByUUID(beamInfo.owner);
-        
+
         // 对实体造成伤害
         for (Entity entity : entities) {
             if (entity instanceof LivingEntity livingEntity) {
                 // 计算伤害值，根据实体到光束中心的距离进行调整
                 Vec3 entityPos = entity.position().add(0, entity.getBbHeight() / 2, 0);
                 double distanceToBeam = distanceToLine(start, start.add(direction.scale(BEAM_DISTANCE)), entityPos);
-                
+
                 // 使用适当的光束宽度
                 float beamWidth = isSuperBeam ? SUPER_BEAM_WIDTH : BEAM_WIDTH;
-                
+
                 // 距离光束中心越近，伤害越高，最高为原始伤害的1.2倍
                 float distanceMultiplier = (float)(1.2 - (distanceToBeam / (beamWidth * 1.5)) * 0.4);
                 float adjustedDamage = damage * Math.max(0.8f, distanceMultiplier);
@@ -734,16 +734,16 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 } else {
                     // 添加眩晕效果，距离越近眩晕时间越长
                     int stunDuration = (int)(40 * Math.max(0.8f, distanceMultiplier));
-                    
+
                     // 超级光束增加眩晕时间
                     if (isSuperBeam) {
                         stunDuration *= 2;
                     }
-                    
+
                     // 智能眩晕效果系统
                     applyStunEffect(livingEntity, stunDuration, isSuperBeam);
                 }
-                
+
                 // 如果是超级光束，在实体位置产生小爆炸
                 if (isSuperBeam && level.getGameTime() % 10 == 0) {
                     // 创建视觉爆炸效果，但不破坏方块
@@ -755,15 +755,15 @@ public class CrystallineSword extends SwordItem implements GeoItem {
 
     private static void applyStunEffect(LivingEntity target, int baseDuration, boolean isSuperBeam) {
         // BOSS级实体眩晕时间减半
-        if (target instanceof EnderDragon || target instanceof WitherBoss || 
-            (target instanceof Mob mob && mob.getMaxHealth() >= 100)) {
+        if (target instanceof EnderDragon || target instanceof WitherBoss ||
+                (target instanceof Mob mob && mob.getMaxHealth() >= 100)) {
             baseDuration = Math.max(10, baseDuration / 2);
         }
-        
+
         // 对于玩家，时间再减少25%，并且添加额外负面效果
         if (target instanceof Player) {
             baseDuration = Math.max(5, (int)(baseDuration * 0.75f));
-            
+
             // 超级光束对玩家施加额外的短暂负面效果
             if (isSuperBeam) {
                 // 短暂的挖掘疲劳效果
@@ -771,7 +771,7 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 // 短暂的缓慢效果
                 target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, baseDuration, 1));
             }
-        } 
+        }
         // 对于强大的怪物，增加额外的眩光效果
         else if (target.getMaxHealth() > 50 && isSuperBeam) {
             // 短暂的发光效果，使其更容易被看见
@@ -779,7 +779,7 @@ public class CrystallineSword extends SwordItem implements GeoItem {
             // 短暂的虚弱效果
             target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, baseDuration / 2, 0));
         }
-        
+
         // 应用主要的眩晕效果
         target.addEffect(new MobEffectInstance(TAMobEffects.STUN, baseDuration));
     }
@@ -915,7 +915,7 @@ public class CrystallineSword extends SwordItem implements GeoItem {
         if (target.isDeadOrDying() && attacker instanceof Player player) {
             player.getCooldowns().removeCooldown(TAItems.CRYSTALLINE_SWORD.get());
         }
-        
+
         return result;
     }
 
@@ -940,7 +940,7 @@ public class CrystallineSword extends SwordItem implements GeoItem {
         BeamInfo(UUID owner, Vec3 startPos, Vec3 direction, float damage, long startTime, int duration) {
             this(owner, startPos, direction, damage, startTime, duration, false);
         }
-        
+
         BeamInfo(UUID owner, Vec3 startPos, Vec3 direction, float damage, long startTime, int duration, boolean isSuperBeam) {
             this.owner = owner;
             this.startPos = startPos;
@@ -999,7 +999,7 @@ public class CrystallineSword extends SwordItem implements GeoItem {
     private void spawnMagicCircleParticles(Level level, Player player, int ticksUsed) {
         // 计算魔法阵完成度 (0.0 - 1.0)
         float progress = Math.min(1.0F, ticksUsed / (float)MAX_CHARGE_TIME);
-        
+
         // 判断是否为超级蓄力状态
         boolean isSuperCharge = ticksUsed >= SUPER_CHARGE_TIME;
         float superProgress = 0;
@@ -1007,36 +1007,36 @@ public class CrystallineSword extends SwordItem implements GeoItem {
             // 计算超级魔法阵完成度
             superProgress = Math.min(1.0F, (ticksUsed - SUPER_CHARGE_TIME) / (float)(SUPER_CHARGE_TIME - MAX_CHARGE_TIME));
         }
-        
+
         // 确定魔法阵位置 (在玩家视线前方3.5格，更远以避免遮挡)
         Vec3 playerLook = player.getLookAngle();
         Vec3 circleCenter = player.getEyePosition().add(playerLook.scale(3.5));
-        
+
         // 魔法阵大小随充能增长 (更大的基础尺寸)
         float size = 2.5F + progress;
-        
+
         // 超级蓄力状态下，魔法阵更大
         if (isSuperCharge) {
             size = 3.5F + superProgress * 2.0F;
         }
-        
+
         // 魔法阵旋转角度 (随时间变化)
         double baseRotation = (level.getGameTime() % 360) * 2;
         double rotation = baseRotation;
         double innerRotation = baseRotation * -1.5;
         double outerRotation = baseRotation * 0.8;
-        
+
         // 超级蓄力状态下，旋转更快
         if (isSuperCharge) {
             rotation *= 1.5;
             innerRotation *= 2.0;
             outerRotation *= 1.8;
         }
-        
+
         // 脉冲效果 (随时间波动的大小变化)
         float pulseEffect = (float)Math.sin(level.getGameTime() * 0.1) * 0.1F + 1.0F;
         size *= pulseEffect;
-        
+
         // 计算魔法阵的朝向 (与玩家视线方向垂直)
         Vec3 up = new Vec3(0, 1, 0);
         Vec3 right = playerLook.cross(up).normalize();
@@ -1045,63 +1045,63 @@ public class CrystallineSword extends SwordItem implements GeoItem {
             right = new Vec3(1, 0, 0);
         }
         Vec3 planeNormal = right.cross(playerLook).normalize();
-        
+
         // 生成外部装饰环 - 超级蓄力时环更大
         float outerRingSize = isSuperCharge ? size * 1.3F : size * 1.2F;
         generateOuterRing(level, circleCenter, outerRingSize, outerRotation, progress, playerLook, right, planeNormal);
-        
+
         // 生成外部光环效果 - 超级蓄力时光环更大
         float auraSize = isSuperCharge ? size * 1.4F : size * 1.3F;
         generateAura(level, circleCenter, auraSize, rotation * 0.5, progress, playerLook, right, planeNormal);
-        
+
         // 生成六芒星外圈
         generateHexagram(level, circleCenter, size, rotation, progress, playerLook, right, planeNormal);
-        
+
         // 生成内部魔法符文圈 (旋转方向相反)
         generateRunicCircle(level, circleCenter, size * 0.7F, innerRotation, progress, playerLook, right, planeNormal);
-        
+
         // 生成能量射线 (从中心向外，减少数量)
         if (level.getRandom().nextInt(3) == 0) { // 只有1/3的几率生成射线
             generateEnergyRays(level, circleCenter, size, progress, playerLook, right, planeNormal);
         }
-        
+
         // 生成魔法符文
         generateMagicRunes(level, circleCenter, size * 0.9F, rotation, progress, playerLook, right, planeNormal);
-        
+
         // 添加附魔粒子效果 (分布在魔法阵和玩家周围)
         generateEnchantParticles(level, player, circleCenter, size, progress, playerLook, right, planeNormal);
-        
+
         // 在高充能阶段添加额外的粒子效果
         if (progress > 0.8F) {
             generateHighChargeEffects(level, circleCenter, size, progress);
         }
-        
+
         // 生成能量波纹
         if (progress > 0.5F && level.getGameTime() % 20 == 0) {
             generateEnergyRipple(level, circleCenter, size, progress, playerLook, right, planeNormal);
         }
-        
+
         // 生成闪电效果
         if (progress > 0.6F && level.getRandom().nextInt(5) == 0) {
             generateLightningEffects(level, circleCenter, size, progress, playerLook, right, planeNormal);
         }
-        
+
         // 超级蓄力状态下的特殊效果
         if (isSuperCharge) {
             // 生成星爆效果
             generateStarburstEffects(level, circleCenter, size, superProgress, playerLook, right, planeNormal);
-            
+
             // 生成符文轨迹
             generateRunicTrails(level, circleCenter, size, rotation * 2, superProgress, playerLook, right, planeNormal);
-            
+
             // 生成能量漩涡
             generateEnergyVortex(level, circleCenter, size * 1.5F, superProgress, playerLook, right, planeNormal);
-            
+
             // 增加更多闪电效果
             if (level.getRandom().nextInt(3) == 0) {
                 generateLightningEffects(level, circleCenter, size * 1.2F, superProgress, playerLook, right, planeNormal);
             }
-            
+
             // 在玩家周围添加光环效果
             if (level.getGameTime() % 10 == 0) {
                 for (int i = 0; i < 20; i++) {
@@ -1136,8 +1136,8 @@ public class CrystallineSword extends SwordItem implements GeoItem {
 
             // 在垂直于玩家视线的平面上计算点的位置
             Vec3 point = center.add(
-                right.scale(sin * size).add(
-                up.scale(cos * size)));
+                    right.scale(sin * size).add(
+                            up.scale(cos * size)));
 
             // 使用紫色魔法粒子，添加一些随机速度使其更动态
             double speedFactor = 0.002;
@@ -1153,8 +1153,8 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 // 向内侧添加粒子
                 double innerFactor = 0.9;
                 Vec3 innerPoint = center.add(
-                    right.scale(sin * size * innerFactor).add(
-                    up.scale(cos * size * innerFactor)));
+                        right.scale(sin * size * innerFactor).add(
+                                up.scale(cos * size * innerFactor)));
 
                 level.addParticle(
                         TAParticleTypes.MAGIC_PURPLE.get(),
@@ -1166,8 +1166,8 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 // 向外侧添加粒子
                 double outerFactor = 1.1;
                 Vec3 outerPoint = center.add(
-                    right.scale(sin * size * outerFactor).add(
-                    up.scale(cos * size * outerFactor)));
+                        right.scale(sin * size * outerFactor).add(
+                                up.scale(cos * size * outerFactor)));
 
                 level.addParticle(
                         TAParticleTypes.MAGIC_PURPLE.get(),
@@ -1182,31 +1182,31 @@ public class CrystallineSword extends SwordItem implements GeoItem {
     private void generateAura(Level level, Vec3 center, float size, double rotation, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够时才显示
         if (progress < 0.6F) return;
-        
+
         // 使用紫色魔法粒子创建光环
         RandomSource random = level.getRandom();
         boolean isSuperCharge = progress >= 1.0F; // 判断是否为超级蓄力状态
-        
+
         // 超级蓄力时粒子更多
         int particleCount = isSuperCharge ? (int)(24 * progress) : (int)(12 * progress);
-        
+
         for (int i = 0; i < particleCount; i++) {
             // 随机角度
             double angle = random.nextDouble() * Math.PI * 2;
             // 随机距离 (在外围)
             double dist = (0.95 + random.nextDouble() * 0.1) * size;
-            
+
             // 超级蓄力状态下，增加粒子散布范围
             if (isSuperCharge) {
                 dist = (0.9 + random.nextDouble() * 0.2) * size;
             }
-            
+
             // 计算位置
             Vec3 offset = right.scale(Math.sin(angle) * dist)
-                         .add(up.scale(Math.cos(angle) * dist));
-            
+                    .add(up.scale(Math.cos(angle) * dist));
+
             Vec3 pos = center.add(offset);
-            
+
             // 添加紫色魔法粒子
             double speedFactor = isSuperCharge ? 0.003 : 0.002;
             level.addParticle(
@@ -1221,30 +1221,30 @@ public class CrystallineSword extends SwordItem implements GeoItem {
     private void generateMagicRunes(Level level, Vec3 center, float size, double rotation, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够时才显示
         if (progress < 0.4F) return;
-        
+
         RandomSource random = level.getRandom();
-        
+
         // 符文数量随进度增加
         int runeCount = (int)(2 * progress);
-        
+
         // 符文位置随时间变化
         long gameTime = level.getGameTime();
-        
+
         for (int i = 0; i < runeCount; i++) {
             // 符文在魔法阵上的随机位置
             double angle = (i / (double)runeCount * Math.PI * 2) + (gameTime * 0.01);
             double dist = (0.5 + random.nextDouble() * 0.4) * size;
-            
+
             Vec3 runePos = center.add(
-                right.scale(Math.sin(angle) * dist).add(
-                up.scale(Math.cos(angle) * dist)));
-            
+                    right.scale(Math.sin(angle) * dist).add(
+                            up.scale(Math.cos(angle) * dist)));
+
             // 符文旋转角度
             double runeRotation = rotation + i * 30;
-            
+
             // 生成符文形状 (简单的几何图形)
             int runeType = i % 3; // 三种不同的符文类型
-            
+
             switch (runeType) {
                 case 0: // 三角形符文
                     generateTriangleRune(level, runePos, 0.2F, runeRotation, forward, right, up);
@@ -1265,26 +1265,26 @@ public class CrystallineSword extends SwordItem implements GeoItem {
             double angle = Math.toRadians(120 * i + rotation);
             double sin = Math.sin(angle);
             double cos = Math.cos(angle);
-            
+
             Vec3 point1 = center.add(
-                right.scale(sin * size).add(
-                up.scale(cos * size)));
-            
+                    right.scale(sin * size).add(
+                            up.scale(cos * size)));
+
             // 下一个点
             double nextAngle = Math.toRadians(120 * ((i + 1) % 3) + rotation);
             double nextSin = Math.sin(nextAngle);
             double nextCos = Math.cos(nextAngle);
-            
+
             Vec3 point2 = center.add(
-                right.scale(nextSin * size).add(
-                up.scale(nextCos * size)));
-            
+                    right.scale(nextSin * size).add(
+                            up.scale(nextCos * size)));
+
             // 在两点之间生成粒子线
             int points = 5;
             for (int j = 0; j <= points; j++) {
                 double t = j / (double)points;
                 Vec3 linePos = point1.add(point2.subtract(point1).scale(t));
-                
+
                 // 使用紫色魔法粒子
                 level.addParticle(
                         TAParticleTypes.MAGIC_PURPLE.get(),
@@ -1300,26 +1300,26 @@ public class CrystallineSword extends SwordItem implements GeoItem {
             double angle = Math.toRadians(90 * i + rotation);
             double sin = Math.sin(angle);
             double cos = Math.cos(angle);
-            
+
             Vec3 point1 = center.add(
-                right.scale(sin * size).add(
-                up.scale(cos * size)));
-            
+                    right.scale(sin * size).add(
+                            up.scale(cos * size)));
+
             // 下一个点
             double nextAngle = Math.toRadians(90 * ((i + 1) % 4) + rotation);
             double nextSin = Math.sin(nextAngle);
             double nextCos = Math.cos(nextAngle);
-            
+
             Vec3 point2 = center.add(
-                right.scale(nextSin * size).add(
-                up.scale(nextCos * size)));
-            
+                    right.scale(nextSin * size).add(
+                            up.scale(nextCos * size)));
+
             // 在两点之间生成粒子线
             int points = 4;
             for (int j = 0; j <= points; j++) {
                 double t = j / (double)points;
                 Vec3 linePos = point1.add(point2.subtract(point1).scale(t));
-                
+
                 // 使用紫色魔法粒子
                 level.addParticle(
                         TAParticleTypes.MAGIC_PURPLE.get(),
@@ -1336,11 +1336,11 @@ public class CrystallineSword extends SwordItem implements GeoItem {
             double angle = Math.toRadians(360.0 / points * i + rotation);
             double sin = Math.sin(angle);
             double cos = Math.cos(angle);
-            
+
             Vec3 point = center.add(
-                right.scale(sin * size).add(
-                up.scale(cos * size)));
-            
+                    right.scale(sin * size).add(
+                            up.scale(cos * size)));
+
             // 使用紫色魔法粒子
             level.addParticle(
                     TAParticleTypes.MAGIC_PURPLE.get(),
@@ -1352,33 +1352,33 @@ public class CrystallineSword extends SwordItem implements GeoItem {
     private void generateEnergyRipple(Level level, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 波纹从中心向外扩散
         RandomSource random = level.getRandom();
-        
+
         // 波纹的初始大小和最大大小
         float minSize = 0.2F * size;
         float maxSize = 1.2F * size;
-        
+
         // 波纹扩散的步数
         int steps = 8;
-        
+
         for (int step = 0; step < steps; step++) {
             // 波纹当前大小
             float rippleSize = minSize + (maxSize - minSize) * (step / (float)steps);
-            
+
             // 波纹上的点数量
             int pointCount = (int)(12 * (1 + step / (float)steps));
-            
+
             // 波纹透明度 (随距离减小)
             float alpha = 0.8F * (1 - step / (float)steps) * progress;
-            
+
             for (int i = 0; i < pointCount; i++) {
                 double angle = Math.toRadians(360.0 / pointCount * i);
                 double sin = Math.sin(angle);
                 double cos = Math.cos(angle);
-                
+
                 Vec3 point = center.add(
-                    right.scale(sin * rippleSize).add(
-                    up.scale(cos * rippleSize)));
-                
+                        right.scale(sin * rippleSize).add(
+                                up.scale(cos * rippleSize)));
+
                 // 使用紫色魔法粒子
                 double speedFactor = 0.001 * (1 - step / (float)steps); // 速度随距离减小
                 level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(), point.x, point.y, point.z,
@@ -1390,12 +1390,12 @@ public class CrystallineSword extends SwordItem implements GeoItem {
     private void generateEnchantParticles(Level level, Player player, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够时才显示
         if (progress < 0.3F) return;
-        
+
         RandomSource random = level.getRandom();
-        
+
         // 附魔粒子数量随进度增加 (减少总数)
         int particleCount = (int)(3 * progress);
-        
+
         // 在魔法阵周围生成附魔粒子 (减少数量)
         for (int i = 0; i < particleCount; i++) {
             // 只有50%的几率在魔法阵处生成粒子
@@ -1403,25 +1403,25 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 // 随机位置在魔法阵外围
                 double angle = random.nextDouble() * Math.PI * 2;
                 double dist = (0.8 + random.nextDouble() * 0.4) * size; // 主要在外围
-                
+
                 Vec3 offset = right.scale(Math.sin(angle) * dist)
-                             .add(up.scale(Math.cos(angle) * dist));
-                
+                        .add(up.scale(Math.cos(angle) * dist));
+
                 Vec3 pos = center.add(offset);
-                
+
                 // 向上漂浮的附魔粒子
                 level.addParticle(ParticleTypes.ENCHANT, pos.x, pos.y, pos.z,
                         0, 0.1 + random.nextDouble() * 0.2, 0);
-            } 
+            }
             // 在玩家周围生成附魔粒子
             else {
                 // 玩家周围的随机位置
                 double offsetX = (random.nextDouble() - 0.5);
                 double offsetY = random.nextDouble() * 2.0; // 主要在上方
                 double offsetZ = (random.nextDouble() - 0.5);
-                
+
                 Vec3 playerPos = player.position();
-                
+
                 level.addParticle(
                         ParticleTypes.ENCHANT,
                         playerPos.x + offsetX,
@@ -1434,13 +1434,13 @@ public class CrystallineSword extends SwordItem implements GeoItem {
 
     private void generateHighChargeEffects(Level level, Vec3 center, float size, float progress) {
         RandomSource random = level.getRandom();
-        
+
         // 添加末影粒子 (增加出现概率)
         if (random.nextInt(3) == 0) {
             double offsetX = (random.nextDouble() - 0.5) * size * 0.8;
             double offsetY = (random.nextDouble() - 0.5) * size * 0.8;
             double offsetZ = (random.nextDouble() - 0.5) * size * 0.8;
-            
+
             level.addParticle(
                     ParticleTypes.PORTAL,
                     center.x + offsetX,
@@ -1455,58 +1455,58 @@ public class CrystallineSword extends SwordItem implements GeoItem {
     private void generateHexagram(Level level, Vec3 center, float size, double rotation, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够时才显示
         if (progress < 0.2F) return;
-        
+
         // 判断是否为超级蓄力状态
         boolean isSuperCharge = progress >= 1.0F;
-        
+
         // 超级蓄力时线条更粗更亮
         int skipFactor = isSuperCharge ? 1 : 2; // 超级蓄力时不跳过点，使线条更密集
-        
+
         // 计算六芒星的两个三角形顶点
         for (int i = 0; i < 6; i++) {
             double angle = Math.toRadians(60 * i + rotation);
             double sin = Math.sin(angle);
             double cos = Math.cos(angle);
-            
+
             // 在垂直于玩家视线的平面上计算点的位置
             Vec3 point = center.add(
-                right.scale(sin * size).add(
-                up.scale(cos * size)));
-            
+                    right.scale(sin * size).add(
+                            up.scale(cos * size)));
+
             // 连接到对面的点形成六芒星
             double oppositeAngle = Math.toRadians(60 * ((i + 3) % 6) + rotation);
             double oppositeSin = Math.sin(oppositeAngle);
             double oppositeCos = Math.cos(oppositeAngle);
-            
+
             Vec3 oppositePoint = center.add(
-                right.scale(oppositeSin * size).add(
-                up.scale(oppositeCos * size)));
-            
+                    right.scale(oppositeSin * size).add(
+                            up.scale(oppositeCos * size)));
+
             // 在两点之间生成粒子线
             int points = isSuperCharge ? 15 : 10; // 超级蓄力时点数更多
             for (int j = 0; j <= points; j++) {
                 // 跳过一些点，使线条更稀疏，但超级蓄力时线条更密集
                 if (j % skipFactor == 0 && j > 0 && j < points) continue;
-                
+
                 double t = j / (double)points;
                 Vec3 linePos = point.add(oppositePoint.subtract(point).scale(t));
-                
+
                 // 添加一些随机偏移使线条看起来更魔法
                 double offsetFactor = isSuperCharge ? 0.12 : 0.08; // 超级蓄力时偏移更大，线条更粗
                 Vec3 offset = right.scale((level.getRandom().nextDouble() - 0.5) * offsetFactor)
-                             .add(up.scale((level.getRandom().nextDouble() - 0.5) * offsetFactor));
-                
+                        .add(up.scale((level.getRandom().nextDouble() - 0.5) * offsetFactor));
+
                 // 使用紫色魔法粒子，并添加一些微小的速度使其闪烁
                 level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(),
                         linePos.x + offset.x, linePos.y + offset.y, linePos.z + offset.z,
                         0, 0.005 + level.getRandom().nextDouble() * (isSuperCharge ? 0.02 : 0.01), 0);
-                
+
                 // 超级蓄力时添加额外的粒子使线条更粗
                 if (isSuperCharge && level.getRandom().nextBoolean()) {
                     // 添加额外偏移的粒子
                     Vec3 extraOffset = right.scale((level.getRandom().nextDouble() - 0.5) * offsetFactor * 1.5)
-                                     .add(up.scale((level.getRandom().nextDouble() - 0.5) * offsetFactor * 1.5));
-                    
+                            .add(up.scale((level.getRandom().nextDouble() - 0.5) * offsetFactor * 1.5));
+
                     level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(),
                             linePos.x + extraOffset.x, linePos.y + extraOffset.y, linePos.z + extraOffset.z,
                             0, 0.005 + level.getRandom().nextDouble() * 0.02, 0);
@@ -1518,26 +1518,26 @@ public class CrystallineSword extends SwordItem implements GeoItem {
     private void generateRunicCircle(Level level, Vec3 center, float size, double rotation, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够时才显示
         if (progress < 0.4F) return;
-        
+
         // 计算符文圈上的点 (减少符文数量，使其更稀疏)
         int runeCount = 10;
         for (int i = 0; i < runeCount; i++) {
             double angle = Math.toRadians(360.0 / runeCount * i + rotation);
             double sin = Math.sin(angle);
             double cos = Math.cos(angle);
-            
+
             // 在垂直于玩家视线的平面上计算点的位置
             Vec3 point = center.add(
-                right.scale(sin * size).add(
-                up.scale(cos * size)));
-            
+                    right.scale(sin * size).add(
+                            up.scale(cos * size)));
+
             // 符文效果 (更大更明显的符文)
             double runeHeight = 0.2;
             int runePoints = 1;
             for (int j = 0; j < runePoints; j++) {
                 double t = j / (double)(Math.max(1, runePoints - 1)) - 0.5;
                 Vec3 runePos = point.add(forward.scale(t * runeHeight));
-                
+
                 // 使用紫色魔法粒子，添加一些速度使其更动态
                 double speedFactor = 0.002;
                 level.addParticle(
@@ -1553,30 +1553,30 @@ public class CrystallineSword extends SwordItem implements GeoItem {
     private void generateEnergyRays(Level level, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         // 只有当进度足够高时才显示
         if (progress < 0.7F) return;
-        
+
         // 射线数量随进度增加 (减少数量)
         int rayCount = (int)(1 + progress * 2);
-        
+
         for (int i = 0; i < rayCount; i++) {
             // 随机方向，但主要在魔法阵平面上
             double angle = level.getRandom().nextDouble() * Math.PI * 2;
-            
+
             // 计算射线方向 (主要在魔法阵平面上，减少向玩家方向的射线)
             Vec3 rayDir = right.scale(Math.sin(angle))
-                         .add(up.scale(Math.cos(angle)))
-                         .add(forward.scale((level.getRandom().nextDouble() - 0.5) * 0.1));
-            
+                    .add(up.scale(Math.cos(angle)))
+                    .add(forward.scale((level.getRandom().nextDouble() - 0.5) * 0.1));
+
             rayDir = rayDir.normalize();
-            
+
             // 射线长度
             double rayLength = size * (0.4 + level.getRandom().nextDouble() * 0.4);
-            
+
             // 生成射线粒子 (减少粒子数量)
             int points = 2;
             for (int j = 0; j < points; j++) {
                 double t = j / (double)points;
                 Vec3 rayPos = center.add(rayDir.scale(t * rayLength));
-                
+
                 // 使用紫色魔法粒子，速度向外
                 double speedFactor = 0.01;
                 level.addParticle(
@@ -1591,41 +1591,41 @@ public class CrystallineSword extends SwordItem implements GeoItem {
 
     private void generateLightningEffects(Level level, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         RandomSource random = level.getRandom();
-        
+
         // 闪电起点数量
         int lightningCount = 1 + random.nextInt(2);
-        
+
         for (int i = 0; i < lightningCount; i++) {
             // 在魔法阵外围随机选择起点
             double startAngle = random.nextDouble() * Math.PI * 2;
             double startDist = size * 0.8;
-            
+
             Vec3 startPos = center.add(
-                right.scale(Math.sin(startAngle) * startDist).add(
-                up.scale(Math.cos(startAngle) * startDist)));
-            
+                    right.scale(Math.sin(startAngle) * startDist).add(
+                            up.scale(Math.cos(startAngle) * startDist)));
+
             // 随机选择终点 (可能是另一边的外围点或者其他位置)
             double endAngle = startAngle + Math.PI + (random.nextDouble() - 0.5) * Math.PI;
             double endDist = size * (0.7 + random.nextDouble() * 0.3);
-            
+
             Vec3 endPos = center.add(
-                right.scale(Math.sin(endAngle) * endDist).add(
-                up.scale(Math.cos(endAngle) * endDist)));
-            
+                    right.scale(Math.sin(endAngle) * endDist).add(
+                            up.scale(Math.cos(endAngle) * endDist)));
+
             // 生成闪电路径 (之字形)
             int segments = 4 + random.nextInt(3);
             Vec3 lastPos = startPos;
-            
+
             for (int j = 1; j <= segments; j++) {
                 // 计算当前段的目标位置
                 double t = j / (double)segments;
                 Vec3 targetPos = startPos.add(endPos.subtract(startPos).scale(t));
-                
+
                 // 添加随机偏移 (但不要偏移到中心)
                 double offsetMagnitude = size * 0.15 * (1 - t); // 越靠近终点偏移越小
                 Vec3 offset = right.scale((random.nextDouble() - 0.5) * offsetMagnitude)
-                             .add(up.scale((random.nextDouble() - 0.5) * offsetMagnitude));
-                
+                        .add(up.scale((random.nextDouble() - 0.5) * offsetMagnitude));
+
                 // 确保偏移不会导致闪电指向中心
                 Vec3 toCenter = center.subtract(targetPos.add(offset));
                 double distToCenter = toCenter.length();
@@ -1633,19 +1633,19 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                     // 如果太靠近中心，调整偏移方向
                     offset = offset.scale(-1);
                 }
-                
+
                 targetPos = targetPos.add(offset);
-                
+
                 // 在两点之间生成闪电粒子
                 int points = 5;
                 for (int k = 0; k < points; k++) {
                     double s = k / (double)points;
                     Vec3 pos = lastPos.add(targetPos.subtract(lastPos).scale(s));
-                    
+
                     // 使用亮紫色粒子
                     level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(), pos.x, pos.y, pos.z, 0, 0, 0);
                 }
-                
+
                 lastPos = targetPos;
             }
         }
@@ -1666,20 +1666,20 @@ public class CrystallineSword extends SwordItem implements GeoItem {
             double dist = size * (0.5 + random.nextDouble() * 0.5); // 主要在中间到外围区域
 
             Vec3 starPos = center.add(
-                right.scale(Math.sin(angle) * dist).add(
-                up.scale(Math.cos(angle) * dist)));
-            
+                    right.scale(Math.sin(angle) * dist).add(
+                            up.scale(Math.cos(angle) * dist)));
+
             // 星辰爆发效果
             int rays = 4 + random.nextInt(4);
             float rayLength = 0.2F + random.nextFloat() * 0.3F;
-            
+
             for (int j = 0; j < rays; j++) {
                 double rayAngle = j * (Math.PI * 2 / rays);
                 Vec3 rayDir = right.scale(Math.sin(rayAngle)).add(up.scale(Math.cos(rayAngle)));
-                
+
                 // 射线终点
                 Vec3 rayEnd = starPos.add(rayDir.scale(rayLength));
-                
+
                 // 生成射线粒子
                 level.addParticle(
                         TAParticleTypes.MAGIC_PURPLE.get(),
@@ -1693,39 +1693,39 @@ public class CrystallineSword extends SwordItem implements GeoItem {
 
     private void generateRunicTrails(Level level, Vec3 center, float size, double rotation, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         RandomSource random = level.getRandom();
-        
+
         // 符文轨迹数量
         int trailCount = 1 + (int)(progress * 2);
-        
+
         // 只有一定几率生成
         if (random.nextInt(3) != 0) return;
-        
+
         for (int i = 0; i < trailCount; i++) {
             // 轨迹起点 (在魔法阵上随机位置)
             double startAngle = random.nextDouble() * Math.PI * 2;
             double startDist = size * (0.5 + random.nextDouble() * 0.5);
-            
+
             Vec3 startPos = center.add(
-                right.scale(Math.sin(startAngle) * startDist).add(
-                up.scale(Math.cos(startAngle) * startDist)));
-            
+                    right.scale(Math.sin(startAngle) * startDist).add(
+                            up.scale(Math.cos(startAngle) * startDist)));
+
             // 轨迹方向 (沿着魔法阵平面)
             double moveAngle = startAngle + Math.PI/2 + (random.nextDouble() - 0.5) * Math.PI/4;
             Vec3 moveDir = right.scale(Math.sin(moveAngle)).add(up.scale(Math.cos(moveAngle)));
-            
+
             // 轨迹长度
             double trailLength = size * (0.3 + random.nextDouble() * 0.3);
-            
+
             // 生成轨迹粒子
             int points = 5 + random.nextInt(5);
             for (int j = 0; j < points; j++) {
                 double t = j / (double)points;
                 Vec3 pos = startPos.add(moveDir.scale(t * trailLength));
-                
+
                 // 轨迹颜色随距离变化
                 float hue = (float)(t * 0.2 + random.nextDouble() * 0.1);
                 Vector3f color = new Vector3f(0.7F, 0.3F + hue, 0.9F); // 从紫色到略带蓝色
-                
+
                 // 使用尘埃粒子实现颜色变化
                 level.addParticle(new DustParticleOptions(color, 1.0F), pos.x, pos.y, pos.z, 0, 0, 0);
             }
@@ -1734,46 +1734,46 @@ public class CrystallineSword extends SwordItem implements GeoItem {
 
     private void generateEnergyVortex(Level level, Vec3 center, float size, float progress, Vec3 forward, Vec3 right, Vec3 up) {
         RandomSource random = level.getRandom();
-        
+
         // 只有一定几率生成
         if (random.nextInt(4) != 0) return;
-        
+
         // 漩涡中心点 (在魔法阵外围)
         double vortexAngle = random.nextDouble() * Math.PI * 2;
         double vortexDist = size * 0.8;
-        
+
         Vec3 vortexCenter = center.add(
-            right.scale(Math.sin(vortexAngle) * vortexDist).add(
-            up.scale(Math.cos(vortexAngle) * vortexDist))
+                right.scale(Math.sin(vortexAngle) * vortexDist).add(
+                        up.scale(Math.cos(vortexAngle) * vortexDist))
         );
-        
+
         // 漩涡大小
         float vortexSize = size * 0.25F;
-        
+
         // 漩涡旋转方向
         boolean clockwise = random.nextBoolean();
-        
+
         // 漩涡粒子数量
         int particleCount = 10 + (int)(progress * 10);
-        
+
         // 生成漩涡粒子
         for (int i = 0; i < particleCount; i++) {
             // 螺旋参数
             double t = i / (double)particleCount;
             double spiralRadius = vortexSize * t;
             double spiralAngle = t * Math.PI * 6 + level.getGameTime() * 0.1 * (clockwise ? 1 : -1);
-            
+
             // 计算粒子位置
             Vec3 offset = right.scale(Math.sin(spiralAngle) * spiralRadius)
-                         .add(up.scale(Math.cos(spiralAngle) * spiralRadius));
-            
+                    .add(up.scale(Math.cos(spiralAngle) * spiralRadius));
+
             Vec3 pos = vortexCenter.add(offset);
-            
+
             // 粒子速度 (向中心旋转)
             double speedFactor = 0.02 * (1 - t);
             Vec3 velocity = right.scale(Math.cos(spiralAngle) * speedFactor * (clockwise ? -1 : 1))
-                           .add(up.scale(-Math.sin(spiralAngle) * speedFactor * (clockwise ? -1 : 1)));
-            
+                    .add(up.scale(-Math.sin(spiralAngle) * speedFactor * (clockwise ? -1 : 1)));
+
             // 使用紫色魔法粒子
             level.addParticle(TAParticleTypes.MAGIC_PURPLE.get(), pos.x, pos.y, pos.z, velocity.x, velocity.y, velocity.z);
         }

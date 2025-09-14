@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.data.datagen.provider;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
+import cn.teampancake.theaurorian.common.items.VagrantNotePage;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -122,6 +123,9 @@ public class TAItemModelProvider extends ItemModelProvider {
                         .texture("layer0", this.modLoc("item/" + this.itemName(item))));
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof DeferredSpawnEggItem).forEach(item ->
                 this.withExistingParent(this.itemName(item), this.mcLoc("item/template_spawn_egg")));
+        TACommonUtils.getKnownItemStream().filter(item -> item instanceof VagrantNotePage).forEach(item ->
+                this.withExistingParent(BuiltInRegistries.ITEM.getKey(item).getPath(), this.mcLoc("item/generated"))
+                        .texture("layer0", this.modLoc("item/vagrant_note_page")));
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof BowItem).forEach(this::bowItem);
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof ShieldItem).forEach(this::shieldItem);
         TACommonUtils.getKnownItemStream().filter(this::isSimpleModelItem).forEach(this::basicItem);

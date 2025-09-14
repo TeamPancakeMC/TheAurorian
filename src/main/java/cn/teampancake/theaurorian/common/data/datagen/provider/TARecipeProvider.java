@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.data.datagen.recipes.AlchemyTableRecipe
 import cn.teampancake.theaurorian.common.data.datagen.recipes.MoonlightForgeRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.recipes.ScrapperRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
+import cn.teampancake.theaurorian.common.items.crafting.VagrantNoteRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
@@ -168,6 +169,7 @@ public class TARecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(TAItems.PLANT_FIBER.get()), has(TAItems.PLANT_FIBER.get()))
                 .save(recipeOutput, TheAurorian.prefix("string_from_plant_fiber"));
         //Mod Shapeless Recipes
+        SpecialRecipeBuilder.special(VagrantNoteRecipe::new).save(recipeOutput, "vagrant_note_supplement");
         oneToOneConversionRecipe(recipeOutput, TAItems.LAVENDER_SEEDS.get(), TAItems.LAVENDER.get(), null);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_GLASS.get())
                 .requires(TABlocks.MOON_GLASS.get(), (3)).requires(TAItems.PLANT_FIBER.get())

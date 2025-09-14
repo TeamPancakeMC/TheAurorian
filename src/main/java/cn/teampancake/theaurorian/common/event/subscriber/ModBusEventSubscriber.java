@@ -67,6 +67,7 @@ public class ModBusEventSubscriber {
         registrar.playToServer(PlayerDeathRespawnC2SPacket.TYPE, PlayerDeathRespawnC2SPacket.STREAM_CODEC, PlayerDeathRespawnC2SPacket::handle);
         registrar.playToClient(ShowDeathScreenS2CPacket.TYPE, ShowDeathScreenS2CPacket.STREAM_CODEC, ShowDeathScreenS2CPacket::handle);
         registrar.playToClient(ShowStunScreenS2CPacket.TYPE, ShowStunScreenS2CPacket.STREAM_CODEC, ShowStunScreenS2CPacket::handle);
+        registrar.playToClient(ShowVagrantNoteScreenS2CPacket.TYPE, ShowVagrantNoteScreenS2CPacket.STREAM_CODEC, ShowVagrantNoteScreenS2CPacket::handle);
         registrar.playToClient(DisplayTextureActivationS2CPacket.TYPE, DisplayTextureActivationS2CPacket.STREAM_CODEC, DisplayTextureActivationS2CPacket::handle);
         registrar.playToClient(DisplayItemActivationS2CPacket.TYPE, DisplayItemActivationS2CPacket.STREAM_CODEC, DisplayItemActivationS2CPacket::handle);
         registrar.playToClient(DisplayActivationTickS2CPacket.TYPE, DisplayActivationTickS2CPacket.STREAM_CODEC, DisplayActivationTickS2CPacket::handle);

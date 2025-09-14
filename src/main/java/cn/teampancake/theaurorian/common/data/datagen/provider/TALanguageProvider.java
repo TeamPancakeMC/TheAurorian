@@ -665,11 +665,13 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAItems.RED_BOOK_RING, "红皮书戒指");
         this.addKey(TAItems.CAT_BELL, "猫猫的铃铛");
         this.addKey(TAItems.TSLAT_SWORD, "Tslat的剑");
-        this.addKey(TAItems.WORLD_SCROLL_FRAGMENT, "世界残卷");
         this.addKey(TAItems.WORLD_SCROLL, "世界卷轴");
         this.addKey(TAItems.WEEPING_WILLOW_SAP, "垂柳树汁");
         this.addKey(TAItems.WEBBING, "蛛网");
         this.addKey(TAItems.BOOK_OF_SIN, "罪恶之书");
+        this.addKey(TAItems.VAGRANT_NOTE, "巡游者手札");
+        this.addKey(TAItems.TAYIR_NOTE_A, "塔依尔的笔记A");
+        this.addKey(TAItems.ADVENTURER_STORY, "一个冒险家的故事");
         this.addKey(TAItems.CRIMSON_PACT_PENDANT, "血契坠饰");
 
         //MOD ENTITY

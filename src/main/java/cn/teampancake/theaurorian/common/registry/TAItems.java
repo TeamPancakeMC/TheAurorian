@@ -407,10 +407,11 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> DREAM_DYEING_CRYSTAL_FRAGMENT = normal("dream_dyeing_crystal_fragment",
             () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.DREAM_DYEING_CRYSTAL_FRAGMENT)
                     .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
-    public static final DeferredHolder<Item, Item> WORLD_SCROLL_FRAGMENT = normal("world_scroll_fragment",
-            () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     public static final DeferredHolder<Item, Item> WORLD_SCROLL = ITEMS.register("world_scroll", WorldScroll::new);
     public static final DeferredHolder<Item, Item> BOOK_OF_SIN = ITEMS.register("book_of_sin", BookOfSin::new);
+    public static final DeferredHolder<Item, Item> VAGRANT_NOTE = ITEMS.register("vagrant_note", VagrantNote::new);
+    public static final DeferredHolder<Item, Item> TAYIR_NOTE_A = ITEMS.register("tayir_note_a", () -> new VagrantNotePage(1));
+    public static final DeferredHolder<Item, Item> ADVENTURER_STORY = ITEMS.register("adventurer_story", () -> new VagrantNotePage(2));
     public static final DeferredHolder<Item, Item> DUNGEON_LOCATOR = ITEMS.register("dungeon_locator", DungeonLocator::new);
     public static final DeferredHolder<Item, Item> WEBBING = ITEMS.register("webbing", () -> new SimpleThrowProjectProjectile(
             new Item.Properties(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, TAEntityTypes.WEBBING::get, 0.5F));

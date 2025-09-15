@@ -169,7 +169,7 @@ public class TARecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(TAItems.PLANT_FIBER.get()), has(TAItems.PLANT_FIBER.get()))
                 .save(recipeOutput, TheAurorian.prefix("string_from_plant_fiber"));
         //Mod Shapeless Recipes
-        SpecialRecipeBuilder.special(VagrantNoteRecipe::new).save(recipeOutput, "vagrant_note_supplement");
+        SpecialRecipeBuilder.special(VagrantNoteRecipe::new).save(recipeOutput, TheAurorian.prefix("vagrant_note_supplement"));
         oneToOneConversionRecipe(recipeOutput, TAItems.LAVENDER_SEEDS.get(), TAItems.LAVENDER.get(), null);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_GLASS.get())
                 .requires(TABlocks.MOON_GLASS.get(), (3)).requires(TAItems.PLANT_FIBER.get())

@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.client.gui.screens;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
@@ -14,7 +15,10 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class VagrantNoteScreen extends BookViewScreen {
@@ -25,13 +29,97 @@ public class VagrantNoteScreen extends BookViewScreen {
 
     private final List<Integer> chapters;
 
+    // 布局与分页
+    private final List<FormattedCharSequence> allLines = new ArrayList<>();
+    // 右页章节标题行索引 -> 标题组件（用于渲染放大/加粗效果）
+    private final Map<Integer, Component> titleLineMap = new HashMap<>();
+    private int currentSheet = 0; // 每个“纸张”包含左右两页（Left/Right）
+    private int linesPerSide = 22; // 在 init 中基于字体高度动态计算
+    private int textAreaWidth = 100; // 文本区域宽度（继续缩小以留出更多左右空白）
+    private int startY = 22; // 上边距进一步加大以留出更多顶部空白
+
+    // 目录（左页）数据
+    private static class ChapterTocEntry {
+        final int chapter;
+        final int startLineIndex; // 本章在 allLines 中的起始行索引
+        final Component title;
+        ChapterTocEntry(int chapter, int startLineIndex, Component title) {
+            this.chapter = chapter;
+            this.startLineIndex = startLineIndex;
+            this.title = title;
+        }
+    }
+    private final List<ChapterTocEntry> tocEntries = new ArrayList<>();
+
     public VagrantNoteScreen(List<Integer> chapters) {
         this.chapters = chapters;
     }
 
     @Override
     protected void init() {
+        // 计算动态布局参数
+        int lineHeight = this.font.lineHeight; // 通常为 9
+        int contentHeight = 243 - startY - 22; // 进一步增大底部空白
+        this.linesPerSide = Math.max(1, contentHeight / Math.max(1, lineHeight));
 
+        // 预构建所有文本行，避免在每帧渲染时重复读取资源
+        this.allLines.clear();
+        this.titleLineMap.clear();
+        this.tocEntries.clear();
+        if (this.minecraft != null && !this.chapters.isEmpty()) {
+            for (int idx = 0; idx < this.chapters.size(); idx++) {
+                int chapter = this.chapters.get(idx);
+                int chapterStart = this.allLines.size();
+                // 标题：优先使用翻译键 text.vagrant_note.chapter_title.NN；否则使用占位
+                String keyTitle = String.format("text.vagrant_note.chapter_title.%02d", chapter);
+                Component chapterTitle = Component.translatable(keyTitle);
+                if (chapterTitle.getString().equals(keyTitle)) {
+                    chapterTitle = Component.literal(String.format("第 %02d 章", chapter));
+                }
+                String key = String.format("text.vagrant_note.chapter.%02d", chapter);
+                String filename = Component.translatable(key).getString();
+                ResourceLocation location = TheAurorian.prefix(String.format("texts/%s.txt", filename));
+
+                // 在正文前插入章节标题（占据一行或多行），并记录这些行索引以放大绘制
+                List<FormattedCharSequence> titleLines = this.font.split(chapterTitle, this.textAreaWidth);
+                for (FormattedCharSequence tl : titleLines) {
+                    int lineIndex = this.allLines.size();
+                    this.allLines.add(tl);
+                    this.titleLineMap.put(lineIndex, chapterTitle);
+                }
+                // 标题与正文之间插入一个空行
+                this.allLines.addAll(this.font.split(Component.literal(" "), this.textAreaWidth));
+
+                try (BufferedReader bufferedReader = this.minecraft.getResourceManager().openAsReader(location)) {
+                    // 以空行作为段落分隔，累计段落内容
+                    List<String> paragraphBuffer = new ArrayList<>();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        String trimmed = line.trim();
+                        // 过滤历史遗留的魔法哈希行（如有需要）
+                        if (trimmed.hashCode() == 125780783) continue;
+                        if (trimmed.isEmpty()) {
+                            this.flushParagraph(paragraphBuffer);
+                        } else {
+                            paragraphBuffer.add(trimmed);
+                        }
+                    }
+                    this.flushParagraph(paragraphBuffer);
+                } catch (IOException ignored) {}
+                // 记录目录项
+                this.tocEntries.add(new ChapterTocEntry(chapter, chapterStart, chapterTitle));
+
+                // 页断开：确保下一个章节从新的一页开始
+                int remainder = this.allLines.size() % Math.max(1, this.linesPerSide);
+                if (remainder != 0 && idx < this.chapters.size() - 1) {
+                    int blanks = this.linesPerSide - remainder;
+                    for (int b = 0; b < blanks; b++) {
+                        this.allLines.addAll(this.font.split(Component.literal(" "), this.textAreaWidth));
+                    }
+                }
+            }
+        }
+        this.currentSheet = 0;
     }
 
     @Override
@@ -41,7 +129,7 @@ public class VagrantNoteScreen extends BookViewScreen {
             renderable.render(guiGraphics, mouseX, mouseY, partialTick);
         }
 
-        if (!this.chapters.isEmpty() && this.minecraft != null) {
+        if (!this.allLines.isEmpty() && this.minecraft != null) {
             PoseStack poseStack = guiGraphics.pose();
             poseStack.pushPose();
             poseStack.scale(1.0F, 1.17F, 1.0F);
@@ -50,26 +138,55 @@ public class VagrantNoteScreen extends BookViewScreen {
             this.renderRightPage(guiGraphics);
             poseStack.popPose();
             poseStack.pushPose();
-            int i = (this.width - 163) / 2;
-            for (int chapter : this.chapters) {
-                String key = String.format("text.vagrant_note.chapter.%02d", chapter);
-                String filename = Component.translatable(key).getString();
-                ResourceLocation location = TheAurorian.prefix(String.format("texts/%s.txt", filename));
-                try (BufferedReader bufferedReader = this.minecraft.getResourceManager().openAsReader(location)) {
-                    List<String> paragraphs = bufferedReader.lines().map(String::trim)
-                            .filter(string -> string.hashCode() != 125780783).toList();
-                    if (paragraphs.isEmpty()) break;
-                    for (String paragraph : paragraphs) {
-                        MutableComponent component = Component.literal(paragraph);
-                        List<FormattedCharSequence> sequences = this.font.split(component, 120);
-                        for (int l = 0; l < sequences.size(); l++) {
-                            int y = 12 + l * sequences.size() * 9;
-                            FormattedCharSequence sequence = sequences.get(l);
-                            guiGraphics.drawString(this.font, sequence, i - 36, y, 0, false);
-                        }
-                    }
-                } catch (IOException ignored) {}
+            // 渲染左侧目录与右侧正文
+            // 计算当前页（仅右页）应渲染的文本行范围
+            int linesPerSheet = this.linesPerSide;
+            int startIndex = Math.min(this.currentSheet * linesPerSheet, this.allLines.size());
+            int endIndex = Math.min(startIndex + linesPerSheet, this.allLines.size());
+
+            // 渲染左页目录
+            int leftPageX = (this.width - 256) / 2; // 左页贴图左上角 X
+            int tocTextX = leftPageX + 18; // 左页内侧留白
+            int tocY = 20; // 目录起始 Y（相对屏幕）
+            int tocLineHeight = this.font.lineHeight + 2;
+            for (ChapterTocEntry entry : this.tocEntries) {
+                // 高亮当前页对应的目录项
+                int color = 0x303030;
+                int entrySheet = Math.min(entry.startLineIndex / Math.max(1, linesPerSheet),
+                        Math.max(0, (this.allLines.size() - 1) / Math.max(1, linesPerSheet)));
+                if (entrySheet == this.currentSheet) {
+                    color = 0x0055AA; // 蓝色高亮
+                }
+                guiGraphics.drawString(this.font, entry.title, tocTextX, tocY, color, false);
+                tocY += tocLineHeight;
             }
+
+            // 渲染右页（进一步向右移动，留出更大的内侧空白）
+            int rightTextX = (this.width / 2) + 16;
+            int y = this.startY;
+            for (int idx = startIndex; idx < endIndex; idx++) {
+                FormattedCharSequence seq = this.allLines.get(idx);
+                // 若该行属于章节标题，则放大加重绘制
+                if (this.titleLineMap.containsKey(idx)) {
+                    PoseStack ps = guiGraphics.pose();
+                    ps.pushPose();
+                    float scale = 1.25F;
+                    ps.scale(scale, scale, 1.0F);
+                    int sx = (int) (rightTextX / scale);
+                    int sy = (int) (y / scale);
+                    guiGraphics.drawString(this.font, seq, sx, sy, 0x222222, false);
+                    ps.popPose();
+                    y += (int) Math.ceil(this.font.lineHeight * 1.25F);
+                } else {
+                    guiGraphics.drawString(this.font, seq, rightTextX, y, 0, false);
+                    y += this.font.lineHeight;
+                }
+            }
+
+            // 底部页码指示
+            int totalSheets = Math.max(1, (this.allLines.size() + linesPerSheet - 1) / linesPerSheet);
+            String footer = String.format("%d / %d", this.currentSheet + 1, totalSheets);
+            guiGraphics.drawString(this.font, footer, (this.width - this.font.width(footer)) / 2, 255, 0x404040, false);
 
             poseStack.popPose();
         }
@@ -98,6 +215,74 @@ public class VagrantNoteScreen extends BookViewScreen {
     @Override
     public boolean isPauseScreen() {
         return false;
+    }
+
+    // 将一个段落构建为多行，并在段落后追加一个空行作为段落间距
+    private void flushParagraph(List<String> paragraphBuffer) {
+        if (paragraphBuffer.isEmpty()) return;
+        String paragraph = String.join(" ", paragraphBuffer);
+        MutableComponent component = Component.literal(paragraph);
+        List<FormattedCharSequence> sequences = this.font.split(component, this.textAreaWidth);
+        this.allLines.addAll(sequences);
+        // 段落间距：追加一行空白
+        this.allLines.addAll(this.font.split(Component.literal(" "), this.textAreaWidth));
+        paragraphBuffer.clear();
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        // 支持方向键→/D/PageDown 翻到下一张，←/A/PageUp 返回上一张
+        int linesPerSheet = this.linesPerSide; // 仅右页参与分页
+        int totalSheets = Math.max(1, (this.allLines.size() + linesPerSheet - 1) / linesPerSheet);
+        if (keyCode == InputConstants.KEY_RIGHT || keyCode == InputConstants.KEY_D || keyCode == InputConstants.KEY_PAGEDOWN) {
+            if (this.currentSheet < totalSheets - 1) {
+                this.currentSheet++;
+                return true;
+            }
+        } else if (keyCode == InputConstants.KEY_LEFT || keyCode == InputConstants.KEY_A || keyCode == InputConstants.KEY_PAGEUP) {
+            if (this.currentSheet > 0) {
+                this.currentSheet--;
+                return true;
+            }
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        int linesPerSheet = this.linesPerSide; // 仅右页参与分页
+        int totalSheets = Math.max(1, (this.allLines.size() + linesPerSheet - 1) / linesPerSheet);
+        // 鼠标左键：点击右半屏下一张，点击左半屏上一张；点击左页目录跳转到对应章节
+        if (button == 0) { // left click
+            // 检测是否点击在左页目录区域
+            int leftPageX = (this.width - 256) / 2;
+            int tocTextX = leftPageX + 18;
+            int tocWidth = 130; // 目录可点击宽度
+            int tocStartY = 20;
+            int tocLineHeight = this.font.lineHeight + 2;
+            if (mouseX >= tocTextX && mouseX <= tocTextX + tocWidth && mouseY >= tocStartY && mouseY <= tocStartY + this.tocEntries.size() * tocLineHeight) {
+                int index = (int) ((mouseY - tocStartY) / tocLineHeight);
+                if (index >= 0 && index < this.tocEntries.size()) {
+                    ChapterTocEntry entry = this.tocEntries.get(index);
+                    this.currentSheet = Math.min(entry.startLineIndex / Math.max(1, linesPerSheet), totalSheets - 1);
+                    return true;
+                }
+            }
+
+            // 非目录区域：左右半屏翻页
+            if (mouseX > this.width / 2.0) {
+                if (this.currentSheet < totalSheets - 1) {
+                    this.currentSheet++;
+                    return true;
+                }
+            } else {
+                if (this.currentSheet > 0) {
+                    this.currentSheet--;
+                    return true;
+                }
+            }
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
 }

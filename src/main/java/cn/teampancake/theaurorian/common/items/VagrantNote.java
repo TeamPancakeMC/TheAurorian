@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
+import cn.teampancake.theaurorian.common.components.ChapterContent;
 import cn.teampancake.theaurorian.common.network.ShowVagrantNoteScreenS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
@@ -32,8 +33,8 @@ public class VagrantNote extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack itemInHand = player.getItemInHand(usedHand);
-        if (player instanceof ServerPlayer serverPlayer) {
-            List<Integer> chapters = itemInHand.getOrDefault(TADataComponents.CHAPTERS, new ArrayList<>());
+        List<ChapterContent> chapters = itemInHand.get(TADataComponents.CHAPTERS);
+        if (player instanceof ServerPlayer serverPlayer && chapters != null) {
             PacketDistributor.sendToPlayer(serverPlayer, new ShowVagrantNoteScreenS2CPacket(chapters));
             return InteractionResultHolder.sidedSuccess(itemInHand, level.isClientSide());
         }
@@ -43,7 +44,7 @@ public class VagrantNote extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        List<Integer> chapters = stack.getOrDefault(TADataComponents.CHAPTERS, new ArrayList<>());
+        List<ChapterContent> chapters = stack.getOrDefault(TADataComponents.CHAPTERS, new ArrayList<>());
         String key = "tooltips.item.theaurorian.vagrant_note.chapter_numbers";
         tooltipComponents.add(Component.translatable(key, chapters.size()).withStyle(ChatFormatting.YELLOW));
     }

@@ -848,6 +848,7 @@
   "stat.theaurorian.rune_game_play_count": "§6符石游戏游玩次数",
   "stat.theaurorian.rune_game_win_count": "§6符石游戏成功次数",
   "stat.theaurorian.total_rune_game_time": "§6符石游戏总游玩时间",
+  "text.vagrant_note.chapter": "第%s章",
   "text.vagrant_note.chapter.01": "zh_cn_chapter01_tayir_note_A",
   "text.vagrant_note.chapter.02": "zh_cn_chapter02_adventurer_story",
   "theaurorian.container.alchemy_table": "炼药桌",

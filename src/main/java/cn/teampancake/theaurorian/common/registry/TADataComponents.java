@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.registry;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.gui.tooltips.ItemTooltip;
 import cn.teampancake.theaurorian.common.components.AlchemyProduct;
+import cn.teampancake.theaurorian.common.components.ChapterContent;
 import cn.teampancake.theaurorian.common.components.RuneGame;
 import cn.teampancake.theaurorian.common.components.SourceOfTerra;
 import com.mojang.serialization.Codec;
@@ -55,8 +56,9 @@ public class TADataComponents {
             () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> HIGH_PRECISION = DATA_COMPONENT_TYPE.register("high_precision",
             () -> DataComponentType.<Boolean>builder().persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding().build());
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<Integer>>> CHAPTERS = DATA_COMPONENT_TYPE.register("chapters",
-            () -> DataComponentType.<List<Integer>>builder().persistent(Codec.list(Codec.INT)).networkSynchronized(ByteBufCodecs.fromCodec(Codec.list(Codec.INT))).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ChapterContent>>> CHAPTERS = DATA_COMPONENT_TYPE.register("chapters",
+            () -> DataComponentType.<List<ChapterContent>>builder().persistent(Codec.list(ChapterContent.CODEC))
+                    .networkSynchronized(ChapterContent.STREAM_CODEC.apply(ByteBufCodecs.list())).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> NOTE_CHAPTER = DATA_COMPONENT_TYPE.register("note_chapter",
             () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<ItemTooltip>>> ITEM_TOOLTIP = DATA_COMPONENT_TYPE.register("item_tooltip",

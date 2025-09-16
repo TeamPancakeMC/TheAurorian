@@ -20,6 +20,7 @@ public class TASoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> FOREST_BACKGROUND_MUSIC = register("forest_music");
     public static final DeferredHolder<SoundEvent, SoundEvent> UNIVERSAL_BACKGROUND_MUSIC = register("universal_music");
     public static final DeferredHolder<SoundEvent, SoundEvent> AURORIAN_FOREST = register("aurorian_forest");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MOONLIT_VEIL = register("moonlit_veil");
     public static final DeferredHolder<SoundEvent, SoundEvent> EMPTY = register("empty");
 
     private static DeferredHolder<SoundEvent, SoundEvent> register(String sound) {

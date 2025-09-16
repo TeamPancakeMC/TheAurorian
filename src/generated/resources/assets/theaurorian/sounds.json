@@ -42,9 +42,18 @@
         "stream": true
       },
       {
+        "name": "theaurorian:music/aurorian_6",
+        "stream": true
+      },
+      {
         "name": "theaurorian:aurorian_forest",
         "stream": true
       }
+    ]
+  },
+  "moonlit_veil": {
+    "sounds": [
+      "theaurorian:moonlit_veil"
     ]
   },
   "snow_tundra_giant_crab/ambient": {

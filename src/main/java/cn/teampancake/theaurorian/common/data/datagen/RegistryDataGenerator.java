@@ -27,6 +27,7 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.STRUCTURE, TAStructures::bootstrap)
             .add(Registries.STRUCTURE_SET, TAStructureSets::bootstrap)
             .add(Registries.TEMPLATE_POOL, TATemplatePools::bootstrap)
+            .add(Registries.JUKEBOX_SONG, TAJukeboxSongs::bootstrap)
             .add(TABiomeLayerStack.BIOME_STACK_KEY, TABiomeLayerStack::bootstrap);
 
     public RegistryDataGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

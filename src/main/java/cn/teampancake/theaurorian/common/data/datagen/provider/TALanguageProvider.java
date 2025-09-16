@@ -4,10 +4,15 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.*;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.minecraft.Util;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.JukeboxPlayable;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
@@ -673,6 +678,8 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAItems.TAYIR_NOTE_A, "塔依尔的笔记A");
         this.addKey(TAItems.ADVENTURER_STORY, "一个冒险家的故事");
         this.addKey(TAItems.CRIMSON_PACT_PENDANT, "血契坠饰");
+        this.addMusicDisc(TAItems.MUSIC_DISC_AURORIAN_FOREST, "Aurorian Forest", "极光森林");
+        this.addMusicDisc(TAItems.MUSIC_DISC_MOONLIT_VEIL, "Moonlit Veil", "缭月之幕");
 
         //MOD ENTITY
         this.addKey(TAEntityTypes.CRYSTALLINE_BEAM, "月凝晶射线");
@@ -864,6 +871,13 @@ public class TALanguageProvider extends LanguageProvider {
         
         String languageKey = type + "." + key.location().toLanguageKey();
         this.add(languageKey, this.getEnglishName(name), cn);
+    }
+
+    private void addMusicDisc(DeferredHolder<Item, Item> disc, String enDesc, String cnDesc) {
+        JukeboxPlayable jukeboxPlayable = disc.get().components().get(DataComponents.JUKEBOX_PLAYABLE);
+        ResourceLocation id = jukeboxPlayable.song().key().location();
+        this.add(Util.makeDescriptionId("jukebox_song", id), enDesc, cnDesc);
+        this.add(disc.get().getDescriptionId(), "Music Disc", "音乐唱片");
     }
 
     private void add(String key, String en, String cn) {

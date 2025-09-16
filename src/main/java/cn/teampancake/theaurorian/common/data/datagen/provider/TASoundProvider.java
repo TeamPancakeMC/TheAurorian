@@ -29,6 +29,7 @@ public class TASoundProvider extends SoundDefinitionsProvider {
         this.register(TASoundEvents.CRYSTALLINE_SWORD_SHOOT);
         this.register(TASoundEvents.WEEPING_WILLOW_BELL);
         this.register(TASoundEvents.AURORIAN_FOREST);
+        this.register(TASoundEvents.MOONLIT_VEIL);
         this.register(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_AMBIENT, 2);
         this.register(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_DEATH, 2);
         this.register(TASoundEvents.SNOW_TUNDRA_GIANT_CRAB_HURT, 3);

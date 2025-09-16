@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.gui.tooltips.ItemTooltip;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
+import cn.teampancake.theaurorian.common.level.SylvanisHandler;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.compat.mui.ModernUICompatibility;
 import com.mojang.blaze3d.shaders.FogShape;
@@ -19,6 +20,7 @@ import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
@@ -30,7 +32,6 @@ import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
 
 import java.awt.*;
-import java.util.Objects;
 
 @EventBusSubscriber(modid = TheAurorian.MOD_ID, value = Dist.CLIENT)
 public class ClientEventSubscriber {
@@ -39,6 +40,10 @@ public class ClientEventSubscriber {
     private static final ResourceLocation RUNESTONE_KEEPER_BARS = TheAurorian.prefix("textures/gui/runestone_keeper_bars.png");
     private static final ResourceLocation SPIDER_MOTHER_BARS = TheAurorian.prefix("textures/gui/spider_mother_bars.png");
     private static final ResourceLocation MOON_QUEEN_BARS = TheAurorian.prefix("textures/gui/moon_queen_bars.png");
+
+    private static final Color FOG_COLOR = new Color(0.85f, 0.9f, 1.0f);
+    private static final float MIN_VISIBILITY = 15.0f;
+    private static final float MAX_VISIBILITY = 5.0f;
 
     @SubscribeEvent
     public static void onMovementInputUpdate(MovementInputUpdateEvent event) {
@@ -86,21 +91,23 @@ public class ClientEventSubscriber {
         Minecraft minecraft = Minecraft.getInstance();
         LocalPlayer player = minecraft.player;
         if (player != null) {
+            MobEffectInstance tremorInstance = player.getEffect(TAMobEffects.TREMOR);
+            MobEffectInstance overheatingInstance = player.getEffect(TAMobEffects.OVERHEATING);
             if (player.hasEffect(TAMobEffects.CONFUSION)) {
                 float rotation = Mth.sin(player.tickCount / 10.0F) * 45.0F;
                 event.setRoll(rotation);
             }
 
-            if (player.hasEffect(TAMobEffects.TREMOR)) {
-                RandomSource random = player.level().random;
-                float amplifier = Objects.requireNonNull(player.getEffect(TAMobEffects.TREMOR)).getAmplifier();
+            if (tremorInstance != null) {
+                RandomSource random = player.level().getRandom();
+                float amplifier = tremorInstance.getAmplifier();
                 float partialTick = minecraft.getTimer().getGameTimeDeltaPartialTick(Boolean.TRUE);
                 float f =  Mth.sin((player.tickCount + partialTick) * 2.0F) * ((amplifier + 1.0F) * 10.0F);
                 player.turn(f * random.nextDouble(), f * random.nextDouble());
             }
 
-            if (player.hasEffect(TAMobEffects.OVERHEATING)) {
-                float amplifier = Objects.requireNonNull(player.getEffect(TAMobEffects.OVERHEATING)).getAmplifier();
+            if (overheatingInstance != null) {
+                float amplifier = overheatingInstance.getAmplifier();
                 event.setRoll(Mth.sin(player.tickCount / 5.0F) * (amplifier + 1.0F));
             }
         }
@@ -122,10 +129,14 @@ public class ClientEventSubscriber {
                 }
             }
 
-            if (flag || sylvanis > 80.0F) {
+            if (flag) {
                 event.setRed(Color.WHITE.getRed());
                 event.setGreen(Color.WHITE.getGreen());
                 event.setBlue(Color.WHITE.getBlue());
+            } else if (sylvanis > SylvanisHandler.FOG_START) {
+                event.setRed(FOG_COLOR.getRed());
+                event.setGreen(FOG_COLOR.getGreen());
+                event.setBlue(FOG_COLOR.getBlue());
             } else if (localPlayer.hasEffect(TAMobEffects.FROSTBITE)) {
                 event.setRed(0.623F);
                 event.setGreen(0.734F);
@@ -149,9 +160,11 @@ public class ClientEventSubscriber {
                 event.setFarPlaneDistance(4.0F);
                 event.setFogShape(FogShape.CYLINDER);
                 event.setCanceled(true);
-            } else if (sylvanis > 80.0F) {
+            } else if (sylvanis > 0.0F) {
+                SylvanisHandler.FogParameters fog = SylvanisHandler.calculateFog(sylvanis);
+                float visibility = MIN_VISIBILITY - (MIN_VISIBILITY - MAX_VISIBILITY) * fog.density();
                 event.setNearPlaneDistance(-8.0F);
-                event.setFarPlaneDistance(32.0F);
+                event.setFarPlaneDistance(visibility);
                 event.setFogShape(FogShape.CYLINDER);
                 event.setCanceled(true);
             }

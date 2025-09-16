@@ -22,7 +22,8 @@ public class TASoundProvider extends SoundDefinitionsProvider {
                 sound(TheAurorian.prefix("music/aurorian_2")).stream(),
                 sound(TheAurorian.prefix("music/aurorian_3")).stream(),
                 sound(TheAurorian.prefix("music/aurorian_4")).stream(),
-                sound(TheAurorian.prefix("music/aurorian_5")).stream()};
+                sound(TheAurorian.prefix("music/aurorian_5")).stream(),
+                sound(TheAurorian.prefix("music/aurorian_6")).stream()};
         this.register(TASoundEvents.CRYSTALLINE_SWORD_USE);
         this.register(TASoundEvents.CRYSTALLINE_SWORD_CHARGING);
         this.register(TASoundEvents.CRYSTALLINE_SWORD_SHOOT);

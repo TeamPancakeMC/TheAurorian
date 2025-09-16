@@ -5,7 +5,6 @@ import cn.teampancake.theaurorian.common.network.PlayAurorianMusicS2CPacket;
 import cn.teampancake.theaurorian.common.network.SylvanisProgressS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
-import cn.teampancake.theaurorian.common.registry.TASoundEvents;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -22,7 +21,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
@@ -39,11 +37,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class SylvanisHandler {
 
     // 迷雾出现、可见与峰值的阈值（用于渲染与传送逻辑）
-    private static final float FOG_START = 80.0f;
-    private static final float FOG_VISIBLE = 90.0f;
-    private static final float FOG_PEAK = 100.0f;
-    private static final float MIN_ALPHA = 0.0f;
-    private static final float MAX_ALPHA = 0.5f;
+    public static final float FOG_START = 30.0f;
+    public static final float FOG_VISIBLE = 50.0f;
+    public static final float FOG_PEAK = 90.0f;
+    public static final float MIN_ALPHA = 0.0f;
+    public static final float MAX_ALPHA = 0.5f;
 
     public static void checkSylvanisToTeleport(Player player, Level level, boolean otherCondition) {
         AttachmentType<Float> sylvanisAttachment = TAAttachmentTypes.SYLVANIS_PROGRESS.get();
@@ -183,7 +181,7 @@ public class SylvanisHandler {
 
     public static<T extends LivingEntity, M extends EntityModel<T>> void setPlayerRenderTransparency(
             M model, PoseStack poseStack, int packedLight, int packedOverlay, LocalPlayer player, VertexConsumer buffer) {
-        float alpha = 1.0F - calculateFog(player.getData(TAAttachmentTypes.SYLVANIS_PROGRESS));
+        float alpha = 1.0F - calculateFog(player.getData(TAAttachmentTypes.SYLVANIS_PROGRESS)).alpha();
         int color = FastColor.ARGB32.colorFromFloat(alpha, 1.0F, 1.0F, 1.0F);
         model.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, color);
     }
@@ -194,7 +192,7 @@ public class SylvanisHandler {
         if (cameraEntity instanceof LocalPlayer player) {
             float sylvanis = player.getData(TAAttachmentTypes.SYLVANIS_PROGRESS);
             if (sylvanis > FOG_START) {
-                float alpha = calculateFog(sylvanis);
+                float alpha = calculateFog(sylvanis).alpha();
                 RenderSystem.setShaderFogColor(red, green, blue, alpha);
                 ci.cancel();
             }
@@ -206,23 +204,29 @@ public class SylvanisHandler {
         return 1.0f - Math.abs(dayTime - 12000.0f) / 12000.0f;
     }
 
-    private static float calculateFog(float sylvanisValue) {
+    public static FogParameters calculateFog(float sylvanisValue) {
         float alpha = 0f;
+        float density = 0f;
         if (sylvanisValue >= FOG_START) {
             if (sylvanisValue <= FOG_VISIBLE) {
                 float progress = (sylvanisValue - FOG_START) / (FOG_VISIBLE - FOG_START);
                 alpha = MIN_ALPHA + (MAX_ALPHA * 0.2f) * (float) Math.pow(progress, 3);
+                density = progress * 0.2f;
             } else if (sylvanisValue <= FOG_PEAK) {
                 float progress = (sylvanisValue - FOG_VISIBLE) / (FOG_PEAK - FOG_VISIBLE);
                 alpha = MAX_ALPHA * 0.2f + (MAX_ALPHA * 0.6f) * progress;
+                density = 0.2f + progress * 0.5f;
             } else {
                 float base = MAX_ALPHA * 0.8f;
-                float pulse = Mth.sin(System.currentTimeMillis() / 1500.0f) * 0.05f;
+                float pulse = Mth.sin(System.currentTimeMillis() / 1500.0F) * 0.05f;
                 alpha = Math.min(MAX_ALPHA, base + pulse);
+                density = 0.7f + pulse * 0.1f;
             }
         }
 
-        return alpha;
+        return new FogParameters(alpha, density);
     }
+
+    public record FogParameters(float alpha, float density) {}
 
 }

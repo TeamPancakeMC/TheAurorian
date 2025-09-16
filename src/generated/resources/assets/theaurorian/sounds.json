@@ -93,6 +93,10 @@
       {
         "name": "theaurorian:music/aurorian_5",
         "stream": true
+      },
+      {
+        "name": "theaurorian:music/aurorian_6",
+        "stream": true
       }
     ]
   },

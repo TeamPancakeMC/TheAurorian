@@ -73,7 +73,6 @@ public class ModBusEventSubscriber {
         registrar.playToClient(DisplayActivationTickS2CPacket.TYPE, DisplayActivationTickS2CPacket.STREAM_CODEC, DisplayActivationTickS2CPacket::handle);
         registrar.playToClient(SylvanisProgressS2CPacket.TYPE, SylvanisProgressS2CPacket.STREAM_CODEC, SylvanisProgressS2CPacket::handle);
         registrar.playToClient(PlayerLostInForestS2CPacket.TYPE, PlayerLostInForestS2CPacket.STREAM_CODEC, PlayerLostInForestS2CPacket::handle);
-        // 首次进入奥罗瑞安维度时，仅对该玩家播放音乐
         registrar.playToClient(PlayAurorianMusicS2CPacket.TYPE, PlayAurorianMusicS2CPacket.STREAM_CODEC, PlayAurorianMusicS2CPacket::handle);
     }
 

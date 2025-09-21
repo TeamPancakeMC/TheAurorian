@@ -26,9 +26,9 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public class VagrantNoteScreen extends BookViewScreen {
 
-    private static final ResourceLocation VAGRANT_NOTE_COVER = TheAurorian.prefix("textures/gui/vagrant_note_cover.png");
-    private static final ResourceLocation VAGRANT_NOTE_PAGE_LEFT = TheAurorian.prefix("textures/gui/vagrant_note_page_left.png");
-    private static final ResourceLocation VAGRANT_NOTE_PAGE_RIGHT = TheAurorian.prefix("textures/gui/vagrant_note_page_right.png");
+    private static final ResourceLocation VAGRANT_NOTE_COVER = TheAurorian.prefix("textures/gui/vagrant_note/cover.png");
+    private static final ResourceLocation VAGRANT_NOTE_PAGE_LEFT = TheAurorian.prefix("textures/gui/vagrant_note/page_left.png");
+    private static final ResourceLocation VAGRANT_NOTE_PAGE_RIGHT = TheAurorian.prefix("textures/gui/vagrant_note/page_right.png");
 
     private final List<ChapterContent> chapters;
     private final List<FormattedCharSequence> allLines = new ArrayList<>();
@@ -46,7 +46,7 @@ public class VagrantNoteScreen extends BookViewScreen {
     @Override
     protected void init() {
         int lineHeight = this.font.lineHeight;
-        int contentHeight = 243 - this.startY - 22;
+        int contentHeight = 243 - 40 - 22;
         this.linesPerSide = contentHeight / lineHeight;
         // 预构建所有文本行，避免在每帧渲染时重复读取资源
         this.allLines.clear();
@@ -133,8 +133,8 @@ public class VagrantNoteScreen extends BookViewScreen {
             int startIndex = Math.min(this.currentSheet * linesPerSheet, this.allLines.size());
             int endIndex = Math.min(startIndex + linesPerSheet, this.allLines.size());
             int leftPageX = (this.width - 256) / 2; // 左页贴图左上角 X
-            int tocTextX = leftPageX + 18; // 左页内侧留白
-            int tocY = 20; // 目录起始 Y（相对屏幕）
+            int tocTextX = leftPageX + 10; // 左页内侧留白
+            int tocY = 40; // 目录起始 Y（相对屏幕）
             int tocLineHeight = this.font.lineHeight + 2;
             for (ChapterTocEntry entry : this.tocEntries) {
                 // 高亮当前页对应的目录项
@@ -149,8 +149,8 @@ public class VagrantNoteScreen extends BookViewScreen {
             }
 
             // 渲染右页（进一步向右移动，留出更大的内侧空白）
-            int rightTextX = (this.width / 2) + 16;
-            int y = this.startY;
+            int rightTextX = (this.width / 2) + 40;
+            int y = 40;
             for (int idx = startIndex; idx < endIndex; idx++) {
                 FormattedCharSequence seq = this.allLines.get(idx);
                 // 若该行属于章节标题，则放大加重绘制
@@ -184,16 +184,16 @@ public class VagrantNoteScreen extends BookViewScreen {
         PoseStack poseStack = guiGraphics.pose();
         poseStack.pushPose();
         poseStack.scale(1.0F, 0.95F, 1.0F);
-        guiGraphics.blit(VAGRANT_NOTE_COVER, (this.width - 256) / 2, 2, 0, 0, 256, 257, 256, 257);
+        guiGraphics.blit(VAGRANT_NOTE_COVER, (this.width - 391) / 2, 2, 0, 0, 391, 300, 391, 300);
         poseStack.popPose();
     }
 
     private void renderLeftPage(GuiGraphics guiGraphics) {
-        guiGraphics.blit(VAGRANT_NOTE_PAGE_LEFT, (this.width - 256) / 2, 7, 0, 0, 163, 243);
+        guiGraphics.blit(VAGRANT_NOTE_PAGE_LEFT, (this.width - 300) / 2, 13, 0, 0, 147, 231);
     }
 
     private void renderRightPage(GuiGraphics guiGraphics) {
-        guiGraphics.blit(VAGRANT_NOTE_PAGE_RIGHT, this.width / 2, 7, 0, 0, 163, 243);
+        guiGraphics.blit(VAGRANT_NOTE_PAGE_RIGHT, this.width / 2 + 29, 13, 0, 0, 134, 238);
     }
 
     @Override

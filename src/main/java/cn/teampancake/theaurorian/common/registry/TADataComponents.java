@@ -67,5 +67,7 @@ public class TADataComponents {
             () -> DataComponentType.<Unit>builder().networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> NO_RUN_DATA = DATA_COMPONENT_TYPE.register("no_run_data",
             () -> DataComponentType.<Unit>builder().networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> NOTE_PASSPORT = DATA_COMPONENT_TYPE.register("note_passport",
+            () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
 
 }

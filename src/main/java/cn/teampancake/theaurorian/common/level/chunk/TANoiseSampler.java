@@ -191,6 +191,22 @@ public class TANoiseSampler {
                             // 黯晶雪原 - 高度设置为70
                             totalDensity = computeSnowfieldDensity(y);
                         }
+                    } else {
+                        // 非黯晶区域：叠加类主世界地貌（高山/丘陵/山地）
+                        // 宏观起伏（大陆性）
+                        double macro = blend.sampleAndClampNoise(x >> 2, 0, z >> 2, scaleXZ * 0.25, scaleY * 0.25, factorXZ * 0.5, factorY * 0.5);
+                        // 脊状噪声（山脊）
+                        double ridged = Math.abs(blend.sampleAndClampNoise(x >> 1, 0, z >> 1, scaleXZ * 0.5, scaleY * 0.5, factorXZ * 0.9, factorY * 0.9));
+                        ridged = Math.max(0.0, ridged - 0.25) * 1.8; // 去偏移，增强山峰
+                        // 高度增强
+                        double sea = 62.0;
+                        double alt = Mth.clamp((y - (sea + 8.0)) / 96.0, 0.0, 1.0); // 海拔越高越强化
+                        double overworldShape = macro * 0.7 + ridged * alt;
+                        // 低处削弱，形成谷地/滩涂过渡
+                        if (y < sea + 6.0) {
+                            overworldShape -= (sea + 6.0 - y) * 0.01;
+                        }
+                        totalDensity += overworldShape;
                     }
                     
                     // 应用垂直平滑，使地形更加自然

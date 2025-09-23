@@ -22,13 +22,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.network.NoteTeleportC2SPacket;
+import cn.teampancake.theaurorian.common.registry.TADimensions;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.Unit;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraft.world.level.Level;
 
 @OnlyIn(Dist.CLIENT)
 public class VagrantNoteScreen extends BookViewScreen {
 
     private static final ResourceLocation VAGRANT_NOTE_COVER = TheAurorian.prefix("textures/gui/vagrant_note/cover.png");
-    private static final ResourceLocation VAGRANT_NOTE_PAGE_LEFT = TheAurorian.prefix("textures/gui/vagrant_note/page_left.png");
-    private static final ResourceLocation VAGRANT_NOTE_PAGE_RIGHT = TheAurorian.prefix("textures/gui/vagrant_note/page_right.png");
 
     private final List<ChapterContent> chapters;
     private final List<FormattedCharSequence> allLines = new ArrayList<>();
@@ -122,59 +127,115 @@ public class VagrantNoteScreen extends BookViewScreen {
             poseStack.pushPose();
             poseStack.scale(1.0F, 1.17F, 1.0F);
             poseStack.translate(-0.8F, 0.0F, 0.0F);
-            this.renderLeftPage(guiGraphics);
-            this.renderRightPage(guiGraphics);
             this.createPageControlButtons();
             poseStack.popPose();
             poseStack.pushPose();
-            // 渲染左侧目录与右侧正文
-            // 计算当前页（仅右页）应渲染的文本行范围
-            int linesPerSheet = this.linesPerSide;
-            int startIndex = Math.min(this.currentSheet * linesPerSheet, this.allLines.size());
-            int endIndex = Math.min(startIndex + linesPerSheet, this.allLines.size());
-            int leftPageX = (this.width - 256) / 2; // 左页贴图左上角 X
-            int tocTextX = leftPageX + 10; // 左页内侧留白
-            int tocY = 40; // 目录起始 Y（相对屏幕）
-            int tocLineHeight = this.font.lineHeight + 2;
-            for (ChapterTocEntry entry : this.tocEntries) {
-                // 高亮当前页对应的目录项
-                int color = 0x303030;
-                int entrySheet = Math.min(entry.startLineIndex / Math.max(1, linesPerSheet),
-                        Math.max(0, (this.allLines.size() - 1) / Math.max(1, linesPerSheet)));
-                if (entrySheet == this.currentSheet) {
-                    color = 0x0055AA; // 蓝色高亮
-                }
-                guiGraphics.drawString(this.font, entry.title, tocTextX, tocY, color, false);
-                tocY += tocLineHeight;
-            }
+			// 渲染目录与正文（正文在左侧，第一页为目录，第二页开始正文）
+			int linesPerSheet = this.linesPerSide;
+			// 以封面中心作为参考，统一布局
+			int coverLeft = (this.width - 391) / 2;
+			int coverTop = 2;
+			int contentMarginX = 32;
+			int contentMarginY = 38;
+			int leftTextX = coverLeft + contentMarginX + 30;
+			int tocY = coverTop + contentMarginY;
+			int tocLineHeight = this.font.lineHeight + 2;
+			// 第1页（currentSheet == 0）仅渲染目录
+			if (this.currentSheet == 0) {
+				int tocWidth = 130;
+				for (ChapterTocEntry entry : this.tocEntries) {
+					int color = 0x303030;
+					int entrySheet = Math.min(entry.startLineIndex / Math.max(1, linesPerSheet),
+							Math.max(0, (this.allLines.size() - 1) / Math.max(1, linesPerSheet)));
+					if (entrySheet + 1 == this.currentSheet) { // 不会命中，仅保留逻辑占位
+						color = 0x0055AA;
+					}
+					boolean hovered = mouseX >= leftTextX && mouseX <= leftTextX + tocWidth && mouseY >= tocY && mouseY < tocY + tocLineHeight;
+					if (hovered) {
+						PoseStack ps = guiGraphics.pose();
+						ps.pushPose();
+						float s = 1.06F;
+						ps.translate(leftTextX, tocY, 0);
+						ps.scale(s, s, 1.0F);
+						ps.translate(-leftTextX, -tocY, 0);
+													guiGraphics.drawString(this.font, entry.title, leftTextX, tocY, color, false);
+						ps.popPose();
+					} else {
+						guiGraphics.drawString(this.font, entry.title, leftTextX, tocY, color, false);
+					}
+					tocY += tocLineHeight;
+				}
+			} else {
+				// 正文从第二页开始：页索引减一后再分页
+				int startIndex = Math.min((this.currentSheet - 1) * linesPerSheet, this.allLines.size());
+				int endIndex = Math.min(startIndex + linesPerSheet, this.allLines.size());
+				int y = coverTop + contentMarginY - 4;
+				int bodyTextX = leftTextX + 15;
+				for (int idx = startIndex; idx < endIndex; idx++) {
+					FormattedCharSequence seq = this.allLines.get(idx);
+					if (this.titleLineMap.containsKey(idx)) {
+						PoseStack ps = guiGraphics.pose();
+						ps.pushPose();
+						float scale = 1.25F;
+						ps.scale(scale, scale, 1.0F);
+						int sx = (int) (bodyTextX / scale);
+						int sy = (int) (y / scale);
+						guiGraphics.drawString(this.font, seq, sx, sy, 0x222222, false);
+						ps.popPose();
+						y += (int) Math.ceil(this.font.lineHeight * 1.25F);
+					} else {
+						guiGraphics.drawString(this.font, seq, bodyTextX, y, 0, false);
+						y += this.font.lineHeight;
+					}
+				}
+			}
 
-            // 渲染右页（进一步向右移动，留出更大的内侧空白）
-            int rightTextX = (this.width / 2) + 40;
-            int y = 40;
-            for (int idx = startIndex; idx < endIndex; idx++) {
-                FormattedCharSequence seq = this.allLines.get(idx);
-                // 若该行属于章节标题，则放大加重绘制
-                if (this.titleLineMap.containsKey(idx)) {
-                    PoseStack ps = guiGraphics.pose();
-                    ps.pushPose();
-                    float scale = 1.25F;
-                    ps.scale(scale, scale, 1.0F);
-                    int sx = (int) (rightTextX / scale);
-                    int sy = (int) (y / scale);
-                    guiGraphics.drawString(this.font, seq, sx, sy, 0x222222, false);
-                    ps.popPose();
-                    y += (int) Math.ceil(this.font.lineHeight * 1.25F);
-                } else {
-                    guiGraphics.drawString(this.font, seq, rightTextX, y, 0, false);
-                    y += this.font.lineHeight;
-                }
-            }
+			// 页码指示：位于左右翻页按钮的中心对称位置，Y 与按钮对齐
+			int bodyPages = (this.allLines.size() + linesPerSheet - 1) / Math.max(1, linesPerSheet);
+			int totalSheets = 1 + bodyPages; // +1 为目录页
+			String footer = String.format("%d / %d", this.currentSheet + 1, totalSheets);
+			int footerWidth = this.font.width(footer);
+			int leftCenterX = this.backButton != null ? this.backButton.getX() + this.backButton.getWidth() / 2 : coverLeft + 80;
+			int rightCenterX = this.forwardButton != null ? this.forwardButton.getX() + this.forwardButton.getWidth() / 2 : coverLeft + 391 - 80;
+			int midX = (leftCenterX + rightCenterX) / 2;
+			int footerX = midX - footerWidth / 2;
+			int footerY = this.backButton != null ? this.backButton.getY() + (this.backButton.getHeight() - this.font.lineHeight) / 2 : coverTop + 280;
+			guiGraphics.drawString(this.font, footer, footerX, footerY, 0x404040, false);
 
-            // 底部页码指示
-            int totalSheets = Math.max(1, (this.allLines.size() + linesPerSheet - 1) / linesPerSheet);
-            String footer = String.format("%d / %d", this.currentSheet + 1, totalSheets);
-            guiGraphics.drawString(this.font, footer, (this.width - this.font.width(footer)) / 2, 255, 0x404040, false);
-            poseStack.popPose();
+			// 右侧渲染传送目录（需获得通行证组件）
+			ItemStack held = this.minecraft.player != null ? this.minecraft.player.getMainHandItem() : ItemStack.EMPTY;
+			boolean hasPassport = held.getOrDefault(TADataComponents.NOTE_PASSPORT, null) == Unit.INSTANCE;
+			if (hasPassport) {
+				int rightX = coverLeft + 210 + 30; // 与正文同列
+				int rightY = coverTop + contentMarginY + 30;
+				Component a = Component.literal("极光幽境通行证");
+				Component b = Component.literal("北方诸国通行证");
+				Component c = Component.literal("南方诸国通行证");
+				int lineH = this.font.lineHeight + 6;
+				// 当前维度
+				Level level = this.minecraft.level;
+				boolean inAurorian = level != null && level.dimension().equals(TADimensions.AURORIAN_DIMENSION);
+				boolean inNorth = level != null && level.dimension().equals(TADimensions.NORTHERN_DIMENSION);
+				boolean inSouth = level != null && level.dimension().equals(TADimensions.SOUTHERN_DIMENSION);
+
+				int bColor = 0x2255AA, gColor = 0x66CCFF;
+				if (inNorth) { bColor = 0xDDDDDD; gColor = 0xFFFFFF; }
+				else if (inSouth) { bColor = 0xCC3300; gColor = 0xFF6600; }
+				boolean hoveredA = this.isMouseOverLine(rightX, rightY, 140, lineH, mouseX, mouseY);
+				boolean hoveredB = this.isMouseOverLine(rightX, rightY + lineH, 140, lineH, mouseX, mouseY);
+				boolean hoveredC = this.isMouseOverLine(rightX, rightY + lineH * 2, 140, lineH, mouseX, mouseY);
+				int gray = 0x707070;
+				// 极光：蓝色系（✦）
+				this.drawPassportLine(guiGraphics, a, rightX, rightY, inAurorian, hoveredA, partialTick,
+						0x2255AA, 0x66CCFF, gray, "✦");
+				// 北方：白色系（❄）
+				this.drawPassportLine(guiGraphics, b, rightX, rightY + lineH, inNorth, hoveredB, partialTick,
+						0xDDDDDD, 0xFFFFFF, gray, "❄");
+				// 南方：岩浆红（☼）
+				this.drawPassportLine(guiGraphics, c, rightX, rightY + lineH * 2, inSouth, hoveredC, partialTick,
+						0xCC3300, 0xFF6600, gray, "☼");
+			}
+			poseStack.popPose();
         }
     }
 
@@ -186,14 +247,6 @@ public class VagrantNoteScreen extends BookViewScreen {
         poseStack.scale(1.0F, 0.95F, 1.0F);
         guiGraphics.blit(VAGRANT_NOTE_COVER, (this.width - 391) / 2, 2, 0, 0, 391, 300, 391, 300);
         poseStack.popPose();
-    }
-
-    private void renderLeftPage(GuiGraphics guiGraphics) {
-        guiGraphics.blit(VAGRANT_NOTE_PAGE_LEFT, (this.width - 300) / 2, 13, 0, 0, 147, 231);
-    }
-
-    private void renderRightPage(GuiGraphics guiGraphics) {
-        guiGraphics.blit(VAGRANT_NOTE_PAGE_RIGHT, this.width / 2 + 29, 13, 0, 0, 134, 238);
     }
 
     @Override
@@ -215,8 +268,8 @@ public class VagrantNoteScreen extends BookViewScreen {
 
     protected void createPageControlButtons() {
         int i = (this.width - 192) / 2;
-        this.forwardButton = this.addRenderableWidget(new PageButton(i + 116, 159, true, button -> this.pageForward(), this.playTurnSound));
-        this.backButton = this.addRenderableWidget(new PageButton(i + 43, 159, false, button -> this.pageBack(), this.playTurnSound));
+        this.forwardButton = this.addRenderableWidget(new PageButton(i + 56 + 4, 159 + 59, true, button -> this.pageForward(), this.playTurnSound));
+        this.backButton = this.addRenderableWidget(new PageButton(i + 43 - 70 - 20 + 3, 159 + 59, false, button -> this.pageBack(), this.playTurnSound));
         this.updateButtonVisibility();
     }
 
@@ -266,20 +319,45 @@ public class VagrantNoteScreen extends BookViewScreen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0) {
-            // 检测是否点击在左页目录区域
-            int leftPageX = (this.width - 256) / 2;
-            int tocTextX = leftPageX + 18;
-            int tocWidth = 130; // 目录可点击宽度
-            int tocStartY = 20;
+        if (button == 0 && this.currentSheet == 0) { // 仅在目录页可点击目录
+            int coverLeft = (this.width - 391) / 2;
+            int coverTop = 2;
+            int contentMarginX = 32;
+            int contentMarginY = 38;
+            int tocTextX = coverLeft + contentMarginX + 30;
+            int tocWidth = 130;
+            int tocStartY = coverTop + contentMarginY;
             int tocLineHeight = this.font.lineHeight + 2;
             if (mouseX >= tocTextX && mouseX <= tocTextX + tocWidth && mouseY >= tocStartY
                     && mouseY <= tocStartY + this.tocEntries.size() * tocLineHeight) {
                 int index = (int) ((mouseY - tocStartY) / tocLineHeight);
                 if (index >= 0 && index < this.tocEntries.size()) {
                     ChapterTocEntry entry = this.tocEntries.get(index);
-                    this.currentSheet = Math.min(entry.startLineIndex / Math.max(1, this.linesPerSide), this.getTotalSheets() - 1);
+                    // 目录跳转到正文对应页：+1（第2页开始为正文）
+                    this.currentSheet = Math.min(1 + entry.startLineIndex / Math.max(1, this.linesPerSide), this.getTotalSheets() - 1);
                     return true;
+                }
+            }
+
+            // 右侧通行证点击区域
+            ItemStack held = this.minecraft.player != null ? this.minecraft.player.getMainHandItem() : ItemStack.EMPTY;
+            boolean hasPassport = held.getOrDefault(TADataComponents.NOTE_PASSPORT, null) == Unit.INSTANCE;
+            if (hasPassport) {
+                int rightX = coverLeft + 210 + 30;
+                int rightY = coverTop + contentMarginY + 30;
+                int width = 140;
+                int h = this.font.lineHeight + 6;
+                if (mouseX >= rightX && mouseX <= rightX + width) {
+                    if (mouseY >= rightY && mouseY < rightY + h) {
+                        PacketDistributor.sendToServer(new NoteTeleportC2SPacket(TADimensions.AURORIAN_DIMENSION));
+                        return true;
+                    } else if (mouseY >= rightY + h && mouseY < rightY + 2 * h) {
+                        PacketDistributor.sendToServer(new NoteTeleportC2SPacket(TADimensions.NORTHERN_DIMENSION));
+                        return true;
+                    } else if (mouseY >= rightY + 2 * h && mouseY < rightY + 3 * h) {
+                        PacketDistributor.sendToServer(new NoteTeleportC2SPacket(TADimensions.SOUTHERN_DIMENSION));
+                        return true;
+                    }
                 }
             }
         }
@@ -287,8 +365,85 @@ public class VagrantNoteScreen extends BookViewScreen {
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
+    private boolean isMouseOverLine(int x, int y, int w, int h, double mouseX, double mouseY) {
+        return mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY < y + h;
+    }
+
+    private void drawPassportLine(GuiGraphics gg, Component text, int x, int y, boolean active, boolean hovered, float partialTick,
+								  int baseColor, int glowColor, int inactiveColor, String icon) {
+		int color = active ? baseColor : inactiveColor;
+		long ticks = this.minecraft != null && this.minecraft.level != null ? this.minecraft.level.getGameTime() : 0L;
+		float t = (ticks + partialTick) * 0.12F;
+		if (active) {
+			color = mixColor(baseColor, glowColor, (float)(0.5F + 0.5F * Math.sin(t)));
+		}
+		PoseStack ps = gg.pose();
+		ps.pushPose();
+		if (hovered) {
+			float s = 1.08F;
+			ps.translate(x, y, 0);
+			ps.scale(s, s, 1.0F);
+			ps.translate(-x, -y, 0);
+		}
+		if (active) {
+			ps.translate(0.0F, (float)Math.sin(t) * 0.4F, 0.0F);
+		}
+
+		// 基础文字
+		gg.drawString(this.font, text, x, y, color, false);
+
+		// 流光效果（按字符覆盖高亮，无下划线）
+		if (active) {
+			String s = text.getString();
+			int total = this.font.width(s);
+			int window = Math.max(14, Math.min(28, total / 2));
+			int center = x + (int)((Math.sin(t * 1.2F) * 0.5F + 0.5F) * (total + window)) - window / 2;
+			int runX = x;
+			for (int i = 0; i < s.length(); i++) {
+				String ch = String.valueOf(s.charAt(i));
+				int w = this.font.width(ch);
+				int charCenter = runX + w / 2;
+				int dist = Math.abs(charCenter - center);
+				if (dist < window / 2) {
+					float weight = 1.0F - (dist / (window / 2.0F));
+					int alpha = (int)(80 + weight * 140); // 0x50-0xDC
+					int overlay = withAlpha(mixColor(baseColor, glowColor, (float)(0.6F + 0.4F * Math.sin(t * 1.3F))), alpha);
+					gg.drawString(this.font, ch, runX, y, overlay, false);
+				}
+				runX += w;
+			}
+		}
+
+		// 符号与小光点（仅激活）
+		if (active) {
+			int starColor = mixColor(baseColor, glowColor, (float)(0.5F + 0.5F * Math.cos(t * 1.6F)));
+			int sx = x - 10 + (int)(Math.sin(t * 2.2F) * 2);
+			int sy = y + (int)(Math.cos(t * 1.9F) * 1);
+			gg.drawString(this.font, icon, sx, sy, starColor, false);
+			int textWidth = this.font.width(text);
+			/* removed dot glint as requested */
+		}
+		ps.popPose();
+	}
+
+    private int mixColor(int c1, int c2, float t) {
+        t = Math.max(0.0F, Math.min(1.0F, t));
+        int r1 = (c1 >> 16) & 0xFF, g1 = (c1 >> 8) & 0xFF, b1 = c1 & 0xFF;
+        int r2 = (c2 >> 16) & 0xFF, g2 = (c2 >> 8) & 0xFF, b2 = c2 & 0xFF;
+        int r = (int)(r1 + (r2 - r1) * t);
+        int g = (int)(g1 + (g2 - g1) * t);
+        int b = (int)(b1 + (b2 - b1) * t);
+        return (r << 16) | (g << 8) | b;
+    }
+
+    private int withAlpha(int rgb, int alpha) {
+        alpha = Math.max(0, Math.min(255, alpha));
+        return (alpha << 24) | (rgb & 0xFFFFFF);
+    }
+
     private int getTotalSheets() {
-        return Math.max(1, (this.allLines.size() + this.linesPerSide - 1) / this.linesPerSide);
+        int bodyPages = (this.allLines.size() + this.linesPerSide - 1) / Math.max(1, this.linesPerSide);
+        return 1 + bodyPages; // 1 页目录 + 正文页数
     }
 
     private record ChapterTocEntry(int chapter, int startLineIndex, Component title) { }

@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.network;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.client.gui.screens.VagrantNoteScreen;
 import cn.teampancake.theaurorian.common.components.ChapterContent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -33,7 +32,7 @@ public record ShowVagrantNoteScreenS2CPacket(List<ChapterContent> chapters) impl
 
     @OnlyIn(Dist.CLIENT)
     private static void openScreen(List<ChapterContent> chapters) {
-        Minecraft.getInstance().setScreen(new VagrantNoteScreen(chapters));
+        Minecraft.getInstance().setScreen(new cn.teampancake.theaurorian.client.gui.screens.VagrantNoteScreen(chapters));
     }
 
 }

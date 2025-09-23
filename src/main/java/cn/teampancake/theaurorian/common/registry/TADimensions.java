@@ -34,6 +34,12 @@ public class TADimensions {
     public static final ResourceKey<LevelStem> AURORIAN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, TheAurorian.prefix("the_aurorian"));
     public static final ResourceKey<Level> AURORIAN_DIMENSION = ResourceKey.create(Registries.DIMENSION, TheAurorian.prefix("the_aurorian"));
 
+    // 新增：北方诸国 & 南方维度
+    public static final ResourceKey<LevelStem> NORTHERN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, TheAurorian.prefix("north_kingdoms"));
+    public static final ResourceKey<Level> NORTHERN_DIMENSION = ResourceKey.create(Registries.DIMENSION, TheAurorian.prefix("north_kingdoms"));
+    public static final ResourceKey<LevelStem> SOUTHERN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, TheAurorian.prefix("south_dimension"));
+    public static final ResourceKey<Level> SOUTHERN_DIMENSION = ResourceKey.create(Registries.DIMENSION, TheAurorian.prefix("south_dimension"));
+
     public static void bootstrapNoise(BootstrapContext<NoiseGeneratorSettings> context) {
         NoiseGeneratorSettings settings = new NoiseGeneratorSettings(NoiseSettings.OVERWORLD_NOISE_SETTINGS,
                 TABlocks.AURORIAN_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(),
@@ -52,13 +58,33 @@ public class TADimensions {
     public static void bootstrapStem(BootstrapContext<LevelStem> context) {
         HolderGetter<DimensionType> dimensionType = context.lookup(Registries.DIMENSION_TYPE);
         HolderGetter<NoiseGeneratorSettings> noiseSettings = context.lookup(Registries.NOISE_SETTINGS);
-        NoiseBasedChunkGenerator chunkGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
-                TABiomeBuilder.makeBiomeList(context.lookup(Registries.BIOME)), -1.25F, 2.5F,
+
+        // 极光维度（主）：去除冰雪与沙漠
+        NoiseBasedChunkGenerator mainGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
+                TABiomeBuilder.makeAurorianMainBiomeList(context.lookup(Registries.BIOME)), -1.25F, 2.5F,
                 context.lookup(TABiomeLayerStack.BIOME_STACK_KEY).getOrThrow(TABiomeLayerStack.BIOMES_ALONG_STREAMS)),
                 noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
-        LevelStem levelStem = new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
-                new TAChunkGenerator(chunkGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS)));
-        context.register(AURORIAN_LEVEL_STEM, levelStem);
+        LevelStem mainStem = new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
+                new TAChunkGenerator(mainGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS)));
+        context.register(AURORIAN_LEVEL_STEM, mainStem);
+
+        // 北方诸国（冰雪）
+        NoiseBasedChunkGenerator northGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
+                TABiomeBuilder.makeNorthernBiomeList(context.lookup(Registries.BIOME)), -1.25F, 2.5F,
+                context.lookup(TABiomeLayerStack.BIOME_STACK_KEY).getOrThrow(TABiomeLayerStack.NORTH_BIOMES_ALONG_STREAMS)),
+                noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
+        LevelStem northStem = new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
+                new TAChunkGenerator(northGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS)));
+        context.register(NORTHERN_LEVEL_STEM, northStem);
+
+        // 南方维度（沙漠）
+        NoiseBasedChunkGenerator southGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
+                TABiomeBuilder.makeSouthernBiomeList(context.lookup(Registries.BIOME)), -1.25F, 2.5F,
+                context.lookup(TABiomeLayerStack.BIOME_STACK_KEY).getOrThrow(TABiomeLayerStack.SOUTH_BIOMES_ALONG_STREAMS)),
+                noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
+        LevelStem southStem = new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
+                new TAChunkGenerator(southGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS)));
+        context.register(SOUTHERN_LEVEL_STEM, southStem);
     }
 
     private static RuleSource createSurfaceRule() {

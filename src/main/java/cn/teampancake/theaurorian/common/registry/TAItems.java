@@ -392,10 +392,10 @@ public class TAItems {
     /**
      * Misc
      */
-    public static final DeferredHolder<Item, Item> MUSIC_DISC_AURORIAN_FOREST = ITEMS.register("music_disc_aurorian_forest",
-            () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(TAJukeboxSongs.AURORIAN_FOREST)));
-    public static final DeferredHolder<Item, Item> MUSIC_DISC_MOONLIT_VEIL = ITEMS.register("music_disc_moonlit_veil",
-            () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(TAJukeboxSongs.MOONLIT_VEIL)));
+    public static final DeferredHolder<Item, Item> MUSIC_DISC_AURORIAN_FOREST = normal("music_disc_aurorian_forest", () -> new Item.Properties()
+            .stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(TAJukeboxSongs.AURORIAN_FOREST).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+    public static final DeferredHolder<Item, Item> MUSIC_DISC_MOONLIT_VEIL = normal("music_disc_moonlit_veil", () -> new Item.Properties()
+            .stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(TAJukeboxSongs.MOONLIT_VEIL).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> CRYSTAL = normal("crystal", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> BROKEN_OX_HORN = normal("broken_ox_horn", () -> new Item.Properties().component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> LUCKY_RABBIT_EAR = normal("lucky_rabbit_ear", () -> new Item.Properties().component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));

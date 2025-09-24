@@ -1,0 +1,54 @@
+{
+  "fallback_layer": "theaurorian:north_random_biomes",
+  "filtered_layer": {
+    "parent": {
+      "parent": {
+        "parent": {
+          "parent": {
+            "parent": {
+              "common_biomes": [
+                "theaurorian:filthy_ice_crystal_snowfield",
+                "theaurorian:filthy_ice_hills",
+                "theaurorian:filthy_ice_mountain"
+              ],
+              "layer_type": "theaurorian:random_biomes",
+              "rare_biome_chance": 30,
+              "rare_biomes": [
+                "theaurorian:aurorian_lake"
+              ],
+              "salt": 2
+            },
+            "fuzzy": false,
+            "layer_type": "theaurorian:zoom",
+            "salt": 1100
+          },
+          "fuzzy": false,
+          "layer_type": "theaurorian:zoom",
+          "salt": 1101
+        },
+        "fuzzy": false,
+        "layer_type": "theaurorian:zoom",
+        "salt": 1102
+      },
+      "dividing_biome": "theaurorian:aurorian_river",
+      "excluded_biome_intersections": [
+        [
+          "theaurorian:filthy_ice_mountain",
+          "theaurorian:filthy_ice_hills"
+        ],
+        [
+          "theaurorian:filthy_ice_hills",
+          "theaurorian:filthy_ice_crystal_snowfield"
+        ]
+      ],
+      "excluded_neighbor_biomes": [],
+      "layer_type": "theaurorian:river",
+      "salt": 2
+    },
+    "layer_type": "theaurorian:smooth",
+    "salt": 7000
+  },
+  "keep_biome": "theaurorian:aurorian_river",
+  "layer_type": "theaurorian:filtered",
+  "salt": 100
+}

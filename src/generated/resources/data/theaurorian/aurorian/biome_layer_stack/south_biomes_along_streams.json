@@ -1,0 +1,43 @@
+{
+  "fallback_layer": "theaurorian:south_random_biomes",
+  "filtered_layer": {
+    "parent": {
+      "parent": {
+        "parent": {
+          "parent": {
+            "common_biomes": [
+              "theaurorian:bright_moon_desert"
+            ],
+            "layer_type": "theaurorian:random_biomes",
+            "rare_biome_chance": 30,
+            "rare_biomes": [
+              "theaurorian:aurorian_lake"
+            ],
+            "salt": 3
+          },
+          "fuzzy": false,
+          "layer_type": "theaurorian:zoom",
+          "salt": 1200
+        },
+        "fuzzy": false,
+        "layer_type": "theaurorian:zoom",
+        "salt": 1201
+      },
+      "dividing_biome": "theaurorian:aurorian_river",
+      "excluded_biome_intersections": [
+        [
+          "theaurorian:bright_moon_desert",
+          "theaurorian:bright_moon_desert"
+        ]
+      ],
+      "excluded_neighbor_biomes": [],
+      "layer_type": "theaurorian:river",
+      "salt": 3
+    },
+    "layer_type": "theaurorian:smooth",
+    "salt": 7000
+  },
+  "keep_biome": "theaurorian:aurorian_river",
+  "layer_type": "theaurorian:filtered",
+  "salt": 100
+}

@@ -34,6 +34,46 @@ public class LevelEventSubscriber {
     private static long lastDayTime = 0;
     private static final Random random = new Random();
     private static final float PHASE_CHANGE_CHANCE = 0.2f;
+    private static final int FORECAST_DAYS = 3;
+    private static final int[] futurePhases = new int[]{-1, -1, -1};
+    private static boolean forecastInitialized = false;
+
+    private static void ensureForecastInitialized() {
+        if (forecastInitialized) return;
+        int previous = Math.max(-1, phaseCode);
+        for (int i = 0; i < FORECAST_DAYS; i++) {
+            int p = NightPhase.getRandomPhase().getCode();
+            int safety = 0;
+            while (p == previous && safety++ < 8) {
+                p = NightPhase.getRandomPhase().getCode();
+            }
+            futurePhases[i] = p;
+            previous = p;
+        }
+        forecastInitialized = true;
+    }
+
+    private static void shiftForecastAndAppend() {
+        int previousTail = futurePhases[FORECAST_DAYS - 1];
+        // shift left
+        for (int i = 0; i < FORECAST_DAYS - 1; i++) {
+            futurePhases[i] = futurePhases[i + 1];
+        }
+        // append new not equal to last (and not equal to previous day by construction)
+        int p = NightPhase.getRandomPhase().getCode();
+        int safety = 0;
+        while ((FORECAST_DAYS >= 2 && p == futurePhases[FORECAST_DAYS - 2]) || p == previousTail && safety++ < 8) {
+            p = NightPhase.getRandomPhase().getCode();
+        }
+        futurePhases[FORECAST_DAYS - 1] = p;
+    }
+
+    public static int[] getFuturePhases() {
+        ensureForecastInitialized();
+        int[] copy = new int[FORECAST_DAYS];
+        System.arraycopy(futurePhases, 0, copy, 0, FORECAST_DAYS);
+        return copy;
+    }
 
     @SubscribeEvent
     public static void onLevelLoad(LevelEvent.Load event) {
@@ -54,15 +94,9 @@ public class LevelEventSubscriber {
                 if (currentIsDay != isDay) {
                     isDay = currentIsDay;
                     if (isDay) {
-                        int previousPhase = phaseCode;
-                        int newPhase = NightPhase.getRandomPhase().getCode();
-                        if (previousPhase >= 0 && previousPhase < NightPhase.getAllNames().length) {
-                            int safety = 0;
-                            while (newPhase == previousPhase && safety++ < 8) {
-                                newPhase = NightPhase.getRandomPhase().getCode();
-                            }
-                        }
-                        phaseCode = newPhase;
+                        ensureForecastInitialized();
+                        // Consume today's phase from forecast to guarantee prediction consistency
+                        phaseCode = futurePhases[0];
                         for (ServerPlayer serverPlayer : playerList) {
                             PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(phaseCode));
                             if (serverLevel.getGameRules().getBoolean(TAGameRules.RULE_ENABLE_AURORIAN_BLESS)) {
@@ -73,6 +107,8 @@ public class LevelEventSubscriber {
                                     Component.translatable("commands.theaurorian.night_phase.changed",
                                             NightPhase.getDisplayName(phaseCode)));
                         }
+                        // Advance forecast window for the next days
+                        shiftForecastAndAppend();
                     }
                 }
 

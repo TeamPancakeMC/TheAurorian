@@ -58,6 +58,7 @@ public class ModBusEventSubscriber {
         registrar.playToClient(NightTypeS2CPacket.TYPE, NightTypeS2CPacket.STREAM_CODEC, NightTypeS2CPacket::handle);
         registrar.playToClient(FrostbiteS2CPacket.TYPE, FrostbiteS2CPacket.STREAM_CODEC, FrostbiteS2CPacket::handle);
         registrar.playToClient(FutureNightS2CPacket.TYPE, FutureNightS2CPacket.STREAM_CODEC, FutureNightS2CPacket::handle);
+        registrar.playToServer(RequestFutureNightC2SPacket.TYPE, RequestFutureNightC2SPacket.STREAM_CODEC, RequestFutureNightC2SPacket::handle);
         registrar.playToServer(CrystalRuneSetC2SPacket.TYPE, CrystalRuneSetC2SPacket.STREAM_CODEC, CrystalRuneSetC2SPacket::handle);
         registrar.playToClient(RuneGameStartS2CPacket.TYPE, RuneGameStartS2CPacket.STREAM_CODEC, RuneGameStartS2CPacket::handle);
         registrar.playToServer(RuneGameWinC2SPacket.TYPE, RuneGameWinC2SPacket.STREAM_CODEC, RuneGameWinC2SPacket::handle);
@@ -76,6 +77,7 @@ public class ModBusEventSubscriber {
         registrar.playToClient(PlayAurorianMusicS2CPacket.TYPE, PlayAurorianMusicS2CPacket.STREAM_CODEC, PlayAurorianMusicS2CPacket::handle);
         // 新增：手札传送请求
         registrar.playToServer(NoteTeleportC2SPacket.TYPE, NoteTeleportC2SPacket.STREAM_CODEC, NoteTeleportC2SPacket::handle);
+        // 新增：占星仪未来三天预测请求（C2S）在上方已注册；S2C在行60已注册
     }
 
     @OnlyIn(Dist.CLIENT)

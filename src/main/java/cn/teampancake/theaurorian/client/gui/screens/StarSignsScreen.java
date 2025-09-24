@@ -9,6 +9,9 @@ import net.minecraft.resources.ResourceLocation;
 public class StarSignsScreen extends Screen {
 
     private static final ResourceLocation STAR_SIGNS = TheAurorian.prefix("textures/gui/star_signs.png");
+    private static final ResourceLocation AURORIAN_EVENT = TheAurorian.prefix("textures/gui/aurorian_event.png");
+    private static int forecast1 = -1, forecast2 = -1, forecast3 = -1; // phase codes 0..4
+    public static void setForecast(int d1, int d2, int d3) { forecast1 = d1; forecast2 = d2; forecast3 = d3; }
 
     // 三页：左上U 分别为 0 / 142 / 284；尺寸一致
     private static final int PAGE_W = 142;
@@ -52,6 +55,24 @@ public class StarSignsScreen extends Screen {
         int dstY = (this.height - PAGE_H) / 2;
         int srcU = currentPage * PAGE_W; // 0 / 142 / 284
         gg.blit(STAR_SIGNS, dstX, dstY, srcU, 0, PAGE_W, PAGE_H, TEX_W, TEX_H);
+
+        // 覆盖渲染：若有预测，按页面渲染对应卡片
+        if (forecast1 >= 0) {
+            int phase = currentPage == 0 ? forecast1 : (currentPage == 1 ? forecast2 : forecast3);
+            cn.teampancake.theaurorian.client.gui.AurorianEventGui.Card card;
+            switch (phase) {
+                case 0 -> card = cn.teampancake.theaurorian.client.gui.AurorianEventGui.Card.COMBAT_NIGHT;
+                case 1 -> card = cn.teampancake.theaurorian.client.gui.AurorianEventGui.Card.PROTECTION_NIGHT;
+                case 2 -> card = cn.teampancake.theaurorian.client.gui.AurorianEventGui.Card.EXPLORATION_NIGHT;
+                case 3 -> card = cn.teampancake.theaurorian.client.gui.AurorianEventGui.Card.MINING_NIGHT;
+                case 4 -> card = cn.teampancake.theaurorian.client.gui.AurorianEventGui.Card.GROWTH_NIGHT;
+                default -> card = null;
+            }
+            if (card != null) card.blit(gg, dstX, dstY);
+        } else {
+            // 占位：未加载预测时显示提示文本
+            gg.drawString(this.font, Component.translatable("gui.theaurorian.star_signs.loading").getString(), dstX + 8, dstY + 8, 0x404040, false);
+        }
 
         // 徽记：叠加到页右上角（贴边对齐）
         int emblemDstX = dstX + PAGE_W - EMBLEM_W + 7;

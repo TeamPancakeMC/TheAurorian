@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.entities.boss;
 import cn.teampancake.theaurorian.common.entities.monster.MultiPhaseAttacker;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.registry.TAAttributes;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,6 +21,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HoneyBlock;
@@ -29,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
 
+/** @noinspection deprecation*/
 public abstract class AbstractAurorianBoss extends Monster implements MultiPhaseAttacker {
 
     private static final EntityDataAccessor<Integer> ATTACK_STATE = SynchedEntityData.defineId(AbstractAurorianBoss.class, EntityDataSerializers.INT);
@@ -88,8 +92,23 @@ public abstract class AbstractAurorianBoss extends Monster implements MultiPhase
     }
 
     @Override
+    public void onAttributeUpdated(Holder<Attribute> attribute) {
+        if (attribute.is(TAAttributes.MAX_BOSS_HEALTH)) {
+            float f = this.getMaxHealth();
+            if (this.getBossHealth() > f) {
+                this.setBossHealth(f);
+            }
+        } else if (attribute.is(Attributes.MAX_ABSORPTION)) {
+            float f1 = this.getMaxAbsorption();
+            if (this.getAbsorptionAmount() > f1) {
+                this.setAbsorptionAmount(f1);
+            }
+        }
+    }
+
+    @Override
     public void heal(float healAmount) {
-        float f = this.getHealth();
+        float f = this.getBossHealth();
         if (f > 0.0F) {
             this.setBossHealth(f + healAmount);
         }
@@ -97,7 +116,7 @@ public abstract class AbstractAurorianBoss extends Monster implements MultiPhase
 
     @Override
     public float getHealth() {
-        return this.entityData.get(BOSS_HEALTH);
+        return 0.0F;
     }
 
     @Override
@@ -108,8 +127,37 @@ public abstract class AbstractAurorianBoss extends Monster implements MultiPhase
     @Override
     public void setHealth(float health) {}
 
+    public float getBossHealth() {
+        return this.entityData.get(BOSS_HEALTH);
+    }
+
     protected void setBossHealth(float health) {
         this.entityData.set(BOSS_HEALTH, Mth.clamp(health, 0.0F, this.getMaxHealth()));
+    }
+
+    @Override
+    public boolean isDeadOrDying() {
+        return this.getBossHealth() <= 0.0F;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return !this.isRemoved() && this.getBossHealth() > 0.0F;
+    }
+
+    @Override
+    public int getMaxFallDistance() {
+        if (this.getTarget() == null) {
+            return this.getComfortableFallDistance(0.0F);
+        } else {
+            int i = (int)(this.getBossHealth() - this.getMaxHealth() * 0.33F);
+            i -= (3 - this.level().getDifficulty().getId()) * 4;
+            if (i < 0) {
+                i = 0;
+            }
+
+            return this.getComfortableFallDistance((float)i);
+        }
     }
 
     @Override
@@ -152,7 +200,7 @@ public abstract class AbstractAurorianBoss extends Monster implements MultiPhase
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putFloat("TABossHealth", this.getHealth());
+        compound.putFloat("TABossHealth", this.getBossHealth());
         if (compound.contains("Health", 99)) {
             compound.remove("Health");
         }
@@ -187,7 +235,7 @@ public abstract class AbstractAurorianBoss extends Monster implements MultiPhase
 
             if (f != 0.0F && (f < this.getMaxHealth() || flag)) {
                 this.getCombatTracker().recordDamage(damageSource, f);
-                this.setBossHealth(this.getHealth() - f);
+                this.setBossHealth(this.getBossHealth() - f);
                 this.setAbsorptionAmount(this.getAbsorptionAmount() - f);
                 this.gameEvent(GameEvent.ENTITY_DAMAGE);
             }

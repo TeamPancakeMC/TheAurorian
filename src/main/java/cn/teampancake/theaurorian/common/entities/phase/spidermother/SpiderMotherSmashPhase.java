@@ -35,6 +35,7 @@ public class SpiderMotherSmashPhase extends AttackPhase<SpiderMother> {
         LivingEntity target = entity.getTarget();
         if (entity.getAttackTicks() == 10 && target != null) {
             entity.getLookControl().setLookAt(target.getX(), target.getEyeY(), target.getZ());
+            Block block = TABlocks.TRAP_HOLE_RESTORER.get();
             Level level = target.level();
             BlockPos pos = target.getOnPos();
             int px = pos.getX();
@@ -45,7 +46,6 @@ public class SpiderMotherSmashPhase extends AttackPhase<SpiderMother> {
                 for (int x = -1; x <= 1; x++) {
                     for (int y = -j; y <= 2; y++) {
                         for (int z = -1; z <= 1; z++) {
-                            Block block = TABlocks.TRAP_HOLE_RESTORER.get();
                             BlockPos tempPos = new BlockPos(px + x, py + y, pz + z);
                             BlockState originalState = level.getBlockState(tempPos);
                             if (originalState.isSolid() && !originalState.is(block)) {

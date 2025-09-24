@@ -78,10 +78,10 @@ public class Spirit extends TAMonster {
     }
 
     public static boolean checkSpawnRules(EntityType<Spirit> spirit, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        if (hasActiveSacrificeTableNearby(level, pos, 128)) return false;
-
-        if (random.nextInt(20) != 0 || !level.getEntitiesOfClass(Player.class, new AABB(pos).inflate(24.0D)).isEmpty()) return false;
-        return level.getBlockState(pos.below()).is(TABlocks.AURORIAN_GRASS_BLOCK.get()) && checkAnyLightMonsterSpawnRules(spirit, level, spawnType, pos, random);
+        if (random.nextInt(20) != 0 || hasActiveSacrificeTableNearby(level, pos, 128)) return false;
+        if (!level.getEntitiesOfClass(Player.class, new AABB(pos).inflate(24.0D)).isEmpty()) return false;
+        return level.getBlockState(pos.below()).is(TABlocks.AURORIAN_GRASS_BLOCK.get())
+                && checkAnyLightMonsterSpawnRules(spirit, level, spawnType, pos, random);
     }
 
     private static boolean hasActiveSacrificeTableNearby(ServerLevelAccessor accessor, BlockPos pos, int range) {
@@ -90,11 +90,10 @@ public class Spirit extends TAMonster {
         int maxChunkX = (pos.getX() + range) >> 4;
         int minChunkZ = (pos.getZ() - range) >> 4;
         int maxChunkZ = (pos.getZ() + range) >> 4;
-
         for (int cx = minChunkX; cx <= maxChunkX; cx++) {
             for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
                 LevelChunk chunk = serverLevel.getChunkSource().getChunkNow(cx, cz);
-                if (chunk == null) continue; // only consider loaded chunks
+                if (chunk == null) continue;
                 for (BlockEntity be : chunk.getBlockEntities().values()) {
                     if (be instanceof SacrificeTableBlockEntity table && table.guardTime > 0) {
                         if (be.getBlockPos().closerThan(pos, range + 0.5)) {

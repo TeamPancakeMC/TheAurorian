@@ -53,8 +53,16 @@ public class LevelEventSubscriber {
                 boolean currentIsDay = dayTime > 6000 && dayTime <= 18000;
                 if (currentIsDay != isDay) {
                     isDay = currentIsDay;
-                    if (!isDay && random.nextFloat() < PHASE_CHANGE_CHANCE) {
-                        phaseCode = NightPhase.getRandomPhase().getCode();
+                    if (isDay) {
+                        int previousPhase = phaseCode;
+                        int newPhase = NightPhase.getRandomPhase().getCode();
+                        if (previousPhase >= 0 && previousPhase < NightPhase.getAllNames().length) {
+                            int safety = 0;
+                            while (newPhase == previousPhase && safety++ < 8) {
+                                newPhase = NightPhase.getRandomPhase().getCode();
+                            }
+                        }
+                        phaseCode = newPhase;
                         for (ServerPlayer serverPlayer : playerList) {
                             PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(phaseCode));
                             if (serverLevel.getGameRules().getBoolean(TAGameRules.RULE_ENABLE_AURORIAN_BLESS)) {
@@ -75,10 +83,18 @@ public class LevelEventSubscriber {
                         }
 
                         if (isDay) {
-                            applyBrightMoonNightEffect(serverPlayer);
-                        } else {
                             applyNighttimeEffect(serverPlayer, serverLevel);
+                        } else {
+                            applyBrightMoonNightEffect(serverPlayer);
                         }
+                    }
+                }
+
+                // Heartbeat: ensure clients stay in sync with server phase regardless of time commands or tick acceleration
+                if (dayTime % 100 == 0) {
+                    for (ServerPlayer serverPlayer : playerList) {
+                        if (serverPlayer.level().dimension() != TADimensions.AURORIAN_DIMENSION) continue;
+                        PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(phaseCode));
                     }
                 }
 
@@ -97,7 +113,7 @@ public class LevelEventSubscriber {
             PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(phaseCode));
             long dayTime = (serverLevel.dayTime() + 6000L) % 24000;
             boolean currentIsDay = dayTime > 6000 && dayTime <= 18000;
-            if (!currentIsDay && serverLevel.getGameRules().getBoolean(TAGameRules.RULE_ENABLE_AURORIAN_BLESS)) {
+            if (currentIsDay && serverLevel.getGameRules().getBoolean(TAGameRules.RULE_ENABLE_AURORIAN_BLESS)) {
                 phase.applyBlessEffect(serverPlayer);
             }
 

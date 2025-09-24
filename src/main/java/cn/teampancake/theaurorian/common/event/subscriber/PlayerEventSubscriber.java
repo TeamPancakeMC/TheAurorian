@@ -9,6 +9,14 @@ import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
+import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
+import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.event.entity.player.*;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
@@ -28,11 +36,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.event.entity.player.*;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.List;
 import java.util.Optional;
@@ -105,6 +108,19 @@ public class PlayerEventSubscriber {
             Player player = event.getEntity();
             int count = player.getData(type);
             player.setData(type, count + 1);
+            if (player instanceof ServerPlayer serverPlayer) {
+                PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(LevelEventSubscriber.phaseCode));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            ServerLevel level = player.serverLevel();
+            if (level.dimension() == TADimensions.AURORIAN_DIMENSION) {
+                PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(LevelEventSubscriber.phaseCode));
+            }
         }
     }
 
@@ -165,6 +181,16 @@ public class PlayerEventSubscriber {
                             Vec3.ZERO, respawnPosAngle.yaw(), 0.0F, DimensionTransition.DO_NOTHING);
                     event.setDimensionTransition(transition);
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            ServerLevel level = player.serverLevel();
+            if (level.dimension() == TADimensions.AURORIAN_DIMENSION) {
+                PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(LevelEventSubscriber.phaseCode));
             }
         }
     }

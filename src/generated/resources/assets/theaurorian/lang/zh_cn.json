@@ -1007,5 +1007,7 @@
   "tooltips.theaurorian.rune_game.player": "玩家：",
   "tooltips.theaurorian.rune_game.status": "符石游戏状态：",
   "tooltips.theaurorian.rune_game.undone": "未完成",
-  "tooltips.theaurorian.source_of_terra.dimension": "容器所在的维度："
+  "tooltips.theaurorian.source_of_terra.dimension": "容器所在的维度：",
+  "gui.theaurorian.star_signs.loading": "加载中...",
+  "message.theaurorian.astrology_table.only_at_night": "当前非皎月星象，无法使用"
 }

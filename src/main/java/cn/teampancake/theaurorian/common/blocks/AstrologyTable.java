@@ -7,6 +7,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -43,7 +45,12 @@ public class AstrologyTable extends HorizontalDirectionalBlock implements Entity
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         long dayTime = (level.getDayTime() + 6000L) % 24000L;
         boolean isDay = dayTime > 6000 && dayTime <= 18000;
-        if (isDay) return InteractionResult.CONSUME; // 仅夜晚可用
+        if (isDay) {
+            if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.sendSystemMessage(Component.translatable("message.theaurorian.astrology_table.only_at_night"));
+            }
+            return InteractionResult.CONSUME; // 仅夜晚可用
+        }
 
         if (level.isClientSide) {
             net.neoforged.neoforge.network.PacketDistributor.sendToServer(new cn.teampancake.theaurorian.common.network.RequestFutureNightC2SPacket());

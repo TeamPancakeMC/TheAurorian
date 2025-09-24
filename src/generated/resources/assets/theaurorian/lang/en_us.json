@@ -1007,5 +1007,7 @@
   "tooltips.theaurorian.rune_game.player": "Player: ",
   "tooltips.theaurorian.rune_game.status": "Rune Game Status: ",
   "tooltips.theaurorian.rune_game.undone": "Undone",
-  "tooltips.theaurorian.source_of_terra.dimension": "The current dimension of container: "
+  "tooltips.theaurorian.source_of_terra.dimension": "The current dimension of container: ",
+  "gui.theaurorian.star_signs.loading": "Loading...",
+  "message.theaurorian.astrology_table.only_at_night": "Current sky is not Bright Moon Night. Astrology Table can only be used at night."
 }

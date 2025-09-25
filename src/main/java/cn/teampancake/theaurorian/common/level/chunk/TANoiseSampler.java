@@ -80,7 +80,7 @@ public class TANoiseSampler {
             float centerDepth = source.getBiomeDepth(x, z);
             
             // 获取中心位置的生物群系键，用于检查是否为黯晶区域
-            ResourceKey<?> centerBiome = source.getTerrainColumn(x, z).map(column -> column.getResourceKey()).orElse(null);
+            ResourceKey<?> centerBiome = source.getTerrainColumn(x, z).map(TATerrainColumn::getResourceKey).orElse(null);
             boolean isMountainBiome = (centerBiome == TABiomes.FILTHY_ICE_MOUNTAIN);
             boolean isHillsBiome = (centerBiome == TABiomes.FILTHY_ICE_HILLS);
             boolean isSnowfieldBiome = (centerBiome == TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD);
@@ -299,16 +299,5 @@ public class TANoiseSampler {
         density = this.bottomSlide.applySlide(density, j);
         return density;
     }
-    
-    public int cellWidth() {
-        return this.cellWidth;
-    }
 
-    public int cellHeight() {
-        return this.cellHeight;
-    }
-
-    public int cellCountY() {
-        return this.cellCountY;
-    }
 }

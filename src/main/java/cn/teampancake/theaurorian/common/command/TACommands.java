@@ -66,7 +66,7 @@ public class TACommands {
         CommandSourceStack source = context.getSource();
         String currentPhaseName = NightPhase.getDisplayName(LevelEventSubscriber.phaseCode);
         source.sendSuccess(() -> Component.translatable("commands.theaurorian.night_phase.current", currentPhaseName), true);
-        
         return Command.SINGLE_SUCCESS;
     }
+
 } 

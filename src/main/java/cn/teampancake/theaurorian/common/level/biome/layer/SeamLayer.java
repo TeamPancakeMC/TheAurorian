@@ -67,7 +67,8 @@ public record SeamLayer(ResourceKey<Biome> partitioningBiome, List<ResourceKey<B
                 Codec.LONG.fieldOf("salt").forGetter(Factory::salt),
                 ResourceKey.codec(Registries.BIOME).fieldOf("dividing_biome").forGetter(Factory::partitioningBiome),
                 ResourceKey.codec(Registries.BIOME).listOf().fieldOf("excluded_neighbor_biomes").forGetter(Factory::excludedBiomeNeighbors),
-                ResourceKey.codec(Registries.BIOME).listOf().comapFlatMap(Factory::arrayToPair, p -> List.of(p.getFirst(), p.getSecond())).listOf().fieldOf("excluded_biome_intersections").forGetter(Factory::excludedBiomeIntersections),
+                ResourceKey.codec(Registries.BIOME).listOf().comapFlatMap(Factory::arrayToPair, p -> List.of(p.getFirst(), p.getSecond())).listOf()
+                        .fieldOf("excluded_biome_intersections").forGetter(Factory::excludedBiomeIntersections),
                 TABiomeLayerStack.HOLDER_CODEC.fieldOf("parent").forGetter(Factory::parent)
         ).apply(inst, Factory::new));
 

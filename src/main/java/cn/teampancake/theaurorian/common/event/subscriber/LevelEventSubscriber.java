@@ -7,6 +7,7 @@ import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TAGameRules;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
@@ -87,7 +88,7 @@ public class LevelEventSubscriber {
     @SubscribeEvent
     public static void onLevelTick(LevelTickEvent.Pre event) {
         if (event.getLevel() instanceof ServerLevel serverLevel) {
-            if (serverLevel.dimension() == TADimensions.AURORIAN_DIMENSION) {
+            if (TACommonUtils.isAurorianDimension(serverLevel)) {
                 List<ServerPlayer> playerList = serverLevel.players();
                 long dayTime = (serverLevel.dayTime() + 6000L) % 24000;
                 boolean currentIsDay = dayTime > 6000 && dayTime <= 18000;
@@ -114,7 +115,7 @@ public class LevelEventSubscriber {
 
                 if (dayTime % 200 == 0) {
                     for (ServerPlayer serverPlayer : playerList) {
-                        if (serverPlayer.level().dimension() != TADimensions.AURORIAN_DIMENSION) {
+                        if (!TACommonUtils.isAurorianDimension(serverPlayer.level())) {
                             continue;
                         }
 
@@ -129,7 +130,7 @@ public class LevelEventSubscriber {
                 // Heartbeat: ensure clients stay in sync with server phase regardless of time commands or tick acceleration
                 if (dayTime % 100 == 0) {
                     for (ServerPlayer serverPlayer : playerList) {
-                        if (serverPlayer.level().dimension() != TADimensions.AURORIAN_DIMENSION) continue;
+                        if (!TACommonUtils.isAurorianDimension(serverPlayer.level())) continue;
                         PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(phaseCode));
                     }
                 }
@@ -140,10 +141,7 @@ public class LevelEventSubscriber {
     }
 
     public static boolean setNightPhase(NightPhase phase, ServerLevel serverLevel) {
-        if (serverLevel.dimension() != TADimensions.AURORIAN_DIMENSION) {
-            return false;
-        }
-        
+        if (!TACommonUtils.isAurorianDimension(serverLevel)) return false;
         phaseCode = phase.getCode();
         for (ServerPlayer serverPlayer : serverLevel.players()) {
             PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(phaseCode));

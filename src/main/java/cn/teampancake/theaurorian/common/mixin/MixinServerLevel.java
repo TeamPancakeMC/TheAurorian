@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.mixin;
 
 import cn.teampancake.theaurorian.common.level.TAServerLevel;
-import cn.teampancake.theaurorian.common.registry.TADimensions;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +17,7 @@ public abstract class MixinServerLevel {
 
     @Inject(method = "tickChunk", at = @At(value = "HEAD"), cancellable = true)
     public void tickChunk(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci) {
-        if (this.getLevel().dimension() == TADimensions.AURORIAN_DIMENSION) {
+        if (TACommonUtils.isAurorianDimension(this.getLevel())) {
             TAServerLevel.tickChunk(this.getLevel(), chunk, randomTickSpeed);
             ci.cancel();
         }

@@ -7,9 +7,9 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
-import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
 import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -104,7 +104,7 @@ public class PlayerEventSubscriber {
     @SubscribeEvent
     public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         AttachmentType<Integer> type = TAAttachmentTypes.TELEPORT_TO_AURORIAN_COUNT.get();
-        if (event.getTo() == TADimensions.AURORIAN_DIMENSION) {
+        if (event.getTo().location().getNamespace().equals(TheAurorian.MOD_ID)) {
             Player player = event.getEntity();
             int count = player.getData(type);
             player.setData(type, count + 1);
@@ -118,7 +118,7 @@ public class PlayerEventSubscriber {
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             ServerLevel level = player.serverLevel();
-            if (level.dimension() == TADimensions.AURORIAN_DIMENSION) {
+            if (TACommonUtils.isAurorianDimension(level)) {
                 PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(LevelEventSubscriber.phaseCode));
             }
         }
@@ -153,7 +153,7 @@ public class PlayerEventSubscriber {
     public static void onPlayerSetSpawn(PlayerSetSpawnEvent event) {
         Player player = event.getEntity();
         BlockPos newSpawn = event.getNewSpawn();
-        if (player.level().dimension() == TADimensions.AURORIAN_DIMENSION) {
+        if (TACommonUtils.isAurorianDimension(player.level())) {
             if (player instanceof ServerPlayer serverPlayer && newSpawn != null) {
                 BlockState state = player.level().getBlockState(newSpawn);
                 if (state.getBlock() instanceof MysteriumWoolBed) {
@@ -175,7 +175,7 @@ public class PlayerEventSubscriber {
             if (pos != null && player.getData(TAAttachmentTypes.SHOULD_SPAWN_IN_AURORIAN.get())) {
                 Optional<ServerPlayer.RespawnPosAngle> optional = ServerPlayer.findRespawnAndUseSpawnBlock(
                         level, pos, player.getRespawnAngle(), player.isRespawnForced(), Boolean.FALSE);
-                if (optional.isPresent() && level.dimension() == TADimensions.AURORIAN_DIMENSION) {
+                if (optional.isPresent() && TACommonUtils.isAurorianDimension(level)) {
                     ServerPlayer.RespawnPosAngle respawnPosAngle = optional.get();
                     DimensionTransition transition = new DimensionTransition(level, respawnPosAngle.position(),
                             Vec3.ZERO, respawnPosAngle.yaw(), 0.0F, DimensionTransition.DO_NOTHING);
@@ -189,7 +189,7 @@ public class PlayerEventSubscriber {
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             ServerLevel level = player.serverLevel();
-            if (level.dimension() == TADimensions.AURORIAN_DIMENSION) {
+            if (TACommonUtils.isAurorianDimension(level)) {
                 PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(LevelEventSubscriber.phaseCode));
             }
         }

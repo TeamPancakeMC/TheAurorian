@@ -3,8 +3,8 @@ package cn.teampancake.theaurorian.common.blocks.entity;
 import cn.teampancake.theaurorian.client.inventory.MoonlightForgeMenu;
 import cn.teampancake.theaurorian.common.items.crafting.MoonlightForgeRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
-import cn.teampancake.theaurorian.common.registry.TADimensions;
 import cn.teampancake.theaurorian.common.registry.TARecipes;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -90,7 +90,7 @@ public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implem
 
     protected boolean canWork(BlockPos pos, RegistryAccess registryAccess, Recipe<SingleRecipeInput> recipe) {
         if (this.level != null) {
-            boolean flag1 = this.level.dimension() == TADimensions.AURORIAN_DIMENSION;
+            boolean flag1 = TACommonUtils.isAurorianDimension(this.level);
             this.isPowered = this.level.hasNeighborSignal(pos);
             this.hasMoonLight = this.level.canSeeSky(pos.above()) && (flag1 || this.level.isNight());
             SingleRecipeInput input = new SingleRecipeInput(this.getItem(0));

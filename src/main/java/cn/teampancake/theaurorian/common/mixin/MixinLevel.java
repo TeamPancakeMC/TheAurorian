@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.mixin;
 
-import cn.teampancake.theaurorian.common.registry.TADimensions;
+import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
@@ -24,7 +24,7 @@ public abstract class MixinLevel {
 
     @Inject(method = "updateSkyBrightness", at = @At(value = "HEAD"), cancellable = true)
     public void updateSkyBrightness(CallbackInfo ci) {
-        if (this.dimension == TADimensions.AURORIAN_DIMENSION) {
+        if (this.dimension.location().getNamespace().equals(TheAurorian.MOD_ID)) {
             float time = this.dimensionType().timeOfDay(this.getDayTime());
             double rainLevel = 1.0D - (double)(this.getRainLevel(1.0F) * 5.0F) / 16.0D;
             double thunderLevel = 1.0D - (double)(this.getThunderLevel(1.0F) * 5.0F) / 16.0D;

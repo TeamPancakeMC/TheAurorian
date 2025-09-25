@@ -1,8 +1,10 @@
 package cn.teampancake.theaurorian.common.utils;
 
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -25,6 +27,10 @@ public class TACommonUtils {
 
     public static Iterable<Item> getKnownItems() {
         return getKnownItemStream().collect(Collectors.toList());
+    }
+
+    public static boolean isAurorianDimension(Level level) {
+        return level.dimension().location().getNamespace().equals(TheAurorian.MOD_ID);
     }
 
 }

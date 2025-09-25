@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
 import cn.teampancake.theaurorian.common.level.SylvanisHandler;
 import cn.teampancake.theaurorian.common.registry.*;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import cn.teampancake.theaurorian.compat.mui.ModernUICompatibility;
 import com.mojang.blaze3d.shaders.FogShape;
 import net.minecraft.client.Camera;
@@ -120,7 +121,7 @@ public class ClientEventSubscriber {
         if (camera.getEntity() instanceof LocalPlayer localPlayer) {
             boolean flag = localPlayer.hasEffect(TAMobEffects.EIDOLON_POISON);
             float sylvanis = localPlayer.getData(TAAttachmentTypes.SYLVANIS_PROGRESS);
-            if (level != null && level.dimension() == TADimensions.AURORIAN_DIMENSION) {
+            if (level != null && TACommonUtils.isAurorianDimension(level)) {
                 Vec3 vec3 = TASkyRenderer.getSkyColor(level, camera.getPosition());
                 if (camera.getFluidInCamera() == FogType.NONE && !flag) {
                     event.setRed((float) vec3.x);

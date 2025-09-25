@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.gui.hud;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.registry.TADimensions;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -27,7 +27,7 @@ public class NightBarRender {
         LocalPlayer player = minecraft.player;
         if (player != null && !minecraft.options.hideGui) {
             long dayTime = (player.level().getDayTime() + 6000L) % 24000L;
-            if (player.level().dimension() == TADimensions.AURORIAN_DIMENSION) {
+            if (TACommonUtils.isAurorianDimension(player.level())) {
                 if (dayTime > 6000 && dayTime <= 18000) {
                     if (nightType <= 2) {
                         offsetX = nightType * 45;

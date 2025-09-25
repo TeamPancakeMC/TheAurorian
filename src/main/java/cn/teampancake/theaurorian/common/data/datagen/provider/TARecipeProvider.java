@@ -6,7 +6,8 @@ import cn.teampancake.theaurorian.common.data.datagen.recipes.AlchemyTableRecipe
 import cn.teampancake.theaurorian.common.data.datagen.recipes.MoonlightForgeRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.recipes.ScrapperRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
-import cn.teampancake.theaurorian.common.items.crafting.VagrantNoteRecipe;
+import cn.teampancake.theaurorian.common.items.crafting.VagrantNotePassportRecipe;
+import cn.teampancake.theaurorian.common.items.crafting.VagrantNoteSupplementRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
@@ -169,22 +170,23 @@ public class TARecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(TAItems.PLANT_FIBER.get()), has(TAItems.PLANT_FIBER.get()))
                 .save(recipeOutput, TheAurorian.prefix("string_from_plant_fiber"));
         //Mod Shapeless Recipes
-        SpecialRecipeBuilder.special(VagrantNoteRecipe::new).save(recipeOutput, TheAurorian.prefix("vagrant_note_supplement"));
+        SpecialRecipeBuilder.special(VagrantNoteSupplementRecipe::new).save(recipeOutput, TheAurorian.prefix("vagrant_note_supplement"));
+        SpecialRecipeBuilder.special(VagrantNotePassportRecipe::new).save(recipeOutput, TheAurorian.prefix("vagrant_note_passport"));
         oneToOneConversionRecipe(recipeOutput, TAItems.LAVENDER_SEEDS.get(), TAItems.LAVENDER.get(), null);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_GLASS.get())
-                .requires(TABlocks.MOON_GLASS.get(), (3)).requires(TAItems.PLANT_FIBER.get())
+                .requires(TABlocks.MOON_GLASS.get(), 3).requires(TAItems.PLANT_FIBER.get())
                 .unlockedBy(getHasName(TABlocks.MOON_GLASS.get()), has(TABlocks.MOON_GLASS.get()))
                 .unlockedBy(getHasName(TAItems.PLANT_FIBER.get()), has(TAItems.PLANT_FIBER.get())).save(recipeOutput);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.SILK_BERRY_JAM.get()).requires(TAItems.SILK_BERRY.get(), (4))
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.SILK_BERRY_JAM.get()).requires(TAItems.SILK_BERRY.get(), 4)
                 .unlockedBy(getHasName(TAItems.SILK_BERRY.get()), has(TAItems.SILK_BERRY.get())).save(recipeOutput);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.SILK_BERRY_JAM_SANDWICH.get())
                 .requires(TAItems.SILK_BERRY_JAM.get()).requires(TAItems.LAVENDER_BREAD.get())
                 .unlockedBy(getHasName(TAItems.SILK_BERRY_JAM.get()), has(TAItems.SILK_BERRY_JAM.get()))
                 .unlockedBy(getHasName(TAItems.LAVENDER_BREAD.get()), has(TAItems.LAVENDER_BREAD.get())).save(recipeOutput);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.AURORIAN_BACON.get(), 10).requires(TAItems.COOKED_AURORIAN_PORK.get(), (4))
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.AURORIAN_BACON.get(), 10).requires(TAItems.COOKED_AURORIAN_PORK.get(), 4)
                 .unlockedBy(getHasName(TAItems.AURORIAN_BACON.get()), has(TAItems.AURORIAN_BACON.get())).save(recipeOutput);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.SILK_SHROOM_STEW.get())
-                .requires(TAItems.SILK_BERRY.get(), (2)).requires(TABlocks.INDIGO_MUSHROOM.get(), (2))
+                .requires(TAItems.SILK_BERRY.get(), 2).requires(TABlocks.INDIGO_MUSHROOM.get(), 2)
                 .unlockedBy(getHasName(TAItems.SILK_BERRY.get()), has(TAItems.SILK_BERRY.get()))
                 .unlockedBy(getHasName(TABlocks.INDIGO_MUSHROOM.get()), has(TABlocks.INDIGO_MUSHROOM.get())).save(recipeOutput);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, TAItems.STICKY_SPIKER.get())
@@ -198,7 +200,7 @@ public class TARecipeProvider extends RecipeProvider {
                 .requires(TAItems.DARK_AMULET.get()).requires(TAItems.CRYSTAL.get()).requires(TABlocks.MOON_GEM.get())
                 .unlockedBy(getHasName(TAItems.DARK_AMULET.get()), has(TAItems.DARK_AMULET.get())).save(recipeOutput);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, TAItems.MOON_TEMPLE_CELL_KEY.get())
-                .requires(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get(), (2)).requires(TABlocks.MOON_GEM.get())
+                .requires(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get(), 2).requires(TABlocks.MOON_GEM.get())
                 .unlockedBy(getHasName(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get()),
                         has(TAItems.MOON_TEMPLE_CELL_KEY_FRAGMENT.get())).save(recipeOutput);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, TAItems.LAVENDER_SALAD.get())

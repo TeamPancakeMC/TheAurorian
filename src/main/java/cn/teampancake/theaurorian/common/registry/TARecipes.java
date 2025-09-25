@@ -14,8 +14,10 @@ public class TARecipes {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, TheAurorian.MOD_ID);
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, TheAurorian.MOD_ID);
 
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<VagrantNoteRecipe>> VAGRANT_NOTE_SERIALIZER =
-            RECIPE_SERIALIZERS.register("vagrant_note", () -> new SimpleCraftingRecipeSerializer<>(VagrantNoteRecipe::new));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<VagrantNoteSupplementRecipe>> VAGRANT_NOTE_SUPPLEMENT_SERIALIZER =
+            RECIPE_SERIALIZERS.register("vagrant_note_supplement", () -> new SimpleCraftingRecipeSerializer<>(VagrantNoteSupplementRecipe::new));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<VagrantNotePassportRecipe>> VAGRANT_NOTE_PASSPORT_SERIALIZER =
+            RECIPE_SERIALIZERS.register("vagrant_note_passport", () -> new SimpleCraftingRecipeSerializer<>(VagrantNotePassportRecipe::new));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MoonlightForgeRecipe>> MOONLIGHT_FORGE_SERIALIZER =
             RECIPE_SERIALIZERS.register("moonlight_forge", () -> new MoonlightForgeSerializer<>(MoonlightForgeRecipe::new));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ScrapperRecipe>> SCRAPPER_SERIALIZER =

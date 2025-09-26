@@ -31,11 +31,21 @@ public class VagrantNote extends Item {
     }
 
     @Override
+    public Component getName(ItemStack stack) {
+        if (stack.has(TADataComponents.NOTE_PASSPORT)) {
+            super.getName(stack).getStyle().withColor(ChatFormatting.GOLD);
+        }
+        
+        return super.getName(stack);
+    }
+
+    @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack itemInHand = player.getItemInHand(usedHand);
         List<ChapterContent> chapters = itemInHand.get(TADataComponents.CHAPTERS);
         if (player instanceof ServerPlayer serverPlayer && chapters != null) {
-            PacketDistributor.sendToPlayer(serverPlayer, new ShowVagrantNoteScreenS2CPacket(chapters));
+            boolean hasPassport = itemInHand.has(TADataComponents.NOTE_PASSPORT);
+            PacketDistributor.sendToPlayer(serverPlayer, new ShowVagrantNoteScreenS2CPacket(chapters, hasPassport, level.dimension()));
             return InteractionResultHolder.sidedSuccess(itemInHand, level.isClientSide());
         }
 
@@ -45,8 +55,12 @@ public class VagrantNote extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         List<ChapterContent> chapters = stack.getOrDefault(TADataComponents.CHAPTERS, new ArrayList<>());
-        String key = "tooltips.item.theaurorian.vagrant_note.chapter_numbers";
-        tooltipComponents.add(Component.translatable(key, chapters.size()).withStyle(ChatFormatting.YELLOW));
+        String nKey = "tooltips.item.theaurorian.vagrant_note.chapter_numbers";
+        tooltipComponents.add(Component.translatable(nKey, chapters.size()).withStyle(ChatFormatting.YELLOW));
+        if (stack.has(TADataComponents.NOTE_PASSPORT)) {
+            String pKey = "tooltips.item.theaurorian.vagrant_note.pass";
+            tooltipComponents.add(Component.translatable(pKey).withStyle(ChatFormatting.GREEN));
+        }
     }
 
 }

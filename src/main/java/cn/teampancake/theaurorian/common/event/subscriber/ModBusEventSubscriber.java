@@ -58,7 +58,6 @@ public class ModBusEventSubscriber {
         registrar.playToClient(NightTypeS2CPacket.TYPE, NightTypeS2CPacket.STREAM_CODEC, NightTypeS2CPacket::handle);
         registrar.playToClient(FrostbiteS2CPacket.TYPE, FrostbiteS2CPacket.STREAM_CODEC, FrostbiteS2CPacket::handle);
         registrar.playToClient(FutureNightS2CPacket.TYPE, FutureNightS2CPacket.STREAM_CODEC, FutureNightS2CPacket::handle);
-        registrar.playToServer(RequestFutureNightC2SPacket.TYPE, RequestFutureNightC2SPacket.STREAM_CODEC, RequestFutureNightC2SPacket::handle);
         registrar.playToServer(CrystalRuneSetC2SPacket.TYPE, CrystalRuneSetC2SPacket.STREAM_CODEC, CrystalRuneSetC2SPacket::handle);
         registrar.playToClient(RuneGameStartS2CPacket.TYPE, RuneGameStartS2CPacket.STREAM_CODEC, RuneGameStartS2CPacket::handle);
         registrar.playToServer(RuneGameWinC2SPacket.TYPE, RuneGameWinC2SPacket.STREAM_CODEC, RuneGameWinC2SPacket::handle);
@@ -68,6 +67,7 @@ public class ModBusEventSubscriber {
         registrar.playToServer(PlayerDeathRespawnC2SPacket.TYPE, PlayerDeathRespawnC2SPacket.STREAM_CODEC, PlayerDeathRespawnC2SPacket::handle);
         registrar.playToClient(ShowDeathScreenS2CPacket.TYPE, ShowDeathScreenS2CPacket.STREAM_CODEC, ShowDeathScreenS2CPacket::handle);
         registrar.playToClient(ShowStunScreenS2CPacket.TYPE, ShowStunScreenS2CPacket.STREAM_CODEC, ShowStunScreenS2CPacket::handle);
+        registrar.playToClient(ShowStarSignScreenS2CPacket.TYPE, ShowStarSignScreenS2CPacket.STREAM_CODEC, ShowStarSignScreenS2CPacket::handle);
         registrar.playToClient(ShowVagrantNoteScreenS2CPacket.TYPE, ShowVagrantNoteScreenS2CPacket.STREAM_CODEC, ShowVagrantNoteScreenS2CPacket::handle);
         registrar.playToClient(DisplayTextureActivationS2CPacket.TYPE, DisplayTextureActivationS2CPacket.STREAM_CODEC, DisplayTextureActivationS2CPacket::handle);
         registrar.playToClient(DisplayItemActivationS2CPacket.TYPE, DisplayItemActivationS2CPacket.STREAM_CODEC, DisplayItemActivationS2CPacket::handle);
@@ -75,9 +75,7 @@ public class ModBusEventSubscriber {
         registrar.playToClient(SylvanisProgressS2CPacket.TYPE, SylvanisProgressS2CPacket.STREAM_CODEC, SylvanisProgressS2CPacket::handle);
         registrar.playToClient(PlayerLostInForestS2CPacket.TYPE, PlayerLostInForestS2CPacket.STREAM_CODEC, PlayerLostInForestS2CPacket::handle);
         registrar.playToClient(PlayAurorianMusicS2CPacket.TYPE, PlayAurorianMusicS2CPacket.STREAM_CODEC, PlayAurorianMusicS2CPacket::handle);
-        // 新增：手札传送请求
         registrar.playToServer(NoteTeleportC2SPacket.TYPE, NoteTeleportC2SPacket.STREAM_CODEC, NoteTeleportC2SPacket::handle);
-        // 新增：占星仪未来三天预测请求（C2S）在上方已注册；S2C在行60已注册
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -92,7 +90,6 @@ public class ModBusEventSubscriber {
     public static void registerDimensionSpecialEffects(RegisterDimensionSpecialEffectsEvent event) {
         new TASkyRenderer();
         event.register(TheAurorian.prefix("aurorian"), new TASpecialEffects());
-        // 新增维度：北方诸国、南方维度，复用相同特效
         event.register(TheAurorian.prefix("north_kingdoms"), new TASpecialEffects());
         event.register(TheAurorian.prefix("south_dimension"), new TASpecialEffects());
     }
@@ -101,7 +98,6 @@ public class ModBusEventSubscriber {
     @SubscribeEvent
     public static void registerDimensionTransitionScreen(RegisterDimensionTransitionScreenEvent event) {
         event.registerIncomingEffect(TADimensions.AURORIAN_DIMENSION, TAWaitingScreen::new);
-        // 新增维度过渡屏
         event.registerIncomingEffect(TADimensions.NORTHERN_DIMENSION, TAWaitingScreen::new);
         event.registerIncomingEffect(TADimensions.SOUTHERN_DIMENSION, TAWaitingScreen::new);
     }

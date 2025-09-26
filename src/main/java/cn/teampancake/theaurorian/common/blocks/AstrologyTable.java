@@ -2,24 +2,25 @@ package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.blocks.state.TALootType;
+import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
+import cn.teampancake.theaurorian.common.network.FutureNightS2CPacket;
+import cn.teampancake.theaurorian.common.network.ShowStarSignScreenS2CPacket;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.network.PacketDistributor;
 
-public class AstrologyTable extends HorizontalDirectionalBlock implements EntityBlock {
+public class AstrologyTable extends HorizontalDirectionalBlock {
 
     public AstrologyTable() {
         super(TABlockProperties.get().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE)
@@ -36,27 +37,23 @@ public class AstrologyTable extends HorizontalDirectionalBlock implements Entity
         builder.add(FACING);
     }
 
-    @Nullable @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return null;
-    }
-
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        long dayTime = (level.getDayTime() + 6000L) % 24000L;
-        boolean isDay = dayTime > 6000 && dayTime <= 18000;
-        if (isDay) {
-            if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-                serverPlayer.sendSystemMessage(Component.translatable("message.theaurorian.astrology_table.only_at_night"));
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            long dayTime = (level.getDayTime() + 6000L) % 24000L;
+            if (dayTime > 6000 && dayTime <= 18000) {
+                String key = "message.theaurorian.astrology_table.only_at_night";
+                serverPlayer.sendSystemMessage(Component.translatable(key));
+                return InteractionResult.CONSUME;
             }
-            return InteractionResult.CONSUME; // 仅夜晚可用
-        }
 
-        if (level.isClientSide) {
-            net.neoforged.neoforge.network.PacketDistributor.sendToServer(new cn.teampancake.theaurorian.common.network.RequestFutureNightC2SPacket());
-            net.minecraft.client.Minecraft.getInstance().setScreen(new cn.teampancake.theaurorian.client.gui.screens.StarSignsScreen());
+            int[] arr = LevelEventSubscriber.getFuturePhases();
+            PacketDistributor.sendToPlayer(serverPlayer, new FutureNightS2CPacket(arr[0], arr[1], arr[2]));
+            PacketDistributor.sendToPlayer(serverPlayer, new ShowStarSignScreenS2CPacket());
             return InteractionResult.SUCCESS;
         }
+
         return InteractionResult.CONSUME;
     }
+
 }

@@ -16,11 +16,8 @@ public class TABiomeBuilder {
 
     public static List<TATerrainColumn> makeBiomeList(HolderGetter<Biome> biomeRegistry) {
         return List.of(
-                // 黯晶雪原 - 基础高度设为70
                 biomeColumnWithUnderground(9.0F + 0.5F, 0.5F, biomeRegistry, TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD, TABiomes.UNDERGROUND),
-                // 黯晶雪山 - 高度设为210
                 biomeColumnWithUnderground(9.0F + 12.0F, 0.8F, biomeRegistry, TABiomes.FILTHY_ICE_MOUNTAIN, TABiomes.UNDERGROUND),
-                // 黯晶丘陵 - 高度设为130
                 biomeColumnWithUnderground(9.0F + 5.0F, 0.6F, biomeRegistry, TABiomes.FILTHY_ICE_HILLS, TABiomes.UNDERGROUND),
                 biomeColumnWithUnderground(9.0F + 0.5F, 0.4F, biomeRegistry, TABiomes.AURORIAN_PLAINS, TABiomes.UNDERGROUND),
                 biomeColumnWithUnderground(9.0F + 0.5F, 0.5F, biomeRegistry, TABiomes.AURORIAN_FOREST, TABiomes.UNDERGROUND),
@@ -43,9 +40,9 @@ public class TABiomeBuilder {
                 biomeColumnWithUnderground(9.0F + 0.4F, 0.3F, biomeRegistry, TABiomes.EQUINOX_FLOWER_PLAINS, TABiomes.UNDERGROUND),
                 biomeColumnWithUnderground(9.0F + 0.5F, 0.4F, biomeRegistry, TABiomes.LAVENDER_PLAINS, TABiomes.UNDERGROUND),
                 biomeColumnWithUnderground(9.0F + 0.5F, 0.5F, biomeRegistry, TABiomes.WEEPING_WILLOW_FOREST, TABiomes.UNDERGROUND),
+                biomeColumnWithUnderground(9.0F + 0.5F, 0.5F, biomeRegistry, TABiomes.CURSED_FROST_FOREST, TABiomes.UNDERGROUND),
                 biomeColumnForLake(9.0F - 1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_RIVER),
-                biomeColumnForLake(9.0F - 1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_LAKE),
-                biomeColumnWithUnderground(9.0F + 0.5F, 0.5F, biomeRegistry, TABiomes.CURSED_FROST_FOREST, TABiomes.UNDERGROUND));
+                biomeColumnForLake(9.0F - 1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_LAKE));
     }
 
     // 北方诸国：仅三种冰雪 + 河/湖
@@ -60,10 +57,7 @@ public class TABiomeBuilder {
 
     // 南方维度：仅皓月沙漠 + 河/湖
     public static List<TATerrainColumn> makeSouthernBiomeList(HolderGetter<Biome> biomeRegistry) {
-        return List.of(
-                biomeColumnWithUnderground(9.0F + 0.5F, 0.5F, biomeRegistry, TABiomes.BRIGHT_MOON_DESERT, TABiomes.UNDERGROUND),
-                biomeColumnForLake(9.0F - 1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_RIVER),
-                biomeColumnForLake(9.0F - 1.65F, 0.0F, biomeRegistry, TABiomes.AURORIAN_LAKE));
+        return List.of(biomeColumnWithUnderground(9.5F, 0.5F, biomeRegistry, TABiomes.BRIGHT_MOON_DESERT, TABiomes.UNDERGROUND));
     }
 
     private static TATerrainColumn biomeColumnWithUnderground(float noiseDepth, float noiseScale, HolderGetter<Biome> biomeRegistry, ResourceKey<Biome> key, ResourceKey<Biome> under) {

@@ -21,7 +21,9 @@
   },
   "features": [
     [],
-    [],
+    [
+      "theaurorian:large_lake"
+    ],
     [],
     [],
     [],

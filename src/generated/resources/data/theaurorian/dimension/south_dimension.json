@@ -12,24 +12,6 @@
         "biome_landscape": [
           {
             "biome_layers": {
-              "-6.0": "theaurorian:aurorian_lake",
-              "-8.0": "theaurorian:underwater"
-            },
-            "depth": 7.35,
-            "key_biome": "theaurorian:aurorian_lake",
-            "scale": 0.0
-          },
-          {
-            "biome_layers": {
-              "-6.0": "theaurorian:aurorian_river",
-              "-8.0": "theaurorian:underwater"
-            },
-            "depth": 7.35,
-            "key_biome": "theaurorian:aurorian_river",
-            "scale": 0.0
-          },
-          {
-            "biome_layers": {
               "-1.0": "theaurorian:bright_moon_desert",
               "-3.0": "theaurorian:underground"
             },

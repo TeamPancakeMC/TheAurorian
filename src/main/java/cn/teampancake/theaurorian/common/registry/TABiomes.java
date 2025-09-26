@@ -76,7 +76,8 @@ public class TABiomes {
                 .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.FILTHY_WATER_LAKE)
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_FLOWER_SNOWFIELD))
                 .mobSpawnSettings(snowfieldMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature(-0.7F).build());
-        context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
+        context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
+                .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.LARGE_LAKE))
                 .mobSpawnSettings(desertMobSpawning().build()).hasPrecipitation(Boolean.FALSE).build());
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
                 .mobSpawnSettings(defaultForestAndPlainSpawning().build()).build());
@@ -205,7 +206,7 @@ public class TABiomes {
         return spawnInfo;
     }
 
-    private static MobSpawnSettings.Builder desertMobSpawning(){
+    private static MobSpawnSettings.Builder desertMobSpawning() {
         MobSpawnSettings.Builder spawnInfo = new MobSpawnSettings.Builder();
         spawnInfo.creatureGenerationProbability(0.2F);
         spawnInfo.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(TAEntityTypes.CRYSTALLINE_SPRITE.get(), 45, 2, 2));

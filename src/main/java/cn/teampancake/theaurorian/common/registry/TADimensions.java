@@ -31,13 +31,12 @@ public class TADimensions {
     public static long seed;
     public static final ResourceKey<NoiseGeneratorSettings> AURORIAN_NOISE_SETTINGS = ResourceKey.create(Registries.NOISE_SETTINGS, TheAurorian.prefix("the_aurorian_noise"));
     public static final ResourceKey<DimensionType> AURORIAN_DIMENSION_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE, TheAurorian.prefix("the_aurorian_type"));
-    public static final ResourceKey<LevelStem> AURORIAN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, TheAurorian.prefix("the_aurorian"));
-    public static final ResourceKey<Level> AURORIAN_DIMENSION = ResourceKey.create(Registries.DIMENSION, TheAurorian.prefix("the_aurorian"));
 
-    // 新增：北方诸国 & 南方维度
+    public static final ResourceKey<LevelStem> AURORIAN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, TheAurorian.prefix("the_aurorian"));
     public static final ResourceKey<LevelStem> NORTHERN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, TheAurorian.prefix("north_kingdoms"));
-    public static final ResourceKey<Level> NORTHERN_DIMENSION = ResourceKey.create(Registries.DIMENSION, TheAurorian.prefix("north_kingdoms"));
     public static final ResourceKey<LevelStem> SOUTHERN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, TheAurorian.prefix("south_dimension"));
+    public static final ResourceKey<Level> AURORIAN_DIMENSION = ResourceKey.create(Registries.DIMENSION, TheAurorian.prefix("the_aurorian"));
+    public static final ResourceKey<Level> NORTHERN_DIMENSION = ResourceKey.create(Registries.DIMENSION, TheAurorian.prefix("north_kingdoms"));
     public static final ResourceKey<Level> SOUTHERN_DIMENSION = ResourceKey.create(Registries.DIMENSION, TheAurorian.prefix("south_dimension"));
 
     public static void bootstrapNoise(BootstrapContext<NoiseGeneratorSettings> context) {
@@ -58,56 +57,38 @@ public class TADimensions {
     public static void bootstrapStem(BootstrapContext<LevelStem> context) {
         HolderGetter<DimensionType> dimensionType = context.lookup(Registries.DIMENSION_TYPE);
         HolderGetter<NoiseGeneratorSettings> noiseSettings = context.lookup(Registries.NOISE_SETTINGS);
-
-        // 极光维度（主）：去除冰雪与沙漠
         NoiseBasedChunkGenerator mainGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
                 TABiomeBuilder.makeAurorianMainBiomeList(context.lookup(Registries.BIOME)), -1.25F, 2.5F,
                 context.lookup(TABiomeLayerStack.BIOME_STACK_KEY).getOrThrow(TABiomeLayerStack.BIOMES_ALONG_STREAMS)),
                 noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
-        LevelStem mainStem = new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
-                new TAChunkGenerator(mainGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS)));
-        context.register(AURORIAN_LEVEL_STEM, mainStem);
-
-        // 北方诸国（冰雪）
+        context.register(AURORIAN_LEVEL_STEM, new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
+                new TAChunkGenerator(mainGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS))));
         NoiseBasedChunkGenerator northGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
                 TABiomeBuilder.makeNorthernBiomeList(context.lookup(Registries.BIOME)), -1.25F, 2.5F,
                 context.lookup(TABiomeLayerStack.BIOME_STACK_KEY).getOrThrow(TABiomeLayerStack.NORTH_BIOMES_ALONG_STREAMS)),
                 noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
-        LevelStem northStem = new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
-                new TAChunkGenerator(northGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS)));
-        context.register(NORTHERN_LEVEL_STEM, northStem);
-
-        // 南方维度（沙漠）
+        context.register(NORTHERN_LEVEL_STEM, new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
+                new TAChunkGenerator(northGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS))));
         NoiseBasedChunkGenerator southGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
                 TABiomeBuilder.makeSouthernBiomeList(context.lookup(Registries.BIOME)), -1.25F, 2.5F,
                 context.lookup(TABiomeLayerStack.BIOME_STACK_KEY).getOrThrow(TABiomeLayerStack.SOUTH_BIOMES_ALONG_STREAMS)),
                 noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
-        LevelStem southStem = new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
-                new TAChunkGenerator(southGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS)));
-        context.register(SOUTHERN_LEVEL_STEM, southStem);
+        context.register(SOUTHERN_LEVEL_STEM, new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
+                new TAChunkGenerator(southGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS))));
     }
 
     private static RuleSource createSurfaceRule() {
         ImmutableList.Builder<RuleSource> builder = ImmutableList.builder();
-        RuleSource aurorianDirt = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_DIRT.get());
-        RuleSource aurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_GRASS_BLOCK.get());
-        RuleSource lightAurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get());
-        RuleSource snowAurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get());
-        RuleSource redAurorianGrassBlock = SurfaceRuleData.makeStateRule(TABlocks.RED_AURORIAN_GRASS_BLOCK.get());
-        RuleSource brightMoonSand = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SAND.get());
-        RuleSource brightMoonSandstone = SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SANDSTONE.get());
-        ConditionSource notUnderWater = waterBlockCheck(-1, ConstantInt.ZERO.getValue());
-        ConditionSource notUnderDeepWater = waterStartCheck(-6, -1);
-        RuleSource overworldLike = sequence(
-                ifTrue(ON_FLOOR, sequence(ifTrue(notUnderWater, sequence(
-                        ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST), lightAurorianGrassBlock),
-                        ifTrue(isBiome(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD,
-                                TABiomes.FILTHY_ICE_MOUNTAIN,
-                                TABiomes.FILTHY_ICE_HILLS), snowAurorianGrassBlock),
-                        ifTrue(isBiome(TABiomes.EQUINOX_FLOWER_PLAINS), redAurorianGrassBlock),
-                        ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSand), aurorianGrassBlock)))),
-                ifTrue(notUnderDeepWater, sequence(ifTrue(UNDER_FLOOR, sequence(
-                        ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), brightMoonSandstone), aurorianDirt)))));
+        RuleSource overworldLike = sequence(ifTrue(ON_FLOOR, sequence(ifTrue(waterBlockCheck(-1, 0), sequence(
+                        ifTrue(isBiome(TABiomes.WEEPING_WILLOW_FOREST), SurfaceRuleData.makeStateRule(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get())),
+                        ifTrue(isBiome(TABiomes.FILTHY_ICE_CRYSTAL_SNOWFIELD, TABiomes.FILTHY_ICE_MOUNTAIN, TABiomes.FILTHY_ICE_HILLS),
+                                SurfaceRuleData.makeStateRule(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get())),
+                        ifTrue(isBiome(TABiomes.EQUINOX_FLOWER_PLAINS), SurfaceRuleData.makeStateRule(TABlocks.RED_AURORIAN_GRASS_BLOCK.get())),
+                        ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SAND.get())),
+                        SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_GRASS_BLOCK.get()))))),
+                ifTrue(waterStartCheck(-6, -1), sequence(ifTrue(UNDER_FLOOR, sequence(
+                        ifTrue(isBiome(TABiomes.BRIGHT_MOON_DESERT), SurfaceRuleData.makeStateRule(TABlocks.BRIGHT_MOON_SANDSTONE.get())),
+                        SurfaceRuleData.makeStateRule(TABlocks.AURORIAN_DIRT.get()))))));
         RuleSource bedrockFloor = ifTrue(verticalGradient("bedrock_floor", VerticalAnchor.bottom(),
                 VerticalAnchor.aboveBottom(5)), SurfaceRuleData.BEDROCK);
         builder.add(bedrockFloor).add(overworldLike);
@@ -122,13 +103,13 @@ public class TADimensions {
         DensityFunction densityfunction12 = DensityFunctions.min(slopedCheeseFunction,
                 DensityFunctions.mul(DensityFunctions.constant(5.0D),
                 NoiseRouterData.getFunction(densityFunctions, NoiseRouterData.ENTRANCES)));
-        DensityFunction densityfunction13 = DensityFunctions.rangeChoice(slopedCheeseFunction, (-1000000.0D), (1.5625D),
+        DensityFunction densityfunction13 = DensityFunctions.rangeChoice(slopedCheeseFunction, -1000000.0D, 1.5625D,
                 densityfunction12, NoiseRouterData.underground(densityFunctions, noiseParameters, slopedCheeseFunction));
         DensityFunction densityfunction14 = DensityFunctions.min(NoiseRouterData.postProcess(
                 NoiseRouterData.slideOverworld(Boolean.FALSE, densityfunction13)),
                 NoiseRouterData.getFunction(densityFunctions, NoiseRouterData.NOODLE));
-        return new NoiseRouter(DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
-                DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
+        return new NoiseRouter(DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
+                DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
                 DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
                 NoiseRouterData.slideOverworld(Boolean.FALSE, DensityFunctions.add(densityfunction10,
                         DensityFunctions.constant(-0.703125D)).clamp(-64.0D, 64.0D)),

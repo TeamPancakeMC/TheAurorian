@@ -20,7 +20,8 @@ public class TAFeatures {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(BuiltInRegistries.FEATURE, TheAurorian.MOD_ID);
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> RANDOM_URN = FEATURES.register("random_urn", UrnFeature::new);
     public static final DeferredHolder<Feature<?>, Feature<FallenLogConfig>> RANDOM_FALLEN_LOGS = FEATURES.register("random_fallen_logs", FallenLogFeature::new);
-    public static final DeferredHolder<Feature<?>, Feature<LargeLakeFeature.Configuration>> LARGE_LAKE = FEATURES.register("large_lake", LargeLakeFeature::new);
+    public static final DeferredHolder<Feature<?>, Feature<LargeLake1Feature.Configuration>> LARGE_LAKE_1 = FEATURES.register("large_lake_1", LargeLake1Feature::new);
+    public static final DeferredHolder<Feature<?>, Feature<LargeLake2Feature.Configuration>> LARGE_LAKE_2 = FEATURES.register("large_lake_2", LargeLake2Feature::new);
     public static final DeferredHolder<Feature<?>, Feature<FilthyLakeFeature.Configuration>> FILTHY_WATER_LAKE =
             FEATURES.register("filthy_water_lake", FilthyLakeFeature::new);
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> FILTHY_FREEZE_TOP_LAYER =

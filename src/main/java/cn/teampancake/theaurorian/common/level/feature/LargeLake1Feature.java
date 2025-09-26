@@ -18,9 +18,9 @@ import net.minecraft.world.phys.Vec2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LargeLakeFeature extends Feature<LargeLakeFeature.Configuration> {
+public class LargeLake1Feature extends Feature<LargeLake1Feature.Configuration> {
 
-    public LargeLakeFeature() {
+    public LargeLake1Feature() {
         super(Configuration.CODEC);
     }
 

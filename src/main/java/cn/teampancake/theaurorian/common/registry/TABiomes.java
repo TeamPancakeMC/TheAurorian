@@ -77,7 +77,7 @@ public class TABiomes {
                 .addFeature(vegetalDecoration, TAPlacedFeatures.PATCH_FLOWER_SNOWFIELD))
                 .mobSpawnSettings(snowfieldMobSpawning().build()).hasPrecipitation(Boolean.TRUE).temperature(-0.7F).build());
         context.register(BRIGHT_MOON_DESERT, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter)
-                .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.LARGE_LAKE))
+                .addFeature(GenerationStep.Decoration.LAKES, TAPlacedFeatures.LARGE_LAKE_2))
                 .mobSpawnSettings(desertMobSpawning().build()).hasPrecipitation(Boolean.FALSE).build());
         context.register(UNDERGROUND, biomeWithDefaults(new BiomeGenerationSettings.Builder(featureGetter, carverGetter))
                 .mobSpawnSettings(defaultForestAndPlainSpawning().build()).build());

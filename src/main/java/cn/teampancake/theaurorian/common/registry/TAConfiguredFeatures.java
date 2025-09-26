@@ -7,7 +7,8 @@ import cn.teampancake.theaurorian.common.blocks.BlueberryBush;
 import cn.teampancake.theaurorian.common.blocks.TAClusterBlock;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.level.feature.FilthyLakeFeature;
-import cn.teampancake.theaurorian.common.level.feature.LargeLakeFeature;
+import cn.teampancake.theaurorian.common.level.feature.LargeLake1Feature;
+import cn.teampancake.theaurorian.common.level.feature.LargeLake2Feature;
 import cn.teampancake.theaurorian.common.level.feature.config.FallenLogConfig;
 import cn.teampancake.theaurorian.common.level.feature.ruin.SmallRuinFeature;
 import cn.teampancake.theaurorian.common.level.feature.tree.decorators.CrystalBudDecorator;
@@ -76,7 +77,8 @@ public class TAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_WEEPING_WILLOW_FOREST = createKey("trees_weeping_willow_forest");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_AURORIAN_FOREST_RUINS = createKey("small_aurorian_forest_ruins");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_LAKE = createKey("large_lake");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_LAKE_1 = createKey("large_lake_1");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_LAKE_2 = createKey("large_lake_2");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FILTHY_WATER_LAKE = createKey("filthy_water_lake");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FILTHY_FREEZE_TOP_LAYER = createKey("filthy_freeze_top_layer");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ICE_SPIKE = createKey("ice_spike");
@@ -277,11 +279,18 @@ public class TAConfiguredFeatures {
                         new WeightedPlacedFeature(mediumRuinHolder3, 0.125F), new WeightedPlacedFeature(mediumRuinHolder4, 0.125F),
                         new WeightedPlacedFeature(mediumRuinHolder5, 0.125F), new WeightedPlacedFeature(mediumRuinHolder6, 0.125F),
                         new WeightedPlacedFeature(mediumRuinHolder7, 0.125F)), mediumRuinHolder1));
-        FeatureUtils.register(context, LARGE_LAKE, TAFeatures.LARGE_LAKE.get(),
-                new LargeLakeFeature.Configuration(8, 16, 24, 0.5f, 0.7f,
+        FeatureUtils.register(context, LARGE_LAKE_1, TAFeatures.LARGE_LAKE_1.get(),
+                new LargeLake1Feature.Configuration(
+                        8, 16, 24, 0.5f, 0.7f,
                         TABlocks.AURORIAN_DIRT.get().defaultBlockState(),
                         TABlocks.BRIGHT_MOON_SAND.get().defaultBlockState(),
                         TABlocks.AURORIAN_STONE.get().defaultBlockState(),
+                        TABlocks.BRIGHT_MOON_SAND.get().defaultBlockState(),
+                        Blocks.WATER.defaultBlockState()));
+        FeatureUtils.register(context, LARGE_LAKE_2, TAFeatures.LARGE_LAKE_2.get(),
+                new LargeLake2Feature.Configuration(
+                        UniformInt.of(8, 15), UniformInt.of(3, 7),
+                        TABlocks.AURORIAN_DIRT.get().defaultBlockState(),
                         TABlocks.BRIGHT_MOON_SAND.get().defaultBlockState(),
                         Blocks.WATER.defaultBlockState()));
         FeatureUtils.register(context, FILTHY_WATER_LAKE, TAFeatures.FILTHY_WATER_LAKE.get(),

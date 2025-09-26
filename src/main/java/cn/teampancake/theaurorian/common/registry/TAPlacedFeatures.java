@@ -39,7 +39,8 @@ public class TAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> TREES_WEEPING_WILLOW_FOREST = createKey("trees_weeping_willow_forest");
     public static final ResourceKey<PlacedFeature> SMALL_AURORIAN_FOREST_RUINS = createKey("small_aurorian_forest_ruins");
     public static final ResourceKey<PlacedFeature> MEDIUM_AURORIAN_FOREST_RUINS = createKey("medium_aurorian_forest_ruins");
-    public static final ResourceKey<PlacedFeature> LARGE_LAKE = createKey("large_lake");
+    public static final ResourceKey<PlacedFeature> LARGE_LAKE_1 = createKey("large_lake_1");
+    public static final ResourceKey<PlacedFeature> LARGE_LAKE_2 = createKey("large_lake_2");
     public static final ResourceKey<PlacedFeature> FILTHY_WATER_LAKE = createKey("filthy_water_lake");
     public static final ResourceKey<PlacedFeature> FILTHY_FREEZE_TOP_LAYER = createKey("filthy_freeze_top_layer");
     public static final ResourceKey<PlacedFeature> ICE_SPIKE_FEATURE = createKey("ice_spike_feature");
@@ -130,7 +131,9 @@ public class TAPlacedFeatures {
                 .add(RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
         PlacementUtils.register(context, MEDIUM_AURORIAN_FOREST_RUINS, configuredFeature.getOrThrow(TAConfiguredFeatures.MEDIUM_AURORIAN_FOREST_RUINS), ImmutableList.<PlacementModifier>builder()
                 .add(RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_OCEAN_FLOOR, BiomeFilter.biome()).build());
-        PlacementUtils.register(context, LARGE_LAKE, configuredFeature.getOrThrow(TAConfiguredFeatures.LARGE_LAKE),
+        PlacementUtils.register(context, LARGE_LAKE_1, configuredFeature.getOrThrow(TAConfiguredFeatures.LARGE_LAKE_1),
+                RarityFilter.onAverageOnceEvery(25), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+        PlacementUtils.register(context, LARGE_LAKE_2, configuredFeature.getOrThrow(TAConfiguredFeatures.LARGE_LAKE_2),
                 RarityFilter.onAverageOnceEvery(25), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(context, FILTHY_WATER_LAKE, configuredFeature.getOrThrow(TAConfiguredFeatures.FILTHY_WATER_LAKE),
                 RarityFilter.onAverageOnceEvery(15), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());

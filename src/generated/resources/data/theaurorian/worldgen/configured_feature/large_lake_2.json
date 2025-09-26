@@ -1,0 +1,27 @@
+{
+  "type": "theaurorian:large_lake_2",
+  "config": {
+    "depth": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 7,
+      "min_inclusive": 3
+    },
+    "fluid_block": {
+      "Name": "minecraft:water",
+      "Properties": {
+        "level": "0"
+      }
+    },
+    "inner_wall_block": {
+      "Name": "theaurorian:aurorian_dirt"
+    },
+    "radius": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 15,
+      "min_inclusive": 8
+    },
+    "top_edge_block": {
+      "Name": "theaurorian:bright_moon_sand"
+    }
+  }
+}

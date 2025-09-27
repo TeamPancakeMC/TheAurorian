@@ -13,10 +13,14 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.core.Holder;
+import net.minecraft.core.IdMap;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.VarInt;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.neoforged.neoforge.client.event.RenderTooltipEvent;
@@ -26,12 +30,13 @@ import org.joml.Vector2ic;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 /** @noinspection deprecation*/
 public class ItemTooltip {
 
     public static final Codec<Holder<ItemTooltip>> CODEC = TAItemTooltips.REGISTRY.holderByNameCodec();
-    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<ItemTooltip>> STREAM_CODEC = ByteBufCodecs.holderRegistry(TAItemTooltips.KEY);
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<ItemTooltip>> STREAM_CODEC = registry(TAItemTooltips.KEY, Registry::asHolderIdMap);
 
     final int backgroundColor;
     final int outerColor;
@@ -192,6 +197,26 @@ public class ItemTooltip {
 
         TATooltipRenderUtils.wrapNewLines(components);
         TATooltipRenderUtils.wrapLongLines(components, font, maxWidth);
+    }
+
+    public static <T, R> StreamCodec<RegistryFriendlyByteBuf, R> registry(
+            final ResourceKey<? extends Registry<T>> registryKey,
+            final Function<Registry<T>, IdMap<R>> idGetter) {
+        return new StreamCodec<>() {
+
+            private IdMap<R> getRegistryOrThrow(RegistryFriendlyByteBuf byteBuf) {
+                return idGetter.apply(byteBuf.registryAccess().registryOrThrow(registryKey));
+            }
+
+            public R decode(RegistryFriendlyByteBuf byteBuf) {
+                return this.getRegistryOrThrow(byteBuf).byIdOrThrow(VarInt.read(byteBuf));
+            }
+
+            public void encode(RegistryFriendlyByteBuf byteBuf, R object) {
+                VarInt.write(byteBuf, this.getRegistryOrThrow(byteBuf).getIdOrThrow(object));
+            }
+
+        };
     }
 
     public enum Position implements StringRepresentable {

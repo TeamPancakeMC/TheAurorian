@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.items.crafting;
 
 import cn.teampancake.theaurorian.common.items.VagrantNote;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TARecipes;
 import com.mojang.datafixers.util.Pair;
@@ -61,6 +62,7 @@ public class VagrantNotePassportRecipe extends CustomRecipe {
         ItemStack firstStack = inputItems.getFirst();
         ItemStack outputStack = firstStack.copy();
         if (!outputStack.has(component)) {
+            outputStack.set(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY);
             outputStack.set(component, Unit.INSTANCE);
             return outputStack;
         } else {

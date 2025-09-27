@@ -33,9 +33,9 @@ public class VagrantNote extends Item {
     @Override
     public Component getName(ItemStack stack) {
         if (stack.has(TADataComponents.NOTE_PASSPORT)) {
-            super.getName(stack).getStyle().withColor(ChatFormatting.GOLD);
+            return super.getName(stack).copy().withStyle(ChatFormatting.GOLD);
         }
-        
+
         return super.getName(stack);
     }
 

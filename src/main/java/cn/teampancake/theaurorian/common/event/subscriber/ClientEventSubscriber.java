@@ -176,11 +176,17 @@ public class ClientEventSubscriber {
     public static void onRenderTooltips(RenderTooltipEvent.Pre event) {
         ModernUICompatibility.toggleModernUITooltipRenderer(true);
         ItemStack itemStack = event.getItemStack();
-        Holder<ItemTooltip> tooltip = itemStack.get(TADataComponents.ITEM_TOOLTIP);
-        if (tooltip != null) {
+        if (itemStack.has(TADataComponents.NOTE_PASSPORT)) {
             ModernUICompatibility.toggleModernUITooltipRenderer(false);
-            tooltip.value().renderTooltips(event);
+            TAItemTooltips.LEGENDARY.get().renderTooltips(event);
             event.setCanceled(true);
+        } else {
+            Holder<ItemTooltip> tooltip = itemStack.get(TADataComponents.ITEM_TOOLTIP);
+            if (tooltip != null) {
+                ModernUICompatibility.toggleModernUITooltipRenderer(false);
+                tooltip.value().renderTooltips(event);
+                event.setCanceled(true);
+            }
         }
     }
 

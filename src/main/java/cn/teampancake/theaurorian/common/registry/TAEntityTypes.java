@@ -45,150 +45,122 @@ public class TAEntityTypes {
     //Projectile
     public static final DeferredHolder<EntityType<?>, EntityType<Arrow>> CRYSTALLINE_BEAM = ENTITY_TYPES.register("crystalline_beam",
             () -> EntityType.Builder.<Arrow>of(Arrow::new, MobCategory.MISC).sized(0.5F, 0.5F)
-                    .clientTrackingRange((4)).updateInterval((20)).build("crystalline_beam"));
+                    .clientTrackingRange(4).updateInterval(20).build("crystalline_beam"));
     public static final DeferredHolder<EntityType<?>, EntityType<CeruleanArrowEntity>> CERULEAN_ARROW = ENTITY_TYPES.register("cerulean_arrow",
             () -> EntityType.Builder.<CeruleanArrowEntity>of(CeruleanArrowEntity::new, MobCategory.MISC).sized(0.5F, 0.5F)
-                    .clientTrackingRange((4)).updateInterval((20)).build("cerulean_arrow"));
+                    .clientTrackingRange(4).updateInterval(20).build("cerulean_arrow"));
     public static final DeferredHolder<EntityType<?>, EntityType<CrystalArrowEntity>> CRYSTAL_ARROW = ENTITY_TYPES.register("crystal_arrow",
             () -> EntityType.Builder.<CrystalArrowEntity>of(CrystalArrowEntity::new, MobCategory.MISC).sized(0.5F, 0.5F)
-                    .clientTrackingRange((4)).updateInterval((20)).build("crystal_arrow"));
+                    .clientTrackingRange(4).updateInterval(20).build("crystal_arrow"));
     public static final DeferredHolder<EntityType<?>, EntityType<StickySpikerEntity>> STICKY_SPIKER = ENTITY_TYPES.register("sticky_spiker",
             () -> EntityType.Builder.<StickySpikerEntity>of(StickySpikerEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
-                    .clientTrackingRange((4)).updateInterval((10)).build("sticky_spiker"));
+                    .clientTrackingRange(4).updateInterval(10).build("sticky_spiker"));
     public static final DeferredHolder<EntityType<?>, EntityType<WebbingEntity>> WEBBING = ENTITY_TYPES.register("webbing",
             () -> EntityType.Builder.<WebbingEntity>of(WebbingEntity::new, MobCategory.MISC).sized(0.25F, 0.25F)
-                    .clientTrackingRange((4)).updateInterval((10)).build("webbing"));
+                    .clientTrackingRange(4).updateInterval(10).build("webbing"));
     public static final DeferredHolder<EntityType<?>, EntityType<SitEntity>> SIT = ENTITY_TYPES.register("sit",
             () -> EntityType.Builder.<SitEntity>of(SitEntity::new, MobCategory.MISC).sized(0.1F, 0.1F)
-                    .clientTrackingRange((4)).updateInterval((10)).build("sit"));
+                    .clientTrackingRange(4).updateInterval(10).build("sit"));
     public static final DeferredHolder<EntityType<?>, EntityType<LunaCircleEntity>> LUNA_CIRCLE = ENTITY_TYPES.register("luna_circle",
             () -> EntityType.Builder.of(LunaCircleEntity::new, MobCategory.MISC).sized(5.0F, 0.1F)
-                    .clientTrackingRange((4)).updateInterval((10)).build("luna_circle"));
+                    .clientTrackingRange(4).updateInterval(10).build("luna_circle"));
     public static final DeferredHolder<EntityType<?>, EntityType<FallingFireball>> FALLING_FIREBALL = ENTITY_TYPES.register("falling_fireball",
             () -> EntityType.Builder.<FallingFireball>of(FallingFireball::new, MobCategory.MISC).sized(0.5F, 0.5F)
-                    .clientTrackingRange((4)).updateInterval((10)).build("falling_fireball"));
+                    .clientTrackingRange(4).updateInterval(10).build("falling_fireball"));
     public static final DeferredHolder<EntityType<?>, EntityType<ThrownAxe>> THROWN_AXE = ENTITY_TYPES.register("thrown_axe",
             () -> EntityType.Builder.<ThrownAxe>of(ThrownAxe::new, MobCategory.MISC).sized(0.5F, 0.5F)
-                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("thrown_axe"));
+                    .clientTrackingRange(4).updateInterval(10).fireImmune().build("thrown_axe"));
     public static final DeferredHolder<EntityType<?>, EntityType<ThrownShuriken>> THROWN_SHURIKEN = ENTITY_TYPES.register("thrown_shuriken",
             () -> EntityType.Builder.<ThrownShuriken>of(ThrownShuriken::new, MobCategory.MISC).sized(0.3F, 0.3F)
-                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("thrown_shuriken"));
+                    .clientTrackingRange(4).updateInterval(10).fireImmune().build("thrown_shuriken"));
     public static final DeferredHolder<EntityType<?>, EntityType<ThrownSlateBrick>> THROWN_SLATE_BRICK = ENTITY_TYPES.register("thrown_slate_brick",
             () -> EntityType.Builder.<ThrownSlateBrick>of(ThrownSlateBrick::new, MobCategory.MISC).sized(0.25F, 0.25F)
-                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("thrown_slate_brick"));
+                    .clientTrackingRange(4).updateInterval(10).fireImmune().build("thrown_slate_brick"));
     public static final DeferredHolder<EntityType<?>, EntityType<UnstableCrystal>> UNSTABLE_CRYSTAL = ENTITY_TYPES.register("unstable_crystal",
             () -> EntityType.Builder.of(UnstableCrystal::new, MobCategory.MISC).sized(0.25F, 0.25F)
-                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("unstable_crystal"));
+                    .clientTrackingRange(4).updateInterval(10).fireImmune().build("unstable_crystal"));
     public static final DeferredHolder<EntityType<?>, EntityType<BladeWave>> BLADE_WAVE = ENTITY_TYPES.register("blade_wave",
             () -> EntityType.Builder.<BladeWave>of(BladeWave::new, MobCategory.MISC).sized(5.5F, 1.5F)
-                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("blade_wave"));
+                    .clientTrackingRange(4).updateInterval(10).fireImmune().build("blade_wave"));
     public static final DeferredHolder<EntityType<?>, EntityType<MoonQueenSword>> MOON_QUEEN_SWORD = ENTITY_TYPES.register("moon_queen_sword",
             () -> EntityType.Builder.<MoonQueenSword>of(MoonQueenSword::new, MobCategory.MISC).sized(1.0F, 1.0F)
-                    .clientTrackingRange((4)).updateInterval((10)).fireImmune().build("moon_queen_sword"));
+                    .clientTrackingRange(4).updateInterval(10).fireImmune().build("moon_queen_sword"));
     //NPC
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianVillager>> AURORIAN_VILLAGER = ENTITY_TYPES.register("aurorian_villager",
-            () -> EntityType.Builder.of(AurorianVillager::new, MobCategory.CREATURE).sized(0.6F, 1.85F).clientTrackingRange((8)).build("aurorian_villager"));
+            () -> EntityType.Builder.of(AurorianVillager::new, MobCategory.CREATURE).sized(0.6F, 1.85F).clientTrackingRange(8).build("aurorian_villager"));
     public static final DeferredHolder<EntityType<?>, EntityType<Selena>> SELENA = ENTITY_TYPES.register("selena",
-            () -> EntityType.Builder.of(Selena::new, MobCategory.CREATURE).sized(0.6F, 1.85F).clientTrackingRange((8)).build("lady_knight"));
+            () -> EntityType.Builder.of(Selena::new, MobCategory.CREATURE).sized(0.6F, 1.85F).clientTrackingRange(8).build("lady_knight"));
     //Animal
     public static final DeferredHolder<EntityType<?>, EntityType<BreadBeast>> BREAD_BEAST = ENTITY_TYPES.register("bread_beast",
-            () -> EntityType.Builder.of(BreadBeast::new, MobCategory.CREATURE).sized(1.0F, 2.0F)
-                    .clientTrackingRange((10)).build("bread_beast"));
+            () -> EntityType.Builder.of(BreadBeast::new, MobCategory.CREATURE).sized(1.0F, 2.0F).clientTrackingRange(10).build("bread_beast"));
     public static final DeferredHolder<EntityType<?>, EntityType<IcefieldDeer>> ICEFIELD_DEER = ENTITY_TYPES.register("icefield_deer",
-            () -> EntityType.Builder.of(IcefieldDeer::new, MobCategory.CREATURE).sized(1.0F, 2.0F)
-                    .clientTrackingRange((10)).build("icefield_deer"));
+            () -> EntityType.Builder.of(IcefieldDeer::new, MobCategory.CREATURE).sized(1.0F, 2.0F).clientTrackingRange(10).build("icefield_deer"));
     public static final DeferredHolder<EntityType<?>, EntityType<BlueTailWolf>> BLUE_TAIL_WOLF = ENTITY_TYPES.register("blue_tail_wolf",
-            () -> EntityType.Builder.of(BlueTailWolf::new, MobCategory.CREATURE).sized(1.2F, 1.0F)
-                    .clientTrackingRange((10)).build("blue_tail_wolf"));
+            () -> EntityType.Builder.of(BlueTailWolf::new, MobCategory.CREATURE).sized(1.2F, 1.0F).clientTrackingRange(10).build("blue_tail_wolf"));
     public static final DeferredHolder<EntityType<?>, EntityType<MoonFish>> MOON_FISH = ENTITY_TYPES.register("moon_fish",
-            () -> EntityType.Builder.of(MoonFish::new, MobCategory.WATER_AMBIENT).sized(0.8F, 0.5F)
-                    .clientTrackingRange((4)).build("moon_fish"));
+            () -> EntityType.Builder.of(MoonFish::new, MobCategory.WATER_AMBIENT).sized(0.8F, 0.5F).clientTrackingRange(4).build("moon_fish"));
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianWingedFish>> AURORIAN_WINGED_FISH = ENTITY_TYPES.register("aurorian_winged_fish",
-            () -> EntityType.Builder.of(AurorianWingedFish::new, MobCategory.WATER_AMBIENT).sized(0.8F, 0.5F)
-                    .clientTrackingRange((4)).build("aurorian_winged_fish"));
+            () -> EntityType.Builder.of(AurorianWingedFish::new, MobCategory.WATER_AMBIENT).sized(0.8F, 0.5F).clientTrackingRange(4).build("aurorian_winged_fish"));
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianRabbit>> AURORIAN_RABBIT = ENTITY_TYPES.register("aurorian_rabbit",
-            () -> EntityType.Builder.of(AurorianRabbit::new, MobCategory.CREATURE).sized(0.4F, 0.5F)
-                    .clientTrackingRange((8)).build("aurorian_rabbit"));
+            () -> EntityType.Builder.of(AurorianRabbit::new, MobCategory.CREATURE).sized(0.4F, 0.5F).clientTrackingRange(8).build("aurorian_rabbit"));
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianSheep>> AURORIAN_SHEEP = ENTITY_TYPES.register("aurorian_sheep",
-            () -> EntityType.Builder.of(AurorianSheep::new, MobCategory.CREATURE).sized(1.0F, 1.3F)
-                    .clientTrackingRange((10)).build("aurorian_sheep"));
+            () -> EntityType.Builder.of(AurorianSheep::new, MobCategory.CREATURE).sized(1.0F, 1.3F).clientTrackingRange(10).build("aurorian_sheep"));
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianPig>> AURORIAN_PIG = ENTITY_TYPES.register("aurorian_pig",
-            () -> EntityType.Builder.of(AurorianPig::new, MobCategory.CREATURE).sized(0.9F, 0.9F)
-                    .clientTrackingRange((10)).build("aurorian_pig"));
+            () -> EntityType.Builder.of(AurorianPig::new, MobCategory.CREATURE).sized(0.9F, 0.9F).clientTrackingRange(10).build("aurorian_pig"));
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianCow>> AURORIAN_COW = ENTITY_TYPES.register("aurorian_cow",
-            () -> EntityType.Builder.of(AurorianCow::new, MobCategory.CREATURE).sized(1.5F, 1.46F)
-                    .clientTrackingRange((10)).build("aurorian_cow"));
+            () -> EntityType.Builder.of(AurorianCow::new, MobCategory.CREATURE).sized(1.5F, 1.46F).clientTrackingRange(10).build("aurorian_cow"));
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianPixie>> AURORIAN_PIXIE = ENTITY_TYPES.register("aurorian_pixie",
-            () -> EntityType.Builder.of(AurorianPixie::new, MobCategory.CREATURE).sized(0.6F, 0.375F)
-                    .clientTrackingRange((8)).build("aurorian_pixie"));
+            () -> EntityType.Builder.of(AurorianPixie::new, MobCategory.CREATURE).sized(0.6F, 0.375F).clientTrackingRange(8).build("aurorian_pixie"));
     public static final DeferredHolder<EntityType<?>, EntityType<SnowTundraGiantCrab>> SNOW_TUNDRA_GIANT_CRAB = ENTITY_TYPES.register("snow_tundra_giant_crab",
-            () -> EntityType.Builder.of(SnowTundraGiantCrab::new, MobCategory.CREATURE).sized(4.0F, 3.5F)
-                    .clientTrackingRange((8)).build("snow_tundra_giant_crab"));
+            () -> EntityType.Builder.of(SnowTundraGiantCrab::new, MobCategory.CREATURE).sized(4.0F, 3.5F).clientTrackingRange(8).build("snow_tundra_giant_crab"));
     //Monster
     public static final DeferredHolder<EntityType<?>, EntityType<AurorianSlime>> AURORIAN_SLIME = ENTITY_TYPES.register("aurorian_slime",
-            () -> EntityType.Builder.of(AurorianSlime::new, MobCategory.MONSTER).sized(0.52F, 0.52F)
-                    .clientTrackingRange((10)).build("aurorian_slime"));
+            () -> EntityType.Builder.of(AurorianSlime::new, MobCategory.MONSTER).sized(0.52F, 0.52F).clientTrackingRange(10).build("aurorian_slime"));
     public static final DeferredHolder<EntityType<?>, EntityType<DisturbedHollow>> DISTURBED_HOLLOW = ENTITY_TYPES.register("disturbed_hollow",
-            () -> EntityType.Builder.of(DisturbedHollow::new, MobCategory.MONSTER).sized(0.6F, 1.95F)
-                    .clientTrackingRange((8)).build("disturbed_hollow"));
+            () -> EntityType.Builder.of(DisturbedHollow::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build("disturbed_hollow"));
     public static final DeferredHolder<EntityType<?>, EntityType<UndeadKnight>> UNDEAD_KNIGHT = ENTITY_TYPES.register("undead_knight",
-            () -> EntityType.Builder.of(UndeadKnight::new, MobCategory.MONSTER).sized(0.78F, 2.535F)
-                    .clientTrackingRange((8)).fireImmune().build("undead_knight"));
+            () -> EntityType.Builder.of(UndeadKnight::new, MobCategory.MONSTER).sized(0.78F, 2.535F).clientTrackingRange(8).fireImmune().build("undead_knight"));
     public static final DeferredHolder<EntityType<?>, EntityType<Spirit>> SPIRIT = ENTITY_TYPES.register("spirit",
-            () -> EntityType.Builder.of(Spirit::new, MobCategory.MONSTER).sized(0.6F, 1.95F)
-                    .clientTrackingRange((8)).build("spirit"));
+            () -> EntityType.Builder.of(Spirit::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build("spirit"));
     public static final DeferredHolder<EntityType<?>, EntityType<MoonAcolyte>> MOON_ACOLYTE = ENTITY_TYPES.register("moon_acolyte",
-            () -> EntityType.Builder.of(MoonAcolyte::new, MobCategory.MONSTER).sized(0.6F, 1.95F)
-                    .clientTrackingRange((8)).build("moon_acolyte"));
+            () -> EntityType.Builder.of(MoonAcolyte::new, MobCategory.MONSTER).sized(0.6F, 1.95F).clientTrackingRange(8).build("moon_acolyte"));
     public static final DeferredHolder<EntityType<?>, EntityType<Spiderling>> SPIDERLING = ENTITY_TYPES.register("spiderling",
-            () -> EntityType.Builder.of(Spiderling::new, MobCategory.MONSTER).sized(0.7F, 0.45F).eyeHeight((0.45F))
-                    .clientTrackingRange((8)).build("spiderling"));
+            () -> EntityType.Builder.of(Spiderling::new, MobCategory.MONSTER).sized(0.7F, 0.45F).eyeHeight(0.45F).clientTrackingRange(8).build("spiderling"));
     public static final DeferredHolder<EntityType<?>, EntityType<SpiderlingCrystalShell>> SPIDERLING_CRYSTAL_SHELL = ENTITY_TYPES.register("spiderling_crystal_shell",
-            () -> EntityType.Builder.of(SpiderlingCrystalShell::new, MobCategory.MONSTER).sized(1.5F, 1.5F)
-                    .clientTrackingRange((8)).build("spiderling_crystal_shell"));
+            () -> EntityType.Builder.of(SpiderlingCrystalShell::new, MobCategory.MONSTER).sized(1.5F, 1.5F).clientTrackingRange(8).build("spiderling_crystal_shell"));
     public static final DeferredHolder<EntityType<?>, EntityType<SpiderlingWallClimber>> SPIDERLING_WALL_CLIMBER = ENTITY_TYPES.register("spiderling_wall_climber",
-            () -> EntityType.Builder.of(SpiderlingWallClimber::new, MobCategory.MONSTER).sized(1.6F, 0.5F)
-                    .clientTrackingRange((8)).build("spiderling_wall_climber"));
+            () -> EntityType.Builder.of(SpiderlingWallClimber::new, MobCategory.MONSTER).sized(1.6F, 0.5F).clientTrackingRange(8).build("spiderling_wall_climber"));
     public static final DeferredHolder<EntityType<?>, EntityType<GiantCrystalSpider>> GIANT_CRYSTAL_SPIDER = ENTITY_TYPES.register("giant_crystal_spider",
-            () -> EntityType.Builder.of(GiantCrystalSpider::new, MobCategory.MONSTER).sized(1.5F, 3.5F)
-                    .clientTrackingRange((8)).build("giant_crystal_spider"));
+            () -> EntityType.Builder.of(GiantCrystalSpider::new, MobCategory.MONSTER).sized(1.5F, 3.5F).clientTrackingRange(8).build("giant_crystal_spider"));
     public static final DeferredHolder<EntityType<?>, EntityType<RuneSpider>> RUNE_SPIDER = ENTITY_TYPES.register("rune_spider",
-            () -> EntityType.Builder.of(RuneSpider::new, MobCategory.MONSTER).sized(1.5F, 3.5F)
-                    .clientTrackingRange((8)).build("rune_spider"));
+            () -> EntityType.Builder.of(RuneSpider::new, MobCategory.MONSTER).sized(1.5F, 3.5F).clientTrackingRange(8).build("rune_spider"));
     public static final DeferredHolder<EntityType<?>, EntityType<CrystallineSprite>> CRYSTALLINE_SPRITE = ENTITY_TYPES.register("crystalline_sprite",
-            () -> EntityType.Builder.of(CrystallineSprite::new, MobCategory.MONSTER).sized(1.0F, 1.5F)
-                    .clientTrackingRange((8)).build("crystalline_sprite"));
+            () -> EntityType.Builder.of(CrystallineSprite::new, MobCategory.MONSTER).sized(1.0F, 1.5F).clientTrackingRange(8).build("crystalline_sprite"));
     public static final DeferredHolder<EntityType<?>, EntityType<CaveDweller>> CAVE_DWELLER = ENTITY_TYPES.register("cave_dweller",
-            () -> EntityType.Builder.of(CaveDweller::new, MobCategory.MONSTER).sized(2.0F, 3.0F)
-                    .clientTrackingRange((8)).build("cave_dweller"));
+            () -> EntityType.Builder.of(CaveDweller::new, MobCategory.MONSTER).sized(2.0F, 3.0F).clientTrackingRange(8).build("cave_dweller"));
     public static final DeferredHolder<EntityType<?>, EntityType<RockHammer>> ROCK_HAMMER = ENTITY_TYPES.register("rock_hammer",
-            () -> EntityType.Builder.of(RockHammer::new, MobCategory.MONSTER).sized(3.0F, 3.0F)
-                    .clientTrackingRange((8)).build("rock_hammer"));
+            () -> EntityType.Builder.of(RockHammer::new, MobCategory.MONSTER).sized(3.0F, 3.0F).clientTrackingRange(8).build("rock_hammer"));
     public static final DeferredHolder<EntityType<?>, EntityType<TongScorpion>> TONG_SCORPION = ENTITY_TYPES.register("tong_scorpion",
-            () -> EntityType.Builder.of(TongScorpion::new, MobCategory.MONSTER).sized(2.5F, 1.5F)
-                    .clientTrackingRange((8)).build("tong_scorpion"));
+            () -> EntityType.Builder.of(TongScorpion::new, MobCategory.MONSTER).sized(2.5F, 1.5F).clientTrackingRange(8).build("tong_scorpion"));
     public static final DeferredHolder<EntityType<?>, EntityType<FlowerLeech>> FLOWER_LEECH = ENTITY_TYPES.register("flower_leech",
-            () -> EntityType.Builder.of(FlowerLeech::new, MobCategory.MONSTER).sized(1.0F, 2.0F)
-                    .clientTrackingRange((8)).build("flower_leech"));
+            () -> EntityType.Builder.of(FlowerLeech::new, MobCategory.MONSTER).sized(1.0F, 2.0F).clientTrackingRange(8).build("flower_leech"));
     public static final DeferredHolder<EntityType<?>, EntityType<ForgottenMagicBook>> FORGOTTEN_MAGIC_BOOK = ENTITY_TYPES.register("forgotten_magic_book",
-            () -> EntityType.Builder.of(ForgottenMagicBook::new, MobCategory.MONSTER).sized(1.0F, 2.5F)
-                    .clientTrackingRange((8)).build("forgotten_magic_book"));
+            () -> EntityType.Builder.of(ForgottenMagicBook::new, MobCategory.MONSTER).sized(1.0F, 2.5F).clientTrackingRange(8).build("forgotten_magic_book"));
     public static final DeferredHolder<EntityType<?>, EntityType<HyphaWalkingMushroom>> HYPHA_WALKING_MUSHROOM = ENTITY_TYPES.register("hypha_walking_mushroom",
-            () -> EntityType.Builder.of(HyphaWalkingMushroom::new, MobCategory.MONSTER).sized(1.0F, 1.5F)
-                    .clientTrackingRange((8)).build("hypha_walking_mushroom"));
+            () -> EntityType.Builder.of(HyphaWalkingMushroom::new, MobCategory.MONSTER).sized(1.0F, 1.5F).clientTrackingRange(8).build("hypha_walking_mushroom"));
     //Boss
     public static final DeferredHolder<EntityType<?>, EntityType<MoonlightKnight>> MOONLIGHT_KNIGHT = ENTITY_TYPES.register("moonlight_knight",
             () -> EntityType.Builder.of(MoonlightKnight::new, MobCategory.MONSTER).sized(3.0F, 5.0F)
-                    .clientTrackingRange((8)).fireImmune().build("moonlight_knight"));
+                    .clientTrackingRange(8).fireImmune().build("moonlight_knight"));
     public static final DeferredHolder<EntityType<?>, EntityType<RunestoneKeeper>> RUNESTONE_KEEPER = ENTITY_TYPES.register("runestone_keeper",
             () -> EntityType.Builder.of(RunestoneKeeper::new, MobCategory.MONSTER).sized(1.4F, 4.2F)
-                    .clientTrackingRange((8)).fireImmune().build("runestone_keeper"));
+                    .clientTrackingRange(8).fireImmune().build("runestone_keeper"));
     public static final DeferredHolder<EntityType<?>, EntityType<SpiderMother>> SPIDER_MOTHER = ENTITY_TYPES.register("spider_mother",
-            () -> EntityType.Builder.of(SpiderMother::new, MobCategory.MONSTER).sized(4.5F, 3.0F).eyeHeight((1.1F))
-                    .clientTrackingRange((8)).fireImmune().build("spider_mother"));
+            () -> EntityType.Builder.of(SpiderMother::new, MobCategory.MONSTER).sized(4.5F, 3.0F).eyeHeight(1.1F)
+                    .clientTrackingRange(8).fireImmune().build("spider_mother"));
     public static final DeferredHolder<EntityType<?>, EntityType<MoonQueen>> MOON_QUEEN = ENTITY_TYPES.register("moon_queen",
             () -> EntityType.Builder.of(MoonQueen::new, MobCategory.MONSTER).sized(0.54F, 1.755F)
-                    .clientTrackingRange((8)).fireImmune().build("moon_queen"));
+                    .clientTrackingRange(8).fireImmune().build("moon_queen"));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -356,7 +328,8 @@ public class TAEntityTypes {
         event.put(MOON_QUEEN.get(), MoonQueen.createAttributes().build());
     }
 
-    private static <T extends Entity> void registerNormalSpawn(RegisterSpawnPlacementsEvent event, EntityType<T> entityType, SpawnPlacementType type, SpawnPlacements.SpawnPredicate<T> predicate) {
+    private static <T extends Entity> void registerNormalSpawn(
+            RegisterSpawnPlacementsEvent event, EntityType<T> entityType, SpawnPlacementType type, SpawnPlacements.SpawnPredicate<T> predicate) {
         event.register(entityType, type, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, predicate, RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 

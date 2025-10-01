@@ -65,8 +65,7 @@ public class TABlockEntityTypes {
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(ASTROLOGY_TABLE.get(), context ->
-                new GeoBlockRenderer<>(new DefaultedBlockGeoModel<>(ASTROLOGY_TABLE.getId())));
+        event.registerBlockEntityRenderer(ASTROLOGY_TABLE.get(), cn.teampancake.theaurorian.client.renderer.block.AstrologyTableRenderer::new);
         event.registerBlockEntityRenderer(SACRIFICE_TABLE.get(), SacrificeTableRenderer::new);
         event.registerBlockEntityRenderer(AURORIAN_CHEST.get(), AurorianChestRenderer::new);
         event.registerBlockEntityRenderer(MOONLIGHT_FORGE.get(), MoonlightForgeRenderer::new);

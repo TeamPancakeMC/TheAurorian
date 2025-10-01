@@ -16,6 +16,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import software.bernie.geckolib.model.DefaultedBlockGeoModel;
+import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
 @SuppressWarnings({"ConstantConditions", "SpellCheckingInspection"})
 @EventBusSubscriber(modid = TheAurorian.MOD_ID, value = Dist.CLIENT)
@@ -36,6 +38,8 @@ public class TABlockEntityTypes {
             () -> BlockEntityType.Builder.of(SilentCampfireBlockEntity::new, TABlocks.SILENT_CAMPFIRE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemyTableBlockEntity>> ALCHEMY_TABLE =  BLOCK_ENTITY_TYPES.register("alchemy_table",
             () -> BlockEntityType.Builder.of(AlchemyTableBlockEntity::new, TABlocks.ALCHEMY_TABLE.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AstrologyTableBlockEntity>> ASTROLOGY_TABLE =  BLOCK_ENTITY_TYPES.register("astrology_table",
+            () -> BlockEntityType.Builder.of(AstrologyTableBlockEntity::new, TABlocks.ASTROLOGY_TABLE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SacrificeTableBlockEntity>> SACRIFICE_TABLE =  BLOCK_ENTITY_TYPES.register("sacrifice_table",
             () -> BlockEntityType.Builder.of(SacrificeTableBlockEntity::new, TABlocks.SACRIFICE_TABLE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MysteriumWoolBedBlockEntity>> MYSTERIUM_WOOL_BED = BLOCK_ENTITY_TYPES.register("mysterium_wool_bed",
@@ -61,6 +65,8 @@ public class TABlockEntityTypes {
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(ASTROLOGY_TABLE.get(), context ->
+                new GeoBlockRenderer<>(new DefaultedBlockGeoModel<>(ASTROLOGY_TABLE.getId())));
         event.registerBlockEntityRenderer(SACRIFICE_TABLE.get(), SacrificeTableRenderer::new);
         event.registerBlockEntityRenderer(AURORIAN_CHEST.get(), AurorianChestRenderer::new);
         event.registerBlockEntityRenderer(MOONLIGHT_FORGE.get(), MoonlightForgeRenderer::new);

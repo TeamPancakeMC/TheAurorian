@@ -8,21 +8,25 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.model.DefaultedBlockGeoModel;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 import java.util.function.Consumer;
 
-public class SacrificeTable extends BlockItem implements GeoItem {
+public class AstrologyTable extends BlockItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public SacrificeTable() {
-        super(TABlocks.SACRIFICE_TABLE.get(), new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
+    public AstrologyTable() {
+        super(TABlocks.ASTROLOGY_TABLE.get(), new Item.Properties()
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
+        SingletonGeoAnimatable.registerSyncedAnimatable(this);
     }
 
     @Override
@@ -31,7 +35,9 @@ public class SacrificeTable extends BlockItem implements GeoItem {
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {}
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(DefaultAnimations.genericIdleController(this));
+    }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
@@ -42,7 +48,7 @@ public class SacrificeTable extends BlockItem implements GeoItem {
 
         @Override
         public @Nullable BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
-            return new GeoItemRenderer<SacrificeTable>(new DefaultedBlockGeoModel<>(TABlocks.SACRIFICE_TABLE.getId()));
+            return new GeoItemRenderer<AstrologyTable>(new DefaultedBlockGeoModel<>(TABlocks.ASTROLOGY_TABLE.getId()));
         }
 
     }

@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
+import cn.teampancake.theaurorian.common.blocks.entity.AstrologyTableBlockEntity;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.blocks.state.TALootType;
 import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
@@ -13,14 +14,15 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 
-public class AstrologyTable extends HorizontalDirectionalBlock {
+public class AstrologyTable extends BaseEntityBlock {
 
     public AstrologyTable() {
         super(TABlockProperties.get().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE)
@@ -28,13 +30,8 @@ public class AstrologyTable extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return simpleCodec(p -> new AstrologyTable());
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
     }
 
     @Override
@@ -48,12 +45,23 @@ public class AstrologyTable extends HorizontalDirectionalBlock {
             }
 
             int[] arr = LevelEventSubscriber.getFuturePhases();
-            PacketDistributor.sendToPlayer(serverPlayer, new FutureNightS2CPacket(arr[0], arr[1], arr[2]));
-            PacketDistributor.sendToPlayer(serverPlayer, new ShowStarSignScreenS2CPacket());
+            PacketDistributor.sendToPlayer(serverPlayer,
+                    new FutureNightS2CPacket(arr[0], arr[1], arr[2]),
+                    new ShowStarSignScreenS2CPacket());
             return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.ENTITYBLOCK_ANIMATED;
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new AstrologyTableBlockEntity(pos, state);
     }
 
 }

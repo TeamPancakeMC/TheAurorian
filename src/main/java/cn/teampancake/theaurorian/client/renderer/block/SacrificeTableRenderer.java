@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.client.renderer.block;
 
-import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.SacrificeTable;
 import cn.teampancake.theaurorian.common.blocks.entity.SacrificeTableBlockEntity;
+import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -23,7 +23,7 @@ public class SacrificeTableRenderer extends GeoBlockRenderer<SacrificeTableBlock
     private final ItemRenderer itemRenderer;
 
     public SacrificeTableRenderer(BlockEntityRendererProvider.Context context) {
-        super(new DefaultedBlockGeoModel<>(TheAurorian.prefix("sacrifice_table")));
+        super(new DefaultedBlockGeoModel<>(TABlockEntityTypes.SACRIFICE_TABLE.getId()));
         this.itemRenderer = context.getItemRenderer();
     }
 
@@ -35,13 +35,12 @@ public class SacrificeTableRenderer extends GeoBlockRenderer<SacrificeTableBlock
         Direction direction = blockEntity.getBlockState().getValue(SacrificeTable.FACING);
         NonNullList<ItemStack> itemStacks = blockEntity.getItems();
         int seed = (int) blockEntity.getBlockPos().asLong();
-        float yRot;
-        switch (direction) {
-            case SOUTH -> yRot = 180.0F;
-            case WEST -> yRot = 90.0F;
-            case EAST -> yRot = -90.0F;
-            default -> yRot = 0.0F;
-        }
+        float yRot = switch (direction) {
+            case SOUTH -> 180.0F;
+            case WEST -> 90.0F;
+            case EAST -> -90.0F;
+            default -> 0.0F;
+        };
 
         float spacing = 0.3F;
         poseStack.pushPose();

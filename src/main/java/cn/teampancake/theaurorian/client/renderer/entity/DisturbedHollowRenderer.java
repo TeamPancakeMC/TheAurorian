@@ -18,7 +18,7 @@ import net.minecraft.util.Mth;
 public class DisturbedHollowRenderer extends MobRenderer<DisturbedHollow, DisturbedHollowModel<DisturbedHollow>> {
 
     public DisturbedHollowRenderer(EntityRendererProvider.Context context) {
-        super(context, new DisturbedHollowModel<>(context.bakeLayer(TAModelLayers.DISTURBED_HOLLOW)), 1.5F);
+        super(context, new DisturbedHollowModel<>(context.bakeLayer(TAModelLayers.DISTURBED_HOLLOW)), 0.5F);
     }
 
     @Override

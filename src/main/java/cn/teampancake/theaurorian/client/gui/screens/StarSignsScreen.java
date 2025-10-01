@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.client.gui.screens;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.client.gui.AurorianEventGui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -11,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 public class StarSignsScreen extends Screen {
 
     private static final ResourceLocation STAR_SIGNS = TheAurorian.prefix("textures/gui/star_signs.png");
+    public static final ResourceLocation AURORIAN_EVENT = TheAurorian.prefix("textures/gui/aurorian_event.png");
     private static int forecast1 = -1, forecast2 = -1, forecast3 = -1;
 
     // 三页：左上U 分别为 0 / 142 / 284；尺寸一致
@@ -51,7 +51,7 @@ public class StarSignsScreen extends Screen {
         int srcU = this.currentPage * PAGE_W;
         graphics.blit(STAR_SIGNS, dstX, dstY, srcU, 0, PAGE_W, PAGE_H, TEX_W, TEX_H);
         if (forecast1 >= 0) {
-            AurorianEventGui.Card card = this.getCard();
+            Card card = this.getCard();
             if (card != null) {
                 card.blit(graphics, dstX, dstY);
             }
@@ -78,14 +78,14 @@ public class StarSignsScreen extends Screen {
         pose.popPose();
     }
 
-    private AurorianEventGui.@Nullable Card getCard() {
+    private @Nullable Card getCard() {
         int phase = this.currentPage == 0 ? forecast1 : (this.currentPage == 1 ? forecast2 : forecast3);
         return switch (phase) {
-            case 0 -> AurorianEventGui.Card.COMBAT_NIGHT;
-            case 1 -> AurorianEventGui.Card.PROTECTION_NIGHT;
-            case 2 -> AurorianEventGui.Card.EXPLORATION_NIGHT;
-            case 3 -> AurorianEventGui.Card.MINING_NIGHT;
-            case 4 -> AurorianEventGui.Card.GROWTH_NIGHT;
+            case 0 -> Card.COMBAT_NIGHT;
+            case 1 -> Card.PROTECTION_NIGHT;
+            case 2 -> Card.EXPLORATION_NIGHT;
+            case 3 -> Card.MINING_NIGHT;
+            case 4 -> Card.GROWTH_NIGHT;
             default -> null;
         };
     }
@@ -97,7 +97,6 @@ public class StarSignsScreen extends Screen {
             int dstY = (this.height - PAGE_H) / 2;
             int pageRight = dstX + PAGE_W;
             int pageBottom = dstY + PAGE_H;
-            // 仅在页内点击才处理
             if (mouseX >= dstX && mouseX <= pageRight && mouseY >= dstY && mouseY <= pageBottom) {
                 int leftCornerX0 = dstX + EDGE_INSET;
                 int leftCornerY0 = pageBottom - CORNER_H - EDGE_INSET;
@@ -128,6 +127,32 @@ public class StarSignsScreen extends Screen {
         forecast1 = d1;
         forecast2 = d2;
         forecast3 = d3;
+    }
+
+    private enum Card {
+
+        COMBAT_NIGHT(0, 0, PAGE_W, PAGE_H),
+        PROTECTION_NIGHT(143, 0, PAGE_W, PAGE_H),
+        EXPLORATION_NIGHT(285, 0, PAGE_W, PAGE_H),
+        MINING_NIGHT(0, 189, PAGE_W, PAGE_H),
+        GROWTH_NIGHT(143, 189, PAGE_W, PAGE_H);
+
+        private final int u;
+        private final int v;
+        private final int width;
+        private final int height;
+
+        Card(int u, int v, int width, int height) {
+            this.u = u;
+            this.v = v;
+            this.width = width;
+            this.height = height;
+        }
+
+        public void blit(GuiGraphics gg, int dstX, int dstY) {
+            gg.blit(AURORIAN_EVENT, dstX, dstY, this.u, this.v, this.width, this.height, TEX_W, TEX_H);
+        }
+
     }
 
 } 

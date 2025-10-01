@@ -73,7 +73,7 @@ public class VagrantNoteSupplementRecipe extends CustomRecipe {
         for (ItemStack stack : inputItems.getSecond()) {
             Integer noteChapter = stack.get(TADataComponents.NOTE_CHAPTER);
             if (noteChapter == null) return ItemStack.EMPTY;
-            newChapters.add(new ChapterContent(noteChapter, stack.getDisplayName()));
+            newChapters.add(new ChapterContent(noteChapter, stack.getItem().getName(stack)));
         }
 
         ItemStack outputStack = firstStack.copy();

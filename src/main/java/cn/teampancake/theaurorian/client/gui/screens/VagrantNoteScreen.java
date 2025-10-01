@@ -23,7 +23,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -105,8 +104,8 @@ public class VagrantNoteScreen extends BookViewScreen {
 
                     this.flushParagraph(paragraphBuffer);
                 } catch (IOException ignored) {}
-                String displayName = this.chapters.get(idx).name().getString().replaceAll("[\\[\\]]", StringUtils.EMPTY);
-                Component chapterName = MutableComponent.create(chapterTitle.getContents()).append(" ").append(displayName);
+                Component chapterName = MutableComponent.create(chapterTitle.getContents())
+                        .append(" ").append(this.chapters.get(idx).name().getString());
                 this.tocEntries.add(new ChapterTocEntry(chapter, chapterStart, chapterName));
                 int remainder = this.allLines.size() % Math.max(1, this.linesPerSide);
                 if (remainder != 0 && idx < this.chapters.size() - 1) {

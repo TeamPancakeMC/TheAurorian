@@ -150,7 +150,7 @@ public class StarSignsScreen extends Screen {
         }
 
         public void blit(GuiGraphics gg, int dstX, int dstY) {
-            gg.blit(AURORIAN_EVENT, dstX, dstY, this.u, this.v, this.width, this.height, TEX_W, TEX_H);
+            gg.blit(AURORIAN_EVENT, dstX, dstY, this.u, this.v, this.width, this.height, TEX_W, TEX_W);
         }
 
     }

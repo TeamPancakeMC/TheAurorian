@@ -31,6 +31,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import static cn.teampancake.theaurorian.common.utils.TAItemRegUtils.*;
 import static net.minecraft.world.item.ArmorItem.Type.*;
@@ -432,11 +433,15 @@ public class TAItems {
             TAEntityTypes.MOON_FISH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)
             .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> DEVELOPER_GIFT = ITEMS.register("developer_gift", DeveloperGift::new);
+
+    static Supplier<Item> CRIMSON_PACK_PENDANT_CURIOS = () -> new CrimsonPactPendant(new Item.Properties().stacksTo(1)
+            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
+            .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> CRIMSON_PACT_PENDANT = ITEMS.register("crimson_pact_pendant", () -> {
         Item.Properties properties = new Item.Properties().stacksTo(1)
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE);
-        return ModList.get().isLoaded("curios") ? new CrimsonPactPendant(properties) :
+        return ModList.get().isLoaded("curios") ? CRIMSON_PACK_PENDANT_CURIOS.get() :
                 new Item(properties.attributes(CrimsonPactPendant.ATTRIBUTES));
     });
 

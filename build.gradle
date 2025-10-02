@@ -137,6 +137,7 @@ dependencies {
     implementation "curse.maven:configured-457570:5873783"
     implementation "curse.maven:modern-ui-352491:6200236"
     implementation "curse.maven:auth-me-356643:6177873"
+    implementation "curse.maven:spark-361579:6225208"
     implementation "curse.maven:neat-238372:5838045"
 
     // compile against the JEI API but do not include it at runtime

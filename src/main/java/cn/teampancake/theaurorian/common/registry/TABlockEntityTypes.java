@@ -1,10 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.client.renderer.block.MoonlightForgeRenderer;
-import cn.teampancake.theaurorian.client.renderer.block.SacrificeTableRenderer;
-import cn.teampancake.theaurorian.client.renderer.block.SilentCampfireRender;
-import cn.teampancake.theaurorian.client.renderer.block.AurorianChestRenderer;
+import cn.teampancake.theaurorian.client.renderer.block.*;
 import cn.teampancake.theaurorian.common.blocks.entity.*;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
@@ -16,8 +13,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import software.bernie.geckolib.model.DefaultedBlockGeoModel;
-import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
 @SuppressWarnings({"ConstantConditions", "SpellCheckingInspection"})
 @EventBusSubscriber(modid = TheAurorian.MOD_ID, value = Dist.CLIENT)
@@ -65,11 +60,11 @@ public class TABlockEntityTypes {
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(ASTROLOGY_TABLE.get(), cn.teampancake.theaurorian.client.renderer.block.AstrologyTableRenderer::new);
+        event.registerBlockEntityRenderer(ASTROLOGY_TABLE.get(), AstrologyTableRenderer::new);
         event.registerBlockEntityRenderer(SACRIFICE_TABLE.get(), SacrificeTableRenderer::new);
-        event.registerBlockEntityRenderer(AURORIAN_CHEST.get(), AurorianChestRenderer::new);
         event.registerBlockEntityRenderer(MOONLIGHT_FORGE.get(), MoonlightForgeRenderer::new);
-        event.registerBlockEntityRenderer(SILENT_CAMPFIRE.get(), SilentCampfireRender::new);
+        event.registerBlockEntityRenderer(SILENT_CAMPFIRE.get(), SilentCampfireRenderer::new);
+        event.registerBlockEntityRenderer(AURORIAN_CHEST.get(), AurorianChestRenderer::new);
         event.registerBlockEntityRenderer(TA_HANGING_SIGN.get(), HangingSignRenderer::new);
         event.registerBlockEntityRenderer(TA_SIGN.get(), SignRenderer::new);
     }

@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
+import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.common.blocks.entity.AstrologyTableBlockEntity;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.blocks.state.TALootType;
@@ -69,39 +70,23 @@ public class AstrologyTable extends BaseEntityBlock {
 		return new AstrologyTableBlockEntity(pos, state);
 	}
 
-	// 新增：夜间播放动画时在周围生成 ENCHANT 粒子
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (level == null || !isNight(level) || isAuroraNight()) {
-			return;
-		}
-
-		// 稀疏：约 15% 的 tick 才生成粒子
-		if (random.nextFloat() > 0.15F) {
-			return;
-		}
-
+		if (!isNight(level) || isAuroraNight() || random.nextFloat() > 0.15F) return;
 		double cx = pos.getX() + 0.5D;
 		double cy = pos.getY() + 1.0D;
 		double cz = pos.getZ() + 0.5D;
-
 		long t = level.getGameTime();
-		double angle = (t * 0.12D) + random.nextDouble() * 0.75D; // 轻微抖动，避免死板
+		double angle = (t * 0.12D) + random.nextDouble() * 0.75D;
 		double radius = 0.55D + random.nextDouble() * 0.10D;
-
 		double x = cx + Math.cos(angle) * radius;
 		double z = cz + Math.sin(angle) * radius;
 		double y = cy + 0.10D + random.nextDouble() * 0.15D;
-
-		// 切向速度：围绕中心缓慢旋转（极轻微上升）
 		double speed = 0.02D;
 		double vx = -Math.sin(angle) * speed;
 		double vz =  Math.cos(angle) * speed;
 		double vy = 0.005D + random.nextDouble() * 0.005D;
-
 		level.addParticle(ParticleTypes.ENCHANT, x, y, z, vx, vy, vz);
-
-		// 极小概率补一个粒子作为点缀
 		if (random.nextFloat() < 0.05F) {
 			double angle2 = angle + (Math.PI * 0.66D);
 			double r2 = radius - 0.05D;
@@ -115,21 +100,17 @@ public class AstrologyTable extends BaseEntityBlock {
 		}
 	}
 
-	// 与方块实体保持一致的夜晚/极光夜判定
 	private static boolean isNight(Level level) {
-		if (level == null) return false;
-		long dayTime = (level.getDayTime() + 6000L) % 24000L;
+        long dayTime = (level.getDayTime() + 6000L) % 24000L;
 		return !(dayTime > 6000 && dayTime <= 18000);
 	}
 
 	private static boolean isAuroraNight() {
 		if (FMLLoader.getDist() != Dist.CLIENT) {
 			return false;
-		}
-		try {
-			return cn.teampancake.theaurorian.client.gui.hud.NightBarRender.nightType == 2;
-		} catch (Throwable ignored) {
-			return false;
-		}
+		} else {
+            return NightBarRender.nightType == 2;
+        }
 	}
+
 }

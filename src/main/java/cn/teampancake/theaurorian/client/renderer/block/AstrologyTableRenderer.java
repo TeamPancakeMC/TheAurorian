@@ -18,7 +18,7 @@ public class AstrologyTableRenderer extends GeoBlockRenderer<AstrologyTableBlock
 
 	@Override
 	public RenderType getRenderType(AstrologyTableBlockEntity animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
-		// 使用带背面剔除的渲染类型，确保不渲染背面
 		return RenderType.entityCutout(texture);
 	}
+
 } 

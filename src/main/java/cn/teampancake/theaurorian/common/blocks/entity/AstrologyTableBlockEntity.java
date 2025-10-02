@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
+import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -15,6 +16,8 @@ import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 
+import javax.annotation.Nullable;
+
 public class AstrologyTableBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -29,6 +32,7 @@ public class AstrologyTableBlockEntity extends BlockEntity implements GeoBlockEn
             if (!isNight(this.level) || isAuroraNight()) {
                 return PlayState.STOP;
             }
+
             state.setAndContinue(RawAnimation.begin().thenLoop("misc.idle"));
             return PlayState.CONTINUE;
         }));
@@ -39,7 +43,7 @@ public class AstrologyTableBlockEntity extends BlockEntity implements GeoBlockEn
         return this.cache;
     }
 
-    private static boolean isNight(Level level) {
+    private static boolean isNight(@Nullable Level level) {
         if (level == null) return false;
         long dayTime = (level.getDayTime() + 6000L) % 24000L;
         return !(dayTime > 6000 && dayTime <= 18000);
@@ -48,11 +52,8 @@ public class AstrologyTableBlockEntity extends BlockEntity implements GeoBlockEn
     private static boolean isAuroraNight() {
         if (FMLLoader.getDist() != Dist.CLIENT) {
             return false;
-        }
-        try {
-            return cn.teampancake.theaurorian.client.gui.hud.NightBarRender.nightType == 2;
-        } catch (Throwable ignored) {
-            return false;
+        } else {
+            return NightBarRender.nightType == 2;
         }
     }
 

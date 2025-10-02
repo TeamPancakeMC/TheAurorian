@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.astrology_table",
+				"identifier": "geometry.SM_占星台_01",
 				"texture_width": 48,
 				"texture_height": 48,
 				"visible_bounds_width": 3,
@@ -138,24 +138,6 @@
 							"uv": {
 								"up": {"uv": [20.00001, 32.00001], "uv_size": [-20.00001, -20.00001]},
 								"down": {"uv": [20.00001, 32.00001], "uv_size": [-20.00001, -20.00001]}
-							}
-						}
-					]
-				},
-				{
-					"name": "ring2",
-					"parent": "group",
-					"pivot": [0, 10.5, 0],
-					"cubes": [
-						{
-							"origin": [0, 2.5, -8],
-							"size": [0, 16, 16],
-							"inflate": 0.01,
-							"pivot": [0, 10.5, 0],
-							"rotation": [0, 0, -45],
-							"uv": {
-								"up": {"uv": [20.00001, 0], "uv_size": [-20.00001, 0], "uv_rotation": 270},
-								"down": {"uv": [20.00001, 0], "uv_size": [-20.00001, 0], "uv_rotation": 270}
 							}
 						}
 					]

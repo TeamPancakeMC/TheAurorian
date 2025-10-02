@@ -16,7 +16,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 @EventBusSubscriber(modid = TheAurorian.MOD_ID, value = Dist.CLIENT)
 public class TAParticleTypes {
-
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, TheAurorian.MOD_ID);
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> WICK = PARTICLE_TYPES.register("wick", () -> new SimpleParticleType(Boolean.FALSE));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> STICK_SPIKER = PARTICLE_TYPES.register("stick_spiker", () -> new SimpleParticleType(Boolean.FALSE));

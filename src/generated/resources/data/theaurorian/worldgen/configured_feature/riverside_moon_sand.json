@@ -6,6 +6,150 @@
     "targets": [
       {
         "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:void_candle_flower",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:equinox_flower",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:moon_frost_flower",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:silent_wood_stick",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:large_cerulean_bud",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:small_cerulean_bud",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:medium_cerulean_bud",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:medium_moonstone_bud",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:small_cerulean_bud",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:small_moonstone_bud",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:blueberry_bush",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:moonstone_cluster",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:cerulean_cluster",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:aurorian_grass_light",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:tall_aurorian_grass",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
+          "Name": "minecraft:air"
+        },
+        "target": {
+          "block": "theaurorian:aurorian_grass",
+          "predicate_type": "minecraft:block_match"
+        }
+      },
+      {
+        "state": {
           "Name": "theaurorian:moon_sand"
         },
         "target": {

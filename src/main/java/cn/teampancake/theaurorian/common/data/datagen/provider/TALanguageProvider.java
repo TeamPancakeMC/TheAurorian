@@ -678,6 +678,8 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAItems.TAYIR_NOTE_A, "塔依尔的笔记A");
         this.addKey(TAItems.ADVENTURER_STORY, "一个冒险家的故事");
         this.addKey(TAItems.CRIMSON_PACT_PENDANT, "血契坠饰");
+        this.addKey(TAItems.KOPISH_DAGGER, "科普什短刀");
+        this.addKey(TAItems.STEEL_DAGGER, "钢制短刀");
         this.addMusicDisc(TAItems.MUSIC_DISC_AURORIAN_FOREST, "Aurorian Forest", "极光森林");
         this.addMusicDisc(TAItems.MUSIC_DISC_MOONLIT_VEIL, "Moonlit Veil", "缭月之幕");
 

@@ -19,14 +19,17 @@ import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -296,6 +299,29 @@ public class LivingEventSubscriber {
                 crystalShell.setAbsorptionAmount(crystalShell.getAbsorptionAmount() - amount);
                 crystalShell.gameEvent(GameEvent.ENTITY_DAMAGE);
                 event.setNewDamage(0.0F);
+            }
+
+            ItemStack mainHandItem = player.getMainHandItem();
+            if (mainHandItem.is(TAItems.KOPISH_DAGGER) && !player.hasInfiniteMaterials()) {
+                int maxDamage = mainHandItem.getMaxDamage();
+                int damage = mainHandItem.getDamageValue();
+                float amount = event.getNewDamage();
+                float health = player.getHealth();
+                if (amount > 0.0F && maxDamage - damage > amount && amount >= health) {
+                    int totalDamage = Mth.floor(damage + Math.min(Mth.floor(amount), health));
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger(serverPlayer, mainHandItem, totalDamage);
+                    }
+
+                    mainHandItem.setDamageValue(totalDamage);
+                    if (!mainHandItem.has(TADataComponents.NERF) && totalDamage <= maxDamage * 0.9F) {
+                        mainHandItem.set(DataComponents.MAX_DAMAGE, Mth.floor(maxDamage * 0.9F));
+                        mainHandItem.set(TADataComponents.NERF, Unit.INSTANCE);
+                    }
+
+                    player.setHealth(1.0F);
+                    event.setNewDamage(0.0F);
+                }
             }
         }
 

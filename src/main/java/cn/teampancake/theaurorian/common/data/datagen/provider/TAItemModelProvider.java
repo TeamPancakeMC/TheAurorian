@@ -117,7 +117,8 @@ public class TAItemModelProvider extends ItemModelProvider {
                 properties.useSimpleBlockItem).forEach(this::simpleBlockItem);
         TACommonUtils.getKnownBlockStream().filter(block -> block instanceof DoorBlock)
                 .forEach(block -> this.basicItem(block.asItem()));
-        TACommonUtils.getKnownItemStream().filter(item -> item instanceof TieredItem &&
+        TACommonUtils.getKnownItemStream().filter(item -> (item instanceof TieredItem ||
+                item.components().has(TADataComponents.HANDHELD_MODEL.get())) &&
                 !item.components().has(TADataComponents.NO_RUN_DATA.get())).forEach(item ->
                 this.withExistingParent(this.itemName(item), this.mcLoc("item/handheld"))
                         .texture("layer0", this.modLoc("item/" + this.itemName(item))));

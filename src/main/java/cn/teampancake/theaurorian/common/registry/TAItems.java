@@ -124,6 +124,18 @@ public class TAItems {
                     .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
                     .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
                     .component(TADataComponents.NO_RUN_DATA, Unit.INSTANCE)));
+    public static final DeferredHolder<Item, Item> KOPISH_DAGGER = ITEMS.register("kopish_dagger",
+            () -> new TASwordItem(new Item.Properties().durability(70)
+                    .attributes(TASwordItem.createAttributes(7.0F, 2.2F))
+                    .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
+                    .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY)
+                    .component(TADataComponents.HANDHELD_MODEL, Unit.INSTANCE), 10));
+    public static final DeferredHolder<Item, Item> STEEL_DAGGER = ITEMS.register("steel_dagger",
+            () -> new TASwordItem(new Item.Properties().durability(280)
+                    .attributes(TASwordItem.createAttributes(8.0F, 2.2F))
+                    .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
+                    .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
+                    .component(TADataComponents.HANDHELD_MODEL, Unit.INSTANCE), 10));
 
     /**
      * ShovelItem

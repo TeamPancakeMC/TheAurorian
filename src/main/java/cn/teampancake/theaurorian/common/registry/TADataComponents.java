@@ -63,11 +63,15 @@ public class TADataComponents {
             () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<ItemTooltip>>> ITEM_TOOLTIP = DATA_COMPONENT_TYPE.register("item_tooltip",
             () -> DataComponentType.<Holder<ItemTooltip>>builder().persistent(ItemTooltip.CODEC).networkSynchronized(ItemTooltip.STREAM_CODEC).cacheEncoding().build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> NOTE_PASSPORT = DATA_COMPONENT_TYPE.register("note_passport",
+            () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> NERF = DATA_COMPONENT_TYPE.register("nerf",
+            () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> SIMPLE_MODEL = DATA_COMPONENT_TYPE.register("simple_model",
+            () -> DataComponentType.<Unit>builder().networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> HANDHELD_MODEL = DATA_COMPONENT_TYPE.register("handheld_model",
             () -> DataComponentType.<Unit>builder().networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> NO_RUN_DATA = DATA_COMPONENT_TYPE.register("no_run_data",
             () -> DataComponentType.<Unit>builder().networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> NOTE_PASSPORT = DATA_COMPONENT_TYPE.register("note_passport",
-            () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
 
 }

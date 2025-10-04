@@ -11,6 +11,7 @@ import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
 import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -191,6 +192,26 @@ public class PlayerEventSubscriber {
             ServerLevel level = player.serverLevel();
             if (TACommonUtils.isAurorianDimension(level)) {
                 PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(LevelEventSubscriber.phaseCode));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerCriticalHit(CriticalHitEvent event) {
+        Player player = event.getEntity();
+        ItemStack mainHandItem = player.getMainHandItem();
+        if (mainHandItem.is(TAItems.STEEL_DAGGER)) {
+            event.setDamageMultiplier(2.25F);
+            if (!player.hasInfiniteMaterials()) {
+                int totalDamage = mainHandItem.getDamageValue() + 5;
+                if (player instanceof ServerPlayer serverPlayer) {
+                    CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger(serverPlayer, mainHandItem, totalDamage);
+                }
+
+                mainHandItem.setDamageValue(totalDamage);
+                if (totalDamage >= mainHandItem.getMaxDamage()) {
+                    mainHandItem.shrink(1);
+                }
             }
         }
     }

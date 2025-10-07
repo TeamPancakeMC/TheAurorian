@@ -27,8 +27,12 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TRIGGER_CORRUPTION_COOLDOWN = registerInteger("trigger_corruption_cooldown");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TIME_UNTIL_PLAYER_CAN_PICKUP = registerInteger("time_until_player_can_pickup");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> UNINTERRUPTED_HURT_BY_MOON_QUEEN_COUNT = registerInteger("uninterrupted_hurt_by_moon_queen_count");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> NIGHT_SKY_COLOR =
+            ATTACHMENT_TYPES.register("night_sky_color", () -> AttachmentType.builder(() -> 0x010e34).serialize(Codec.INT).copyOnDeath().build());
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TELEPORT_TO_AURORIAN_COUNT =
             ATTACHMENT_TYPES.register("teleport_to_aurorian_count", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> KILL_COUNT_IN_BLOOD_MOON =
+            ATTACHMENT_TYPES.register("kill_count_in_blood_moon", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> DAMAGE_ACCUMULATION = registerFloat("damage_accumulation");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Float>> EXHAUSTION_ACCUMULATION = registerFloat("exhaustion_accumulation");
@@ -40,8 +44,12 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SUMMONED_BY_SILENT_BOW = registerBoolean("summoned_by_silent_bow");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> LOST_IN_FOREST = registerBoolean("lost_in_forest");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SOUND_PLAYED_FLAG = registerBoolean("sound_played_flag");
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IMMUNE_TO_PRESSURE =
-            ATTACHMENT_TYPES.register("immune_to_pressure", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IMMUNE_PRESSURE_BY_KILL_MOON_QUEEN =
+            ATTACHMENT_TYPES.register("immune_pressure_by_kill_moon_queen", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IMMUNE_PRESSURE_UNTIL_NEXT_BLOOD_MOON =
+            ATTACHMENT_TYPES.register("immune_pressure_until_next_blood_moon", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> REMOVE_BLESS_UNTIL_NEXT_BLOOD_MOON =
+            ATTACHMENT_TYPES.register("remove_bless_until_next_blood_moon", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> FIRST_ENTER_AURORIAN =
             ATTACHMENT_TYPES.register("first_enter_aurorian", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
 

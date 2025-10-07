@@ -13,6 +13,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.LerpingBossEvent;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
@@ -33,15 +34,26 @@ import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
 
 import java.awt.*;
+import java.util.Map;
 
 @EventBusSubscriber(modid = TheAurorian.MOD_ID, value = Dist.CLIENT)
 public class ClientEventSubscriber {
 
-    private static final ResourceLocation MOONLIGHT_KNIGHT_BARS = TheAurorian.prefix("textures/gui/moonlight_knight_bars.png");
-    private static final ResourceLocation RUNESTONE_KEEPER_BARS = TheAurorian.prefix("textures/gui/runestone_keeper_bars.png");
-    private static final ResourceLocation SPIDER_MOTHER_BARS = TheAurorian.prefix("textures/gui/spider_mother_bars.png");
-    private static final ResourceLocation MOON_QUEEN_BARS = TheAurorian.prefix("textures/gui/moon_queen_bars.png");
-
+    private static final BossBarStyle MOONLIGHT_KNIGHT_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/moonlight_knight_bars.png"))
+            .frameWidth(186).frameHeight(20).frameYOffset(-2).barWidth(180).barHeight(6).barYOffset(8).textYOffset(-9).textColor(0x3d3f99);
+    private static final BossBarStyle RUNESTONE_KEEPER_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/runestone_keeper_bars.png"))
+            .frameWidth(186).frameHeight(22).frameYOffset(-2).barWidth(180).barHeight(5).barYOffset(8).textYOffset(-9).textColor(0x6c7f82);
+    private static final BossBarStyle SPIDER_MOTHER_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/spider_mother_bars.png"))
+            .frameWidth(186).frameHeight(22).frameYOffset(-2).barWidth(180).barHeight(5).barYOffset(8).textYOffset(-9).textColor(0x4397f0);
+    private static final BossBarStyle MOON_QUEEN_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/moon_queen_bars.png"))
+            .frameWidth(186).frameHeight(22).frameYOffset(4).barWidth(180).barHeight(5).barYOffset(10).textYOffset(-7).textColor(0xe276e8);
+    private static final BossBarStyle BLOOD_MOON_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/blood_moon_bars.png"))
+            .frameWidth(186).frameHeight(20).frameYOffset(16).barWidth(182).barHeight(5).barYOffset(10).textYOffset(-7).textColor(16777215);
+    private static final Map<String, BossBarStyle> BOSS_BAR_STYLE_MAP = Map.of(
+            "entity.theaurorian.moonlight_knight", MOONLIGHT_KNIGHT_BAR,
+            "entity.theaurorian.runestone_keeper", RUNESTONE_KEEPER_BAR,
+            "entity.theaurorian.spider_mother", SPIDER_MOTHER_BAR,
+            "entity.theaurorian.moon_queen", MOON_QUEEN_BAR);
     private static final Color FOG_COLOR = new Color(0.85f, 0.9f, 1.0f);
     private static final float MIN_VISIBILITY = 15.0f;
     private static final float MAX_VISIBILITY = 5.0f;
@@ -186,37 +198,87 @@ public class ClientEventSubscriber {
 
     @SubscribeEvent
     public static void onRenderBossBars(CustomizeGuiOverlayEvent.BossEventProgress event) {
-        if (event.getBossEvent().getName().getContents() instanceof TranslatableContents contents) {
-            if (contents.getKey().equals(TAEntityTypes.MOONLIGHT_KNIGHT.get().getDescriptionId())) {
-                Component description = TAEntityTypes.MOONLIGHT_KNIGHT.get().getDescription();
-                renderBossBar(event, MOONLIGHT_KNIGHT_BARS, description, 20, -2, 6, 8, -9, 0x3d3f99);
-            } else if (contents.getKey().equals(TAEntityTypes.RUNESTONE_KEEPER.get().getDescriptionId())) {
-                Component description = TAEntityTypes.RUNESTONE_KEEPER.get().getDescription();
-                renderBossBar(event, RUNESTONE_KEEPER_BARS, description, 22, -2, 5, 8, -9, 0x6c7f82);
-            } else if (contents.getKey().equals(TAEntityTypes.SPIDER_MOTHER.get().getDescriptionId())) {
-                Component description = TAEntityTypes.SPIDER_MOTHER.get().getDescription();
-                renderBossBar(event, SPIDER_MOTHER_BARS, description, 22, -2, 5, 8, -9, 0x4397f0);
-            } else if (contents.getKey().equals(TAEntityTypes.MOON_QUEEN.get().getDescriptionId())) {
-                Component description = TAEntityTypes.MOON_QUEEN.get().getDescription();
-                renderBossBar(event, MOON_QUEEN_BARS, description, 22, 4, 5, 10, -7, 0xe276e8);
+        Component name = event.getBossEvent().getName();
+        if (name.getContents() instanceof TranslatableContents contents) {
+            String key = contents.getKey();
+            if (BOSS_BAR_STYLE_MAP.containsKey(key)) {
+                BOSS_BAR_STYLE_MAP.get(key).render(event);
+            } else if (key.startsWith("event.theaurorian.blood_moon")) {
+                BLOOD_MOON_BAR.barYOffset = 16;
+                BLOOD_MOON_BAR.render(event);
             }
         }
     }
 
-    private static void renderBossBar(
-            CustomizeGuiOverlayEvent.BossEventProgress event, ResourceLocation atlasLocation, Component description,
-            int frameHeight, int frameYOffset, int barHeight, int barYOffset, int textYOffset, int textColor) {
-        event.setCanceled(true);
-        Font font = Minecraft.getInstance().font;
-        GuiGraphics graphics = event.getGuiGraphics();
-        int guiWidth = graphics.guiWidth();
-        int fontWidth = font.width(description);
-        int strX = guiWidth >> 1 - fontWidth >> 1;
-        int progress = (int) (180 * event.getBossEvent().getProgress());
-        graphics.blit(atlasLocation, (guiWidth - 186) >> 1, event.getY() + frameYOffset, 0, 5, 186, frameHeight);
-        graphics.blit(atlasLocation, (guiWidth - 180) >> 1, event.getY() + barYOffset, 0, 0, progress, barHeight);
-        graphics.drawString(font, description, strX, event.getY() + textYOffset, textColor);
-        event.setIncrement(frameHeight + 3);
+    private static class BossBarStyle {
+
+        private final ResourceLocation atlasLocation;
+        private int frameWidth;
+        private int frameHeight;
+        private int frameYOffset;
+        private int barWidth;
+        private int barHeight;
+        private int barYOffset;
+        private int textYOffset;
+        private int textColor;
+
+        public BossBarStyle(ResourceLocation atlasLocation) {
+            this.atlasLocation = atlasLocation;
+        }
+
+        public BossBarStyle frameWidth(int frameWidth) {
+            this.frameWidth = frameWidth;
+            return this;
+        }
+
+        public BossBarStyle frameHeight(int frameHeight) {
+            this.frameHeight = frameHeight;
+            return this;
+        }
+
+        public BossBarStyle frameYOffset(int frameYOffset) {
+            this.frameYOffset = frameYOffset;
+            return this;
+        }
+
+        public BossBarStyle barWidth(int barWidth) {
+            this.barWidth = barWidth;
+            return this;
+        }
+
+        public BossBarStyle barHeight(int barHeight) {
+            this.barHeight = barHeight;
+            return this;
+        }
+
+        public BossBarStyle barYOffset(int barYOffset) {
+            this.barYOffset = barYOffset;
+            return this;
+        }
+
+        public BossBarStyle textYOffset(int textYOffset) {
+            this.textYOffset = textYOffset;
+            return this;
+        }
+
+        public BossBarStyle textColor(int textColor) {
+            this.textColor = textColor;
+            return this;
+        }
+
+        public void render(CustomizeGuiOverlayEvent.BossEventProgress event) {
+            event.setCanceled(true);
+            Font font = Minecraft.getInstance().font;
+            GuiGraphics graphics = event.getGuiGraphics();
+            LerpingBossEvent bossEvent = event.getBossEvent();
+            int guiWidth = graphics.guiWidth();
+            int progress = Mth.floor(this.barWidth * bossEvent.getProgress());
+            graphics.blit(this.atlasLocation, (guiWidth - this.frameWidth) / 2, event.getY() + this.frameYOffset, 0, 5, this.frameWidth, this.frameHeight);
+            graphics.blit(this.atlasLocation, (guiWidth - this.barWidth) / 2, event.getY() + this.barYOffset, 0, 0, progress, this.barHeight);
+            graphics.drawString(font, bossEvent.getName(), guiWidth / 2 - font.width(bossEvent.getName()) / 2, event.getY() + this.textYOffset, this.textColor);
+            event.setIncrement(this.frameHeight + 3);
+        }
+
     }
 
 }

@@ -2,12 +2,14 @@ package cn.teampancake.theaurorian.common.level.legacy.context;
 
 import cn.teampancake.theaurorian.common.level.legacy.area.Area;
 import cn.teampancake.theaurorian.common.level.legacy.area.LazyArea;
-import cn.teampancake.theaurorian.common.registry.TADimensions;
 import it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.LinearCongruentialGenerator;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
+
+import java.util.Objects;
 
 public class LazyAreaContext implements BigContext<LazyArea> {
 
@@ -17,7 +19,7 @@ public class LazyAreaContext implements BigContext<LazyArea> {
 	private long rval;
 
 	public LazyAreaContext(int maxCache, long salt) {
-		this.seed = mixSeed(TADimensions.seed, salt);
+		this.seed = mixSeed(getOverworldSeed(), salt);
 		this.cache = new Long2ObjectLinkedOpenHashMap<>(16, 0.25F);
 		this.cache.defaultReturnValue(Biomes.THE_VOID);
 		this.maxCache = maxCache;
@@ -53,6 +55,10 @@ public class LazyAreaContext implements BigContext<LazyArea> {
 		int i = Math.floorMod(this.rval >> 24, limit);
 		this.rval = LinearCongruentialGenerator.next(this.rval, this.seed);
 		return i;
+	}
+
+	public static long getOverworldSeed() {
+		return Objects.requireNonNull(ServerLifecycleHooks.getCurrentServer()).getWorldData().worldGenOptions().seed();
 	}
 
 	private static long mixSeed(long seed, long salt) {

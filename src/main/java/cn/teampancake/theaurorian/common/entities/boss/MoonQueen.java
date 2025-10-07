@@ -380,7 +380,7 @@ public class MoonQueen extends AbstractAurorianBoss implements GeoEntity {
     @Override
     public void die(DamageSource damageSource) {
         if (damageSource.getEntity() instanceof ServerPlayer player) {
-            player.setData(TAAttachmentTypes.IMMUNE_TO_PRESSURE, true);
+            player.setData(TAAttachmentTypes.IMMUNE_PRESSURE_BY_KILL_MOON_QUEEN, true);
         }
 
         super.die(damageSource);

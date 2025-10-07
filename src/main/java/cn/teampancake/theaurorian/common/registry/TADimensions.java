@@ -28,10 +28,8 @@ import static net.minecraft.world.level.levelgen.SurfaceRules.*;
 @SuppressWarnings("SpellCheckingInspection")
 public class TADimensions {
 
-    public static long seed;
     public static final ResourceKey<NoiseGeneratorSettings> AURORIAN_NOISE_SETTINGS = ResourceKey.create(Registries.NOISE_SETTINGS, TheAurorian.prefix("the_aurorian_noise"));
     public static final ResourceKey<DimensionType> AURORIAN_DIMENSION_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE, TheAurorian.prefix("the_aurorian_type"));
-
     public static final ResourceKey<LevelStem> AURORIAN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, TheAurorian.prefix("the_aurorian"));
     public static final ResourceKey<LevelStem> NORTHERN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, TheAurorian.prefix("north_kingdoms"));
     public static final ResourceKey<LevelStem> SOUTHERN_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, TheAurorian.prefix("south_dimension"));

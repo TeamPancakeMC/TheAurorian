@@ -10,28 +10,19 @@ import org.jetbrains.annotations.Nullable;
 public class StarSignsScreen extends Screen {
 
     private static final ResourceLocation STAR_SIGNS = TheAurorian.prefix("textures/gui/star_signs.png");
-    public static final ResourceLocation AURORIAN_EVENT = TheAurorian.prefix("textures/gui/aurorian_event.png");
-    private static int forecast1 = -1, forecast2 = -1, forecast3 = -1;
-
-    // 三页：左上U 分别为 0 / 142 / 284；尺寸一致
+    private static final ResourceLocation AURORIAN_EVENT = TheAurorian.prefix("textures/gui/aurorian_event.png");
     private static final int PAGE_W = 142;
     private static final int PAGE_H = 188;
-
-    // 纹理总尺寸：512×188
     private static final int TEX_W = 512;
     private static final int TEX_H = 188;
-
-    // 徽记 UV 与尺寸：左上(426,0)，右下(483,88) → 宽58，高89
     private static final int EMBLEM_U = 426;
     private static final int EMBLEM_V = 0;
     private static final int EMBLEM_W = 58;
     private static final int EMBLEM_H = 89;
-
-    // 翻页点击区域大小（距页底角内缩）
     private static final int CORNER_W = 36;
     private static final int CORNER_H = 28;
     private static final int EDGE_INSET = 4;
-
+    private static int forecast1 = -1, forecast2 = -1, forecast3 = -1;
     private int currentPage = 0;
 
     public StarSignsScreen() {
@@ -60,11 +51,9 @@ public class StarSignsScreen extends Screen {
             graphics.drawString(this.font, placeholder, dstX + 8, dstY + 8, 0x404040, false);
         }
 
-        // 徽记：叠加到页右上角（贴边对齐）
         int emblemDstX = dstX + PAGE_W - EMBLEM_W + 7;
         int emblemDstY = dstY + 6;
         graphics.blit(STAR_SIGNS, emblemDstX, emblemDstY, EMBLEM_U, EMBLEM_V, EMBLEM_W, EMBLEM_H, TEX_W, TEX_H);
-        // 页码：y=174，x=页中心（相对页左侧71），文本居中，缩放 0.80
         String footer = (this.currentPage + 1) + " / 3";
         int pageCenterX = dstX + (PAGE_W / 2);
         int footerY = dstY + 174;

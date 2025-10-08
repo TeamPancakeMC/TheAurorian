@@ -55,6 +55,7 @@ public class TheAurorian {
         TADataComponents.DATA_COMPONENT_TYPE.register(modEventBus);
         TAArmorMaterials.ARMOR_MATERIALS.register(modEventBus);
         TAItemTooltips.ITEM_TOOLTIPS.register(modEventBus);
+        TAWorldEvents.WORLD_EVENTS.register(modEventBus);
         TAAttributes.ATTRIBUTES.register(modEventBus);
         TAFluidTypes.FLUID_TYPES.register(modEventBus);
         TAEntityTypes.ENTITY_TYPES.register(modEventBus);
@@ -104,6 +105,7 @@ public class TheAurorian {
 
     public void createNewRegistries(NewRegistryEvent event) {
         event.register(TAItemTooltips.REGISTRY);
+        event.register(TAWorldEvents.REGISTRY);
         event.register(TABiomeLayers.REGISTRY);
         event.register(TARunes.REGISTRY);
     }

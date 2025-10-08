@@ -129,6 +129,7 @@ public class TAItems {
                     .attributes(TASwordItem.createAttributes(7.0F, 2.2F))
                     .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
                     .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY)
+                    .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                     .component(TADataComponents.HANDHELD_MODEL, Unit.INSTANCE), 10));
     public static final DeferredHolder<Item, Item> STEEL_DAGGER = ITEMS.register("steel_dagger",
             () -> new TASwordItem(new Item.Properties().durability(280)

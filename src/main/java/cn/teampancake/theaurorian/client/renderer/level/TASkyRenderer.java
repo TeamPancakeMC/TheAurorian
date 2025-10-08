@@ -1,8 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer.level;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.event.TAEventFactory;
-import com.google.common.collect.ImmutableMap;
+import cn.teampancake.theaurorian.common.level.data.WorldSkyManager;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -23,17 +22,10 @@ import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 @SuppressWarnings("ConstantConditions")
 public class TASkyRenderer {
 
     public static final ResourceLocation MOON_LOCATION = TheAurorian.prefix("textures/environment/moon_phases.png");
-    private static ResourceLocation currentPhase = TheAurorian.prefix("ta_cyan");
     private static VertexBuffer starBuffer = null;
 
     public TASkyRenderer() {
@@ -99,50 +91,18 @@ public class TASkyRenderer {
         RenderSystem.disableBlend();
         RenderSystem.defaultBlendFunc();
         poseStack.popPose();
-        RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.depthMask(true);
         return true;
     }
 
-    public static final Map<ResourceLocation,Integer> DaySkyColors = getDaySkyColors();
-
-    private static Map<ResourceLocation, Integer> getDaySkyColors() {
-        Map<ResourceLocation, Integer> map = new LinkedHashMap<>();
-        map.put(TheAurorian.prefix("ta_purple"), 0x8d60d7);
-        map.put(TheAurorian.prefix("ta_pink"), 0xf49cae);
-        map.put(TheAurorian.prefix("ta_cyan"), 0x80e3ec);
-        map.put(TheAurorian.prefix("ta_orange"), 0xfff089);
-        map.put(TheAurorian.prefix("ta_lime"), 0x69c941);
-        TAEventFactory.onRegisterAurorianSkyColor(map);
-        return ImmutableMap.copyOf(map);
-    }
-
     public static Vec3 getSkyColor(ClientLevel level, Vec3 pos) {
         float timeOfDay = level.dimensionType().timeOfDay(1000L);
-        long dayTime = (level.dayTime() + 6000L) % 24000L;
-        boolean isDay = dayTime > 6000 && dayTime <= 18000;
-        int rgbColor = isDay ? DaySkyColors.get(currentPhase) : 0x010e34;
+        int rgbColor = WorldSkyManager.getCurrentSkyColor(level);
         Vec3 vec3 = pos.subtract(2.0D, 2.0D, 2.0D).scale(0.25D);
         Vec3 vec31 = CubicSampler.gaussianSampleVec3(vec3, (x, y, z) -> Vec3.fromRGB24(rgbColor));
         float f1 = Mth.cos(timeOfDay * ((float) Math.PI * 2F)) * 2.0F + 0.5F;
         return new Vec3((float) vec31.x * f1, (float) vec31.y * f1, (float) vec31.z * f1);
-    }
-
-    public static int smoothColorTransition(float t) {
-        Color currentColor = new Color(0x010e34);
-        Color targetColor = new Color(DaySkyColors.get(currentPhase));
-        double d = Math.sin(2.0F * Math.PI * t + 0.5F * Math.PI);
-        d = (d + 1.0D) / 2.0D;
-        int r = currentColor.getRed() + (int) ((targetColor.getRed() - currentColor.getRed()) * d);
-        int g = currentColor.getGreen() + (int) ((targetColor.getGreen() - currentColor.getGreen()) * d);
-        int b = currentColor.getBlue() + (int) ((targetColor.getBlue() - currentColor.getBlue()) * d);
-        return new Color(r, g, b).getRGB();
-    }
-
-    public static void setCurrentPhase(int stateCode) {
-        List<ResourceLocation> colorNames = new ArrayList<>(DaySkyColors.keySet());
-        currentPhase = colorNames.get(stateCode);
     }
 
     private void createStars() {

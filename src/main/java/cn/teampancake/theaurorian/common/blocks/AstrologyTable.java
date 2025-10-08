@@ -4,12 +4,13 @@ import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.common.blocks.entity.AstrologyTableBlockEntity;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.blocks.state.TALootType;
-import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
+import cn.teampancake.theaurorian.common.level.data.WorldSkyManager;
 import cn.teampancake.theaurorian.common.network.FutureNightS2CPacket;
 import cn.teampancake.theaurorian.common.network.ShowStarSignScreenS2CPacket;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -22,11 +23,12 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
-// 新增导入
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLLoader;
+
+import java.util.List;
 
 public class AstrologyTable extends BaseEntityBlock {
 
@@ -43,17 +45,22 @@ public class AstrologyTable extends BaseEntityBlock {
 	@Override
 	public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
 		if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-			long dayTime = (level.getDayTime() + 6000L) % 24000L;
-			if (dayTime > 6000 && dayTime <= 18000) {
+			if (level.getDayTime() % 24000 > 12000) {
 				String key = "message.theaurorian.astrology_table.only_at_night";
 				serverPlayer.sendSystemMessage(Component.translatable(key));
-				return InteractionResult.CONSUME;
+				return InteractionResult.SUCCESS_NO_ITEM_USED;
 			}
 
-			int[] arr = LevelEventSubscriber.getFuturePhases();
-			PacketDistributor.sendToPlayer(serverPlayer,
-					new FutureNightS2CPacket(arr[0], arr[1], arr[2]),
-					new ShowStarSignScreenS2CPacket());
+			if (level instanceof ServerLevel serverLevel) {
+				WorldSkyManager.SkyColorForecast forecast = WorldSkyManager.getSkyColorForecast(serverLevel);
+				List<WorldSkyManager.SkyColor> futureColors = forecast.futureColors;
+				PacketDistributor.sendToPlayer(serverPlayer,
+						new FutureNightS2CPacket(
+								futureColors.getFirst().id(),
+								futureColors.get(1).id(),
+								futureColors.get(2).id()),
+						new ShowStarSignScreenS2CPacket());
+			}
 			return InteractionResult.SUCCESS;
 		}
 

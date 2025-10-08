@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.network;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.client.gui.screens.StarSignsScreen;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -29,7 +30,7 @@ public record FutureNightS2CPacket(int d1, int d2, int d3) implements CustomPack
     }
 
     public static void handle(FutureNightS2CPacket packet, IPayloadContext context) {
-        // Client-side: handled by StarSignsScreen through a static holder
-        cn.teampancake.theaurorian.client.gui.screens.StarSignsScreen.setForecast(packet.d1, packet.d2, packet.d3);
+        StarSignsScreen.setForecast(packet.d1, packet.d2, packet.d3);
     }
+
 }

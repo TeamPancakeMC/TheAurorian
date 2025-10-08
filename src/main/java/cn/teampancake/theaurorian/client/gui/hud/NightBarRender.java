@@ -1,12 +1,14 @@
 package cn.teampancake.theaurorian.client.gui.hud;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
@@ -28,6 +30,12 @@ public class NightBarRender {
         if (player != null && !minecraft.options.hideGui) {
             long dayTime = (player.level().getDayTime() + 6000L) % 24000L;
             if (TACommonUtils.isAurorianDimension(player.level())) {
+                if (dayTime == 6000) {
+                    String key = "commands.theaurorian.night_phase.changed";
+                    String name = LevelEventSubscriber.NightPhase.getDisplayName(nightType);
+                    player.sendSystemMessage(Component.translatable(key, name));
+                }
+
                 if (dayTime > 6000 && dayTime <= 18000) {
                     if (nightType <= 2) {
                         offsetX = nightType * 45;
@@ -39,7 +47,7 @@ public class NightBarRender {
 
                     guiGraphics.blit(NightRender, 0, 0, offsetX, offsetY, BAR_WIDTH, BAR_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT);
                 } else {
-                    guiGraphics.blit(NightRender, 0, 0, 90, 64, BAR_WIDTH, BAR_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT); //Render frame
+                    guiGraphics.blit(NightRender, 0, 0, 90, 64, BAR_WIDTH, BAR_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT);
                 }
             }
         }

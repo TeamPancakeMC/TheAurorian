@@ -2,7 +2,6 @@ package cn.teampancake.theaurorian.common.network;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
-import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -30,9 +29,7 @@ public record NightTypeS2CPacket(int nightType) implements CustomPacketPayload {
 
     public static void handle(NightTypeS2CPacket packet, IPayloadContext context) {
         context.enqueueWork(() -> {
-            int nightType = packet.nightType;
-            NightBarRender.nightType = nightType;
-            TASkyRenderer.setCurrentPhase(nightType);
+            NightBarRender.nightType = packet.nightType;
         });
     }
 

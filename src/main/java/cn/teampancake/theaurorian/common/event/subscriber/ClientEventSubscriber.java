@@ -48,7 +48,7 @@ public class ClientEventSubscriber {
     private static final BossBarStyle MOON_QUEEN_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/moon_queen_bars.png"))
             .frameWidth(186).frameHeight(22).frameYOffset(4).barWidth(180).barHeight(5).barYOffset(10).textYOffset(-7).textColor(0xe276e8);
     private static final BossBarStyle BLOOD_MOON_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/blood_moon_bars.png"))
-            .frameWidth(186).frameHeight(20).frameYOffset(16).barWidth(182).barHeight(5).barYOffset(10).textYOffset(-7).textColor(16777215);
+            .frameWidth(186).frameHeight(20).frameYOffset(4).barWidth(182).barHeight(5).barYOffset(16).textYOffset(-7).textColor(16777215);
     private static final Map<String, BossBarStyle> BOSS_BAR_STYLE_MAP = Map.of(
             "entity.theaurorian.moonlight_knight", MOONLIGHT_KNIGHT_BAR,
             "entity.theaurorian.runestone_keeper", RUNESTONE_KEEPER_BAR,
@@ -204,7 +204,6 @@ public class ClientEventSubscriber {
             if (BOSS_BAR_STYLE_MAP.containsKey(key)) {
                 BOSS_BAR_STYLE_MAP.get(key).render(event);
             } else if (key.startsWith("event.theaurorian.blood_moon")) {
-                BLOOD_MOON_BAR.barYOffset = 16;
                 BLOOD_MOON_BAR.render(event);
             }
         }

@@ -9,6 +9,7 @@ import cn.teampancake.theaurorian.common.entities.npc.AurorianVillager;
 import cn.teampancake.theaurorian.common.entities.phase.AttackManager;
 import cn.teampancake.theaurorian.common.entities.phase.SpiritMeleePhase;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
+import cn.teampancake.theaurorian.common.registry.TAWorldEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -18,15 +19,13 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -35,6 +34,8 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -42,6 +43,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathFinder;
+import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.jetbrains.annotations.Nullable;
@@ -72,9 +75,9 @@ public class Spirit extends TAMonster {
         this.goalSelector.addGoal(8, new SpiritRandomMoveGoal(this));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, AurorianVillager.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+        this.targetSelector.addGoal(1, new SpiritTargetGoal<>(this, Player.class));
+        this.targetSelector.addGoal(2, new SpiritTargetGoal<>(this, AurorianVillager.class));
+        this.targetSelector.addGoal(3, new SpiritTargetGoal<>(this, IronGolem.class));
     }
 
     public static boolean checkSpawnRules(EntityType<Spirit> spirit, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
@@ -172,6 +175,15 @@ public class Spirit extends TAMonster {
         this.entityData.set(ANGRY, isAngry);
     }
 
+    public boolean isBloodMoon() {
+        return TAWorldEvents.BLOOD_MOON.get().shouldBeActive(this.level().dayTime());
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level level) {
+        return new SpiritPathNavigation(this, level);
+    }
+
     public void tick() {
         this.noPhysics = true;
         super.tick();
@@ -232,6 +244,36 @@ public class Spirit extends TAMonster {
     @Override
     public int getMaxSpawnClusterSize() {
         return 1;
+    }
+
+    private class SpiritTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
+
+        public SpiritTargetGoal(Mob mob, Class<T> targetType) {
+            super(mob, targetType, true);
+        }
+
+        @Override
+        protected double getFollowDistance() {
+            double distance = super.getFollowDistance();
+            return isBloodMoon() ? distance * 1.5D : distance;
+        }
+
+    }
+
+    private class SpiritPathNavigation extends GroundPathNavigation {
+
+        public SpiritPathNavigation(Mob mob, Level level) {
+            super(mob, level);
+        }
+
+        @Override
+        protected PathFinder createPathFinder(int maxVisitedNodes) {
+            int range = Mth.floor(isBloodMoon() ? maxVisitedNodes * 1.5D : maxVisitedNodes) * 16;
+            this.nodeEvaluator = new WalkNodeEvaluator();
+            this.nodeEvaluator.setCanPassDoors(true);
+            return new PathFinder(this.nodeEvaluator, range);
+        }
+
     }
 
 }

@@ -14,11 +14,14 @@ import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import cn.teampancake.theaurorian.common.items.curio.CrimsonPactPendant;
 import cn.teampancake.theaurorian.common.level.TAServerPlayer;
+import cn.teampancake.theaurorian.common.level.data.event.BloodMoonEvent;
 import cn.teampancake.theaurorian.common.network.*;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -37,11 +40,13 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -92,6 +97,7 @@ public class LivingEventSubscriber {
     @SubscribeEvent
     public static void onMobFinalizeSpawn(FinalizeSpawnEvent event) {
         Mob mob = event.getEntity();
+        Level level = mob.level();
         if (mob.getType().is(TAEntityTags.AFFECTED_BY_NIGHTMARE_MODE)) {
             GameRules gameRules = event.getLevel().getLevel().getGameRules();
             if (gameRules.getRule(TAGameRules.RULE_ENABLE_NIGHTMARE_MODE).get()) {
@@ -109,6 +115,21 @@ public class LivingEventSubscriber {
 
                 if (mob.getLastDamageSource() == null) {
                     mob.setHealth(mob.getMaxHealth());
+                }
+            }
+        }
+
+        if (TACommonUtils.isAurorianDimension(level) && mob instanceof Enemy
+                && TAWorldEvents.BLOOD_MOON.get().shouldBeActive(level.getDayTime())
+                && !(mob instanceof AbstractAurorianBoss)) {
+            var entrySet = BloodMoonEvent.getEnhanceMultiplier().entrySet();
+            AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_MULTIPLIED_BASE;
+            for (Map.Entry<Holder<Attribute>, Pair<ResourceLocation, Double>> entry : entrySet) {
+                AttributeInstance instance = mob.getAttribute(entry.getKey());
+                Pair<ResourceLocation, Double> pair = entry.getValue();
+                if (instance != null && !instance.hasModifier(pair.getFirst())) {
+                    instance.addPermanentModifier(new AttributeModifier(pair.getFirst(), pair.getSecond(), operation));
+                    if (mob.getLastDamageSource() == null) mob.setHealth(mob.getMaxHealth());
                 }
             }
         }
@@ -415,6 +436,7 @@ public class LivingEventSubscriber {
         }
 
         if (sourceEntity instanceof Player player) {
+            Level level = player.level();
             ItemStack stack = player.getUseItem();
             if (stack.is(TAItems.TSLAT_SWORD.get())) {
                 DataComponentType<Integer> type = TADataComponents.KILL_COUNT.get();
@@ -427,6 +449,11 @@ public class LivingEventSubscriber {
                 if (holinessEffect != null) {
                     holinessEffect.duration += flag ? 60 : 30;
                 }
+            }
+
+            if (TAWorldEvents.BLOOD_MOON.get().shouldBeActive(level.dayTime())) {
+                AttachmentType<Integer> type = TAAttachmentTypes.KILL_COUNT_IN_BLOOD_MOON.get();
+                player.setData(type, player.getData(type) + 1);
             }
         }
     }

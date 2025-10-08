@@ -1,8 +1,9 @@
 package cn.teampancake.theaurorian.common.command;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
 import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber.NightPhase;
+import cn.teampancake.theaurorian.common.level.data.WorldSkyManager;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -48,14 +49,14 @@ public class TACommands {
         CommandSourceStack source = context.getSource();
         ServerLevel level = source.getLevel();
         String phaseName = StringArgumentType.getString(context, "phase");
-        
         NightPhase phase = NightPhase.fromName(phaseName);
         if (phase == NightPhase.CUSTOM) {
             throw INVALID_PHASE_EXCEPTION.create();
         }
-        
-        boolean success = LevelEventSubscriber.setNightPhase(phase, level);
-        if (!success) {
+
+        if (TACommonUtils.isAurorianDimension(level)) {
+            WorldSkyManager.setSkyColor(level, phase.getCode());
+        } else {
             throw NOT_IN_AURORIAN_EXCEPTION.create();
         }
         
@@ -64,7 +65,7 @@ public class TACommands {
     
     private static int showCurrentNightPhase(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
-        String currentPhaseName = NightPhase.getDisplayName(LevelEventSubscriber.phaseCode);
+        String currentPhaseName = NightPhase.getDisplayName(WorldSkyManager.getWorldSkyData(source.getLevel()).currentDayColor.id());
         source.sendSuccess(() -> Component.translatable("commands.theaurorian.night_phase.current", currentPhaseName), true);
         return Command.SINGLE_SUCCESS;
     }

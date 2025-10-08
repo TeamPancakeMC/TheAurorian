@@ -1,7 +1,8 @@
 package cn.teampancake.theaurorian.common.level;
 
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
-import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
+import cn.teampancake.theaurorian.common.level.data.WorldSkyManager;
+import cn.teampancake.theaurorian.common.level.data.WorldSkyData;
 import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -23,10 +24,11 @@ import net.minecraft.world.level.material.FluidState;
 public class TAServerLevel {
 
     public static void tickChunk(ServerLevel level, LevelChunk chunk, int randomTickSpeed) {
+        WorldSkyData skyData = WorldSkyManager.getWorldSkyData(level);
         ChunkPos chunkpos = chunk.getPos();
         int i = chunkpos.getMinBlockX();
         int j = chunkpos.getMinBlockZ();
-        int scale = LevelEventSubscriber.phaseCode == 4 ? 3 : 1;
+        int scale = skyData.currentDayColor.id() == 4 ? 3 : 1;
         ProfilerFiller profiler = level.getProfiler();
         profiler.popPush("iceAndSnow");
         for (int i1 = 0; i1 < randomTickSpeed; i1++) {

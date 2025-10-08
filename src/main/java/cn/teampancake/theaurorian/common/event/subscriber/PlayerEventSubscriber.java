@@ -5,6 +5,8 @@ import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import cn.teampancake.theaurorian.common.blocks.MysteriumWoolBed;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
+import cn.teampancake.theaurorian.common.level.data.WorldSkyManager;
+import cn.teampancake.theaurorian.common.level.data.WorldSkyData;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
@@ -110,7 +112,9 @@ public class PlayerEventSubscriber {
             int count = player.getData(type);
             player.setData(type, count + 1);
             if (player instanceof ServerPlayer serverPlayer) {
-                PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(LevelEventSubscriber.phaseCode));
+                WorldSkyData skyData = WorldSkyManager.getWorldSkyData(serverPlayer.level());
+                PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(skyData.currentDayColor.id()));
+                WorldSkyManager.syncSkyColorToPlayer(serverPlayer, skyData);
             }
         }
     }
@@ -120,7 +124,9 @@ public class PlayerEventSubscriber {
         if (event.getEntity() instanceof ServerPlayer player) {
             ServerLevel level = player.serverLevel();
             if (TACommonUtils.isAurorianDimension(level)) {
-                PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(LevelEventSubscriber.phaseCode));
+                WorldSkyData skyData = WorldSkyManager.getWorldSkyData(level);
+                PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(skyData.currentDayColor.id()));
+                WorldSkyManager.syncSkyColorToPlayer(player, skyData);
             }
         }
     }
@@ -191,7 +197,9 @@ public class PlayerEventSubscriber {
         if (event.getEntity() instanceof ServerPlayer player) {
             ServerLevel level = player.serverLevel();
             if (TACommonUtils.isAurorianDimension(level)) {
-                PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(LevelEventSubscriber.phaseCode));
+                WorldSkyData skyData = WorldSkyManager.getWorldSkyData(level);
+                PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(skyData.currentDayColor.id()));
+                WorldSkyManager.syncSkyColorToPlayer(player, skyData);
             }
         }
     }

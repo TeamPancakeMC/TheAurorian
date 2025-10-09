@@ -7,9 +7,9 @@ import java.util.List;
 public class WorldSkyData {
 
     public WorldSkyManager.SkyColor currentDayColor;
-    private final int forecastDays;
     public WorldSkyManager.SkyColor[] futureColors;
     public long lastMidnightTime;
+    private final int forecastDays;
 
     public WorldSkyData(WorldSkyManager.SkyColor initialColor, int forecastDays) {
         this.forecastDays = forecastDays;

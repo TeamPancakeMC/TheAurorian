@@ -28,7 +28,8 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.STRUCTURE_SET, TAStructureSets::bootstrap)
             .add(Registries.TEMPLATE_POOL, TATemplatePools::bootstrap)
             .add(Registries.JUKEBOX_SONG, TAJukeboxSongs::bootstrap)
-            .add(TABiomeLayerStack.BIOME_STACK_KEY, TABiomeLayerStack::bootstrap);
+            .add(TABiomeLayerStack.KEY, TABiomeLayerStack::bootstrap)
+            .add(TAEventConfigurations.KEY, TAEventConfigurations::bootstrap);
 
     public RegistryDataGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of(TheAurorian.MOD_ID));

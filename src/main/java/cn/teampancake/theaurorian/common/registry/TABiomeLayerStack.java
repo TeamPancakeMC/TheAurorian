@@ -24,9 +24,9 @@ import java.util.Optional;
 @SuppressWarnings("SpellCheckingInspection")
 public class TABiomeLayerStack {
 
-    public static final ResourceKey<Registry<BiomeLayerFactory>> BIOME_STACK_KEY = ResourceKey.createRegistryKey(TheAurorian.namedRegistry("biome_layer_stack"));
+    public static final ResourceKey<Registry<BiomeLayerFactory>> KEY = ResourceKey.createRegistryKey(TheAurorian.namedRegistry("biome_layer_stack"));
     public static final Codec<BiomeLayerFactory> DISPATCH_CODEC = TABiomeLayers.CODEC.dispatch("layer_type", BiomeLayerFactory::getType, BiomeLayerType::getCodec);
-    public static final Codec<Holder<BiomeLayerFactory>> HOLDER_CODEC = RegistryFileCodec.create(BIOME_STACK_KEY, DISPATCH_CODEC, true);
+    public static final Codec<Holder<BiomeLayerFactory>> HOLDER_CODEC = RegistryFileCodec.create(KEY, DISPATCH_CODEC, true);
     public static final ResourceKey<BiomeLayerFactory> RANDOM_FOREST_BIOMES = registerKey("random_forest_biomes");
     public static final ResourceKey<BiomeLayerFactory> BIOMES_ALONG_STREAMS = registerKey("biomes_along_streams");
     public static final ResourceKey<BiomeLayerFactory> FILTHY_ICE_BIOME = registerKey("filthy_ice_biome");
@@ -36,7 +36,7 @@ public class TABiomeLayerStack {
     public static final ResourceKey<BiomeLayerFactory> SOUTH_BIOMES_ALONG_STREAMS = registerKey("south_biomes_along_streams");
 
     private static ResourceKey<BiomeLayerFactory> registerKey(String name) {
-        return ResourceKey.create(BIOME_STACK_KEY, TheAurorian.prefix(name));
+        return ResourceKey.create(KEY, TheAurorian.prefix(name));
     }
 
     public static void bootstrap(BootstrapContext<BiomeLayerFactory> context) {

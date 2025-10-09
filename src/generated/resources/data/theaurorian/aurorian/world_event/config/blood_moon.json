@@ -1,0 +1,14 @@
+{
+  "type": "theaurorian:blood_moon",
+  "config": {
+    "active_time_range": {
+      "duration": 12000,
+      "start_time": 12000,
+      "unit": "ticks"
+    },
+    "aftermath_delay": 6000,
+    "cooldown_day": 2,
+    "omen_warning_time": 6000,
+    "trigger_chance": 1.0
+  }
+}

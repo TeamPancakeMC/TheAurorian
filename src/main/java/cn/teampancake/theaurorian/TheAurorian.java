@@ -7,6 +7,7 @@ import cn.teampancake.theaurorian.client.gui.hud.ProgressBarRenderer;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
+import cn.teampancake.theaurorian.common.level.data.event.ConfiguredEvent;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.compat.mui.ModernUICompatibility;
 import cn.teampancake.theaurorian.compat.thirst.ThirstWasTakenCompatibility;
@@ -119,7 +120,8 @@ public class TheAurorian {
     }
 
     public void setRegistriesForDatapack(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(TABiomeLayerStack.BIOME_STACK_KEY, TABiomeLayerStack.DISPATCH_CODEC);
+        event.dataPackRegistry(TABiomeLayerStack.KEY, TABiomeLayerStack.DISPATCH_CODEC);
+        event.dataPackRegistry(TAEventConfigurations.KEY, ConfiguredEvent.DIRECT_CODEC);
     }
 
     public static ResourceLocation prefix(String name) {

@@ -176,7 +176,7 @@ public class Spirit extends TAMonster {
     }
 
     public boolean isBloodMoon() {
-        return TAWorldEvents.BLOOD_MOON.get().shouldBeActive(this.level().dayTime());
+        return TAWorldEvents.BLOOD_MOON.get().shouldBeActive(this.level());
     }
 
     @Override

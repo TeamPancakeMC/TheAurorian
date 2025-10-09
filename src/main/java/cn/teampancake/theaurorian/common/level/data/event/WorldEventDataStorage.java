@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.level.data;
+package cn.teampancake.theaurorian.common.level.data.event;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import net.minecraft.core.HolderLookup;
@@ -33,6 +33,7 @@ public class WorldEventDataStorage extends SavedData {
         tag.put("eventEndTimes", this.saveTimeMap(this.eventData.eventEndTimes));
         tag.put("lastTriggerDays", this.saveTimeMap(this.eventData.lastTriggerDays));
         tag.put("lastActivationTime", this.saveTimeMap(this.eventData.lastActivationTime));
+        tag.put("currentlyActive", this.saveBooleanMap(this.eventData.currentlyActive));
         tag.put("wasActiveLastTick", this.saveBooleanMap(this.eventData.wasActiveLastTick));
         tag.put("omenAftermathData", this.getOmenAftermathTag());
         tag.put("bloodMoonPlayerData", this.getBloodMoonCompoundTag());
@@ -86,6 +87,7 @@ public class WorldEventDataStorage extends SavedData {
             loadTimeMap(tag, "eventEndTimes", eventData.eventEndTimes);
             loadTimeMap(tag, "lastTriggerDays", eventData.lastTriggerDays);
             loadTimeMap(tag, "lastActivationTime", eventData.lastActivationTime);
+            loadBooleanMap(tag, "currentlyActive", eventData.currentlyActive);
             loadBooleanMap(tag, "wasActiveLastTick", eventData.wasActiveLastTick);
             if (tag.contains("bloodMoonPlayerData")) {
                 CompoundTag bloodMoonDataTag = tag.getCompound("bloodMoonPlayerData");

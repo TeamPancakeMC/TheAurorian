@@ -2,6 +2,8 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.data.*;
+import cn.teampancake.theaurorian.common.level.data.event.WorldEventDataStorage;
+import cn.teampancake.theaurorian.common.level.data.event.WorldEventManager;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.Holder;
@@ -33,7 +35,7 @@ public class LevelEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onWorldUnload(LevelEvent.Unload event) {
+    public static void onLevelUnload(LevelEvent.Unload event) {
         if (event.getLevel() instanceof Level level && level.isClientSide()) {
             ClientSkyColorData.clearClientData(level);
         }

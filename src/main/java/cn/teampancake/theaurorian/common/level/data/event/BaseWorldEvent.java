@@ -1,101 +1,130 @@
 package cn.teampancake.theaurorian.common.level.data.event;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.registry.TAEventConfigurations;
 import cn.teampancake.theaurorian.common.registry.TAWorldEvents;
 import com.mojang.serialization.Codec;
-import net.minecraft.Util;
-import net.minecraft.core.Holder;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class BaseWorldEvent {
+public abstract class BaseWorldEvent<WC extends BaseEventConfig> {
 
-    public static final Codec<Holder<BaseWorldEvent>> CODEC = TAWorldEvents.REGISTRY.holderByNameCodec();
-    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<BaseWorldEvent>> STREAM_CODEC = ByteBufCodecs.holderRegistry(TAWorldEvents.KEY);
-    protected final int cooldownDays;
-    protected final float triggerChance;
-    protected final EventTimeRange activeTimeRange;
+    private final MapCodec<ConfiguredEvent<WC, BaseWorldEvent<WC>>> configuredCodec;
 
-    public BaseWorldEvent(int cooldownDays, float triggerChance, EventTimeRange activeTimeRange) {
-        this.cooldownDays = cooldownDays;
-        this.triggerChance = triggerChance;
-        this.activeTimeRange = activeTimeRange;
+    public BaseWorldEvent(Codec<WC> codec) {
+        this.configuredCodec = codec.fieldOf("config").xmap(config -> new ConfiguredEvent<>(this, config), ConfiguredEvent::config);
     }
+
+    protected abstract ResourceKey<ConfiguredEvent<?, ?>> getConfigKey();
 
     @Nullable
     public ResourceLocation getEventId() {
         return TAWorldEvents.REGISTRY.getKey(this);
     }
 
-    public Component getDisplayName() {
-        return Component.translatable(Util.makeDescriptionId("event", this.getEventId()));
+    public MapCodec<ConfiguredEvent<WC, BaseWorldEvent<WC>>> configuredCodec() {
+        return this.configuredCodec;
     }
 
-    public EventTimeRange getActiveTimeRange() {
-        return this.activeTimeRange;
+    @SuppressWarnings("unchecked")
+    public WC getConfig(Level level) {
+        HolderLookup.RegistryLookup<ConfiguredEvent<?, ?>> registryLookup = level.registryAccess().lookupOrThrow(TAEventConfigurations.KEY);
+        return (WC) registryLookup.getOrThrow(this.getConfigKey()).value().config();
     }
 
-    public int getCooldownDays() {
-        return this.cooldownDays;
+    public EventTimeRange getActiveTimeRange(Level level) {
+        return this.getConfig(level).activeTimeRange;
     }
 
-    public float getTriggerChance() {
-        return this.triggerChance;
+    public long getCooldownDays(Level level) {
+        return this.getConfig(level).cooldownDays;
     }
 
-    public int getOmenWarningTime() {
-        return 0;
+    public long getDurationTicks(Level level) {
+        return this.getActiveTimeRange(level).getDurationTicks();
     }
 
-    public int getAftermathDelay() {
-        return 0;
+    public long getOmenWarningTime(Level level) {
+        return this.getConfig(level).omenWarningTime;
     }
 
-    public void executeOmen(ServerLevel level) {}
-
-    public void executeAftermath(ServerLevel level) {}
-
-    public boolean shouldBeActive(long worldTime) {
-        return this.activeTimeRange.isInTimeRange(worldTime);
-    }
-
-    public boolean shouldExecuteOmen(long currentTime, long eventStartTime) {
-        int warningTime = this.getOmenWarningTime();
-        return warningTime > 0 && (eventStartTime - currentTime) == warningTime;
-    }
-
-    public boolean shouldExecuteAftermath(long currentTime, long eventEndTime) {
-        int aftermathDelay = this.getAftermathDelay();
-        return aftermathDelay > 0 && (currentTime - eventEndTime) == aftermathDelay;
-    }
-
-    public boolean isOmenAftermathConflict(long nextEventStartTime, long lastEventEndTime) {
-        int warningTime = this.getOmenWarningTime();
-        int aftermathDelay = this.getAftermathDelay();
-        if (warningTime == 0 || aftermathDelay == 0) return false;
-        long nextOmenTime = nextEventStartTime - warningTime;
-        long lastAftermathTime = lastEventEndTime + aftermathDelay;
-        return Math.abs(nextOmenTime - lastAftermathTime) < 24000;
+    public long getAftermathDelay(Level level) {
+        return this.getConfig(level).aftermathDelay;
     }
 
     public void onEventStart(ServerLevel level) {}
 
     public void onEventEnd(ServerLevel level) {}
 
-    public void onEventTick(ServerLevel level, long currentTime) {}
+    public void onEventTick(ServerLevel level, long currentTime, float progress) {}
+
+    public void executeOmen(ServerLevel level) {}
+
+    public void executeAftermath(ServerLevel level) {}
+
+    public boolean shouldBeActive(Level level) {
+        return this.getActiveTimeRange(level).isInTimeRange(level.dayTime());
+    }
+
+    public boolean shouldExecuteOmen(Level level, long currentTime, long eventStartTime) {
+        int warningTime = this.getConfig(level).omenWarningTime;
+        if (warningTime <= 0) return false;
+        long omenTime = eventStartTime - warningTime;
+        return currentTime == omenTime;
+    }
+
+    public boolean shouldExecuteAftermath(Level level, long currentTime, long eventEndTime) {
+        int aftermathDelay = this.getConfig(level).aftermathDelay;
+        if (aftermathDelay <= 0) return false;
+        long aftermathTime = eventEndTime + aftermathDelay;
+        return currentTime == aftermathTime;
+    }
+
+    private boolean hasOmenAftermathConflict(Level level, WorldEventData eventData, long checkTime) {
+        ResourceLocation eventId = this.getEventId();
+        if (eventId == null) return false;
+        Long lastEventEndTime = eventData.getLastEventEndTime(eventId);
+        if (lastEventEndTime != null) {
+            long lastAftermathTime = lastEventEndTime + this.getAftermathDelay(level);
+            if (Math.abs(checkTime - lastAftermathTime) < 24000) return true;
+        }
+
+        long estimatedNextStartTime = this.estimateNextEventTime(level, eventData, eventId);
+        if (estimatedNextStartTime > 0) {
+            long nextOmenTime = estimatedNextStartTime - this.getOmenWarningTime(level);
+            return Math.abs(checkTime - nextOmenTime) < 24000;
+        }
+
+        return false;
+    }
+
+    private long estimateNextEventTime(Level level, WorldEventData eventData, ResourceLocation eventId) {
+        Long lastActivationTime = eventData.lastActivationTime.get(eventId);
+        if (lastActivationTime == null) return -1;
+        long coolDownTicks = this.getCooldownDays(level) * 24000L;
+        long estimatedTime = lastActivationTime + coolDownTicks;
+        return this.getActiveTimeRange(level).adjustToTimeRange(estimatedTime);
+    }
 
     public boolean canTriggerInDimension(ResourceLocation dimension) {
         return dimension.getNamespace().equals(TheAurorian.MOD_ID);
     }
 
-    public boolean meetsTriggerConditions(ServerLevel level, long currentTime) {
-        return true;
+    public boolean meetsTriggerConditions(ServerLevel level, long currentTime, WorldEventData eventData) {
+        ResourceLocation eventId = this.getEventId();
+        if (eventId != null) {
+            Long lastTriggerDay = eventData.lastTriggerDays.get(eventId);
+            long currentDay = eventData.getWorldTotalDays(currentTime);
+            if (lastTriggerDay != null && (currentDay - lastTriggerDay) < this.getCooldownDays(level)) return false;
+        }
+
+        return level.getRandom().nextFloat() < this.getConfig(level).triggerChance;
     }
 
 }

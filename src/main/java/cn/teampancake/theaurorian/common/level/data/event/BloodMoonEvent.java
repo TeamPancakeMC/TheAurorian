@@ -1,14 +1,16 @@
 package cn.teampancake.theaurorian.common.level.data.event;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.level.data.*;
+import cn.teampancake.theaurorian.common.level.data.event.WorldEventData.BloodMoonPlayerData;
 import cn.teampancake.theaurorian.common.network.WorldNightColorS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
+import cn.teampancake.theaurorian.common.registry.TAEventConfigurations;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
@@ -24,8 +26,9 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
-public class BloodMoonEvent extends BaseWorldEvent {
+public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
 
     private static final String BLOOD_MOON_KILL_COUNT = "event.theaurorian.blood_moon.kill_count";
     private static final Component BLOOD_MOON_NAME_COMPONENT = Component.translatable("event.theaurorian.blood_moon");
@@ -43,17 +46,12 @@ public class BloodMoonEvent extends BaseWorldEvent {
             BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_10);
 
     public BloodMoonEvent() {
-        super(2, 1.0F, EventTimeRange.byTicks(12000, 12000));
+        super(BaseEventConfig.CODEC);
     }
 
     @Override
-    public int getOmenWarningTime() {
-        return 6000;
-    }
-
-    @Override
-    public int getAftermathDelay() {
-        return 6000;
+    protected ResourceKey<ConfiguredEvent<?, ?>> getConfigKey() {
+        return TAEventConfigurations.BLOOD_MOON;
     }
 
     @Override
@@ -77,8 +75,13 @@ public class BloodMoonEvent extends BaseWorldEvent {
     @Override
     public void onEventStart(ServerLevel level) {
         level.getServer().playerList.broadcastSystemMessage(BLOOD_MOON_START_COMPONENT, Boolean.FALSE);
+        WorldEventData eventData = WorldEventManager.getWorldEventData(level);
+        Map<UUID, BloodMoonPlayerData> playerDataMap = eventData.bloodMoonPlayerData;
         for (ServerPlayer player : level.players()) {
             this.bloodMoonEvent.addPlayer(player);
+            this.bloodMoonEvent.setDarkenScreen(true);
+            BloodMoonPlayerData playerData = new BloodMoonPlayerData();
+            playerDataMap.put(player.getUUID(), playerData);
             player.setData(KILL_COUNT, 0);
             player.setData(REMOVE_BLESS, false);
             if (!player.getData(IMMUNE_PRESSURE_PERSISTENT)) {
@@ -90,9 +93,15 @@ public class BloodMoonEvent extends BaseWorldEvent {
     @Override
     public void onEventEnd(ServerLevel level) {
         level.getServer().playerList.broadcastSystemMessage(BLOOD_MOON_END_COMPONENT, Boolean.FALSE);
+        WorldEventData eventData = WorldEventManager.getWorldEventData(level);
+        Map<UUID, BloodMoonPlayerData> playerDataMap = eventData.bloodMoonPlayerData;
         for (ServerPlayer player : level.players()) {
+            int killCount = player.getData(KILL_COUNT);
             this.bloodMoonEvent.removePlayer(player);
-            if (player.getData(KILL_COUNT) >= 40) {
+            BloodMoonPlayerData playerData = new BloodMoonPlayerData();
+            playerData.kills = killCount;
+            playerDataMap.put(player.getUUID(), playerData);
+            if (killCount >= 40) {
                 player.setData(IMMUNE_PRESSURE_TEMP, true);
             } else {
                 player.setData(REMOVE_BLESS, true);
@@ -113,23 +122,13 @@ public class BloodMoonEvent extends BaseWorldEvent {
     }
 
     @Override
-    public void onEventTick(ServerLevel level, long currentTime) {
-        if (this.getEventId() != null) {
-            long startTime = this.activeTimeRange.getStartTicks();
-            long durationTicks = this.activeTimeRange.getDurationTicks();
-            WorldEventData eventData = WorldEventManager.getWorldEventData(level);
-            float progress = eventData.getEventProgress(
-                    this.getEventId(), currentTime, startTime, durationTicks);
-            this.bloodMoonEvent.setProgress(progress);
-            for (ServerPlayer player : level.players()) {
-                MutableComponent component = Component.translatable(
-                        BLOOD_MOON_KILL_COUNT, player.getData(KILL_COUNT));
-                this.bloodMoonEvent.setName(BLOOD_MOON_NAME_COMPONENT.copy()
-                        .append(Component.literal(" - ").withStyle(ChatFormatting.BOLD))
-                        .append(component.withStyle(ChatFormatting.BOLD)));
-            }
-
-            WorldEventDataStorage.get(level).setDirty();
+    public void onEventTick(ServerLevel level, long currentTime, float progress) {
+        this.bloodMoonEvent.setProgress(1.0F - progress);
+        for (ServerPlayer player : level.players()) {
+            MutableComponent component = Component.translatable(BLOOD_MOON_KILL_COUNT, player.getData(KILL_COUNT));
+            this.bloodMoonEvent.setName(BLOOD_MOON_NAME_COMPONENT.copy()
+                    .append(Component.literal(" - ").withStyle(ChatFormatting.BOLD))
+                    .append(component.withStyle(ChatFormatting.BOLD)));
         }
     }
 

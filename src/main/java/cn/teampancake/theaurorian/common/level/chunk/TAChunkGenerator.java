@@ -387,7 +387,7 @@ public class TAChunkGenerator extends NoiseBasedChunkGenerator {
     public static void spawnMobsForChunkGeneration(ServerLevelAccessor levelAccessor, Holder<Biome> biome, ChunkPos chunkPos, RandomSource random) {
         MobSpawnSettings mobSpawnSettings = biome.value().getMobSettings();
         WeightedRandomList<MobSpawnSettings.SpawnerData> weightedRandomList = mobSpawnSettings.getMobs(MobCategory.CREATURE);
-        boolean isBloodMoon = TAWorldEvents.BLOOD_MOON.get().shouldBeActive(levelAccessor.getLevel().dayTime());
+        boolean isBloodMoon = TAWorldEvents.BLOOD_MOON.get().shouldBeActive(levelAccessor.getLevel());
         if (!weightedRandomList.isEmpty()) {
             int i = chunkPos.getMinBlockX();
             int j = chunkPos.getMinBlockZ();

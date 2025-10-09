@@ -57,19 +57,19 @@ public class TADimensions {
         HolderGetter<NoiseGeneratorSettings> noiseSettings = context.lookup(Registries.NOISE_SETTINGS);
         NoiseBasedChunkGenerator mainGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
                 TABiomeBuilder.makeAurorianMainBiomeList(context.lookup(Registries.BIOME)), -1.25F, 2.5F,
-                context.lookup(TABiomeLayerStack.BIOME_STACK_KEY).getOrThrow(TABiomeLayerStack.BIOMES_ALONG_STREAMS)),
+                context.lookup(TABiomeLayerStack.KEY).getOrThrow(TABiomeLayerStack.BIOMES_ALONG_STREAMS)),
                 noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
         context.register(AURORIAN_LEVEL_STEM, new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
                 new TAChunkGenerator(mainGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS))));
         NoiseBasedChunkGenerator northGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
                 TABiomeBuilder.makeNorthernBiomeList(context.lookup(Registries.BIOME)), -1.25F, 2.5F,
-                context.lookup(TABiomeLayerStack.BIOME_STACK_KEY).getOrThrow(TABiomeLayerStack.NORTH_BIOMES_ALONG_STREAMS)),
+                context.lookup(TABiomeLayerStack.KEY).getOrThrow(TABiomeLayerStack.NORTH_BIOMES_ALONG_STREAMS)),
                 noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
         context.register(NORTHERN_LEVEL_STEM, new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
                 new TAChunkGenerator(northGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS))));
         NoiseBasedChunkGenerator southGenerator = new NoiseBasedChunkGenerator(new TABiomeSource(
                 TABiomeBuilder.makeSouthernBiomeList(context.lookup(Registries.BIOME)), -1.25F, 2.5F,
-                context.lookup(TABiomeLayerStack.BIOME_STACK_KEY).getOrThrow(TABiomeLayerStack.SOUTH_BIOMES_ALONG_STREAMS)),
+                context.lookup(TABiomeLayerStack.KEY).getOrThrow(TABiomeLayerStack.SOUTH_BIOMES_ALONG_STREAMS)),
                 noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS));
         context.register(SOUTHERN_LEVEL_STEM, new LevelStem(dimensionType.getOrThrow(AURORIAN_DIMENSION_TYPE),
                 new TAChunkGenerator(southGenerator, noiseSettings.getOrThrow(AURORIAN_NOISE_SETTINGS))));

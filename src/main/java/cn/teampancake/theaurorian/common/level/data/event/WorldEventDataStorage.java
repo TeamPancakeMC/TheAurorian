@@ -30,9 +30,12 @@ public class WorldEventDataStorage extends SavedData {
     @Override
     public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
         tag.putLong("worldStartTime", this.eventData.worldStartTime);
+        tag.putLong("lastProcessedTime", this.eventData.lastProcessedTime);
         tag.put("eventEndTimes", this.saveTimeMap(this.eventData.eventEndTimes));
         tag.put("lastTriggerDays", this.saveTimeMap(this.eventData.lastTriggerDays));
         tag.put("lastActivationTime", this.saveTimeMap(this.eventData.lastActivationTime));
+        tag.put("lastAbsoluteActivationTime", this.saveTimeMap(this.eventData.lastAbsoluteActivationTime));
+        tag.put("scheduledEventTimes", this.saveTimeMap(this.eventData.scheduledEventTimes));
         tag.put("currentlyActive", this.saveBooleanMap(this.eventData.currentlyActive));
         tag.put("wasActiveLastTick", this.saveBooleanMap(this.eventData.wasActiveLastTick));
         tag.put("omenAftermathData", this.getOmenAftermathTag());
@@ -83,10 +86,14 @@ public class WorldEventDataStorage extends SavedData {
     public static WorldEventDataStorage load(CompoundTag tag, HolderLookup.Provider registries) {
         try {
             long worldStartTime = tag.getLong("worldStartTime");
+            long lastProcessedTime = tag.contains("lastProcessedTime") ? tag.getLong("lastProcessedTime") : worldStartTime;
             WorldEventData eventData = new WorldEventData(worldStartTime);
+            eventData.lastProcessedTime = lastProcessedTime;
             loadTimeMap(tag, "eventEndTimes", eventData.eventEndTimes);
             loadTimeMap(tag, "lastTriggerDays", eventData.lastTriggerDays);
             loadTimeMap(tag, "lastActivationTime", eventData.lastActivationTime);
+            loadTimeMap(tag, "lastAbsoluteActivationTime", eventData.lastAbsoluteActivationTime);
+            loadTimeMap(tag, "scheduledEventTimes", eventData.scheduledEventTimes);
             loadBooleanMap(tag, "currentlyActive", eventData.currentlyActive);
             loadBooleanMap(tag, "wasActiveLastTick", eventData.wasActiveLastTick);
             if (tag.contains("bloodMoonPlayerData")) {

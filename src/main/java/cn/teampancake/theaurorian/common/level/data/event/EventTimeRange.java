@@ -45,18 +45,6 @@ public class EventTimeRange {
         };
     }
 
-    public long adjustToTimeRange(long worldTime) {
-        long timeOfDay = worldTime % 24000;
-        long dayBase = worldTime - timeOfDay;
-        if (timeOfDay < this.getStartTicks()) {
-            return dayBase + this.getStartTicks();
-        } else if (timeOfDay > this.getEndTicks()) {
-            return dayBase + 24000 + this.getStartTicks();
-        }
-
-        return worldTime;
-    }
-
     public boolean isInTimeRange(long worldTime) {
         long currentTimeOfDay = worldTime % 24000;
         long startTicks = this.getStartTicks();
@@ -65,6 +53,35 @@ public class EventTimeRange {
             return currentTimeOfDay >= startTicks || currentTimeOfDay <= (endTicks % 24000);
         } else {
             return currentTimeOfDay >= startTicks && currentTimeOfDay <= endTicks;
+        }
+    }
+
+    public long adjustToTimeRange(long worldTime) {
+        long timeOfDay = worldTime % 24000L;
+        long dayBase = worldTime - timeOfDay;
+        long startTicks = this.getStartTicks();
+        long endTicks = this.getEndTicks();
+        if (endTicks > 24000) {
+            long wrappedEndTicks = endTicks % 24000;
+            if (timeOfDay < wrappedEndTicks) {
+                return dayBase + startTicks;
+            } else if (timeOfDay > startTicks) {
+                return dayBase + startTicks;
+            } else {
+                long nextNormalTime = dayBase + startTicks;
+                long nextWrappedTime = dayBase - 24000 + startTicks;
+                return (worldTime - nextWrappedTime) <
+                        (nextNormalTime - worldTime) ?
+                        nextWrappedTime : nextNormalTime;
+            }
+        } else {
+            if (timeOfDay < startTicks) {
+                return dayBase + startTicks;
+            } else if (timeOfDay > endTicks) {
+                return dayBase + 24000 + startTicks;
+            } else {
+                return worldTime;
+            }
         }
     }
 

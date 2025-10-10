@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.GameRules;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
@@ -30,7 +31,8 @@ public class NightBarRender {
         if (player != null && !minecraft.options.hideGui) {
             long dayTime = (player.level().getDayTime() + 6000L) % 24000L;
             if (TACommonUtils.isAurorianDimension(player.level())) {
-                if (dayTime == 6000) {
+                GameRules gameRules = player.level().getGameRules();
+                if (dayTime == 6000 && gameRules.getBoolean(GameRules.RULE_DAYLIGHT)) {
                     String key = "commands.theaurorian.night_phase.changed";
                     String name = LevelEventSubscriber.NightPhase.getDisplayName(nightType);
                     player.sendSystemMessage(Component.translatable(key, name));

@@ -10,10 +10,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class WorldEventData {
 
     public long worldStartTime;
+    public long lastProcessedTime;
     public final Map<ResourceLocation, Long> lastTriggerDays = new ConcurrentHashMap<>();
     public final Map<ResourceLocation, Long> lastActivationTime = new ConcurrentHashMap<>();
     public final Map<ResourceLocation, Long> eventEndTimes = new ConcurrentHashMap<>();
     public final Map<ResourceLocation, Long> lastEventEndTimes = new ConcurrentHashMap<>();
+    public final Map<ResourceLocation, Long> lastAbsoluteActivationTime = new ConcurrentHashMap<>();
+    public final Map<ResourceLocation, Long> scheduledEventTimes = new ConcurrentHashMap<>();
     public final Map<ResourceLocation, Boolean> wasActiveLastTick = new ConcurrentHashMap<>();
     public final Map<ResourceLocation, Boolean> omenExecuted = new ConcurrentHashMap<>();
     public final Map<ResourceLocation, Boolean> aftermathExecuted = new ConcurrentHashMap<>();
@@ -22,14 +25,23 @@ public class WorldEventData {
 
     public WorldEventData(long worldStartTime) {
         this.worldStartTime = worldStartTime;
+        this.lastProcessedTime = worldStartTime;
     }
 
-    public void recordEventActivation(ResourceLocation eventId, long currentTime, long durationTicks) {
-        this.lastTriggerDays.put(eventId, this.getWorldTotalDays(currentTime));
-        this.lastActivationTime.put(eventId, currentTime);
-        this.eventEndTimes.put(eventId, currentTime + durationTicks);
+    public long detectTimeJump(long currentTime) {
+        long expectedNextTime = this.lastProcessedTime + 1;
+        long timeJump = currentTime - expectedNextTime;
+        this.lastProcessedTime = currentTime;
+        return Math.abs(timeJump) > 100 ? timeJump : 0;
+    }
+
+    public void recordEventActivation(ResourceLocation eventId, long absoluteTime, long durationTicks) {
+        this.lastAbsoluteActivationTime.put(eventId, absoluteTime);
+        this.eventEndTimes.put(eventId, absoluteTime + durationTicks);
         this.currentlyActive.put(eventId, true);
         this.wasActiveLastTick.put(eventId, true);
+        this.omenExecuted.remove(eventId);
+        this.aftermathExecuted.remove(eventId);
     }
 
     public void recordEventEnd(ResourceLocation eventId, long endTime) {
@@ -37,6 +49,10 @@ public class WorldEventData {
         this.eventEndTimes.remove(eventId);
         this.currentlyActive.put(eventId, false);
         this.wasActiveLastTick.put(eventId, false);
+    }
+
+    public long getScheduledEventTime(ResourceLocation eventId, long defaultTime) {
+        return this.scheduledEventTimes.getOrDefault(eventId, defaultTime);
     }
 
     @Nullable

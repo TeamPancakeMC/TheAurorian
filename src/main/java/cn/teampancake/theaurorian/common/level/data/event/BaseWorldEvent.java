@@ -34,7 +34,8 @@ public abstract class BaseWorldEvent<WC extends BaseEventConfig> {
 
     @SuppressWarnings("unchecked")
     public WC getConfig(Level level) {
-        HolderLookup.RegistryLookup<ConfiguredEvent<?, ?>> registryLookup = level.registryAccess().lookupOrThrow(TAEventConfigurations.KEY);
+        HolderLookup.RegistryLookup<ConfiguredEvent<?, ?>> registryLookup =
+                level.registryAccess().lookupOrThrow(TAEventConfigurations.KEY);
         return (WC) registryLookup.getOrThrow(this.getConfigKey()).value().config();
     }
 
@@ -72,18 +73,20 @@ public abstract class BaseWorldEvent<WC extends BaseEventConfig> {
         return this.getActiveTimeRange(level).isInTimeRange(level.dayTime());
     }
 
-    public boolean shouldExecuteOmen(Level level, long currentTime, long eventStartTime) {
-        int warningTime = this.getConfig(level).omenWarningTime;
-        if (warningTime <= 0) return false;
+    public boolean shouldExecuteOmen(Level level, long currentTime, long eventStartTime, WorldEventData eventData) {
+        long warningTime = this.getOmenWarningTime(level);
+        if (this.getEventId() == null || warningTime <= 0) return false;
         long omenTime = eventStartTime - warningTime;
-        return currentTime == omenTime;
+        return currentTime >= omenTime && omenTime >= eventData.worldStartTime &&
+                !Boolean.TRUE.equals(eventData.omenExecuted.get(this.getEventId()));
     }
 
-    public boolean shouldExecuteAftermath(Level level, long currentTime, long eventEndTime) {
-        int aftermathDelay = this.getConfig(level).aftermathDelay;
-        if (aftermathDelay <= 0) return false;
+    public boolean shouldExecuteAftermath(Level level, long currentTime, long eventEndTime, WorldEventData eventData) {
+        long aftermathDelay = this.getAftermathDelay(level);
+        if (this.getEventId() == null || aftermathDelay <= 0) return false;
         long aftermathTime = eventEndTime + aftermathDelay;
-        return currentTime == aftermathTime;
+        return currentTime >= aftermathTime && aftermathTime >= eventData.worldStartTime &&
+                !Boolean.TRUE.equals(eventData.aftermathExecuted.get(this.getEventId()));
     }
 
     private boolean hasOmenAftermathConflict(Level level, WorldEventData eventData, long checkTime) {
@@ -117,13 +120,6 @@ public abstract class BaseWorldEvent<WC extends BaseEventConfig> {
     }
 
     public boolean meetsTriggerConditions(ServerLevel level, long currentTime, WorldEventData eventData) {
-        ResourceLocation eventId = this.getEventId();
-        if (eventId != null) {
-            Long lastTriggerDay = eventData.lastTriggerDays.get(eventId);
-            long currentDay = eventData.getWorldTotalDays(currentTime);
-            if (lastTriggerDay != null && (currentDay - lastTriggerDay) < this.getCooldownDays(level)) return false;
-        }
-
         return level.getRandom().nextFloat() < this.getConfig(level).triggerChance;
     }
 

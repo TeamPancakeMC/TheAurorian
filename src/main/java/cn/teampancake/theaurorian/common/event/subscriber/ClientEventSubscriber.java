@@ -39,15 +39,15 @@ import java.util.Map;
 @EventBusSubscriber(modid = TheAurorian.MOD_ID, value = Dist.CLIENT)
 public class ClientEventSubscriber {
 
-    private static final BossBarStyle MOONLIGHT_KNIGHT_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/moonlight_knight_bars.png"))
+    private static final BossBarStyle MOONLIGHT_KNIGHT_BAR = new BossBarStyle(TheAurorian.prefix("textures/misc/bar/moonlight_knight_bars.png"))
             .frameWidth(186).frameHeight(20).frameYOffset(-2).barWidth(180).barHeight(6).barYOffset(8).textYOffset(-9).textColor(0x3d3f99);
-    private static final BossBarStyle RUNESTONE_KEEPER_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/runestone_keeper_bars.png"))
+    private static final BossBarStyle RUNESTONE_KEEPER_BAR = new BossBarStyle(TheAurorian.prefix("textures/misc/bar/runestone_keeper_bars.png"))
             .frameWidth(186).frameHeight(22).frameYOffset(-2).barWidth(180).barHeight(5).barYOffset(8).textYOffset(-9).textColor(0x6c7f82);
-    private static final BossBarStyle SPIDER_MOTHER_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/spider_mother_bars.png"))
+    private static final BossBarStyle SPIDER_MOTHER_BAR = new BossBarStyle(TheAurorian.prefix("textures/misc/bar/spider_mother_bars.png"))
             .frameWidth(186).frameHeight(22).frameYOffset(-2).barWidth(180).barHeight(5).barYOffset(8).textYOffset(-9).textColor(0x4397f0);
-    private static final BossBarStyle MOON_QUEEN_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/moon_queen_bars.png"))
+    private static final BossBarStyle MOON_QUEEN_BAR = new BossBarStyle(TheAurorian.prefix("textures/misc/bar/moon_queen_bars.png"))
             .frameWidth(186).frameHeight(22).frameYOffset(4).barWidth(180).barHeight(5).barYOffset(10).textYOffset(-7).textColor(0xe276e8);
-    private static final BossBarStyle BLOOD_MOON_BAR = new BossBarStyle(TheAurorian.prefix("textures/gui/blood_moon_bars.png"))
+    private static final BossBarStyle BLOOD_MOON_BAR = new BossBarStyle(TheAurorian.prefix("textures/misc/bar/blood_moon_bars.png"))
             .frameWidth(186).frameHeight(20).frameYOffset(4).barWidth(182).barHeight(5).barYOffset(16).textYOffset(-7).textColor(16777215);
     private static final Map<String, BossBarStyle> BOSS_BAR_STYLE_MAP = Map.of(
             "entity.theaurorian.moonlight_knight", MOONLIGHT_KNIGHT_BAR,

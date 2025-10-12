@@ -1,12 +1,13 @@
-package cn.teampancake.theaurorian.common.level.data;
+package cn.teampancake.theaurorian.common.level.data.sky_color;
 
-import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
 import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
-import cn.teampancake.theaurorian.common.network.WorldDayColorS2CPacket;
+import cn.teampancake.theaurorian.common.network.SkyColorS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TAGameRules;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
+import cn.teampancake.theaurorian.common.registry.TASkyColors;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -19,52 +20,40 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 
-public class WorldSkyManager {
+public class SkyColorManager {
 
     private static final AttachmentType<Boolean> REMOVE_BLESS = TAAttachmentTypes.REMOVE_BLESS_UNTIL_NEXT_BLOOD_MOON.get();
     private static final AttachmentType<Boolean> IMMUNE_PRESSURE_TEMP = TAAttachmentTypes.IMMUNE_PRESSURE_UNTIL_NEXT_BLOOD_MOON.get();
     private static final AttachmentType<Boolean> IMMUNE_PRESSURE_PERSISTENT = TAAttachmentTypes.IMMUNE_PRESSURE_BY_KILL_MOON_QUEEN.get();
-
-    private static final List<SkyColor> SKY_COLORS = Arrays.asList(
-            new SkyColor(0, 0x8d60d7),
-            new SkyColor(1, 0xf49cae),
-            new SkyColor(2, 0x80e3ec),
-            new SkyColor(3, 0xfff089),
-            new SkyColor(4, 0x69c941));
-
-    public record SkyColor(int id, int color) { }
+    private static final List<ResourceLocation> SKY_COLORS = TASkyColors.REGISTRY.keySet().stream().toList();
 
     public static class SkyColorForecast {
 
-        public final SkyColor today;
-        public final List<SkyColor> futureColors;
+        public final ResourceLocation today;
+        public final List<ResourceLocation> futureColors;
         public final int forecastDays;
 
-        public SkyColorForecast(WorldSkyData data) {
+        public SkyColorForecast(SkyColorData data) {
             this.today = data.currentDayColor;
-            this.futureColors = Arrays.asList(data.futureColors);
+            this.futureColors = data.futureColorIds;
             this.forecastDays = data.getForecastDays();
         }
 
     }
 
-    public static SkyColor getRandomSkyColor() {
+    public static ResourceLocation getRandomSkyColor() {
         return SKY_COLORS.get(RandomSource.create().nextInt(SKY_COLORS.size()));
     }
 
-    public static Optional<SkyColor> getSkyColorById(int id) {
-        return SKY_COLORS.stream().filter(color -> color.id == id).findFirst();
-    }
-
-    public static WorldSkyData getWorldSkyData(Level level) {
+    public static SkyColorData getWorldSkyData(Level level) {
         if (level.isClientSide()) {
             return getClientWorldSkyData(level);
         } else if (level instanceof ServerLevel serverLevel) {
-            WorldSkyDataStorage storage = WorldSkyDataStorage.get(serverLevel);
+            SkyColorDataStorage storage = SkyColorDataStorage.get(serverLevel);
             return storage.getSkyData();
         }
 
-        return new WorldSkyData(getAvailableSkyColors().getFirst(), 3);
+        return new SkyColorData(getAvailableSkyColors().getFirst(), 3);
     }
 
     public static SkyColorForecast getSkyColorForecast(Level level) {
@@ -73,20 +62,20 @@ public class WorldSkyManager {
 
     public static void updateSkyColors(ServerLevel level) {
         long dayTime = level.getDayTime();
-        WorldSkyData skyData = getWorldSkyData(level);
+        SkyColorData skyData = getWorldSkyData(level);
         onSkyColorChanged(level, skyData.currentDayColor);
         if (isMidnight(dayTime) && dayTime != skyData.lastMidnightTime) {
             skyData.advanceDay();
             skyData.lastMidnightTime = dayTime;
-            WorldSkyDataStorage.get(level).setDirty();
+            SkyColorDataStorage.get(level).setDirty();
             syncSkyColorToAllPlayers(level, skyData.currentDayColor);
         }
     }
 
-    private static WorldSkyData getClientWorldSkyData(Level level) {
-        ClientSkyColorData.ClientSkyData clientData = ClientSkyColorData.getClientData(level);
-        WorldSkyData tempData = new WorldSkyData(clientData.currentDayColor, clientData.futureColors.length);
-        tempData.futureColors = clientData.futureColors;
+    private static SkyColorData getClientWorldSkyData(Level level) {
+        ClientSkyColorData.ClientSkyData clientData = ClientSkyColorData.getClientData(level, 3);
+        SkyColorData tempData = new SkyColorData(clientData.currentDayColor, clientData.futureColors.size());
+        tempData.futureColorIds = clientData.futureColors;
         tempData.lastMidnightTime = 0;
         return tempData;
     }
@@ -97,17 +86,22 @@ public class WorldSkyManager {
 
     public static int getCurrentSkyColor(Level level) {
         long dayTime = level.getDayTime() % 24000 + 12000;
-        WorldSkyData skyData = getWorldSkyData(level);
+        SkyColorData skyData = getWorldSkyData(level);
+        var holder = TASkyColors.REGISTRY.getHolder(skyData.currentDayColor);
         int nightColor = level.getData(TAAttachmentTypes.NIGHT_SKY_COLOR);
-        int currentColor = skyData.currentDayColor.color;
-        if (dayTime < 12000) {
-            return nightColor;
-        } else if (dayTime < 18000) {
-            float progress = (dayTime - 12000) / 6000.0F;
-            return interpolateColor(nightColor, currentColor, progress);
+        if (holder.isPresent()) {
+            int currentColor = holder.get().value().color();
+            if (dayTime < 12000) {
+                return nightColor;
+            } else if (dayTime < 18000) {
+                float progress = (dayTime - 12000) / 6000.0F;
+                return interpolateColor(nightColor, currentColor, progress);
+            } else {
+                float progress = (dayTime - 18000) / 6000.0F;
+                return interpolateColor(currentColor, nightColor, progress);
+            }
         } else {
-            float progress = (dayTime - 18000) / 6000.0F;
-            return interpolateColor(currentColor, nightColor, progress);
+            return nightColor;
         }
     }
 
@@ -125,7 +119,7 @@ public class WorldSkyManager {
         return (r << 16) | (g << 8) | b;
     }
 
-    private static void onSkyColorChanged(ServerLevel level, SkyColor newColor) {
+    private static void onSkyColorChanged(ServerLevel level, ResourceLocation newColor) {
         long dayTime = level.getDayTime() % 24000;
         if (dayTime % 200 == 0) {
             GameRules.Key<GameRules.BooleanValue> aurorianBless = TAGameRules.RULE_ENABLE_AURORIAN_BLESS;
@@ -135,7 +129,7 @@ public class WorldSkyManager {
             instance.visible = false;
             for (ServerPlayer player : level.players()) {
                 if (dayTime > 0 && dayTime <= 12000 && enableAurorianBless && !player.getData(REMOVE_BLESS)) {
-                    LevelEventSubscriber.NightPhase.fromCode(newColor.id).applyBlessEffect(player);
+                    TASkyColors.REGISTRY.getHolder(newColor).ifPresent(reference -> reference.value().effect().accept(player));
                 } else if (dayTime > 12000 && (!player.getData(IMMUNE_PRESSURE_PERSISTENT) || !player.getData(IMMUNE_PRESSURE_TEMP))) {
                     player.addEffect(instance);
                 }
@@ -143,44 +137,33 @@ public class WorldSkyManager {
         }
     }
 
-    public static void syncSkyColorToPlayer(ServerPlayer player, WorldSkyData skyData) {
-        SkyColor[] futureColors = skyData.futureColors;
-        int[] futureColorIds = new int[futureColors.length];
-        int[] futureColorValues = new int[futureColors.length];
-        for (int i = 0; i < futureColors.length; i++) {
-            futureColorIds[i] = futureColors[i].id;
-            futureColorValues[i] = futureColors[i].color;
-        }
-
-        SkyColor currentDayColor = skyData.currentDayColor;
-        WorldDayColorS2CPacket packet = new WorldDayColorS2CPacket(
-                currentDayColor.id, currentDayColor.color,
-                futureColorIds, futureColorValues);
+    public static void syncSkyColorToPlayer(ServerPlayer player, SkyColorData skyData) {
+        List<ResourceLocation> futureColors = skyData.futureColorIds;
+        List<ResourceLocation> futureColorIds = new ArrayList<>(futureColors);
+        ResourceLocation currentDayColor = skyData.currentDayColor;
+        SkyColorS2CPacket packet = new SkyColorS2CPacket(currentDayColor, futureColorIds);
         PacketDistributor.sendToPlayer(player, packet);
     }
 
-    public static void syncSkyColorToAllPlayers(ServerLevel level, SkyColor color) {
+    public static void syncSkyColorToAllPlayers(ServerLevel level, ResourceLocation colorId) {
         for (ServerPlayer player : level.players()) {
-            PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(color.id));
+            PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(colorId));
             syncSkyColorToPlayer(player, getWorldSkyData(level));
         }
     }
 
-    public static void setSkyColor(ServerLevel level, int colorId) {
-        Optional<SkyColor> color = getSkyColorById(colorId);
-        if (color.isPresent()) {
-            WorldSkyData skyData = getWorldSkyData(level);
-            skyData.currentDayColor = color.get();
-            syncSkyColorToAllPlayers(level, color.get());
-            for (ServerPlayer serverPlayer : level.players()) {
-                String key = "commands.theaurorian.night_phase.set";
-                String name = LevelEventSubscriber.NightPhase.getDisplayName(colorId);
-                serverPlayer.sendSystemMessage(Component.translatable(key, name));
-            }
+    public static void setSkyColor(ServerLevel level, ResourceLocation colorId) {
+        SkyColorData skyData = getWorldSkyData(level);
+        skyData.currentDayColor = colorId;
+        syncSkyColorToAllPlayers(level, colorId);
+        for (ServerPlayer serverPlayer : level.players()) {
+            String key = "commands.theaurorian.night_phase.set";
+            String name = Component.translatable("night_phase.theaurorian." + colorId).getString();
+            serverPlayer.sendSystemMessage(Component.translatable(key, name));
         }
     }
 
-    public static List<SkyColor> getAvailableSkyColors() {
+    public static List<ResourceLocation> getAvailableSkyColors() {
         return new ArrayList<>(SKY_COLORS);
     }
 

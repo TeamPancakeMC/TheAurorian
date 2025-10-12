@@ -10,7 +10,6 @@ import org.jetbrains.annotations.Nullable;
 public class StarSignsScreen extends Screen {
 
     private static final ResourceLocation STAR_SIGNS = TheAurorian.prefix("textures/gui/star_signs.png");
-    private static final ResourceLocation AURORIAN_EVENT = TheAurorian.prefix("textures/gui/aurorian_event.png");
     private static final int PAGE_W = 142;
     private static final int PAGE_H = 188;
     private static final int TEX_W = 512;
@@ -22,7 +21,8 @@ public class StarSignsScreen extends Screen {
     private static final int CORNER_W = 36;
     private static final int CORNER_H = 28;
     private static final int EDGE_INSET = 4;
-    private static int forecast1 = -1, forecast2 = -1, forecast3 = -1;
+    @Nullable
+    private static ResourceLocation forecast1 = null, forecast2 = null, forecast3 = null;
     private int currentPage = 0;
 
     public StarSignsScreen() {
@@ -41,11 +41,11 @@ public class StarSignsScreen extends Screen {
         int dstY = (this.height - PAGE_H) / 2;
         int srcU = this.currentPage * PAGE_W;
         graphics.blit(STAR_SIGNS, dstX, dstY, srcU, 0, PAGE_W, PAGE_H, TEX_W, TEX_H);
-        if (forecast1 >= 0) {
-            Card card = this.getCard();
-            if (card != null) {
-                card.blit(graphics, dstX, dstY);
-            }
+        if (forecast1 != null && forecast2 != null && forecast3 != null) {
+            ResourceLocation phase = this.currentPage == 0 ? forecast1 : (this.currentPage == 1 ? forecast2 : forecast3);
+            String path = String.format("textures/gui/bless/%s.png", phase.getPath());
+            ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(phase.getNamespace(), path);
+            graphics.blit(texture, dstX, dstY, 0, 0, PAGE_W, PAGE_H, TEX_W, TEX_W);
         } else {
             Component placeholder = Component.translatable("gui.theaurorian.star_signs.loading");
             graphics.drawString(this.font, placeholder, dstX + 8, dstY + 8, 0x404040, false);
@@ -65,18 +65,6 @@ public class StarSignsScreen extends Screen {
         pose.translate(-pageCenterX, -footerY, 0.0F);
         graphics.drawString(this.font, footer, footerX, footerY, 0x404040, false);
         pose.popPose();
-    }
-
-    private @Nullable Card getCard() {
-        int phase = this.currentPage == 0 ? forecast1 : (this.currentPage == 1 ? forecast2 : forecast3);
-        return switch (phase) {
-            case 0 -> Card.COMBAT_NIGHT;
-            case 1 -> Card.PROTECTION_NIGHT;
-            case 2 -> Card.EXPLORATION_NIGHT;
-            case 3 -> Card.MINING_NIGHT;
-            case 4 -> Card.GROWTH_NIGHT;
-            default -> null;
-        };
     }
 
     @Override
@@ -112,36 +100,10 @@ public class StarSignsScreen extends Screen {
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
-    public static void setForecast(int d1, int d2, int d3) {
+    public static void setForecast(ResourceLocation d1, ResourceLocation d2, ResourceLocation d3) {
         forecast1 = d1;
         forecast2 = d2;
         forecast3 = d3;
-    }
-
-    private enum Card {
-
-        COMBAT_NIGHT(0, 0, PAGE_W, PAGE_H),
-        PROTECTION_NIGHT(143, 0, PAGE_W, PAGE_H),
-        EXPLORATION_NIGHT(285, 0, PAGE_W, PAGE_H),
-        MINING_NIGHT(0, 189, PAGE_W, PAGE_H),
-        GROWTH_NIGHT(143, 189, PAGE_W, PAGE_H);
-
-        private final int u;
-        private final int v;
-        private final int width;
-        private final int height;
-
-        Card(int u, int v, int width, int height) {
-            this.u = u;
-            this.v = v;
-            this.width = width;
-            this.height = height;
-        }
-
-        public void blit(GuiGraphics gg, int dstX, int dstY) {
-            gg.blit(AURORIAN_EVENT, dstX, dstY, this.u, this.v, this.width, this.height, TEX_W, TEX_W);
-        }
-
     }
 
 } 

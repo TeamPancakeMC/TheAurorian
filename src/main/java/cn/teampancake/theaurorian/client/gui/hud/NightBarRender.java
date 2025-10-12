@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.client.gui.hud;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.event.subscriber.LevelEventSubscriber;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
@@ -16,17 +15,14 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 public class NightBarRender {
 
-    protected static final ResourceLocation NightRender = TheAurorian.prefix("textures/misc/bless_render.png");
-    public static int nightType;
-    public static final int TEXTURE_WIDTH = 135;
-    public static final int TEXTURE_HEIGHT = 128;
+    private static final ResourceLocation EMPTY = TheAurorian.prefix("textures/misc/bless/empty.png");
+    public static ResourceLocation nightType = EMPTY;
     public static final int BAR_WIDTH = 45;
     public static final int BAR_HEIGHT = 64;
 
     public static void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         RenderSystem.enableBlend();
         Minecraft minecraft = Minecraft.getInstance();
-        int offsetX, offsetY;
         LocalPlayer player = minecraft.player;
         if (player != null && !minecraft.options.hideGui) {
             long dayTime = (player.level().getDayTime() + 6000L) % 24000L;
@@ -34,22 +30,16 @@ public class NightBarRender {
                 GameRules gameRules = player.level().getGameRules();
                 if (dayTime == 6000 && gameRules.getBoolean(GameRules.RULE_DAYLIGHT)) {
                     String key = "commands.theaurorian.night_phase.changed";
-                    String name = LevelEventSubscriber.NightPhase.getDisplayName(nightType);
+                    String name = Component.translatable("night_phase.theaurorian." + nightType.getPath()).getString();
                     player.sendSystemMessage(Component.translatable(key, name));
                 }
 
                 if (dayTime > 6000 && dayTime <= 18000) {
-                    if (nightType <= 2) {
-                        offsetX = nightType * 45;
-                        offsetY = 0;
-                    } else {
-                        offsetX = (nightType - 3) * 45;
-                        offsetY = 64;
-                    }
-
-                    guiGraphics.blit(NightRender, 0, 0, offsetX, offsetY, BAR_WIDTH, BAR_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT);
+                    String path = String.format("textures/misc/bless/%s.png", nightType.getPath());
+                    ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(nightType.getNamespace(), path);
+                    guiGraphics.blit(texture, 0, 0, 0, 0, BAR_WIDTH, BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT);
                 } else {
-                    guiGraphics.blit(NightRender, 0, 0, 90, 64, BAR_WIDTH, BAR_HEIGHT, TEXTURE_WIDTH, TEXTURE_HEIGHT);
+                    guiGraphics.blit(EMPTY, 0, 0, 90, 64, BAR_WIDTH, BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT);
                 }
             }
         }

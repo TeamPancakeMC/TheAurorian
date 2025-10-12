@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.client.renderer.level;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.level.data.WorldSkyManager;
+import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorManager;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -98,7 +98,7 @@ public class TASkyRenderer {
 
     public static Vec3 getSkyColor(ClientLevel level, Vec3 pos) {
         float timeOfDay = level.dimensionType().timeOfDay(1000L);
-        int rgbColor = WorldSkyManager.getCurrentSkyColor(level);
+        int rgbColor = SkyColorManager.getCurrentSkyColor(level);
         Vec3 vec3 = pos.subtract(2.0D, 2.0D, 2.0D).scale(0.25D);
         Vec3 vec31 = CubicSampler.gaussianSampleVec3(vec3, (x, y, z) -> Vec3.fromRGB24(rgbColor));
         float f1 = Mth.cos(timeOfDay * ((float) Math.PI * 2F)) * 2.0F + 0.5F;

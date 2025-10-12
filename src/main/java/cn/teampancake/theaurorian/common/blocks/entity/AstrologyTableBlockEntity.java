@@ -1,13 +1,12 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
-import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.loading.FMLLoader;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
@@ -20,6 +19,7 @@ import javax.annotation.Nullable;
 
 public class AstrologyTableBlockEntity extends BlockEntity implements GeoBlockEntity {
 
+    private int forecastDays;
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     public AstrologyTableBlockEntity(BlockPos pos, BlockState blockState) {
@@ -27,9 +27,21 @@ public class AstrologyTableBlockEntity extends BlockEntity implements GeoBlockEn
     }
 
     @Override
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        this.forecastDays = tag.getInt("ForecastDays");
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putInt("ForecastDays", this.forecastDays);
+    }
+
+    @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "idle_controller", state -> {
-            if (!isNight(this.level) || isAuroraNight()) {
+            if (!isNight(this.level)) {
                 return PlayState.STOP;
             }
 
@@ -47,14 +59,6 @@ public class AstrologyTableBlockEntity extends BlockEntity implements GeoBlockEn
         if (level == null) return false;
         long dayTime = (level.getDayTime() + 6000L) % 24000L;
         return !(dayTime > 6000 && dayTime <= 18000);
-    }
-
-    private static boolean isAuroraNight() {
-        if (FMLLoader.getDist() != Dist.CLIENT) {
-            return false;
-        } else {
-            return NightBarRender.nightType == 2;
-        }
     }
 
 }

@@ -1,15 +1,15 @@
 package cn.teampancake.theaurorian.common.blocks;
 
-import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
 import cn.teampancake.theaurorian.common.blocks.entity.AstrologyTableBlockEntity;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.blocks.state.TALootType;
-import cn.teampancake.theaurorian.common.level.data.WorldSkyManager;
+import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorManager;
 import cn.teampancake.theaurorian.common.network.FutureNightS2CPacket;
 import cn.teampancake.theaurorian.common.network.ShowStarSignScreenS2CPacket;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -25,8 +25,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.loading.FMLLoader;
 
 import java.util.List;
 
@@ -52,15 +50,16 @@ public class AstrologyTable extends BaseEntityBlock {
 			}
 
 			if (level instanceof ServerLevel serverLevel) {
-				WorldSkyManager.SkyColorForecast forecast = WorldSkyManager.getSkyColorForecast(serverLevel);
-				List<WorldSkyManager.SkyColor> futureColors = forecast.futureColors;
+				SkyColorManager.SkyColorForecast forecast = SkyColorManager.getSkyColorForecast(serverLevel);
+				List<ResourceLocation> futureColors = forecast.futureColors;
 				PacketDistributor.sendToPlayer(serverPlayer,
 						new FutureNightS2CPacket(
-								futureColors.getFirst().id(),
-								futureColors.get(1).id(),
-								futureColors.get(2).id()),
+								futureColors.getFirst(),
+								futureColors.get(1),
+								futureColors.get(2)),
 						new ShowStarSignScreenS2CPacket());
 			}
+
 			return InteractionResult.SUCCESS;
 		}
 
@@ -79,7 +78,7 @@ public class AstrologyTable extends BaseEntityBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (!isNight(level) || isAuroraNight() || random.nextFloat() > 0.15F) return;
+		if (!isNight(level) || random.nextFloat() > 0.15F) return;
 		double cx = pos.getX() + 0.5D;
 		double cy = pos.getY() + 1.0D;
 		double cz = pos.getZ() + 0.5D;
@@ -110,14 +109,6 @@ public class AstrologyTable extends BaseEntityBlock {
 	private static boolean isNight(Level level) {
         long dayTime = (level.getDayTime() + 6000L) % 24000L;
 		return !(dayTime > 6000 && dayTime <= 18000);
-	}
-
-	private static boolean isAuroraNight() {
-		if (FMLLoader.getDist() != Dist.CLIENT) {
-			return false;
-		} else {
-            return NightBarRender.nightType == 2;
-        }
 	}
 
 }

@@ -71,12 +71,10 @@ public abstract class BaseWorldEvent<WC extends BaseEventConfig> {
         long dayTime = level.getDayTime() % 24000L;
         long totalDays = level.getDayTime() / 24000L;
         WorldEventData eventData = WorldEventManager.getWorldEventData(level);
-        Boolean isFirstActivation = eventData.isFirstActivation.get(eventId);
         Long lastActivationDay = eventData.lastActivationDays.get(eventId);
         Long remainingTick = eventData.remainingTicks.get(eventId);
         String evenState = eventData.eventStates.get(eventId);
-        if (isFirstActivation != null && lastActivationDay != null &&
-                remainingTick != null && evenState != null) {
+        if (lastActivationDay != null && remainingTick != null && evenState != null) {
             WC config = this.getConfig(level);
             int startTick = config.startTick();
             long duration = config.duration();
@@ -93,7 +91,6 @@ public abstract class BaseWorldEvent<WC extends BaseEventConfig> {
 
                 if (dayTime == startTick) {
                     if (hasPrecursor && !config.allowTimeSkipTrigger()) return;
-                    if (isFirstActivation) eventData.isFirstActivation.put(eventId, false);
                     eventData.lastActivationDays.put(eventId, totalDays);
                     eventData.remainingTicks.put(eventId, duration);
                     eventData.eventStates.put(eventId, EventState.ACTIVE.name);
@@ -105,7 +102,6 @@ public abstract class BaseWorldEvent<WC extends BaseEventConfig> {
 
             if (config.hasAftermath() && dayTime == (startTick + duration + config.aftermathOffset()) % 24000) {
                 if ((lastActivationDay == 0 && totalDays == 1) || (lastActivationDay - 1 == totalDays - intervalDays)) {
-                    if (isFirstActivation) eventData.isFirstActivation.put(eventId, false);
                     eventData.eventStates.put(eventId, EventState.AFTERMATH.name);
                     this.onAftermathStart(level);
                     WorldEventDataStorage.get(level).setDirty();

@@ -24,10 +24,6 @@ public class WorldEventManager {
         for (BaseWorldEvent<?> event : TAWorldEvents.REGISTRY) {
             ResourceLocation eventId = event.getEventId();
             if (eventId == null) continue;
-            if (eventData.isFirstActivation.isEmpty()) {
-                eventData.isFirstActivation.put(eventId, true);
-            }
-
             if (eventData.lastActivationDays.isEmpty()) {
                 eventData.lastActivationDays.put(eventId, -1L);
             }

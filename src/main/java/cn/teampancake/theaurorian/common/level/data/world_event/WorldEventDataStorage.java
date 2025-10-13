@@ -28,7 +28,6 @@ public class WorldEventDataStorage extends SavedData {
 
     @Override
     public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
-        tag.put("isFirstActivation", TASavedDataUtils.saveBooleanMap(this.eventData.isFirstActivation));
         tag.put("lastActivationDays", TASavedDataUtils.saveLongMap(this.eventData.lastActivationDays));
         tag.put("currentTicks", TASavedDataUtils.saveLongMap(this.eventData.currentTicks));
         tag.put("remainingTicks", TASavedDataUtils.saveLongMap(this.eventData.remainingTicks));
@@ -54,7 +53,6 @@ public class WorldEventDataStorage extends SavedData {
     public static WorldEventDataStorage load(CompoundTag tag, HolderLookup.Provider registries) {
         try {
             WorldEventData eventData = new WorldEventData();
-            TASavedDataUtils.loadBooleanMap(tag, "isFirstActivation", eventData.isFirstActivation);
             TASavedDataUtils.loadLongMap(tag, "lastActivationDays", eventData.lastActivationDays);
             TASavedDataUtils.loadLongMap(tag, "currentTicks", eventData.currentTicks);
             TASavedDataUtils.loadLongMap(tag, "remainingTicks", eventData.remainingTicks);

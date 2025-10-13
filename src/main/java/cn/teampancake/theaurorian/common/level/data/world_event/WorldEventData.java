@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class WorldEventData {
 
-    public final Map<ResourceLocation, Boolean> isFirstActivation = new ConcurrentHashMap<>();
     public final Map<ResourceLocation, Long> lastActivationDays = new ConcurrentHashMap<>();
     public final Map<ResourceLocation, Long> currentTicks = new ConcurrentHashMap<>();
     public final Map<ResourceLocation, Long> remainingTicks = new ConcurrentHashMap<>();

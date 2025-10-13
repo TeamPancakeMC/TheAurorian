@@ -14,11 +14,11 @@ import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import cn.teampancake.theaurorian.common.items.curio.CrimsonPactPendant;
 import cn.teampancake.theaurorian.common.level.TAServerPlayer;
-import cn.teampancake.theaurorian.common.level.data.event.WorldEventData;
-import cn.teampancake.theaurorian.common.level.data.event.WorldEventData.BloodMoonPlayerData;
-import cn.teampancake.theaurorian.common.level.data.event.WorldEventDataStorage;
-import cn.teampancake.theaurorian.common.level.data.event.WorldEventManager;
-import cn.teampancake.theaurorian.common.level.data.event.BloodMoonEvent;
+import cn.teampancake.theaurorian.common.level.data.world_event.WorldEventData;
+import cn.teampancake.theaurorian.common.level.data.world_event.BloodMoonPlayerData;
+import cn.teampancake.theaurorian.common.level.data.world_event.WorldEventDataStorage;
+import cn.teampancake.theaurorian.common.level.data.world_event.WorldEventManager;
+import cn.teampancake.theaurorian.common.level.data.world_event.BloodMoonEvent;
 import cn.teampancake.theaurorian.common.network.*;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
@@ -123,9 +123,8 @@ public class LivingEventSubscriber {
             }
         }
 
-        if (TACommonUtils.isAurorianDimension(level) && mob instanceof Enemy
-                && TAWorldEvents.BLOOD_MOON.get().shouldBeActive(level)
-                && !(mob instanceof AbstractAurorianBoss)) {
+        if (level instanceof ServerLevel serverLevel && TAWorldEvents.BLOOD_MOON.get().isActive(serverLevel) &&
+                TACommonUtils.isAurorianDimension(level) && mob instanceof Enemy && !(mob instanceof AbstractAurorianBoss)) {
             var entrySet = BloodMoonEvent.getEnhanceMultiplier().entrySet();
             AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_MULTIPLIED_BASE;
             for (Map.Entry<Holder<Attribute>, Pair<ResourceLocation, Double>> entry : entrySet) {
@@ -455,17 +454,15 @@ public class LivingEventSubscriber {
                 }
             }
 
-            if (TAWorldEvents.BLOOD_MOON.get().shouldBeActive(level)) {
+            if (level instanceof ServerLevel serverLevel && TAWorldEvents.BLOOD_MOON.get().isActive(serverLevel)) {
                 AttachmentType<Integer> type = TAAttachmentTypes.KILL_COUNT_IN_BLOOD_MOON.get();
                 player.setData(type, player.getData(type) + 1);
-                if (level instanceof ServerLevel serverLevel) {
-                    WorldEventData eventData = WorldEventManager.getWorldEventData(serverLevel);
-                    Map<UUID, BloodMoonPlayerData> playerDataMap = eventData.bloodMoonPlayerData;
-                    BloodMoonPlayerData playerData = new WorldEventData.BloodMoonPlayerData();
-                    playerData.kills = player.getData(type);
-                    playerDataMap.put(player.getUUID(), playerData);
-                    WorldEventDataStorage.get(serverLevel).setDirty();
-                }
+                WorldEventData eventData = WorldEventManager.getWorldEventData(serverLevel);
+                Map<UUID, BloodMoonPlayerData> playerDataMap = eventData.bloodMoonPlayerData;
+                BloodMoonPlayerData playerData = new BloodMoonPlayerData();
+                playerData.kills = player.getData(type);
+                playerDataMap.put(player.getUUID(), playerData);
+                WorldEventDataStorage.get(serverLevel).setDirty();
             }
         }
     }

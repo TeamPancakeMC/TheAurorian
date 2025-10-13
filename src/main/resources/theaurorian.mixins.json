@@ -12,7 +12,8 @@
         "MixinPlayer",
         "MixinPlayerList",
         "MixinServerLevel",
-        "MixinServerPlayer"
+        "MixinServerPlayer",
+        "MixinTimeCommand"
     ],
     "client": [
         "MixinClientPacketListener",

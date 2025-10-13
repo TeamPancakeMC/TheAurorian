@@ -1,7 +1,6 @@
-package cn.teampancake.theaurorian.common.level.data.event;
+package cn.teampancake.theaurorian.common.level.data.world_event;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.level.data.event.WorldEventData.BloodMoonPlayerData;
 import cn.teampancake.theaurorian.common.network.WorldNightColorS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TAEventConfigurations;
@@ -55,17 +54,19 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
     }
 
     @Override
-    public void executeOmen(ServerLevel level) {
-        level.getServer().playerList.broadcastSystemMessage(Component.literal("血月即将来临！").withStyle(ChatFormatting.DARK_RED), Boolean.FALSE);
-        level.setData(TAAttachmentTypes.NIGHT_SKY_COLOR, 0x8a0303);
+    public void onPrecursorStart(ServerLevel level) {
+        MutableComponent component = Component.literal(String.format("血月即将来临，当前时间：%d", level.getDayTime()));
+        level.getServer().playerList.broadcastSystemMessage(component.withStyle(ChatFormatting.RED), Boolean.FALSE);
+        level.setData(TAAttachmentTypes.NIGHT_SKY_COLOR, 0x4b0101);
         for (ServerPlayer player : level.players()) {
             PacketDistributor.sendToPlayer(player, new WorldNightColorS2CPacket(0x8a0303));
         }
     }
 
     @Override
-    public void executeAftermath(ServerLevel level) {
-        level.getServer().playerList.broadcastSystemMessage(Component.literal("血月已经完全消散！").withStyle(ChatFormatting.BLUE), Boolean.FALSE);
+    public void onAftermathStart(ServerLevel level) {
+        MutableComponent component = Component.literal(String.format("血月已经完全消散，当前时间：%d", level.getDayTime()));
+        level.getServer().playerList.broadcastSystemMessage(component.withStyle(ChatFormatting.BLUE), Boolean.FALSE);
         level.setData(TAAttachmentTypes.NIGHT_SKY_COLOR, 0x010e34);
         for (ServerPlayer player : level.players()) {
             PacketDistributor.sendToPlayer(player, new WorldNightColorS2CPacket(0x010e34));
@@ -122,8 +123,8 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
     }
 
     @Override
-    public void onEventTick(ServerLevel level, long currentTime, float progress) {
-        this.bloodMoonEvent.setProgress(1.0F - progress);
+    public void onEventTick(ServerLevel level, long currentTick) {
+        this.bloodMoonEvent.setProgress(this.getProgress(level));
         for (ServerPlayer player : level.players()) {
             MutableComponent component = Component.translatable(BLOOD_MOON_KILL_COUNT, player.getData(KILL_COUNT));
             this.bloodMoonEvent.setName(BLOOD_MOON_NAME_COMPONENT.copy()

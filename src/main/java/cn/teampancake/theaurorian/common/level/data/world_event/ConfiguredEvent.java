@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.level.data.event;
+package cn.teampancake.theaurorian.common.level.data.world_event;
 
 import cn.teampancake.theaurorian.common.registry.TAWorldEvents;
 import com.mojang.serialization.Codec;

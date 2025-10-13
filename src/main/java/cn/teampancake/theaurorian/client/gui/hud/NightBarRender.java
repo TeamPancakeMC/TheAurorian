@@ -28,7 +28,7 @@ public class NightBarRender {
             long dayTime = (player.level().getDayTime() + 6000L) % 24000L;
             if (TACommonUtils.isAurorianDimension(player.level())) {
                 GameRules gameRules = player.level().getGameRules();
-                if (dayTime == 6000 && gameRules.getBoolean(GameRules.RULE_DAYLIGHT)) {
+                if (dayTime == 6000 && gameRules.getBoolean(GameRules.RULE_DAYLIGHT) && nightType != EMPTY) {
                     String key = "commands.theaurorian.night_phase.changed";
                     String name = Component.translatable("night_phase.theaurorian." + nightType.getPath()).getString();
                     player.sendSystemMessage(Component.translatable(key, name));

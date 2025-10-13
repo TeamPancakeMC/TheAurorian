@@ -7,7 +7,7 @@ import cn.teampancake.theaurorian.client.gui.hud.ProgressBarRenderer;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
-import cn.teampancake.theaurorian.common.level.data.event.ConfiguredEvent;
+import cn.teampancake.theaurorian.common.level.data.world_event.ConfiguredEvent;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.compat.mui.ModernUICompatibility;
 import cn.teampancake.theaurorian.compat.thirst.ThirstWasTakenCompatibility;
@@ -57,6 +57,7 @@ public class TheAurorian {
         TAArmorMaterials.ARMOR_MATERIALS.register(modEventBus);
         TAItemTooltips.ITEM_TOOLTIPS.register(modEventBus);
         TAWorldEvents.WORLD_EVENTS.register(modEventBus);
+        TASkyColors.SKY_COLORS.register(modEventBus);
         TAAttributes.ATTRIBUTES.register(modEventBus);
         TAFluidTypes.FLUID_TYPES.register(modEventBus);
         TAEntityTypes.ENTITY_TYPES.register(modEventBus);
@@ -106,8 +107,9 @@ public class TheAurorian {
 
     public void createNewRegistries(NewRegistryEvent event) {
         event.register(TAItemTooltips.REGISTRY);
-        event.register(TAWorldEvents.REGISTRY);
         event.register(TABiomeLayers.REGISTRY);
+        event.register(TAWorldEvents.REGISTRY);
+        event.register(TASkyColors.REGISTRY);
         event.register(TARunes.REGISTRY);
     }
 

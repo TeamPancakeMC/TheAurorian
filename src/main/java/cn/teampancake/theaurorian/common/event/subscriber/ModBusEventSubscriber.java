@@ -75,7 +75,7 @@ public class ModBusEventSubscriber {
         registrar.playToClient(SylvanisProgressS2CPacket.TYPE, SylvanisProgressS2CPacket.STREAM_CODEC, SylvanisProgressS2CPacket::handle);
         registrar.playToClient(PlayerLostInForestS2CPacket.TYPE, PlayerLostInForestS2CPacket.STREAM_CODEC, PlayerLostInForestS2CPacket::handle);
         registrar.playToClient(PlayAurorianMusicS2CPacket.TYPE, PlayAurorianMusicS2CPacket.STREAM_CODEC, PlayAurorianMusicS2CPacket::handle);
-        registrar.playToClient(WorldDayColorS2CPacket.TYPE, WorldDayColorS2CPacket.STREAM_CODEC, WorldDayColorS2CPacket::handle);
+        registrar.playToClient(SkyColorS2CPacket.TYPE, SkyColorS2CPacket.STREAM_CODEC, SkyColorS2CPacket::handle);
         registrar.playToClient(WorldNightColorS2CPacket.TYPE, WorldNightColorS2CPacket.STREAM_CODEC, WorldNightColorS2CPacket::handle);
         registrar.playToServer(NoteTeleportC2SPacket.TYPE, NoteTeleportC2SPacket.STREAM_CODEC, NoteTeleportC2SPacket::handle);
     }

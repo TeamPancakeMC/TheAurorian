@@ -1,9 +1,9 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.level.data.event.BaseWorldEvent;
-import cn.teampancake.theaurorian.common.level.data.event.BloodMoonEvent;
-import cn.teampancake.theaurorian.common.level.data.event.BaseEventConfig;
+import cn.teampancake.theaurorian.common.level.data.world_event.BaseWorldEvent;
+import cn.teampancake.theaurorian.common.level.data.world_event.BloodMoonEvent;
+import cn.teampancake.theaurorian.common.level.data.world_event.BaseEventConfig;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.neoforge.registries.DeferredHolder;

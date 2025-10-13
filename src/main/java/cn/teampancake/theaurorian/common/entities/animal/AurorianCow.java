@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
+import cn.teampancake.theaurorian.common.level.data.world_event.BloodMoonEvent;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.server.level.ServerLevel;
@@ -26,7 +27,7 @@ public class AurorianCow extends Cow {
         AttributeSupplier.Builder builder = Mob.createMobAttributes();
         builder.add(Attributes.MAX_HEALTH, 40.0D);
         builder.add(Attributes.MOVEMENT_SPEED, 0.25D);
-        builder.add(Attributes.ATTACK_DAMAGE);
+        builder.add(Attributes.ATTACK_DAMAGE, 2.0F);
         return builder;
     }
 
@@ -43,7 +44,6 @@ public class AurorianCow extends Cow {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.25,
                 Ingredient.of(TAItems.LAVENDER.get()), false));
@@ -51,6 +51,7 @@ public class AurorianCow extends Cow {
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        BloodMoonEvent.checkIfCanEnhance(this);
     }
 
 }

@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.network.WorldNightColorS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TAEventConfigurations;
+import cn.teampancake.theaurorian.common.registry.TAWorldEvents;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -16,10 +17,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -55,22 +62,14 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
 
     @Override
     public void onPrecursorStart(ServerLevel level) {
-        MutableComponent component = Component.literal(String.format("血月即将来临，当前时间：%d", level.getDayTime()));
-        level.getServer().playerList.broadcastSystemMessage(component.withStyle(ChatFormatting.RED), Boolean.FALSE);
-        level.setData(TAAttachmentTypes.NIGHT_SKY_COLOR, 0x4b0101);
-        for (ServerPlayer player : level.players()) {
-            PacketDistributor.sendToPlayer(player, new WorldNightColorS2CPacket(0x8a0303));
-        }
+        level.setData(TAAttachmentTypes.NIGHT_SKY_COLOR, 0x660000);
+        level.players().forEach(player -> PacketDistributor.sendToPlayer(player, new WorldNightColorS2CPacket(0x660000)));
     }
 
     @Override
     public void onAftermathStart(ServerLevel level) {
-        MutableComponent component = Component.literal(String.format("血月已经完全消散，当前时间：%d", level.getDayTime()));
-        level.getServer().playerList.broadcastSystemMessage(component.withStyle(ChatFormatting.BLUE), Boolean.FALSE);
         level.setData(TAAttachmentTypes.NIGHT_SKY_COLOR, 0x010e34);
-        for (ServerPlayer player : level.players()) {
-            PacketDistributor.sendToPlayer(player, new WorldNightColorS2CPacket(0x010e34));
-        }
+        level.players().forEach(player -> PacketDistributor.sendToPlayer(player, new WorldNightColorS2CPacket(0x010e34)));
     }
 
     @Override
@@ -130,6 +129,16 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
             this.bloodMoonEvent.setName(BLOOD_MOON_NAME_COMPONENT.copy()
                     .append(Component.literal(" - ").withStyle(ChatFormatting.BOLD))
                     .append(component.withStyle(ChatFormatting.BOLD)));
+        }
+    }
+
+    public static void checkIfCanEnhance(PathfinderMob mob) {
+        if (mob.level() instanceof ServerLevel serverLevel && TAWorldEvents.BLOOD_MOON.get().isActive(serverLevel)) {
+            mob.goalSelector.addGoal(1, new MeleeAttackGoal(mob, 1.0F, Boolean.FALSE));
+            mob.targetSelector.addGoal(1, new HurtByTargetGoal(mob));
+            mob.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(mob, Player.class, true));
+        } else {
+            mob.goalSelector.addGoal(1, new PanicGoal(mob, 2.0D));
         }
     }
 

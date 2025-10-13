@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
+import cn.teampancake.theaurorian.common.level.data.world_event.BloodMoonEvent;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -32,7 +33,7 @@ public class AurorianSheep extends Sheep {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Sheep.createAttributes().add(Attributes.ATTACK_DAMAGE);
+        return Sheep.createAttributes().add(Attributes.ATTACK_DAMAGE, 1.0F);
     }
 
     @Nullable @Override
@@ -44,7 +45,6 @@ public class AurorianSheep extends Sheep {
     protected void registerGoals() {
         this.eatBlockGoal = new EatAurorianBlockGoal(this);
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D,
                 Ingredient.of(TAItems.LAVENDER.get()), false));
@@ -53,6 +53,7 @@ public class AurorianSheep extends Sheep {
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        BloodMoonEvent.checkIfCanEnhance(this);
     }
 
     protected void customServerAiStep() {

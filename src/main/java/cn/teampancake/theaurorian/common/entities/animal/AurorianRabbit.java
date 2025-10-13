@@ -1,14 +1,20 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
+import cn.teampancake.theaurorian.common.registry.TAWorldEvents;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.Monster;
@@ -17,10 +23,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 public class AurorianRabbit extends Rabbit {
+
+    private static final ResourceLocation BLOOD_MOON_ATTACK_POWER_MODIFIER = TheAurorian.prefix("blood_moon_rabbit");
 
     public AurorianRabbit(EntityType<? extends AurorianRabbit> type, Level level) {
         super(type, level);
@@ -49,12 +58,27 @@ public class AurorianRabbit extends Rabbit {
         this.goalSelector.addGoal(2, new BreedGoal(this, 0.8));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0,
                 Ingredient.of(Items.CARROT, Items.GOLDEN_CARROT, Blocks.DANDELION), false));
+        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.4F, Boolean.FALSE));
         this.goalSelector.addGoal(4, new RabbitAvoidEntityGoal<>(this, Player.class, 8.0F));
         this.goalSelector.addGoal(4, new RabbitAvoidEntityGoal<>(this, Wolf.class, 10.0F));
         this.goalSelector.addGoal(4, new RabbitAvoidEntityGoal<>(this, BlueTailWolf.class, 10.0F));
         this.goalSelector.addGoal(4, new RabbitAvoidEntityGoal<>(this, Monster.class, 4.0F));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.6));
         this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 10.0F));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Wolf.class, true));
+    }
+
+    @Override
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        AttributeInstance instance = this.getAttribute(Attributes.ATTACK_DAMAGE);
+        if (TAWorldEvents.BLOOD_MOON.get().isActive(level.getLevel()) && instance != null) {
+            AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_VALUE;
+            instance.addOrUpdateTransientModifier(new AttributeModifier(BLOOD_MOON_ATTACK_POWER_MODIFIER, 1.0, operation));
+        }
+
+        return spawnGroupData;
     }
 
     static class RabbitPanicGoal extends PanicGoal {

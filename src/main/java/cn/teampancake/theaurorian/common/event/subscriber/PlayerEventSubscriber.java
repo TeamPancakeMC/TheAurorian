@@ -7,6 +7,7 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorManager;
 import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorData;
+import cn.teampancake.theaurorian.common.network.WorldNightColorS2CPacket;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
@@ -14,6 +15,7 @@ import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
 import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.server.MinecraftServer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -106,15 +108,23 @@ public class PlayerEventSubscriber {
 
     @SubscribeEvent
     public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        AttachmentType<Integer> type = TAAttachmentTypes.TELEPORT_TO_AURORIAN_COUNT.get();
-        if (event.getTo().location().getNamespace().equals(TheAurorian.MOD_ID)) {
-            Player player = event.getEntity();
-            int count = player.getData(type);
-            player.setData(type, count + 1);
-            if (player instanceof ServerPlayer serverPlayer) {
-                SkyColorData skyData = SkyColorManager.getWorldSkyData(serverPlayer.level());
-                PacketDistributor.sendToPlayer(serverPlayer, new NightTypeS2CPacket(skyData.currentDayColor));
-                SkyColorManager.syncSkyColorToPlayer(serverPlayer, skyData);
+        if (event.getEntity() instanceof ServerPlayer player) {
+            MinecraftServer server = player.getServer();
+            if (server != null) {
+                ServerLevel fromLevel = server.getLevel(event.getFrom());
+                ServerLevel toLevel = server.getLevel(event.getTo());
+                if (fromLevel != null && toLevel != null) {
+                    AttachmentType<Integer> type = TAAttachmentTypes.TELEPORT_TO_AURORIAN_COUNT.get();
+                    AttachmentType<Integer> nscType = TAAttachmentTypes.NIGHT_SKY_COLOR.get();
+                    if (TACommonUtils.isAurorianDimension(toLevel)) {
+                        SkyColorData skyData = SkyColorManager.getWorldSkyData(fromLevel);
+                        SkyColorManager.syncSkyColorToPlayer(player, skyData);
+                        player.setData(type, player.getData(type) + 1);
+                        toLevel.setData(nscType, fromLevel.getData(nscType));
+                        PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(skyData.currentDayColor));
+                        PacketDistributor.sendToPlayer(player, new WorldNightColorS2CPacket(fromLevel.getData(nscType)));
+                    }
+                }
             }
         }
     }

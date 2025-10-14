@@ -28,7 +28,8 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TIME_UNTIL_PLAYER_CAN_PICKUP = registerInteger("time_until_player_can_pickup");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> UNINTERRUPTED_HURT_BY_MOON_QUEEN_COUNT = registerInteger("uninterrupted_hurt_by_moon_queen_count");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> NIGHT_SKY_COLOR =
-            ATTACHMENT_TYPES.register("night_sky_color", () -> AttachmentType.builder(() -> 0x010e34).serialize(Codec.INT).copyOnDeath().build());
+            ATTACHMENT_TYPES.register("night_sky_color", () -> AttachmentType.builder(() -> 0x010e34)
+                    .serialize(Codec.INT).sync(ByteBufCodecs.INT).copyOnDeath().build());
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> TELEPORT_TO_AURORIAN_COUNT =
             ATTACHMENT_TYPES.register("teleport_to_aurorian_count", () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).copyOnDeath().build());
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> KILL_COUNT_IN_BLOOD_MOON =

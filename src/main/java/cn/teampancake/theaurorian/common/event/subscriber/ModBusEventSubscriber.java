@@ -55,6 +55,7 @@ public class ModBusEventSubscriber {
     @SubscribeEvent
     public static void registerNetworks(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar registrar = event.registrar("1");
+        registrar.playToClient(SkyColorS2CPacket.TYPE, SkyColorS2CPacket.STREAM_CODEC, SkyColorS2CPacket::handle);
         registrar.playToClient(NightTypeS2CPacket.TYPE, NightTypeS2CPacket.STREAM_CODEC, NightTypeS2CPacket::handle);
         registrar.playToClient(FrostbiteS2CPacket.TYPE, FrostbiteS2CPacket.STREAM_CODEC, FrostbiteS2CPacket::handle);
         registrar.playToClient(FutureNightS2CPacket.TYPE, FutureNightS2CPacket.STREAM_CODEC, FutureNightS2CPacket::handle);
@@ -75,7 +76,6 @@ public class ModBusEventSubscriber {
         registrar.playToClient(SylvanisProgressS2CPacket.TYPE, SylvanisProgressS2CPacket.STREAM_CODEC, SylvanisProgressS2CPacket::handle);
         registrar.playToClient(PlayerLostInForestS2CPacket.TYPE, PlayerLostInForestS2CPacket.STREAM_CODEC, PlayerLostInForestS2CPacket::handle);
         registrar.playToClient(PlayAurorianMusicS2CPacket.TYPE, PlayAurorianMusicS2CPacket.STREAM_CODEC, PlayAurorianMusicS2CPacket::handle);
-        registrar.playToClient(SkyColorS2CPacket.TYPE, SkyColorS2CPacket.STREAM_CODEC, SkyColorS2CPacket::handle);
         registrar.playToClient(WorldNightColorS2CPacket.TYPE, WorldNightColorS2CPacket.STREAM_CODEC, WorldNightColorS2CPacket::handle);
         registrar.playToServer(NoteTeleportC2SPacket.TYPE, NoteTeleportC2SPacket.STREAM_CODEC, NoteTeleportC2SPacket::handle);
     }

@@ -1,9 +1,6 @@
 package cn.teampancake.theaurorian;
 
-import cn.teampancake.theaurorian.client.gui.hud.ActivationAnimationRender;
-import cn.teampancake.theaurorian.client.gui.hud.FrostbiteOutlineRender;
-import cn.teampancake.theaurorian.client.gui.hud.NightBarRender;
-import cn.teampancake.theaurorian.client.gui.hud.ProgressBarRenderer;
+import cn.teampancake.theaurorian.client.gui.hud.*;
 import cn.teampancake.theaurorian.common.config.AurorianConfig;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
@@ -41,7 +38,6 @@ public class TheAurorian {
     public TheAurorian(IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.COMMON, AurorianConfig.SPEC, FILENAME);
         TACreativeModeTabs.TABS.register(modEventBus);
-        TARunes.RUNES.register(modEventBus);
         TAItems.ITEMS.register(modEventBus);
         TABlocks.BLOCKS.register(modEventBus);
         TAFluids.FLUIDS.register(modEventBus);
@@ -58,6 +54,8 @@ public class TheAurorian {
         TAItemTooltips.ITEM_TOOLTIPS.register(modEventBus);
         TAWorldEvents.WORLD_EVENTS.register(modEventBus);
         TASkyColors.SKY_COLORS.register(modEventBus);
+        TAShields.SHIELDS.register(modEventBus);
+        TARunes.RUNES.register(modEventBus);
         TAAttributes.ATTRIBUTES.register(modEventBus);
         TAFluidTypes.FLUID_TYPES.register(modEventBus);
         TAEntityTypes.ENTITY_TYPES.register(modEventBus);
@@ -92,9 +90,8 @@ public class TheAurorian {
         }
 
         if (FMLEnvironment.dist.isClient()) {
-            //TODO: 护盾系统未添加，暂时没有对应的HUD
             modEventBus.addListener(NightBarRender::registerNightOverlay);
-//            modEventBus.addListener(ShieldHudRenderer::registerShieldOverlay);
+            modEventBus.addListener(ShieldHudRenderer::registerShieldOverlay);
             modEventBus.addListener(ProgressBarRenderer::registerProgressBarOverlay);
             modEventBus.addListener(FrostbiteOutlineRender::registerFrostbiteOverlay);
             modEventBus.addListener(ActivationAnimationRender::registerAnimationOverlay);
@@ -110,6 +107,7 @@ public class TheAurorian {
         event.register(TABiomeLayers.REGISTRY);
         event.register(TAWorldEvents.REGISTRY);
         event.register(TASkyColors.REGISTRY);
+        event.register(TAShields.REGISTRY);
         event.register(TARunes.REGISTRY);
     }
 

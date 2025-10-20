@@ -27,6 +27,10 @@ import java.util.List;
 public class TADataComponents {
 
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPE = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, TheAurorian.MOD_ID);
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> SHIELD = DATA_COMPONENT_TYPE.register("shield",
+            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> MAX_SHIELD = DATA_COMPONENT_TYPE.register("max_shield",
+            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> KILL_COUNT = DATA_COMPONENT_TYPE.register("kill_count",
             () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemEnchantments>> FORBIDDEN_CURSE = DATA_COMPONENT_TYPE.register("forbidden_curse",

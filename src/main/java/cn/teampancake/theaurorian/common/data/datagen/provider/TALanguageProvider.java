@@ -774,6 +774,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAMobEffects.CRYSTALLIZATION, "晶化");
         this.addKey(TAMobEffects.FORBIDDEN_CURSE, "禁咒");
         this.addKey(TAMobEffects.MOON_OF_VENGEANCE, "仇月");
+        this.addKey(TAMobEffects.TEMP_SHIELD, "临时护盾");
 
         //MOD ENCHANTMENT
         this.addKey(TAEnchantments.IMPALE, "刺穿");

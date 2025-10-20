@@ -49,6 +49,7 @@ public class TAMobEffects {
     public static final DeferredHolder<MobEffect, MobEffect> FROSTBITE = MOB_EFFECTS.register("frostbite", FrostbiteEffect::new);
     public static final DeferredHolder<MobEffect, MobEffect> LACERATION = MOB_EFFECTS.register("laceration", LacerationEffect::new);
     public static final DeferredHolder<MobEffect, MobEffect> CORRUPTION = MOB_EFFECTS.register("corruption", CorruptionEffect::new);
+    public static final DeferredHolder<MobEffect, MobEffect> TEMP_SHIELD = MOB_EFFECTS.register("temp_shield", TempShieldEffect::new);
     public static final DeferredHolder<MobEffect, MobEffect> INCANTATION = MOB_EFFECTS.register("incantation", IncantationEffect::new);
     public static final DeferredHolder<MobEffect, MobEffect> VULNERABILITY = MOB_EFFECTS.register("vulnerability", VulnerabilityEffect::new);
     public static final DeferredHolder<MobEffect, MobEffect> FORBIDDEN_CURSE = MOB_EFFECTS.register("forbidden_curse", ForbiddenCurseEffect::new);

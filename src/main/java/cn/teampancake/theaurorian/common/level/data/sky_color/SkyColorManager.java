@@ -2,10 +2,10 @@ package cn.teampancake.theaurorian.common.level.data.sky_color;
 
 import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
 import cn.teampancake.theaurorian.common.network.SkyColorS2CPacket;
-import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
-import cn.teampancake.theaurorian.common.registry.TAGameRules;
-import cn.teampancake.theaurorian.common.registry.TAMobEffects;
-import cn.teampancake.theaurorian.common.registry.TASkyColors;
+import cn.teampancake.theaurorian.common.registry.*;
+import cn.teampancake.theaurorian.common.shields.ShieldStack;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -25,6 +25,7 @@ public class SkyColorManager {
     private static final AttachmentType<Boolean> REMOVE_BLESS = TAAttachmentTypes.REMOVE_BLESS_UNTIL_NEXT_BLOOD_MOON.get();
     private static final AttachmentType<Boolean> IMMUNE_PRESSURE_TEMP = TAAttachmentTypes.IMMUNE_PRESSURE_UNTIL_NEXT_BLOOD_MOON.get();
     private static final AttachmentType<Boolean> IMMUNE_PRESSURE_PERSISTENT = TAAttachmentTypes.IMMUNE_PRESSURE_BY_KILL_MOON_QUEEN.get();
+    private static final AttachmentType<ShieldStack> CURRENT_SHIELD = TAAttachmentTypes.CURRENT_SHIELD.get();
     private static final List<ResourceLocation> SKY_COLORS = TASkyColors.REGISTRY.keySet().stream().toList();
 
     public static class SkyColorForecast {
@@ -46,14 +47,13 @@ public class SkyColorManager {
     }
 
     public static SkyColorData getWorldSkyData(Level level) {
-        if (level.isClientSide()) {
+        if (level.isClientSide() || level instanceof ClientLevel) {
             return getClientWorldSkyData(level);
         } else if (level instanceof ServerLevel serverLevel) {
-            SkyColorDataStorage storage = SkyColorDataStorage.get(serverLevel);
-            return storage.getSkyData();
+            return SkyColorDataStorage.get(serverLevel).getSkyData();
+        } else {
+            return new SkyColorData(getAvailableSkyColors().getFirst(), 3);
         }
-
-        return new SkyColorData(getAvailableSkyColors().getFirst(), 3);
     }
 
     public static SkyColorForecast getSkyColorForecast(Level level) {
@@ -120,17 +120,28 @@ public class SkyColorManager {
     }
 
     private static void onSkyColorChanged(ServerLevel level, ResourceLocation newColor) {
+        GameRules.Key<GameRules.BooleanValue> aurorianBless = TAGameRules.RULE_ENABLE_AURORIAN_BLESS;
+        boolean enableAurorianBless = level.getGameRules().getBoolean(aurorianBless);
+        MobEffectInstance instance = new MobEffectInstance(TAMobEffects.PRESSURE);
+        instance.duration = 320;
+        instance.visible = false;
         long dayTime = level.getDayTime() % 24000;
-        if (dayTime % 200 == 0) {
-            GameRules.Key<GameRules.BooleanValue> aurorianBless = TAGameRules.RULE_ENABLE_AURORIAN_BLESS;
-            boolean enableAurorianBless = level.getGameRules().getBoolean(aurorianBless);
-            MobEffectInstance instance = new MobEffectInstance(TAMobEffects.PRESSURE);
-            instance.duration = 320;
-            instance.visible = false;
-            for (ServerPlayer player : level.players()) {
-                if (dayTime > 0 && dayTime <= 12000 && enableAurorianBless && !player.getData(REMOVE_BLESS)) {
-                    TASkyColors.REGISTRY.getHolder(newColor).ifPresent(reference -> reference.value().effect().accept(player));
-                } else if (dayTime > 12000 && (!player.getData(IMMUNE_PRESSURE_PERSISTENT) || !player.getData(IMMUNE_PRESSURE_TEMP))) {
+        for (ServerPlayer player : level.players()) {
+            if (dayTime > 0 && dayTime <= 12000) {
+                if (player.getData(CURRENT_SHIELD) != ShieldStack.EMPTY) {
+                    player.setData(CURRENT_SHIELD, ShieldStack.EMPTY);
+                }
+
+                if (dayTime % 200 == 0 && enableAurorianBless && !player.getData(REMOVE_BLESS)) {
+                    Optional<Holder.Reference<BaseSkyColor>> holder = TASkyColors.REGISTRY.getHolder(newColor);
+                    holder.ifPresent(reference -> reference.value().effect().accept(player));
+                }
+            } else if (dayTime > 12000) {
+                if (player.getData(CURRENT_SHIELD) == ShieldStack.EMPTY) {
+                    player.setData(CURRENT_SHIELD, new ShieldStack(TAShields.COMMON));
+                }
+
+                if (dayTime % 200 == 0 && !player.getData(IMMUNE_PRESSURE_PERSISTENT) && !player.getData(IMMUNE_PRESSURE_TEMP)) {
                     player.addEffect(instance);
                 }
             }

@@ -1,37 +1,30 @@
 package cn.teampancake.theaurorian.common.shields;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.api.IShield;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 
-public class AurorianShield extends CommonShield {
+public class AurorianShield extends BaseShield {
 
-    public AurorianShield(int priority,float shield, float maxShield,int color) {
-        super(priority, shield, maxShield, color);
-        this.rate = 0.25f;
-    }
-
-    @Override
-    public IShield copy() {
-        return new AurorianShield(this.getPriority(), this.getShield(), this.getMaxShield(), this.getColor());
+    public AurorianShield(Properties properties) {
+        super(properties);
     }
 
     @Override
     public float naturalRecovery(LivingEntity entity) {
-        return 0.5f;
+        return 0.5F;
     }
 
     @Override
     public float applyDamageModifiers(LivingEntity entity, DamageSource source, float damage) {
         ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
         if (key.getNamespace().equals(TheAurorian.MOD_ID)) {
-            return damage * (1 - this.rate);
+            return damage * (1.0F - this.rate);
+        } else {
+            return damage;
         }
-
-        return damage;
     }
 
 }

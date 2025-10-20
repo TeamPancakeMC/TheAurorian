@@ -1,139 +1,116 @@
 package cn.teampancake.theaurorian.common.shields;
 
-import cn.teampancake.theaurorian.api.IShield;
+import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
 import cn.teampancake.theaurorian.common.registry.TAShields;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import cn.teampancake.theaurorian.common.utils.TAByteBufCodecs;
+import com.google.common.collect.Interner;
+import com.google.common.collect.Interners;
+import com.mojang.serialization.Codec;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.neoforged.neoforge.attachment.AttachmentHolder;
 
-public abstract class BaseShield implements IShield {
+import java.util.List;
 
-    private final int priority;
-    private final MaxShieldData maxShieldData;
-    private float shield;
-    private final int color;
-    public float rate = 0.0f;
+public class BaseShield extends AttachmentHolder {
 
-    public BaseShield(int priority, float shield, float maxShield, int color) {
-        this.priority = priority;
-        this.shield = shield;
-        this.maxShieldData = new MaxShieldData(this, maxShield);
-        this.color = color;
+    private static final List<TagKey<DamageType>> DAMAGE_TYPES = List.of(DamageTypeTags.IS_FIRE, DamageTypeTags.IS_PROJECTILE,
+            DamageTypeTags.IS_EXPLOSION, DamageTypeTags.IS_FIRE, DamageTypeTags.WITCH_RESISTANT_TO);
+    public static final Codec<Holder<BaseShield>> CODEC = TAShields.REGISTRY.holderByNameCodec();
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<BaseShield>> STREAM_CODEC =
+            TAByteBufCodecs.registry(TAShields.KEY, Registry::asHolderIdMap);
+    private final DataComponentMap components;
+    public int priority;
+    public float rate;
+    public int color;
+
+    public BaseShield(Properties properties) {
+        this.components = Properties.COMPONENT_INTERNER.intern(properties.components.build());
+        this.priority = properties.priority;
+        this.rate = properties.rate;
+        this.color = properties.color;
     }
 
-    @Override
-    public ResourceLocation getRegistryName() {
-        return TAShields.getKey(this);
+    public DataComponentMap components() {
+        return this.components;
     }
 
-    @Override
-    public int getPriority() {
-        return priority;
-    }
-
-    @Override
-    public float getShield() {
-        return shield;
-    }
-
-    @Override
-    public int getColor() {
-        return color;
-    }
-
-    @Override
-    public void consumeShield(float shield) {
-        this.shield = Math.max(this.shield - shield, 0);
-    }
-
-    @Override
-    public void increaseShield(float shield) {
-        this.shield = Math.min(this.shield + shield, this.maxShieldData.getMaxShield());
-    }
-
-    public float getRate() {
-        return rate;
-    }
-
-    public void setRate(float rate) {
-        this.rate = rate;
-    }
-
-    @Override
-    public void increaseMaxShield(float maxShield) {
-        this.maxShieldData.increaseMaxShield(maxShield);
-    }
-
-    @Override
-    public void consumeMaxShield(float maxShield) {
-        this.maxShieldData.consumeMaxShield(maxShield);
-    }
-
-    @Override
-    public float getMaxShield() {
-        return this.maxShieldData.getMaxShield();
-    }
-
-    @Override
-    public MaxShieldData getMaxShieldData() {
-        return maxShieldData;
-    }
-
-    @Override
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        CompoundTag compoundTag = new CompoundTag();
-        compoundTag.putFloat("shield", this.shield);
-        compoundTag.put("maxShieldData", this.maxShieldData.serializeNBT(provider));
-        compoundTag.putFloat("rate",rate);
-        return compoundTag;
-    }
-
-    @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
-        this.shield = compoundTag.getFloat("shield");
-        this.maxShieldData.deserializeNBT(provider, compoundTag.getCompound("maxShieldData"));
-        this.rate = compoundTag.getFloat("rate");
-    }
-
-    @Override
-    public float naturalRecovery(LivingEntity entity) {
-        return 0.0f;
-    }
-
-    @Override
-    public boolean isNaturalRecovery(LivingEntity entity) {
-        boolean effect = entity.getEffect(TAMobEffects.BROKEN) == null;
-        boolean isCombat = entity.getLastDamageSource() == null;
-        return effect && isCombat;
-    }
-
-    @Override
-    public float applyDamageModifiers(LivingEntity entity, DamageSource source, float damage) {
-        return damage;
-    }
-
-    @Override
-    public float damage(LivingEntity entity, float damage) {
-        return damage;
-    }
-
-    @Override
     public void onBroken(LivingEntity livingEntity) {
         livingEntity.addEffect(new MobEffectInstance(TAMobEffects.BROKEN, 200, 0));
     }
 
-    @Override
+    public boolean isNaturalRecovery(LivingEntity entity) {
+        boolean isCombat = entity.getLastDamageSource() == null;
+        return !entity.hasEffect(TAMobEffects.BROKEN) && isCombat;
+    }
+
+    public float naturalRecovery(LivingEntity entity) {
+        return 1.0F;
+    }
+
+    public float applyDamageModifiers(LivingEntity entity, DamageSource source, float damage) {
+        if (source.is(DamageTypes.MOB_ATTACK)) {
+            return 0.0F;
+        }
+
+        for (TagKey<DamageType> damageTypeTag : DAMAGE_TYPES) {
+            if (source.is(damageTypeTag)) {
+                return damage * (1.0F - this.rate);
+            }
+        }
+
+        return damage;
+    }
+
+    public float damage(LivingEntity entity, float damage) {
+        return damage;
+    }
+
     public boolean isDamageNegated(LivingEntity entity, DamageSource source, float damage) {
         return false;
     }
 
-    @Override
-    public boolean isBroken() {
-        return this.shield <= 0.0f && this.getMaxShield() != 0.0f;
+    public static class Properties {
+
+        private static final Interner<DataComponentMap> COMPONENT_INTERNER = Interners.newStrongInterner();
+        private final DataComponentMap.Builder components = DataComponentMap.builder();
+        private int priority;
+        private float rate = 0.0F;
+        private int color;
+
+        public <T> Properties component(DataComponentType<T> component, T value) {
+            this.components.set(TADataComponents.SHIELD.get(), 0.0F);
+            this.components.set(component, value);
+            return this;
+        }
+
+        public Properties priority(int priority) {
+            this.priority = priority;
+            return this;
+        }
+
+        public Properties rate(float rate) {
+            this.rate = rate;
+            return this;
+        }
+
+        public Properties color(int color) {
+            this.color = color;
+            return this;
+        }
+
     }
 
 }

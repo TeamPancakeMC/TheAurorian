@@ -1,8 +1,12 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.shields.BaseShield;
+import cn.teampancake.theaurorian.common.shields.ShieldInstance;
+import cn.teampancake.theaurorian.common.shields.ShieldStack;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
@@ -74,6 +78,13 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<ResourceLocation>> ANIMATION_TEXTURE =
             ATTACHMENT_TYPES.register("animation_texture", () -> AttachmentType.builder(
                     () -> ResourceLocation.tryParse(StringUtils.EMPTY)).build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<ShieldStack>> CURRENT_SHIELD =
+            ATTACHMENT_TYPES.register("current_shield", () -> AttachmentType.builder(
+                    () -> ShieldStack.EMPTY).serialize(ShieldStack.CODEC).sync(ShieldStack.STREAM_CODEC).copyOnDeath().build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Map<Holder<BaseShield>, ShieldInstance>>> SHIELDS =
+            ATTACHMENT_TYPES.register("shields", () -> AttachmentType.<Map<Holder<BaseShield>, ShieldInstance>>builder(
+                    () -> new HashMap<>()).serialize(Codec.unboundedMap(BaseShield.CODEC, ShieldInstance.CODEC))
+                    .sync(ByteBufCodecs.map(HashMap::new, BaseShield.STREAM_CODEC, ShieldInstance.STREAM_CODEC)).build());
 
     private static DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> registerInteger(String name) {
         return ATTACHMENT_TYPES.register(name, () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).build());

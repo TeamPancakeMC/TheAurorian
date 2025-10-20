@@ -16,7 +16,6 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -25,12 +24,14 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -47,9 +48,8 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
     private static final AttachmentType<Boolean> REMOVE_BLESS = TAAttachmentTypes.REMOVE_BLESS_UNTIL_NEXT_BLOOD_MOON.get();
     private static final AttachmentType<Boolean> IMMUNE_PRESSURE_TEMP = TAAttachmentTypes.IMMUNE_PRESSURE_UNTIL_NEXT_BLOOD_MOON.get();
     private static final AttachmentType<Boolean> IMMUNE_PRESSURE_PERSISTENT = TAAttachmentTypes.IMMUNE_PRESSURE_BY_KILL_MOON_QUEEN.get();
-    private final ServerBossEvent bloodMoonEvent = new ServerBossEvent(BLOOD_MOON_NAME_COMPONENT.copy()
-            .withStyle(ChatFormatting.DARK_RED).withStyle(ChatFormatting.BOLD),
-            BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_10);
+    private final ServerBossEvent bloodMoonEvent = (ServerBossEvent) new ServerBossEvent(BLOOD_MOON_NAME_COMPONENT.copy()
+            .withStyle(ChatFormatting.BOLD), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_10).setDarkenScreen(true);
 
     public BloodMoonEvent() {
         super(BaseEventConfig.CODEC);
@@ -79,7 +79,6 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
         Map<UUID, BloodMoonPlayerData> playerDataMap = eventData.bloodMoonPlayerData;
         for (ServerPlayer player : level.players()) {
             this.bloodMoonEvent.addPlayer(player);
-            this.bloodMoonEvent.setDarkenScreen(true);
             BloodMoonPlayerData playerData = new BloodMoonPlayerData();
             playerDataMap.put(player.getUUID(), playerData);
             player.setData(KILL_COUNT, 0);
@@ -109,13 +108,20 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
         }
 
         level.getAllEntities().forEach(entity -> {
-            if (entity instanceof Mob mob && mob instanceof Enemy) {
-                for (var entry : getEnhanceMultiplier().entrySet()) {
-                    AttributeInstance instance = mob.getAttribute(entry.getKey());
-                    Pair<ResourceLocation, Double> pair = entry.getValue();
-                    if (instance != null && instance.hasModifier(pair.getFirst())) {
-                        instance.removeModifier(pair.getFirst());
+            if (entity instanceof PathfinderMob mob) {
+                if (mob instanceof Enemy) {
+                    for (var entry : getEnhanceMultiplier().entrySet()) {
+                        AttributeInstance instance = mob.getAttribute(entry.getKey());
+                        Pair<ResourceLocation, Double> pair = entry.getValue();
+                        if (instance != null && instance.hasModifier(pair.getFirst())) {
+                            instance.removeModifier(pair.getFirst());
+                        }
                     }
+                } else if (mob instanceof Animal) {
+                    MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(mob, 1.0F, Boolean.FALSE);
+                    NearestAttackableTargetGoal<Player> targetGoal = new NearestAttackableTargetGoal<>(mob, Player.class, true);
+                    List.of(new HurtByTargetGoal(mob), meleeAttackGoal, targetGoal).forEach(mob.goalSelector::removeGoal);
+                    mob.goalSelector.addGoal(1, new PanicGoal(mob, 2.0D));
                 }
             }
         });

@@ -14,13 +14,11 @@ import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
 import cn.teampancake.theaurorian.common.items.curio.CrimsonPactPendant;
 import cn.teampancake.theaurorian.common.level.TAServerPlayer;
-import cn.teampancake.theaurorian.common.level.data.world_event.WorldEventData;
-import cn.teampancake.theaurorian.common.level.data.world_event.BloodMoonPlayerData;
-import cn.teampancake.theaurorian.common.level.data.world_event.WorldEventDataStorage;
-import cn.teampancake.theaurorian.common.level.data.world_event.WorldEventManager;
-import cn.teampancake.theaurorian.common.level.data.world_event.BloodMoonEvent;
+import cn.teampancake.theaurorian.common.level.data.world_event.*;
 import cn.teampancake.theaurorian.common.network.*;
 import cn.teampancake.theaurorian.common.registry.*;
+import cn.teampancake.theaurorian.common.shields.BaseShield;
+import cn.teampancake.theaurorian.common.shields.ShieldStack;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
@@ -168,6 +166,18 @@ public class LivingEventSubscriber {
                     if (k > 0) {
                         player.setData(TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN, k - 1);
                     }
+
+                    if (level.getGameTime() % 20 == 0) {
+                        AttachmentType<ShieldStack> type = TAAttachmentTypes.CURRENT_SHIELD.get();
+                        ShieldStack shieldStack = player.getData(type);
+                        if (shieldStack != ShieldStack.EMPTY) {
+                            BaseShield shield = shieldStack.getShield().value();
+                            if (shield.isNaturalRecovery(entity)) {
+                                shieldStack.increaseShield(shield.naturalRecovery(player));
+                                PacketDistributor.sendToPlayer(player, new UpdateShieldS2CPacket(shieldStack.getShieldValue()));
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -307,13 +317,14 @@ public class LivingEventSubscriber {
         if (target.hasEffect(effect)) {
             AttachmentType<Float> type = TAAttachmentTypes.DAMAGE_ACCUMULATION.get();
             target.setData(type, target.getData(type) + event.getNewDamage());
-            //Prevent the death message doesn't show.
+            // Prevent the death message doesn't show.
             if (Objects.requireNonNull(target.getEffect(effect)).getDuration() > 10) {
                 event.setNewDamage(0.0F);
             }
         }
 
         if (target instanceof Player player) {
+            Level level = player.level();
             SpiderlingCrystalShell crystalShell = TAEntityUtils.getNearestEntity(
                     player, SpiderlingCrystalShell.class, 32.0D);
             if (crystalShell != null) {
@@ -345,6 +356,14 @@ public class LivingEventSubscriber {
 
                     player.setHealth(1.0F);
                     event.setNewDamage(0.0F);
+                }
+            }
+
+            ShieldStack shieldStack = player.getData(TAAttachmentTypes.CURRENT_SHIELD);
+            if (TACommonUtils.isAurorianDimension(level) && shieldStack.getShield().is(TAShields.COMMON) && level.dayTime() > 12000) {
+                event.setNewDamage(event.getNewDamage() - shieldStack.applyShields(player, source, event.getNewDamage()));
+                if (player instanceof ServerPlayer serverPlayer) {
+                    PacketDistributor.sendToPlayer(serverPlayer, new UpdateShieldS2CPacket(shieldStack.getShieldValue()));
                 }
             }
         }

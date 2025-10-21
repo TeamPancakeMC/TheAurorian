@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import cn.teampancake.theaurorian.common.config.TACommonConfig;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -76,7 +76,7 @@ public class AurorianFurnaceChimney extends Block {
             y++;
         }
 
-        if(y >= AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
+        if(y >= TACommonConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
             return InteractionResult.PASS;
         }
 
@@ -87,7 +87,7 @@ public class AurorianFurnaceChimney extends Block {
             i++;
         }
 
-        if ((i + y) >= AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
+        if ((i + y) >= TACommonConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
             return InteractionResult.PASS;
         }
 

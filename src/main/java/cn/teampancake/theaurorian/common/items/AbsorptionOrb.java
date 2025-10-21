@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items;
 
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import cn.teampancake.theaurorian.common.config.TACommonConfig;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.core.Holder;
@@ -39,7 +39,7 @@ public class AbsorptionOrb extends Item {
             ItemStack offHandItem = player.getItemInHand(InteractionHand.OFF_HAND);
             ItemStack mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
             if (offHandItem.getItem() == this && mainHandItem.getItem() != this && mainHandItem.isDamageableItem()) {
-                List<? extends String> list = AurorianConfig.Config_OrbOfAbsorptionList.get();
+                List<? extends String> list = TACommonConfig.Config_OrbOfAbsorptionList.get();
                 if (!list.contains(BuiltInRegistries.ITEM.getKey(mainHandItem.getItem()).toString())) {
                     int damage = mainHandItem.getDamageValue();
                     if (damage < mainHandItem.getMaxDamage()) {

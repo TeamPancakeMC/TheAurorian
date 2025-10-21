@@ -1,7 +1,7 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
 import cn.teampancake.theaurorian.common.blocks.AurorianFurnace;
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import cn.teampancake.theaurorian.common.config.TACommonConfig;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAMobEffects;
@@ -36,14 +36,14 @@ public class AurorianFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
     public float getChimneySpeedMultiplier() {
         int y = 0;
         int chimneyCount = 0;
-        while (this.level != null && !(this.level.isEmptyBlock(this.worldPosition.above(y))) && chimneyCount < AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
+        while (this.level != null && !(this.level.isEmptyBlock(this.worldPosition.above(y))) && chimneyCount < TACommonConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) {
             y++;
             if (this.level.getBlockState(this.worldPosition.above(y)).is(TABlocks.AURORIAN_FURNACE_CHIMNEY)) {
                 chimneyCount++;
             }
         }
 
-        return (float) (((double) chimneyCount / AurorianConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) * AurorianConfig.CONFIG_CHIMNEY_SPEED_MULTIPLIER.get());
+        return (float) (((double) chimneyCount / TACommonConfig.CONFIG_MAXIMUM_CHIMNEYS.get()) * TACommonConfig.CONFIG_CHIMNEY_SPEED_MULTIPLIER.get());
     }
 
     private int getSmeltTime(float ChimneySpeedMultiplier) {

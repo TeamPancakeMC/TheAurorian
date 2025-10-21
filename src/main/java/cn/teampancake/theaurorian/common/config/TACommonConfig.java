@@ -5,7 +5,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import java.util.List;
 
 /** @noinspection deprecation*/
-public class AurorianConfig {
+public class TACommonConfig {
 
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
@@ -46,6 +46,7 @@ public class AurorianConfig {
         CONFIG_DEFAULT_SPAWN_IN_AURORIAN_DIMENSION = BUILDER
                 .comment("Set to true to make players spawn in the Aurorian Dimension by default")
                 .define("DefaultSpawnInAurorianDimension", false);
+        BUILDER.pop();
     }
 
     //Compat

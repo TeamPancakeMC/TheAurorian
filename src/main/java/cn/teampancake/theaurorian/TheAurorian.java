@@ -1,7 +1,8 @@
 package cn.teampancake.theaurorian;
 
 import cn.teampancake.theaurorian.client.gui.hud.*;
-import cn.teampancake.theaurorian.common.config.AurorianConfig;
+import cn.teampancake.theaurorian.common.config.TAClientConfig;
+import cn.teampancake.theaurorian.common.config.TACommonConfig;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
 import cn.teampancake.theaurorian.common.level.data.world_event.ConfiguredEvent;
@@ -32,11 +33,11 @@ import java.util.Objects;
 public class TheAurorian {
 
     public static final String MOD_ID = "theaurorian";
-    public static final String FILENAME = MOD_ID + "/TheAurorian.toml";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public TheAurorian(IEventBus modEventBus, ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.COMMON, AurorianConfig.SPEC, FILENAME);
+        modContainer.registerConfig(ModConfig.Type.COMMON, TACommonConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, TAClientConfig.SPEC);
         TACreativeModeTabs.TABS.register(modEventBus);
         TAItems.ITEMS.register(modEventBus);
         TABlocks.BLOCKS.register(modEventBus);

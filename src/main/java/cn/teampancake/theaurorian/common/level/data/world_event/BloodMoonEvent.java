@@ -93,7 +93,9 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
         for (Entity entity : level.getAllEntities()) {
             if (entity instanceof PathfinderMob mob) {
                 enhanceEnemy(level, mob);
-            } else if (entity instanceof Animal animal) {
+            }
+
+            if (entity instanceof Animal animal) {
                 animal.goalSelector.removeGoal(new PanicGoal(animal, 2.0D));
                 animal.goalSelector.addGoal(1, new MeleeAttackGoal(animal, 1.0F, Boolean.FALSE));
                 animal.targetSelector.addGoal(1, new HurtByTargetGoal(animal));
@@ -129,7 +131,9 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
                         instance.removeModifier(pair.getFirst());
                     }
                 }
-            } else if (entity instanceof Animal animal) {
+            }
+
+            if (entity instanceof Animal animal) {
                 NearestAttackableTargetGoal<Player> targetGoal = new NearestAttackableTargetGoal<>(animal, Player.class, true);
                 List.of(new HurtByTargetGoal(animal), targetGoal).forEach(animal.targetSelector::removeGoal);
                 animal.goalSelector.removeGoal(new MeleeAttackGoal(animal, 1.0F, Boolean.FALSE));

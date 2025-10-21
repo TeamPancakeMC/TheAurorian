@@ -348,7 +348,7 @@ public class LivingEventSubscriber {
 
             ShieldStack shieldStack = player.getData(TAAttachmentTypes.CURRENT_SHIELD);
             if (TACommonUtils.isAurorianDimension(level) && shieldStack.getShield().is(TAShields.COMMON) && level.dayTime() > 12000) {
-                event.setNewDamage(event.getNewDamage() - shieldStack.applyShields(player, source, event.getNewDamage()));
+                event.setNewDamage(shieldStack.applyShields(player, source, event.getNewDamage()));
                 if (player instanceof ServerPlayer serverPlayer) {
                     PacketDistributor.sendToPlayer(serverPlayer, new UpdateShieldS2CPacket(shieldStack.getShieldValue()));
                 }

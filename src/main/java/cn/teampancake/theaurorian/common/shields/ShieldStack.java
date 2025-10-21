@@ -84,6 +84,7 @@ public class ShieldStack implements DataComponentHolder, MutableDataComponentHol
         } else {
             if (this.isBroken() && entity instanceof Player player) {
                 this.getShield().value().onBroken(player);
+                return damage;
             }
 
             float remainingDamage = this.getShield().value().applyDamageModifiers(entity, source, damage);

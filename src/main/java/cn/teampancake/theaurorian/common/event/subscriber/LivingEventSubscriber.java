@@ -23,7 +23,6 @@ import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -42,13 +41,11 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -121,18 +118,8 @@ public class LivingEventSubscriber {
             }
         }
 
-        if (level instanceof ServerLevel serverLevel && TAWorldEvents.BLOOD_MOON.get().isActive(serverLevel) &&
-                TACommonUtils.isAurorianDimension(level) && mob instanceof Enemy && !(mob instanceof AbstractAurorianBoss)) {
-            var entrySet = BloodMoonEvent.getEnhanceMultiplier().entrySet();
-            AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_MULTIPLIED_BASE;
-            for (Map.Entry<Holder<Attribute>, Pair<ResourceLocation, Double>> entry : entrySet) {
-                AttributeInstance instance = mob.getAttribute(entry.getKey());
-                Pair<ResourceLocation, Double> pair = entry.getValue();
-                if (instance != null && !instance.hasModifier(pair.getFirst())) {
-                    instance.addPermanentModifier(new AttributeModifier(pair.getFirst(), pair.getSecond(), operation));
-                    if (mob.getLastDamageSource() == null) mob.setHealth(mob.getMaxHealth());
-                }
-            }
+        if (level instanceof ServerLevel serverLevel && TAWorldEvents.BLOOD_MOON.get().isActive(serverLevel)) {
+            BloodMoonEvent.enhanceEnemy(serverLevel, mob);
         }
     }
 

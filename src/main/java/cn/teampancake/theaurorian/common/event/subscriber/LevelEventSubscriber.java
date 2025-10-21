@@ -30,8 +30,12 @@ public class LevelEventSubscriber {
 
     @SubscribeEvent
     public static void onLevelUnload(LevelEvent.Unload event) {
-        if (event.getLevel() instanceof Level level && level.isClientSide()) {
-            ClientSkyColorData.clearClientData(level);
+        if (event.getLevel() instanceof Level level) {
+            if (level.isClientSide()) {
+                ClientSkyColorData.clearClientData(level);
+            } else if (level instanceof ServerLevel serverLevel) {
+                WorldEventDataStorage.get(serverLevel).setDirty();
+            }
         }
     }
 

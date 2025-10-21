@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.level.LevelEvent;
-import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 @EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class LevelEventSubscriber {
@@ -40,8 +40,8 @@ public class LevelEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onLevelTick(LevelTickEvent.Pre event) {
-        if (event.getLevel() instanceof ServerLevel level) {
+    public static void onServerTick(ServerTickEvent.Pre event) {
+        for (ServerLevel level : event.getServer().getAllLevels()) {
             if (TACommonUtils.isAurorianDimension(level)) {
                 SkyColorManager.updateSkyColors(level);
                 WorldEventManager.updateWorldEvents(level);

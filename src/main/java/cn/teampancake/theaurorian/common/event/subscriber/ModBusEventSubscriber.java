@@ -11,6 +11,9 @@ import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.items.AurorianChestItem;
 import cn.teampancake.theaurorian.common.items.weapon.CrystallineSword;
+import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
+import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
+import cn.teampancake.theaurorian.common.level.data.world_event.ConfiguredEvent;
 import cn.teampancake.theaurorian.common.network.*;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
@@ -19,8 +22,11 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -40,11 +46,46 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
+import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
+
+import java.util.Objects;
 
 /** @noinspection deprecation*/
 @EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class ModBusEventSubscriber {
+
+    @SubscribeEvent
+    public static void createNewRegistries(NewRegistryEvent event) {
+        event.register(TAItemTooltips.REGISTRY);
+        event.register(TABiomeLayers.REGISTRY);
+        event.register(TAWorldEvents.REGISTRY);
+        event.register(TASkyColors.REGISTRY);
+        event.register(TAShields.REGISTRY);
+        event.register(TARunes.REGISTRY);
+    }
+
+    @SubscribeEvent
+    public static void registerExtraStuff(RegisterEvent event) {
+        if (Objects.equals(event.getRegistryKey(), Registries.BIOME_SOURCE)) {
+            Registry.register(BuiltInRegistries.BIOME_SOURCE, TheAurorian.prefix("aurorian_biomes"), TABiomeSource.TA_CODEC);
+        } else if (Objects.equals(event.getRegistryKey(), Registries.CHUNK_GENERATOR)) {
+            Registry.register(BuiltInRegistries.CHUNK_GENERATOR, TheAurorian.prefix("structure_locating_wrapper"), TAChunkGenerator.CODEC);
+        }
+    }
+
+    @SubscribeEvent
+    public static void registriesForDatapack(DataPackRegistryEvent.NewRegistry event) {
+        event.dataPackRegistry(TABiomeLayerStack.KEY, TABiomeLayerStack.DISPATCH_CODEC);
+        event.dataPackRegistry(TAEventConfigurations.KEY, ConfiguredEvent.DIRECT_CODEC);
+    }
+
+    @SubscribeEvent
+    public static void registerCustomStat(FMLCommonSetupEvent event) {
+        event.enqueueWork(TAStats::init);
+    }
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent

@@ -91,9 +91,9 @@ public class TAInventoryUtils {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
                 ItemStack stack = entity.getItemBySlot(slot);
-                if (!(stack.getItem() instanceof ArmorItem armor
-                        && armor.getClass().isInstance(armorClass))
-                        || armor.getType().getSlot() != slot) {
+                if (stack.getItem() instanceof ArmorItem armor &&
+                        (armor.getClass().isInstance(armorClass) ||
+                                armor.getType().getSlot() != slot)) {
                     armorCount++;
                 }
             }

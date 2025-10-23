@@ -17,8 +17,6 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-import java.awt.*;
-
 @SuppressWarnings({"SpellCheckingInspection"})
 public class TABiomes {
 
@@ -175,8 +173,7 @@ public class TABiomes {
     }
 
     private static BiomeSpecialEffects.Builder defaultAmbientBuilder(Holder<SoundEvent> event) {
-        return new BiomeSpecialEffects.Builder().fogColor(0xC0FFD8).waterColor(Color.WHITE.getRGB())
-                .waterFogColor(Color.WHITE.getRGB()).skyColor(0x010e34)
+        return new BiomeSpecialEffects.Builder().fogColor(0xC0FFD8).waterColor(4159204).waterFogColor(329011).skyColor(0x010e34)
                 .backgroundMusic(new Music(event, 6000, 24000, Boolean.FALSE));
     }
 

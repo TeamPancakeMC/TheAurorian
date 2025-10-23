@@ -21,8 +21,8 @@
       "probability": 0.00375
     },
     "sky_color": 69172,
-    "water_color": -1,
-    "water_fog_color": -1
+    "water_color": 4159204,
+    "water_fog_color": 329011
   },
   "features": [
     [],

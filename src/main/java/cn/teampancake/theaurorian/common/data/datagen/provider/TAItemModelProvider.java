@@ -132,12 +132,10 @@ public class TAItemModelProvider extends ItemModelProvider {
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof BowItem).forEach(this::bowItem);
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof ShieldItem).forEach(this::shieldItem);
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof Runestone).forEach(item -> {
-            if (!item.components().has(TADataComponents.SIMPLE_MODEL.get())) {
-                String path = BuiltInRegistries.ITEM.getKey(item).getPath();
-                String texture = path.substring(0, path.lastIndexOf('_'));
-                this.withExistingParent(path, this.mcLoc("item/generated"))
-                        .texture("layer0", this.modLoc("item/" + texture));
-            }
+            String path = BuiltInRegistries.ITEM.getKey(item).getPath();
+            String texture = path.substring(0, path.lastIndexOf('_'));
+            this.withExistingParent(path, this.mcLoc("item/generated"))
+                    .texture("layer0", this.modLoc("item/" + texture));
         });
     }
 

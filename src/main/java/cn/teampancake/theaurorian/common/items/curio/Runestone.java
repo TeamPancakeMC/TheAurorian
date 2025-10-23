@@ -24,11 +24,13 @@ public class Runestone extends Item implements ICurioItem {
     private static final Map<Integer, Holder<ItemTooltip>> RANK_MAP = Map.of(
             1, TAItemTooltips.UNCOMMON, 2, TAItemTooltips.RARE, 3, TAItemTooltips.EPIC,
             4, TAItemTooltips.LEGENDARY, 5, TAItemTooltips.MYTHICAL);
+    private final float lootChance;
 
-    public Runestone(Properties properties, int rank) {
+    public Runestone(Properties properties, int rank, float lootChance) {
         super(properties.component(TADataComponents.RANK, rank)
                 .component(TADataComponents.ITEM_TOOLTIP, RANK_MAP.get(rank))
                 .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.RUNESTONE)));
+        this.lootChance = lootChance;
     }
 
     @Override
@@ -47,6 +49,10 @@ public class Runestone extends Item implements ICurioItem {
         }
 
         return slotContext.identifier().equals("runestone");
+    }
+
+    public float getLootChance() {
+        return this.lootChance;
     }
 
 }

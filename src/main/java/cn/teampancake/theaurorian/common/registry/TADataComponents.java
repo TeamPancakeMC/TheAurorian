@@ -40,14 +40,22 @@ public class TADataComponents {
             () -> DataComponentType.<RuneGame>builder().persistent(RuneGame.CODEC).networkSynchronized(RuneGame.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SourceOfTerra>> SOURCE_OF_TERRA = DATA_COMPONENT_TYPE.register("source_of_terra",
             () -> DataComponentType.<SourceOfTerra>builder().persistent(SourceOfTerra.CODEC).networkSynchronized(SourceOfTerra.STREAM_CODEC).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> FIX_HEALTH_BOOST = DATA_COMPONENT_TYPE.register("fixed_health_boost",
+            () -> DataComponentType.<Double>builder().persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneLife>> RUNESTONE_LIFE = DATA_COMPONENT_TYPE.register("runestone_life",
+            () -> DataComponentType.<RunestoneLife>builder().persistent(RunestoneLife.CODEC).networkSynchronized(RunestoneLife.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneIce>> RUNESTONE_ICE = DATA_COMPONENT_TYPE.register("runestone_ice",
             () -> DataComponentType.<RunestoneIce>builder().persistent(RunestoneIce.CODEC).networkSynchronized(RunestoneIce.STREAM_CODEC).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneWater>> RUNESTONE_LIGHT = DATA_COMPONENT_TYPE.register("runestone_light",
+            () -> DataComponentType.<RunestoneWater>builder().persistent(RunestoneWater.CODEC).networkSynchronized(RunestoneWater.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneWater>> RUNESTONE_WATER = DATA_COMPONENT_TYPE.register("runestone_water",
             () -> DataComponentType.<RunestoneWater>builder().persistent(RunestoneWater.CODEC).networkSynchronized(RunestoneWater.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneBlaze>> RUNESTONE_BLAZE = DATA_COMPONENT_TYPE.register("runestone_blaze",
             () -> DataComponentType.<RunestoneBlaze>builder().persistent(RunestoneBlaze.CODEC).networkSynchronized(RunestoneBlaze.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneThunder>> RUNESTONE_THUNDER = DATA_COMPONENT_TYPE.register("runestone_thunder",
             () -> DataComponentType.<RunestoneThunder>builder().persistent(RunestoneThunder.CODEC).networkSynchronized(RunestoneThunder.STREAM_CODEC).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneDarkness>> RUNESTONE_DARKNESS = DATA_COMPONENT_TYPE.register("runestone_darkness",
+            () -> DataComponentType.<RunestoneDarkness>builder().persistent(RunestoneDarkness.CODEC).networkSynchronized(RunestoneDarkness.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<TagKey<Item>>>> ITEM_TAGS = DATA_COMPONENT_TYPE.register("item_tags",
             () -> DataComponentType.<List<TagKey<Item>>>builder().persistent(TagKey.codec(Registries.ITEM).listOf())
                     .networkSynchronized(ByteBufCodecs.fromCodec(TagKey.codec(Registries.ITEM).listOf())).cacheEncoding().build());

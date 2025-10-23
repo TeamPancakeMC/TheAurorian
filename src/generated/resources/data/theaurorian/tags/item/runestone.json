@@ -5,8 +5,16 @@
     "theaurorian:runestone_ice_3",
     "theaurorian:runestone_ice_4",
     "theaurorian:runestone_ice_5",
-    "theaurorian:runestone_life",
-    "theaurorian:runestone_light",
+    "theaurorian:runestone_life_1",
+    "theaurorian:runestone_life_2",
+    "theaurorian:runestone_life_3",
+    "theaurorian:runestone_life_4",
+    "theaurorian:runestone_life_5",
+    "theaurorian:runestone_light_1",
+    "theaurorian:runestone_light_2",
+    "theaurorian:runestone_light_3",
+    "theaurorian:runestone_light_4",
+    "theaurorian:runestone_light_5",
     "theaurorian:runestone_water_1",
     "theaurorian:runestone_water_2",
     "theaurorian:runestone_water_3",
@@ -22,6 +30,10 @@
     "theaurorian:runestone_thunder_3",
     "theaurorian:runestone_thunder_4",
     "theaurorian:runestone_thunder_5",
-    "theaurorian:runestone_darkness"
+    "theaurorian:runestone_darkness_1",
+    "theaurorian:runestone_darkness_2",
+    "theaurorian:runestone_darkness_3",
+    "theaurorian:runestone_darkness_4",
+    "theaurorian:runestone_darkness_5"
   ]
 }

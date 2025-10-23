@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import cn.teampancake.theaurorian.common.blocks.MysteriumWoolBed;
 import cn.teampancake.theaurorian.common.components.RunestoneBlaze;
 import cn.teampancake.theaurorian.common.components.RunestoneThunder;
+import cn.teampancake.theaurorian.common.components.RunestoneWater;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorManager;
@@ -239,6 +240,14 @@ public class PlayerEventSubscriber {
                 if (runestoneThunder != null && !event.isCriticalHit() && player.getData(attachmentType)) {
                     if (runestoneThunder.canTriggerCriticalHit()) event.setCriticalHit(true);
                     player.setData(attachmentType, false);
+                }
+            });
+
+            DataComponentType<RunestoneWater> lightComponent = TADataComponents.RUNESTONE_LIGHT.get();
+            itemHandler.findFirstCurio(stack -> stack.has(lightComponent)).ifPresent(slotResult -> {
+                RunestoneWater runestoneWater = slotResult.stack().get(lightComponent);
+                if (runestoneWater != null && event.isCriticalHit()) {
+                    player.heal(runestoneWater.getHealValue());
                 }
             });
         });

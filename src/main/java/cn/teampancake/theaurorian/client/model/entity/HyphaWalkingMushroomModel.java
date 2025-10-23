@@ -1,20 +1,33 @@
 package cn.teampancake.theaurorian.client.model.entity;
 
 import cn.teampancake.theaurorian.common.entities.monster.HyphaWalkingMushroom;
-import net.minecraft.client.model.HierarchicalModel;
+import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Constants;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class HyphaWalkingMushroomModel<T extends HyphaWalkingMushroom> extends HierarchicalModel<T> {
+public class HyphaWalkingMushroomModel<T extends HyphaWalkingMushroom> extends EntityModel<T> {
 
     private final ModelPart body;
+    private final ModelPart rightLeg;
+    private final ModelPart leftLeg;
+    private final ModelPart rightArm;
+    private final ModelPart leftArm;
 
     public HyphaWalkingMushroomModel(ModelPart root) {
         this.body = root.getChild("body");
+        this.rightLeg = this.body.getChild("leg_right");
+        this.leftLeg = this.body.getChild("leg_left");
+        this.rightArm = this.body.getChild("arm_right");
+        this.leftArm = this.body.getChild("arm_left");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -34,12 +47,16 @@ public class HyphaWalkingMushroomModel<T extends HyphaWalkingMushroom> extends H
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+        this.rightArm.xRot = Mth.cos(limbSwing * 0.6662F + Constants.PI) * 2.0F * limbSwingAmount * 0.5F;
+        this.leftArm.xRot = Mth.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
+        this.rightLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.leftLeg.xRot = Mth.cos(limbSwing * 0.6662F + Constants.PI) * 1.4F * limbSwingAmount;
     }
 
     @Override
-    public ModelPart root() {
-        return this.body;
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+        ImmutableList<ModelPart> bodyParts = ImmutableList.of(this.body, this.rightArm, this.leftArm, this.rightLeg, this.leftLeg);
+        bodyParts.forEach(modelPart -> modelPart.render(poseStack, vertexConsumer, packedLight, packedOverlay, color));
     }
 
 }

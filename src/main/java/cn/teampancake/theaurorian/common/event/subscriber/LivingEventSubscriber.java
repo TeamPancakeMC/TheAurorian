@@ -339,10 +339,6 @@ public class LivingEventSubscriber {
                     spiderMother.heal(event.getNewDamage());
                 }
             }
-
-            if (target instanceof Player player) {
-                player.setData(TAAttachmentTypes.TRIGGER_CRITICAL_HIT, true);
-            }
         }
 
         if (source.getEntity() instanceof Player player) {
@@ -378,6 +374,7 @@ public class LivingEventSubscriber {
             Optional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(player);
             if (event.getNewDamage() > 0.0F && curiosInventory.isPresent()) {
                 ICuriosItemHandler itemHandler = curiosInventory.get();
+                player.setData(TAAttachmentTypes.TRIGGER_CRITICAL_HIT, true);
                 itemHandler.findFirstCurio(stack -> stack.has(TADataComponents.RUNESTONE_WATER)).ifPresent(slotResult -> {
                     RunestoneWater runestoneWater = slotResult.stack().get(TADataComponents.RUNESTONE_WATER);
                     player.heal(runestoneWater == null ? 0.0F : runestoneWater.getHealValue());

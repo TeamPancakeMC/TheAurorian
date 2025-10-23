@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.components.RunestoneWater;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAMobEffectTags;
 import cn.teampancake.theaurorian.common.effect.TAMobEffect;
@@ -12,11 +13,11 @@ import cn.teampancake.theaurorian.common.entities.monster.SnowTundraGiantCrab;
 import cn.teampancake.theaurorian.common.entities.monster.SpiderlingCrystalShell;
 import cn.teampancake.theaurorian.common.entities.technical.SitEntity;
 import cn.teampancake.theaurorian.common.items.armor.SpectralArmor;
-import cn.teampancake.theaurorian.common.items.curio.CrimsonPactPendant;
 import cn.teampancake.theaurorian.common.level.TAServerPlayer;
 import cn.teampancake.theaurorian.common.level.data.world_event.*;
 import cn.teampancake.theaurorian.common.network.*;
 import cn.teampancake.theaurorian.common.registry.*;
+import cn.teampancake.theaurorian.common.components.RunestoneIce;
 import cn.teampancake.theaurorian.common.shields.BaseShield;
 import cn.teampancake.theaurorian.common.shields.ShieldStack;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
@@ -60,7 +61,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.*;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.util.TriState;
@@ -70,10 +70,12 @@ import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.*;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /** @noinspection deprecation*/
@@ -263,16 +265,15 @@ public class LivingEventSubscriber {
     }
 
     @SubscribeEvent
-    public static void onLivingHurt(LivingDamageEvent.Pre event) {
+    public static void onLivingDamagePre(LivingDamageEvent.Pre event) {
         DamageSource source = event.getSource();
-        LivingEntity entity = event.getEntity();
+        LivingEntity target = event.getEntity();
         boolean isHarmfulEffect = source.is(DamageTypes.INDIRECT_MAGIC) || source.is(DamageTypes.MAGIC);
-        boolean enchantmentFlag = EnchantmentUtils.canArmorTriggerEnchantmentEffect(entity, TAEnchantments.VIRTUALIZATION);
-        if (isHarmfulEffect && entity.hasEffect(TAMobEffects.HOLINESS) || enchantmentFlag) {
-            event.setNewDamage(0.0F);
-        }
-
-        if (entity instanceof Player player) {
+        boolean enchantmentFlag = EnchantmentUtils.canArmorTriggerEnchantmentEffect(target, TAEnchantments.VIRTUALIZATION);
+        if (isHarmfulEffect && target.hasEffect(TAMobEffects.HOLINESS) || enchantmentFlag) event.setNewDamage(0.0F);
+        if (event.getNewDamage() <= 0.0F) return;
+        if (target instanceof Player player) {
+            Level level = player.level();
             AttachmentType<Float> type = TAAttachmentTypes.EXHAUSTION_ACCUMULATION.get();
             player.setData(type, player.getData(type) + source.getFoodExhaustion());
             if (SpectralArmor.isWearSpectralArmor(player)) {
@@ -280,38 +281,7 @@ public class LivingEventSubscriber {
                         .filter(effect -> effect.value().getCategory() == MobEffectCategory.HARMFUL)
                         .forEach(player::removeEffect);
             }
-        }
 
-        if (source.getEntity() instanceof Player player) {
-            ItemStack itemInHand = player.getItemInHand(player.getUsedItemHand());
-            Set<Holder<Enchantment>> holderSet = itemInHand.getTagEnchantments().keySet();
-            if (holderSet.contains(TAEnchantments.get(player.level(), TAEnchantments.LEGENDARY_HERO))) {
-                List<LivingEntity> entities = player.level().getEntitiesOfClass(
-                        LivingEntity.class, player.getBoundingBox().inflate(20.0D),
-                        e -> e instanceof Player && e != player || e instanceof Villager);
-                event.setNewDamage(event.getOriginalDamage() + Math.min(entities.size(), 10));
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onLivingDamage(LivingDamageEvent.Pre event) {
-        LivingEntity target = event.getEntity();
-        DamageSource source = event.getSource();
-        Entity sourceEntity = source.getEntity();
-        Holder<MobEffect> effect = TAMobEffects.CORRUPTION;
-        if (event.getNewDamage() <= 0.0F) return;
-        if (target.hasEffect(effect)) {
-            AttachmentType<Float> type = TAAttachmentTypes.DAMAGE_ACCUMULATION.get();
-            target.setData(type, target.getData(type) + event.getNewDamage());
-            // Prevent the death message doesn't show.
-            if (Objects.requireNonNull(target.getEffect(effect)).getDuration() > 10) {
-                event.setNewDamage(0.0F);
-            }
-        }
-
-        if (target instanceof Player player) {
-            Level level = player.level();
             SpiderlingCrystalShell crystalShell = TAEntityUtils.getNearestEntity(
                     player, SpiderlingCrystalShell.class, 32.0D);
             if (crystalShell != null) {
@@ -355,7 +325,7 @@ public class LivingEventSubscriber {
             }
         }
 
-        if (sourceEntity instanceof LivingEntity entity) {
+        if (source.getEntity() instanceof LivingEntity entity) {
             if (EnchantmentUtils.canArmorTriggerEnchantmentEffect(target, TAEnchantments.REFLECT_AURA)) {
                 float amount = event.getNewDamage();
                 entity.getCombatTracker().recordDamage(source, amount);
@@ -370,23 +340,48 @@ public class LivingEventSubscriber {
                 }
             }
 
-            if (entity instanceof Player player) {
-                float damage = event.getNewDamage();
-                float health = player.getHealth();
-                if (ModList.get().isLoaded("curios")) {
-                    Consumer<ItemStack> consumer = itemStack -> player.setHealth(health + damage * 0.25F);
-                    CrimsonPactPendant.checkFirstCurio(player, TAItems.CRIMSON_PACT_PENDANT.get(), "necklace", consumer);
-                } else {
-                    ItemStack offhandItem = player.getOffhandItem();
-                    if (offhandItem.is(TAItems.CRIMSON_PACT_PENDANT)) {
-                        player.setHealth(health + damage * 0.25F);
-                    }
-                }
+            if (target instanceof Player player) {
+                player.setData(TAAttachmentTypes.TRIGGER_CRITICAL_HIT, true);
+            }
+        }
 
-                ItemStack mainHandItem = player.getMainHandItem();
-                if (mainHandItem.is(TAItems.AURORIAN_ALLOY_STEEL_SWORD)) {
-                    event.setNewDamage(0.0F);
-                }
+        if (source.getEntity() instanceof Player player) {
+            ItemStack itemInHand = player.getItemInHand(player.getUsedItemHand());
+            Set<Holder<Enchantment>> holderSet = itemInHand.getTagEnchantments().keySet();
+            if (holderSet.contains(TAEnchantments.get(player.level(), TAEnchantments.LEGENDARY_HERO))) {
+                List<LivingEntity> entities = player.level().getEntitiesOfClass(
+                        LivingEntity.class, player.getBoundingBox().inflate(20.0D),
+                        e -> e instanceof Player && e != player || e instanceof Villager);
+                event.setNewDamage(event.getOriginalDamage() + Math.min(entities.size(), 10));
+            }
+
+            Optional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(player);
+            curiosInventory.orElseThrow().findFirstCurio(TAItems.CRIMSON_PACT_PENDANT.get()).ifPresent(
+                    slotResult -> player.setHealth(player.getHealth() + event.getNewDamage() * 0.25F));
+            if (player.getMainHandItem().is(TAItems.AURORIAN_ALLOY_STEEL_SWORD)) {
+                event.setNewDamage(0.0F);
+            }
+        }
+
+        if (target.hasEffect(TAMobEffects.CORRUPTION)) {
+            AttachmentType<Float> type = TAAttachmentTypes.DAMAGE_ACCUMULATION.get();
+            target.setData(type, target.getData(type) + event.getNewDamage());
+            if (Objects.requireNonNull(target.getEffect(TAMobEffects.CORRUPTION)).getDuration() > 10) {
+                event.setNewDamage(0.0F);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingDamagePost(LivingDamageEvent.Post event) {
+        if (event.getEntity() instanceof Player player && !player.isCreative()) {
+            Optional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(player);
+            if (event.getNewDamage() > 0.0F && curiosInventory.isPresent()) {
+                ICuriosItemHandler itemHandler = curiosInventory.get();
+                itemHandler.findFirstCurio(stack -> stack.has(TADataComponents.RUNESTONE_WATER)).ifPresent(slotResult -> {
+                    RunestoneWater runestoneWater = slotResult.stack().get(TADataComponents.RUNESTONE_WATER);
+                    player.heal(runestoneWater == null ? 0.0F : runestoneWater.getHealValue());
+                });
             }
         }
     }
@@ -416,22 +411,14 @@ public class LivingEventSubscriber {
                     event.setCanceled(true);
                 }
 
-                Consumer<ItemStack> triggerCrimsonPact = itemStack -> {
+                Optional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(player);
+                curiosInventory.orElseThrow().findFirstCurio(TAItems.CRIMSON_PACT_PENDANT.get()).map(SlotResult::stack).ifPresent(itemStack -> {
                     PacketDistributor.sendToPlayer(player, new DisplayItemActivationS2CPacket(itemStack));
                     player.addEffect(new MobEffectInstance(TAMobEffects.CORRUPTION, 200));
                     player.setHealth(1.0F);
                     itemStack.setCount(0);
                     event.setCanceled(true);
-                };
-
-                if (ModList.get().isLoaded("curios")) {
-                    CrimsonPactPendant.checkFirstCurio(player, TAItems.CRIMSON_PACT_PENDANT.get(), "necklace", triggerCrimsonPact);
-                } else {
-                    ItemStack offhandItem = player.getOffhandItem();
-                    if (offhandItem.is(TAItems.CRIMSON_PACT_PENDANT)) {
-                        triggerCrimsonPact.accept(offhandItem);
-                    }
-                }
+                });
             }
 
             if (level.dimension() == TADimensions.AURORIAN_DIMENSION) {
@@ -504,6 +491,20 @@ public class LivingEventSubscriber {
                 target.setHealth(health - damage);
                 target.gameEvent(GameEvent.ENTITY_DAMAGE);
             }
+        }
+
+        if (target instanceof Player player) {
+            CuriosApi.getCuriosInventory(player).ifPresent(itemHandler -> {
+                DataComponentType<RunestoneIce> component = TADataComponents.RUNESTONE_ICE.get();
+                itemHandler.findFirstCurio(stack -> stack.has(component)).ifPresent(slotResult -> {
+                    RunestoneIce runestoneIce = slotResult.stack().get(component);
+                    if (runestoneIce != null) {
+                        float amount = event.getAmount();
+                        float reduction = runestoneIce.calculateDamageReduction(amount);
+                        event.setAmount(amount - reduction);
+                    }
+                });
+            });
         }
     }
 

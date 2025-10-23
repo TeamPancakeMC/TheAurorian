@@ -2,10 +2,7 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.gui.tooltips.ItemTooltip;
-import cn.teampancake.theaurorian.common.components.AlchemyProduct;
-import cn.teampancake.theaurorian.common.components.ChapterContent;
-import cn.teampancake.theaurorian.common.components.RuneGame;
-import cn.teampancake.theaurorian.common.components.SourceOfTerra;
+import cn.teampancake.theaurorian.common.components.*;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
@@ -31,6 +28,8 @@ public class TADataComponents {
             () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> MAX_SHIELD = DATA_COMPONENT_TYPE.register("max_shield",
             () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> RANK = DATA_COMPONENT_TYPE.register("rank",
+            () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> KILL_COUNT = DATA_COMPONENT_TYPE.register("kill_count",
             () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemEnchantments>> FORBIDDEN_CURSE = DATA_COMPONENT_TYPE.register("forbidden_curse",
@@ -41,6 +40,14 @@ public class TADataComponents {
             () -> DataComponentType.<RuneGame>builder().persistent(RuneGame.CODEC).networkSynchronized(RuneGame.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SourceOfTerra>> SOURCE_OF_TERRA = DATA_COMPONENT_TYPE.register("source_of_terra",
             () -> DataComponentType.<SourceOfTerra>builder().persistent(SourceOfTerra.CODEC).networkSynchronized(SourceOfTerra.STREAM_CODEC).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneIce>> RUNESTONE_ICE = DATA_COMPONENT_TYPE.register("runestone_ice",
+            () -> DataComponentType.<RunestoneIce>builder().persistent(RunestoneIce.CODEC).networkSynchronized(RunestoneIce.STREAM_CODEC).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneWater>> RUNESTONE_WATER = DATA_COMPONENT_TYPE.register("runestone_water",
+            () -> DataComponentType.<RunestoneWater>builder().persistent(RunestoneWater.CODEC).networkSynchronized(RunestoneWater.STREAM_CODEC).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneBlaze>> RUNESTONE_BLAZE = DATA_COMPONENT_TYPE.register("runestone_blaze",
+            () -> DataComponentType.<RunestoneBlaze>builder().persistent(RunestoneBlaze.CODEC).networkSynchronized(RunestoneBlaze.STREAM_CODEC).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneThunder>> RUNESTONE_THUNDER = DATA_COMPONENT_TYPE.register("runestone_thunder",
+            () -> DataComponentType.<RunestoneThunder>builder().persistent(RunestoneThunder.CODEC).networkSynchronized(RunestoneThunder.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<TagKey<Item>>>> ITEM_TAGS = DATA_COMPONENT_TYPE.register("item_tags",
             () -> DataComponentType.<List<TagKey<Item>>>builder().persistent(TagKey.codec(Registries.ITEM).listOf())
                     .networkSynchronized(ByteBufCodecs.fromCodec(TagKey.codec(Registries.ITEM).listOf())).cacheEncoding().build());
@@ -61,8 +68,7 @@ public class TADataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> HIGH_PRECISION = DATA_COMPONENT_TYPE.register("high_precision",
             () -> DataComponentType.<Boolean>builder().persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ChapterContent>>> CHAPTERS = DATA_COMPONENT_TYPE.register("chapters",
-            () -> DataComponentType.<List<ChapterContent>>builder().persistent(Codec.list(ChapterContent.CODEC))
-                    .networkSynchronized(ChapterContent.STREAM_CODEC.apply(ByteBufCodecs.list())).build());
+            () -> DataComponentType.<List<ChapterContent>>builder().persistent(Codec.list(ChapterContent.CODEC)).networkSynchronized(ChapterContent.STREAM_CODEC.apply(ByteBufCodecs.list())).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> NOTE_CHAPTER = DATA_COMPONENT_TYPE.register("note_chapter",
             () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<ItemTooltip>>> ITEM_TOOLTIP = DATA_COMPONENT_TYPE.register("item_tooltip",

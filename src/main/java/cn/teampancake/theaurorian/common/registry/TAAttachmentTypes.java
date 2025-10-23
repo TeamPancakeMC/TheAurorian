@@ -49,6 +49,7 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SUMMONED_BY_SILENT_BOW = registerBoolean("summoned_by_silent_bow");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> LOST_IN_FOREST = registerBoolean("lost_in_forest");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SOUND_PLAYED_FLAG = registerBoolean("sound_played_flag");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> TRIGGER_CRITICAL_HIT = registerBoolean("trigger_critical_hit");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IMMUNE_PRESSURE_BY_KILL_MOON_QUEEN =
             ATTACHMENT_TYPES.register("immune_pressure_by_kill_moon_queen", () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).copyOnDeath().build());
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IMMUNE_PRESSURE_UNTIL_NEXT_BLOOD_MOON =

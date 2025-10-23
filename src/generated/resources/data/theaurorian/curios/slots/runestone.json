@@ -1,0 +1,8 @@
+{
+  "drop_rule": "ALWAYS_KEEP",
+  "icon": "theaurorian:misc/slot/empty_runestone_slot",
+  "size": 3,
+  "validators": [
+    "theaurorian:is_runestone"
+  ]
+}

@@ -3,6 +3,8 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import cn.teampancake.theaurorian.common.blocks.MysteriumWoolBed;
+import cn.teampancake.theaurorian.common.components.RunestoneBlaze;
+import cn.teampancake.theaurorian.common.components.RunestoneThunder;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorManager;
@@ -41,9 +43,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.Vec3;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class PlayerEventSubscriber {
@@ -218,8 +222,29 @@ public class PlayerEventSubscriber {
     public static void onPlayerCriticalHit(CriticalHitEvent event) {
         Player player = event.getEntity();
         ItemStack mainHandItem = player.getMainHandItem();
+        AtomicReference<Float> multiplier = new AtomicReference<>(event.getDamageMultiplier());
+        CuriosApi.getCuriosInventory(player).ifPresent(itemHandler -> {
+            DataComponentType<RunestoneBlaze> blazeComponent = TADataComponents.RUNESTONE_BLAZE.get();
+            itemHandler.findFirstCurio(stack -> stack.has(blazeComponent)).ifPresent(slotResult -> {
+                RunestoneBlaze runestoneBlaze = slotResult.stack().get(blazeComponent);
+                float value = runestoneBlaze == null ? 0.0F : runestoneBlaze.getCriticalMultiplierBoost();
+                multiplier.updateAndGet(v -> v + value);
+                event.setDamageMultiplier(multiplier.get());
+            });
+
+            DataComponentType<RunestoneThunder> thunderComponent = TADataComponents.RUNESTONE_THUNDER.get();
+            itemHandler.findFirstCurio(stack -> stack.has(thunderComponent)).ifPresent(slotResult -> {
+                RunestoneThunder runestoneThunder = slotResult.stack().get(thunderComponent);
+                AttachmentType<Boolean> attachmentType = TAAttachmentTypes.TRIGGER_CRITICAL_HIT.get();
+                if (runestoneThunder != null && !event.isCriticalHit() && player.getData(attachmentType)) {
+                    if (runestoneThunder.canTriggerCriticalHit()) event.setCriticalHit(true);
+                    player.setData(attachmentType, false);
+                }
+            });
+        });
+
         if (mainHandItem.is(TAItems.STEEL_DAGGER)) {
-            event.setDamageMultiplier(2.25F);
+            event.setDamageMultiplier(multiplier.get() + 0.75F);
             if (!player.hasInfiniteMaterials()) {
                 int totalDamage = mainHandItem.getDamageValue() + 5;
                 if (player instanceof ServerPlayer serverPlayer) {

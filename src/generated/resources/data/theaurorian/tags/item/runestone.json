@@ -1,11 +1,27 @@
 {
   "values": [
-    "theaurorian:runestone_ice",
+    "theaurorian:runestone_ice_1",
+    "theaurorian:runestone_ice_2",
+    "theaurorian:runestone_ice_3",
+    "theaurorian:runestone_ice_4",
+    "theaurorian:runestone_ice_5",
     "theaurorian:runestone_life",
     "theaurorian:runestone_light",
-    "theaurorian:runestone_water",
-    "theaurorian:runestone_blaze",
-    "theaurorian:runestone_thunder",
+    "theaurorian:runestone_water_1",
+    "theaurorian:runestone_water_2",
+    "theaurorian:runestone_water_3",
+    "theaurorian:runestone_water_4",
+    "theaurorian:runestone_water_5",
+    "theaurorian:runestone_blaze_1",
+    "theaurorian:runestone_blaze_2",
+    "theaurorian:runestone_blaze_3",
+    "theaurorian:runestone_blaze_4",
+    "theaurorian:runestone_blaze_5",
+    "theaurorian:runestone_thunder_1",
+    "theaurorian:runestone_thunder_2",
+    "theaurorian:runestone_thunder_3",
+    "theaurorian:runestone_thunder_4",
+    "theaurorian:runestone_thunder_5",
     "theaurorian:runestone_darkness"
   ]
 }

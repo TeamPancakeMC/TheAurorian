@@ -1,12 +1,16 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.components.RunestoneBlaze;
+import cn.teampancake.theaurorian.common.components.RunestoneThunder;
+import cn.teampancake.theaurorian.common.components.RunestoneWater;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.items.*;
 import cn.teampancake.theaurorian.common.items.armor.*;
 import cn.teampancake.theaurorian.common.items.block.AstrologyTable;
 import cn.teampancake.theaurorian.common.items.block.SacrificeTable;
 import cn.teampancake.theaurorian.common.items.curio.CrimsonPactPendant;
+import cn.teampancake.theaurorian.common.items.curio.Runestone;
 import cn.teampancake.theaurorian.common.items.developer.*;
 import cn.teampancake.theaurorian.common.items.shield.CeruleanShield;
 import cn.teampancake.theaurorian.common.items.shield.CrystallineShield;
@@ -14,6 +18,7 @@ import cn.teampancake.theaurorian.common.items.shield.UmbraShield;
 import cn.teampancake.theaurorian.common.items.tool.*;
 import cn.teampancake.theaurorian.common.items.weapon.*;
 import cn.teampancake.theaurorian.common.items.weapon.AurorianSteelDagger;
+import cn.teampancake.theaurorian.common.components.RunestoneIce;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -25,13 +30,11 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 import static cn.teampancake.theaurorian.common.utils.TAItemRegUtils.*;
 import static net.minecraft.world.item.ArmorItem.Type.*;
@@ -396,13 +399,49 @@ public class TAItems {
     /**
      * Runestone
      */
-    public static final DeferredHolder<Item, Item> RUNESTONE_ICE = normal("runestone_ice", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.RUNESTONE)));
-    public static final DeferredHolder<Item, Item> RUNESTONE_LIFE = normal("runestone_life", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.RUNESTONE)));
-    public static final DeferredHolder<Item, Item> RUNESTONE_LIGHT = normal("runestone_light", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.RUNESTONE)));
-    public static final DeferredHolder<Item, Item> RUNESTONE_WATER = normal("runestone_water", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.RUNESTONE)));
-    public static final DeferredHolder<Item, Item> RUNESTONE_BLAZE = normal("runestone_blaze", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.RUNESTONE)));
-    public static final DeferredHolder<Item, Item> RUNESTONE_THUNDER = normal("runestone_thunder", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.RUNESTONE)));
-    public static final DeferredHolder<Item, Item> RUNESTONE_DARKNESS = normal("runestone_darkness", () -> new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.RUNESTONE)));
+    public static final DeferredHolder<Item, Item> RUNESTONE_ICE_1 = ITEMS.register("runestone_ice_1", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.1f, 0.3f, 1.0f)), 1));
+    public static final DeferredHolder<Item, Item> RUNESTONE_ICE_2 = ITEMS.register("runestone_ice_2", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.1f, 0.3f, 1.5f)), 2));
+    public static final DeferredHolder<Item, Item> RUNESTONE_ICE_3 = ITEMS.register("runestone_ice_3", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.31f, 0.5f, 1.5f)), 3));
+    public static final DeferredHolder<Item, Item> RUNESTONE_ICE_4 = ITEMS.register("runestone_ice_4", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.31f, 0.5f, 2.0f)), 4));
+    public static final DeferredHolder<Item, Item> RUNESTONE_ICE_5 = ITEMS.register("runestone_ice_5", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(1.0f, 1.0f, 2.0f)), 5));
+    public static final DeferredHolder<Item, Item> RUNESTONE_LIFE = ITEMS.register("runestone_life", () -> new Runestone(new Item.Properties().component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE), 1));
+    public static final DeferredHolder<Item, Item> RUNESTONE_LIGHT = ITEMS.register("runestone_light", () -> new Runestone(new Item.Properties().component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE), 1));
+    public static final DeferredHolder<Item, Item> RUNESTONE_WATER_1 = ITEMS.register("runestone_water_1", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.1f, 0.2f, 1.0f)), 1));
+    public static final DeferredHolder<Item, Item> RUNESTONE_WATER_2 = ITEMS.register("runestone_water_2", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.21f, 0.3f, 1.0f)), 2));
+    public static final DeferredHolder<Item, Item> RUNESTONE_WATER_3 = ITEMS.register("runestone_water_3", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.25f, 0.35f, 2.0f)), 3));
+    public static final DeferredHolder<Item, Item> RUNESTONE_WATER_4 = ITEMS.register("runestone_water_4", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.36f, 0.5f, 2.0f)), 4));
+    public static final DeferredHolder<Item, Item> RUNESTONE_WATER_5 = ITEMS.register("runestone_water_5", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(1.0f, 1.0f, 2.0f)), 5));
+    public static final DeferredHolder<Item, Item> RUNESTONE_BLAZE_1 = ITEMS.register("runestone_blaze_1", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.2f, 0.3f, 0.01f, 0.1f)), 1));
+    public static final DeferredHolder<Item, Item> RUNESTONE_BLAZE_2 = ITEMS.register("runestone_blaze_2", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.3f, 0.4f, 0.11f, 0.2f)), 2));
+    public static final DeferredHolder<Item, Item> RUNESTONE_BLAZE_3 = ITEMS.register("runestone_blaze_3", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.3f, 0.4f, 0.21f, 0.3f)), 3));
+    public static final DeferredHolder<Item, Item> RUNESTONE_BLAZE_4 = ITEMS.register("runestone_blaze_4", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.4f, 0.6f, 0.31f, 0.4f)), 4));
+    public static final DeferredHolder<Item, Item> RUNESTONE_BLAZE_5 = ITEMS.register("runestone_blaze_5", () -> new Runestone(new Item.Properties()
+            .component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(1.0f, 1.0f, 0.5f, 0.5f)), 5));
+    public static final DeferredHolder<Item, Item> RUNESTONE_THUNDER_1 = ITEMS.register("runestone_thunder_1", () ->
+            new Runestone(new Item.Properties().component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.01f, 0.15f)), 1));
+    public static final DeferredHolder<Item, Item> RUNESTONE_THUNDER_2 = ITEMS.register("runestone_thunder_2", () ->
+            new Runestone(new Item.Properties().component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.16f, 0.30f)), 2));
+    public static final DeferredHolder<Item, Item> RUNESTONE_THUNDER_3 = ITEMS.register("runestone_thunder_3", () ->
+            new Runestone(new Item.Properties().component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.31f, 0.45f)), 3));
+    public static final DeferredHolder<Item, Item> RUNESTONE_THUNDER_4 = ITEMS.register("runestone_thunder_4", () ->
+            new Runestone(new Item.Properties().component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.46f, 0.6f)), 4));
+    public static final DeferredHolder<Item, Item> RUNESTONE_THUNDER_5 = ITEMS.register("runestone_thunder_5", () ->
+            new Runestone(new Item.Properties().component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(1.0f, 1.0f)), 5));
+    public static final DeferredHolder<Item, Item> RUNESTONE_DARKNESS = ITEMS.register("runestone_darkness", () -> new Runestone(new Item.Properties().component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE), 1));
 
     /**
      * Misc
@@ -411,21 +450,20 @@ public class TAItems {
             .stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(TAJukeboxSongs.AURORIAN_FOREST).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> MUSIC_DISC_MOONLIT_VEIL = normal("music_disc_moonlit_veil", () -> new Item.Properties()
             .stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(TAJukeboxSongs.MOONLIT_VEIL).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
-    public static final DeferredHolder<Item, Item> CRYSTAL = normal("crystal", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
+    public static final DeferredHolder<Item, Item> CRYSTAL = normal("crystal", () -> new Item.Properties()
+            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> BROKEN_OX_HORN = normal("broken_ox_horn", () -> new Item.Properties().component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> LUCKY_RABBIT_EAR = normal("lucky_rabbit_ear", () -> new Item.Properties().component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> AURORIAN_STEEL_NUGGET = normal("aurorian_steel_nugget", Item.Properties::new);
     public static final DeferredHolder<Item, Item> CERULEAN_NUGGET = normal("cerulean_nugget", Item.Properties::new);
     public static final DeferredHolder<Item, Item> AURORIAN_COAL_NUGGET = normal("aurorian_coal_nugget", Item.Properties::new);
     public static final DeferredHolder<Item, Item> MOONSTONE_NUGGET = normal("moonstone_nugget", Item.Properties::new);
+    public static final DeferredHolder<Item, Item> AURORIAN_CRYSTAL = ITEMS.register("aurorian_crystal", AurorianCrystal::new);
     public static final DeferredHolder<Item, Item> AURORIAN_CHAIN = normal("aurorian_chain", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     public static final DeferredHolder<Item, Item> AURORIAN_BERRY = normal("aurorian_berry", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
-    public static final DeferredHolder<Item, Item> AURORIAN_CRYSTAL = ITEMS.register("aurorian_crystal", AurorianCrystal::new);
-    public static final DeferredHolder<Item, Item> EQUINOX_MUSHROOM = normal("equinox_mushroom",
-            () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
-    public static final DeferredHolder<Item, Item> DREAM_DYEING_CRYSTAL_FRAGMENT = normal("dream_dyeing_crystal_fragment",
-            () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.DREAM_DYEING_CRYSTAL_FRAGMENT)
-                    .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
+    public static final DeferredHolder<Item, Item> EQUINOX_MUSHROOM = normal("equinox_mushroom", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
+    public static final DeferredHolder<Item, Item> DREAM_DYEING_CRYSTAL_FRAGMENT = normal("dream_dyeing_crystal_fragment", () -> new Item.Properties()
+            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.DREAM_DYEING_CRYSTAL_FRAGMENT).component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> WORLD_SCROLL = ITEMS.register("world_scroll", WorldScroll::new);
     public static final DeferredHolder<Item, Item> BOOK_OF_SIN = ITEMS.register("book_of_sin", BookOfSin::new);
     public static final DeferredHolder<Item, Item> VAGRANT_NOTE = ITEMS.register("vagrant_note", VagrantNote::new);
@@ -446,17 +484,8 @@ public class TAItems {
             TAEntityTypes.MOON_FISH.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1)
             .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> DEVELOPER_GIFT = ITEMS.register("developer_gift", DeveloperGift::new);
-
-    static Supplier<Item> CRIMSON_PACK_PENDANT_CURIOS = () -> new CrimsonPactPendant(new Item.Properties().stacksTo(1)
-            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-            .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
-    public static final DeferredHolder<Item, Item> CRIMSON_PACT_PENDANT = ITEMS.register("crimson_pact_pendant", () -> {
-        Item.Properties properties = new Item.Properties().stacksTo(1)
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE);
-        return ModList.get().isLoaded("curios") ? CRIMSON_PACK_PENDANT_CURIOS.get() :
-                new Item(properties.attributes(CrimsonPactPendant.ATTRIBUTES));
-    });
+    public static final DeferredHolder<Item, Item> CRIMSON_PACT_PENDANT = ITEMS.register("crimson_pact_pendant", () -> new CrimsonPactPendant(new Item.Properties()
+            .stacksTo(1).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
 
     /**
      * Developer Item

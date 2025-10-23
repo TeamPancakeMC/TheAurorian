@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.data.datagen.provider;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.items.VagrantNotePage;
+import cn.teampancake.theaurorian.common.items.curio.Runestone;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItems;
@@ -127,9 +128,17 @@ public class TAItemModelProvider extends ItemModelProvider {
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof VagrantNotePage).forEach(item ->
                 this.withExistingParent(BuiltInRegistries.ITEM.getKey(item).getPath(), this.mcLoc("item/generated"))
                         .texture("layer0", this.modLoc("item/vagrant_note_page")));
+        TACommonUtils.getKnownItemStream().filter(this::isSimpleModelItem).forEach(this::basicItem);
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof BowItem).forEach(this::bowItem);
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof ShieldItem).forEach(this::shieldItem);
-        TACommonUtils.getKnownItemStream().filter(this::isSimpleModelItem).forEach(this::basicItem);
+        TACommonUtils.getKnownItemStream().filter(item -> item instanceof Runestone).forEach(item -> {
+            if (!item.components().has(TADataComponents.SIMPLE_MODEL.get())) {
+                String path = BuiltInRegistries.ITEM.getKey(item).getPath();
+                String texture = path.substring(0, path.lastIndexOf('_'));
+                this.withExistingParent(path, this.mcLoc("item/generated"))
+                        .texture("layer0", this.modLoc("item/" + texture));
+            }
+        });
     }
 
     private void bowItem(Item item) {
@@ -160,7 +169,7 @@ public class TAItemModelProvider extends ItemModelProvider {
     }
 
     private void simpleItem(Item item) {
-        String path = BuiltInRegistries.ITEM.getKey(item).getPath();
+        String path = this.itemName(item);
         this.withExistingParent(path, this.mcLoc("item/generated"))
                 .texture("layer0", this.modLoc("item/" + path));
     }

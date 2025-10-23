@@ -10,6 +10,7 @@ import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.items.AurorianChestItem;
+import cn.teampancake.theaurorian.common.items.curio.Runestone;
 import cn.teampancake.theaurorian.common.items.weapon.CrystallineSword;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;
@@ -50,6 +51,7 @@ import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.Objects;
 
@@ -85,6 +87,11 @@ public class ModBusEventSubscriber {
     @SubscribeEvent
     public static void registerCustomStat(FMLCommonSetupEvent event) {
         event.enqueueWork(TAStats::init);
+    }
+
+    @SubscribeEvent
+    public static void registerCurioValidator(FMLCommonSetupEvent event) {
+        CuriosApi.registerCurioPredicate(TACurioValidators.IS_RUNESTONE, slotResult -> slotResult.stack().getItem() instanceof Runestone);
     }
 
     @OnlyIn(Dist.CLIENT)

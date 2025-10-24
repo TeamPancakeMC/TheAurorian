@@ -21,7 +21,7 @@ public class LifeRunestone extends Runestone {
     @Override
     public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id, ItemStack stack) {
         Multimap<Holder<Attribute>, AttributeModifier> multimap = LinkedHashMultimap.create();
-        Double fixedHealthBoost = stack.getOrDefault(TADataComponents.FIX_HEALTH_BOOST, 0.0D);
+        float fixedHealthBoost = stack.getOrDefault(TADataComponents.FIX_HEALTH_BOOST, 0.0F);
         ResourceLocation key = TheAurorian.prefix("runestone_health_boost");
         AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_VALUE;
         multimap.put(Attributes.MAX_HEALTH, new AttributeModifier(key, fixedHealthBoost, operation));

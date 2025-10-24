@@ -409,15 +409,15 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> RUNESTONE_ICE_5 = ITEMS.register("runestone_ice_5", () -> new Runestone(new Item.Properties()
             .component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(1.0f, 1.0f, 2.0f)), 5, 0.0F));
     public static final DeferredHolder<Item, Item> RUNESTONE_LIFE_1 = ITEMS.register("runestone_life_1", () -> new LifeRunestone(new Item.Properties()
-            .component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(1, 6)).component(TADataComponents.FIX_HEALTH_BOOST, 5.0D), 1, 0.6F));
+            .component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(1, 6)).component(TADataComponents.FIX_HEALTH_BOOST, 5.0F), 1, 0.6F));
     public static final DeferredHolder<Item, Item> RUNESTONE_LIFE_2 = ITEMS.register("runestone_life_2", () -> new LifeRunestone(new Item.Properties()
-            .component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(6, 11)).component(TADataComponents.FIX_HEALTH_BOOST, 10.0D), 2, 0.25F));
+            .component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(6, 11)).component(TADataComponents.FIX_HEALTH_BOOST, 10.0F), 2, 0.25F));
     public static final DeferredHolder<Item, Item> RUNESTONE_LIFE_3 = ITEMS.register("runestone_life_3", () -> new LifeRunestone(new Item.Properties()
-            .component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(11, 16)).component(TADataComponents.FIX_HEALTH_BOOST, 15.0D), 3, 0.1F));
+            .component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(11, 16)).component(TADataComponents.FIX_HEALTH_BOOST, 15.0F), 3, 0.1F));
     public static final DeferredHolder<Item, Item> RUNESTONE_LIFE_4 = ITEMS.register("runestone_life_4", () -> new LifeRunestone(new Item.Properties()
-            .component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(16, 21)).component(TADataComponents.FIX_HEALTH_BOOST, 20.0D), 4, 0.05F));
+            .component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(16, 21)).component(TADataComponents.FIX_HEALTH_BOOST, 20.0F), 4, 0.05F));
     public static final DeferredHolder<Item, Item> RUNESTONE_LIFE_5 = ITEMS.register("runestone_life_5", () -> new LifeRunestone(new Item.Properties()
-            .component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(21, 26)).component(TADataComponents.FIX_HEALTH_BOOST, 25.0D), 5, 0.0F));
+            .component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(21, 26)).component(TADataComponents.FIX_HEALTH_BOOST, 25.0F), 5, 0.0F));
     public static final DeferredHolder<Item, Item> RUNESTONE_LIGHT_1 = ITEMS.register("runestone_light_1", () -> new Runestone(new Item.Properties()
             .component(TADataComponents.RUNESTONE_LIGHT, new RunestoneWater(0.1f, 0.2f, 1.0f)), 1, 0.6F));
     public static final DeferredHolder<Item, Item> RUNESTONE_LIGHT_2 = ITEMS.register("runestone_light_2", () -> new Runestone(new Item.Properties()

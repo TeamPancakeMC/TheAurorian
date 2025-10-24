@@ -40,8 +40,8 @@ public class TADataComponents {
             () -> DataComponentType.<RuneGame>builder().persistent(RuneGame.CODEC).networkSynchronized(RuneGame.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SourceOfTerra>> SOURCE_OF_TERRA = DATA_COMPONENT_TYPE.register("source_of_terra",
             () -> DataComponentType.<SourceOfTerra>builder().persistent(SourceOfTerra.CODEC).networkSynchronized(SourceOfTerra.STREAM_CODEC).build());
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> FIX_HEALTH_BOOST = DATA_COMPONENT_TYPE.register("fixed_health_boost",
-            () -> DataComponentType.<Double>builder().persistent(Codec.DOUBLE).networkSynchronized(ByteBufCodecs.DOUBLE).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FIX_HEALTH_BOOST = DATA_COMPONENT_TYPE.register("fixed_health_boost",
+            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneLife>> RUNESTONE_LIFE = DATA_COMPONENT_TYPE.register("runestone_life",
             () -> DataComponentType.<RunestoneLife>builder().persistent(RunestoneLife.CODEC).networkSynchronized(RunestoneLife.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneIce>> RUNESTONE_ICE = DATA_COMPONENT_TYPE.register("runestone_ice",

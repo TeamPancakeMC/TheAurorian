@@ -417,6 +417,8 @@
   "commands.theaurorian.night_phase.invalid_phase": "无效的夜晚类型",
   "commands.theaurorian.night_phase.not_in_aurorian": "此命令只能在极光世界中使用",
   "commands.theaurorian.night_phase.set": "已将当前夜晚类型设置为 %s",
+  "curios.identifier.runestone": "符石",
+  "curios.modifiers.runestone": "佩戴符石时：",
   "death.attack.corruption_1": "当%1$s在凝视深渊的时候，深渊也在凝视着%1$s",
   "death.attack.corruption_2": "西行寺幽幽子似乎并不喜欢%1$s",
   "death.attack.corruption_3": "%1$s死在了樱花树下",

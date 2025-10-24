@@ -40,7 +40,6 @@ public class TAItemTagsProvider extends ItemTagsProvider {
         this.copy(TABlockTags.AURORIAN_CARVER_REPLACEABLES, TAItemTags.AURORIAN_CARVER_REPLACEABLES);
         this.copy(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, TAItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
         this.tag(CuriosTags.NECKLACE).add(TAItems.CRIMSON_PACT_PENDANT.get());
-        this.tag(CuriosTags.CURIO).addTag(TAItemTags.RUNESTONE);
         for (Item item : TACommonUtils.getKnownItems()) {
             ItemStack stack = item.getDefaultInstance();
             if (stack.has(TADataComponents.ITEM_TAGS)) {

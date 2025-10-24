@@ -417,6 +417,8 @@
   "commands.theaurorian.night_phase.invalid_phase": "Invalid night phase",
   "commands.theaurorian.night_phase.not_in_aurorian": "This command can only be used in The Aurorian dimension",
   "commands.theaurorian.night_phase.set": "Night phase set to %s",
+  "curios.identifier.runestone": "Runestone",
+  "curios.modifiers.runestone": "When worn as Runestone:",
   "death.attack.corruption_1": "When %1$s gaze long into an abyss, the abyss also gazes into %1$s",
   "death.attack.corruption_2": "It seems that Saigyouji Yuyuko doesn't like %1$s",
   "death.attack.corruption_3": "%1$s died under the cherry blossom tree",

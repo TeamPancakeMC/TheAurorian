@@ -46,7 +46,6 @@ public class TADataGenerator {
         generator.addProvider(event.includeServer(), new TALootTableProvider(output, provider));
         generator.addProvider(event.includeServer(), new TADataMapProvider(output, provider));
         generator.addProvider(event.includeServer(), new TARecipeProvider(output, provider));
-        generator.addProvider(event.includeServer(), new TAGlobalLootModifierProvider(output, provider));
         generator.addProvider(event.includeServer(), new TAAdvancementProvider(output, provider, existingFileHelper));
         generator.addProvider(event.includeServer(), new TACuriosDataProvider(output, existingFileHelper, registryProvider));
     }

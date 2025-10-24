@@ -61,7 +61,6 @@ public class TheAurorian {
         TAEnchantmentEffectTypes.ENCHANTMENT_VALUE_EFFECT_TYPES.register(modEventBus);
         TAEnchantmentEffectTypes.ENCHANTMENT_ENTITY_EFFECT_TYPES.register(modEventBus);
         TAEnchantmentEffectComponents.ENCHANTMENT_EFFECT_COMPONENT_TYPES.register(modEventBus);
-        TAGlobalLootModifier.GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(modEventBus);
         TALootItemConditions.LOOT_CONDITION_TYPES.register(modEventBus);
         TABiomeLayers.BIOME_LAYER_TYPES.register(modEventBus);
         TAMobEffects.MOB_EFFECTS.register(modEventBus);

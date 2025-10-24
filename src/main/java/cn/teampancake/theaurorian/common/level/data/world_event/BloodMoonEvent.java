@@ -76,7 +76,6 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
 
     @Override
     public void onEventStart(ServerLevel level) {
-        level.getServer().playerList.broadcastSystemMessage(BLOOD_MOON_START_COMPONENT, Boolean.FALSE);
         WorldEventData eventData = WorldEventManager.getWorldEventData(level);
         Map<UUID, BloodMoonPlayerData> playerDataMap = eventData.bloodMoonPlayerData;
         for (ServerPlayer player : level.players()) {
@@ -85,6 +84,7 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
             playerDataMap.put(player.getUUID(), playerData);
             player.setData(KILL_COUNT, 0);
             player.setData(REMOVE_BLESS, false);
+            player.sendSystemMessage(BLOOD_MOON_START_COMPONENT, Boolean.FALSE);
             if (!player.getData(IMMUNE_PRESSURE_PERSISTENT)) {
                 player.setData(IMMUNE_PRESSURE_TEMP, false);
             }
@@ -106,7 +106,6 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
 
     @Override
     public void onEventEnd(ServerLevel level) {
-        level.getServer().playerList.broadcastSystemMessage(BLOOD_MOON_END_COMPONENT, Boolean.FALSE);
         WorldEventData eventData = WorldEventManager.getWorldEventData(level);
         Map<UUID, BloodMoonPlayerData> playerDataMap = eventData.bloodMoonPlayerData;
         for (ServerPlayer player : level.players()) {
@@ -115,6 +114,7 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
             BloodMoonPlayerData playerData = new BloodMoonPlayerData();
             playerData.kills = killCount;
             playerDataMap.put(player.getUUID(), playerData);
+            player.sendSystemMessage(BLOOD_MOON_END_COMPONENT, Boolean.FALSE);
             if (killCount >= 40) {
                 player.setData(IMMUNE_PRESSURE_TEMP, true);
             } else {

@@ -5,18 +5,13 @@ import cn.teampancake.theaurorian.common.entities.monster.AurorianSlime;
 import cn.teampancake.theaurorian.common.items.curio.DarknessRunestone;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAEnchantments;
-import com.google.common.collect.Multimap;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +25,6 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
@@ -71,23 +65,17 @@ public abstract class MixinLivingEntity implements ILivingEntityExtension {
 
     @ModifyArg(method = "getDamageAfterArmorAbsorb", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/damagesource/CombatRules;getDamageAfterAbsorb(Lnet/minecraft/world/entity/LivingEntity;FLnet/minecraft/world/damagesource/DamageSource;FF)F"), index = 3)
     protected float getDamageAfterArmorAbsorb(float armorValue, @Local(ordinal = 0, argsOnly = true) DamageSource damageSource) {
-        if (damageSource.getEntity() instanceof Player player) {
+        if (damageSource.getEntity() instanceof Player player && player.getArmorValue() > 0) {
             Optional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(player);
             if (curiosInventory.isPresent()) {
                 ICuriosItemHandler itemHandler = curiosInventory.get();
-                DataComponentType<RunestoneDarkness> darknessComponent = TADataComponents.RUNESTONE_DARKNESS.get();
-                Optional<SlotResult> firstCurio = itemHandler.findFirstCurio(stack -> stack.has(darknessComponent));
+                DataComponentType<RunestoneDarkness> component = TADataComponents.RUNESTONE_DARKNESS.get();
+                Optional<SlotResult> firstCurio = itemHandler.findFirstCurio(stack -> stack.has(component));
                 if (firstCurio.isPresent()) {
-                    SlotResult slotResult = firstCurio.get();
-                    SlotContext slotContext = slotResult.slotContext();
-                    ItemStack stack = slotResult.stack();
-                    RunestoneDarkness runestoneDarkness = stack.get(darknessComponent);
-                    if (runestoneDarkness != null && stack.getItem() instanceof DarknessRunestone runestone) {
-                        ResourceLocation empty = ResourceLocation.withDefaultNamespace("empty");
-                        Multimap<Holder<Attribute>, AttributeModifier> attributeModifiers = runestone.getAttributeModifiers(slotContext, empty, stack);
-                        if (!attributeModifiers.isEmpty() && attributeModifiers.containsKey(Attributes.ARMOR)) {
-                            return Math.max(0.0F, armorValue - runestoneDarkness.getIgnoreArmorValue());
-                        }
+                    ItemStack stack = firstCurio.get().stack();
+                    RunestoneDarkness runestoneDarkness = stack.get(component);
+                    if (runestoneDarkness != null && stack.getItem() instanceof DarknessRunestone) {
+                        return Math.max(0.0F, armorValue - runestoneDarkness.getIgnoreArmorValue());
                     }
                 }
             }

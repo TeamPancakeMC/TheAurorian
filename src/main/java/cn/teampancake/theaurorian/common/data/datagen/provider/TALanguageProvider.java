@@ -676,11 +676,11 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAItems.RUNESTONE_THUNDER_3, "三阶雷电符文石");
         this.addKey(TAItems.RUNESTONE_THUNDER_4, "四阶雷电符文石");
         this.addKey(TAItems.RUNESTONE_THUNDER_5, "五阶雷电符文石");
-        this.addKey(TAItems.RUNESTONE_DARKNESS_1, "一阶黑暗符文石");
-        this.addKey(TAItems.RUNESTONE_DARKNESS_2, "二阶黑暗符文石");
-        this.addKey(TAItems.RUNESTONE_DARKNESS_3, "三阶黑暗符文石");
-        this.addKey(TAItems.RUNESTONE_DARKNESS_4, "四阶黑暗符文石");
-        this.addKey(TAItems.RUNESTONE_DARKNESS_5, "五阶黑暗符文石");
+        this.addKey(TAItems.RUNESTONE_DARKNESS_1, "一阶暗黑符文石");
+        this.addKey(TAItems.RUNESTONE_DARKNESS_2, "二阶暗黑符文石");
+        this.addKey(TAItems.RUNESTONE_DARKNESS_3, "三阶暗黑符文石");
+        this.addKey(TAItems.RUNESTONE_DARKNESS_4, "四阶暗黑符文石");
+        this.addKey(TAItems.RUNESTONE_DARKNESS_5, "五阶暗黑符文石");
         this.addKey(TAItems.UMBRA_INGOT, "本影锭");
         this.addKey(TAItems.UMBRA_SCRAP, "本影碎片");
         this.addKey(TAItems.UMBRA_SHIELD, "本影盾牌");

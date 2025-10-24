@@ -5,6 +5,7 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -23,7 +24,8 @@ public class DarknessRunestone extends Runestone {
     @Override
     public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id, ItemStack stack) {
         Multimap<Holder<Attribute>, AttributeModifier> multimap = LinkedHashMultimap.create();
-        if (slotContext.entity().getAttributeValue(Attributes.ARMOR) > this.armorReduction) {
+        LivingEntity entity = slotContext.entity();
+        if (entity != null && entity.getAttributeValue(Attributes.ARMOR) > this.armorReduction) {
             ResourceLocation key = TheAurorian.prefix("runestone_armor_reduction");
             AttributeModifier.Operation operation = AttributeModifier.Operation.ADD_VALUE;
             multimap.put(Attributes.ARMOR, new AttributeModifier(key, -this.armorReduction, operation));

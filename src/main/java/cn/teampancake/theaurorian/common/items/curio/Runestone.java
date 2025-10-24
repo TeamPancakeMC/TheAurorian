@@ -39,12 +39,15 @@ public class Runestone extends Item implements ICurioItem {
         Optional<ICurioStacksHandler> stacksHandler = curiosInventory.flatMap(o -> o.getStacksHandler("runestone"));
         IDynamicStackHandler stacks = stacksHandler.orElseThrow().getStacks();
         for (int i = 0; i < stacks.getSlots(); i++) {
-            Item itemInSlot = stacks.getStackInSlot(i).getItem();
-            String key1 = BuiltInRegistries.ITEM.getKey(itemInSlot).toString();
-            String key2 = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
-            String s1 = key1.substring(0, key1.lastIndexOf('_'));
-            String s2 = key2.substring(0, key2.lastIndexOf('_'));
-            if (s1.equals(s2)) return false;
+            ItemStack stackInSlot = stacks.getStackInSlot(i);
+            if (!stackInSlot.isEmpty()) {
+                Item itemInSlot = stackInSlot.getItem();
+                String key1 = BuiltInRegistries.ITEM.getKey(itemInSlot).toString();
+                String key2 = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+                String s1 = key1.substring(0, key1.lastIndexOf('_'));
+                String s2 = key2.substring(0, key2.lastIndexOf('_'));
+                if (s1.equals(s2)) return false;
+            }
         }
 
         return slotContext.identifier().equals("runestone");

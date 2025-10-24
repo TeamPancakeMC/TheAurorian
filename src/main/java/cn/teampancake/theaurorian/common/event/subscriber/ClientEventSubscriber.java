@@ -17,6 +17,7 @@ import net.minecraft.client.gui.components.LerpingBossEvent;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
@@ -188,10 +189,12 @@ public class ClientEventSubscriber {
     public static void onRenderTooltips(RenderTooltipEvent.Pre event) {
         ModernUICompatibility.toggleModernUITooltipRenderer(true);
         ItemStack itemStack = event.getItemStack();
+        String key = BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString();
         Holder<ItemTooltip> tooltip = itemStack.get(TADataComponents.ITEM_TOOLTIP);
-        if (tooltip != null) {
+        if (tooltip != null && !key.isEmpty()) {
+            int width = event.getFont().width(key);
             ModernUICompatibility.toggleModernUITooltipRenderer(false);
-            tooltip.value().renderTooltips(event);
+            tooltip.value().renderTooltips(event, Math.max(width, 180));
             event.setCanceled(true);
         }
     }

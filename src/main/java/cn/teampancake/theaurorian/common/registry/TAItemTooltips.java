@@ -89,7 +89,7 @@ public class TAItemTooltips {
                     new ItemTooltip.TooltipAtlas(TAItems.DREAM_DYEING_CRYSTAL_FRAGMENT.getId(), 0, -7, 14, 5, ItemTooltip.Position.BOTTOM))));
 
     public static final DeferredHolder<ItemTooltip, ItemTooltip> WHITE_CHOCOLATE = ITEM_TOOLTIPS.register("white_chocolate", () -> new ItemTooltip(
-            new ItemTooltip.Properties().outerColor(0xff694e36).intermediateColor(0xffddcea3).innerColor(0xff503a26).textTop(7).centerFont().atlases(
+            new ItemTooltip.Properties().outerColor(0xff694e36).intermediateColor(0xffddcea3).innerColor(0xff503a26).textTop(7).maxTextWidth(200).centerFont().atlases(
                     new ItemTooltip.TooltipAtlas(TAItems.WHITE_CHOCOLATE.getId(), -6, -18, 11, 11, ItemTooltip.Position.TOP_LEFT),
                     new ItemTooltip.TooltipAtlas(TAItems.WHITE_CHOCOLATE.getId(), -26, -18, 11, 11, ItemTooltip.Position.TOP_RIGHT),
                     new ItemTooltip.TooltipAtlas(TAItems.WHITE_CHOCOLATE.getId(), -5, -40, 28, 34, ItemTooltip.Position.BOTTOM_LEFT),

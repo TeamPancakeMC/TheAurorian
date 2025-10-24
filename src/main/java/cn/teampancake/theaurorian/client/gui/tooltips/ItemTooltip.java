@@ -40,6 +40,7 @@ public class ItemTooltip {
     final int intermediateColor;
     final int innerColor;
     final int textTop;
+    final int maxTextWidth;
     final boolean centerFont;
     final TooltipAtlas[] atlases;
     boolean shouldFlip = false;
@@ -50,11 +51,12 @@ public class ItemTooltip {
         this.intermediateColor = properties.intermediateColor;
         this.innerColor = properties.innerColor;
         this.textTop = properties.textTop;
+        this.maxTextWidth = properties.maxTextWidth;
         this.centerFont = properties.centerFont;
         this.atlases = properties.atlases;
     }
 
-    public void renderTooltips(RenderTooltipEvent.Pre event) {
+    public void renderTooltips(RenderTooltipEvent.Pre event, int maxTextWidth) {
         List<ClientTooltipComponent> components = new ArrayList<>(event.getComponents());
         ClientTooltipPositioner positioner = event.getTooltipPositioner();
         GuiGraphics graphics = event.getGraphics();
@@ -65,7 +67,7 @@ public class ItemTooltip {
         int height = event.getScreenHeight();
         int i0 = 0;
         int j0 = components.size() == 1 ? -2 : 0;
-        this.fixTooltipComponent(components, font, mouseX, width);
+        this.fixTooltipComponent(components, font, mouseX, width, maxTextWidth);
         for (ClientTooltipComponent component : components) {
             int k = component.getWidth(font);
             j0 += component.getHeight();
@@ -174,7 +176,7 @@ public class ItemTooltip {
                 atlas.width(), atlas.height());
     }
 
-    private void fixTooltipComponent(List<ClientTooltipComponent> components, Font font, int x, int width) {
+    private void fixTooltipComponent(List<ClientTooltipComponent> components, Font font, int x, int width, int maxTextWidth) {
         this.shouldFlip = false;
         int forcedWidth = 0;
         for (ClientTooltipComponent component : components) {
@@ -193,7 +195,11 @@ public class ItemTooltip {
         }
 
         TATooltipRenderUtils.wrapNewLines(components);
-        TATooltipRenderUtils.wrapLongLines(components, font, maxWidth);
+        if (this.maxTextWidth > 0) {
+            TATooltipRenderUtils.wrapLongLines(components, font, this.maxTextWidth);
+        } else if (maxTextWidth > 0) {
+            TATooltipRenderUtils.wrapLongLines(components, font, maxTextWidth);
+        } else TATooltipRenderUtils.wrapLongLines(components, font, maxWidth);
     }
 
     public enum Position implements StringRepresentable {
@@ -259,6 +265,7 @@ public class ItemTooltip {
         private int intermediateColor;
         private int innerColor;
         private int textTop;
+        private int maxTextWidth;
         private boolean centerFont;
         private TooltipAtlas[] atlases = {};
 
@@ -282,8 +289,13 @@ public class ItemTooltip {
             return this;
         }
 
-        public Properties textTop(int offset) {
-            this.textTop = offset;
+        public Properties textTop(int top) {
+            this.textTop = top;
+            return this;
+        }
+
+        public Properties maxTextWidth(int width) {
+            this.maxTextWidth = width;
             return this;
         }
 

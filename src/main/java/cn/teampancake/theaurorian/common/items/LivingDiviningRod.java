@@ -24,7 +24,6 @@ public class LivingDiviningRod extends Item {
     public LivingDiviningRod() {
         super(new Item.Properties().rarity(Rarity.EPIC)
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 

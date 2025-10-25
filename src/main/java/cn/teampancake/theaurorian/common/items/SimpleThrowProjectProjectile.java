@@ -28,7 +28,6 @@ public class SimpleThrowProjectProjectile extends Item {
 
     public SimpleThrowProjectProjectile(Item.Properties properties, SoundEvent soundEvent, SoundSource soundSource, Supplier<EntityType<?>> projectile, float velocity, float inaccuracy) {
         super(properties.component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
         this.soundEvent = soundEvent;
         this.soundSource = soundSource;

@@ -29,9 +29,8 @@ public class StrangeMeat extends Item {
 
     public StrangeMeat() {
         super(new Item.Properties().rarity(Rarity.EPIC).durability(10)
-                .food(new FoodProperties.Builder().nutrition(8).saturationModifier((0.9F)).alwaysEdible().build())
+                .food(new FoodProperties.Builder().nutrition(8).saturationModifier(0.9F).alwaysEdible().build())
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 

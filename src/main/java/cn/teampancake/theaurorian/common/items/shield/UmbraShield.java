@@ -8,7 +8,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -32,8 +31,7 @@ public class UmbraShield extends ShieldItem {
     public UmbraShield() {
         super(new Item.Properties().durability(512)
                 .component(TADataComponents.ITEM_TAGS, List.of(Tags.Items.TOOLS_SHIELD, ItemTags.DURABILITY_ENCHANTABLE))
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     @Override

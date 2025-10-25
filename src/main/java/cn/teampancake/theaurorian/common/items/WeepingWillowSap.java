@@ -14,7 +14,6 @@ public class WeepingWillowSap extends Item {
 
     public WeepingWillowSap() {
         super(new Item.Properties().food(new FoodProperties.Builder().build())
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 

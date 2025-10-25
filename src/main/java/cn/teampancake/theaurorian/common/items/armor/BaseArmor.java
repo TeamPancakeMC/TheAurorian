@@ -26,7 +26,6 @@ public abstract class BaseArmor<T extends HumanoidModel<?>> extends ArmorItem {
     public BaseArmor(Holder<ArmorMaterial> material, Type type, Item.Properties properties) {
         super(material, type, properties
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 

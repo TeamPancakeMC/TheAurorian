@@ -35,7 +35,6 @@ public class AurorianiteSword extends SwordItem {
                 .attributes(createAttributes(TAToolTiers.AURORIANITE, 4, -2.4F))
                 .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.NO_RUN_DATA, Unit.INSTANCE));
     }
 

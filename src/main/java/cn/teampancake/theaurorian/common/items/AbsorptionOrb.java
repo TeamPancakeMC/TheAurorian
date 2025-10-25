@@ -24,7 +24,6 @@ public class AbsorptionOrb extends Item {
     public AbsorptionOrb() {
         super(new Item.Properties().rarity(Rarity.EPIC).durability(250)
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 

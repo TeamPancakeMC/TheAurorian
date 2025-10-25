@@ -16,7 +16,6 @@ public class TeaFood extends Item {
     public TeaFood(Item.Properties properties) {
         super(properties.stacksTo((1)).food(new FoodProperties.Builder().usingConvertsTo(TAItems.TEA_CUP.get()).build())
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 

@@ -25,8 +25,7 @@ public class AurorianSteelDagger extends SwordItem {
         super(TAToolTiers.AURORIAN_STEEL, new Properties()
                 .durability(500).attributes(createAttributes())
                 .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     private static ItemAttributeModifiers createAttributes() {

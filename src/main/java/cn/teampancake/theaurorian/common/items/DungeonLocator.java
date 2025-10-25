@@ -40,7 +40,6 @@ public class DungeonLocator extends Item {
     public DungeonLocator() {
         super(new Item.Properties().durability(30).rarity(Rarity.RARE)
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     }
 

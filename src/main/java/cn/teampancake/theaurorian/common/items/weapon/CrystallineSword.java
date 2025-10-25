@@ -76,7 +76,6 @@ public class CrystallineSword extends SwordItem implements GeoItem {
                 .attributes(createAttributes(TAToolTiers.CRYSTALLINE, 3, -2.4F))
                 .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.NO_RUN_DATA, Unit.INSTANCE)
                 .component(TADataComponents.HIGH_PRECISION, Boolean.FALSE));
     }

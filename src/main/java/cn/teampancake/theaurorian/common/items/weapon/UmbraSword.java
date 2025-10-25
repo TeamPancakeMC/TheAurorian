@@ -34,7 +34,6 @@ public class UmbraSword extends SwordItem {
                 .attributes(createAttributes(TAToolTiers.UMBRA, 7, 1.6F))
                 .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
                 .component(TADataComponents.NO_RUN_DATA, Unit.INSTANCE));
     }
 

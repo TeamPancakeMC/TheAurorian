@@ -142,9 +142,9 @@ public class TAItems {
      * ShovelItem
      */
     public static final DeferredHolder<Item, Item> AURORIAN_STEEL_SHOVEL = ITEMS.register("aurorian_steel_shovel", () -> new ShovelItem(TAToolTiers.AURORIAN_STEEL, new Item.Properties().attributes(
-            ShovelItem.createAttributes(TAToolTiers.AURORIAN_STEEL, 1.5F, -3.0F)).component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SHOVELS))));
+            ShovelItem.createAttributes(TAToolTiers.AURORIAN_STEEL, 1.5F, -3.0F)).component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SHOVELS)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON)));
     public static final DeferredHolder<Item, Item> AURORIAN_STONE_SHOVEL = ITEMS.register("aurorian_stone_shovel", () -> new ShovelItem(TAToolTiers.AURORIAN_STONE, new Item.Properties().attributes(
-            ShovelItem.createAttributes(TAToolTiers.AURORIAN_STONE, 1.5F, -3.0F)).component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SHOVELS))));
+            ShovelItem.createAttributes(TAToolTiers.AURORIAN_STONE, 1.5F, -3.0F)).component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SHOVELS)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON)));
     public static final DeferredHolder<Item, Item> SILENT_WOOD_SHOVEL = ITEMS.register("silent_wood_shovel", () -> new ShovelItem(TAToolTiers.SILENT_WOOD, new Item.Properties().attributes(
             ShovelItem.createAttributes(TAToolTiers.SILENT_WOOD, 1.5F, -3.0F)).component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SHOVELS)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
     public static final DeferredHolder<Item, Item> MOONSTONE_SHOVEL = ITEMS.register("moonstone_shovel", () -> new ShovelItem(TAToolTiers.SILENT_WOOD, new Item.Properties().attributes(
@@ -166,12 +166,14 @@ public class TAItems {
                     .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.AXES))
                     .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
     public static final DeferredHolder<Item, Item> MOONSTONE_AXE = ITEMS.register("moonstone_axe",
-            () -> new AxeItem(TAToolTiers.SILENT_WOOD, new Item.Properties().component(TADataComponents.ITEM_TAGS, List.of(ItemTags.AXES))
+            () -> new AxeItem(TAToolTiers.SILENT_WOOD, new Item.Properties()
+                    .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.AXES))
                     .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
 
     /**
      * PickaxeItem
      */
+    public static final DeferredHolder<Item, Item> QUEENS_CHIPPER = ITEMS.register("queens_chipper", QueensChipper::new);
     public static final DeferredHolder<Item, Item> AURORIAN_STEEL_PICKAXE = ITEMS.register("aurorian_steel_pickaxe",
             () -> new PickaxeItem(TAToolTiers.AURORIAN_STEEL, new Item.Properties().attributes(
                     PickaxeItem.createAttributes(TAToolTiers.AURORIAN_STEEL, 1, -2.8F))
@@ -191,7 +193,6 @@ public class TAItems {
                     PickaxeItem.createAttributes(TAToolTiers.SILENT_WOOD, 1, -2.8F))
                     .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES))
                     .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
-    public static final DeferredHolder<Item, Item> QUEENS_CHIPPER = ITEMS.register("queens_chipper", QueensChipper::new);
 
     /**
      * HoeItem
@@ -234,11 +235,9 @@ public class TAItems {
      * BowItem
      */
     public static final DeferredHolder<Item, Item> SILENT_WOOD_BOW = ITEMS.register("silent_wood_bow", () -> new BowItem(new Item.Properties().durability(384)
-            .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BOW_ENCHANTABLE, Tags.Items.TOOLS_BOW))
-            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
+            .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BOW_ENCHANTABLE, Tags.Items.TOOLS_BOW)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
     public static final DeferredHolder<Item, Item> KEEPERS_BOW = ITEMS.register("keepers_bow", () -> new KeepersBow(new Item.Properties().durability(512).rarity(Rarity.RARE)
-            .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BOW_ENCHANTABLE, Tags.Items.TOOLS_BOW))
-            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
+            .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BOW_ENCHANTABLE, Tags.Items.TOOLS_BOW)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)));
 
     /**
      * Throwable Weapons
@@ -317,7 +316,8 @@ public class TAItems {
             .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> AURORIAN_BACON = ITEMS.register("aurorian_bacon", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.8F)
             .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 60), 1.0F).build()).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
-    public static final DeferredHolder<Item, Item> STRANGE_MEAT = ITEMS.register("strange_meat", StrangeMeat::new);
+    public static final DeferredHolder<Item, Item> STRANGE_MEAT = ITEMS.register("strange_meat", () -> new StrangeMeat(new Item.Properties().rarity(Rarity.EPIC).durability(10)
+            .food(new FoodProperties.Builder().nutrition(8).saturationModifier(0.9F).alwaysEdible().build()).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> LAVENDER_SALAD = ITEMS.register("lavender_salad", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(5.0F)
             .effect(() -> new MobEffectInstance(TAMobEffects.NATURE, 600), 1.0F).build()).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> FAKE_ALGAL_PIT_FISH = ITEMS.register("fake_algal_pit_fish", () -> new Item(new Item.Properties()
@@ -340,7 +340,7 @@ public class TAItems {
                     .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
     public static final DeferredHolder<Item, Item> DARK_STONE_SHRIMP = ITEMS.register("dark_stone_shrimp",
             () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.8F).build())
-            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
+                    .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)));
 
     /**
      * Key
@@ -470,8 +470,7 @@ public class TAItems {
             .stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(TAJukeboxSongs.AURORIAN_FOREST).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
     public static final DeferredHolder<Item, Item> MUSIC_DISC_MOONLIT_VEIL = normal("music_disc_moonlit_veil", () -> new Item.Properties()
             .stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(TAJukeboxSongs.MOONLIT_VEIL).component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
-    public static final DeferredHolder<Item, Item> CRYSTAL = normal("crystal", () -> new Item.Properties()
-            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
+    public static final DeferredHolder<Item, Item> CRYSTAL = normal("crystal", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     public static final DeferredHolder<Item, Item> BROKEN_OX_HORN = normal("broken_ox_horn", Item.Properties::new);
     public static final DeferredHolder<Item, Item> LUCKY_RABBIT_EAR = normal("lucky_rabbit_ear", Item.Properties::new);
     public static final DeferredHolder<Item, Item> AURORIAN_STEEL_NUGGET = normal("aurorian_steel_nugget", Item.Properties::new);

@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.items.curio;
+package cn.teampancake.theaurorian.common.items.curio.runestone;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
@@ -14,8 +14,8 @@ import top.theillusivec4.curios.api.SlotContext;
 
 public class LifeRunestone extends Runestone {
 
-    public LifeRunestone(Properties properties, int rank, float lootChance) {
-        super(properties, rank, lootChance);
+    public LifeRunestone(Properties properties, int rank) {
+        super(properties, rank);
     }
 
     @Override

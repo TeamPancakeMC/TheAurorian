@@ -1,9 +1,10 @@
-package cn.teampancake.theaurorian.common.items.curio;
+package cn.teampancake.theaurorian.common.items.curio.runestone;
 
 import cn.teampancake.theaurorian.client.gui.tooltips.ItemTooltip;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
@@ -21,16 +22,19 @@ import java.util.Optional;
 
 public class Runestone extends Item implements ICurioItem {
 
-    private static final Map<Integer, Holder<ItemTooltip>> RANK_MAP = Map.of(
-            1, TAItemTooltips.UNCOMMON, 2, TAItemTooltips.RARE, 3, TAItemTooltips.EPIC,
-            4, TAItemTooltips.LEGENDARY, 5, TAItemTooltips.MYTHICAL);
+    private static final Map<Integer, Pair<Float, Holder<ItemTooltip>>> RANK_MAP = Map.of(
+            1, Pair.of(0.6F, TAItemTooltips.UNCOMMON),
+            2, Pair.of(0.25F, TAItemTooltips.RARE),
+            3, Pair.of(0.1F, TAItemTooltips.EPIC),
+            4, Pair.of(0.05F, TAItemTooltips.LEGENDARY),
+            5, Pair.of(0.0F, TAItemTooltips.MYTHICAL));
     private final float lootChance;
 
-    public Runestone(Properties properties, int rank, float lootChance) {
+    public Runestone(Properties properties, int rank) {
         super(properties.component(TADataComponents.RANK, rank)
-                .component(TADataComponents.ITEM_TOOLTIP, RANK_MAP.get(rank))
+                .component(TADataComponents.ITEM_TOOLTIP, RANK_MAP.get(rank).getSecond())
                 .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.RUNESTONE)));
-        this.lootChance = lootChance;
+        this.lootChance = RANK_MAP.get(rank).getFirst();
     }
 
     @Override

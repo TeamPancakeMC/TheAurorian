@@ -1,4 +1,10 @@
 {
+    "attribute.theaurorian.name.player.ice_runestone": "%s chance reduce %s max received damage",
+    "attribute.theaurorian.name.player.water_runestone": "%s chance heal %s after hurt",
+    "attribute.theaurorian.name.player.blaze_runestone": "%s chance boost %s extra crit damage",
+    "attribute.theaurorian.name.player.light_runestone": "%s chance heal %s on crit",
+    "attribute.theaurorian.name.player.thunder_runestone": "%s chance next hit crit after hurt",
+    "attribute.theaurorian.name.player.darkness_runestone": "%s chance ignore %s target armor",
     "advancement.theaurorian.enter_aurorian.desc": "Entered the Aurorian",
     "advancement.theaurorian.enter_aurorian.title": "Traveller from Other World?",
     "advancement.theaurorian.kill_aurorian_mob.desc": "Kill any mob in the Aurorian",

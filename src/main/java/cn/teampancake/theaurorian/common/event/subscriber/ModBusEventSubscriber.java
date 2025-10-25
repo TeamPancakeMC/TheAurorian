@@ -10,7 +10,7 @@ import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.items.AurorianChestItem;
-import cn.teampancake.theaurorian.common.items.curio.Runestone;
+import cn.teampancake.theaurorian.common.items.curio.runestone.Runestone;
 import cn.teampancake.theaurorian.common.items.weapon.CrystallineSword;
 import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.level.chunk.TAChunkGenerator;

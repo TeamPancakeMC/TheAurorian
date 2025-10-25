@@ -2,7 +2,7 @@ package cn.teampancake.theaurorian.common.mixin;
 
 import cn.teampancake.theaurorian.common.components.RunestoneDarkness;
 import cn.teampancake.theaurorian.common.entities.monster.AurorianSlime;
-import cn.teampancake.theaurorian.common.items.curio.DarknessRunestone;
+import cn.teampancake.theaurorian.common.items.curio.runestone.DarknessRunestone;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAEnchantments;
 import com.llamalad7.mixinextras.sugar.Local;

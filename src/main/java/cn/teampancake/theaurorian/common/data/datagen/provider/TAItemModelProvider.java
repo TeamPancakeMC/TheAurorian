@@ -3,7 +3,7 @@ package cn.teampancake.theaurorian.common.data.datagen.provider;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.items.VagrantNotePage;
-import cn.teampancake.theaurorian.common.items.curio.Runestone;
+import cn.teampancake.theaurorian.common.items.curio.runestone.Runestone;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItems;

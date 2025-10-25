@@ -1,4 +1,10 @@
 {
+    "attribute.theaurorian.name.player.ice_runestone": "%s 几率减少 %s 最大受到伤害",
+    "attribute.theaurorian.name.player.water_runestone": "%s 几率在受伤后恢复 %s 生命值",
+    "attribute.theaurorian.name.player.blaze_runestone": "%s 几率增加 %s 额外暴击伤害",
+    "attribute.theaurorian.name.player.light_runestone": "%s 几率在造成暴击时恢复 %s 生命值",
+    "attribute.theaurorian.name.player.thunder_runestone": "受伤后 %s 几率在下次攻击时造成暴击",
+    "attribute.theaurorian.name.player.darkness_runestone": "%s 几率无视 %s 目标护甲",
     "advancement.theaurorian.enter_aurorian.desc": "进入极光维度",
     "advancement.theaurorian.enter_aurorian.title": "异界的旅客?",
     "advancement.theaurorian.kill_aurorian_mob.desc": "击杀极光世界的生物",

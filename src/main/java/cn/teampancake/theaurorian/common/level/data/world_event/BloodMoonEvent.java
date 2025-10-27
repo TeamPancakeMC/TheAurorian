@@ -76,12 +76,12 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
 
     @Override
     public void onEventStart(ServerLevel level) {
-        WorldEventData eventData = WorldEventManager.getWorldEventData(level);
-        Map<UUID, BloodMoonPlayerData> playerDataMap = eventData.bloodMoonPlayerData;
+        if (!TACommonUtils.isAurorianDimension(level)) return;
+        WorldEventData eventData = level.getData(TAAttachmentTypes.WORLD_EVENT_DATA);
+        Map<UUID, Integer> killCountInBloodMoons = eventData.killCountInBloodMoons;
         for (ServerPlayer player : level.players()) {
             this.bloodMoonEvent.addPlayer(player);
-            BloodMoonPlayerData playerData = new BloodMoonPlayerData();
-            playerDataMap.put(player.getUUID(), playerData);
+            killCountInBloodMoons.put(player.getUUID(), 0);
             player.setData(KILL_COUNT, 0);
             player.setData(REMOVE_BLESS, false);
             player.sendSystemMessage(BLOOD_MOON_START_COMPONENT, Boolean.FALSE);
@@ -91,10 +91,7 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
         }
 
         for (Entity entity : level.getAllEntities()) {
-            if (entity instanceof PathfinderMob mob) {
-                enhanceEnemy(level, mob);
-            }
-
+            if (entity instanceof PathfinderMob mob) enhanceEnemy(level, mob);
             if (entity instanceof Animal animal) {
                 animal.goalSelector.removeGoal(new PanicGoal(animal, 2.0D));
                 animal.goalSelector.addGoal(1, new MeleeAttackGoal(animal, 1.0F, Boolean.FALSE));
@@ -106,20 +103,16 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
 
     @Override
     public void onEventEnd(ServerLevel level) {
-        WorldEventData eventData = WorldEventManager.getWorldEventData(level);
-        Map<UUID, BloodMoonPlayerData> playerDataMap = eventData.bloodMoonPlayerData;
+        if (!TACommonUtils.isAurorianDimension(level)) return;
+        WorldEventData eventData = level.getData(TAAttachmentTypes.WORLD_EVENT_DATA);
+        Map<UUID, Integer> killCountInBloodMoons = eventData.killCountInBloodMoons;
         for (ServerPlayer player : level.players()) {
             int killCount = player.getData(KILL_COUNT);
             this.bloodMoonEvent.removePlayer(player);
-            BloodMoonPlayerData playerData = new BloodMoonPlayerData();
-            playerData.kills = killCount;
-            playerDataMap.put(player.getUUID(), playerData);
+            killCountInBloodMoons.put(player.getUUID(), killCount);
             player.sendSystemMessage(BLOOD_MOON_END_COMPONENT, Boolean.FALSE);
-            if (killCount >= 40) {
-                player.setData(IMMUNE_PRESSURE_TEMP, true);
-            } else {
-                player.setData(REMOVE_BLESS, true);
-            }
+            if (killCount >= 40) player.setData(IMMUNE_PRESSURE_TEMP, true);
+            else player.setData(REMOVE_BLESS, true);
         }
 
         for (Entity entity : level.getAllEntities()) {
@@ -144,12 +137,14 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
 
     @Override
     public void onEventTick(ServerLevel level, long currentTick) {
+        if (!TACommonUtils.isAurorianDimension(level)) return;
         this.bloodMoonEvent.setProgress(this.getProgress(level));
         for (ServerPlayer player : level.players()) {
             MutableComponent component = Component.translatable(BLOOD_MOON_KILL_COUNT, player.getData(KILL_COUNT));
             this.bloodMoonEvent.setName(BLOOD_MOON_NAME_COMPONENT.copy()
                     .append(Component.literal(" - ").withStyle(ChatFormatting.BOLD))
                     .append(component.withStyle(ChatFormatting.BOLD)));
+            this.bloodMoonEvent.addPlayer(player);
         }
     }
 

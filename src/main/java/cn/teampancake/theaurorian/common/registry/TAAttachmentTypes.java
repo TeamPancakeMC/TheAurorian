@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.level.data.world_event.WorldEventData;
 import cn.teampancake.theaurorian.common.shields.BaseShield;
 import cn.teampancake.theaurorian.common.shields.ShieldInstance;
 import cn.teampancake.theaurorian.common.shields.ShieldStack;
@@ -82,6 +83,11 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<ShieldStack>> CURRENT_SHIELD =
             ATTACHMENT_TYPES.register("current_shield", () -> AttachmentType.builder(
                     () -> ShieldStack.EMPTY).serialize(ShieldStack.CODEC).sync(ShieldStack.STREAM_CODEC).copyOnDeath().build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<WorldEventData>> WORLD_EVENT_DATA =
+            ATTACHMENT_TYPES.register("world_event_data", () -> AttachmentType.builder(
+                    () -> new WorldEventData(new HashMap<>(), new HashMap<>(),
+                            new HashMap<>(), new HashMap<>(), new HashMap<>())
+            ).serialize(WorldEventData.CODEC).sync(WorldEventData.STREAM_CODEC).build());
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Map<Holder<BaseShield>, ShieldInstance>>> SHIELDS =
             ATTACHMENT_TYPES.register("shields", () -> AttachmentType.<Map<Holder<BaseShield>, ShieldInstance>>builder(
                     () -> new HashMap<>()).serialize(Codec.unboundedMap(BaseShield.CODEC, ShieldInstance.CODEC))

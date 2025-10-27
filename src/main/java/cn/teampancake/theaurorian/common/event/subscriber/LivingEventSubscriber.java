@@ -447,12 +447,9 @@ public class LivingEventSubscriber {
             if (level instanceof ServerLevel serverLevel && TAWorldEvents.BLOOD_MOON.get().isActive(serverLevel)) {
                 AttachmentType<Integer> type = TAAttachmentTypes.KILL_COUNT_IN_BLOOD_MOON.get();
                 player.setData(type, player.getData(type) + 1);
-                WorldEventData eventData = WorldEventManager.getWorldEventData(serverLevel);
-                Map<UUID, BloodMoonPlayerData> playerDataMap = eventData.bloodMoonPlayerData;
-                BloodMoonPlayerData playerData = new BloodMoonPlayerData();
-                playerData.kills = player.getData(type);
-                playerDataMap.put(player.getUUID(), playerData);
-                WorldEventDataStorage.get(serverLevel).setDirty();
+                WorldEventData eventData = level.getData(TAAttachmentTypes.WORLD_EVENT_DATA);
+                Map<UUID, Integer> killCountInBloodMoons = eventData.killCountInBloodMoons;
+                killCountInBloodMoons.put(player.getUUID(), player.getData(type));
             }
         }
     }

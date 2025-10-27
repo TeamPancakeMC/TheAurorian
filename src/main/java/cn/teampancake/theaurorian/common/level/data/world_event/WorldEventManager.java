@@ -6,10 +6,6 @@ import net.minecraft.server.level.ServerLevel;
 
 public class WorldEventManager {
 
-    public static WorldEventData getWorldEventData(ServerLevel level) {
-        return WorldEventDataStorage.get(level).getEventData();
-    }
-
     public static void updateWorldEvents(ServerLevel level) {
         for (BaseWorldEvent<?> worldEvent : TAWorldEvents.REGISTRY) {
             if (worldEvent.getEventId() == null) continue;
@@ -20,28 +16,14 @@ public class WorldEventManager {
 
     public static void initialize(ServerLevel level) {
         WorldEventDataStorage storage = WorldEventDataStorage.get(level);
-        WorldEventData eventData = storage.getEventData();
+        String status = BaseWorldEvent.EventState.INACTIVE.name();
         for (BaseWorldEvent<?> event : TAWorldEvents.REGISTRY) {
             ResourceLocation eventId = event.getEventId();
-            if (eventId == null) continue;
-            if (eventData.lastActivationDays.isEmpty()) {
-                eventData.lastActivationDays.put(eventId, -1L);
-            }
-
-            if (eventData.currentTicks.isEmpty()) {
-                eventData.currentTicks.put(eventId, 0L);
-            }
-
-            if (eventData.remainingTicks.isEmpty()) {
-                eventData.remainingTicks.put(eventId, 0L);
-            }
-
-            if (eventData.eventStates.isEmpty()) {
-                eventData.eventStates.put(eventId, BaseWorldEvent.EventState.INACTIVE.name());
-            }
+            storage.lastActivationDays.putIfAbsent(eventId, -1L);
+            storage.currentTicks.putIfAbsent(eventId, 0L);
+            storage.remainingTicks.putIfAbsent(eventId, 0L);
+            storage.eventStates.putIfAbsent(eventId, status);
         }
-
-        storage.setDirty();
     }
 
 }

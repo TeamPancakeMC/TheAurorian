@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TABiomeSource extends BiomeSource {
-
     public static final MapCodec<TABiomeSource> TA_CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
             TATerrainColumn.CODEC.listOf().fieldOf("biome_landscape").xmap(
                     l -> l.stream().collect(Collectors.toMap(TATerrainColumn::getResourceKey, Function.identity())),

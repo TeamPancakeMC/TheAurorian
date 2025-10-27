@@ -1,20 +1,20 @@
 {
   "values": [
-    "theaurorian:aurorian_plains",
     "theaurorian:underwater",
-    "theaurorian:aurorian_river",
-    "theaurorian:equinox_flower_plains",
-    "theaurorian:filthy_ice_crystal_snowfield",
     "theaurorian:filthy_ice_hills",
-    "theaurorian:bright_moon_desert",
-    "theaurorian:cursed_frost_forest",
-    "theaurorian:underground",
-    "theaurorian:lavender_plains",
-    "theaurorian:filthy_ice_mountain",
     "theaurorian:aurorian_lake",
-    "theaurorian:aurorian_forest_hill",
     "theaurorian:aurorian_beach",
-    "theaurorian:weeping_willow_forest",
-    "theaurorian:aurorian_forest"
+    "theaurorian:aurorian_river",
+    "theaurorian:aurorian_forest",
+    "theaurorian:underground",
+    "theaurorian:aurorian_plains",
+    "theaurorian:filthy_ice_crystal_snowfield",
+    "theaurorian:filthy_ice_mountain",
+    "theaurorian:aurorian_forest_hill",
+    "theaurorian:lavender_plains",
+    "theaurorian:cursed_frost_forest",
+    "theaurorian:equinox_flower_plains",
+    "theaurorian:bright_moon_desert",
+    "theaurorian:weeping_willow_forest"
   ]
 }

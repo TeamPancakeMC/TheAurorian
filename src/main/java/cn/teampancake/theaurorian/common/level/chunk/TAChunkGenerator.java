@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.level.chunk;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.level.biome.TABiomeSource;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAWorldEvents;
 import com.google.common.collect.Lists;
@@ -74,23 +73,8 @@ public class TAChunkGenerator extends NoiseBasedChunkGenerator {
             this.defaultFluid = Blocks.WATER.defaultBlockState();
         }
 
-        if (noiseGenSettings.isBound()) {
-            NoiseSettings settings = noiseGenSettings.value().noiseSettings();
-            if (chunkGenerator.getBiomeSource() instanceof TABiomeSource source) {
-                WorldgenRandom random = new WorldgenRandom(new LegacyRandomSource(0L));
-                TABlendedNoise blendedNoise = new TABlendedNoise(random);
-                NoiseModifier modifier = NoiseModifier.PASS_THROUGH;
-                int yCount = settings.height() / settings.getCellHeight();
-                NoiseSlider topSlide = new NoiseSlider(-10.0D, 3, 0);
-                NoiseSlider bottomSlide = new NoiseSlider(15.0D, 3, 0);
-                this.warper = Optional.of(new TANoiseSampler(settings.getCellWidth(), settings.getCellHeight(),
-                        yCount, source, topSlide, bottomSlide, settings, blendedNoise, modifier));
-            } else {
-                this.warper = Optional.empty();
-            }
-        } else {
-            this.warper = Optional.empty();
-        }
+        // Use vanilla 1.18+ style noise by disabling custom warper
+        this.warper = Optional.empty();
     }
 
     @Override

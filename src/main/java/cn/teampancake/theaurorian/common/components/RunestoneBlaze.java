@@ -14,7 +14,7 @@ public record RunestoneBlaze(float minChance, float maxChance, float minBoost, f
             Codec.FLOAT.fieldOf("min_chance").forGetter(RunestoneBlaze::minChance),
             Codec.FLOAT.fieldOf("max_chance").forGetter(RunestoneBlaze::maxChance),
             Codec.FLOAT.fieldOf("min_boost").forGetter(RunestoneBlaze::minBoost),
-            Codec.FLOAT.fieldOf("max_boost").forGetter(RunestoneBlaze::minBoost)).apply(instance, RunestoneBlaze::new));
+            Codec.FLOAT.fieldOf("max_boost").forGetter(RunestoneBlaze::maxBoost)).apply(instance, RunestoneBlaze::new));
     public static final StreamCodec<FriendlyByteBuf, RunestoneBlaze> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.FLOAT, RunestoneBlaze::minChance, ByteBufCodecs.FLOAT, RunestoneBlaze::maxChance,
             ByteBufCodecs.FLOAT, RunestoneBlaze::minBoost, ByteBufCodecs.FLOAT, RunestoneBlaze::maxBoost, RunestoneBlaze::new);

@@ -1,44 +1,38 @@
 package cn.teampancake.theaurorian.common.level.data.world_event;
 
-import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.data.TASavedDataUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
 
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class WorldEventDataStorage extends SavedData {
 
     private static final String FILE_NAME = "the_aurorian_world_event_data";
-    private final WorldEventData eventData;
-
-    public WorldEventDataStorage() {
-        this.eventData = new WorldEventData();
-    }
-
-    public WorldEventDataStorage(WorldEventData eventData) {
-        this.eventData = eventData;
-    }
-
-    public WorldEventData getEventData() {
-        return this.eventData;
-    }
+    public final Map<ResourceLocation, Long> lastActivationDays = new ConcurrentHashMap<>();
+    public final Map<ResourceLocation, Long> currentTicks = new ConcurrentHashMap<>();
+    public final Map<ResourceLocation, Long> remainingTicks = new ConcurrentHashMap<>();
+    public final Map<ResourceLocation, String> eventStates = new ConcurrentHashMap<>();
+    public final Map<UUID, BloodMoonPlayerData> bloodMoonPlayerData = new ConcurrentHashMap<>();
 
     @Override
     public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
-        tag.put("lastActivationDays", TASavedDataUtils.saveLongMap(this.eventData.lastActivationDays));
-        tag.put("currentTicks", TASavedDataUtils.saveLongMap(this.eventData.currentTicks));
-        tag.put("remainingTicks", TASavedDataUtils.saveLongMap(this.eventData.remainingTicks));
-        tag.put("eventStates", TASavedDataUtils.saveStringMap(this.eventData.eventStates));
+        tag.put("lastActivationDays", TASavedDataUtils.saveLongMap(this.lastActivationDays));
+        tag.put("currentTicks", TASavedDataUtils.saveLongMap(this.currentTicks));
+        tag.put("remainingTicks", TASavedDataUtils.saveLongMap(this.remainingTicks));
+        tag.put("eventStates", TASavedDataUtils.saveStringMap(this.eventStates));
         tag.put("bloodMoonPlayerData", this.getBloodMoonCompoundTag());
         return tag;
     }
 
     private CompoundTag getBloodMoonCompoundTag() {
         CompoundTag bloodMoonDataTag = new CompoundTag();
-        for (var entry : this.eventData.bloodMoonPlayerData.entrySet()) {
+        for (var entry : this.bloodMoonPlayerData.entrySet()) {
             CompoundTag playerTag = new CompoundTag();
             playerTag.putInt("kills", entry.getValue().kills);
             playerTag.putBoolean("rewardActive", entry.getValue().rewardActive);
@@ -51,35 +45,25 @@ public class WorldEventDataStorage extends SavedData {
     }
 
     public static WorldEventDataStorage load(CompoundTag tag, HolderLookup.Provider registries) {
-        try {
-            WorldEventData eventData = new WorldEventData();
-            TASavedDataUtils.loadLongMap(tag, "lastActivationDays", eventData.lastActivationDays);
-            TASavedDataUtils.loadLongMap(tag, "currentTicks", eventData.currentTicks);
-            TASavedDataUtils.loadLongMap(tag, "remainingTicks", eventData.remainingTicks);
-            TASavedDataUtils.loadStringMap(tag, "eventStates", eventData.eventStates);
-            if (tag.contains("bloodMoonPlayerData")) {
-                CompoundTag bloodMoonDataTag = tag.getCompound("bloodMoonPlayerData");
-                for (String key : bloodMoonDataTag.getAllKeys()) {
-                    try {
-                        UUID playerId = UUID.fromString(key);
-                        CompoundTag playerTag = bloodMoonDataTag.getCompound(key);
-                        BloodMoonPlayerData playerData = new BloodMoonPlayerData();
-                        playerData.kills = playerTag.getInt("kills");
-                        playerData.rewardActive = playerTag.getBoolean("rewardActive");
-                        playerData.penaltyActive = playerTag.getBoolean("penaltyActive");
-                        playerData.rewardUntil = playerTag.getLong("rewardUntil");
-                        eventData.bloodMoonPlayerData.put(playerId, playerData);
-                    } catch (IllegalArgumentException e) {
-                        TheAurorian.LOGGER.error("Invalid UUID in blood moon data: {}", key);
-                    }
-                }
+        WorldEventDataStorage storage = new WorldEventDataStorage();
+        TASavedDataUtils.loadLongMap(tag, "lastActivationDays", storage.lastActivationDays);
+        TASavedDataUtils.loadLongMap(tag, "currentTicks", storage.currentTicks);
+        TASavedDataUtils.loadLongMap(tag, "remainingTicks", storage.remainingTicks);
+        TASavedDataUtils.loadStringMap(tag, "eventStates", storage.eventStates);
+        if (tag.contains("bloodMoonPlayerData")) {
+            CompoundTag bloodMoonDataTag = tag.getCompound("bloodMoonPlayerData");
+            for (String key : bloodMoonDataTag.getAllKeys()) {
+                CompoundTag playerTag = bloodMoonDataTag.getCompound(key);
+                BloodMoonPlayerData playerData = new BloodMoonPlayerData();
+                playerData.kills = playerTag.getInt("kills");
+                playerData.rewardActive = playerTag.getBoolean("rewardActive");
+                playerData.penaltyActive = playerTag.getBoolean("penaltyActive");
+                playerData.rewardUntil = playerTag.getLong("rewardUntil");
+                storage.bloodMoonPlayerData.put(UUID.fromString(key), playerData);
             }
-
-            return new WorldEventDataStorage(eventData);
-        } catch (Exception e) {
-            TheAurorian.LOGGER.error("Failed to load world event data, using defaults: {}", e.getMessage());
-            return new WorldEventDataStorage();
         }
+
+        return storage;
     }
 
     public static WorldEventDataStorage get(ServerLevel level) {

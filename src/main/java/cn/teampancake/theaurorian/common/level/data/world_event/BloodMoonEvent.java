@@ -2,10 +2,12 @@ package cn.teampancake.theaurorian.common.level.data.world_event;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.entities.boss.AbstractAurorianBoss;
+import cn.teampancake.theaurorian.common.network.UpdateCurrentShieldS2CPacket;
 import cn.teampancake.theaurorian.common.network.WorldNightColorS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TAEventConfigurations;
-import cn.teampancake.theaurorian.common.registry.TAWorldEvents;
+import cn.teampancake.theaurorian.common.registry.TAShields;
+import cn.teampancake.theaurorian.common.shields.ShieldStack;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
@@ -25,13 +27,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -79,8 +75,11 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
         if (!TACommonUtils.isAurorianDimension(level)) return;
         WorldEventData eventData = level.getData(TAAttachmentTypes.WORLD_EVENT_DATA);
         Map<UUID, Integer> killCountInBloodMoons = eventData.killCountInBloodMoons;
+        ShieldStack shieldStack = new ShieldStack(TAShields.BLOOD_MOON);
+        var packet = new UpdateCurrentShieldS2CPacket(shieldStack);
         for (ServerPlayer player : level.players()) {
             this.bloodMoonEvent.addPlayer(player);
+            PacketDistributor.sendToPlayer(player, packet);
             killCountInBloodMoons.put(player.getUUID(), 0);
             player.setData(KILL_COUNT, 0);
             player.setData(REMOVE_BLESS, false);
@@ -92,12 +91,6 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
 
         for (Entity entity : level.getAllEntities()) {
             if (entity instanceof PathfinderMob mob) enhanceEnemy(level, mob);
-            if (entity instanceof Animal animal) {
-                animal.goalSelector.removeGoal(new PanicGoal(animal, 2.0D));
-                animal.goalSelector.addGoal(1, new MeleeAttackGoal(animal, 1.0F, Boolean.FALSE));
-                animal.targetSelector.addGoal(1, new HurtByTargetGoal(animal));
-                animal.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(animal, Player.class, true));
-            }
         }
     }
 
@@ -106,9 +99,11 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
         if (!TACommonUtils.isAurorianDimension(level)) return;
         WorldEventData eventData = level.getData(TAAttachmentTypes.WORLD_EVENT_DATA);
         Map<UUID, Integer> killCountInBloodMoons = eventData.killCountInBloodMoons;
+        var packet = new UpdateCurrentShieldS2CPacket(ShieldStack.EMPTY);
         for (ServerPlayer player : level.players()) {
             int killCount = player.getData(KILL_COUNT);
             this.bloodMoonEvent.removePlayer(player);
+            PacketDistributor.sendToPlayer(player, packet);
             killCountInBloodMoons.put(player.getUUID(), killCount);
             player.sendSystemMessage(BLOOD_MOON_END_COMPONENT, Boolean.FALSE);
             if (killCount >= 40) player.setData(IMMUNE_PRESSURE_TEMP, true);
@@ -125,13 +120,6 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
                     }
                 }
             }
-
-            if (entity instanceof Animal animal) {
-                NearestAttackableTargetGoal<Player> targetGoal = new NearestAttackableTargetGoal<>(animal, Player.class, true);
-                List.of(new HurtByTargetGoal(animal), targetGoal).forEach(animal.targetSelector::removeGoal);
-                animal.goalSelector.removeGoal(new MeleeAttackGoal(animal, 1.0F, Boolean.FALSE));
-                animal.goalSelector.addGoal(1, new PanicGoal(animal, 2.0D));
-            }
         }
     }
 
@@ -140,7 +128,8 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
         if (!TACommonUtils.isAurorianDimension(level)) return;
         this.bloodMoonEvent.setProgress(this.getProgress(level));
         for (ServerPlayer player : level.players()) {
-            MutableComponent component = Component.translatable(BLOOD_MOON_KILL_COUNT, player.getData(KILL_COUNT));
+            MutableComponent component = Component.translatable(
+                    BLOOD_MOON_KILL_COUNT, player.getData(KILL_COUNT));
             this.bloodMoonEvent.setName(BLOOD_MOON_NAME_COMPONENT.copy()
                     .append(Component.literal(" - ").withStyle(ChatFormatting.BOLD))
                     .append(component.withStyle(ChatFormatting.BOLD)));
@@ -163,17 +152,7 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
         }
     }
 
-    public static void checkIfCanEnhance(PathfinderMob mob) {
-        if (mob.level() instanceof ServerLevel serverLevel && TAWorldEvents.BLOOD_MOON.get().isActive(serverLevel)) {
-            mob.goalSelector.addGoal(1, new MeleeAttackGoal(mob, 1.0F, Boolean.FALSE));
-            mob.targetSelector.addGoal(1, new HurtByTargetGoal(mob));
-            mob.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(mob, Player.class, true));
-        } else {
-            mob.goalSelector.addGoal(1, new PanicGoal(mob, 2.0D));
-        }
-    }
-
-    public static Map<Holder<Attribute>, Pair<ResourceLocation, Double>> getEnhanceMultiplier() {
+    private static Map<Holder<Attribute>, Pair<ResourceLocation, Double>> getEnhanceMultiplier() {
         Map<Holder<Attribute>, Pair<ResourceLocation, Double>> map = new HashMap<>();
         map.put(Attributes.MOVEMENT_SPEED, Pair.of(SPEED_MODIFIER, 0.2D));
         map.put(Attributes.MAX_HEALTH, Pair.of(HEALTH_MODIFIER, 0.5D));

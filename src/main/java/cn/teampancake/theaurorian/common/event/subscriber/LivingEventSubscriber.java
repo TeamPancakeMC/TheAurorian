@@ -152,18 +152,14 @@ public class LivingEventSubscriber {
                         PacketDistributor.sendToPlayer(player, new DisplayActivationTickS2CPacket(j));
                     }
 
-                    if (k > 0) {
-                        player.setData(TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN, k - 1);
-                    }
-
+                    if (k > 0) player.setData(TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN, k - 1);
                     if (level.getGameTime() % 20 == 0) {
-                        AttachmentType<ShieldStack> type = TAAttachmentTypes.CURRENT_SHIELD.get();
-                        ShieldStack shieldStack = player.getData(type);
+                        ShieldStack shieldStack = player.getData(TAAttachmentTypes.CURRENT_SHIELD);
                         if (shieldStack != ShieldStack.EMPTY) {
                             BaseShield shield = shieldStack.getShield().value();
                             if (shield.isNaturalRecovery(entity)) {
                                 shieldStack.increaseShield(shield.naturalRecovery(player));
-                                PacketDistributor.sendToPlayer(player, new UpdateShieldS2CPacket(shieldStack.getShieldValue()));
+                                PacketDistributor.sendToPlayer(player, new UpdateShieldValueS2CPacket(shieldStack.getShieldValue()));
                             }
                         }
                     }
@@ -320,7 +316,7 @@ public class LivingEventSubscriber {
             if (TACommonUtils.isAurorianDimension(level) && shieldStack.getShield().is(TAShields.COMMON) && level.dayTime() > 12000) {
                 event.setNewDamage(shieldStack.applyShields(player, source, event.getNewDamage()));
                 if (player instanceof ServerPlayer serverPlayer) {
-                    PacketDistributor.sendToPlayer(serverPlayer, new UpdateShieldS2CPacket(shieldStack.getShieldValue()));
+                    PacketDistributor.sendToPlayer(serverPlayer, new UpdateShieldValueS2CPacket(shieldStack.getShieldValue()));
                 }
             }
         }
@@ -444,12 +440,17 @@ public class LivingEventSubscriber {
                 }
             }
 
-            if (level instanceof ServerLevel serverLevel && TAWorldEvents.BLOOD_MOON.get().isActive(serverLevel)) {
-                AttachmentType<Integer> type = TAAttachmentTypes.KILL_COUNT_IN_BLOOD_MOON.get();
-                player.setData(type, player.getData(type) + 1);
+            if (TAWorldEvents.BLOOD_MOON.get().isActive(level)) {
+                AttachmentType<Integer> attachmentType = TAAttachmentTypes.KILL_COUNT_IN_BLOOD_MOON.get();
+                ShieldStack shieldStack = player.getData(TAAttachmentTypes.CURRENT_SHIELD);
+                player.setData(attachmentType, player.getData(attachmentType) + 1);
                 WorldEventData eventData = level.getData(TAAttachmentTypes.WORLD_EVENT_DATA);
                 Map<UUID, Integer> killCountInBloodMoons = eventData.killCountInBloodMoons;
-                killCountInBloodMoons.put(player.getUUID(), player.getData(type));
+                killCountInBloodMoons.put(player.getUUID(), player.getData(attachmentType));
+                if (player instanceof ServerPlayer serverPlayer) {
+                    shieldStack.increaseShield(2.0F);
+                    PacketDistributor.sendToPlayer(serverPlayer, new UpdateShieldValueS2CPacket(shieldStack.getShieldValue()));
+                }
             }
         }
     }

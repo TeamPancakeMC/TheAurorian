@@ -126,7 +126,8 @@ public class ModBusEventSubscriber {
         registrar.playToClient(PlayAurorianMusicS2CPacket.TYPE, PlayAurorianMusicS2CPacket.STREAM_CODEC, PlayAurorianMusicS2CPacket::handle);
         registrar.playToClient(WorldNightColorS2CPacket.TYPE, WorldNightColorS2CPacket.STREAM_CODEC, WorldNightColorS2CPacket::handle);
         registrar.playToClient(UpdateDimensionsS2CPacket.TYPE, UpdateDimensionsS2CPacket.STREAM_CODEC, UpdateDimensionsS2CPacket::handle);
-        registrar.playToClient(UpdateShieldS2CPacket.TYPE, UpdateShieldS2CPacket.STREAM_CODEC, UpdateShieldS2CPacket::handle);
+        registrar.playToClient(UpdateShieldValueS2CPacket.TYPE, UpdateShieldValueS2CPacket.STREAM_CODEC, UpdateShieldValueS2CPacket::handle);
+        registrar.playToClient(UpdateCurrentShieldS2CPacket.TYPE, UpdateCurrentShieldS2CPacket.STREAM_CODEC, UpdateCurrentShieldS2CPacket::handle);
         registrar.playToServer(NoteTeleportC2SPacket.TYPE, NoteTeleportC2SPacket.STREAM_CODEC, NoteTeleportC2SPacket::handle);
     }
 

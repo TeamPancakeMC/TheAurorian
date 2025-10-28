@@ -2,6 +2,7 @@ package cn.teampancake.theaurorian.common.level.data.sky_color;
 
 import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
 import cn.teampancake.theaurorian.common.network.SkyColorS2CPacket;
+import cn.teampancake.theaurorian.common.network.UpdateCurrentShieldS2CPacket;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.shields.ShieldStack;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -25,7 +26,6 @@ public class SkyColorManager {
     private static final AttachmentType<Boolean> REMOVE_BLESS = TAAttachmentTypes.REMOVE_BLESS_UNTIL_NEXT_BLOOD_MOON.get();
     private static final AttachmentType<Boolean> IMMUNE_PRESSURE_TEMP = TAAttachmentTypes.IMMUNE_PRESSURE_UNTIL_NEXT_BLOOD_MOON.get();
     private static final AttachmentType<Boolean> IMMUNE_PRESSURE_PERSISTENT = TAAttachmentTypes.IMMUNE_PRESSURE_BY_KILL_MOON_QUEEN.get();
-    private static final AttachmentType<ShieldStack> CURRENT_SHIELD = TAAttachmentTypes.CURRENT_SHIELD.get();
     private static final List<ResourceLocation> SKY_COLORS = TASkyColors.REGISTRY.keySet().stream().toList();
 
     public static class SkyColorForecast {
@@ -128,8 +128,8 @@ public class SkyColorManager {
         long dayTime = level.getDayTime() % 24000;
         for (ServerPlayer player : level.players()) {
             if (dayTime > 0 && dayTime <= 12000) {
-                if (player.getData(CURRENT_SHIELD) != ShieldStack.EMPTY) {
-                    player.setData(CURRENT_SHIELD, ShieldStack.EMPTY);
+                if (player.getData(TAAttachmentTypes.CURRENT_SHIELD) != ShieldStack.EMPTY) {
+                    PacketDistributor.sendToPlayer(player, new UpdateCurrentShieldS2CPacket(ShieldStack.EMPTY));
                 }
 
                 if (dayTime % 200 == 0 && enableAurorianBless && !player.getData(REMOVE_BLESS)) {
@@ -137,8 +137,8 @@ public class SkyColorManager {
                     holder.ifPresent(reference -> reference.value().effect().accept(player));
                 }
             } else if (dayTime > 12000) {
-                if (player.getData(CURRENT_SHIELD) == ShieldStack.EMPTY) {
-                    player.setData(CURRENT_SHIELD, new ShieldStack(TAShields.COMMON));
+                if (player.getData(TAAttachmentTypes.CURRENT_SHIELD) == ShieldStack.EMPTY && !TAWorldEvents.BLOOD_MOON.get().isActive(level)) {
+                    PacketDistributor.sendToPlayer(player, new UpdateCurrentShieldS2CPacket(new ShieldStack(TAShields.COMMON)));
                 }
 
                 if (dayTime % 200 == 0 && !player.getData(IMMUNE_PRESSURE_PERSISTENT) && !player.getData(IMMUNE_PRESSURE_TEMP)) {

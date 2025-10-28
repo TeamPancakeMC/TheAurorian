@@ -43,7 +43,7 @@ public abstract class BaseWorldEvent<WC extends BaseEventConfig> {
         return (WC) lookup.getOrThrow(this.getConfigKey()).value().config();
     }
 
-    public boolean isActive(ServerLevel level) {
+    public boolean isActive(Level level) {
         WorldEventData eventData = level.getData(TAAttachmentTypes.WORLD_EVENT_DATA);
         return eventData.eventStates.get(this.getEventId()) == EventState.ACTIVE;
     }

@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.registry;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.shields.AurorianShield;
 import cn.teampancake.theaurorian.common.shields.BaseShield;
+import cn.teampancake.theaurorian.common.shields.BloodMoonShield;
 import cn.teampancake.theaurorian.common.shields.TempShield;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -17,9 +18,11 @@ public class TAShields {
     public static final Registry<BaseShield> REGISTRY = new RegistryBuilder<>(KEY).sync(true).create();
 
     public static final DeferredHolder<BaseShield, BaseShield> COMMON = SHIELDS.register("common", () -> new BaseShield(
-            new BaseShield.Properties().component(TADataComponents.MAX_SHIELD.get(), 15.0F).priority(0).rate(0.25F).color(0x808080)));
+            new BaseShield.Properties().component(TADataComponents.MAX_SHIELD.get(), 20.0F).priority(0).rate(0.25F).color(0x808080)));
     public static final DeferredHolder<BaseShield, BaseShield> AURORIAN = SHIELDS.register("aurorian", () -> new AurorianShield(
-            new BaseShield.Properties().component(TADataComponents.MAX_SHIELD.get(), 5.0F).priority(1).rate(0.25F).color(0x010e34)));
+            new BaseShield.Properties().component(TADataComponents.MAX_SHIELD.get(), 15.0F).priority(1).rate(0.25F).color(0x010e34)));
+    public static final DeferredHolder<BaseShield, BaseShield> BLOOD_MOON = SHIELDS.register("blood_moon", () -> new BloodMoonShield(
+            new BaseShield.Properties().component(TADataComponents.MAX_SHIELD.get(), 20.0F).priority(0).rate(0.25F).color(0x660000)));
     public static final DeferredHolder<BaseShield, BaseShield> TEMP = SHIELDS.register("temp", () -> new TempShield(
             new BaseShield.Properties().component(TADataComponents.MAX_SHIELD.get(), 0.0F).priority(50).rate(0.0F).color(0x800000)));
 

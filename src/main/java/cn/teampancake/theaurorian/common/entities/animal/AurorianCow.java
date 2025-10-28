@@ -1,6 +1,9 @@
 package cn.teampancake.theaurorian.common.entities.animal;
 
-import cn.teampancake.theaurorian.common.level.data.world_event.BloodMoonEvent;
+import cn.teampancake.theaurorian.common.entities.ai.goal.AnimalHurtByTargetGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.AnimalMeleeAttackGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.AnimalNearestAttackableTargetGoal;
+import cn.teampancake.theaurorian.common.entities.ai.goal.AnimalPanicGoal;
 import cn.teampancake.theaurorian.common.registry.TAEntityTypes;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.server.level.ServerLevel;
@@ -44,14 +47,17 @@ public class AurorianCow extends Cow {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25,
+        this.goalSelector.addGoal(1, new AnimalMeleeAttackGoal(this, 1.0F));
+        this.goalSelector.addGoal(2, new AnimalPanicGoal(this, 2.0F));
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.25F,
                 Ingredient.of(TAItems.LAVENDER.get()), false));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        BloodMoonEvent.checkIfCanEnhance(this);
+        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.25F));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new AnimalHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new AnimalNearestAttackableTargetGoal<>(this, Player.class));
     }
 
 }

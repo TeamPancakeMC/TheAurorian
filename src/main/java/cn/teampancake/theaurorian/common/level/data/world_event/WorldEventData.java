@@ -20,7 +20,8 @@ public class WorldEventData {
             Codec.unboundedMap(ResourceLocation.CODEC, Codec.LONG).fieldOf("current_ticks").forGetter(data -> data.currentTicks),
             Codec.unboundedMap(ResourceLocation.CODEC, Codec.LONG).fieldOf("remaining_ticks").forGetter(data -> data.remainingTicks),
             Codec.unboundedMap(ResourceLocation.CODEC, EventState.CODEC).fieldOf("event_states").forGetter(data -> data.eventStates),
-            Codec.unboundedMap(UUIDUtil.CODEC, Codec.INT).fieldOf("kill_count_in_blood_moon").forGetter(data -> data.killCountInBloodMoons)
+            Codec.unboundedMap(Codec.STRING.xmap(UUID::fromString, UUID::toString), Codec.INT)
+                    .fieldOf("kill_count_in_blood_moon").forGetter(data -> data.killCountInBloodMoons)
     ).apply(instance, WorldEventData::new));
     public static final StreamCodec<ByteBuf, WorldEventData> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.map(HashMap::new, ResourceLocation.STREAM_CODEC, ByteBufCodecs.VAR_LONG), data -> data.lastActivationDays,

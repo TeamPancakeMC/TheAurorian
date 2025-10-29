@@ -4,38 +4,25 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.registry.TAWorldEvents;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.ints.IntArraySet;
-import it.unimi.dsi.fastutil.ints.IntSet;
-import it.unimi.dsi.fastutil.objects.ObjectArraySet;
-import net.minecraft.CrashReport;
 import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.ReportedException;
-import net.minecraft.SharedConstants;
 import net.minecraft.core.*;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.FeatureSorter;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.level.levelgen.structure.Structure;
 import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -61,14 +48,6 @@ public class TAChunkGenerator extends NoiseBasedChunkGenerator {
         return CODEC;
     }
 
-//    @Override
-//    public CompletableFuture<ChunkAccess> createBiomes(RandomState random, Blender blender, StructureManager manager, ChunkAccess chunkAccess) {
-//        return CompletableFuture.supplyAsync(Util.wrapThreadWithTaskName("init_biomes", () -> {
-//            chunkAccess.fillBiomesFromNoise(this.getBiomeSource(), Climate.empty());
-//            return chunkAccess;
-//        }), Util.backgroundExecutor());
-//    }
-
     @Override
     public void spawnOriginalMobs(WorldGenRegion level) {
         if (!this.generatorSettings().value().disableMobGeneration()) {
@@ -81,9 +60,10 @@ public class TAChunkGenerator extends NoiseBasedChunkGenerator {
     }
 
     public static void spawnMobsForChunkGeneration(ServerLevelAccessor levelAccessor, Holder<Biome> biome, ChunkPos chunkPos, RandomSource random) {
+        ServerLevel level = levelAccessor.getLevel();
         MobSpawnSettings mobSpawnSettings = biome.value().getMobSettings();
         WeightedRandomList<MobSpawnSettings.SpawnerData> weightedRandomList = mobSpawnSettings.getMobs(MobCategory.CREATURE);
-        boolean isBloodMoon = TAWorldEvents.BLOOD_MOON.get().isActive(levelAccessor.getLevel());
+        boolean isBloodMoon = TAWorldEvents.BLOOD_MOON.get().isActive(level);
         if (!weightedRandomList.isEmpty()) {
             int i = chunkPos.getMinBlockX();
             int j = chunkPos.getMinBlockZ();
@@ -98,7 +78,8 @@ public class TAChunkGenerator extends NoiseBasedChunkGenerator {
                     int i1 = j + random.nextInt(16);
                     int j1 = l;
                     int k1 = i1;
-                    for (int l1 = 0; l1 < k * m; l1++) {
+                    if (isBloodMoon && spawnerData.type.create(level) instanceof Enemy) k *= 3;
+                    for (int l1 = 0; l1 < k; l1++) {
                         boolean flag = false;
                         for (int i2 = 0; !flag && i2 < 4; i2++) {
                             BlockPos blockPos = getTopNonCollidingPos(levelAccessor, spawnerData.type, l, i1);
@@ -118,7 +99,7 @@ public class TAChunkGenerator extends NoiseBasedChunkGenerator {
 
                                 Entity entity;
                                 try {
-                                    entity = spawnerData.type.create(levelAccessor.getLevel());
+                                    entity = spawnerData.type.create(level);
                                 } catch (Exception exception) {
                                     TheAurorian.LOGGER.warn("Failed to create mob", exception);
                                     continue;

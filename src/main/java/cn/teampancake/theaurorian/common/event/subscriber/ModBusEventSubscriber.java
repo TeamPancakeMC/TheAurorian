@@ -107,6 +107,7 @@ public class ModBusEventSubscriber {
         registrar.playToClient(NightTypeS2CPacket.TYPE, NightTypeS2CPacket.STREAM_CODEC, NightTypeS2CPacket::handle);
         registrar.playToClient(FrostbiteS2CPacket.TYPE, FrostbiteS2CPacket.STREAM_CODEC, FrostbiteS2CPacket::handle);
         registrar.playToClient(FutureNightS2CPacket.TYPE, FutureNightS2CPacket.STREAM_CODEC, FutureNightS2CPacket::handle);
+        registrar.playToServer(NoteTeleportC2SPacket.TYPE, NoteTeleportC2SPacket.STREAM_CODEC, NoteTeleportC2SPacket::handle);
         registrar.playToServer(CrystalRuneSetC2SPacket.TYPE, CrystalRuneSetC2SPacket.STREAM_CODEC, CrystalRuneSetC2SPacket::handle);
         registrar.playToClient(RuneGameStartS2CPacket.TYPE, RuneGameStartS2CPacket.STREAM_CODEC, RuneGameStartS2CPacket::handle);
         registrar.playToServer(RuneGameWinC2SPacket.TYPE, RuneGameWinC2SPacket.STREAM_CODEC, RuneGameWinC2SPacket::handle);
@@ -128,7 +129,6 @@ public class ModBusEventSubscriber {
         registrar.playToClient(UpdateDimensionsS2CPacket.TYPE, UpdateDimensionsS2CPacket.STREAM_CODEC, UpdateDimensionsS2CPacket::handle);
         registrar.playToClient(UpdateShieldValueS2CPacket.TYPE, UpdateShieldValueS2CPacket.STREAM_CODEC, UpdateShieldValueS2CPacket::handle);
         registrar.playToClient(UpdateCurrentShieldS2CPacket.TYPE, UpdateCurrentShieldS2CPacket.STREAM_CODEC, UpdateCurrentShieldS2CPacket::handle);
-        registrar.playToServer(NoteTeleportC2SPacket.TYPE, NoteTeleportC2SPacket.STREAM_CODEC, NoteTeleportC2SPacket::handle);
     }
 
     @OnlyIn(Dist.CLIENT)

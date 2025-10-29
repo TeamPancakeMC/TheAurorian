@@ -404,8 +404,8 @@ public class LivingEventSubscriber {
                     event.setCanceled(true);
                 }
 
-                Optional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(player);
-                curiosInventory.orElseThrow().findFirstCurio(TAItems.CRIMSON_PACT_PENDANT.get()).map(SlotResult::stack).ifPresent(itemStack -> {
+                ICuriosItemHandler curiosInventory = CuriosApi.getCuriosInventory(player).orElseThrow();
+                curiosInventory.findFirstCurio(TAItems.CRIMSON_PACT_PENDANT.get()).map(SlotResult::stack).ifPresent(itemStack -> {
                     PacketDistributor.sendToPlayer(player, new DisplayItemActivationS2CPacket(itemStack));
                     player.addEffect(new MobEffectInstance(TAMobEffects.CORRUPTION, 200));
                     player.setHealth(1.0F);

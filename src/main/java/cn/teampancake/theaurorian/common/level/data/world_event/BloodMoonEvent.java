@@ -73,17 +73,17 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
     @Override
     public void onEventStart(ServerLevel level) {
         if (!TACommonUtils.isAurorianDimension(level)) return;
+        ShieldStack shieldStack = new ShieldStack(TAShields.BLOOD_MOON);
         WorldEventData eventData = level.getData(TAAttachmentTypes.WORLD_EVENT_DATA);
         Map<UUID, Integer> killCountInBloodMoons = eventData.killCountInBloodMoons;
-        ShieldStack shieldStack = new ShieldStack(TAShields.BLOOD_MOON);
         var packet = new UpdateCurrentShieldS2CPacket(shieldStack);
         for (ServerPlayer player : level.players()) {
             this.bloodMoonEvent.addPlayer(player);
-            PacketDistributor.sendToPlayer(player, packet);
             killCountInBloodMoons.put(player.getUUID(), 0);
             player.setData(KILL_COUNT, 0);
             player.setData(REMOVE_BLESS, false);
             player.sendSystemMessage(BLOOD_MOON_START_COMPONENT, Boolean.FALSE);
+            PacketDistributor.sendToPlayer(player, packet);
             if (!player.getData(IMMUNE_PRESSURE_PERSISTENT)) {
                 player.setData(IMMUNE_PRESSURE_TEMP, false);
             }
@@ -103,11 +103,11 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
         for (ServerPlayer player : level.players()) {
             int killCount = player.getData(KILL_COUNT);
             this.bloodMoonEvent.removePlayer(player);
-            PacketDistributor.sendToPlayer(player, packet);
             killCountInBloodMoons.put(player.getUUID(), killCount);
             player.sendSystemMessage(BLOOD_MOON_END_COMPONENT, Boolean.FALSE);
-            if (killCount >= 40) player.setData(IMMUNE_PRESSURE_TEMP, true);
-            else player.setData(REMOVE_BLESS, true);
+            PacketDistributor.sendToPlayer(player, packet);
+            if (killCount < 40) player.setData(REMOVE_BLESS, true);
+            else player.setData(IMMUNE_PRESSURE_TEMP, true);
         }
 
         for (Entity entity : level.getAllEntities()) {
@@ -131,8 +131,8 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
             MutableComponent component = Component.translatable(
                     BLOOD_MOON_KILL_COUNT, player.getData(KILL_COUNT));
             this.bloodMoonEvent.setName(BLOOD_MOON_NAME_COMPONENT.copy()
-                    .append(Component.literal(" - ").withStyle(ChatFormatting.BOLD))
-                    .append(component.withStyle(ChatFormatting.BOLD)));
+                    .append(Component.literal(" - "))
+                    .append(component).withStyle(ChatFormatting.BOLD));
             this.bloodMoonEvent.addPlayer(player);
         }
     }

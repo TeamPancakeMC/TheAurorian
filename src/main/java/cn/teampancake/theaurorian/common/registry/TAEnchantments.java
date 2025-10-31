@@ -41,6 +41,7 @@ public class TAEnchantments {
     public static final ResourceKey<Enchantment> MOLTEN_CORE = createKey("molten_core");
     public static final ResourceKey<Enchantment> NIGHT_WALKER = createKey("night_walker");
     public static final ResourceKey<Enchantment> REFLECT_AURA = createKey("reflect_aura");
+    public static final ResourceKey<Enchantment> SLIMES_HATER = createKey("slimes_hater");
     public static final ResourceKey<Enchantment> AMNESIA_CURSE = createKey("amnesia_curse");
     public static final ResourceKey<Enchantment> FREEZE_ASPECT = createKey("freeze_aspect");
     public static final ResourceKey<Enchantment> SPRING_OF_LIFE = createKey("spring_of_life");
@@ -131,6 +132,10 @@ public class TAEnchantments {
                 2, 4, Enchantment.dynamicCost(10, 20),
                 Enchantment.dynamicCost(60, 10), 4, EquipmentSlotGroup.ARMOR))
                 .exclusiveWith(HolderSet.direct(enchantmentLookup.getOrThrow(VIRTUALIZATION))));
+        register(context, SLIMES_HATER, Enchantment.enchantment(Enchantment.definition(
+                itemLookup.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
+                1, 1, Enchantment.constantCost(30),
+                Enchantment.constantCost(60), 4, EquipmentSlotGroup.HAND)));
         register(context, AMNESIA_CURSE, Enchantment.enchantment(Enchantment.definition(
                 itemLookup.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
                 5, 5, Enchantment.constantCost(25),

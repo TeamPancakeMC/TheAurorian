@@ -817,6 +817,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAEnchantments.MOLTEN_CORE, "熔火之心");
         this.addKey(TAEnchantments.NIGHT_WALKER, "夜行者");
         this.addKey(TAEnchantments.REFLECT_AURA, "反射光环");
+        this.addKey(TAEnchantments.SLIMES_HATER, "史莱姆杀手");
         this.addKey(TAEnchantments.AMNESIA_CURSE, "遗忘诅咒");
         this.addKey(TAEnchantments.FREEZE_ASPECT, "冰霜附加");
         this.addKey(TAEnchantments.SPRING_OF_LIFE, "生命之泉");

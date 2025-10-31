@@ -47,6 +47,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -129,38 +130,50 @@ public class LivingEventSubscriber {
     public static void onEntityPreTick(EntityTickEvent.Pre event) {
         if (event.getEntity() instanceof LivingEntity entity) {
             Level level = entity.level();
-            if (!level.isClientSide()) {
-                boolean flag = entity.hasEffect(TAMobEffects.PARALYSIS) || entity.hasEffect(TAMobEffects.STUN);
-                if (flag && entity.getVehicle() == null) {
-                    SitEntity sitEntity = new SitEntity(level);
-                    sitEntity.setPos(entity.position());
-                    level.addFreshEntity(sitEntity);
-                    entity.startRiding(sitEntity);
+            if (level.isClientSide()) return;
+            boolean flag = entity.hasEffect(TAMobEffects.PARALYSIS) || entity.hasEffect(TAMobEffects.STUN);
+            if (flag && entity.getVehicle() == null) {
+                SitEntity sitEntity = new SitEntity(level);
+                sitEntity.setPos(entity.position());
+                level.addFreshEntity(sitEntity);
+                entity.startRiding(sitEntity);
+            }
+
+            if (entity instanceof Slime slime && slime.getData(TAAttachmentTypes.INSTANT_DEATH)) {
+                String playerUUID = slime.getData(TAAttachmentTypes.LAST_KILLER_UUID);
+                Player player = level.getPlayerByUUID(UUID.fromString(playerUUID));
+                if (player != null) {
+                    ItemStack mainHandItem = player.getMainHandItem();
+                    Holder<Enchantment> holder = TAEnchantments.get(level, TAEnchantments.SLIMES_HATER);
+                    if (mainHandItem.getEnchantmentLevel(holder) > 0) {
+                        mainHandItem.hurtAndBreak(slime.getSize(), player, EquipmentSlot.MAINHAND);
+                        slime.hurt(level.damageSources().playerAttack(player), Float.MAX_VALUE);
+                    }
+                }
+            }
+
+            if (entity instanceof ServerPlayer player) {
+                int i = entity.getData(TAAttachmentTypes.TICKS_FROSTBITE);
+                int j = entity.getData(TAAttachmentTypes.ACTIVATION_TICKS);
+                int k = player.getData(TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN);
+                if (i > -1) {
+                    player.setData(TAAttachmentTypes.TICKS_FROSTBITE, Math.max(0, i - 10));
+                    PacketDistributor.sendToPlayer(player, new FrostbiteS2CPacket(i));
                 }
 
-                if (entity instanceof ServerPlayer player) {
-                    int i = entity.getData(TAAttachmentTypes.TICKS_FROSTBITE);
-                    int j = entity.getData(TAAttachmentTypes.ACTIVATION_TICKS);
-                    int k = player.getData(TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN);
-                    if (i > -1) {
-                        player.setData(TAAttachmentTypes.TICKS_FROSTBITE, Math.max(0, i - 10));
-                        PacketDistributor.sendToPlayer(player, new FrostbiteS2CPacket(i));
-                    }
+                if (j > -1) {
+                    player.setData(TAAttachmentTypes.ACTIVATION_TICKS, j - 1);
+                    PacketDistributor.sendToPlayer(player, new DisplayActivationTickS2CPacket(j));
+                }
 
-                    if (j > -1) {
-                        player.setData(TAAttachmentTypes.ACTIVATION_TICKS, j - 1);
-                        PacketDistributor.sendToPlayer(player, new DisplayActivationTickS2CPacket(j));
-                    }
-
-                    if (k > 0) player.setData(TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN, k - 1);
-                    if (level.getGameTime() % 20 == 0) {
-                        ShieldStack shieldStack = player.getData(TAAttachmentTypes.CURRENT_SHIELD);
-                        if (shieldStack != ShieldStack.EMPTY) {
-                            BaseShield shield = shieldStack.getShield().value();
-                            if (shield.isNaturalRecovery(entity)) {
-                                shieldStack.increaseShield(shield.naturalRecovery(player));
-                                PacketDistributor.sendToPlayer(player, new UpdateShieldValueS2CPacket(shieldStack.getShieldValue()));
-                            }
+                if (k > 0) player.setData(TAAttachmentTypes.TRIGGER_CORRUPTION_COOLDOWN, k - 1);
+                if (level.getGameTime() % 20 == 0) {
+                    ShieldStack shieldStack = player.getData(TAAttachmentTypes.CURRENT_SHIELD);
+                    if (shieldStack != ShieldStack.EMPTY) {
+                        BaseShield shield = shieldStack.getShield().value();
+                        if (shield.isNaturalRecovery(entity)) {
+                            shieldStack.increaseShield(shield.naturalRecovery(player));
+                            PacketDistributor.sendToPlayer(player, new UpdateShieldValueS2CPacket(shieldStack.getShieldValue()));
                         }
                     }
                 }
@@ -211,6 +224,19 @@ public class LivingEventSubscriber {
 
         if (sourceEntity instanceof SnowTundraGiantCrab) {
             event.setShieldDamage(event.shieldDamage() * 3);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMobSplit(MobSplitEvent event) {
+        AttachmentType<Boolean> type1 = TAAttachmentTypes.INSTANT_DEATH.get();
+        AttachmentType<String> type2 = TAAttachmentTypes.LAST_KILLER_UUID.get();
+        Mob parent = event.getParent();
+        if (parent.getData(type1)) {
+            event.getChildren().forEach(mob -> {
+                mob.setData(type1, true);
+                mob.setData(type2, parent.getData(type2));
+            });
         }
     }
 
@@ -426,7 +452,7 @@ public class LivingEventSubscriber {
 
         if (sourceEntity instanceof Player player) {
             Level level = player.level();
-            ItemStack stack = player.getUseItem();
+            ItemStack stack = player.getMainHandItem();
             if (stack.is(TAItems.TSLAT_SWORD.get())) {
                 DataComponentType<Integer> type = TADataComponents.KILL_COUNT.get();
                 stack.set(type, stack.getOrDefault(type, 0) + 1);
@@ -451,6 +477,11 @@ public class LivingEventSubscriber {
                     shieldStack.increaseShield(2.0F);
                     PacketDistributor.sendToPlayer(serverPlayer, new UpdateShieldValueS2CPacket(shieldStack.getShieldValue()));
                 }
+            }
+
+            if (entity instanceof Slime && stack.getEnchantmentLevel(TAEnchantments.get(level, TAEnchantments.SLIMES_HATER)) > 0) {
+                entity.setData(TAAttachmentTypes.LAST_KILLER_UUID, player.getStringUUID());
+                entity.setData(TAAttachmentTypes.INSTANT_DEATH, true);
             }
         }
     }

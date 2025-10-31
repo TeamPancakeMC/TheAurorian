@@ -48,6 +48,7 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SHOULD_SPAWN_IN_AURORIAN = registerBoolean("should_spawn_in_aurorain");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> CAN_SUMMON_OTHER_ARROW = registerBoolean("can_summon_other_arrow");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SUMMONED_BY_SILENT_BOW = registerBoolean("summoned_by_silent_bow");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> INSTANT_DEATH = registerBoolean("instant_death");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> LOST_IN_FOREST = registerBoolean("lost_in_forest");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SOUND_PLAYED_FLAG = registerBoolean("sound_played_flag");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> TRIGGER_CRITICAL_HIT = registerBoolean("trigger_critical_hit");
@@ -80,6 +81,9 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<ResourceLocation>> ANIMATION_TEXTURE =
             ATTACHMENT_TYPES.register("animation_texture", () -> AttachmentType.builder(
                     () -> ResourceLocation.tryParse(StringUtils.EMPTY)).build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<String>> LAST_KILLER_UUID =
+            ATTACHMENT_TYPES.register("last_killer_uuid", () -> AttachmentType.builder(
+                    () -> "").serialize(Codec.STRING).sync(ByteBufCodecs.STRING_UTF8).build());
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<ShieldStack>> CURRENT_SHIELD =
             ATTACHMENT_TYPES.register("current_shield", () -> AttachmentType.builder(
                     () -> ShieldStack.EMPTY).serialize(ShieldStack.CODEC).sync(ShieldStack.STREAM_CODEC).copyOnDeath().build());
@@ -102,7 +106,7 @@ public class TAAttachmentTypes {
     }
 
     private static DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> registerBoolean(String name) {
-        return ATTACHMENT_TYPES.register(name, () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).build());
+        return ATTACHMENT_TYPES.register(name, () -> AttachmentType.builder(() -> false).serialize(Codec.BOOL).sync(ByteBufCodecs.BOOL).build());
     }
 
     private static DeferredHolder<AttachmentType<?>, AttachmentType<BlockPos>> registerBlockPos(String name) {

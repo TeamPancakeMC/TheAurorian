@@ -271,7 +271,7 @@ public class PlayerEventSubscriber {
     @SubscribeEvent
     public static void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
-        ItemStack handStack = player.getUseItem();
+        ItemStack handStack = player.getMainHandItem();
         if (handStack.is(TAItems.AURORIANITE_PICKAXE.get())) {
             Optional<BlockPos> position = event.getPosition();
             if (position.isPresent()) {

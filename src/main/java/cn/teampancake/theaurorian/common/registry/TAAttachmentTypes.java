@@ -48,6 +48,7 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SHOULD_SPAWN_IN_AURORIAN = registerBoolean("should_spawn_in_aurorain");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> CAN_SUMMON_OTHER_ARROW = registerBoolean("can_summon_other_arrow");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SUMMONED_BY_SILENT_BOW = registerBoolean("summoned_by_silent_bow");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IS_ELITE = registerBoolean("is_elite");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> INSTANT_DEATH = registerBoolean("instant_death");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> LOST_IN_FOREST = registerBoolean("lost_in_forest");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SOUND_PLAYED_FLAG = registerBoolean("sound_played_flag");

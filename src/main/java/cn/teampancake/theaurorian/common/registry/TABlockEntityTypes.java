@@ -39,6 +39,8 @@ public class TABlockEntityTypes {
             () -> BlockEntityType.Builder.of(SacrificeTableBlockEntity::new, TABlocks.SACRIFICE_TABLE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MysteriumWoolBedBlockEntity>> MYSTERIUM_WOOL_BED = BLOCK_ENTITY_TYPES.register("mysterium_wool_bed",
             () -> BlockEntityType.Builder.of(MysteriumWoolBedBlockEntity::new, TABlocks.MYSTERIUM_WOOL_BED.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LaserCrystalBlockEntity>> LASER_CRYSTAL = BLOCK_ENTITY_TYPES.register("laser_crystal",
+            () -> BlockEntityType.Builder.of(LaserCrystalBlockEntity::new, TABlocks.LASER_CRYSTAL.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DungeonStoneGateBlockEntity>> DUNGEON_STONE_GATE = BLOCK_ENTITY_TYPES.register("dungeon_stone_gate",
             () -> BlockEntityType.Builder.of(DungeonStoneGateBlockEntity::new, TABlocks.RUNE_STONE_GATE.get(), TABlocks.MOON_TEMPLE_GATE.get(),
                     TABlocks.DARK_STONE_GATE.get(), TABlocks.RUNE_STONE_LOOT_GATE.get(), TABlocks.MOON_TEMPLE_CELL_GATE.get(),
@@ -64,6 +66,7 @@ public class TABlockEntityTypes {
         event.registerBlockEntityRenderer(SACRIFICE_TABLE.get(), SacrificeTableRenderer::new);
         event.registerBlockEntityRenderer(MOONLIGHT_FORGE.get(), MoonlightForgeRenderer::new);
         event.registerBlockEntityRenderer(SILENT_CAMPFIRE.get(), SilentCampfireRenderer::new);
+        event.registerBlockEntityRenderer(LASER_CRYSTAL.get(), LaserCrystalRenderer::new);
         event.registerBlockEntityRenderer(AURORIAN_CHEST.get(), AurorianChestRenderer::new);
         event.registerBlockEntityRenderer(TA_HANGING_SIGN.get(), HangingSignRenderer::new);
         event.registerBlockEntityRenderer(TA_SIGN.get(), SignRenderer::new);

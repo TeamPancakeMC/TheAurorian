@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.items.*;
 import cn.teampancake.theaurorian.common.items.armor.*;
 import cn.teampancake.theaurorian.common.items.block.AstrologyTable;
+import cn.teampancake.theaurorian.common.items.block.LaserCrystal;
 import cn.teampancake.theaurorian.common.items.block.SacrificeTable;
 import cn.teampancake.theaurorian.common.items.curio.*;
 import cn.teampancake.theaurorian.common.items.curio.runestone.*;
@@ -584,6 +585,7 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> AURORIAN_CHEST = ITEMS.register("aurorian_chest", AurorianChestItem::new);
     public static final DeferredHolder<Item, Item> ASTROLOGY_TABLE = ITEMS.register("astrology_table", AstrologyTable::new);
     public static final DeferredHolder<Item, Item> SACRIFICE_TABLE = ITEMS.register("sacrifice_table", SacrificeTable::new);
+    public static final DeferredHolder<Item, Item> LASER_CRYSTAL = ITEMS.register("laser_crystal", LaserCrystal::new);
     public static final DeferredHolder<Item, Item> MOON_TORCH = ITEMS.register("moon_torch", () -> new StandingAndWallBlockItem(
             TABlocks.MOON_TORCH.get(), TABlocks.MOON_WALL_TORCH.get(), new Item.Properties()
             .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON), Direction.DOWN));

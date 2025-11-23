@@ -57,6 +57,7 @@ public class AstrologyTable extends BlockItem implements GeoItem {
 	}
 
 	private static class CulledItemRenderer extends GeoItemRenderer<AstrologyTable> {
+
 		public CulledItemRenderer() {
 			super(new DefaultedBlockGeoModel<>(TABlocks.ASTROLOGY_TABLE.getId()));
 		}
@@ -65,6 +66,7 @@ public class AstrologyTable extends BlockItem implements GeoItem {
 		public RenderType getRenderType(AstrologyTable animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
 			return RenderType.entityCutout(texture);
 		}
+
 	}
 
 }

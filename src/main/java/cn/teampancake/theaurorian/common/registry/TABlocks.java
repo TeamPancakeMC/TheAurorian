@@ -28,7 +28,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import static cn.teampancake.theaurorian.common.blocks.state.TABlockProperties.*;
 import static cn.teampancake.theaurorian.common.utils.TABlockRegUtils.*;
 
-/** @noinspection deprecation*/
 public class TABlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, TheAurorian.MOD_ID);
@@ -532,6 +531,7 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> ASTROLOGY_TABLE = BLOCKS.register("astrology_table", AstrologyTable::new);
     public static final DeferredHolder<Block, Block> SACRIFICE_TABLE = BLOCKS.register("sacrifice_table", SacrificeTable::new);
     public static final DeferredHolder<Block, Block> MYSTERIUM_WOOL_BED = register("mysterium_wool_bed", MysteriumWoolBed::new);
+    public static final DeferredHolder<Block, Block> LASER_CRYSTAL = BLOCKS.register("laser_crystal", LaserCrystal::new);
     public static final DeferredHolder<Block, Block> SILENT_CAMPFIRE = register("silent_campfire", SilentCampfire::new);
     public static final DeferredHolder<Block, Block> ALCHEMY_TABLE = register("alchemy_table", AlchemyTable::new);
     public static final DeferredHolder<Block, Block> RELIC_TABLE = register("relic_table", RelicTable::new);
@@ -545,7 +545,7 @@ public class TABlocks {
     public static TABlockProperties dungeonBlockProperties(TagKey<Block>... values) {
         return get().mapColor(MapColor.STONE).addBlockTag(TABlockTags.DUNGEON_BLOCKS).addBlockTag(values)
                 .lootType(TALootType.SELF).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
-                .strength(Byte.MAX_VALUE, Blocks.BEDROCK.getExplosionResistance());
+                .destroyTime(-1.0F).explosionResistance(3600000.0F);
     }
 
 }

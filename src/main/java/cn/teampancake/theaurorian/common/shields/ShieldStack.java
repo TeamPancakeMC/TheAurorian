@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.shields;
 
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
+import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.registry.TAShields;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -12,7 +13,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.MutableDataComponentHolder;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+
 import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.UnaryOperator;
 
@@ -66,8 +72,14 @@ public class ShieldStack implements DataComponentHolder, MutableDataComponentHol
         this.set(SHIELD_COMPONENT, Math.max(this.getShieldValue() - shield, 0.0F));
     }
 
-    public void increaseShield(float shield) {
-        this.set(SHIELD_COMPONENT, Math.min(this.getShieldValue() + shield, this.getMaxShieldValue()));
+    public void increaseShield(Player player, float shield) {
+        Optional<ICuriosItemHandler> itemHandlerOptional = CuriosApi.getCuriosInventory(player);
+        if (!player.level().isClientSide() && itemHandlerOptional.isPresent()) {
+            ICuriosItemHandler itemHandler = itemHandlerOptional.get();
+            Optional<SlotResult> slotResultOptional = itemHandler.findFirstCurio(stack -> stack.is(TAItems.RUNESTONE_MOON));
+            float maxShield = slotResultOptional.isPresent() ? 5.0F : this.getMaxShieldValue();
+            this.set(SHIELD_COMPONENT, Math.min(this.getShieldValue() + shield, maxShield));
+        }
     }
 
     public void consumeMaxShield(float maxShield) {
@@ -79,18 +91,28 @@ public class ShieldStack implements DataComponentHolder, MutableDataComponentHol
     }
 
     public float applyShields(LivingEntity entity, DamageSource source, float damage) {
-        if (damage <= 0.0F) {
-            return damage;
-        } else {
-            if (this.isBroken() && entity instanceof Player player) {
+        if (!(damage <= 0.0F) && entity instanceof Player player) {
+            if (this.isBroken()) {
                 this.getShield().value().onBroken(player);
                 return damage;
+            } else {
+                Optional<ICuriosItemHandler> itemHandlerOptional = CuriosApi.getCuriosInventory(player);
+                if (!player.level().isClientSide() && itemHandlerOptional.isPresent()) {
+                    ICuriosItemHandler itemHandler = itemHandlerOptional.get();
+                    Optional<SlotResult> slotResultOptional = itemHandler.findFirstCurio(stack -> stack.is(TAItems.RUNESTONE_MOON));
+                    float remainingDamage = this.getShield().value().applyDamageModifiers(player, source, damage);
+                    if (slotResultOptional.isPresent()) {
+                        this.consumeShield(1.0F);
+                        return 0.0F;
+                    } else {
+                        this.consumeShield(damage - remainingDamage);
+                        return remainingDamage;
+                    }
+                }
             }
-
-            float remainingDamage = this.getShield().value().applyDamageModifiers(entity, source, damage);
-            this.consumeShield(damage - remainingDamage);
-            return remainingDamage;
         }
+
+        return damage;
     }
 
     public boolean isBroken() {

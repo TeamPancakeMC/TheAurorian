@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.components.RunestoneMountain;
 import cn.teampancake.theaurorian.common.components.SourceOfTerra;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
@@ -15,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -30,6 +32,7 @@ import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.event.level.BlockDropsEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.List;
 import java.util.UUID;
@@ -58,29 +61,41 @@ public class BlockEventSubscriber {
                 }
             }
 
+            CuriosApi.getCuriosInventory(player).ifPresent(itemHandler -> {
+                DataComponentType<RunestoneMountain> component = TADataComponents.RUNESTONE_MOUNTAIN.get();
+                itemHandler.findFirstCurio(stack -> stack.has(component)).ifPresent(slotResult -> {
+                    RunestoneMountain runestoneMountain = slotResult.stack().get(component);
+                    int experience = event.getDroppedExperience();
+                    if (runestoneMountain != null) {
+                        float minXpBoost = runestoneMountain.minXpBoost();
+                        float maxXpBoost = runestoneMountain.maxXpBoost();
+                        float boost = Mth.randomBetween(player.getRandom(), minXpBoost, maxXpBoost);
+                        event.setDroppedExperience(experience + Mth.ceil(experience * boost));
+                    }
+                });
+            });
+
             if (itemInHand.getEnchantmentLevel(TAEnchantments.get(player.level(), TAEnchantments.SOURCE_OF_TERRA)) > 0) {
                 SourceOfTerra sourceOfTerra = itemInHand.get(componentType);
                 if (!drops.isEmpty() && sourceOfTerra != null) {
                     ResourceLocation levelResource = ResourceLocation.parse(sourceOfTerra.dimension());
                     ResourceKey<Level> levelKey = ResourceKey.create(Registries.DIMENSION, levelResource);
                     MinecraftServer server = player.level().getServer();
-                    if (server != null) {
-                        ServerLevel targetLevel = server.getLevel(levelKey);
-                        if (targetLevel != null) {
-                            BlockPos selectedPos = sourceOfTerra.selectedPos();
-                            int selectedX = selectedPos.getX();
-                            int selectedY = selectedPos.getY();
-                            int selectedZ = selectedPos.getZ();
-                            BlockPos targetPos = new BlockPos(selectedX, selectedY, selectedZ);
-                            BlockState state = targetLevel.getBlockState(targetPos);
-                            BlockEntity blockEntity = targetLevel.getBlockEntity(targetPos);
-                            if (state.hasBlockEntity() && blockEntity instanceof Container container) {
-                                drops.forEach(itemEntity -> HopperBlockEntity.addItem(container, itemEntity));
-                            } else {
-                                if (player instanceof ServerPlayer serverPlayer) {
-                                    serverPlayer.sendSystemMessage(Component.translatable("message.source_of_terra.invalid"));
-                                }
-                            }
+                    if (server == null) return;
+                    ServerLevel targetLevel = server.getLevel(levelKey);
+                    if (targetLevel == null) return;
+                    BlockPos selectedPos = sourceOfTerra.selectedPos();
+                    int selectedX = selectedPos.getX();
+                    int selectedY = selectedPos.getY();
+                    int selectedZ = selectedPos.getZ();
+                    BlockPos targetPos = new BlockPos(selectedX, selectedY, selectedZ);
+                    BlockState state = targetLevel.getBlockState(targetPos);
+                    BlockEntity blockEntity = targetLevel.getBlockEntity(targetPos);
+                    if (state.hasBlockEntity() && blockEntity instanceof Container container) {
+                        drops.forEach(itemEntity -> HopperBlockEntity.addItem(container, itemEntity));
+                    } else {
+                        if (player instanceof ServerPlayer serverPlayer) {
+                            serverPlayer.sendSystemMessage(Component.translatable("message.source_of_terra.invalid"));
                         }
                     }
                 }

@@ -40,7 +40,13 @@ public class TADataComponents {
             () -> DataComponentType.<RuneGame>builder().persistent(RuneGame.CODEC).networkSynchronized(RuneGame.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SourceOfTerra>> SOURCE_OF_TERRA = DATA_COMPONENT_TYPE.register("source_of_terra",
             () -> DataComponentType.<SourceOfTerra>builder().persistent(SourceOfTerra.CODEC).networkSynchronized(SourceOfTerra.STREAM_CODEC).build());
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FIX_HEALTH_BOOST = DATA_COMPONENT_TYPE.register("fixed_health_boost",
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FIXED_HEALTH_BOOST = DATA_COMPONENT_TYPE.register("fixed_health_boost",
+            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FIXED_SPEED_BOOST = DATA_COMPONENT_TYPE.register("fixed_speed_boost",
+            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FIXED_CHOP_BOOST = DATA_COMPONENT_TYPE.register("fixed_chop_boost",
+            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FIXED_MINING_BOOST = DATA_COMPONENT_TYPE.register("fixed_mining_boost",
             () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneLife>> RUNESTONE_LIFE = DATA_COMPONENT_TYPE.register("runestone_life",
             () -> DataComponentType.<RunestoneLife>builder().persistent(RunestoneLife.CODEC).networkSynchronized(RunestoneLife.STREAM_CODEC).build());
@@ -56,6 +62,14 @@ public class TADataComponents {
             () -> DataComponentType.<RunestoneThunder>builder().persistent(RunestoneThunder.CODEC).networkSynchronized(RunestoneThunder.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneDarkness>> RUNESTONE_DARKNESS = DATA_COMPONENT_TYPE.register("runestone_darkness",
             () -> DataComponentType.<RunestoneDarkness>builder().persistent(RunestoneDarkness.CODEC).networkSynchronized(RunestoneDarkness.STREAM_CODEC).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneStorm>> RUNESTONE_STORM = DATA_COMPONENT_TYPE.register("runestone_storm",
+            () -> DataComponentType.<RunestoneStorm>builder().persistent(RunestoneStorm.CODEC).networkSynchronized(RunestoneStorm.STREAM_CODEC).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneNature>> RUNESTONE_NATURE = DATA_COMPONENT_TYPE.register("runestone_nature",
+            () -> DataComponentType.<RunestoneNature>builder().persistent(RunestoneNature.CODEC).networkSynchronized(RunestoneNature.STREAM_CODEC).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneMountain>> RUNESTONE_MOUNTAIN = DATA_COMPONENT_TYPE.register("runestone_mountain",
+            () -> DataComponentType.<RunestoneMountain>builder().persistent(RunestoneMountain.CODEC).networkSynchronized(RunestoneMountain.STREAM_CODEC).build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> ADVANCED_RUNESTONE = DATA_COMPONENT_TYPE.register("advanced_runestone",
+            () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<TagKey<Item>>>> ITEM_TAGS = DATA_COMPONENT_TYPE.register("item_tags",
             () -> DataComponentType.<List<TagKey<Item>>>builder().persistent(TagKey.codec(Registries.ITEM).listOf())
                     .networkSynchronized(ByteBufCodecs.fromCodec(TagKey.codec(Registries.ITEM).listOf())).cacheEncoding().build());

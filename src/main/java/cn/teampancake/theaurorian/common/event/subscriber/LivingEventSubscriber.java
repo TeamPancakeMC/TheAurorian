@@ -1,6 +1,8 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.components.RunestoneNature;
+import cn.teampancake.theaurorian.common.components.RunestoneStorm;
 import cn.teampancake.theaurorian.common.components.RunestoneWater;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAEntityTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAMobEffectTags;
@@ -32,6 +34,8 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
@@ -46,6 +50,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.monster.Spider;
@@ -93,6 +98,44 @@ public class LivingEventSubscriber {
 
         if (event.getEntity() instanceof Spider spider) {
             spider.targetSelector.addGoal(0, new SpiderIgnoreSpectralArmorGoal<>(spider, Player.class));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBabyEntitySpawn(BabyEntitySpawnEvent event) {
+        Player player = event.getCausedByPlayer();
+        RunestoneNature runestoneNature = RunestoneNature.findRunestoneNature(player);
+        if (runestoneNature != null) {
+            float minXpBoost = runestoneNature.minXpBoost();
+            float maxXpBoost = runestoneNature.maxXpBoost();
+            AgeableMob child = event.getChild();
+            Mob parentA = event.getParentA();
+            if (child == null) return;
+            child.setBaby(true);
+            child.moveTo(parentA.getX(), parentA.getY(), parentA.getZ(), 0.0F, 0.0F);
+            if (parentA instanceof Animal owner && event.getParentB() instanceof Animal mate) {
+                Optional.ofNullable(owner.getLoveCause()).or(() -> Optional.ofNullable(mate.getLoveCause())).ifPresent(serverPlayer -> {
+                    serverPlayer.awardStat(Stats.ANIMALS_BRED);
+                    CriteriaTriggers.BRED_ANIMALS.trigger(serverPlayer, owner, mate, child);
+                });
+
+                owner.setAge(6000);
+                mate.setAge(6000);
+                owner.resetLove();
+                mate.resetLove();
+            }
+
+            if (parentA.level() instanceof ServerLevel level) {
+                level.broadcastEntityEvent(parentA, (byte)18);
+                level.addFreshEntityWithPassengers(child);
+                if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+                    int value = parentA.getRandom().nextInt(7) + 1;
+                    value += Mth.ceil(value * Mth.randomBetween(player.getRandom(), minXpBoost, maxXpBoost));
+                    level.addFreshEntity(new ExperienceOrb(level, parentA.getX(), parentA.getY(), parentA.getZ(), value));
+                }
+            }
+
+            event.setCanceled(true);
         }
     }
 
@@ -171,8 +214,8 @@ public class LivingEventSubscriber {
                     ShieldStack shieldStack = player.getData(TAAttachmentTypes.CURRENT_SHIELD);
                     if (shieldStack != ShieldStack.EMPTY) {
                         BaseShield shield = shieldStack.getShield().value();
-                        if (shield.isNaturalRecovery(entity)) {
-                            shieldStack.increaseShield(shield.naturalRecovery(player));
+                        if (shield.isNaturalRecovery(player)) {
+                            shieldStack.increaseShield(player, shield.naturalRecovery(player));
                             PacketDistributor.sendToPlayer(player, new UpdateShieldValueS2CPacket(shieldStack.getShieldValue()));
                         }
                     }
@@ -345,6 +388,19 @@ public class LivingEventSubscriber {
                     PacketDistributor.sendToPlayer(serverPlayer, new UpdateShieldValueS2CPacket(shieldStack.getShieldValue()));
                 }
             }
+
+            if (source.is(DamageTypeTags.IS_FALL)) {
+                CuriosApi.getCuriosInventory(player).ifPresent(itemHandler -> {
+                    DataComponentType<RunestoneStorm> component = TADataComponents.RUNESTONE_STORM.get();
+                    itemHandler.findFirstCurio(stack -> stack.has(component)).ifPresent(slotResult -> {
+                        RunestoneStorm runestoneStorm = slotResult.stack().get(component);
+                        if (runestoneStorm != null) {
+                            float fallDamageReduce = runestoneStorm.fallDamageReduce();
+                            event.setNewDamage(event.getNewDamage() - fallDamageReduce);
+                        }
+                    });
+                });
+            }
         }
 
         if (source.getEntity() instanceof LivingEntity entity) {
@@ -474,7 +530,7 @@ public class LivingEventSubscriber {
                 Map<UUID, Integer> killCountInBloodMoons = eventData.killCountInBloodMoons;
                 killCountInBloodMoons.put(player.getUUID(), player.getData(attachmentType));
                 if (player instanceof ServerPlayer serverPlayer) {
-                    shieldStack.increaseShield(2.0F);
+                    shieldStack.increaseShield(player, 2.0F);
                     PacketDistributor.sendToPlayer(serverPlayer, new UpdateShieldValueS2CPacket(shieldStack.getShieldValue()));
                 }
             }
@@ -490,6 +546,18 @@ public class LivingEventSubscriber {
     public static void onLivingDrops(LivingDropsEvent event) {
         Entity sourceEntity = event.getSource().getEntity();
         if (sourceEntity instanceof MoonQueen) event.setCanceled(true);
+    }
+
+    @SubscribeEvent
+    public static void onLivingExperienceDrop(LivingExperienceDropEvent event) {
+        Player player = event.getAttackingPlayer();
+        RunestoneNature runestoneNature = RunestoneNature.findRunestoneNature(player);
+        if (event.getEntity() instanceof Animal && runestoneNature != null) {
+            float minXpBoost = runestoneNature.minXpBoost();
+            float maxXpBoost = runestoneNature.maxXpBoost();
+            float boost = Mth.randomBetween(player.getRandom(), minXpBoost, maxXpBoost);
+            event.setDroppedExperience(Mth.ceil(event.getOriginalExperience() * boost));
+        }
     }
 
     @SubscribeEvent

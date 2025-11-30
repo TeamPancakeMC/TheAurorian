@@ -3,9 +3,7 @@ package cn.teampancake.theaurorian.common.event.subscriber;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import cn.teampancake.theaurorian.common.blocks.MysteriumWoolBed;
-import cn.teampancake.theaurorian.common.components.RunestoneBlaze;
-import cn.teampancake.theaurorian.common.components.RunestoneThunder;
-import cn.teampancake.theaurorian.common.components.RunestoneWater;
+import cn.teampancake.theaurorian.common.components.*;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
 import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorManager;
@@ -18,7 +16,14 @@ import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
 import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.NonNullList;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.FishingHook;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -74,6 +79,39 @@ public class PlayerEventSubscriber {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerItemFished(ItemFishedEvent event) {
+        Player player = event.getEntity();
+        RunestoneNature runestoneNature = RunestoneNature.findRunestoneNature(player);
+        if (runestoneNature == null) return;
+        NonNullList<ItemStack> drops = event.getDrops();
+        FishingHook hook = event.getHookEntity();
+        float minXpBoost = runestoneNature.minXpBoost();
+        float maxXpBoost = runestoneNature.maxXpBoost();
+        if (player instanceof ServerPlayer serverPlayer) {
+            ItemStack stack = player.getMainHandItem();
+            CriteriaTriggers.FISHING_ROD_HOOKED.trigger(serverPlayer, stack, hook, drops);
+        }
+
+        for (ItemStack itemStack : drops) {
+            ItemEntity itemEntity = new ItemEntity(hook.level(), hook.getX(), hook.getY(), hook.getZ(), itemStack);
+            double d0 = player.getX() - hook.getX();
+            double d1 = player.getY() - hook.getY();
+            double d2 = player.getZ() - hook.getZ();
+            double y = d1 * 0.1F + Math.sqrt(Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2)) * 0.08F;
+            itemEntity.setDeltaMovement(d0 * 0.1F, y, d2 * 0.1F);
+            hook.level().addFreshEntity(itemEntity);
+            int value = hook.getRandom().nextInt(6) + 1;
+            value += Mth.ceil(value * Mth.randomBetween(player.getRandom(), minXpBoost, maxXpBoost));
+            player.level().addFreshEntity(new ExperienceOrb(player.level(), player.getX(), player.getY() + 0.5F, player.getZ() + 0.5F, value));
+            if (itemStack.is(ItemTags.FISHES)) {
+                player.awardStat(Stats.FISH_CAUGHT, 1);
+            }
+        }
+
+        event.setCanceled(true);
     }
 
     @SubscribeEvent
@@ -271,12 +309,36 @@ public class PlayerEventSubscriber {
     @SubscribeEvent
     public static void onPlayerBreakSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
+        BlockState state = event.getState();
         ItemStack handStack = player.getMainHandItem();
+        if (state.is(BlockTags.MINEABLE_WITH_AXE) && handStack.isCorrectToolForDrops(state)) {
+            CuriosApi.getCuriosInventory(player).ifPresent(itemHandler -> {
+                DataComponentType<RunestoneNature> component = TADataComponents.RUNESTONE_NATURE.get();
+                itemHandler.findFirstCurio(stack -> stack.has(component)).ifPresent(slotResult -> {
+                    Float uncheckedChopBoost = slotResult.stack().get(TADataComponents.FIXED_CHOP_BOOST);
+                    float chopBoost = uncheckedChopBoost != null ? uncheckedChopBoost : 0.0F;
+                    float originalSpeed = event.getOriginalSpeed();
+                    event.setNewSpeed(originalSpeed + originalSpeed * chopBoost);
+                });
+            });
+        }
+
+        if (state.is(BlockTags.MINEABLE_WITH_PICKAXE) && handStack.isCorrectToolForDrops(state)) {
+            CuriosApi.getCuriosInventory(player).ifPresent(itemHandler -> {
+                DataComponentType<RunestoneMountain> component = TADataComponents.RUNESTONE_MOUNTAIN.get();
+                itemHandler.findFirstCurio(stack -> stack.has(component)).ifPresent(slotResult -> {
+                    Float uncheckedMiningBoost = slotResult.stack().get(TADataComponents.FIXED_MINING_BOOST);
+                    float miningBoost = uncheckedMiningBoost != null ? uncheckedMiningBoost : 0.0F;
+                    float originalSpeed = event.getOriginalSpeed();
+                    event.setNewSpeed(originalSpeed + originalSpeed * miningBoost);
+                });
+            });
+        }
+
         if (handStack.is(TAItems.AURORIANITE_PICKAXE.get())) {
             Optional<BlockPos> position = event.getPosition();
             if (position.isPresent()) {
                 BlockPos blockPos = position.get();
-                BlockState state = event.getState();
                 Level level = player.level();
                 if (state.getExpDrop(level, blockPos, null, player, handStack) > 0) {
                     event.setNewSpeed(event.getOriginalSpeed() * 1.4F);

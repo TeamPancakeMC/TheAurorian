@@ -10,12 +10,14 @@ import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.ModelProvider;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
@@ -133,9 +135,10 @@ public class TAItemModelProvider extends ItemModelProvider {
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof ShieldItem).forEach(this::shieldItem);
         TACommonUtils.getKnownItemStream().filter(item -> item instanceof Runestone).forEach(item -> {
             String path = BuiltInRegistries.ITEM.getKey(item).getPath();
-            String texture = path.substring(0, path.lastIndexOf('_'));
-            this.withExistingParent(path, this.mcLoc("item/generated"))
-                    .texture("layer0", this.modLoc("item/" + texture));
+            ResourceLocation texture = this.modLoc("item/" + path.substring(0, path.lastIndexOf('_')));
+            if (this.existingFileHelper.exists(texture, ModelProvider.TEXTURE)) {
+                this.withExistingParent(path, this.mcLoc("item/generated")).texture("layer0", texture);
+            }
         });
     }
 

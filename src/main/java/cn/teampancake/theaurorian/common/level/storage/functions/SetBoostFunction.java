@@ -1,10 +1,10 @@
 package cn.teampancake.theaurorian.common.level.storage.functions;
 
-import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TALootItemFunctions;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
@@ -17,25 +17,29 @@ import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 import java.util.List;
 import java.util.Set;
 
-public class SetFixedHealthBoostFunction extends LootItemConditionalFunction {
+@SuppressWarnings("unchecked")
+public class SetBoostFunction extends LootItemConditionalFunction {
 
-    public static final MapCodec<SetFixedHealthBoostFunction> CODEC = RecordCodecBuilder.mapCodec(
+    public static final MapCodec<SetBoostFunction> CODEC = RecordCodecBuilder.mapCodec(
             instance -> commonFields(instance).and(instance.group(
+                    DataComponentType.CODEC.fieldOf("component").forGetter(function -> function.component),
                     NumberProviders.CODEC.fieldOf("boost").forGetter(function -> function.value),
                     Codec.BOOL.fieldOf("add").orElse(false).forGetter(function -> function.add))
-            ).apply(instance, SetFixedHealthBoostFunction::new));
+            ).apply(instance, SetBoostFunction::new));
+    private final DataComponentType<?> component;
     private final NumberProvider value;
     private final boolean add;
 
-    public SetFixedHealthBoostFunction(List<LootItemCondition> predicates, NumberProvider value, boolean add) {
+    public SetBoostFunction(List<LootItemCondition> predicates, DataComponentType<?> component, NumberProvider value, boolean add) {
         super(predicates);
+        this.component = component;
         this.value = value;
         this.add = add;
     }
 
     @Override
     public LootItemFunctionType<? extends LootItemConditionalFunction> getType() {
-        return TALootItemFunctions.SET_FIXED_HEALTH_BOOST.get();
+        return TALootItemFunctions.SET_BOOST.get();
     }
 
     @Override
@@ -45,12 +49,12 @@ public class SetFixedHealthBoostFunction extends LootItemConditionalFunction {
 
     @Override
     protected ItemStack run(ItemStack stack, LootContext context) {
-        stack.set(TADataComponents.FIX_HEALTH_BOOST, this.value.getFloat(context));
+        stack.set((DataComponentType<Float>) this.component, this.value.getFloat(context));
         return stack;
     }
 
-    public static LootItemConditionalFunction.Builder<?> setBoost(NumberProvider boostValue) {
-        return simpleBuilder(conditions -> new SetFixedHealthBoostFunction(conditions, boostValue, false));
+    public static LootItemConditionalFunction.Builder<?> setBoost(DataComponentType<Float> component, NumberProvider boostValue) {
+        return simpleBuilder(conditions -> new SetBoostFunction(conditions, component, boostValue, false));
     }
 
 }

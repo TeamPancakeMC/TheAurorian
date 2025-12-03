@@ -1,9 +1,6 @@
 {
     "parent": "builtin/entity",
     "texture_size": [ 64, 64 ],
-    "textures": {
-        "particle": "theaurorian:block/laser_crystal"
-    },
     "display": {
         "gui": {
             "rotation": [ 30, 225, 0 ],

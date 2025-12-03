@@ -1,11 +1,11 @@
-package cn.teampancake.theaurorian.common.blocks.entity;
+package cn.teampancake.theaurorian.common.blocks.entity.crystal;
 
-import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -15,7 +15,7 @@ import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class LaserCrystalBlockEntity extends BlockEntity implements GeoBlockEntity {
+public class AbstractLumenCrystalBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     private static final RawAnimation ACTIVE = RawAnimation.begin().thenPlay("misc.active");
     private static final RawAnimation ACTIVE_IDLE = RawAnimation.begin().thenLoop("misc.active_idle");
@@ -24,11 +24,11 @@ public class LaserCrystalBlockEntity extends BlockEntity implements GeoBlockEnti
     public boolean activated;
     public int activeTime;
 
-    public LaserCrystalBlockEntity(BlockPos pos, BlockState blockState) {
-        super(TABlockEntityTypes.LASER_CRYSTAL.get(), pos, blockState);
+    public AbstractLumenCrystalBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+        super(type, pos, blockState);
     }
 
-    public static void serverTick(Level level, BlockPos pos, BlockState state, LaserCrystalBlockEntity blockEntity) {
+    public static void serverTick(Level level, BlockPos pos, BlockState state, AbstractLumenCrystalBlockEntity blockEntity) {
         if (level.tickRateManager().runsNormally() && blockEntity.activating && --blockEntity.activeTime == 0) {
             blockEntity.triggerAnim("active_idle_controller", "active_idle_animation");
             blockEntity.activating = false;

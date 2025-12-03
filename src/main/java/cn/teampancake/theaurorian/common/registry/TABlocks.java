@@ -3,6 +3,10 @@ package cn.teampancake.theaurorian.common.registry;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.AurorianFurnace;
 import cn.teampancake.theaurorian.common.blocks.*;
+import cn.teampancake.theaurorian.common.blocks.crystal.EmittingCrystal;
+import cn.teampancake.theaurorian.common.blocks.crystal.ReceivingCrystal;
+import cn.teampancake.theaurorian.common.blocks.crystal.RefractingCrystal;
+import cn.teampancake.theaurorian.common.blocks.crystal.ScatteringCrystal;
 import cn.teampancake.theaurorian.common.blocks.modified.HoeTillableBlock;
 import cn.teampancake.theaurorian.common.blocks.sign.*;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
@@ -531,7 +535,10 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> ASTROLOGY_TABLE = BLOCKS.register("astrology_table", AstrologyTable::new);
     public static final DeferredHolder<Block, Block> SACRIFICE_TABLE = BLOCKS.register("sacrifice_table", SacrificeTable::new);
     public static final DeferredHolder<Block, Block> MYSTERIUM_WOOL_BED = register("mysterium_wool_bed", MysteriumWoolBed::new);
-    public static final DeferredHolder<Block, Block> LASER_CRYSTAL = BLOCKS.register("laser_crystal", LaserCrystal::new);
+    public static final DeferredHolder<Block, Block> EMITTING_CRYSTAL = BLOCKS.register("emitting_crystal", EmittingCrystal::new);
+    public static final DeferredHolder<Block, Block> RECEIVING_CRYSTAL = BLOCKS.register("receiving_crystal", ReceivingCrystal::new);
+    public static final DeferredHolder<Block, Block> REFRACTING_CRYSTAL = BLOCKS.register("refracting_crystal", RefractingCrystal::new);
+    public static final DeferredHolder<Block, Block> SCATTERING_CRYSTAL = BLOCKS.register("scattering_crystal", ScatteringCrystal::new);
     public static final DeferredHolder<Block, Block> SILENT_CAMPFIRE = register("silent_campfire", SilentCampfire::new);
     public static final DeferredHolder<Block, Block> ALCHEMY_TABLE = register("alchemy_table", AlchemyTable::new);
     public static final DeferredHolder<Block, Block> RELIC_TABLE = register("relic_table", RelicTable::new);
@@ -543,9 +550,8 @@ public class TABlocks {
 
     @SafeVarargs
     public static TABlockProperties dungeonBlockProperties(TagKey<Block>... values) {
-        return get().mapColor(MapColor.STONE).addBlockTag(TABlockTags.DUNGEON_BLOCKS).addBlockTag(values)
-                .lootType(TALootType.SELF).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops()
-                .destroyTime(-1.0F).explosionResistance(3600000.0F);
+        return get().mapColor(MapColor.STONE).addBlockTag(TABlockTags.DUNGEON_BLOCKS).addBlockTag(values).lootType(TALootType.SELF)
+                .instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().destroyTime(-1.0F).explosionResistance(3600000.0F);
     }
 
 }

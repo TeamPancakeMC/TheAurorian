@@ -1,9 +1,7 @@
-package cn.teampancake.theaurorian.common.blocks;
+package cn.teampancake.theaurorian.common.blocks.crystal;
 
-import cn.teampancake.theaurorian.common.blocks.entity.LaserCrystalBlockEntity;
+import cn.teampancake.theaurorian.common.blocks.entity.crystal.AbstractLumenCrystalBlockEntity;
 import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
-import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -20,8 +18,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -33,23 +29,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("NullableProblems")
-public class LaserCrystal extends BaseEntityBlock {
+public abstract class AbstractLumenCrystal extends BaseEntityBlock {
 
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
-    public LaserCrystal() {
+    public AbstractLumenCrystal() {
         super(TABlockProperties.get().destroyTime(-1.0F).explosionResistance(3600000.0F).noOcclusion().noLootTable());
         this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER));
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(p -> new LaserCrystal());
-    }
-
-    @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new LaserCrystalBlockEntity(pos, state);
     }
 
     @Override
@@ -99,7 +85,7 @@ public class LaserCrystal extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         BlockEntity blockEntity = level.getBlockEntity(state.getValue(HALF) == DoubleBlockHalf.LOWER ? pos : pos.below());
-        if (!level.isClientSide && blockEntity instanceof LaserCrystalBlockEntity entity && !entity.activating && !entity.activated) {
+        if (!level.isClientSide && blockEntity instanceof AbstractLumenCrystalBlockEntity entity && !entity.activating && !entity.activated) {
             entity.triggerAnim("active_controller", "active_animation");
             entity.activating = true;
             entity.activeTime = 40;
@@ -119,11 +105,6 @@ public class LaserCrystal extends BaseEntityBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HALF);
-    }
-
-    @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return (level.isClientSide || state.getValue(HALF) == DoubleBlockHalf.UPPER) ? null : createTickerHelper(blockEntityType, TABlockEntityTypes.LASER_CRYSTAL.get(), LaserCrystalBlockEntity::serverTick);
     }
 
 }

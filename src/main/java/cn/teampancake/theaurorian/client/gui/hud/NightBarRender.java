@@ -15,7 +15,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 public class NightBarRender {
 
-    private static final ResourceLocation EMPTY = TheAurorian.prefix("textures/misc/bless/empty.png");
+    private static final ResourceLocation EMPTY = TheAurorian.prefix("empty");
     public static ResourceLocation nightType = EMPTY;
     public static final int BAR_WIDTH = 45;
     public static final int BAR_HEIGHT = 64;
@@ -39,7 +39,8 @@ public class NightBarRender {
                     ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(nightType.getNamespace(), path);
                     guiGraphics.blit(texture, 0, 0, 0, 0, BAR_WIDTH, BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT);
                 } else {
-                    guiGraphics.blit(EMPTY, 0, 0, 90, 64, BAR_WIDTH, BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT);
+                    ResourceLocation empty = TheAurorian.prefix("textures/misc/bless/empty.png");
+                    guiGraphics.blit(empty, 0, 0, 90, 64, BAR_WIDTH, BAR_HEIGHT, BAR_WIDTH, BAR_HEIGHT);
                 }
             }
         }

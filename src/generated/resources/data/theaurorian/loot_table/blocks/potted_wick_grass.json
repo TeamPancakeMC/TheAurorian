@@ -26,7 +26,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "theaurorian:wick_grass"
         }
       ],
       "rolls": 1.0

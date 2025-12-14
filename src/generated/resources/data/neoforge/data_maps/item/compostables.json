@@ -1,8 +1,5 @@
 {
   "values": {
-    "minecraft:air": {
-      "chance": 0.65
-    },
     "theaurorian:aurorian_grass": {
       "chance": 0.3
     },
@@ -68,6 +65,9 @@
     },
     "theaurorian:weeping_willow_sap": {
       "chance": 0.3
+    },
+    "theaurorian:wick_grass": {
+      "chance": 0.65
     },
     "theaurorian:winter_root": {
       "chance": 0.65

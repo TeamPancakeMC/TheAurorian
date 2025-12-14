@@ -34,6 +34,7 @@ version = mod_version
 group = mod_group_id
 
 repositories {
+    flatDir(dirs: "libs")
     mavenLocal()
 }
 
@@ -103,6 +104,10 @@ configurations {
 repositories {
 
     maven {
+        url = "https://maven.ithundxr.dev/snapshots"
+    }
+
+    maven {
         name = 'GeckoLib'
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
     }
@@ -139,6 +144,8 @@ dependencies {
     implementation "curse.maven:auth-me-356643:6177873"
     implementation "curse.maven:spark-361579:6225208"
     implementation "curse.maven:neat-238372:5838045"
+
+    jarJar(implementation("com.tterrag.registrate:Registrate:$registrate_version"))
 
     // compile against the JEI API but do not include it at runtime
     compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")

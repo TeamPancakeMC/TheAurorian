@@ -5,6 +5,7 @@ import cn.teampancake.theaurorian.common.config.TAClientConfig;
 import cn.teampancake.theaurorian.common.config.TACommonConfig;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.compat.mui.ModernUICompatibility;
+import cn.teampancake.theaurorian.compat.registrate.TARegistrate;
 import cn.teampancake.theaurorian.compat.thirst.ThirstWasTakenCompatibility;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
@@ -23,13 +24,12 @@ public class TheAurorian {
 
     public static final String MOD_ID = "theaurorian";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    public static final TARegistrate REGISTRATE = TARegistrate.create(MOD_ID);
 
     public TheAurorian(IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.COMMON, TACommonConfig.SPEC);
         modContainer.registerConfig(ModConfig.Type.CLIENT, TAClientConfig.SPEC);
         TACreativeModeTabs.TABS.register(modEventBus);
-        TAItems.ITEMS.register(modEventBus);
-        TABlocks.BLOCKS.register(modEventBus);
         TAFluids.FLUIDS.register(modEventBus);
         TAMenus.MENUS.register(modEventBus);
         TAFeatures.FEATURES.register(modEventBus);

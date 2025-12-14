@@ -1,6 +1,6 @@
 {
     "parent": "theaurorian:block/lunar_crystal",
     "textures": {
-        "particle": "theaurorian:block/receiving_crystal"
+        "particle": "theaurorian:block/lunar_splitter"
     }
 }

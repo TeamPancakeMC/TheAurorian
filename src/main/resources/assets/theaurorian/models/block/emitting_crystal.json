@@ -1,6 +1,0 @@
-{
-    "parent": "theaurorian:block/lumen_crystal",
-    "textures": {
-        "particle": "theaurorian:block/emitting_crystal"
-    }
-}

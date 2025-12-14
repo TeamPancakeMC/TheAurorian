@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.crystal;
 
-import cn.teampancake.theaurorian.common.blocks.entity.crystal.AbstractLumenCrystalBlockEntity;
-import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
+import cn.teampancake.theaurorian.common.blocks.entity.crystal.AbstractLunarCrystalBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -21,6 +20,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
@@ -29,19 +29,25 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("NullableProblems")
-public abstract class AbstractLumenCrystal extends BaseEntityBlock {
+public abstract class AbstractLunarCrystal extends BaseEntityBlock {
 
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+    public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
 
-    public AbstractLumenCrystal() {
-        super(TABlockProperties.get().destroyTime(-1.0F).explosionResistance(3600000.0F).noOcclusion().noLootTable());
-        this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER));
+    public AbstractLunarCrystal(Properties properties) {
+        super(properties.destroyTime(50.0F).explosionResistance(1200.0F).noOcclusion().noLootTable());
+        this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(ACTIVATED, false));
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         double maxY = state.getValue(HALF) == DoubleBlockHalf.UPPER ? 10.0D : 16.0D;
         return box(0.0D, 0.0D, 0.0D, 16.0D, maxY, 16.0D);
+    }
+
+    @Override
+    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
+        return state.getValue(ACTIVATED) ? 15 : 0;
     }
 
     @Override
@@ -85,7 +91,7 @@ public abstract class AbstractLumenCrystal extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         BlockEntity blockEntity = level.getBlockEntity(state.getValue(HALF) == DoubleBlockHalf.LOWER ? pos : pos.below());
-        if (!level.isClientSide && blockEntity instanceof AbstractLumenCrystalBlockEntity entity && !entity.activating && !entity.activated) {
+        if (!level.isClientSide && blockEntity instanceof AbstractLunarCrystalBlockEntity entity && !entity.activating && !entity.activated) {
             entity.triggerAnim("active_controller", "active_animation");
             entity.activating = true;
             entity.activeTime = 40;
@@ -104,7 +110,11 @@ public abstract class AbstractLumenCrystal extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HALF);
+        builder.add(HALF, ACTIVATED);
+    }
+
+    protected boolean shouldEmptyTicker(Level level, BlockState state) {
+        return level.isClientSide || state.getValue(HALF) == DoubleBlockHalf.UPPER || !level.tickRateManager().runsNormally();
     }
 
 }

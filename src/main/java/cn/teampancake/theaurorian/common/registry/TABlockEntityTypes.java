@@ -2,6 +2,8 @@ package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.renderer.block.*;
+import cn.teampancake.theaurorian.client.renderer.block.crystal.LunarCrystalRenderer;
+import cn.teampancake.theaurorian.client.renderer.block.crystal.LunarSourcePrismRenderer;
 import cn.teampancake.theaurorian.common.blocks.entity.*;
 import cn.teampancake.theaurorian.common.blocks.entity.crystal.*;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
@@ -40,14 +42,14 @@ public class TABlockEntityTypes {
             () -> BlockEntityType.Builder.of(SacrificeTableBlockEntity::new, TABlocks.SACRIFICE_TABLE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MysteriumWoolBedBlockEntity>> MYSTERIUM_WOOL_BED = BLOCK_ENTITY_TYPES.register("mysterium_wool_bed",
             () -> BlockEntityType.Builder.of(MysteriumWoolBedBlockEntity::new, TABlocks.MYSTERIUM_WOOL_BED.get()).build(null));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EmittingCrystalBlockEntity>> EMITTING_CRYSTAL = BLOCK_ENTITY_TYPES.register("emitting_crystal",
-            () -> BlockEntityType.Builder.of(EmittingCrystalBlockEntity::new, TABlocks.EMITTING_CRYSTAL.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LunarSourcePrismBlockEntity>> LUNAR_SOURCE_PRISM = BLOCK_ENTITY_TYPES.register("lunar_source_prism",
+            () -> BlockEntityType.Builder.of(LunarSourcePrismBlockEntity::new, TABlocks.LUNAR_SOURCE_PRISM.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LunarDeflectorBlockEntity>> LUNAR_DEFLECTOR = BLOCK_ENTITY_TYPES.register("lunar_deflector",
+            () -> BlockEntityType.Builder.of(LunarDeflectorBlockEntity::new, TABlocks.LUNAR_DEFLECTOR.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LunarSplitterBlockEntity>> LUNAR_SPLITTER = BLOCK_ENTITY_TYPES.register("lunar_splitter",
+            () -> BlockEntityType.Builder.of(LunarSplitterBlockEntity::new, TABlocks.LUNAR_SPLITTER.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ReceivingCrystalBlockEntity>> RECEIVING_CRYSTAL = BLOCK_ENTITY_TYPES.register("receiving_crystal",
             () -> BlockEntityType.Builder.of(ReceivingCrystalBlockEntity::new, TABlocks.RECEIVING_CRYSTAL.get()).build(null));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RefractingCrystalBlockEntity>> REFRACTING_CRYSTAL = BLOCK_ENTITY_TYPES.register("refracting_crystal",
-            () -> BlockEntityType.Builder.of(RefractingCrystalBlockEntity::new, TABlocks.REFRACTING_CRYSTAL.get()).build(null));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ScatteringCrystalBlockEntity>> SCATTERING_CRYSTAL = BLOCK_ENTITY_TYPES.register("scattering_crystal",
-            () -> BlockEntityType.Builder.of(ScatteringCrystalBlockEntity::new, TABlocks.SCATTERING_CRYSTAL.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DungeonStoneGateBlockEntity>> DUNGEON_STONE_GATE = BLOCK_ENTITY_TYPES.register("dungeon_stone_gate",
             () -> BlockEntityType.Builder.of(DungeonStoneGateBlockEntity::new, TABlocks.RUNE_STONE_GATE.get(), TABlocks.MOON_TEMPLE_GATE.get(),
                     TABlocks.DARK_STONE_GATE.get(), TABlocks.RUNE_STONE_LOOT_GATE.get(), TABlocks.MOON_TEMPLE_CELL_GATE.get(),
@@ -69,10 +71,10 @@ public class TABlockEntityTypes {
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(EMITTING_CRYSTAL.get(), context -> new LumenCrystalRenderer<>(EMITTING_CRYSTAL.getId()));
-        event.registerBlockEntityRenderer(RECEIVING_CRYSTAL.get(), context -> new LumenCrystalRenderer<>(RECEIVING_CRYSTAL.getId()));
-        event.registerBlockEntityRenderer(REFRACTING_CRYSTAL.get(), context -> new LumenCrystalRenderer<>(REFRACTING_CRYSTAL.getId()));
-        event.registerBlockEntityRenderer(SCATTERING_CRYSTAL.get(), context -> new LumenCrystalRenderer<>(SCATTERING_CRYSTAL.getId()));
+        event.registerBlockEntityRenderer(LUNAR_SOURCE_PRISM.get(), LunarSourcePrismRenderer::new);
+        event.registerBlockEntityRenderer(LUNAR_DEFLECTOR.get(), context -> new LunarCrystalRenderer<>(LUNAR_DEFLECTOR.getId()));
+        event.registerBlockEntityRenderer(LUNAR_SPLITTER.get(), context -> new LunarCrystalRenderer<>(LUNAR_SPLITTER.getId()));
+        event.registerBlockEntityRenderer(RECEIVING_CRYSTAL.get(), context -> new LunarCrystalRenderer<>(RECEIVING_CRYSTAL.getId()));
         event.registerBlockEntityRenderer(ASTROLOGY_TABLE.get(), AstrologyTableRenderer::new);
         event.registerBlockEntityRenderer(SACRIFICE_TABLE.get(), SacrificeTableRenderer::new);
         event.registerBlockEntityRenderer(MOONLIGHT_FORGE.get(), MoonlightForgeRenderer::new);

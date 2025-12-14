@@ -7,20 +7,20 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.model.DefaultedBlockGeoModel;
 import software.bernie.geckolib.renderer.GeoRenderer;
 
-public class LumenCrystalModel<T extends GeoAnimatable> extends DefaultedBlockGeoModel<T> {
+public class LunarCrystalModel<T extends GeoAnimatable> extends DefaultedBlockGeoModel<T> {
 
-    public LumenCrystalModel(ResourceLocation assetSubpath) {
+    public LunarCrystalModel(ResourceLocation assetSubpath) {
         super(assetSubpath);
     }
 
     @Override
     public ResourceLocation getModelResource(T animatable, @Nullable GeoRenderer<T> renderer) {
-        return this.buildFormattedModelPath(TheAurorian.prefix("lumen_crystal"));
+        return this.buildFormattedModelPath(TheAurorian.prefix("lunar_crystal"));
     }
 
     @Override
     public ResourceLocation getAnimationResource(T animatable) {
-        return this.buildFormattedAnimationPath(TheAurorian.prefix("lumen_crystal"));
+        return this.buildFormattedAnimationPath(TheAurorian.prefix("lunar_crystal"));
     }
 
 }

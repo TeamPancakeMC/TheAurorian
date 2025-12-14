@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.crystal;
 
-import cn.teampancake.theaurorian.common.blocks.entity.crystal.AbstractLumenCrystalBlockEntity;
+import cn.teampancake.theaurorian.common.blocks.entity.crystal.AbstractLunarCrystalBlockEntity;
 import cn.teampancake.theaurorian.common.blocks.entity.crystal.ReceivingCrystalBlockEntity;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import com.mojang.serialization.MapCodec;
@@ -11,14 +11,17 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.jetbrains.annotations.Nullable;
 
-public class ReceivingCrystal extends AbstractLumenCrystal {
+public class ReceivingCrystal extends AbstractLunarCrystal {
+
+    public ReceivingCrystal(Properties properties) {
+        super(properties);
+    }
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(p -> new ReceivingCrystal());
+        return simpleCodec(ReceivingCrystal::new);
     }
 
     @Override
@@ -28,7 +31,7 @@ public class ReceivingCrystal extends AbstractLumenCrystal {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return (level.isClientSide || state.getValue(HALF) == DoubleBlockHalf.UPPER) ? null : createTickerHelper(blockEntityType, TABlockEntityTypes.RECEIVING_CRYSTAL.get(), AbstractLumenCrystalBlockEntity::serverTick);
+        return this.shouldEmptyTicker(level, state) ? null : createTickerHelper(blockEntityType, TABlockEntityTypes.RECEIVING_CRYSTAL.get(), AbstractLunarCrystalBlockEntity::serverTick);
     }
 
 }

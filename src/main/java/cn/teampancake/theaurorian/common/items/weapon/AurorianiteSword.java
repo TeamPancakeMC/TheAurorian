@@ -6,8 +6,6 @@ import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -30,12 +28,10 @@ import java.util.List;
 
 public class AurorianiteSword extends SwordItem {
 
-    public AurorianiteSword() {
-        super(TAToolTiers.AURORIANITE, new Item.Properties().rarity(Rarity.EPIC)
+    public AurorianiteSword(Item.Properties properties) {
+        super(TAToolTiers.AURORIANITE, properties.rarity(Rarity.EPIC)
                 .attributes(createAttributes(TAToolTiers.AURORIANITE, 4, -2.4F))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.NO_RUN_DATA, Unit.INSTANCE));
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     @Override

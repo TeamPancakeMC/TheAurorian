@@ -14,7 +14,8 @@ public class WickGrass extends TAFlowerBlock {
 
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL;
 
-    public WickGrass() {
+    public WickGrass(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(LEVEL, 15));
     }
 

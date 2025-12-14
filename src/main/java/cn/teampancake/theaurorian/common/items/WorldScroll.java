@@ -4,7 +4,6 @@ import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,11 +24,8 @@ public class WorldScroll extends Item {
     private static final int LAYER_COUNT = 5; // 魔法阵层数
     private final Random random = new Random();
 
-    public WorldScroll() {
-        super(new Item.Properties()
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)
-                .durability(100));
+    public WorldScroll(Item.Properties properties) {
+        super(properties.durability(100).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     }
 
     @Override

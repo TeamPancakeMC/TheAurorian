@@ -11,7 +11,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -25,10 +24,9 @@ import java.util.List;
 
 public class RuneKnowledgeFragment extends Item {
 
-    public RuneKnowledgeFragment() {
-        super(new Item.Properties().stacksTo(1)
+    public RuneKnowledgeFragment(Item.Properties properties) {
+        super(properties.stacksTo(1)
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)
                 .component(TADataComponents.RUNE_GAME, RuneGame.EMPTY)
                 .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, Boolean.FALSE));
     }

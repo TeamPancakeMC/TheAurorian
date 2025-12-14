@@ -5,7 +5,6 @@ import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,16 +14,12 @@ import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.List;
-
 public class MoonstoneSickle extends ShearsItem {
     
-    public MoonstoneSickle() {
-        super(new Item.Properties().durability(250)
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.DURABILITY_ENCHANTABLE, ItemTags.MINING_ENCHANTABLE))
+    public MoonstoneSickle(Item.Properties properties) {
+        super(properties.durability(250)
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }
 
     @Override

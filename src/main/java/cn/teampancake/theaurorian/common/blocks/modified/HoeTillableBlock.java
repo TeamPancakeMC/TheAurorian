@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.modified;
 
+import cn.teampancake.theaurorian.common.blocks.AurorianFarmTile;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -11,9 +12,9 @@ import java.util.function.Supplier;
 
 public class HoeTillableBlock extends Block {
 
-    private final Supplier<Block> block;
+    private final Supplier<AurorianFarmTile> block;
 
-    public HoeTillableBlock(Supplier<Block> tilledBlock, Properties properties) {
+    public HoeTillableBlock(Supplier<AurorianFarmTile> tilledBlock, Properties properties) {
         super(properties);
         this.block = tilledBlock;
     }

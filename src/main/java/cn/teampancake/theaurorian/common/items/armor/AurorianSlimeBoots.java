@@ -24,8 +24,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class AurorianSlimeBoots extends BaseArmor<AurorianSlimeBootsModel> {
 
-    public AurorianSlimeBoots() {
-        super(TAArmorMaterials.AURORIAN_SLIME, Type.BOOTS, new Item.Properties().rarity(Rarity.RARE)
+    public AurorianSlimeBoots(Item.Properties properties) {
+        super(TAArmorMaterials.AURORIAN_SLIME, Type.BOOTS, properties.rarity(Rarity.RARE)
                 .attributes(ItemAttributeModifiers.builder().add(Attributes.SNEAKING_SPEED,
                         new AttributeModifier(TheAurorian.prefix("slime_boots_sneaking_speed"), 1.0D,
                                 AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.FEET).build()));

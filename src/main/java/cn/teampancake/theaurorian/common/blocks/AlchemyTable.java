@@ -33,15 +33,15 @@ public class AlchemyTable extends HorizontalDirectionalBlock implements EntityBl
 
     public static final EnumProperty<AlchemyTablePart> PART = EnumProperty.create("part", AlchemyTablePart.class);
 
-    public AlchemyTable() {
-        super(Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F)
+    public AlchemyTable(Properties properties) {
+        super(properties.mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F)
                 .sound(SoundType.WOOD).ignitedByLava().noOcclusion().pushReaction(PushReaction.DESTROY));
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, AlchemyTablePart.LEFT));
     }
 
     @Override
     protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return simpleCodec(p -> new AlchemyTable());
+        return simpleCodec(AlchemyTable::new);
     }
 
     @Override

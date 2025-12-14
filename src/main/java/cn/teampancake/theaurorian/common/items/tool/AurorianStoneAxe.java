@@ -5,7 +5,6 @@ import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,16 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
-
-@ParametersAreNonnullByDefault
 public class AurorianStoneAxe extends AxeItem {
 
-    public AurorianStoneAxe() {
-        super(TAToolTiers.AURORIAN_STONE, new Item.Properties()
+    public AurorianStoneAxe(Item.Properties properties) {
+        super(TAToolTiers.AURORIAN_STONE, properties
                 .attributes(createAttributes(TAToolTiers.AURORIAN_STONE, 8.0F, -3.2F))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.AXES))
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }

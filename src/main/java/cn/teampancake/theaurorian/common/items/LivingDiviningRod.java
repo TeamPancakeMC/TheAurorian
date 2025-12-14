@@ -4,7 +4,6 @@ import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -21,10 +20,8 @@ import net.minecraft.world.phys.AABB;
 
 public class LivingDiviningRod extends Item {
 
-    public LivingDiviningRod() {
-        super(new Item.Properties().rarity(Rarity.EPIC)
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+    public LivingDiviningRod(Item.Properties properties) {
+        super(properties.rarity(Rarity.EPIC).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     }
 
     @Override

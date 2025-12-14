@@ -7,7 +7,6 @@ import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -23,11 +22,10 @@ import java.util.List;
 
 public class VagrantNote extends Item {
 
-    public VagrantNote() {
-        super(new Properties().rarity(Rarity.EPIC).stacksTo(1)
+    public VagrantNote(Item.Properties properties) {
+        super(properties.rarity(Rarity.EPIC).stacksTo(1)
                 .component(TADataComponents.CHAPTERS, new ArrayList<>())
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     @Override

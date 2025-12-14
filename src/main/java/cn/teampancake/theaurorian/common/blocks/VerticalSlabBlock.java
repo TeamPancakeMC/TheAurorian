@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.blocks.base;
+package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.state.properties.VerticalSlabShape;
 import net.minecraft.core.BlockPos;
@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 
 import java.util.Locale;
 
-public class VerticalSlabBlockWithBase extends Block implements SimpleWaterloggedBlock {
+public class VerticalSlabBlock extends Block implements SimpleWaterloggedBlock {
 
     public static final EnumProperty<VerticalSlabShape> SHAPE = EnumProperty.create("shape", VerticalSlabShape.class);
     public static final EnumProperty<Connection> CONNECTION = EnumProperty.create("connection", Connection.class);
@@ -42,11 +42,9 @@ public class VerticalSlabBlockWithBase extends Block implements SimpleWaterlogge
             Shapes.create(0.0D, 0.0D, 0.5D, 0.5D, 1.0D, 1.0D),
             Shapes.create(0.0D, 0.0D, 0.0D, 0.5D, 1.0D, 0.5D),
             Shapes.create(0.5D, 0.0D, 0.0D, 1.0D, 1.0D, 0.5D)};
-    private final Block base;
 
-    public VerticalSlabBlockWithBase(Block base, Properties properties) {
+    public VerticalSlabBlock(Properties properties) {
         super(properties);
-        this.base = base;
         this.registerDefaultState(this.defaultBlockState()
                 .setValue(SHAPE, VerticalSlabShape.NORTH)
                 .setValue(CONNECTION, Connection.NONE)
@@ -83,17 +81,17 @@ public class VerticalSlabBlockWithBase extends Block implements SimpleWaterlogge
 
     private static Connection getProperConnectionType(BlockGetter level, BlockPos pos, Direction facing) {
         BlockState backState = level.getBlockState(pos.relative(facing));
-        if (backState.getBlock() instanceof VerticalSlabBlockWithBase && backState.getValue(SHAPE) != VerticalSlabShape.FULL){
+        if (backState.getBlock() instanceof VerticalSlabBlock && backState.getValue(SHAPE) != VerticalSlabShape.FULL){
             Direction direction = backState.getValue(SHAPE).getDirection();
             Connection connection = backState.getValue(CONNECTION);
             BlockState leftState = level.getBlockState(pos.relative(facing.getCounterClockWise()));
-            if ((!(leftState.getBlock() instanceof VerticalSlabBlockWithBase) || !facing.equals(leftState.getValue(SHAPE).getDirection())) &&
+            if ((!(leftState.getBlock() instanceof VerticalSlabBlock) || !facing.equals(leftState.getValue(SHAPE).getDirection())) &&
                     direction.equals(facing.getClockWise()) && (connection == Connection.NONE || connection == Connection.RIGHT)) {
                 return Connection.RIGHT;
             }
 
             BlockState rightState = level.getBlockState(pos.relative(facing.getClockWise()));
-            if ((!(rightState.getBlock() instanceof VerticalSlabBlockWithBase) || !facing.equals(rightState.getValue(SHAPE).getDirection())) &&
+            if ((!(rightState.getBlock() instanceof VerticalSlabBlock) || !facing.equals(rightState.getValue(SHAPE).getDirection())) &&
                     direction.equals(facing.getCounterClockWise()) && (connection == Connection.NONE || connection == Connection.LEFT)) {
                 return Connection.LEFT;
             }
@@ -137,10 +135,6 @@ public class VerticalSlabBlockWithBase extends Block implements SimpleWaterlogge
     @Override
     public boolean isPathfindable(BlockState state, PathComputationType type) {
         return type == PathComputationType.WATER && state.getFluidState().is(FluidTags.WATER);
-    }
-
-    public Block getBase() {
-        return this.base;
     }
 
     public enum Connection implements StringRepresentable {

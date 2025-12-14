@@ -32,12 +32,11 @@ public class CatBell extends Item {
     private static final float REPEL_RADIUS = 8.0F;
     private static final double REPEL_STRENGTH = 0.5D;
 
-    public CatBell() {
-        super(new Item.Properties().durability(300).rarity(Rarity.EPIC)
+    public CatBell(Item.Properties properties) {
+        super(properties.durability(300).rarity(Rarity.EPIC)
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.CAT_BELL)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
-                .component(TADataComponents.DEVELOPER, Unit.INSTANCE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+                .component(TADataComponents.DEVELOPER, Unit.INSTANCE));
     }
 
     @Override

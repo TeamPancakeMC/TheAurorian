@@ -1,8 +1,6 @@
 package cn.teampancake.theaurorian.common.items.block;
 
 import cn.teampancake.theaurorian.common.registry.TABlocks;
-import cn.teampancake.theaurorian.common.registry.TADataComponents;
-import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -21,8 +19,8 @@ public class SacrificeTable extends BlockItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public SacrificeTable() {
-        super(TABlocks.SACRIFICE_TABLE.get(), new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
+    public SacrificeTable(Item.Properties properties) {
+        super(TABlocks.SACRIFICE_TABLE.get(), properties);
     }
 
     @Override

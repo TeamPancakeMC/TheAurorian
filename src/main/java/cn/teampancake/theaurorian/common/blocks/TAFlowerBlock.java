@@ -1,7 +1,5 @@
 package cn.teampancake.theaurorian.common.blocks;
 
-import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
-import cn.teampancake.theaurorian.common.blocks.state.TALootType;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -20,15 +18,14 @@ public class TAFlowerBlock extends BushBlock {
 
     private static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
 
-    public TAFlowerBlock() {
-        super(TABlockProperties.get().mapColor(MapColor.PLANT).lootType(TALootType.SELF)
-                .noCollission().instabreak().sound(SoundType.GRASS)
+    public TAFlowerBlock(Properties properties) {
+        super(properties.mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS)
                 .offsetType(OffsetType.XZ).pushReaction(PushReaction.DESTROY));
     }
 
     @Override
     protected MapCodec<? extends BushBlock> codec() {
-        return simpleCodec(p -> new TAFlowerBlock());
+        return simpleCodec(TAFlowerBlock::new);
     }
 
     @Override

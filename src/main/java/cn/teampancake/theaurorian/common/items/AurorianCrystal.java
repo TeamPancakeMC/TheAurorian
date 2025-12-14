@@ -19,11 +19,10 @@ import net.minecraft.world.level.Level;
 
 public class AurorianCrystal extends Item {
 
-    public AurorianCrystal() {
-        super(new Item.Properties().durability(1)
+    public AurorianCrystal(Item.Properties properties) {
+        super(properties.durability(1)
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }
 
     @Override

@@ -1,14 +1,11 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.SacrificeTableBlockEntity;
-import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
-import cn.teampancake.theaurorian.common.blocks.state.TALootType;
 import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.stats.Stats;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -43,14 +40,13 @@ public class SacrificeTable extends BaseEntityBlockWithState {
             Direction.NORTH, NORTH_AABB, Direction.SOUTH, SOUTH_AABB,
             Direction.EAST, EAST_AABB, Direction.WEST, WEST_AABB);
 
-    public SacrificeTable() {
-        super(TABlockProperties.get().addBlockTag(BlockTags.MINEABLE_WITH_AXE).mapColor(MapColor.COLOR_GRAY)
-                .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lootType(TALootType.SELF));
+    public SacrificeTable(Properties properties) {
+        super(properties.mapColor(MapColor.COLOR_GRAY).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD));
     }
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(p -> new SacrificeTable());
+        return simpleCodec(SacrificeTable::new);
     }
 
     @Override

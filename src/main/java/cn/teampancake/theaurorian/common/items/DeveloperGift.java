@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.items;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -21,10 +20,8 @@ public class DeveloperGift extends Item {
     @Nullable
     private static List<Item> developerItems = null;
 
-    public DeveloperGift() {
-        super(new Item.Properties().fireResistant()
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+    public DeveloperGift(Item.Properties properties) {
+        super(properties.fireResistant().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY));
     }
 
     @Override

@@ -13,12 +13,10 @@ import net.minecraft.world.level.Level;
 
 public class RedBook extends Item {
 
-    public RedBook() {
-        super(new Item.Properties()
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RED_BOOK)
+    public RedBook(Item.Properties properties) {
+        super(properties.component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RED_BOOK)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
-                .component(TADataComponents.DEVELOPER, Unit.INSTANCE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+                .component(TADataComponents.DEVELOPER, Unit.INSTANCE));
     }
 
     @Override

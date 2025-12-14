@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.blocks.base.*;
 import cn.teampancake.theaurorian.common.data.datagen.recipes.AlchemyTableRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.recipes.MoonlightForgeRecipeBuilder;
 import cn.teampancake.theaurorian.common.data.datagen.recipes.ScrapperRecipeBuilder;
@@ -10,7 +9,6 @@ import cn.teampancake.theaurorian.common.items.crafting.VagrantNotePassportRecip
 import cn.teampancake.theaurorian.common.items.crafting.VagrantNoteSupplementRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
-import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -25,9 +23,7 @@ import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.StairBlock;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -409,50 +405,6 @@ public class TARecipeProvider extends RecipeProvider {
         this.buildSickleRecipes(recipeOutput, TAItems.SILENT_WOOD_SICKLE.get(), TAItems.AURORIAN_STEEL.get());
         this.buildSickleRecipes(recipeOutput, TAItems.AURORIAN_STONE_SICKLE.get(), TABlocks.AURORIAN_COBBLESTONE.get());
         this.buildSickleRecipes(recipeOutput, TAItems.MOONSTONE_SICKLE.get(), TAItems.MOONSTONE_INGOT.get());
-        for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block instanceof PressurePlateBlockWithBase pressurePlateBlock) {
-                pressurePlate(recipeOutput, pressurePlateBlock, pressurePlateBlock.getBase());
-            } else if (block instanceof FenceGateBlockWithBase fenceGateBlock) {
-                Block base = fenceGateBlock.getBase();
-                fenceGateBuilder(fenceGateBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(recipeOutput);
-            } else if (block instanceof TrapDoorBlockWithBase trapDoorBlock) {
-                Block base = trapDoorBlock.getBase();
-                trapdoorBuilder(trapDoorBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(recipeOutput);
-            } else if (block instanceof ButtonBlockWithBase buttonBlock) {
-                Block base = buttonBlock.getBase();
-                buttonBuilder(buttonBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(recipeOutput);
-            } else if (block instanceof StairBlock stairBlock) {
-                Block base = stairBlock.base;
-                stairBuilder(stairBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(recipeOutput);
-                if (stairBlock.defaultMapColor() == Blocks.STONE.defaultMapColor()) {
-                    stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, stairBlock, base);
-                }
-            } else if (block instanceof FenceBlockWithBase fenceBlock) {
-                Block base = fenceBlock.getBase();
-                fenceBuilder(fenceBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(recipeOutput);
-            } else if (block instanceof DoorBlockWithBase doorBlock) {
-                Block base = doorBlock.getBase();
-                doorBuilder(doorBlock, Ingredient.of(base)).unlockedBy(getHasName(base), has(base)).save(recipeOutput);
-            } else if (block instanceof SlabBlockWithBase slabBlock) {
-                slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS, slabBlock, slabBlock.getBase());
-                if (slabBlock.defaultMapColor() == Blocks.STONE.defaultMapColor()) {
-                    stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, slabBlock, slabBlock.getBase(), 2);
-                }
-            } else if (block instanceof WallBlockWithBase wallBlock) {
-                wall(recipeOutput, RecipeCategory.BUILDING_BLOCKS, wallBlock, wallBlock.getBase());
-                stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, wallBlock, wallBlock.getBase());
-            } else if (block instanceof VerticalStairBlockWithBase verticalStairBlock) {
-                verticalStairs(recipeOutput, verticalStairBlock);
-                if (verticalStairBlock.defaultMapColor() == Blocks.STONE.defaultMapColor()) {
-                    stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, verticalStairBlock, verticalStairBlock.getBase());
-                }
-            } else if (block instanceof VerticalSlabBlockWithBase verticalSlabBlock) {
-                verticalSlab(recipeOutput, verticalSlabBlock);
-                if (verticalSlabBlock.defaultMapColor() == Blocks.STONE.defaultMapColor()) {
-                    stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, verticalSlabBlock, verticalSlabBlock.getBase(), 2);
-                }
-            }
-        }
     }
 
     public static void forging(RecipeOutput recipeOutput, ItemLike equipment, ItemLike upgradeMaterial, ItemLike result) {
@@ -467,16 +419,6 @@ public class TARecipeProvider extends RecipeProvider {
     public static void scrapping(RecipeOutput recipeOutput, ItemLike ingredient, ItemLike result, int amount) {
         ScrapperRecipeBuilder.addRecipe(ingredient, result.asItem().getDefaultInstance(), amount).unlockedBy(getHasName(ingredient), has(ingredient))
                 .save(recipeOutput, TheAurorian.prefix("scrap_" + getItemName(ingredient) + "_to_" + getItemName(result)));
-    }
-
-    private static void verticalStairs(RecipeOutput recipeOutput, VerticalStairBlockWithBase slab) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, slab, 4).define('#', Ingredient.of(slab.getBase()))
-                .pattern("#").pattern("#").pattern("#").unlockedBy(getHasName(slab.getBase()), has(slab.getBase())).save(recipeOutput);
-    }
-
-    private static void verticalSlab(RecipeOutput recipeOutput, VerticalSlabBlockWithBase stair) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, stair, 6).define('#', Ingredient.of(stair.getBase()))
-                .pattern("###").pattern(" ##").pattern("  #").unlockedBy(getHasName(stair.getBase()), has(stair.getBase())).save(recipeOutput);
     }
 
     private void buildArmorRecipes(RecipeOutput recipeOutput, ItemLike helmet,

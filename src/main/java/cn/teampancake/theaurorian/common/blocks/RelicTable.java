@@ -28,7 +28,7 @@ public class RelicTable extends HorizontalDirectionalBlock implements EntityBloc
 
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
-    public RelicTable() {
+    public RelicTable(Properties properties) {
         super(TABlocks.defaultStoneProperties(2.0F));
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(HALF, DoubleBlockHalf.LOWER)
@@ -37,7 +37,7 @@ public class RelicTable extends HorizontalDirectionalBlock implements EntityBloc
 
     @Override
     protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-        return simpleCodec(p -> new RelicTable());
+        return simpleCodec(RelicTable::new);
     }
 
     @Override

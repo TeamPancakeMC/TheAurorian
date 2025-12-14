@@ -5,7 +5,6 @@ import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
@@ -15,15 +14,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.UUID;
 
 public class AurorianiteAxe extends AxeItem {
 
-    public AurorianiteAxe() {
-        super(TAToolTiers.AURORIANITE, new Item.Properties().rarity(Rarity.EPIC)
+    public AurorianiteAxe(Item.Properties properties) {
+        super(TAToolTiers.AURORIANITE, properties.rarity(Rarity.EPIC)
                 .attributes(createAttributes(TAToolTiers.AURORIANITE, 12.0F, -3.5F))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.AXES))
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 

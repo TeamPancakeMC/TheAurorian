@@ -5,7 +5,6 @@ import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -14,13 +13,11 @@ import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.List;
-
 public class AurorianStonePickaxe extends PickaxeItem {
 
-    public AurorianStonePickaxe() {
-        super(TAToolTiers.AURORIAN_STONE, new Item.Properties().attributes(createAttributes(TAToolTiers.AURORIAN_STONE, 1, -2.8F))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
+    public AurorianStonePickaxe(Item.Properties properties) {
+        super(TAToolTiers.AURORIAN_STONE, properties.attributes(createAttributes(TAToolTiers.AURORIAN_STONE, 1, -2.8F))
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     @Override

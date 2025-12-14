@@ -12,10 +12,10 @@ import net.minecraft.world.item.JukeboxSong;
 
 public class TAJukeboxSongs {
 
-    public static final ResourceKey<JukeboxSong> AURORIAN_FOREST = create("aurorian_forest");
-    public static final ResourceKey<JukeboxSong> MOONLIT_VEIL = create("moonlit_veil");
+    public static final ResourceKey<JukeboxSong> AURORIAN_FOREST = createKey("aurorian_forest");
+    public static final ResourceKey<JukeboxSong> MOONLIT_VEIL = createKey("moonlit_veil");
 
-    private static ResourceKey<JukeboxSong> create(String name) {
+    private static ResourceKey<JukeboxSong> createKey(String name) {
         return ResourceKey.create(Registries.JUKEBOX_SONG, TheAurorian.prefix(name));
     }
 

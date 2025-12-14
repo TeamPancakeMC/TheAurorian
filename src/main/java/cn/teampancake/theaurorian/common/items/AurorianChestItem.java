@@ -11,8 +11,8 @@ import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 public class AurorianChestItem extends BlockItem {
 
-    public AurorianChestItem() {
-        super(TABlocks.AURORIAN_CHEST.get(), new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
+    public AurorianChestItem(Item.Properties properties) {
+        super(TABlocks.AURORIAN_CHEST.get(), properties.component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
     }
 
     public static class RenderChestItem implements IClientItemExtensions {

@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.modified;
 
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -13,9 +12,9 @@ import java.util.function.Supplier;
 
 public class AxeStrippableBlock extends RotatedPillarBlock {
 
-    private final Supplier<Block> block;
+    private final Supplier<RotatedPillarBlock> block;
 
-    public AxeStrippableBlock(Supplier<Block> strippedBlock, Properties properties) {
+    public AxeStrippableBlock(Supplier<RotatedPillarBlock> strippedBlock, Properties properties) {
         super(properties);
         this.block = strippedBlock;
     }

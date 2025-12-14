@@ -1,9 +1,8 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.MysteriumWoolBedBlockEntity;
-import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
@@ -16,8 +15,13 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 
 public class MysteriumWoolBed extends BedBlock {
 
-    public MysteriumWoolBed() {
-        super(DyeColor.BLUE, TABlockProperties.ofFullCopy(Blocks.BLUE_BED).addBlockTag(BlockTags.BEDS));
+    public MysteriumWoolBed(Properties properties) {
+        super(DyeColor.BLUE, Properties.ofFullCopy(Blocks.BLUE_BED));
+    }
+
+    @Override
+    public MapCodec<BedBlock> codec() {
+        return simpleCodec(MysteriumWoolBed::new);
     }
 
     @Override

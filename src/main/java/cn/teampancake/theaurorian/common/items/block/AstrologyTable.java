@@ -1,8 +1,6 @@
 package cn.teampancake.theaurorian.common.items.block;
 
 import cn.teampancake.theaurorian.common.registry.TABlocks;
-import cn.teampancake.theaurorian.common.registry.TADataComponents;
-import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -26,9 +24,8 @@ public class AstrologyTable extends BlockItem implements GeoItem {
 
 	private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-	public AstrologyTable() {
-		super(TABlocks.ASTROLOGY_TABLE.get(), new Item.Properties()
-				.component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
+	public AstrologyTable(Item.Properties properties) {
+		super(TABlocks.ASTROLOGY_TABLE.get(), properties);
 		SingletonGeoAnimatable.registerSyncedAnimatable(this);
 	}
 

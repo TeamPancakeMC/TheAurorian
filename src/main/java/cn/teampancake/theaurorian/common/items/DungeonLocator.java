@@ -18,7 +18,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -37,10 +36,9 @@ import java.util.Optional;
 
 public class DungeonLocator extends Item {
 
-    public DungeonLocator() {
-        super(new Item.Properties().durability(30).rarity(Rarity.RARE)
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+    public DungeonLocator(Item.Properties properties) {
+        super(properties.durability(30).rarity(Rarity.RARE)
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     }
 
     @Override

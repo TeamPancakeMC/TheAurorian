@@ -6,7 +6,6 @@ import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -21,10 +20,9 @@ import java.util.List;
 
 public class AbsorptionOrb extends Item {
 
-    public AbsorptionOrb() {
-        super(new Item.Properties().rarity(Rarity.EPIC).durability(250)
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+    public AbsorptionOrb(Item.Properties properties) {
+        super(properties.rarity(Rarity.EPIC).durability(250)
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     }
 
     @Override

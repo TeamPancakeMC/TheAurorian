@@ -9,7 +9,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -23,10 +22,9 @@ import java.util.List;
 
 public class BookOfSin extends Item {
 
-    public BookOfSin() {
-        super(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)
+    public BookOfSin(Item.Properties properties) {
+        super(properties.rarity(Rarity.RARE).stacksTo(1)
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)
                 .component(TADataComponents.ABSORBED_EXPERIENCE, 0));
     }
 

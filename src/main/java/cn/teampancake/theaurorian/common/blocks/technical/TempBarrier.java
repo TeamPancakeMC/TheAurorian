@@ -20,15 +20,15 @@ import org.jetbrains.annotations.Nullable;
 
 public class TempBarrier extends BaseEntityBlock {
 
-    public TempBarrier() {
-        super(Properties.of().strength((-1.0F), (3600000.8F))
+    public TempBarrier(Properties properties) {
+        super(properties.destroyTime(-1.0F).explosionResistance(3600000.8F)
                 .noLootTable().noOcclusion().isValidSpawn(Blocks::never)
                 .noTerrainParticles().pushReaction(PushReaction.BLOCK));
     }
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(p -> new TempBarrier());
+        return simpleCodec(TempBarrier::new);
     }
 
     @Override

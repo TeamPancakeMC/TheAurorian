@@ -3,7 +3,6 @@ package cn.teampancake.theaurorian.common.items;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAItems;
-import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -14,9 +13,8 @@ import org.jetbrains.annotations.NotNull;
 public class TeaFood extends Item {
 
     public TeaFood(Item.Properties properties) {
-        super(properties.stacksTo((1)).food(new FoodProperties.Builder().usingConvertsTo(TAItems.TEA_CUP.get()).build())
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+        super(properties.stacksTo(1).food(new FoodProperties.Builder().usingConvertsTo(TAItems.TEA_CUP.get()).build())
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     }
 
     @Override

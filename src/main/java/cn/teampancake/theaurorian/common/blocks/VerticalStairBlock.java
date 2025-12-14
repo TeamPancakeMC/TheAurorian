@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.blocks.base;
+package cn.teampancake.theaurorian.common.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,7 +20,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class VerticalStairBlockWithBase extends Block implements SimpleWaterloggedBlock {
+public class VerticalStairBlock extends Block implements SimpleWaterloggedBlock {
 
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -33,11 +33,9 @@ public class VerticalStairBlockWithBase extends Block implements SimpleWaterlogg
                     Shapes.create(0.5D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)),
             Shapes.or(Shapes.create(0.5D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D),
                     Shapes.create(0.0D, 0.0D, 0.5D, 1.0D, 1.0D, 1.0D))};
-    private final Block base;
 
-    public VerticalStairBlockWithBase(Block base, Properties properties) {
+    public VerticalStairBlock(Properties properties) {
         super(properties);
-        this.base = base;
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
@@ -80,10 +78,6 @@ public class VerticalStairBlockWithBase extends Block implements SimpleWaterlogg
     @Override
     public boolean useShapeForLightOcclusion(BlockState state) {
         return true;
-    }
-
-    public Block getBase() {
-        return this.base;
     }
 
 }

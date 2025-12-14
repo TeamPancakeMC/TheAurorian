@@ -4,7 +4,6 @@ import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Holder;
-import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
@@ -24,9 +23,7 @@ public abstract class BaseArmor<T extends HumanoidModel<?>> extends ArmorItem {
     public static final String ARMOR_ID = "textures/models/armor/";
 
     public BaseArmor(Holder<ArmorMaterial> material, Type type, Item.Properties properties) {
-        super(material, type, properties
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+        super(material, type, properties.component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     @Override

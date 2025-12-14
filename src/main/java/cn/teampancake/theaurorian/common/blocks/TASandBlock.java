@@ -6,13 +6,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.ColoredFallingBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.util.TriState;
 
 public class TASandBlock extends ColoredFallingBlock {
 
-    public TASandBlock(int dustColor, BlockBehaviour.Properties properties) {
+    public TASandBlock(int dustColor, Properties properties) {
         super(new ColorRGBA(dustColor), properties);
     }
 

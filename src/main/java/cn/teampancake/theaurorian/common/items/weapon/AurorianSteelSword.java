@@ -10,8 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
@@ -34,19 +32,16 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class AurorianSteelSword extends SwordItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public AurorianSteelSword() {
-        super(TAToolTiers.AURORIAN_STEEL, new Item.Properties().rarity(Rarity.RARE)
+    public AurorianSteelSword(Item.Properties properties) {
+        super(TAToolTiers.AURORIAN_STEEL, properties.rarity(Rarity.RARE)
                 .attributes(createAttributes(TAToolTiers.AURORIAN_STEEL, 3, -2.4F))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.NO_RUN_DATA, Unit.INSTANCE)
                 .component(TADataComponents.HIGH_PRECISION, Boolean.FALSE));
     }
 

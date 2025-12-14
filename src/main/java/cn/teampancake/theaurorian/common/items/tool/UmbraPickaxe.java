@@ -17,7 +17,6 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,11 +33,10 @@ import java.util.List;
 
 public class UmbraPickaxe extends PickaxeItem {
 
-    public UmbraPickaxe() {
-        super(TAToolTiers.UMBRA, new Item.Properties().rarity(Rarity.EPIC)
+    public UmbraPickaxe(Item.Properties properties) {
+        super(TAToolTiers.UMBRA, properties.rarity(Rarity.EPIC)
                 .attributes(createAttributes(TAToolTiers.UMBRA, 5, 1.2F))
                 .component(DataComponents.CUSTOM_DATA, getDefaultSelectedBlock())
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES))
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }

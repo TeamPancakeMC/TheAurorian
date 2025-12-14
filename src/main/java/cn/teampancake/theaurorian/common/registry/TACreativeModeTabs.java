@@ -1,33 +1,38 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.PaintingVariantTags;
 import net.minecraft.world.item.*;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.stream.Stream;
 
 public class TACreativeModeTabs {
 
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TheAurorian.MOD_ID);
-
-    private static boolean isBuildingBlock(Item item) {
-        return item instanceof BlockItem blockItem && blockItem.getBlock().properties() instanceof TABlockProperties properties && properties.isBuildingBlock;
-    }
+    private static final String PREFIX = "itemGroup." + TheAurorian.MOD_ID;
 
     static {
-        TABS.register("normal_tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup." + TheAurorian.MOD_ID + ".normal"))
-                .icon(() -> new ItemStack(TAItems.AURORIAN_CRYSTAL.get())).displayItems((params, output) -> {
-                    TAItems.ITEMS.getEntries().stream().map(DeferredHolder::get).filter(item -> !isBuildingBlock(item)).forEach(output::accept);
-                    params.holders().lookup(Registries.PAINTING_VARIANT).ifPresent(lookup -> CreativeModeTabs.generatePresetPaintings(output, params.holders(), lookup,
-                            holder -> holder.is(PaintingVariantTags.PLACEABLE) && holder.value().assetId().getNamespace().equals(TheAurorian.MOD_ID),
-                            CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        TABS.register("normal_tab", () -> CreativeModeTab.builder().title(Component.translatable(PREFIX + ".normal"))
+                .icon(() -> new ItemStack(TAItems.AURORIAN_CRYSTAL.get())).displayItems((parameters, output) -> {
+                    Stream<Block> stream = TACommonUtils.getKnownItemStream().filter(item -> item instanceof BlockItem).map(Block::byItem);
+                    stream.filter(block -> !block.properties().requiredFeatures.contains(TAFeatureFlags.BUILDING)).forEach(output::accept);
+                    TACommonUtils.getKnownItems().forEach(output::accept);
+                    parameters.holders().lookup(Registries.PAINTING_VARIANT).ifPresent(lookup ->
+                            CreativeModeTabs.generatePresetPaintings(output, parameters.holders(), lookup, holder -> {
+                                String namespace = holder.value().assetId().getNamespace();
+                                return holder.is(PaintingVariantTags.PLACEABLE) && namespace.equals(TheAurorian.MOD_ID);
+                            }, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
                 }).build());
-        TABS.register("building_tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup." + TheAurorian.MOD_ID + ".building"))
-                .icon(() -> new ItemStack(TABlocks.AURORIAN_STONE.get())).displayItems((params, output) -> TAItems.ITEMS.getEntries().stream()
-                        .map(DeferredHolder::get).filter(TACreativeModeTabs::isBuildingBlock).forEach(output::accept)).build());
+        TABS.register("building_tab", () -> CreativeModeTab.builder().title(Component.translatable(PREFIX + ".building"))
+                .icon(() -> new ItemStack(TABlocks.AURORIAN_STONE.get())).displayItems((parameters, output) -> {
+                    Stream<Block> stream = TACommonUtils.getKnownItemStream().filter(item -> item instanceof BlockItem).map(Block::byItem);
+                    stream.filter(block -> block.properties().requiredFeatures.contains(TAFeatureFlags.BUILDING)).forEach(output::accept);
+                }).build());
     }
 
 }

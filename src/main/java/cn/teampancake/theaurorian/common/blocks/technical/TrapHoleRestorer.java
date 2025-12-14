@@ -25,8 +25,8 @@ public class TrapHoleRestorer extends BaseEntityBlock {
 
     public static final BooleanProperty EMPTY = BooleanProperty.create("empty");
 
-    public TrapHoleRestorer() {
-        super(Properties.of().strength((-1.0F), (3600000.8F))
+    public TrapHoleRestorer(Properties properties) {
+        super(properties.strength(-1.0F).explosionResistance(3600000.8F)
                 .noLootTable().noOcclusion().isValidSpawn(Blocks::never)
                 .noTerrainParticles().pushReaction(PushReaction.BLOCK));
         this.registerDefaultState(this.defaultBlockState().setValue(EMPTY, Boolean.TRUE));
@@ -34,7 +34,7 @@ public class TrapHoleRestorer extends BaseEntityBlock {
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(p -> new TrapHoleRestorer());
+        return simpleCodec(TrapHoleRestorer::new);
     }
 
     @Override

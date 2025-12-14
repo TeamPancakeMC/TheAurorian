@@ -4,7 +4,6 @@ import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,15 +20,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.Tags;
 
-import java.util.List;
 import java.util.Optional;
 
 public class CrystallinePickaxe extends PickaxeItem {
 
-    public CrystallinePickaxe() {
-        super(TAToolTiers.CRYSTALLINE, new Item.Properties().rarity(Rarity.EPIC)
+    public CrystallinePickaxe(Item.Properties properties) {
+        super(TAToolTiers.CRYSTALLINE, properties.rarity(Rarity.EPIC)
                 .attributes(createAttributes(TAToolTiers.CRYSTALLINE, 1, -2.8F))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.PICKAXES))
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
                 .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }

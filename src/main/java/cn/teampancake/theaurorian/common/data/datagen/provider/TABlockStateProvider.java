@@ -2,11 +2,8 @@ package cn.teampancake.theaurorian.common.data.datagen.provider;
 
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.blocks.*;
-import cn.teampancake.theaurorian.common.blocks.base.*;
-import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.blocks.state.properties.VerticalSlabShape;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
-import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -21,13 +18,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@SuppressWarnings("SpellCheckingInspection")
 public class TABlockStateProvider extends BlockStateProvider {
 
-    private static final ResourceLocation CUTOUT = ResourceLocation.withDefaultNamespace("cutout");
-    private static final ResourceLocation CUTOUT_MIPPED = ResourceLocation.withDefaultNamespace("cutout_mipped");
-    private static final ResourceLocation TRANSLUCENT = ResourceLocation.withDefaultNamespace("translucent");
-    private static final Map<Direction, Integer> DIRECTION_WITH_ROTATION =
+    public static final ResourceLocation CUTOUT = ResourceLocation.withDefaultNamespace("cutout");
+    public static final ResourceLocation CUTOUT_MIPPED = ResourceLocation.withDefaultNamespace("cutout_mipped");
+    public static final ResourceLocation TRANSLUCENT = ResourceLocation.withDefaultNamespace("translucent");
+    public static final Map<Direction, Integer> DIRECTION_WITH_ROTATION =
             Map.of(Direction.NORTH, 0, Direction.EAST, 90,
             Direction.SOUTH, 180, Direction.WEST, 270);
 
@@ -39,329 +35,154 @@ public class TABlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         this.registerLiquidStates();
         this.registerMysticalBarrierState();
-        this.registerLargeFilthyIceSpike();
-        this.registerSilentWoodLadderState();
-        TACommonUtils.getKnownBlockStream().filter(block -> block.properties() instanceof TABlockProperties properties && properties.isSimpleModelBlock).forEach(this::simpleBlock);
-        this.simpleBlock(TABlocks.AURORIAN_CHEST.get(), this.models().getBuilder(this.name(TABlocks.AURORIAN_CHEST.get()))
-                .texture("particle", this.modLoc("block/" + this.name(TABlocks.SILENT_TREE_PLANKS.get()))));
-        this.simpleBlock(TABlocks.SILENT_WOOD_TORCH.get(), this.models().torch(this.name(TABlocks.SILENT_WOOD_TORCH.get()),
-                this.blockTexture(TABlocks.SILENT_WOOD_TORCH.get())).renderType(CUTOUT));
-        this.simpleBlock(TABlocks.MOON_TORCH.get(), this.models().torch(this.name(TABlocks.MOON_TORCH.get()),
-                this.blockTexture(TABlocks.MOON_TORCH.get())).renderType(CUTOUT));
-        this.signBlock((StandingSignBlock) TABlocks.SILENT_WOOD_SIGN.get(),
-                (WallSignBlock) TABlocks.SILENT_WOOD_WALL_SIGN.get(),
-                this.blockTexture(TABlocks.SILENT_TREE_PLANKS.get()));
-        this.signBlock((StandingSignBlock) TABlocks.WEEPING_WILLOW_WOOD_SIGN.get(),
-                (WallSignBlock) TABlocks.WEEPING_WILLOW_WOOD_WALL_SIGN.get(),
-                this.blockTexture(TABlocks.WEEPING_WILLOW_PLANKS.get()));
-        this.signBlock((StandingSignBlock) TABlocks.CURTAIN_WOOD_SIGN.get(),
-                (WallSignBlock) TABlocks.CURTAIN_WOOD_WALL_SIGN.get(),
-                this.blockTexture(TABlocks.CURTAIN_TREE_PLANKS.get()));
-        this.signBlock((StandingSignBlock) TABlocks.CURSED_FROST_WOOD_SIGN.get(),
-                (WallSignBlock) TABlocks.CURSED_FROST_WOOD_WALL_SIGN.get(),
-                this.blockTexture(TABlocks.CURSED_FROST_TREE_PLANKS.get()));
-        this.logBlock((RotatedPillarBlock) TABlocks.RUNE_STONE_PILLAR.get());
-        this.logBlock((RotatedPillarBlock) TABlocks.DARK_STONE_PILLAR.get());
-        this.logBlock((RotatedPillarBlock) TABlocks.MOON_TEMPLE_PILLAR.get());
-        this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_SILENT_TREE_LOG.get());
-        this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_WEEPING_WILLOW_LOG.get());
-        this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_CURTAIN_TREE_LOG.get());
-        this.logBlock((RotatedPillarBlock) TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get());
-        this.logBlock((RotatedPillarBlock) TABlocks.SILENT_TREE_LOG.get());
-        this.logBlock((RotatedPillarBlock) TABlocks.WEEPING_WILLOW_LOG.get());
-        this.logBlock((RotatedPillarBlock) TABlocks.CURTAIN_TREE_LOG.get());
-        this.logBlock((RotatedPillarBlock) TABlocks.CURSED_FROST_TREE_LOG.get());
-        this.simpleBlock(TABlocks.SILENT_TREE_SAPLING.get(),
-                this.models().cross(this.name(TABlocks.SILENT_TREE_SAPLING.get()),
-                        this.blockTexture(TABlocks.SILENT_TREE_SAPLING.get())).renderType(CUTOUT));
-        this.simpleBlock(TABlocks.CURTAIN_TREE_SAPLING.get(),
-                this.models().cross(this.name(TABlocks.CURTAIN_TREE_SAPLING.get()),
-                        this.blockTexture(TABlocks.CURTAIN_TREE_SAPLING.get())).renderType(CUTOUT));
-        this.simpleBlock(TABlocks.CURSED_FROST_TREE_SAPLING.get(),
-                this.models().cross(this.name(TABlocks.CURSED_FROST_TREE_SAPLING.get()),
-                        this.blockTexture(TABlocks.CURSED_FROST_TREE_SAPLING.get())).renderType(CUTOUT));
-        this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_SILENT_TREE_WOOD.get(),
-                this.modLoc("block/stripped_silent_tree_log"),
-                this.modLoc("block/stripped_silent_tree_log"));
-        this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_WEEPING_WILLOW_WOOD.get(),
-                this.modLoc("block/stripped_weeping_willow_log"),
-                this.modLoc("block/stripped_weeping_willow_log"));
-        this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_CURTAIN_TREE_WOOD.get(),
-                this.modLoc("block/stripped_curtain_tree_log"),
-                this.modLoc("block/stripped_curtain_tree_log"));
-        this.axisBlock((RotatedPillarBlock) TABlocks.STRIPPED_CURSED_FROST_TREE_WOOD.get(),
-                this.modLoc("block/stripped_cursed_frost_tree_log"),
-                this.modLoc("block/stripped_cursed_frost_tree_log"));
-        this.axisBlock((RotatedPillarBlock) TABlocks.SILENT_TREE_WOOD.get(),
-                this.modLoc("block/silent_tree_log"),
-                this.modLoc("block/silent_tree_log"));
-        this.axisBlock((RotatedPillarBlock) TABlocks.WEEPING_WILLOW_WOOD.get(),
-                this.modLoc("block/weeping_willow_log"),
-                this.modLoc("block/weeping_willow_log"));
-        this.axisBlock((RotatedPillarBlock) TABlocks.CURTAIN_TREE_WOOD.get(),
-                this.modLoc("block/curtain_tree_log"),
-                this.modLoc("block/curtain_tree_log"));
-        this.axisBlock((RotatedPillarBlock) TABlocks.CURSED_FROST_TREE_WOOD.get(),
-                this.modLoc("block/cursed_frost_tree_log"),
-                this.modLoc("block/cursed_frost_tree_log"));
-        this.simpleBlock(TABlocks.AURORIAN_GRASS_BLOCK.get(),
-                this.models().cubeBottomTop("aurorian_grass_block",
-                        this.modLoc("block/aurorian_grass_block"),
-                        this.modLoc("block/aurorian_dirt"),
-                        this.modLoc("block/aurorian_grass_block_top")));
-        this.simpleBlock(TABlocks.LIGHT_AURORIAN_GRASS_BLOCK.get(),
-                this.models().cubeBottomTop("light_aurorian_grass_block",
-                        this.modLoc("block/light_aurorian_grass_block"),
-                        this.modLoc("block/aurorian_dirt"),
-                        this.modLoc("block/light_aurorian_grass_block_top")));
-        this.simpleBlock(TABlocks.SNOW_AURORIAN_GRASS_BLOCK.get(),
-                this.models().cubeBottomTop("snow_aurorian_grass_block",
-                        this.modLoc("block/snow_aurorian_grass_block"),
-                        this.modLoc("block/aurorian_dirt"),
-                        this.modLoc("block/snow_aurorian_grass_block_top")));
-        this.simpleBlock(TABlocks.RED_AURORIAN_GRASS_BLOCK.get(),
-                this.models().cubeBottomTop("red_aurorian_grass_block",
-                        this.modLoc("block/red_aurorian_grass_block"),
-                        this.modLoc("block/aurorian_dirt"),
-                        this.modLoc("block/red_aurorian_grass_block_top")));
-        this.registerLightPlantStates(TABlocks.WICK_GRASS.get());
-        this.registerLightPlantStates(TABlocks.AURORIAN_WATER_GRASS.get());
-        this.registerDoublePlantStates(TABlocks.TALL_AURORIAN_GRASS.get());
-        this.registerDoublePlantStates(TABlocks.TALL_LAVENDER_PLANT.get());
-        this.registerDoubleLightPlantStates(TABlocks.TALL_WICK_GRASS.get());
-        this.registerDoubleLightPlantStates(TABlocks.TALL_AURORIAN_WATER_GRASS.get());
-        this.registerDoubleLightPlantStates(TABlocks.TALL_AURORIAN_GRASS_LIGHT.get());
-        this.registerWaterSurfacePlantStates(TABlocks.AURORIAN_LILY_PAD.get());
-        this.registerWaterSurfacePlantStates(TABlocks.AURORIAN_WATER_MUSHROOM.get());
-        this.registerFilthyIceSpike(TABlocks.SMALL_FILTHY_ICE_SPIKE.get());
-        this.registerFilthyIceSpike(TABlocks.MEDIUM_FILTHY_ICE_SPIKE.get());
-        this.simpleBlockWithRenderType(TABlocks.FILTHY_ICE.get(), TRANSLUCENT);
-        this.simpleBlockWithRenderType(TABlocks.MOON_GLASS.get(), TRANSLUCENT);
-        this.simpleBlockWithRenderType(TABlocks.AURORIAN_GLASS.get(), TRANSLUCENT);
-        this.simpleBlockWithRenderType(TABlocks.DARK_STONE_GLASS.get(), TRANSLUCENT);
-        this.simpleBlockWithRenderType(TABlocks.SILENT_TREE_LEAVES.get(), CUTOUT_MIPPED);
-        this.simpleBlockWithRenderType(TABlocks.WEEPING_WILLOW_LEAVES.get(), CUTOUT_MIPPED);
-        this.simpleBlockWithRenderType(TABlocks.CURTAIN_TREE_LEAVES.get(), CUTOUT_MIPPED);
-        this.simpleBlockWithRenderType(TABlocks.CURSED_FROST_TREE_LEAVES.get(), CUTOUT_MIPPED);
-        this.paneBlockWithRenderType((IronBarsBlock) TABlocks.MOON_GLASS_PANE.get(),
-                this.blockTexture(TABlocks.MOON_GLASS.get()),
-                this.blockTexture(TABlocks.MOON_GLASS_PANE.get()), TRANSLUCENT);
-        this.paneBlockWithRenderType((IronBarsBlock) TABlocks.AURORIAN_GLASS_PANE.get(),
-                this.blockTexture(TABlocks.AURORIAN_GLASS.get()),
-                this.blockTexture(TABlocks.AURORIAN_GLASS_PANE.get()), TRANSLUCENT);
-        this.paneBlockWithRenderType((IronBarsBlock) TABlocks.DARK_STONE_GLASS_PANE.get(),
-                this.blockTexture(TABlocks.DARK_STONE_GLASS.get()),
-                this.blockTexture(TABlocks.DARK_STONE_GLASS_PANE.get()), TRANSLUCENT);
-        this.registerBarStates(TABlocks.RUNE_STONE_BARS.get());
-        this.registerBarStates(TABlocks.DARK_STONE_BARS.get());
-        this.registerBarStates(TABlocks.MOON_TEMPLE_BARS.get());
+        this.signBlock(TABlocks.SILENT_WOOD_SIGN.get(), TABlocks.SILENT_WOOD_WALL_SIGN.get(), this.blockTexture(TABlocks.SILENT_TREE_PLANKS.get()));
+        this.signBlock(TABlocks.WEEPING_WILLOW_WOOD_SIGN.get(), TABlocks.WEEPING_WILLOW_WOOD_WALL_SIGN.get(), this.blockTexture(TABlocks.WEEPING_WILLOW_PLANKS.get()));
+        this.signBlock(TABlocks.CURTAIN_WOOD_SIGN.get(), TABlocks.CURTAIN_WOOD_WALL_SIGN.get(), this.blockTexture(TABlocks.CURTAIN_TREE_PLANKS.get()));
+        this.signBlock(TABlocks.CURSED_FROST_WOOD_SIGN.get(), TABlocks.CURSED_FROST_WOOD_WALL_SIGN.get(), this.blockTexture(TABlocks.CURSED_FROST_TREE_PLANKS.get()));
         this.registerWallTorchStates(TABlocks.MOON_WALL_TORCH.get());
         this.registerWallTorchStates(TABlocks.SILENT_WOOD_WALL_TORCH.get());
-        this.registerCropStates(TABlocks.LAVENDER_CROP.get());
-        this.registerCropStates(TABlocks.SILK_BERRY_CROP.get());
-        this.registerCrossStates(TABlocks.BLUEBERRY_BUSH.get());
-        this.registerPlantStates(TABlocks.NEBULA_BLOSSOM_CLUSTER.get());
-        this.registerPlantStates(TABlocks.MOON_FROST_FLOWER.get());
-        this.registerPlantStates(TABlocks.VOID_CANDLE_FLOWER.get());
-        this.registerPlantStates(TABlocks.EQUINOX_FLOWER.get());
-        this.registerPlantStates(TABlocks.LAVENDER_PLANT.get());
-        this.registerPlantStates(TABlocks.PETUNIA_PLANT.get());
-        this.registerPlantStates(TABlocks.INDIGO_MUSHROOM.get());
-        this.registerPlantStates(TABlocks.CRISPED_MALLOW.get());
-        this.registerPlantStates(TABlocks.FROST_SNOW_GRASS.get());
-        this.registerPlantStates(TABlocks.ICE_CALENDULA.get());
-        this.registerPlantStates(TABlocks.AURORIAN_GRASS.get());
-        this.registerPlantStates(TABlocks.AURORIAN_GRASS_LIGHT.get());
-        this.registerPlantStates(TABlocks.WINTER_ROOT.get());
-        this.registerLuminousStates(TABlocks.LUMINOUS_AURORIAN_CASTLE_RUNE_STONE.get(), TABlocks.AURORIAN_CASTLE_RUNE_STONE.get());
-        this.registerLuminousStates(TABlocks.LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE.get(), TABlocks.AURORIAN_STEEL_CASTLE_RUNE_STONE.get());
-        this.registerLuminousStates(TABlocks.LUMINOUS_CERULEAN_CASTLE_RUNE_STONE.get(), TABlocks.CERULEAN_CASTLE_RUNE_STONE.get());
-        this.registerLuminousStates(TABlocks.LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE.get(), TABlocks.CRYSTALLINE_CASTLE_RUNE_STONE.get());
-        this.registerLuminousStates(TABlocks.LUMINOUS_MOON_CASTLE_RUNE_STONE.get(), TABlocks.MOON_CASTLE_RUNE_STONE.get());
-        this.registerHangingSignStates(TABlocks.SILENT_WOOD_HANGING_SIGN.get(),
-                TABlocks.SILENT_WOOD_WALL_HANGING_SIGN.get(),
-                this.blockTexture(TABlocks.STRIPPED_SILENT_TREE_LOG.get()));
-        this.registerHangingSignStates(TABlocks.WEEPING_WILLOW_WOOD_HANGING_SIGN.get(),
-                TABlocks.WEEPING_WILLOW_WOOD_WALL_HANGING_SIGN.get(),
-                this.blockTexture(TABlocks.STRIPPED_WEEPING_WILLOW_LOG.get()));
-        this.registerHangingSignStates(TABlocks.CURTAIN_WOOD_HANGING_SIGN.get(),
-                TABlocks.CURTAIN_WOOD_WALL_HANGING_SIGN.get(),
-                this.blockTexture(TABlocks.STRIPPED_CURTAIN_TREE_LOG.get()));
-        this.registerHangingSignStates(TABlocks.CURSED_FROST_WOOD_HANGING_SIGN.get(),
-                TABlocks.CURSED_FROST_WOOD_WALL_HANGING_SIGN.get(),
-                this.blockTexture(TABlocks.STRIPPED_CURSED_FROST_TREE_LOG.get()));
-        for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block instanceof PressurePlateBlockWithBase pressurePlateBlock) {
-                this.pressurePlateBlock(pressurePlateBlock, this.blockTexture(pressurePlateBlock.getBase()));
-            } else if (block instanceof FenceGateBlockWithBase fenceGateBlock) {
-                this.fenceGateBlockWithRenderType(fenceGateBlock, this.blockTexture(fenceGateBlock.getBase()), CUTOUT);
-            } else if (block instanceof TrapDoorBlockWithBase trapDoorBlock) {
-                ResourceLocation texture = this.blockTexture(trapDoorBlock);
-                this.trapdoorBlockWithRenderType(trapDoorBlock, texture, Boolean.TRUE, CUTOUT);
-                this.simpleBlockItem(trapDoorBlock, this.models().trapdoorBottom(this.name(trapDoorBlock), texture));
-            } else if (block instanceof ButtonBlockWithBase buttonBlock) {
-                String name = this.name(buttonBlock) + "_inventory";
-                ResourceLocation texture = this.blockTexture(buttonBlock.getBase());
-                ModelFile buttonInventory = this.models().buttonInventory(name, texture);
-                this.buttonBlock(buttonBlock, texture);
-                this.simpleBlockItem(buttonBlock, buttonInventory);
-            } else if (block instanceof StairBlock stairBlock) {
-                if (stairBlock.properties() instanceof TABlockProperties properties) {
-                    if (properties.hasEmissivity) {
-                        this.registerLuminousStairStates(stairBlock, this.blockTexture(stairBlock.base));
-                    } else {
-                        this.stairsBlock(stairBlock, this.blockTexture(stairBlock.base));
-                    }
-                }
+    }
 
-            } else if (block instanceof FenceBlockWithBase fenceBlock) {
-                ResourceLocation texture = this.blockTexture(fenceBlock.getBase());
-                this.fenceBlockWithRenderType(fenceBlock, texture, CUTOUT);
-                this.simpleBlockItem(fenceBlock, this.models().fenceInventory(this.name(fenceBlock), texture));
-            } else if (block instanceof DoorBlockWithBase doorBlock) {
-                String name = "block/" + this.name(doorBlock) + "_";
-                this.doorBlockWithRenderType(doorBlock,
-                        this.modLoc(name + "bottom"),
-                        this.modLoc(name + "top"), CUTOUT);
-            } else if (block instanceof SlabBlockWithBase slabBlock) {
-                ResourceLocation texture = this.blockTexture(slabBlock.getBase());
-                if (slabBlock.properties() instanceof TABlockProperties properties) {
-                    if (properties.hasEmissivity) {
-                        this.registerLuminousSlabStates(slabBlock, texture);
-                    } else {
-                        this.slabBlock(slabBlock, texture, texture);
-                    }
-                }
+    public static void registerGrassBlockState(Block block, BlockStateProvider provider) {
+        provider.simpleBlock(block, provider.models().cubeBottomTop(name(block),
+                provider.modLoc("block/" + name(block)),
+                provider.modLoc("block/aurorian_dirt"),
+                provider.modLoc(String.format("block/%s_top", name(block)))));
+    }
 
-            } else if (block instanceof WallBlockWithBase wallBlock) {
-                ResourceLocation texture = this.blockTexture(wallBlock.getBase());
-                if (wallBlock.properties() instanceof TABlockProperties properties) {
-                    if (properties.hasEmissivity) {
-                        this.registerLuminousWallStates(wallBlock, texture);
-                    } else {
-                        this.wallBlock(wallBlock, texture);
-                    }
-                }
+    public static void registerTorchStates(Block block, BlockStateProvider provider) {
+        provider.simpleBlock(block, provider.models().torch(name(block), provider.blockTexture(block)).renderType(CUTOUT));
+    }
 
-                this.simpleBlockItem(wallBlock, this.models().wallInventory(this.name(wallBlock), texture));
-            } else if (block instanceof VerticalStairBlockWithBase verticalStairBlock) {
-                this.registerVerticalStairStates(verticalStairBlock);
-            } else if (block instanceof VerticalSlabBlockWithBase verticalSlabBlock) {
-                this.registerVerticalSlabStates(verticalSlabBlock);
-            } else if (block instanceof FlowerPotBlock flowerPotBlock) {
-                this.registerPottedPlantStates(flowerPotBlock, flowerPotBlock.getPotted());
-            } else if (block instanceof TAClusterBlock clusterBlock) {
-                this.registerClusterStates(clusterBlock);
-            } else if (block instanceof DungeonStoneGateKeyhole keyhole) {
-                this.registerKeyholeStates(keyhole);
-            }
+    public static void registerSaplingStates(Block block, BlockStateProvider provider) {
+        provider.simpleBlock(block, provider.models().cross(name(block), provider.blockTexture(block)).renderType(CUTOUT));
+    }
+
+    public static void registerPillarStates(RotatedPillarBlock block, BlockStateProvider provider) {
+        if (name(block).endsWith("_wood")) {
+            String path = "block/" + name(block).replaceFirst("wood", "log");
+            provider.axisBlock(block, provider.modLoc(path), provider.modLoc(path));
+        } else {
+            provider.logBlock(block);
         }
     }
 
-    private void registerLuminousStairStates(StairBlock stairBlock, ResourceLocation texture) {
-        ModelFile stairs = this.models().stairs(this.name(stairBlock), texture, texture, texture)
-                .element().from(0.0F, 0.0F, 0.0F).to(16.0F, 8.0F, 16.0F)
-                .face(Direction.DOWN).uvs(0.0F, 0.0F, 16.0F, 16.0F)
-                .texture("#bottom").cullface(Direction.DOWN).emissivity((15), (15)).end()
-                .face(Direction.UP).uvs(0.0F, 0.0F, 16.0F, 16.0F)
-                .texture("#top").emissivity((15), (15)).end()
-                .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#side")
-                        .uvs(0.0F, 8.0F, 16.0F, 16.0F).cullface(direction)
-                        .emissivity((15), (15)), Set.of(Direction.DOWN, Direction.UP)).end()
-                .element().from(8.0F, 8.0F, 0.0F).to(16.0F, 16.0F, 16.0F)
-                .face(Direction.UP).uvs(8.0F, 0.0F, 16.0F, 16.0F).texture("#top").cullface(Direction.UP).emissivity((15), (15)).end()
-                .face(Direction.NORTH).uvs(0.0F, 0.0F, 8.0F, 8.0F).texture("#side").cullface(Direction.NORTH).emissivity((15), (15)).end()
-                .face(Direction.SOUTH).uvs(8.0F, 0.0F, 16.0F, 8.0F).texture("#side").cullface(Direction.SOUTH).emissivity((15), (15)).end()
-                .face(Direction.WEST).uvs(0.0F, 0.0F, 16.0F, 8.0F).texture("#side").emissivity((15), (15)).end()
-                .face(Direction.EAST).uvs(0.0F, 0.0F, 16.0F, 8.0F).texture("#side").cullface(Direction.EAST).emissivity((15), (15)).end().end();
-        ModelFile stairsInner = this.models().stairsInner(this.name(stairBlock) + "_inner", texture, texture, texture)
-                .element().from(0.0F, 0.0F, 0.0F).to(16.0F, 8.0F, 16.0F)
-                .face(Direction.DOWN).uvs(0.0F, 0.0F, 16.0F, 16.0F)
-                .texture("#bottom").cullface(Direction.DOWN).emissivity((15), (15)).end()
-                .face(Direction.UP).uvs(0.0F, 0.0F, 16.0F, 16.0F)
-                .texture("#top").emissivity((15), (15)).end()
-                .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#side")
-                        .uvs(0.0F, 8.0F, 16.0F, 16.0F).cullface(direction)
-                        .emissivity((15), (15)), Set.of(Direction.DOWN, Direction.UP)).end()
-                .element().from(8.0F, 8.0F, 0.0F).to(16.0F, 16.0F, 16.0F)
-                .face(Direction.UP).uvs(8.0F, 0.0F, 16.0F, 16.0F).texture("#top").cullface(Direction.UP).emissivity((15), (15)).end()
-                .face(Direction.NORTH).uvs(0.0F, 0.0F, 8.0F, 8.0F).texture("#side").cullface(Direction.NORTH).emissivity((15), (15)).end()
-                .face(Direction.SOUTH).uvs(8.0F, 0.0F, 16.0F, 8.0F).texture("#side").cullface(Direction.SOUTH).emissivity((15), (15)).end()
-                .face(Direction.WEST).uvs(0.0F, 0.0F, 16.0F, 8.0F).texture("#side").emissivity((15), (15)).end()
-                .face(Direction.EAST).uvs(0.0F, 0.0F, 16.0F, 8.0F).texture("#side").cullface(Direction.EAST).emissivity((15), (15)).end().end()
-                .element().from(0.0F, 8.0F, 8.0F).to(8.0F, 16.0F, 16.0F)
-                .face(Direction.UP).uvs(0.0F, 8.0F,  8.0F, 16.0F).texture("#top").cullface(Direction.UP).emissivity((15), (15)).end()
-                .face(Direction.NORTH).uvs(8.0F, 0.0F, 16.0F,  8.0F).texture("#side").emissivity((15), (15)).end()
-                .face(Direction.SOUTH).uvs(0.0F, 0.0F,  8.0F,  8.0F).texture("#side").cullface(Direction.SOUTH).emissivity((15), (15)).end()
-                .face(Direction.WEST).uvs(8.0F, 0.0F, 16.0F,  8.0F).texture("#side").cullface(Direction.WEST).emissivity((15), (15)).end().end();
-        ModelFile stairsOuter = this.models().stairsOuter(this.name(stairBlock) + "_outer", texture, texture, texture)
-                .element().from(0.0F, 0.0F, 0.0F).to(16.0F, 8.0F, 16.0F)
-                .face(Direction.DOWN).uvs(0.0F, 0.0F, 16.0F, 16.0F)
-                .texture("#bottom").cullface(Direction.DOWN).emissivity((15), (15)).end()
-                .face(Direction.UP).uvs(0.0F, 0.0F, 16.0F, 16.0F)
-                .texture("#top").emissivity((15), (15)).end()
-                .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#side")
-                        .uvs(0.0F, 8.0F, 16.0F, 16.0F).cullface(direction)
-                        .emissivity((15), (15)), Set.of(Direction.DOWN, Direction.UP)).end()
-                .element().from(8.0F, 8.0F, 0.0F).to(16.0F, 16.0F, 16.0F)
-                .face(Direction.UP).uvs(8.0F, 0.0F, 16.0F, 16.0F).texture("#top").cullface(Direction.UP).emissivity((15), (15)).end()
-                .face(Direction.NORTH).uvs(0.0F, 0.0F, 8.0F, 8.0F).texture("#side").emissivity((15), (15)).end()
-                .face(Direction.SOUTH).uvs(8.0F, 0.0F, 16.0F, 8.0F).texture("#side").cullface(Direction.SOUTH).emissivity((15), (15)).end()
-                .face(Direction.WEST).uvs(0.0F, 0.0F, 16.0F, 8.0F).texture("#side").emissivity((15), (15)).end()
-                .face(Direction.EAST).uvs(0.0F, 0.0F, 8.0F, 8.0F).texture("#side").cullface(Direction.EAST).emissivity((15), (15)).end().end();
-        this.stairsBlock(stairBlock, stairs, stairsInner, stairsOuter);
+    public static void registerStairStates(StairBlock stairBlock, ResourceLocation texture, BlockStateProvider provider, boolean emissivity) {
+        if (emissivity) {
+            ModelFile stairs = provider.models().stairs(name(stairBlock), texture, texture, texture)
+                    .element().from(0.0F, 0.0F, 0.0F).to(16.0F, 8.0F, 16.0F)
+                    .face(Direction.DOWN).uvs(0.0F, 0.0F, 16.0F, 16.0F)
+                    .texture("#bottom").cullface(Direction.DOWN).emissivity((15), (15)).end()
+                    .face(Direction.UP).uvs(0.0F, 0.0F, 16.0F, 16.0F)
+                    .texture("#top").emissivity((15), (15)).end()
+                    .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#side")
+                            .uvs(0.0F, 8.0F, 16.0F, 16.0F).cullface(direction)
+                            .emissivity((15), (15)), Set.of(Direction.DOWN, Direction.UP)).end()
+                    .element().from(8.0F, 8.0F, 0.0F).to(16.0F, 16.0F, 16.0F)
+                    .face(Direction.UP).uvs(8.0F, 0.0F, 16.0F, 16.0F).texture("#top").cullface(Direction.UP).emissivity((15), (15)).end()
+                    .face(Direction.NORTH).uvs(0.0F, 0.0F, 8.0F, 8.0F).texture("#side").cullface(Direction.NORTH).emissivity((15), (15)).end()
+                    .face(Direction.SOUTH).uvs(8.0F, 0.0F, 16.0F, 8.0F).texture("#side").cullface(Direction.SOUTH).emissivity((15), (15)).end()
+                    .face(Direction.WEST).uvs(0.0F, 0.0F, 16.0F, 8.0F).texture("#side").emissivity((15), (15)).end()
+                    .face(Direction.EAST).uvs(0.0F, 0.0F, 16.0F, 8.0F).texture("#side").cullface(Direction.EAST).emissivity((15), (15)).end().end();
+            ModelFile stairsInner = provider.models().stairsInner(name(stairBlock) + "_inner", texture, texture, texture)
+                    .element().from(0.0F, 0.0F, 0.0F).to(16.0F, 8.0F, 16.0F)
+                    .face(Direction.DOWN).uvs(0.0F, 0.0F, 16.0F, 16.0F)
+                    .texture("#bottom").cullface(Direction.DOWN).emissivity((15), (15)).end()
+                    .face(Direction.UP).uvs(0.0F, 0.0F, 16.0F, 16.0F)
+                    .texture("#top").emissivity((15), (15)).end()
+                    .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#side")
+                            .uvs(0.0F, 8.0F, 16.0F, 16.0F).cullface(direction)
+                            .emissivity((15), (15)), Set.of(Direction.DOWN, Direction.UP)).end()
+                    .element().from(8.0F, 8.0F, 0.0F).to(16.0F, 16.0F, 16.0F)
+                    .face(Direction.UP).uvs(8.0F, 0.0F, 16.0F, 16.0F).texture("#top").cullface(Direction.UP).emissivity((15), (15)).end()
+                    .face(Direction.NORTH).uvs(0.0F, 0.0F, 8.0F, 8.0F).texture("#side").cullface(Direction.NORTH).emissivity((15), (15)).end()
+                    .face(Direction.SOUTH).uvs(8.0F, 0.0F, 16.0F, 8.0F).texture("#side").cullface(Direction.SOUTH).emissivity((15), (15)).end()
+                    .face(Direction.WEST).uvs(0.0F, 0.0F, 16.0F, 8.0F).texture("#side").emissivity((15), (15)).end()
+                    .face(Direction.EAST).uvs(0.0F, 0.0F, 16.0F, 8.0F).texture("#side").cullface(Direction.EAST).emissivity((15), (15)).end().end()
+                    .element().from(0.0F, 8.0F, 8.0F).to(8.0F, 16.0F, 16.0F)
+                    .face(Direction.UP).uvs(0.0F, 8.0F, 8.0F, 16.0F).texture("#top").cullface(Direction.UP).emissivity((15), (15)).end()
+                    .face(Direction.NORTH).uvs(8.0F, 0.0F, 16.0F, 8.0F).texture("#side").emissivity((15), (15)).end()
+                    .face(Direction.SOUTH).uvs(0.0F, 0.0F, 8.0F, 8.0F).texture("#side").cullface(Direction.SOUTH).emissivity((15), (15)).end()
+                    .face(Direction.WEST).uvs(8.0F, 0.0F, 16.0F, 8.0F).texture("#side").cullface(Direction.WEST).emissivity((15), (15)).end().end();
+            ModelFile stairsOuter = provider.models().stairsOuter(name(stairBlock) + "_outer", texture, texture, texture)
+                    .element().from(0.0F, 0.0F, 0.0F).to(16.0F, 8.0F, 16.0F)
+                    .face(Direction.DOWN).uvs(0.0F, 0.0F, 16.0F, 16.0F)
+                    .texture("#bottom").cullface(Direction.DOWN).emissivity((15), (15)).end()
+                    .face(Direction.UP).uvs(0.0F, 0.0F, 16.0F, 16.0F)
+                    .texture("#top").emissivity((15), (15)).end()
+                    .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#side")
+                            .uvs(0.0F, 8.0F, 16.0F, 16.0F).cullface(direction)
+                            .emissivity((15), (15)), Set.of(Direction.DOWN, Direction.UP)).end()
+                    .element().from(8.0F, 8.0F, 0.0F).to(16.0F, 16.0F, 16.0F)
+                    .face(Direction.UP).uvs(8.0F, 0.0F, 16.0F, 16.0F).texture("#top").cullface(Direction.UP).emissivity((15), (15)).end()
+                    .face(Direction.NORTH).uvs(0.0F, 0.0F, 8.0F, 8.0F).texture("#side").emissivity((15), (15)).end()
+                    .face(Direction.SOUTH).uvs(8.0F, 0.0F, 16.0F, 8.0F).texture("#side").cullface(Direction.SOUTH).emissivity((15), (15)).end()
+                    .face(Direction.WEST).uvs(0.0F, 0.0F, 16.0F, 8.0F).texture("#side").emissivity((15), (15)).end()
+                    .face(Direction.EAST).uvs(0.0F, 0.0F, 8.0F, 8.0F).texture("#side").cullface(Direction.EAST).emissivity((15), (15)).end().end();
+            provider.stairsBlock(stairBlock, stairs, stairsInner, stairsOuter);
+        } else {
+            provider.stairsBlock(stairBlock, provider.blockTexture(stairBlock.base));
+        }
     }
 
-    private void registerLuminousSlabStates(SlabBlockWithBase slabBlock, ResourceLocation texture) {
-        ModelFile bottom = this.models().slab(this.name(slabBlock), texture, texture, texture)
-                .element().from(0.0F, 0.0F, 0.0F).to(16.0F, 8.0F, 16.0F)
-                .face(Direction.DOWN).uvs(0.0F, 0.0F, 16.0F, 16.0F)
-                .texture("#bottom").cullface(Direction.DOWN).emissivity((15), (15)).end()
-                .face(Direction.UP).uvs(0.0F, 0.0F, 16.0F, 16.0F)
-                .texture("#top").emissivity((15), (15)).end()
-                .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#side")
-                        .uvs(0.0F, 8.0F, 16.0F, 16.0F).cullface(direction)
-                        .emissivity((15), (15)), Set.of(Direction.DOWN, Direction.UP)).end();
-        ModelFile top = this.models().slabTop(this.name(slabBlock) + "_top", texture, texture, texture)
-                .element().from(0.0F, 8.0F, 0.0F).to(16.0F, 16.0F, 16.0F)
-                .face(Direction.DOWN).uvs(0.0F, 0.0F, 16.0F, 16.0F)
-                .texture("#bottom").emissivity((15), (15)).end()
-                .face(Direction.UP).uvs(0.0F, 0.0F, 16.0F, 16.0F)
-                .texture("#top").cullface(Direction.UP).emissivity((15), (15)).end()
-                .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#side")
-                        .uvs(0.0F, 0.0F, 16.0F, 8.0F).cullface(direction)
-                        .emissivity((15), (15)), Set.of(Direction.DOWN, Direction.UP)).end();
-        this.slabBlock(slabBlock, bottom, top, this.models().getExistingFile(texture));
+    public static void registerSlabStates(SlabBlock slabBlock, ResourceLocation texture, BlockStateProvider provider, boolean emissivity) {
+        if (emissivity) {
+            ModelFile bottom = provider.models().slab(name(slabBlock), texture, texture, texture)
+                    .element().from(0.0F, 0.0F, 0.0F).to(16.0F, 8.0F, 16.0F)
+                    .face(Direction.DOWN).uvs(0.0F, 0.0F, 16.0F, 16.0F)
+                    .texture("#bottom").cullface(Direction.DOWN).emissivity((15), (15)).end()
+                    .face(Direction.UP).uvs(0.0F, 0.0F, 16.0F, 16.0F)
+                    .texture("#top").emissivity((15), (15)).end()
+                    .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#side")
+                            .uvs(0.0F, 8.0F, 16.0F, 16.0F).cullface(direction)
+                            .emissivity((15), (15)), Set.of(Direction.DOWN, Direction.UP)).end();
+            ModelFile top = provider.models().slabTop(name(slabBlock) + "_top", texture, texture, texture)
+                    .element().from(0.0F, 8.0F, 0.0F).to(16.0F, 16.0F, 16.0F)
+                    .face(Direction.DOWN).uvs(0.0F, 0.0F, 16.0F, 16.0F)
+                    .texture("#bottom").emissivity((15), (15)).end()
+                    .face(Direction.UP).uvs(0.0F, 0.0F, 16.0F, 16.0F)
+                    .texture("#top").cullface(Direction.UP).emissivity((15), (15)).end()
+                    .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#side")
+                            .uvs(0.0F, 0.0F, 16.0F, 8.0F).cullface(direction)
+                            .emissivity((15), (15)), Set.of(Direction.DOWN, Direction.UP)).end();
+            provider.slabBlock(slabBlock, bottom, top, provider.models().getExistingFile(texture));
+        } else {
+            provider.slabBlock(slabBlock, texture, texture);
+        }
     }
 
-    private void registerLuminousWallStates(WallBlockWithBase wallBlock, ResourceLocation texture) {
-        String baseName = BuiltInRegistries.BLOCK.getKey(wallBlock).toString();
-        ModelFile post = this.models().wallPost(baseName + "_post", texture)
-                .element().from(4.0F, 0.0F, 4.0F).to(12.0F, 16.0F, 12.0F)
-                .face(Direction.DOWN).texture("#wall").cullface(Direction.DOWN).emissivity((15), (15)).end()
-                .face(Direction.UP).texture("#wall").cullface(Direction.UP).emissivity((15), (15)).end()
-                .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#wall").cullface(direction)
-                        .emissivity((15), (15)).end(), Set.of(Direction.DOWN, Direction.UP)).end();
-        ModelFile side = this.models().wallSide(baseName + "_side", texture)
-                .element().from(4.0F, 0.0F, 4.0F).to(12.0F, 16.0F, 12.0F)
-                .face(Direction.DOWN).texture("#wall").cullface(Direction.DOWN).emissivity((15), (15)).end()
-                .face(Direction.NORTH).texture("#wall").cullface(Direction.NORTH).emissivity((15), (15)).end()
-                .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#wall").cullface(direction)
-                        .emissivity((15), (15)).end(), Set.of(Direction.DOWN, Direction.NORTH, Direction.SOUTH)).end();
-        ModelFile sideTall = this.models().wallSideTall(baseName + "_side_tall", texture)
-                .element().from(4.0F, 0.0F, 4.0F).to(12.0F, 16.0F, 12.0F)
-                .face(Direction.DOWN).texture("#wall").cullface(Direction.DOWN).emissivity((15), (15)).end()
-                .face(Direction.UP).texture("#wall").cullface(Direction.UP).emissivity((15), (15)).end()
-                .face(Direction.NORTH).texture("#wall").cullface(Direction.NORTH).emissivity((15), (15)).end()
-                .face(Direction.WEST).texture("#wall").emissivity((15), (15)).end()
-                .face(Direction.EAST).texture("#wall").emissivity((15), (15)).end().end();
-        this.wallBlock(wallBlock, post, side, sideTall);
+    public static void registerWallStates(WallBlock wallBlock, ResourceLocation texture, BlockStateProvider provider, boolean emissivity) {
+        if (emissivity) {
+            String baseName = BuiltInRegistries.BLOCK.getKey(wallBlock).toString();
+            ModelFile post = provider.models().wallPost(baseName + "_post", texture)
+                    .element().from(4.0F, 0.0F, 4.0F).to(12.0F, 16.0F, 12.0F)
+                    .face(Direction.DOWN).texture("#wall").cullface(Direction.DOWN).emissivity((15), (15)).end()
+                    .face(Direction.UP).texture("#wall").cullface(Direction.UP).emissivity((15), (15)).end()
+                    .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#wall").cullface(direction)
+                            .emissivity((15), (15)).end(), Set.of(Direction.DOWN, Direction.UP)).end();
+            ModelFile side = provider.models().wallSide(baseName + "_side", texture)
+                    .element().from(4.0F, 0.0F, 4.0F).to(12.0F, 16.0F, 12.0F)
+                    .face(Direction.DOWN).texture("#wall").cullface(Direction.DOWN).emissivity((15), (15)).end()
+                    .face(Direction.NORTH).texture("#wall").cullface(Direction.NORTH).emissivity((15), (15)).end()
+                    .allFacesExcept((direction, faceBuilder) -> faceBuilder.texture("#wall").cullface(direction)
+                            .emissivity((15), (15)).end(), Set.of(Direction.DOWN, Direction.NORTH, Direction.SOUTH)).end();
+            ModelFile sideTall = provider.models().wallSideTall(baseName + "_side_tall", texture)
+                    .element().from(4.0F, 0.0F, 4.0F).to(12.0F, 16.0F, 12.0F)
+                    .face(Direction.DOWN).texture("#wall").cullface(Direction.DOWN).emissivity((15), (15)).end()
+                    .face(Direction.UP).texture("#wall").cullface(Direction.UP).emissivity((15), (15)).end()
+                    .face(Direction.NORTH).texture("#wall").cullface(Direction.NORTH).emissivity((15), (15)).end()
+                    .face(Direction.WEST).texture("#wall").emissivity((15), (15)).end()
+                    .face(Direction.EAST).texture("#wall").emissivity((15), (15)).end().end();
+            provider.wallBlock(wallBlock, post, side, sideTall);
+        } else {
+            provider.wallBlock(wallBlock, texture);
+        }
     }
 
-    private void registerBarStates(Block block) {
-        String name = this.name(block);
-        ResourceLocation texture = this.blockTexture(block);
-        ModelFile post = this.models().getBuilder(name + "_post").renderType(CUTOUT_MIPPED)
+    public static void registerBarStates(Block block, BlockStateProvider provider) {
+        String name = name(block);
+        ResourceLocation texture = provider.blockTexture(block);
+        ModelFile post = provider.models().getBuilder(name + "_post").renderType(CUTOUT_MIPPED)
                 .texture("particle", texture).texture("bars", texture).ao(false)
                 .element().from(8.0F, 0.0F, 7.0F).to(8.0F, 16.0F, 9.0F)
                 .face(Direction.WEST).uvs(7.0F, 0.0F, 9.0F, 16.0F).texture("#bars").end()
@@ -369,7 +190,7 @@ public class TABlockStateProvider extends BlockStateProvider {
                 .element().from(7.0F, 0.0F, 8.0F).to(9.0F, 16.0F, 8.0F)
                 .face(Direction.NORTH).uvs(7.0F, 0.0F, 9.0F, 16.0F).texture("#bars").end()
                 .face(Direction.SOUTH).uvs(9.0F, 0.0F, 7.0F, 16.0F).texture("#bars").end().end();
-        ModelFile postEnds = this.models().getBuilder(name + "_post_ends").renderType(CUTOUT_MIPPED)
+        ModelFile postEnds = provider.models().getBuilder(name + "_post_ends").renderType(CUTOUT_MIPPED)
                 .texture("particle", texture).texture("edge", texture).ao(false)
                 .element().from(7.0F, 0.001F, 7.0F).to(9.0F, 0.001F, 9.0F)
                 .face(Direction.DOWN).uvs(7.0F, 7.0F, 9.0F, 9.0F).texture("#edge").end()
@@ -377,7 +198,7 @@ public class TABlockStateProvider extends BlockStateProvider {
                 .element().from(7.0F, 15.999F, 7.0F).to(9.0F, 15.999F, 9.0F)
                 .face(Direction.DOWN).uvs(7.0F, 7.0F, 9.0F, 9.0F).texture("#edge").end()
                 .face(Direction.UP).uvs(7.0F, 7.0F, 9.0F, 9.0F).texture("#edge").end().end();
-        ModelFile cap = this.models().getBuilder(name + "_cap")
+        ModelFile cap = provider.models().getBuilder(name + "_cap")
                 .renderType(CUTOUT_MIPPED).texture("particle", texture)
                 .texture("edge", texture).texture("bars", texture).ao(false)
                 .element().from(8.0F, 0.0F, 8.0F).to(8.0F, 16.0F, 9.0F)
@@ -386,7 +207,7 @@ public class TABlockStateProvider extends BlockStateProvider {
                 .element().from(7.0F, 0.0F, 9.0F).to(9.0F, 16.0F, 9.0F)
                 .face(Direction.NORTH).uvs(9.0F, 0.0F, 7.0F, 16.0F).texture("#bars").end()
                 .face(Direction.SOUTH).uvs(7.0F, 0.0F, 9.0F, 16.0F).texture("#bars").end().end();
-        ModelFile capAlt = this.models().getBuilder(name + "_cap_alt")
+        ModelFile capAlt = provider.models().getBuilder(name + "_cap_alt")
                 .renderType(CUTOUT_MIPPED).texture("particle", texture)
                 .texture("edge", texture).texture("bars", texture).ao(false)
                 .element().from(8.0F, 0.0F, 7.0F).to(8.0F, 16.0F, 7.0F)
@@ -395,7 +216,7 @@ public class TABlockStateProvider extends BlockStateProvider {
                 .element().from(7.0F, 0.0F, 7.0F).to(9.0F, 16.0F, 7.0F)
                 .face(Direction.NORTH).uvs(7.0F, 0.0F, 9.0F, 16.0F).texture("#bars").end()
                 .face(Direction.SOUTH).uvs(9.0F, 0.0F, 7.0F, 16.0F).texture("#bars").end().end();
-        ModelFile side = this.models().getBuilder(name + "_side").renderType(CUTOUT_MIPPED)
+        ModelFile side = provider.models().getBuilder(name + "_side").renderType(CUTOUT_MIPPED)
                 .texture("particle", texture).texture("edge", texture).ao(false)
                 .element().from(8.0F, 0.0F, 0.0F).to(8.0F, 16.0F, 8.0F)
                 .face(Direction.WEST).uvs(16.0F, 0.0F,  8.0F, 16.0F).texture("#edge").end()
@@ -408,7 +229,7 @@ public class TABlockStateProvider extends BlockStateProvider {
                 .element().from(7.0F, 15.999F, 0.0F).to(9.0F, 15.999F, 7.0F)
                 .face(Direction.DOWN).uvs(9.0F, 0.0F, 7.0F, 7.0F).texture("#edge").end()
                 .face(Direction.UP).uvs(7.0F, 0.0F, 9.0F, 7.0F).texture("#edge").end().end();
-        ModelFile sideAlt = this.models().getBuilder(name + "_side_alt").renderType(CUTOUT_MIPPED)
+        ModelFile sideAlt = provider.models().getBuilder(name + "_side_alt").renderType(CUTOUT_MIPPED)
                 .texture("particle", texture).texture("edge", texture).ao(false)
                 .element().from(8.0F, 0.0F, 8.0F).to(8.0F, 16.0F, 16.0F)
                 .face(Direction.WEST).uvs(8.0F, 0.0F,  0.0F, 16.0F).texture("#edge").end()
@@ -423,7 +244,7 @@ public class TABlockStateProvider extends BlockStateProvider {
                 .element().from(7.0F, 15.999F, 9.0F).to(9.0F, 15.999F, 16.0F)
                 .face(Direction.DOWN).uvs(9.0F, 9.0F, 7.0F, 16.0F).texture("#edge").end()
                 .face(Direction.UP).uvs(7.0F, 9.0F, 9.0F, 16.0F).texture("#edge").end().end();
-        MultiPartBlockStateBuilder builder = this.getMultipartBuilder(block).part().modelFile(postEnds).addModel().end();
+        MultiPartBlockStateBuilder builder = provider.getMultipartBuilder(block).part().modelFile(postEnds).addModel().end();
         MultiPartBlockStateBuilder.PartBuilder partBuilder = builder.part().modelFile(post).addModel();
         Map<Direction, BooleanProperty> fourWayProperty = new HashMap<>(Map.copyOf(PipeBlock.PROPERTY_BY_DIRECTION));
         fourWayProperty.entrySet().removeIf(direction -> direction.getKey().getAxis().isVertical());
@@ -445,7 +266,7 @@ public class TABlockStateProvider extends BlockStateProvider {
     private void registerWallTorchStates(Block block) {
         if (block.asItem() instanceof StandingAndWallBlockItem wallBlockItem) {
             VariantBlockStateBuilder stateBuilder = this.getVariantBuilder(block);
-            BlockModelBuilder modelBuilder = this.models().torchWall(this.name(block), this.blockTexture(wallBlockItem.getBlock())).renderType(CUTOUT);
+            BlockModelBuilder modelBuilder = this.models().torchWall(name(block), this.blockTexture(wallBlockItem.getBlock())).renderType(CUTOUT);
             Map<Direction, Integer> map = Map.of(Direction.NORTH, 270, Direction.EAST, 0, Direction.SOUTH, 90, Direction.WEST, 180);
             for (Direction direction : WallTorchBlock.FACING.getPossibleValues()) {
                 stateBuilder.partialState().with(WallTorchBlock.FACING, direction).modelForState().modelFile(modelBuilder).rotationY(map.get(direction)).addModel();
@@ -453,75 +274,74 @@ public class TABlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerCropStates(Block block) {
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+    public static void registerCropStates(Block block, BlockStateProvider provider) {
+        VariantBlockStateBuilder builder = provider.getVariantBuilder(block);
         for (int stage : TACropBlock.AGE.getPossibleValues()) {
-            String name = this.name(block) + "_stage" + stage;
-            ResourceLocation texture = this.modLoc("block/" + name);
-            ModelFile modelFile = this.models().crop(name, texture).renderType(CUTOUT);
+            String name = name(block) + "_stage" + stage;
+            ResourceLocation texture = provider.modLoc("block/" + name);
+            ModelFile modelFile = provider.models().crop(name, texture).renderType(CUTOUT);
             builder.partialState().with(TACropBlock.AGE, stage).modelForState().modelFile(modelFile).addModel();
         }
     }
 
-    private void registerCrossStates(Block block) {
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+    public static void registerCrossStates(Block block, BlockStateProvider provider) {
+        VariantBlockStateBuilder builder = provider.getVariantBuilder(block);
         for (int stage : TACropBlock.AGE.getPossibleValues()) {
-            String name = this.name(block) + "_stage" + stage;
-            ResourceLocation texture = this.modLoc("block/" + name);
-            ModelFile modelFile = this.models().cross(name, texture).renderType(CUTOUT);
+            String name = name(block) + "_stage" + stage;
+            ResourceLocation texture = provider.modLoc("block/" + name);
+            ModelFile modelFile = provider.models().cross(name, texture).renderType(CUTOUT);
             builder.partialState().with(TACropBlock.AGE, stage).modelForState().modelFile(modelFile).addModel();
         }
     }
 
-    private void registerVerticalStairStates(VerticalStairBlockWithBase block) {
-        boolean flag = block.properties() instanceof TABlockProperties properties && properties.hasEmissivity;
-        DirectionProperty facing = VerticalStairBlockWithBase.FACING;
-        ModelFile modelFile = this.models().withExistingParent(this.name(block),
-                this.modLoc("block/" + (flag ? "luminous_vertical_stair" : "vertical_stair")))
-                .texture("all", this.blockTexture(block.getBase()));
+    public static void registerVerticalStairStates(Block block, Block base, BlockStateProvider provider, boolean emissivity) {
+        String suffix = emissivity ? "luminous_vertical_stair" : "vertical_stair";
+        DirectionProperty facing = VerticalStairBlock.FACING;
+        ModelFile modelFile = provider.models()
+                .withExistingParent(name(block), provider.modLoc("block/" + suffix))
+                .texture("all", provider.blockTexture(base));
         facing.getPossibleValues().forEach(direction -> {
             int y = (int) (direction.toYRot() - 180.0F);
-            this.getVariantBuilder(block).partialState().with(facing, direction).modelForState()
+            provider.getVariantBuilder(block).partialState().with(facing, direction).modelForState()
                     .rotationY(y).uvLock(true).modelFile(modelFile).addModel();
         });
     }
 
-    private void registerVerticalSlabStates(VerticalSlabBlockWithBase block) {
-        boolean flag = block.properties() instanceof TABlockProperties properties && properties.hasEmissivity;
-        BlockModelBuilder normal = this.models().withExistingParent(this.name(block),
-                this.modLoc("block/" + (flag ? "luminous_vertical_slab" : "vertical_slab")))
-                .texture("all", this.blockTexture(block.getBase()));
-        BlockModelBuilder full = this.models().withExistingParent(this.name(block) + "_full",
-                this.mcLoc("block/cube_all")).texture("all", this.blockTexture(block.getBase()));
-        BlockModelBuilder post = this.models().withExistingParent(this.name(block) + "_post",
-                this.modLoc("block/" + (flag ? "luminous_vertical_slab_post" : "vertical_slab_post")))
-                .texture("all", this.blockTexture(block.getBase()));
-        this.getVariantBuilder(block).forAllStatesExcept(state -> {
-            VerticalSlabShape slabType = state.getValue(VerticalSlabBlockWithBase.SHAPE);
-            VerticalSlabBlockWithBase.Connection connection = state.getValue(VerticalSlabBlockWithBase.CONNECTION);
+    public static void registerVerticalSlabStates(Block block, Block base, BlockStateProvider provider, boolean emissivity) {
+        BlockModelBuilder normal = provider.models().withExistingParent(name(block),
+                        provider.modLoc("block/" + (emissivity ? "luminous_vertical_slab" : "vertical_slab")))
+                .texture("all", provider.blockTexture(base));
+        BlockModelBuilder full = provider.models().withExistingParent(name(block) + "_full",
+                provider.mcLoc("block/cube_all")).texture("all", provider.blockTexture(base));
+        BlockModelBuilder post = provider.models().withExistingParent(name(block) + "_post",
+                        provider.modLoc("block/" + (emissivity ? "luminous_vertical_slab_post" : "vertical_slab_post")))
+                .texture("all", provider.blockTexture(base));
+        provider.getVariantBuilder(block).forAllStatesExcept(state -> {
+            VerticalSlabShape slabType = state.getValue(VerticalSlabBlock.SHAPE);
+            VerticalSlabBlock.Connection connection = state.getValue(VerticalSlabBlock.CONNECTION);
             ConfiguredModel model = slabType == VerticalSlabShape.FULL ? new ConfiguredModel(full)
-                    : connection == VerticalSlabBlockWithBase.Connection.NONE ? new ConfiguredModel(normal, 0,
+                    : connection == VerticalSlabBlock.Connection.NONE ? new ConfiguredModel(normal, 0,
                     slabType.getModelRotation(), true) : new ConfiguredModel(post, 0,
-                    (int)(connection == VerticalSlabBlockWithBase.Connection.LEFT ? slabType.getDirection() :
+                    (int)(connection == VerticalSlabBlock.Connection.LEFT ? slabType.getDirection() :
                             slabType.getDirection().getClockWise()).toYRot() - 180, true);
             return new ConfiguredModel[] {model};
-        }, VerticalSlabBlockWithBase.WATERLOGGED);
+        }, VerticalSlabBlock.WATERLOGGED);
     }
 
-    private void registerFilthyIceSpike(Block block) {
+    public static void registerFilthyIceSpike(Block block, BlockStateProvider provider) {
         DirectionProperty property = BlockStateProperties.VERTICAL_DIRECTION;
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
-        ResourceLocation texture = this.modLoc("block/" + this.name(block));
-        ModelFile modelFile = this.models().cross(this.name(block), texture).renderType(CUTOUT);
+        VariantBlockStateBuilder builder = provider.getVariantBuilder(block);
+        ResourceLocation texture = provider.modLoc("block/" + name(block));
+        ModelFile modelFile = provider.models().cross(name(block), texture).renderType(CUTOUT);
         for (Direction direction : property.getPossibleValues()) {
             builder.partialState().with(property, direction).modelForState().modelFile(modelFile).addModel();
         }
     }
 
-    private void registerClusterStates(Block block) {
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
-        ResourceLocation texture = this.modLoc("block/" + this.name(block));
-        ModelFile modelFile = this.models().cross(this.name(block), texture).renderType(CUTOUT);
+    public static void registerClusterStates(Block block, BlockStateProvider provider) {
+        VariantBlockStateBuilder builder = provider.getVariantBuilder(block);
+        ResourceLocation texture = provider.modLoc("block/" + name(block));
+        ModelFile modelFile = provider.models().cross(name(block), texture).renderType(CUTOUT);
         for (int level : TAClusterBlock.LEVEL.getPossibleValues()) {
             builder.partialState().with(TAClusterBlock.FACING, Direction.EAST).with(TAClusterBlock.LEVEL, level)
                     .modelForState().rotationX(90).rotationY(90).modelFile(modelFile).addModel()
@@ -538,62 +358,64 @@ public class TABlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerKeyholeStates(Block block) {
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+    public static void registerKeyholeStates(Block block, BlockStateProvider provider) {
+        VariantBlockStateBuilder builder = provider.getVariantBuilder(block);
         BooleanProperty property = DungeonStoneGate.UNLOCKED;
         property.getPossibleValues().forEach(unlocked -> {
-            String name = "block/" + this.name(block) + (unlocked ? "_unlocked" : "");
-            ModelFile modelFile = this.models().cubeAll(name, this.modLoc(name));
+            String name = "block/" + name(block) + (unlocked ? "_unlocked" : "");
+            ModelFile modelFile = provider.models().cubeAll(name, provider.modLoc(name));
             builder.partialState().with(property, unlocked).modelForState().modelFile(modelFile).addModel();
         });
     }
 
-    private void registerHangingSignStates(Block standing, Block wall, ResourceLocation texture) {
-        ModelFile sign = this.models().sign(this.name(standing), texture);
-        this.simpleBlock(standing, sign);
-        this.simpleBlock(wall, sign);
+    public static void registerCeilingHangingSignStates(Block standing, Block original, BlockStateProvider provider) {
+        provider.simpleBlock(standing, provider.models().sign(name(standing), provider.blockTexture(original)));
     }
 
-    private void registerPottedPlantStates(Block block, Block content) {
-        this.simpleBlock(block, this.models().withExistingParent(this.name(block), "block/flower_pot_cross")
-                .renderType(CUTOUT).texture("plant", this.blockTexture(content)));
+    public static void registerWallHangingSignStates(Block standing, Block wall, Block original, BlockStateProvider provider) {
+        provider.simpleBlock(wall, provider.models().sign(name(standing), provider.blockTexture(original)));
     }
 
-    private void registerPlantStates(Block block) {
-        this.simpleBlock(block, this.models().cross(this.name(block), this.blockTexture(block)).renderType(CUTOUT));
+    public static void registerPottedPlantStates(Block block, Block content, BlockStateProvider provider) {
+        provider.simpleBlock(block, provider.models().withExistingParent(name(block), "block/flower_pot_cross")
+                .renderType(CUTOUT).texture("plant", provider.blockTexture(content)));
     }
 
-    private void registerLightPlantStates(Block block) {
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+    public static void registerPlantStates(Block block, BlockStateProvider provider) {
+        provider.simpleBlock(block, provider.models().cross(name(block), provider.blockTexture(block)).renderType(CUTOUT));
+    }
+
+    public static void registerLightPlantStates(Block block, BlockStateProvider provider) {
+        VariantBlockStateBuilder builder = provider.getVariantBuilder(block);
         for (int level : BlockStateProperties.LEVEL.getPossibleValues()) {
-            ResourceLocation parent = this.mcLoc("block/cross");
-            ResourceLocation texture = this.modLoc("block/" + this.name(block));
-            ModelFile modelFile = this.models().withExistingParent(this.name(block), parent).texture("cross", texture).renderType(CUTOUT);
+            ResourceLocation parent = provider.mcLoc("block/cross");
+            ResourceLocation texture = provider.modLoc("block/" + name(block));
+            ModelFile modelFile = provider.models().withExistingParent(name(block), parent).texture("cross", texture).renderType(CUTOUT);
             builder.partialState().with(BlockStateProperties.LEVEL, level).modelForState().modelFile(modelFile).addModel();
         }
     }
 
-    private void registerDoublePlantStates(Block block) {
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+    public static void registerDoublePlantStates(Block block, BlockStateProvider provider) {
+        VariantBlockStateBuilder builder = provider.getVariantBuilder(block);
         for (DoubleBlockHalf half : DoublePlantBlock.HALF.getPossibleValues()) {
-            String name = this.name(block) + "_" + half.toString();
-            ResourceLocation parent = this.mcLoc("block/tinted_cross");
-            ResourceLocation texture = this.modLoc("block/" + name);
-            ModelFile modelFile = this.models().withExistingParent(name, parent)
+            String name = name(block) + "_" + half.toString();
+            ResourceLocation parent = provider.mcLoc("block/tinted_cross");
+            ResourceLocation texture = provider.modLoc("block/" + name);
+            ModelFile modelFile = provider.models().withExistingParent(name, parent)
                     .texture("cross", texture).renderType(CUTOUT);
             builder.partialState().with(DoublePlantBlock.HALF, half)
                     .modelForState().modelFile(modelFile).addModel();
         }
     }
 
-    private void registerDoubleLightPlantStates(Block block) {
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+    public static void registerDoubleLightPlantStates(Block block, BlockStateProvider provider) {
+        VariantBlockStateBuilder builder = provider.getVariantBuilder(block);
         for (DoubleBlockHalf half : DoublePlantBlock.HALF.getPossibleValues()) {
             for (int level : BlockStateProperties.LEVEL.getPossibleValues()) {
-                String name = this.name(block) + "_" + half.toString();
-                ResourceLocation texture = this.modLoc("block/" + name);
-                ModelFile modelFile = this.models().withExistingParent(name,
-                                this.mcLoc("block/tinted_cross"))
+                String name = name(block) + "_" + half.toString();
+                ResourceLocation texture = provider.modLoc("block/" + name);
+                ModelFile modelFile = provider.models().withExistingParent(name,
+                                provider.mcLoc("block/tinted_cross"))
                         .texture("cross", texture).renderType(CUTOUT);
                 builder.partialState().with(DoublePlantBlock.HALF, half)
                         .with(BlockStateProperties.LEVEL, level)
@@ -602,21 +424,21 @@ public class TABlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerWaterSurfacePlantStates(Block block) {
+    public static void registerWaterSurfacePlantStates(Block block, BlockStateProvider provider) {
         IntegerProperty property = AurorianWaterSurfacePlant.LEVEL;
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+        VariantBlockStateBuilder builder = provider.getVariantBuilder(block);
         for (int level : property.getPossibleValues()) {
-            ModelFile modelFile = new ModelFile.UncheckedModelFile(this.modLoc("block/" + this.name(block)));
+            ModelFile modelFile = new ModelFile.UncheckedModelFile(provider.modLoc("block/" + name(block)));
             builder.partialState().with(property, level).modelForState().modelFile(modelFile).addModel();
         }
     }
 
-    private void registerLuminousStates(Block newBlock, Block originalBlock) {
-        VariantBlockStateBuilder builder = this.getVariantBuilder(newBlock);
-        ModelFile modelFile = this.models().getBuilder(this.name(newBlock))
-                .parent(new ModelFile.UncheckedModelFile(this.mcLoc("block/block")))
-                .texture("rune", this.blockTexture(originalBlock))
-                .texture("particle", this.blockTexture(originalBlock))
+    public static void registerLuminousStates(Block newBlock, Block originalBlock, BlockStateProvider provider) {
+        VariantBlockStateBuilder builder = provider.getVariantBuilder(newBlock);
+        ModelFile modelFile = provider.models().getBuilder(name(newBlock))
+                .parent(new ModelFile.UncheckedModelFile(provider.mcLoc("block/block")))
+                .texture("rune", provider.blockTexture(originalBlock))
+                .texture("particle", provider.blockTexture(originalBlock))
                 .ao(false).element().allFaces((direction, faceBuilder) -> faceBuilder.texture("#rune")
                         .emissivity((15), (15)).cullface(direction)).end();
         builder.partialState().modelForState().modelFile(modelFile).addModel();
@@ -640,7 +462,7 @@ public class TABlockStateProvider extends BlockStateProvider {
     private void registerMysticalBarrierState() {
         Block block = TABlocks.MYSTICAL_BARRIER.get();
         VariantBlockStateBuilder builder = this.getVariantBuilder(block);
-        ModelFile modelFile = this.models().withExistingParent(this.name(block), this.mcLoc("block/orientable"))
+        ModelFile modelFile = this.models().withExistingParent(name(block), this.mcLoc("block/orientable"))
                 .texture("particle", this.modLoc("block/mystical_barrier_out"))
                 .texture("back", this.modLoc("block/mystical_barrier_out"))
                 .texture("front", this.modLoc("block/mystical_barrier"))
@@ -654,21 +476,20 @@ public class TABlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerLargeFilthyIceSpike() {
-        Block block = TABlocks.LARGE_FILTHY_ICE_SPIKE.get();
-        VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+    public static void registerLargeFilthyIceSpike(Block block, BlockStateProvider provider) {
+        VariantBlockStateBuilder builder = provider.getVariantBuilder(block);
         DirectionProperty property1 = BlockStateProperties.VERTICAL_DIRECTION;
         EnumProperty<DoubleBlockHalf> property2 = BlockStateProperties.DOUBLE_BLOCK_HALF;
-        ResourceLocation lowerTexture = this.modLoc("block/large_filthy_ice_spike");
-        ResourceLocation upperTexture = this.modLoc("block/medium_filthy_ice_spike");
-        ResourceLocation parent = this.mcLoc("block/tinted_cross");
+        ResourceLocation lowerTexture = provider.modLoc("block/large_filthy_ice_spike");
+        ResourceLocation upperTexture = provider.modLoc("block/medium_filthy_ice_spike");
+        ResourceLocation parent = provider.mcLoc("block/tinted_cross");
         Map<DoubleBlockHalf, ResourceLocation> map = Map.of(
                 DoubleBlockHalf.LOWER, lowerTexture,
                 DoubleBlockHalf.UPPER, upperTexture);
         for (Direction direction : property1.getPossibleValues()) {
             for (DoubleBlockHalf half : property2.getPossibleValues()) {
-                String name = this.name(block) + "_" + half.toString();
-                ModelFile modelFile = this.models().withExistingParent(name, parent)
+                String name = name(block) + "_" + half.toString();
+                ModelFile modelFile = provider.models().withExistingParent(name, parent)
                         .texture("cross", map.get(half)).renderType(CUTOUT);
                 builder.partialState().with(property1, direction).with(property2, half)
                         .modelForState().modelFile(modelFile).addModel();
@@ -676,27 +497,27 @@ public class TABlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerSilentWoodLadderState() {
-        String name = this.name(TABlocks.SILENT_WOOD_LADDER.get());
-        VariantBlockStateBuilder builder = this.getVariantBuilder(TABlocks.SILENT_WOOD_LADDER.get());
-        ConfiguredModel configuredModel = new ConfiguredModel(this.models().getBuilder(name).ao(false)
-                .texture("particle", this.modLoc("block/" + name))
-                .texture("texture", this.modLoc("block/" + name))
+    public static void registerSilentWoodLadderState(Block block, BlockStateProvider provider) {
+        VariantBlockStateBuilder variantBuilder = provider.getVariantBuilder(block);
+        BlockModelBuilder builder = provider.models().getBuilder(name(block));
+        ConfiguredModel configuredModel = new ConfiguredModel(builder.ao(false)
+                .texture("particle", provider.modLoc("block/" + name(block)))
+                .texture("texture", provider.modLoc("block/" + name(block)))
                 .element().from(0.0F, 0.0F, 15.2F).to(16.0F, 16.0F, 15.2F).shade(false)
                 .face(Direction.NORTH).uvs(0.0F, 0.0F, 16.0F, 16.0F).texture("#texture").end()
                 .face(Direction.SOUTH).uvs(16.0F, 0.0F, 0.0F, 16.0F).texture("#texture").end().end().renderType(CUTOUT));
         for (Direction direction : LadderBlock.FACING.getPossibleValues()) {
-            builder.partialState().with(LadderBlock.FACING, direction)
+            variantBuilder.partialState().with(LadderBlock.FACING, direction)
                     .modelForState().modelFile(configuredModel.model)
                     .rotationY(DIRECTION_WITH_ROTATION.get(direction)).addModel();
         }
     }
 
-    private void simpleBlockWithRenderType(Block block, ResourceLocation type) {
-        simpleBlock(block, models().cubeAll(this.name(block), this.blockTexture(block)).renderType(type));
+    public static void simpleBlockWithRenderType(Block block, ResourceLocation type, BlockStateProvider provider) {
+        provider.simpleBlock(block, provider.models().cubeAll(name(block), provider.blockTexture(block)).renderType(type));
     }
 
-    private String name(Block block) {
+    public static String name(Block block) {
         return BuiltInRegistries.BLOCK.getKey(block).getPath();
     }
 

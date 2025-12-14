@@ -28,9 +28,7 @@ public class HolyKnightArmor extends ArmorItem implements GeoItem {
     public HolyKnightArmor(Type type) {
         super(TAArmorMaterials.KNIGHT, type, new Item.Properties()
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY)
-                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE)
-                .component(TADataComponents.NO_RUN_DATA, Unit.INSTANCE));
+                .component(TADataComponents.EXTRA_TOOLTIP, Unit.INSTANCE));
     }
 
     @Override

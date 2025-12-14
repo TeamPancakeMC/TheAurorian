@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.common.blocks;
 
-import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -15,8 +14,8 @@ public class TALightPlantBlock extends DeadBushBlock {
 
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL;
 
-    public TALightPlantBlock(TABlockProperties properties) {
-        super(properties.lightLevel(state -> state.getValue(LEVEL)).isRiversidePlant());
+    public TALightPlantBlock(Properties properties) {
+        super(properties.lightLevel(state -> state.getValue(LEVEL)));
         this.registerDefaultState(this.stateDefinition.any().setValue(LEVEL, 0));
     }
 

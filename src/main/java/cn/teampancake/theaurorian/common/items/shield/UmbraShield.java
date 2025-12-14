@@ -5,7 +5,6 @@ import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -15,10 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class UmbraShield extends ShieldItem {
 
@@ -28,10 +24,8 @@ public class UmbraShield extends ShieldItem {
     private static final double PARTICLE_DISTANCE = 0.1f;
     private static final double REACH = 1.5;
 
-    public UmbraShield() {
-        super(new Item.Properties().durability(512)
-                .component(TADataComponents.ITEM_TAGS, List.of(Tags.Items.TOOLS_SHIELD, ItemTags.DURABILITY_ENCHANTABLE))
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
+    public UmbraShield(Item.Properties properties) {
+        super(properties.durability(512).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     @Override

@@ -7,8 +7,6 @@ import cn.teampancake.theaurorian.common.registry.TAToolTiers;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffect;
@@ -29,12 +27,10 @@ import java.util.List;
 
 public class UmbraSword extends SwordItem {
 
-    public UmbraSword() {
-        super(TAToolTiers.UMBRA, new Item.Properties().rarity(Rarity.EPIC)
+    public UmbraSword(Item.Properties properties) {
+        super(TAToolTiers.UMBRA, properties.rarity(Rarity.EPIC)
                 .attributes(createAttributes(TAToolTiers.UMBRA, 7, 1.6F))
-                .component(TADataComponents.ITEM_TAGS, List.of(ItemTags.SWORDS))
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.NO_RUN_DATA, Unit.INSTANCE));
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     @Override

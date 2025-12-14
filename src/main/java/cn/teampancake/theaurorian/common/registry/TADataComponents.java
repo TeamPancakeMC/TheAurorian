@@ -9,10 +9,8 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Unit;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -70,9 +68,6 @@ public class TADataComponents {
             () -> DataComponentType.<RunestoneMountain>builder().persistent(RunestoneMountain.CODEC).networkSynchronized(RunestoneMountain.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> ADVANCED_RUNESTONE = DATA_COMPONENT_TYPE.register("advanced_runestone",
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<TagKey<Item>>>> ITEM_TAGS = DATA_COMPONENT_TYPE.register("item_tags",
-            () -> DataComponentType.<List<TagKey<Item>>>builder().persistent(TagKey.codec(Registries.ITEM).listOf())
-                    .networkSynchronized(ByteBufCodecs.fromCodec(TagKey.codec(Registries.ITEM).listOf())).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> EXTRA_TOOLTIP = DATA_COMPONENT_TYPE.register("extra_tooltip",
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> DEVELOPER = DATA_COMPONENT_TYPE.register("developer",
@@ -99,11 +94,5 @@ public class TADataComponents {
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> NERF = DATA_COMPONENT_TYPE.register("nerf",
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> SIMPLE_MODEL = DATA_COMPONENT_TYPE.register("simple_model",
-            () -> DataComponentType.<Unit>builder().networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> HANDHELD_MODEL = DATA_COMPONENT_TYPE.register("handheld_model",
-            () -> DataComponentType.<Unit>builder().networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> NO_RUN_DATA = DATA_COMPONENT_TYPE.register("no_run_data",
-            () -> DataComponentType.<Unit>builder().networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
 
 }

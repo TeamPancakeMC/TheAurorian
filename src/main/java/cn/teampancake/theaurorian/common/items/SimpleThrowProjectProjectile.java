@@ -5,7 +5,6 @@ import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
@@ -27,8 +26,7 @@ public class SimpleThrowProjectProjectile extends Item {
     float inaccuracy;
 
     public SimpleThrowProjectProjectile(Item.Properties properties, SoundEvent soundEvent, SoundSource soundSource, Supplier<EntityType<?>> projectile, float velocity, float inaccuracy) {
-        super(properties.component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE)
-                .component(TADataComponents.SIMPLE_MODEL, Unit.INSTANCE));
+        super(properties.component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
         this.soundEvent = soundEvent;
         this.soundSource = soundSource;
         this.projectile = projectile;

@@ -1,6 +1,6 @@
 package cn.teampancake.theaurorian.common.items.block;
 
-import cn.teampancake.theaurorian.client.model.block.LumenCrystalModel;
+import cn.teampancake.theaurorian.client.model.block.LunarCrystalModel;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -22,11 +22,11 @@ import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 import java.util.function.Consumer;
 
-public class AbstractLumenCrystal extends BlockItem implements GeoItem {
+public class AbstractLunarCrystal extends BlockItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public AbstractLumenCrystal(Block block) {
+    public AbstractLunarCrystal(Block block) {
         super(block, new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
@@ -54,14 +54,14 @@ public class AbstractLumenCrystal extends BlockItem implements GeoItem {
 
     }
 
-    private class CulledItemRenderer extends GeoItemRenderer<AbstractLumenCrystal> {
+    private class CulledItemRenderer extends GeoItemRenderer<AbstractLunarCrystal> {
 
         public CulledItemRenderer() {
-            super(new LumenCrystalModel<>(BuiltInRegistries.BLOCK.getKey(getBlock())));
+            super(new LunarCrystalModel<>(BuiltInRegistries.BLOCK.getKey(getBlock())));
         }
 
         @Override
-        public RenderType getRenderType(AbstractLumenCrystal animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
+        public RenderType getRenderType(AbstractLunarCrystal animatable, ResourceLocation texture, @Nullable MultiBufferSource bufferSource, float partialTick) {
             return RenderType.entityCutout(texture);
         }
 

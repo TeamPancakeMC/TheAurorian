@@ -1,7 +1,6 @@
 package cn.teampancake.theaurorian.common.items.curio.runestone;
 
 import cn.teampancake.theaurorian.client.gui.tooltips.ItemTooltip;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import com.mojang.datafixers.util.Pair;
@@ -16,7 +15,6 @@ import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,8 +30,7 @@ public class Runestone extends Item implements ICurioItem {
 
     public Runestone(Properties properties, int rank) {
         super(properties.component(TADataComponents.RANK, rank)
-                .component(TADataComponents.ITEM_TOOLTIP, RANK_MAP.get(rank).getSecond())
-                .component(TADataComponents.ITEM_TAGS, List.of(TAItemTags.RUNESTONE)));
+                .component(TADataComponents.ITEM_TOOLTIP, RANK_MAP.get(rank).getSecond()));
         this.lootChance = RANK_MAP.get(rank).getFirst();
     }
 

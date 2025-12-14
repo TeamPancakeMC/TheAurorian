@@ -29,8 +29,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class SpikedChestplate extends BaseArmor<SpikedChestplateModel> {
 
-    public SpikedChestplate() {
-        super(TAArmorMaterials.SPECTRAL, Type.CHESTPLATE, new Item.Properties());
+    public SpikedChestplate(Item.Properties properties) {
+        super(TAArmorMaterials.SPECTRAL, Type.CHESTPLATE, properties);
     }
 
     @Override

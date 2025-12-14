@@ -1,8 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.DungeonStoneGateBlockEntity;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -11,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -20,18 +17,18 @@ import java.util.function.Supplier;
 public class DungeonStoneGateKeyhole extends DungeonStoneGate {
 
     private final Supplier<Item> keyItem;
-    private final Supplier<Block> gateBlock;
+    private final Supplier<DungeonStoneGate> gateBlock;
     private final boolean lockPickable;
 
-    public DungeonStoneGateKeyhole(Supplier<Item> keyItem, Supplier<Block> gateBlock, boolean lockPickable) {
-        super(TABlocks.dungeonBlockProperties(TABlockTags.MOON_TEMPLE_BLOCKS));
+    public DungeonStoneGateKeyhole(Properties properties, Supplier<Item> keyItem, Supplier<DungeonStoneGate> gateBlock, boolean lockPickable) {
+        super(properties);
         this.keyItem = keyItem;
         this.gateBlock = gateBlock;
         this.lockPickable = lockPickable;
     }
 
-    public DungeonStoneGateKeyhole(Supplier<Item> keyItem, Supplier<Block> gateBlock) {
-        this(keyItem, gateBlock, false);
+    public DungeonStoneGateKeyhole(Properties properties, Supplier<Item> keyItem, Supplier<DungeonStoneGate> gateBlock) {
+        this(properties, keyItem, gateBlock, false);
     }
 
     @Override

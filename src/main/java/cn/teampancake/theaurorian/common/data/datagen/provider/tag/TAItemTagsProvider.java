@@ -1,15 +1,15 @@
 package cn.teampancake.theaurorian.common.data.datagen.provider.tag;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TABlockTags;
-import cn.teampancake.theaurorian.common.data.datagen.tags.TAItemTags;
-import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItems;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -17,38 +17,29 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.CuriosTags;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-public class TAItemTagsProvider extends ItemTagsProvider {
+/** @noinspection deprecation*/
+public class TAItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
 
-    public TAItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, blockTags, TheAurorian.MOD_ID, existingFileHelper);
+    private final CompletableFuture<TagsProvider.TagLookup<Block>> blockTags;
+    private final Map<TagKey<Block>, TagKey<Item>> tagsToCopy = new HashMap<>();
+
+    public TAItemTagsProvider(
+            PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
+            CompletableFuture<TagsProvider.TagLookup<Block>> blockTags,
+            @Nullable ExistingFileHelper existingFileHelper) {
+        super(output, Registries.ITEM, lookupProvider, item -> item.builtInRegistryHolder().key(), TheAurorian.MOD_ID, existingFileHelper);
+        this.blockTags = blockTags;
     }
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.copy(TABlockTags.VERTICAL_STAIRS, TAItemTags.VERTICAL_STAIRS);
-        this.copy(TABlockTags.VERTICAL_SLABS, TAItemTags.VERTICAL_SLABS);
-        this.copy(TABlockTags.RUNE_STONE_BLOCK, TAItemTags.RUNE_STONE_BLOCK);
-        this.copy(TABlockTags.SILENT_TREE_LOGS, TAItemTags.SILENT_TREE_LOGS);
-        this.copy(TABlockTags.WEEPING_WILLOW_LOGS, TAItemTags.WEEPING_WILLOW_LOGS);
-        this.copy(TABlockTags.CURTAIN_TREE_LOGS, TAItemTags.CURTAIN_TREE_LOGS);
-        this.copy(TABlockTags.CURSED_FROST_TREE_LOGS, TAItemTags.CURSED_FROST_TREE_LOGS);
-        this.copy(TABlockTags.AURORIAN_PLANKS, TAItemTags.AURORIAN_PLANKS);
-        this.copy(TABlockTags.AURORIAN_GRASS_BLOCK, TAItemTags.AURORIAN_GRASS_BLOCK);
-        this.copy(TABlockTags.AURORIAN_CARVER_REPLACEABLES, TAItemTags.AURORIAN_CARVER_REPLACEABLES);
-        this.copy(TABlockTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON, TAItemTags.AUROTIAN_ANIMAL_UNSPAWNABLE_ON);
         this.tag(CuriosTags.NECKLACE).add(TAItems.CRIMSON_PACT_PENDANT.get());
         for (Item item : TACommonUtils.getKnownItems()) {
-            ItemStack stack = item.getDefaultInstance();
-            if (stack.has(TADataComponents.ITEM_TAGS)) {
-                List<TagKey<Item>> tagKeys = stack.get(TADataComponents.ITEM_TAGS);
-                if (tagKeys != null && !tagKeys.isEmpty()) {
-                    tagKeys.forEach(key -> this.tag(key).add(item));
-                }
-            }
-            
             if (item instanceof ArmorItem armor) {
                 switch (armor.getEquipmentSlot()) {
                     case HEAD -> this.tag(ItemTags.HEAD_ARMOR).add(armor);
@@ -58,6 +49,22 @@ public class TAItemTagsProvider extends ItemTagsProvider {
                 }
             }
         }
+    }
+
+    protected void copy(TagKey<Block> blockTag, TagKey<Item> itemTag) {
+        this.tagsToCopy.put(blockTag, itemTag);
+    }
+
+    @Override
+    protected CompletableFuture<HolderLookup.Provider> createContentsProvider() {
+        return super.createContentsProvider().thenCombineAsync(this.blockTags, (provider, lookup) -> {
+            this.tagsToCopy.forEach((tagKey, builder) -> {
+                TagBuilder tagbuilder = this.getOrCreateRawBuilder(builder);
+                Optional<TagBuilder> optional = lookup.apply(tagKey);
+                optional.ifPresent(tagBuilder -> tagBuilder.build().forEach(tagbuilder::add));
+            });
+            return provider;
+        });
     }
 
 }

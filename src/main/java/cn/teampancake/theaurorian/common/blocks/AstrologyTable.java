@@ -1,8 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks;
 
 import cn.teampancake.theaurorian.common.blocks.entity.AstrologyTableBlockEntity;
-import cn.teampancake.theaurorian.common.blocks.state.TABlockProperties;
-import cn.teampancake.theaurorian.common.blocks.state.TALootType;
 import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorManager;
 import cn.teampancake.theaurorian.common.network.FutureNightS2CPacket;
 import cn.teampancake.theaurorian.common.network.ShowStarSignScreenS2CPacket;
@@ -30,14 +28,14 @@ import java.util.List;
 
 public class AstrologyTable extends BaseEntityBlock {
 
-	public AstrologyTable() {
-		super(TABlockProperties.get().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE)
-				.requiresCorrectToolForDrops().strength(6.0F).sound(SoundType.METAL).lootType(TALootType.SELF).lightLevel(s -> 9).noOcclusion());
+	public AstrologyTable(Properties properties) {
+		super(properties.strength(6.0F).mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE)
+				.requiresCorrectToolForDrops().sound(SoundType.METAL).lightLevel(s -> 9).noOcclusion());
 	}
 
 	@Override
 	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return simpleCodec(p -> new AstrologyTable());
+		return simpleCodec(AstrologyTable::new);
 	}
 
 	@Override

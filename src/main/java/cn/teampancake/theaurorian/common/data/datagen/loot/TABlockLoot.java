@@ -51,8 +51,6 @@ public class TABlockLoot extends VanillaBlockLoot {
     @Override
     protected void generate() {
         HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        this.dropOther(TABlocks.MOON_WALL_TORCH.get(), TABlocks.MOON_TORCH.get());
-        this.dropOther(TABlocks.SILENT_WOOD_WALL_TORCH.get(), TABlocks.SILENT_WOOD_TORCH.get());
         this.dropNuggets(TABlocks.CERULEAN_CLUSTER.get(), TAItems.CERULEAN_NUGGET.get(), 7.0F, 9.0F);
         this.dropNuggets(TABlocks.LARGE_CERULEAN_BUD.get(), TAItems.CERULEAN_NUGGET.get(), 5.0F, 6.0F);
         this.dropNuggets(TABlocks.MEDIUM_CERULEAN_BUD.get(), TAItems.CERULEAN_NUGGET.get(), 3.0F, 4.0F);
@@ -181,14 +179,10 @@ public class TABlockLoot extends VanillaBlockLoot {
         this.generate();
         Set<ResourceKey<LootTable>> set = new HashSet<>();
         for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block.isEnabled(this.enabledFeatures)) {
-                ResourceKey<LootTable> lootTable = block.getLootTable();
-                if (lootTable != BuiltInLootTables.EMPTY && set.add(lootTable)) {
-                    LootTable.Builder builder = this.map.remove(lootTable);
-                    if (builder != null) {
-                        output.accept(lootTable, builder);
-                    }
-                }
+            ResourceKey<LootTable> lootTable = block.getLootTable();
+            if (lootTable != BuiltInLootTables.EMPTY && set.add(lootTable)) {
+                LootTable.Builder builder = this.map.remove(lootTable);
+                if (builder != null) output.accept(lootTable, builder);
             }
         }
     }

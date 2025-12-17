@@ -82,8 +82,6 @@ public class TADataComponents {
             () -> DataComponentType.<AlchemyProduct>builder().persistent(AlchemyProduct.CODEC).networkSynchronized(AlchemyProduct.STREAM_CODEC).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ABSORBED_EXPERIENCE = DATA_COMPONENT_TYPE.register("absorbed_experience",
             () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> HIGH_PRECISION = DATA_COMPONENT_TYPE.register("high_precision",
-            () -> DataComponentType.<Boolean>builder().persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ChapterContent>>> CHAPTERS = DATA_COMPONENT_TYPE.register("chapters",
             () -> DataComponentType.<List<ChapterContent>>builder().persistent(Codec.list(ChapterContent.CODEC)).networkSynchronized(ChapterContent.STREAM_CODEC.apply(ByteBufCodecs.list())).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> NOTE_CHAPTER = DATA_COMPONENT_TYPE.register("note_chapter",

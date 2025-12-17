@@ -60,7 +60,8 @@ public class TABlocks {
     public static final DeferredHolder<Block, AurorianGrassBlock> RED_AURORIAN_GRASS_BLOCK = registerBuilder("red_aurorian_grass_block", p -> new AurorianGrassBlock(
             ofFullCopy(Blocks.GRASS_BLOCK).mapColor(MapColor.COLOR_RED))).tag(BlockTags.MINEABLE_WITH_SHOVEL, TABlockTags.AURORIAN_GRASS_BLOCK)
             .blockstate((ctx, prov) -> registerGrassBlockState(ctx.get(), prov)).item().tag(TAItemTags.AURORIAN_GRASS_BLOCK).build().register();
-    public static final DeferredHolder<Block, AurorianFarmTile> AURORIAN_FARM_TILE = registerNoItemModelBuilder("aurorian_farm_tile", p -> new AurorianFarmTile(ofFullCopy(Blocks.FARMLAND))).tag(BlockTags.MINEABLE_WITH_SHOVEL).register();
+    public static final DeferredHolder<Block, AurorianFarmTile> AURORIAN_FARM_TILE = registerNoItemModelBuilder("aurorian_farm_tile",
+            p -> new AurorianFarmTile(ofFullCopy(Blocks.FARMLAND))).tag(BlockTags.MINEABLE_WITH_SHOVEL).register();
     public static final DeferredHolder<Block, HoeTillableBlock> AURORIAN_DIRT = registerBuilder("aurorian_dirt", p -> new HoeTillableBlock(AURORIAN_FARM_TILE, ofFullCopy(Blocks.DIRT)))
             .tag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.MINEABLE_WITH_SHOVEL).defaultLoot().defaultBlockstate().register();
     public static final DeferredHolder<Block, IceBlock> FILTHY_ICE = registerBuilder("filthy_ice", p -> new IceBlock(ofFullCopy(Blocks.ICE)))
@@ -109,14 +110,11 @@ public class TABlocks {
     public static final DeferredHolder<Block, TAFlowerBlock> EQUINOX_FLOWER = registerNoItemBuilder("equinox_flower", TAFlowerBlock::new).defaultLoot()
             .blockstate((ctx, prov) -> registerPlantStates(ctx.get(), prov)).item().model((ctx, prov) -> crossingBlockItem(ctx.get().getBlock(), prov)).build().register();
     public static final DeferredHolder<Block, WickGrass> WICK_GRASS = registerNoItemBuilder("wick_grass", WickGrass::new)
-            .blockstate((ctx, prov) -> registerLightPlantStates(ctx.get(), prov))
-            .item().model((ctx, prov) -> crossingBlockItem(ctx.get().getBlock(), prov)).build().register();
+            .blockstate((ctx, prov) -> registerLightPlantStates(ctx.get(), prov)).item().model((ctx, prov) -> crossingBlockItem(ctx.get().getBlock(), prov)).build().register();
     public static final DeferredHolder<Block, TallWickGrass> TALL_WICK_GRASS = registerNoItemBuilder("tall_wick_grass", p -> new TallWickGrass())
-            .blockstate((ctx, prov) -> registerDoubleLightPlantStates(ctx.get(), prov))
-            .item().model((ctx, prov) -> crossingBlockItem(ctx.get().getBlock(), prov, "_upper")).build().register();
+            .blockstate((ctx, prov) -> registerDoubleLightPlantStates(ctx.get(), prov)).item().model((ctx, prov) -> crossingBlockItem(ctx.get().getBlock(), prov, "_upper")).build().register();
     public static final DeferredHolder<Block, BlueberryBush> BLUEBERRY_BUSH = registerNoItemBuilder("blueberry_bush", p -> new BlueberryBush())
-            .tag(BlockTags.FALL_DAMAGE_RESETTING, BlockTags.SWORD_EFFICIENT, BlockTags.MINEABLE_WITH_AXE)
-            .blockstate((ctx, prov) -> registerCrossStates(ctx.get(), prov)).register();
+            .tag(BlockTags.FALL_DAMAGE_RESETTING, BlockTags.SWORD_EFFICIENT, BlockTags.MINEABLE_WITH_AXE).blockstate((ctx, prov) -> registerCrossStates(ctx.get(), prov)).register();
     public static final DeferredHolder<Block, SilentWoodStick> SILENT_WOOD_STICK = registerNoItemBuilder("silent_wood_stick", p -> new SilentWoodStick(ofFullCopy(Blocks.OAK_PLANKS).instabreak().pushReaction(PushReaction.DESTROY))).register();
     public static final DeferredHolder<Block, TACropBlock> LAVENDER_CROP = registerNoItemBuilder("lavender_crop", p -> new TACropBlock(ofFullCopy(Blocks.SHORT_GRASS), TAItems.LAVENDER_SEEDS)).tag(BlockTags.CROPS).blockstate((ctx, prov) -> registerCropStates(ctx.get(), prov)).register();
     public static final DeferredHolder<Block, TACropBlock> SILK_BERRY_CROP = registerNoItemBuilder("silk_berry_crop", p -> new TACropBlock(ofFullCopy(Blocks.SHORT_GRASS), TAItems.SILK_BERRY)).tag(BlockTags.CROPS).blockstate((ctx, prov) -> registerCropStates(ctx.get(), prov)).register();
@@ -147,10 +145,10 @@ public class TABlocks {
      * Ore
      */
     public static final DeferredHolder<Block, DropExperienceBlock> MOONSTONE_ORE = oreBuilder("moonstone_ore", ConstantInt.ZERO, defaultStoneProperties(2.0F)).tag(BlockTags.NEEDS_STONE_TOOL).loot((ctx, prov) -> ctx.add(prov, ctx.createOreDrop(prov, TAItems.RAW_MOONSTONE.get()))).register();
-    public static final DeferredHolder<Block, DropExperienceBlock> EROSIVE_MOONSTONE_ORE = oreBuilder("erosive_moonstone_ore", ConstantInt.ZERO, defaultStoneProperties(2.0F)).tag(BlockTags.NEEDS_STONE_TOOL).loot((ctx, prov) -> ctx.add(prov, ctx.createOreDrop(prov, TAItems.RAW_MOONSTONE.get()))).register();
     public static final DeferredHolder<Block, DropExperienceBlock> CERULEAN_ORE = oreBuilder("cerulean_ore", ConstantInt.ZERO, defaultStoneProperties(2.0F)).tag(BlockTags.NEEDS_STONE_TOOL).loot((ctx, prov) -> ctx.add(prov, ctx.createOreDrop(prov, TAItems.RAW_CERULEAN.get()))).register();
-    public static final DeferredHolder<Block, DropExperienceBlock> EROSIVE_CERULEAN_ORE = oreBuilder("erosive_cerulean_ore", ConstantInt.ZERO, defaultStoneProperties(2.0F)).tag(BlockTags.NEEDS_STONE_TOOL).loot((ctx, prov) -> ctx.add(prov, ctx.createOreDrop(prov, TAItems.RAW_CERULEAN.get()))).register();
     public static final DeferredHolder<Block, DropExperienceBlock> GEODE_ORE = oreBuilder("geode_ore", ConstantInt.ZERO, defaultStoneProperties(2.0F)).tag(BlockTags.NEEDS_IRON_TOOL).loot((ctx, prov) -> ctx.add(prov, ctx.createOreDrop(prov, TAItems.CRYSTAL.get()))).register();
+    public static final DeferredHolder<Block, DropExperienceBlock> EROSIVE_MOONSTONE_ORE = oreBuilder("erosive_moonstone_ore", ConstantInt.ZERO, defaultStoneProperties(2.0F)).tag(BlockTags.NEEDS_STONE_TOOL).loot((ctx, prov) -> ctx.add(prov, ctx.createOreDrop(prov, TAItems.RAW_MOONSTONE.get()))).register();
+    public static final DeferredHolder<Block, DropExperienceBlock> EROSIVE_CERULEAN_ORE = oreBuilder("erosive_cerulean_ore", ConstantInt.ZERO, defaultStoneProperties(2.0F)).tag(BlockTags.NEEDS_STONE_TOOL).loot((ctx, prov) -> ctx.add(prov, ctx.createOreDrop(prov, TAItems.RAW_CERULEAN.get()))).register();
     public static final DeferredHolder<Block, DropExperienceBlock> EROSIVE_GEODE_ORE = oreBuilder("erosive_geode_ore", ConstantInt.ZERO, defaultStoneProperties(2.0F)).tag(BlockTags.NEEDS_IRON_TOOL).loot((ctx, prov) -> ctx.add(prov, ctx.createOreDrop(prov, TAItems.CRYSTAL.get()))).register();
     public static final DeferredHolder<Block, DropExperienceBlock> AURORIAN_COAL_ORE = oreBuilder("aurorian_coal_ore", UniformInt.of(0, 2), ofFullCopy(Blocks.COAL_ORE)).tag(BlockTags.COAL_ORES).loot((ctx, prov) -> ctx.add(prov, ctx.createOreDrop(prov, TAItems.AURORIAN_COAL.get()))).register();
     public static final DeferredHolder<Block, DropExperienceBlock> AURORIAN_IRON_ORE = oreBuilder("aurorian_iron_ore", ConstantInt.ZERO, ofFullCopy(Blocks.IRON_ORE)).tag(BlockTags.IRON_ORES, BlockTags.NEEDS_STONE_TOOL).loot((ctx, prov) -> ctx.add(prov, ctx.createOreDrop(prov, Items.RAW_IRON))).register();
@@ -178,16 +176,11 @@ public class TABlocks {
     public static final DeferredHolder<Block, Block> MOON_CASTLE_RUNE_STONE = runestoneBuilder("moon_castle_rune_stone", of()).tag(TABlockTags.RUNE_STONE_BLOCK).defaultBlockstate().register();
     public static final DeferredHolder<Block, Block> TRANSPARENT_RUNE_STONE = runestoneBuilder("transparent_rune_stone", of()).tag(TABlockTags.RUNE_STONE_BLOCK).defaultBlockstate().register();
     public static final DeferredHolder<Block, Block> UMBRA_CASTLE_RUNE_STONE = runestoneBuilder("umbra_castle_rune_stone", of()).tag(TABlockTags.RUNE_STONE_BLOCK).defaultBlockstate().register();
-    public static final DeferredHolder<Block, Block> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE = runestoneBuilder("luminous_aurorian_castle_rune_stone", of().noOcclusion())
-            .tag(TABlockTags.RUNE_STONE_BLOCK).blockstate((ctx, prov) -> registerLuminousStates(ctx.get(), AURORIAN_CASTLE_RUNE_STONE.get(), prov)).register();
-    public static final DeferredHolder<Block, Block> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE = runestoneBuilder("luminous_aurorian_steel_castle_rune_stone", of().noOcclusion())
-            .tag(TABlockTags.RUNE_STONE_BLOCK).blockstate((ctx, prov) -> registerLuminousStates(ctx.get(), AURORIAN_STEEL_CASTLE_RUNE_STONE.get(), prov)).register();
-    public static final DeferredHolder<Block, Block> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE = runestoneBuilder("luminous_cerulean_castle_rune_stone", of().noOcclusion())
-            .tag(TABlockTags.RUNE_STONE_BLOCK).blockstate((ctx, prov) -> registerLuminousStates(ctx.get(), CERULEAN_CASTLE_RUNE_STONE.get(), prov)).register();
-    public static final DeferredHolder<Block, Block> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE = runestoneBuilder("luminous_crystalline_castle_rune_stone", of().noOcclusion())
-            .tag(TABlockTags.RUNE_STONE_BLOCK).blockstate((ctx, prov) -> registerLuminousStates(ctx.get(), CRYSTALLINE_CASTLE_RUNE_STONE.get(), prov)).register();
-    public static final DeferredHolder<Block, Block> LUMINOUS_MOON_CASTLE_RUNE_STONE = runestoneBuilder("luminous_moon_castle_rune_stone", of().noOcclusion())
-            .tag(TABlockTags.RUNE_STONE_BLOCK).blockstate((ctx, prov) -> registerLuminousStates(ctx.get(), MOON_CASTLE_RUNE_STONE.get(), prov)).register();
+    public static final DeferredHolder<Block, Block> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE = runestoneBuilder("luminous_aurorian_castle_rune_stone", of().noOcclusion()).tag(TABlockTags.RUNE_STONE_BLOCK).blockstate((ctx, prov) -> registerLuminousStates(ctx.get(), AURORIAN_CASTLE_RUNE_STONE.get(), prov)).register();
+    public static final DeferredHolder<Block, Block> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE = runestoneBuilder("luminous_aurorian_steel_castle_rune_stone", of().noOcclusion()).tag(TABlockTags.RUNE_STONE_BLOCK).blockstate((ctx, prov) -> registerLuminousStates(ctx.get(), AURORIAN_STEEL_CASTLE_RUNE_STONE.get(), prov)).register();
+    public static final DeferredHolder<Block, Block> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE = runestoneBuilder("luminous_cerulean_castle_rune_stone", of().noOcclusion()).tag(TABlockTags.RUNE_STONE_BLOCK).blockstate((ctx, prov) -> registerLuminousStates(ctx.get(), CERULEAN_CASTLE_RUNE_STONE.get(), prov)).register();
+    public static final DeferredHolder<Block, Block> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE = runestoneBuilder("luminous_crystalline_castle_rune_stone", of().noOcclusion()).tag(TABlockTags.RUNE_STONE_BLOCK).blockstate((ctx, prov) -> registerLuminousStates(ctx.get(), CRYSTALLINE_CASTLE_RUNE_STONE.get(), prov)).register();
+    public static final DeferredHolder<Block, Block> LUMINOUS_MOON_CASTLE_RUNE_STONE = runestoneBuilder("luminous_moon_castle_rune_stone", of().noOcclusion()).tag(TABlockTags.RUNE_STONE_BLOCK).blockstate((ctx, prov) -> registerLuminousStates(ctx.get(), MOON_CASTLE_RUNE_STONE.get(), prov)).register();
     public static final DeferredHolder<Block, RotatedPillarBlock> RUNE_STONE_PILLAR = registerBuilder("rune_stone_pillar", p -> new RotatedPillarBlock(runestoneProperties(p))).tag(TABlockTags.DUNGEON_BLOCKS).defaultLoot().blockstate((ctx, prov) -> prov.logBlock(ctx.get())).register();
     public static final DeferredHolder<Block, RotatedPillarBlock> DARK_STONE_PILLAR = registerBuilder("dark_stone_pillar", p -> new RotatedPillarBlock(runestoneProperties(p))).tag(TABlockTags.DUNGEON_BLOCKS).defaultLoot().blockstate((ctx, prov) -> prov.logBlock(ctx.get())).register();
     public static final DeferredHolder<Block, RotatedPillarBlock> MOON_TEMPLE_PILLAR = registerBuilder("moon_temple_pillar", p -> new RotatedPillarBlock(runestoneProperties(p))).tag(TABlockTags.DUNGEON_BLOCKS, TABlockTags.MOON_TEMPLE_BLOCKS).defaultLoot().blockstate((ctx, prov) -> prov.logBlock(ctx.get())).register();
@@ -269,7 +262,8 @@ public class TABlocks {
     public static final DeferredHolder<Block, TASandBlock> BRIGHT_MOON_SAND =  registerBuilder("bright_moon_sand", p -> new TASandBlock(14406560, ofFullCopy(Blocks.SAND))).tag(TABlockTags.AURORIAN_CARVER_REPLACEABLES, BlockTags.SAND).defaultLoot().defaultBlockstate().register();
     public static final DeferredHolder<Block, TorchBlock> MOON_TORCH = registerNoItemBuilder("moon_torch", p -> new TorchBlock(ParticleTypes.CLOUD, ofFullCopy(Blocks.TORCH))).tag(BlockTags.WALL_POST_OVERRIDE).defaultLoot()
             .blockstate((ctx, prov) -> registerTorchStates(ctx.get(), prov)).item().model((ctx, prov) -> crossingBlockItem(ctx.get().getBlock(), prov)).build().register();
-    public static final DeferredHolder<Block, WallTorchBlock> MOON_WALL_TORCH = registerNoItemBuilder("moon_wall_torch", p -> new WallTorchBlock(ParticleTypes.CLOUD, ofFullCopy(Blocks.WALL_TORCH))).register();
+    public static final DeferredHolder<Block, WallTorchBlock> MOON_WALL_TORCH = registerNoItemBuilder("moon_wall_torch", p -> new WallTorchBlock(
+            ParticleTypes.CLOUD, ofFullCopy(Blocks.WALL_TORCH))).loot((ctx, prov) -> ctx.dropOther(prov, TAItems.MOON_TORCH.get())).register();
     public static final DeferredHolder<Block, Scrapper> SCRAPPER = registerBuilder("scrapper", p -> new Scrapper(defaultStoneProperties(2.0F))).tag(BlockTags.MINEABLE_WITH_PICKAXE).defaultLoot().register();
     public static final DeferredHolder<Block, Block> UMBRA_STONE = simpleBuilder("umbra_stone", defaultStoneProperties(5.0F)).tag(BlockTags.MINEABLE_WITH_PICKAXE).defaultLoot().register();
     public static final DeferredHolder<Block, Block> UMBRA_STONE_CRACKED = simpleBuilder("umbra_stone_cracked", defaultStoneProperties(5.0F)).tag(BlockTags.MINEABLE_WITH_PICKAXE).defaultLoot().register();
@@ -285,7 +279,8 @@ public class TABlocks {
             .defaultLoot().blockstate((ctx, prov) -> registerSaplingStates(ctx.get(), prov)).item().model((ctx, prov) -> crossingBlockItem(ctx.get().getBlock(), prov)).build().register();
     public static final DeferredHolder<Block, TorchBlock> SILENT_WOOD_TORCH = registerNoItemBuilder("silent_wood_torch", p -> new TorchBlock(ParticleTypes.FLAME, ofFullCopy(Blocks.TORCH))).tag(BlockTags.WALL_POST_OVERRIDE).defaultLoot()
             .blockstate((ctx, prov) -> registerTorchStates(ctx.get(), prov)).item().model((ctx, prov) -> crossingBlockItem(ctx.get().getBlock(), prov)).build().register();
-    public static final DeferredHolder<Block, WallTorchBlock> SILENT_WOOD_WALL_TORCH = registerNoItemBuilder("silent_wood_wall_torch", p -> new WallTorchBlock(ParticleTypes.FLAME, ofFullCopy(Blocks.WALL_TORCH))).register();
+    public static final DeferredHolder<Block, WallTorchBlock> SILENT_WOOD_WALL_TORCH = registerNoItemBuilder("silent_wood_wall_torch", p -> new WallTorchBlock(
+            ParticleTypes.FLAME, ofFullCopy(Blocks.WALL_TORCH))).loot((ctx, prov) -> ctx.dropOther(prov, TAItems.SILENT_WOOD_TORCH.get())).register();
     public static final DeferredHolder<Block, LadderBlock> SILENT_WOOD_LADDER = registerNoItemBuilder("silent_wood_ladder", p -> new LadderBlock(ofFullCopy(Blocks.LADDER))).tag(BlockTags.CLIMBABLE).defaultLoot()
             .blockstate((ctx, prov) -> registerSilentWoodLadderState(ctx.get(), prov)).item().model((ctx, prov) -> crossingBlockItem(ctx.get().getBlock(), prov)).build().register();
     public static final DeferredHolder<Block, TAStandingSignBlock> SILENT_WOOD_SIGN = registerNoItemBuilder("silent_wood_sign", p -> new TAStandingSignBlock(ofFullCopy(Blocks.OAK_SIGN), TAWoodType.SILENT)).tag(BlockTags.STANDING_SIGNS).register();
@@ -305,8 +300,9 @@ public class TABlocks {
             p -> new TAStandingSignBlock(ofFullCopy(Blocks.OAK_SIGN), TAWoodType.WEEPING_WILLOW)).tag(BlockTags.STANDING_SIGNS).register();
     public static final DeferredHolder<Block, TAWallSignBlock> WEEPING_WILLOW_WOOD_WALL_SIGN = registerNoItemBuilder("weeping_willow_wood_wall_sign",
             p -> new TAWallSignBlock(ofFullCopy(Blocks.OAK_SIGN), TAWoodType.WEEPING_WILLOW)).tag(BlockTags.WALL_SIGNS).register();
-    public static final DeferredHolder<Block, TACeilingHangingSignBlock> WEEPING_WILLOW_WOOD_HANGING_SIGN = registerNoItemBuilder("weeping_willow_wood_hanging_sign", p -> new TACeilingHangingSignBlock(ofFullCopy(Blocks.OAK_HANGING_SIGN), TAWoodType.WEEPING_WILLOW))
-            .tag(BlockTags.CEILING_HANGING_SIGNS).blockstate((ctx, prov) -> registerCeilingHangingSignStates(ctx.get(), STRIPPED_WEEPING_WILLOW_LOG.get(), prov)).register();
+    public static final DeferredHolder<Block, TACeilingHangingSignBlock> WEEPING_WILLOW_WOOD_HANGING_SIGN = registerNoItemBuilder("weeping_willow_wood_hanging_sign",
+            p -> new TACeilingHangingSignBlock(ofFullCopy(Blocks.OAK_HANGING_SIGN), TAWoodType.WEEPING_WILLOW)).tag(BlockTags.CEILING_HANGING_SIGNS)
+            .blockstate((ctx, prov) -> registerCeilingHangingSignStates(ctx.get(), STRIPPED_WEEPING_WILLOW_LOG.get(), prov)).register();
     public static final DeferredHolder<Block, TAWallHangingSignBlock> WEEPING_WILLOW_WOOD_WALL_HANGING_SIGN = registerNoItemBuilder("weeping_willow_wood_wall_hanging_sign", p -> new TAWallHangingSignBlock(ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN), TAWoodType.WEEPING_WILLOW))
             .tag(BlockTags.WALL_HANGING_SIGNS).blockstate((ctx, prov) -> registerWallHangingSignStates(WEEPING_WILLOW_WOOD_HANGING_SIGN.get(), ctx.get(), STRIPPED_WEEPING_WILLOW_LOG.get(), prov)).register();
     public static final DeferredHolder<Block, RotatedPillarBlock> STRIPPED_CURTAIN_TREE_LOG = strippedWood("stripped_curtain_tree_log", MapColor.COLOR_LIGHT_GRAY, 2.0F, TABlockTags.CURTAIN_TREE_LOGS);
@@ -359,82 +355,82 @@ public class TABlocks {
     /**
      * Vertical Stair Blocks
      */
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_STONE_STAIRS = verticalStair("vertical_aurorian_stone_stairs", AURORIAN_STONE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_STONE_BRICK_STAIRS = verticalStair("vertical_aurorian_stone_brick_stairs", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_COBBLESTONE_STAIRS = verticalStair("vertical_aurorian_cobblestone_stairs", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_GRANITE_STAIRS = verticalStair("vertical_aurorian_granite_stairs", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_DIORITE_STAIRS = verticalStair("vertical_aurorian_diorite_stairs", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_ANDESITE_STAIRS = verticalStair("vertical_aurorian_andesite_stairs", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_RUNE_STONE_STAIRS = verticalStair("vertical_rune_stone_stairs", RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_SMOOTH_RUNE_STONE_STAIRS = verticalStair("vertical_smooth_rune_stone_stairs", SMOOTH_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CHISELED_RUNE_STONE_STAIRS = verticalStair("vertical_chiseled_rune_stone_stairs", CHISELED_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_aurorian_castle_rune_stone_stairs", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_aurorian_steel_castle_rune_stone_stairs", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CERULEAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_MOON_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_aurorian_castle_rune_stone_stairs", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_aurorian_steel_castle_rune_stone_stairs", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_LUMINOUS_MOON_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_TRANSPARENT_RUNE_STONE_STAIRS = verticalStair("vertical_transparent_rune_stone_stairs", TRANSPARENT_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_UMBRA_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_umbra_castle_rune_stone_stairs", UMBRA_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_dark_stone_brick_stairs", DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_SMOOTH_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_smooth_dark_stone_brick_stairs", SMOOTH_DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CHISELED_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_chiseled_dark_stone_brick_stairs", CHISELED_DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_moon_temple_brick_stairs", MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_SMOOTH_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_smooth_moon_temple_brick_stairs", SMOOTH_MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CHISELED_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_chiseled_moon_temple_brick_stairs", CHISELED_MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_UMBRA_STONE_STAIRS = verticalStair("vertical_umbra_stone_stairs", UMBRA_STONE, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_UMBRA_STONE_CRACKED_STAIRS = verticalStair("vertical_umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_UMBRA_STONE_ROOF_STAIRS = verticalStair("vertical_umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_SILENT_WOOD_STAIRS = verticalStair("vertical_silent_wood_stairs", SILENT_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_WEEPING_WILLOW_STAIRS = verticalStair("vertical_weeping_willow_stairs", WEEPING_WILLOW_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CURTAIN_WOOD_STAIRS = verticalStair("vertical_curtain_wood_stairs", CURTAIN_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CURSED_FROST_WOOD_STAIRS = verticalStair("vertical_cursed_frost_wood_stairs", CURSED_FROST_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_PERIDOTITE_STAIRS = verticalStair("vertical_aurorian_peridotite_stairs", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_SMOOTH_AURORIAN_PERIDOTITE_STAIRS = verticalStair("vertical_smooth_aurorian_peridotite_stairs", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_STONE_STAIRS = verticalStair("vertical_aurorian_stone_stairs", AURORIAN_STONE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_STONE_BRICK_STAIRS = verticalStair("vertical_aurorian_stone_brick_stairs", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_COBBLESTONE_STAIRS = verticalStair("vertical_aurorian_cobblestone_stairs", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_GRANITE_STAIRS = verticalStair("vertical_aurorian_granite_stairs", AURORIAN_GRANITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_DIORITE_STAIRS = verticalStair("vertical_aurorian_diorite_stairs", AURORIAN_DIORITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_ANDESITE_STAIRS = verticalStair("vertical_aurorian_andesite_stairs", AURORIAN_ANDESITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_RUNE_STONE_STAIRS = verticalStair("vertical_rune_stone_stairs", RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_SMOOTH_RUNE_STONE_STAIRS = verticalStair("vertical_smooth_rune_stone_stairs", SMOOTH_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CHISELED_RUNE_STONE_STAIRS = verticalStair("vertical_chiseled_rune_stone_stairs", CHISELED_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_aurorian_castle_rune_stone_stairs", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_aurorian_steel_castle_rune_stone_stairs", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CERULEAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_MOON_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_aurorian_castle_rune_stone_stairs", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_aurorian_steel_castle_rune_stone_stairs", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_LUMINOUS_MOON_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_luminous_moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_TRANSPARENT_RUNE_STONE_STAIRS = verticalStair("vertical_transparent_rune_stone_stairs", TRANSPARENT_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_UMBRA_CASTLE_RUNE_STONE_STAIRS = verticalStair("vertical_umbra_castle_rune_stone_stairs", UMBRA_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_dark_stone_brick_stairs", DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_SMOOTH_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_smooth_dark_stone_brick_stairs", SMOOTH_DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CHISELED_DARK_STONE_BRICK_STAIRS = verticalStair("vertical_chiseled_dark_stone_brick_stairs", CHISELED_DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_moon_temple_brick_stairs", MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_SMOOTH_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_smooth_moon_temple_brick_stairs", SMOOTH_MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CHISELED_MOON_TEMPLE_BRICK_STAIRS = verticalStair("vertical_chiseled_moon_temple_brick_stairs", CHISELED_MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_UMBRA_STONE_STAIRS = verticalStair("vertical_umbra_stone_stairs", UMBRA_STONE, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_UMBRA_STONE_CRACKED_STAIRS = verticalStair("vertical_umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_UMBRA_STONE_ROOF_STAIRS = verticalStair("vertical_umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_SILENT_WOOD_STAIRS = verticalStair("vertical_silent_wood_stairs", SILENT_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_WEEPING_WILLOW_STAIRS = verticalStair("vertical_weeping_willow_stairs", WEEPING_WILLOW_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CURTAIN_WOOD_STAIRS = verticalStair("vertical_curtain_wood_stairs", CURTAIN_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_CURSED_FROST_WOOD_STAIRS = verticalStair("vertical_cursed_frost_wood_stairs", CURSED_FROST_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_AURORIAN_PERIDOTITE_STAIRS = verticalStair("vertical_aurorian_peridotite_stairs", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, VerticalStairBlock> VERTICAL_SMOOTH_AURORIAN_PERIDOTITE_STAIRS = verticalStair("vertical_smooth_aurorian_peridotite_stairs", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F)).register();
 
     /**
      * Vertical Slab Blocks
      */
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_STONE_SLAB = verticalSlab("vertical_aurorian_stone_slab", AURORIAN_STONE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_STONE_BRICK_SLAB = verticalSlab("vertical_aurorian_stone_brick_slab", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_COBBLESTONE_SLAB = verticalSlab("vertical_aurorian_cobblestone_slab", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_GRANITE_SLAB = verticalSlab("vertical_aurorian_granite_slab", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_DIORITE_SLAB = verticalSlab("vertical_aurorian_diorite_slab", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_ANDESITE_SLAB = verticalSlab("vertical_aurorian_andesite_slab", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_RUNE_STONE_SLAB = verticalSlab("vertical_rune_stone_slab", RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_SMOOTH_RUNE_STONE_SLAB = verticalSlab("vertical_smooth_rune_stone_slab", SMOOTH_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CHISELED_RUNE_STONE_SLAB = verticalSlab("vertical_chiseled_rune_stone_slab", CHISELED_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_aurorian_castle_rune_stone_slab", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_aurorian_steel_castle_rune_stone_slab", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CERULEAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_MOON_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_aurorian_castle_rune_stone_slab", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_aurorian_steel_castle_rune_stone_slab", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_LUMINOUS_MOON_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_TRANSPARENT_RUNE_STONE_SLAB = verticalSlab("vertical_transparent_rune_stone_slab", TRANSPARENT_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_UMBRA_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_umbra_castle_rune_stone_slab", UMBRA_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_dark_stone_brick_slab", DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_SMOOTH_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_smooth_dark_stone_brick_slab", SMOOTH_DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CHISELED_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_chiseled_dark_stone_brick_slab", CHISELED_DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_moon_temple_brick_slab", MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_SMOOTH_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_smooth_moon_temple_brick_slab", SMOOTH_MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CHISELED_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_chiseled_moon_temple_brick_slab", CHISELED_MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_UMBRA_STONE_SLAB = verticalSlab("vertical_umbra_stone_slab", UMBRA_STONE, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_UMBRA_STONE_CRACKED_SLAB = verticalSlab("vertical_umbra_stone_cracked_slab", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_UMBRA_STONE_ROOF_SLAB = verticalSlab("vertical_umbra_stone_roof_slab", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_SILENT_WOOD_SLAB = verticalSlab("vertical_silent_wood_slab", SILENT_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_WEEPING_WILLOW_SLAB = verticalSlab("vertical_weeping_willow_slab", WEEPING_WILLOW_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CURTAIN_WOOD_SLAB = verticalSlab("vertical_curtain_wood_slab", CURTAIN_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CURSED_FROST_WOOD_SLAB = verticalSlab("vertical_cursed_frost_wood_slab", CURSED_FROST_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_PERIDOTITE_SLAB = verticalSlab("vertical_aurorian_peridotite_slab", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_SMOOTH_AURORIAN_PERIDOTITE_SLAB = verticalSlab("vertical_smooth_aurorian_peridotite_slab", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_STONE_SLAB = verticalSlab("vertical_aurorian_stone_slab", AURORIAN_STONE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_STONE_BRICK_SLAB = verticalSlab("vertical_aurorian_stone_brick_slab", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_COBBLESTONE_SLAB = verticalSlab("vertical_aurorian_cobblestone_slab", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_GRANITE_SLAB = verticalSlab("vertical_aurorian_granite_slab", AURORIAN_GRANITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_DIORITE_SLAB = verticalSlab("vertical_aurorian_diorite_slab", AURORIAN_DIORITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_ANDESITE_SLAB = verticalSlab("vertical_aurorian_andesite_slab", AURORIAN_ANDESITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_RUNE_STONE_SLAB = verticalSlab("vertical_rune_stone_slab", RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_SMOOTH_RUNE_STONE_SLAB = verticalSlab("vertical_smooth_rune_stone_slab", SMOOTH_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CHISELED_RUNE_STONE_SLAB = verticalSlab("vertical_chiseled_rune_stone_slab", CHISELED_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_aurorian_castle_rune_stone_slab", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_aurorian_steel_castle_rune_stone_slab", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CERULEAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_MOON_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_aurorian_castle_rune_stone_slab", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_aurorian_steel_castle_rune_stone_slab", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_LUMINOUS_MOON_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_luminous_moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_TRANSPARENT_RUNE_STONE_SLAB = verticalSlab("vertical_transparent_rune_stone_slab", TRANSPARENT_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_UMBRA_CASTLE_RUNE_STONE_SLAB = verticalSlab("vertical_umbra_castle_rune_stone_slab", UMBRA_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_dark_stone_brick_slab", DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_SMOOTH_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_smooth_dark_stone_brick_slab", SMOOTH_DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CHISELED_DARK_STONE_BRICK_SLAB = verticalSlab("vertical_chiseled_dark_stone_brick_slab", CHISELED_DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_moon_temple_brick_slab", MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_SMOOTH_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_smooth_moon_temple_brick_slab", SMOOTH_MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CHISELED_MOON_TEMPLE_BRICK_SLAB = verticalSlab("vertical_chiseled_moon_temple_brick_slab", CHISELED_MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_UMBRA_STONE_SLAB = verticalSlab("vertical_umbra_stone_slab", UMBRA_STONE, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_UMBRA_STONE_CRACKED_SLAB = verticalSlab("vertical_umbra_stone_cracked_slab", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_UMBRA_STONE_ROOF_SLAB = verticalSlab("vertical_umbra_stone_roof_slab", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_SILENT_WOOD_SLAB = verticalSlab("vertical_silent_wood_slab", SILENT_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_WEEPING_WILLOW_SLAB = verticalSlab("vertical_weeping_willow_slab", WEEPING_WILLOW_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CURTAIN_WOOD_SLAB = verticalSlab("vertical_curtain_wood_slab", CURTAIN_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_CURSED_FROST_WOOD_SLAB = verticalSlab("vertical_cursed_frost_wood_slab", CURSED_FROST_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_AURORIAN_PERIDOTITE_SLAB = verticalSlab("vertical_aurorian_peridotite_slab", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, VerticalSlabBlock> VERTICAL_SMOOTH_AURORIAN_PERIDOTITE_SLAB = verticalSlab("vertical_smooth_aurorian_peridotite_slab", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F)).register();
 
     /**
      * Pressure Plate Blocks
@@ -471,42 +467,42 @@ public class TABlocks {
     /**
      * Stair Blocks
      */
-    public static final DeferredHolder<Block, StairBlock> AURORIAN_STONE_STAIRS = stair("aurorian_stone_stairs", AURORIAN_STONE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, StairBlock> AURORIAN_STONE_BRICK_STAIRS = stair("aurorian_stone_brick_stairs", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, StairBlock> AURORIAN_COBBLESTONE_STAIRS = stair("aurorian_cobblestone_stairs", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, StairBlock> AURORIAN_GRANITE_STAIRS = stair("aurorian_granite_stairs", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, StairBlock> AURORIAN_DIORITE_STAIRS = stair("aurorian_diorite_stairs", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, StairBlock> AURORIAN_ANDESITE_STAIRS = stair("aurorian_andesite_stairs", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, StairBlock> RUNE_STONE_STAIRS = stair("rune_stone_stairs", RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> SMOOTH_RUNE_STONE_STAIRS = stair("smooth_rune_stone_stairs", SMOOTH_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> CHISELED_RUNE_STONE_STAIRS = stair("chiseled_rune_stone_stairs", CHISELED_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> AURORIAN_CASTLE_RUNE_STONE_STAIRS = stair("aurorian_castle_rune_stone_stairs", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS = stair("aurorian_steel_castle_rune_stone_stairs", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> CERULEAN_CASTLE_RUNE_STONE_STAIRS = stair("cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = stair("crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> MOON_CASTLE_RUNE_STONE_STAIRS = stair("moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_STAIRS = stair("luminous_aurorian_castle_rune_stone_stairs", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, StairBlock> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS = stair("luminous_aurorian_steel_castle_rune_stone_stairs", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, StairBlock> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_STAIRS = stair("luminous_cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, StairBlock> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = stair("luminous_crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, StairBlock> LUMINOUS_MOON_CASTLE_RUNE_STONE_STAIRS = stair("luminous_moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, StairBlock> TRANSPARENT_RUNE_STONE_STAIRS = stair("transparent_rune_stone_stairs", TRANSPARENT_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> UMBRA_CASTLE_RUNE_STONE_STAIRS = stair("umbra_castle_rune_stone_stairs", UMBRA_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> DARK_STONE_BRICK_STAIRS = stair("dark_stone_brick_stairs", DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> SMOOTH_DARK_STONE_BRICK_STAIRS = stair("smooth_dark_stone_brick_stairs", SMOOTH_DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> CHISELED_DARK_STONE_BRICK_STAIRS = stair("chiseled_dark_stone_brick_stairs", CHISELED_DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, StairBlock> MOON_TEMPLE_BRICK_STAIRS = stair("moon_temple_brick_stairs", MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, StairBlock> SMOOTH_MOON_TEMPLE_BRICK_STAIRS = stair("smooth_moon_temple_brick_stairs", SMOOTH_MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, StairBlock> CHISELED_MOON_TEMPLE_BRICK_STAIRS = stair("chiseled_moon_temple_brick_stairs", CHISELED_MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, StairBlock> UMBRA_STONE_STAIRS = stair("umbra_stone_stairs", UMBRA_STONE, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, StairBlock> UMBRA_STONE_CRACKED_STAIRS = stair("umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, StairBlock> UMBRA_STONE_ROOF_STAIRS = stair("umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, StairBlock> SILENT_WOOD_STAIRS = stair("silent_wood_stairs", SILENT_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, StairBlock> WEEPING_WILLOW_STAIRS = stair("weeping_willow_stairs", WEEPING_WILLOW_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, StairBlock> CURTAIN_WOOD_STAIRS = stair("curtain_wood_stairs", CURTAIN_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, StairBlock> CURSED_FROST_WOOD_STAIRS = stair("cursed_frost_wood_stairs", CURSED_FROST_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, StairBlock> AURORIAN_PERIDOTITE_STAIRS = stair("aurorian_peridotite_stairs", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, StairBlock> SMOOTH_AURORIAN_PERIDOTITE_STAIRS = stair("smooth_aurorian_peridotite_stairs", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+    public static final DeferredHolder<Block, StairBlock> AURORIAN_STONE_STAIRS = stair("aurorian_stone_stairs", AURORIAN_STONE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, StairBlock> AURORIAN_STONE_BRICK_STAIRS = stair("aurorian_stone_brick_stairs", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, StairBlock> AURORIAN_COBBLESTONE_STAIRS = stair("aurorian_cobblestone_stairs", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, StairBlock> AURORIAN_GRANITE_STAIRS = stair("aurorian_granite_stairs", AURORIAN_GRANITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, StairBlock> AURORIAN_DIORITE_STAIRS = stair("aurorian_diorite_stairs", AURORIAN_DIORITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, StairBlock> AURORIAN_ANDESITE_STAIRS = stair("aurorian_andesite_stairs", AURORIAN_ANDESITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, StairBlock> RUNE_STONE_STAIRS = stair("rune_stone_stairs", RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> SMOOTH_RUNE_STONE_STAIRS = stair("smooth_rune_stone_stairs", SMOOTH_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> CHISELED_RUNE_STONE_STAIRS = stair("chiseled_rune_stone_stairs", CHISELED_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> AURORIAN_CASTLE_RUNE_STONE_STAIRS = stair("aurorian_castle_rune_stone_stairs", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS = stair("aurorian_steel_castle_rune_stone_stairs", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> CERULEAN_CASTLE_RUNE_STONE_STAIRS = stair("cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = stair("crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> MOON_CASTLE_RUNE_STONE_STAIRS = stair("moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_STAIRS = stair("luminous_aurorian_castle_rune_stone_stairs", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, StairBlock> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_STAIRS = stair("luminous_aurorian_steel_castle_rune_stone_stairs", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, StairBlock> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_STAIRS = stair("luminous_cerulean_castle_rune_stone_stairs", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, StairBlock> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_STAIRS = stair("luminous_crystalline_castle_rune_stone_stairs", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, StairBlock> LUMINOUS_MOON_CASTLE_RUNE_STONE_STAIRS = stair("luminous_moon_castle_rune_stone_stairs", MOON_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, StairBlock> TRANSPARENT_RUNE_STONE_STAIRS = stair("transparent_rune_stone_stairs", TRANSPARENT_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> UMBRA_CASTLE_RUNE_STONE_STAIRS = stair("umbra_castle_rune_stone_stairs", UMBRA_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> DARK_STONE_BRICK_STAIRS = stair("dark_stone_brick_stairs", DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> SMOOTH_DARK_STONE_BRICK_STAIRS = stair("smooth_dark_stone_brick_stairs", SMOOTH_DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> CHISELED_DARK_STONE_BRICK_STAIRS = stair("chiseled_dark_stone_brick_stairs", CHISELED_DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, StairBlock> MOON_TEMPLE_BRICK_STAIRS = stair("moon_temple_brick_stairs", MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, StairBlock> SMOOTH_MOON_TEMPLE_BRICK_STAIRS = stair("smooth_moon_temple_brick_stairs", SMOOTH_MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, StairBlock> CHISELED_MOON_TEMPLE_BRICK_STAIRS = stair("chiseled_moon_temple_brick_stairs", CHISELED_MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, StairBlock> UMBRA_STONE_STAIRS = stair("umbra_stone_stairs", UMBRA_STONE, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, StairBlock> UMBRA_STONE_CRACKED_STAIRS = stair("umbra_stone_cracked_stairs", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, StairBlock> UMBRA_STONE_ROOF_STAIRS = stair("umbra_stone_roof_stairs", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, StairBlock> SILENT_WOOD_STAIRS = stair("silent_wood_stairs", SILENT_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, StairBlock> WEEPING_WILLOW_STAIRS = stair("weeping_willow_stairs", WEEPING_WILLOW_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, StairBlock> CURTAIN_WOOD_STAIRS = stair("curtain_wood_stairs", CURTAIN_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, StairBlock> CURSED_FROST_WOOD_STAIRS = stair("cursed_frost_wood_stairs", CURSED_FROST_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, StairBlock> AURORIAN_PERIDOTITE_STAIRS = stair("aurorian_peridotite_stairs", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, StairBlock> SMOOTH_AURORIAN_PERIDOTITE_STAIRS = stair("smooth_aurorian_peridotite_stairs", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F)).register();
 
     /**
      * Fence Blocks
@@ -527,78 +523,78 @@ public class TABlocks {
     /**
      * Slab Blocks
      */
-    public static final DeferredHolder<Block, SlabBlock> AURORIAN_STONE_SLAB = slab("aurorian_stone_slab", AURORIAN_STONE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, SlabBlock> AURORIAN_STONE_BRICK_SLAB = slab("aurorian_stone_brick_slab", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, SlabBlock> AURORIAN_COBBLESTONE_SLAB = slab("aurorian_cobblestone_slab", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, SlabBlock> AURORIAN_GRANITE_SLAB = slab("aurorian_granite_slab", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, SlabBlock> AURORIAN_DIORITE_SLAB = slab("aurorian_diorite_slab", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, SlabBlock> AURORIAN_ANDESITE_SLAB = slab("aurorian_andesite_slab", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, SlabBlock> RUNE_STONE_SLAB = slab("rune_stone_slab", RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> SMOOTH_RUNE_STONE_SLAB = slab("smooth_rune_stone_slab", SMOOTH_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> CHISELED_RUNE_STONE_SLAB = slab("chiseled_rune_stone_slab", CHISELED_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> AURORIAN_CASTLE_RUNE_STONE_SLAB = slab("aurorian_castle_rune_stone_slab", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB = slab("aurorian_steel_castle_rune_stone_slab", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> CERULEAN_CASTLE_RUNE_STONE_SLAB = slab("cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = slab("crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> MOON_CASTLE_RUNE_STONE_SLAB = slab("moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_SLAB = slab("luminous_aurorian_castle_rune_stone_slab", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, SlabBlock> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB = slab("luminous_aurorian_steel_castle_rune_stone_slab", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, SlabBlock> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_SLAB = slab("luminous_cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, SlabBlock> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = slab("luminous_crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, SlabBlock> LUMINOUS_MOON_CASTLE_RUNE_STONE_SLAB = slab("luminous_moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, SlabBlock> TRANSPARENT_RUNE_STONE_SLAB = slab("transparent_rune_stone_slab", TRANSPARENT_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> UMBRA_CASTLE_RUNE_STONE_SLAB = slab("umbra_castle_rune_stone_slab", UMBRA_CASTLE_RUNE_STONE, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> DARK_STONE_BRICK_SLAB = slab("dark_stone_brick_slab", DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> SMOOTH_DARK_STONE_BRICK_SLAB = slab("smooth_dark_stone_brick_slab", SMOOTH_DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> CHISELED_DARK_STONE_BRICK_SLAB = slab("chiseled_dark_stone_brick_slab", CHISELED_DARK_STONE_BRICKS, runestoneProperties());
-    public static final DeferredHolder<Block, SlabBlock> MOON_TEMPLE_BRICK_SLAB = slab("moon_temple_brick_slab", MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, SlabBlock> SMOOTH_MOON_TEMPLE_BRICK_SLAB = slab("smooth_moon_temple_brick_slab", SMOOTH_MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, SlabBlock> CHISELED_MOON_TEMPLE_BRICK_SLAB = slab("chiseled_moon_temple_brick_slab", CHISELED_MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS);
-    public static final DeferredHolder<Block, SlabBlock> UMBRA_STONE_SLAB = slab("umbra_stone_slab", UMBRA_STONE, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, SlabBlock> UMBRA_STONE_CRACKED_SLAB = slab("umbra_stone_cracked_slab", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, SlabBlock> UMBRA_STONE_ROOF_SLAB = slab("umbra_stone_roof_slab", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, SlabBlock> SILENT_WOOD_SLAB = slab("silent_wood_slab", SILENT_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, SlabBlock> WEEPING_WILLOW_SLAB = slab("weeping_willow_slab", WEEPING_WILLOW_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, SlabBlock> CURTAIN_WOOD_SLAB = slab("curtain_wood_slab", CURTAIN_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, SlabBlock> CURSED_FROST_WOOD_SLAB = slab("cursed_frost_wood_slab", CURSED_FROST_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS).requiredFeatures(TAFeatureFlags.WOOD_MATERIAL));
-    public static final DeferredHolder<Block, SlabBlock> AURORIAN_PERIDOTITE_SLAB = slab("aurorian_peridotite_slab", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, SlabBlock> SMOOTH_AURORIAN_PERIDOTITE_SLAB = slab("smooth_aurorian_peridotite_slab", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+    public static final DeferredHolder<Block, SlabBlock> AURORIAN_STONE_SLAB = slab("aurorian_stone_slab", AURORIAN_STONE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, SlabBlock> AURORIAN_STONE_BRICK_SLAB = slab("aurorian_stone_brick_slab", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, SlabBlock> AURORIAN_COBBLESTONE_SLAB = slab("aurorian_cobblestone_slab", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, SlabBlock> AURORIAN_GRANITE_SLAB = slab("aurorian_granite_slab", AURORIAN_GRANITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, SlabBlock> AURORIAN_DIORITE_SLAB = slab("aurorian_diorite_slab", AURORIAN_DIORITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, SlabBlock> AURORIAN_ANDESITE_SLAB = slab("aurorian_andesite_slab", AURORIAN_ANDESITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, SlabBlock> RUNE_STONE_SLAB = slab("rune_stone_slab", RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> SMOOTH_RUNE_STONE_SLAB = slab("smooth_rune_stone_slab", SMOOTH_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> CHISELED_RUNE_STONE_SLAB = slab("chiseled_rune_stone_slab", CHISELED_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> AURORIAN_CASTLE_RUNE_STONE_SLAB = slab("aurorian_castle_rune_stone_slab", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB = slab("aurorian_steel_castle_rune_stone_slab", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> CERULEAN_CASTLE_RUNE_STONE_SLAB = slab("cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = slab("crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> MOON_CASTLE_RUNE_STONE_SLAB = slab("moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_SLAB = slab("luminous_aurorian_castle_rune_stone_slab", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, SlabBlock> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_SLAB = slab("luminous_aurorian_steel_castle_rune_stone_slab", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, SlabBlock> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_SLAB = slab("luminous_cerulean_castle_rune_stone_slab", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, SlabBlock> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_SLAB = slab("luminous_crystalline_castle_rune_stone_slab", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, SlabBlock> LUMINOUS_MOON_CASTLE_RUNE_STONE_SLAB = slab("luminous_moon_castle_rune_stone_slab", MOON_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, SlabBlock> TRANSPARENT_RUNE_STONE_SLAB = slab("transparent_rune_stone_slab", TRANSPARENT_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> UMBRA_CASTLE_RUNE_STONE_SLAB = slab("umbra_castle_rune_stone_slab", UMBRA_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> DARK_STONE_BRICK_SLAB = slab("dark_stone_brick_slab", DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> SMOOTH_DARK_STONE_BRICK_SLAB = slab("smooth_dark_stone_brick_slab", SMOOTH_DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> CHISELED_DARK_STONE_BRICK_SLAB = slab("chiseled_dark_stone_brick_slab", CHISELED_DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, SlabBlock> MOON_TEMPLE_BRICK_SLAB = slab("moon_temple_brick_slab", MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, SlabBlock> SMOOTH_MOON_TEMPLE_BRICK_SLAB = slab("smooth_moon_temple_brick_slab", SMOOTH_MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, SlabBlock> CHISELED_MOON_TEMPLE_BRICK_SLAB = slab("chiseled_moon_temple_brick_slab", CHISELED_MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, SlabBlock> UMBRA_STONE_SLAB = slab("umbra_stone_slab", UMBRA_STONE, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, SlabBlock> UMBRA_STONE_CRACKED_SLAB = slab("umbra_stone_cracked_slab", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, SlabBlock> UMBRA_STONE_ROOF_SLAB = slab("umbra_stone_roof_slab", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, SlabBlock> SILENT_WOOD_SLAB = slab("silent_wood_slab", SILENT_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, SlabBlock> WEEPING_WILLOW_SLAB = slab("weeping_willow_slab", WEEPING_WILLOW_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, SlabBlock> CURTAIN_WOOD_SLAB = slab("curtain_wood_slab", CURTAIN_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, SlabBlock> CURSED_FROST_WOOD_SLAB = slab("cursed_frost_wood_slab", CURSED_FROST_TREE_PLANKS, ofFullCopy(Blocks.OAK_PLANKS), TAFeatureFlags.WOOD_MATERIAL).register();
+    public static final DeferredHolder<Block, SlabBlock> AURORIAN_PERIDOTITE_SLAB = slab("aurorian_peridotite_slab", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, SlabBlock> SMOOTH_AURORIAN_PERIDOTITE_SLAB = slab("smooth_aurorian_peridotite_slab", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F)).register();
 
     /**
      * Wall Blocks
      */
-    public static final DeferredHolder<Block, WallBlock> AURORIAN_STONE_WALL = wall("aurorian_stone_wall", AURORIAN_STONE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, WallBlock> AURORIAN_STONE_BRICK_WALL = wall("aurorian_stone_brick_wall", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, WallBlock> AURORIAN_COBBLESTONE_WALL = wall("aurorian_cobblestone_wall", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, WallBlock> AURORIAN_GRANITE_WALL = wall("aurorian_granite_wall", AURORIAN_GRANITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, WallBlock> AURORIAN_DIORITE_WALL = wall("aurorian_diorite_wall", AURORIAN_DIORITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, WallBlock> AURORIAN_ANDESITE_WALL = wall("aurorian_andesite_wall", AURORIAN_ANDESITE, defaultStoneProperties(2.0F));
-    public static final DeferredHolder<Block, WallBlock> RUNE_STONE_WALL = wall("rune_stone_wall", RUNE_STONE, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> SMOOTH_RUNE_STONE_WALL = wall("smooth_rune_stone_wall", SMOOTH_RUNE_STONE, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> CHISELED_RUNE_STONE_WALL = wall("chiseled_rune_stone_wall", CHISELED_RUNE_STONE, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> AURORIAN_CASTLE_RUNE_STONE_WALL = wall("aurorian_castle_rune_stone_wall", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> AURORIAN_STEEL_CASTLE_RUNE_STONE_WALL = wall("aurorian_steel_castle_rune_stone_wall", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> CERULEAN_CASTLE_RUNE_STONE_WALL = wall("cerulean_castle_rune_stone_wall", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> CRYSTALLINE_CASTLE_RUNE_STONE_WALL = wall("crystalline_castle_rune_stone_wall", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> MOON_CASTLE_RUNE_STONE_WALL = wall("moon_castle_rune_stone_wall", MOON_CASTLE_RUNE_STONE, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_WALL = wall("luminous_aurorian_castle_rune_stone_wall", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_WALL = wall("luminous_aurorian_steel_castle_rune_stone_wall", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_WALL = wall("luminous_cerulean_castle_rune_stone_wall", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_WALL = wall("luminous_crystalline_castle_rune_stone_wall", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> LUMINOUS_MOON_CASTLE_RUNE_STONE_WALL = wall("luminous_moon_castle_rune_stone_wall", MOON_CASTLE_RUNE_STONE, runestoneProperties().requiredFeatures(TAFeatureFlags.EMISSIVITY), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> TRANSPARENT_RUNE_STONE_WALL = wall("transparent_rune_stone_wall", TRANSPARENT_RUNE_STONE, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> UMBRA_CASTLE_RUNE_STONE_WALL = wall("umbra_castle_rune_stone_wall", UMBRA_CASTLE_RUNE_STONE, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> DARK_STONE_BRICK_WALL = wall("dark_stone_brick_wall", DARK_STONE_BRICKS, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> SMOOTH_DARK_STONE_BRICK_WALL = wall("smooth_dark_stone_brick_wall", SMOOTH_DARK_STONE_BRICKS, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> CHISELED_DARK_STONE_BRICK_WALL = wall("chiseled_dark_stone_brick_wall", CHISELED_DARK_STONE_BRICKS, runestoneProperties(), TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> MOON_TEMPLE_BRICK_WALL = wall("moon_temple_brick_wall", MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS, TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> SMOOTH_MOON_TEMPLE_BRICK_WALL = wall("smooth_moon_temple_brick_wall", SMOOTH_MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS, TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> CHISELED_MOON_TEMPLE_BRICK_WALL = wall("chiseled_moon_temple_brick_wall", CHISELED_MOON_TEMPLE_BRICKS, runestoneProperties(), TABlockTags.MOON_TEMPLE_BLOCKS, TABlockTags.DUNGEON_BLOCKS);
-    public static final DeferredHolder<Block, WallBlock> UMBRA_STONE_WALL = wall("umbra_stone_wall", UMBRA_STONE, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, WallBlock> UMBRA_STONE_CRACKED_WALL = wall("umbra_stone_cracked_wall", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, WallBlock> UMBRA_STONE_ROOF_WALL = wall("umbra_stone_roof_wall", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, WallBlock> AURORIAN_PERIDOTITE_WALL = wall("aurorian_peridotite_wall", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
-    public static final DeferredHolder<Block, WallBlock> SMOOTH_AURORIAN_PERIDOTITE_WALL = wall("smooth_aurorian_peridotite_wall", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F));
+    public static final DeferredHolder<Block, WallBlock> AURORIAN_STONE_WALL = wall("aurorian_stone_wall", AURORIAN_STONE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, WallBlock> AURORIAN_STONE_BRICK_WALL = wall("aurorian_stone_brick_wall", AURORIAN_STONE_BRICKS, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, WallBlock> AURORIAN_COBBLESTONE_WALL = wall("aurorian_cobblestone_wall", AURORIAN_COBBLESTONE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, WallBlock> AURORIAN_GRANITE_WALL = wall("aurorian_granite_wall", AURORIAN_GRANITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, WallBlock> AURORIAN_DIORITE_WALL = wall("aurorian_diorite_wall", AURORIAN_DIORITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, WallBlock> AURORIAN_ANDESITE_WALL = wall("aurorian_andesite_wall", AURORIAN_ANDESITE, defaultStoneProperties(2.0F)).register();
+    public static final DeferredHolder<Block, WallBlock> RUNE_STONE_WALL = wall("rune_stone_wall", RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> SMOOTH_RUNE_STONE_WALL = wall("smooth_rune_stone_wall", SMOOTH_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> CHISELED_RUNE_STONE_WALL = wall("chiseled_rune_stone_wall", CHISELED_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> AURORIAN_CASTLE_RUNE_STONE_WALL = wall("aurorian_castle_rune_stone_wall", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> AURORIAN_STEEL_CASTLE_RUNE_STONE_WALL = wall("aurorian_steel_castle_rune_stone_wall", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> CERULEAN_CASTLE_RUNE_STONE_WALL = wall("cerulean_castle_rune_stone_wall", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> CRYSTALLINE_CASTLE_RUNE_STONE_WALL = wall("crystalline_castle_rune_stone_wall", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> MOON_CASTLE_RUNE_STONE_WALL = wall("moon_castle_rune_stone_wall", MOON_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> LUMINOUS_AURORIAN_CASTLE_RUNE_STONE_WALL = wall("luminous_aurorian_castle_rune_stone_wall", AURORIAN_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, WallBlock> LUMINOUS_AURORIAN_STEEL_CASTLE_RUNE_STONE_WALL = wall("luminous_aurorian_steel_castle_rune_stone_wall", AURORIAN_STEEL_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, WallBlock> LUMINOUS_CERULEAN_CASTLE_RUNE_STONE_WALL = wall("luminous_cerulean_castle_rune_stone_wall", CERULEAN_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, WallBlock> LUMINOUS_CRYSTALLINE_CASTLE_RUNE_STONE_WALL = wall("luminous_crystalline_castle_rune_stone_wall", CRYSTALLINE_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, WallBlock> LUMINOUS_MOON_CASTLE_RUNE_STONE_WALL = wall("luminous_moon_castle_rune_stone_wall", MOON_CASTLE_RUNE_STONE, runestoneProperties(), TAFeatureFlags.EMISSIVITY).register();
+    public static final DeferredHolder<Block, WallBlock> TRANSPARENT_RUNE_STONE_WALL = wall("transparent_rune_stone_wall", TRANSPARENT_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> UMBRA_CASTLE_RUNE_STONE_WALL = wall("umbra_castle_rune_stone_wall", UMBRA_CASTLE_RUNE_STONE, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> DARK_STONE_BRICK_WALL = wall("dark_stone_brick_wall", DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> SMOOTH_DARK_STONE_BRICK_WALL = wall("smooth_dark_stone_brick_wall", SMOOTH_DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> CHISELED_DARK_STONE_BRICK_WALL = wall("chiseled_dark_stone_brick_wall", CHISELED_DARK_STONE_BRICKS, runestoneProperties()).register();
+    public static final DeferredHolder<Block, WallBlock> MOON_TEMPLE_BRICK_WALL = wall("moon_temple_brick_wall", MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, WallBlock> SMOOTH_MOON_TEMPLE_BRICK_WALL = wall("smooth_moon_temple_brick_wall", SMOOTH_MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, WallBlock> CHISELED_MOON_TEMPLE_BRICK_WALL = wall("chiseled_moon_temple_brick_wall", CHISELED_MOON_TEMPLE_BRICKS, runestoneProperties()).tag(TABlockTags.MOON_TEMPLE_BLOCKS).register();
+    public static final DeferredHolder<Block, WallBlock> UMBRA_STONE_WALL = wall("umbra_stone_wall", UMBRA_STONE, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, WallBlock> UMBRA_STONE_CRACKED_WALL = wall("umbra_stone_cracked_wall", UMBRA_STONE_CRACKED, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, WallBlock> UMBRA_STONE_ROOF_WALL = wall("umbra_stone_roof_wall", UMBRA_STONE_ROOF_TILES, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, WallBlock> AURORIAN_PERIDOTITE_WALL = wall("aurorian_peridotite_wall", AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F)).register();
+    public static final DeferredHolder<Block, WallBlock> SMOOTH_AURORIAN_PERIDOTITE_WALL = wall("smooth_aurorian_peridotite_wall", SMOOTH_AURORIAN_PERIDOTITE, defaultStoneProperties(5.0F)).register();
 
     /**
      * Misc

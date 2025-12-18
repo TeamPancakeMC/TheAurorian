@@ -106,9 +106,11 @@ public class TADimensions {
         DensityFunction densityfunction14 = DensityFunctions.min(NoiseRouterData.postProcess(
                 NoiseRouterData.slideOverworld(Boolean.FALSE, densityfunction13)),
                 NoiseRouterData.getFunction(densityFunctions, NoiseRouterData.NOODLE));
-        return new NoiseRouter(DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
-                DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
-                DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero(),
+        NoiseRouter vannila = NoiseRouterData.overworld(densityFunctions, noiseParameters, false, false);
+
+        return new NoiseRouter(vannila.barrierNoise(), vannila.fluidLevelFloodednessNoise(), vannila.fluidLevelSpreadNoise(),
+                vannila.lavaNoise(), vannila.temperature(), vannila.vegetation(), vannila.continents(),
+                vannila.erosion(), vannila.depth(), vannila.ridges(),
                 NoiseRouterData.slideOverworld(Boolean.FALSE, DensityFunctions.add(densityfunction10,
                         DensityFunctions.constant(-0.703125D)).clamp(-64.0D, 64.0D)),
                 densityfunction14, DensityFunctions.zero(), DensityFunctions.zero(), DensityFunctions.zero());

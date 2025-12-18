@@ -92,5 +92,7 @@ public class TADataComponents {
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> NERF = DATA_COMPONENT_TYPE.register("nerf",
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> BUILDING_BLOCK = DATA_COMPONENT_TYPE.register("building_block",
+            () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
 
 }

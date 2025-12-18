@@ -24,10 +24,12 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -44,6 +46,7 @@ import net.neoforged.neoforge.client.event.RegisterDimensionTransitionScreenEven
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -54,6 +57,7 @@ import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /** @noinspection deprecation*/
 @EventBusSubscriber(modid = TheAurorian.MOD_ID)
@@ -67,6 +71,15 @@ public class ModBusEventSubscriber {
         event.register(TASkyColors.REGISTRY);
         event.register(TAShields.REGISTRY);
         event.register(TARunes.REGISTRY);
+    }
+
+    @SubscribeEvent
+    public static void registerCreativeTabContents(BuildCreativeModeTabContentsEvent event) {
+        DataComponentType<Unit> component = TADataComponents.BUILDING_BLOCK.get();
+        Stream<ItemStack> normalStream = TACommonUtils.getKnownItemStream().map(ItemStack::new).filter(item -> !item.has(component));
+        Stream<ItemStack> buildingStream = TACommonUtils.getKnownItemStream().map(ItemStack::new).filter(item -> item.has(component));
+        TACreativeModeTabs.NORMAL.get().getDisplayItems().addAll(normalStream.toList());
+        TACreativeModeTabs.BUILDING.get().getDisplayItems().addAll(buildingStream.toList());
     }
 
     @SubscribeEvent

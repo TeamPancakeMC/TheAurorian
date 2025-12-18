@@ -21,6 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.item.Item;
@@ -58,37 +59,33 @@ public class TABlockRegUtils {
         return registerNoItemBuilder(name, factory).item(EnabledFeaturesBlockItem::new).model((ctx, prov) -> prov.blockItem(ctx::get)).build();
     }
 
-    public static BlockBuilder<Block, TARegistrate> simpleBuilder(String name, Properties properties) {
-        return registerBuilder(name, p -> new Block(properties)).defaultBlockstate();
-    }
-
     public static BlockBuilder<DropExperienceBlock, TARegistrate> oreBuilder(String name, IntProvider xpRange, Properties properties) {
         return registerBuilder(name, p -> new DropExperienceBlock(xpRange, properties.requiresCorrectToolForDrops())).tag(BlockTags.MINEABLE_WITH_PICKAXE).defaultBlockstate();
     }
 
-    @SafeVarargs
-    public static BlockBuilder<Block, TARegistrate> runestoneBuilder(String name, Properties properties, TagKey<Block>... values) {
-        return simpleBuilder(name, TABlocks.runestoneProperties(properties)).tag(TABlockTags.DUNGEON_BLOCKS)
-                .tag(values).defaultLoot().item(EnabledFeaturesBlockItem::new).tag(copyToItemTags(values)).build();
+    public static BlockBuilder<Block, TARegistrate> simpleBuilder(String name, Properties properties) {
+        return registerBuilder(name, p -> new Block(properties)).defaultBlockstate();
     }
 
-    public static <T extends Block> BlockEntry<T> register(String name, NonNullFunction<Properties, T> factory) {
-        return registerBuilder(name, factory).register();
+    @SafeVarargs
+    public static BlockBuilder<Block, TARegistrate> runestoneBuilder(String name, Properties properties, TagKey<Block>... values) {
+        return simpleBuilder(name, TABlocks.runestoneProperties(properties)).tag(TABlockTags.DUNGEON_BLOCKS).tag(values)
+                .defaultLoot().item(EnabledFeaturesBlockItem::new).tag(copyToItemTags(values)).build();
     }
 
     @SafeVarargs
     public static BlockEntry<AxeStrippableBlock> wood(String name, Supplier<RotatedPillarBlock> block, MapColor mapColor, float strength, TagKey<Block>... values) {
         return registerBuilder(name, properties -> new AxeStrippableBlock(block, properties.instrument(NoteBlockInstrument.BASS)
-                .mapColor(mapColor).strength(strength).sound(SoundType.WOOD).ignitedByLava())).tag(values).defaultLoot()
-                .blockstate((ctx, prov) -> TABlockStateProvider.registerPillarStates(ctx.get(), prov))
+                .mapColor(mapColor).strength(strength).sound(SoundType.WOOD).ignitedByLava())).tag(values)
+                .defaultLoot().blockstate((ctx, prov) -> registerPillarStates(ctx.get(), prov))
                 .item(EnabledFeaturesBlockItem::new).tag(copyToItemTags(values)).build().register();
     }
 
     @SafeVarargs
     public static BlockEntry<RotatedPillarBlock> strippedWood(String name, MapColor mapColor, float strength, TagKey<Block>... values) {
         return registerBuilder(name, properties -> new RotatedPillarBlock(properties.instrument(NoteBlockInstrument.BASS)
-                .mapColor(mapColor).strength(strength).sound(SoundType.WOOD).ignitedByLava())).tag(values).defaultLoot()
-                .blockstate((ctx, prov) -> TABlockStateProvider.registerPillarStates(ctx.get(), prov))
+                .mapColor(mapColor).strength(strength).sound(SoundType.WOOD).ignitedByLava())).tag(values)
+                .defaultLoot().blockstate((ctx, prov) -> registerPillarStates(ctx.get(), prov))
                 .item(EnabledFeaturesBlockItem::new).tag(copyToItemTags(values)).build().register();
     }
 
@@ -100,43 +97,33 @@ public class TABlockRegUtils {
 
     public static <T extends Block> BlockBuilder<VerticalStairBlock, TARegistrate> verticalStair(
             String name, Supplier<T> base, Properties properties, FeatureFlag... requiredFeatures) {
-        boolean dungeon = properties.requiredFeatures.contains(TAFeatureFlags.DUNGEON);
         List<FeatureFlag> featureFlags = new ArrayList<>(Arrays.asList(requiredFeatures));
-        featureFlags.add(TAFeatureFlags.BUILDING);
         boolean isWooden = featureFlags.contains(TAFeatureFlags.WOOD_MATERIAL);
         boolean emissivity = featureFlags.contains(TAFeatureFlags.EMISSIVITY);
-        NonNullFunction<Properties, VerticalStairBlock> factory = p -> new VerticalStairBlock(
-                properties.noOcclusion().requiredFeatures(featureFlags.toArray(new FeatureFlag[0])));
+        NonNullFunction<Properties, VerticalStairBlock> factory = p -> new VerticalStairBlock(properties.noOcclusion());
         BlockBuilder<VerticalStairBlock, TARegistrate> blockBuilder = registerBuilder(name, factory).tag(TABlockTags.VERTICAL_STAIRS)
-                .defaultLoot().blockstate((ctx, prov) -> registerVerticalStairStates(ctx.get(), base.get(), prov, emissivity))
-                .item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
-                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 4)
-                            .define('#', Ingredient.of(base.get())).pattern("#").pattern("#").pattern("#")
-                            .unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
+                .blockstate((ctx, prov) -> registerVerticalStairStates(ctx.get(), base.get(), prov, emissivity))
+                .defaultLoot().item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
+                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 4).define('#', Ingredient.of(base.get()))
+                            .pattern("#").pattern("#").pattern("#").unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
                     if (!isWooden) stonecutterResultFromBase(prov, RecipeCategory.BUILDING_BLOCKS, ctx.get(), base.get());
-                }).tag(TAItemTags.VERTICAL_STAIRS).build();
-        if (dungeon) blockBuilder = blockBuilder.tag(TABlockTags.DUNGEON_BLOCKS);
+                }).properties(p -> p.component(TADataComponents.BUILDING_BLOCK, Unit.INSTANCE)).tag(TAItemTags.VERTICAL_STAIRS).build();
         return isWooden ? blockBuilder.tag(BlockTags.MINEABLE_WITH_AXE) : blockBuilder.tag(BlockTags.MINEABLE_WITH_PICKAXE);
     }
 
     public static <T extends Block> BlockBuilder<VerticalSlabBlock, TARegistrate> verticalSlab(
             String name, Supplier<T> base, Properties properties, FeatureFlag... requiredFeatures) {
-        boolean dungeon = properties.requiredFeatures.contains(TAFeatureFlags.DUNGEON);
         List<FeatureFlag> featureFlags = new ArrayList<>(Arrays.asList(requiredFeatures));
-        featureFlags.add(TAFeatureFlags.BUILDING);
         boolean isWooden = featureFlags.contains(TAFeatureFlags.WOOD_MATERIAL);
         boolean emissivity = featureFlags.contains(TAFeatureFlags.EMISSIVITY);
-        NonNullFunction<Properties, VerticalSlabBlock> factory = p -> new VerticalSlabBlock(
-                properties.noOcclusion().requiredFeatures(featureFlags.toArray(new FeatureFlag[0])));
+        NonNullFunction<Properties, VerticalSlabBlock> factory = p -> new VerticalSlabBlock(properties.noOcclusion());
         BlockBuilder<VerticalSlabBlock, TARegistrate> builder = registerBuilder(name, factory).tag(TABlockTags.VERTICAL_SLABS)
-                .defaultLoot().blockstate((ctx, prov) -> registerVerticalSlabStates(ctx.get(), base.get(), prov, emissivity))
-                .item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
-                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 6)
-                            .define('#', Ingredient.of(base.get())).pattern("###").pattern(" ##").pattern("  #")
-                            .unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
+                .blockstate((ctx, prov) -> registerVerticalSlabStates(ctx.get(), base.get(), prov, emissivity))
+                .defaultLoot().item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
+                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 6).define('#', Ingredient.of(base.get()))
+                            .pattern("###").pattern(" ##").pattern("  #").unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
                     if (!isWooden) stonecutterResultFromBase(prov, RecipeCategory.BUILDING_BLOCKS, ctx.get(), base.get(), 2);
-                }).tag(TAItemTags.VERTICAL_SLABS).build();
-        if (dungeon) builder = builder.tag(TABlockTags.DUNGEON_BLOCKS);
+                }).properties(p -> p.component(TADataComponents.BUILDING_BLOCK, Unit.INSTANCE)).tag(TAItemTags.VERTICAL_SLABS).build();
         return isWooden ? builder.tag(BlockTags.MINEABLE_WITH_AXE) : builder.tag(BlockTags.MINEABLE_WITH_PICKAXE);
     }
 
@@ -144,16 +131,18 @@ public class TABlockRegUtils {
     public static <T extends Block> BlockEntry<PressurePlateBlock> pressurePlate(
             String name, Supplier<T> base, Properties properties, BlockSetType blockSetType, TagKey<Block>... values) {
         return registerBuilder(name, p -> new PressurePlateBlock(blockSetType, properties)).tag(values).defaultLoot()
-                .blockstate((ctx, prov) -> prov.pressurePlateBlock(ctx.get(), prov.blockTexture(base.get())))
-                .item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> RegistrateRecipeProvider.pressurePlate(prov, ctx.get(), base.get())).build().register();
+                .blockstate((ctx, prov) -> prov.pressurePlateBlock(ctx.get(), prov.blockTexture(base.get()))).item(EnabledFeaturesBlockItem::new)
+                .recipe((ctx, prov) -> RegistrateRecipeProvider.pressurePlate(prov, ctx.get(), base.get())).build().register();
     }
 
     public static <T extends Block> BlockEntry<FenceGateBlock> fenceGate(
             String name, Supplier<T> base, Properties properties, WoodType woodType) {
-        return registerBuilder(name, p -> new FenceGateBlock(woodType, properties)).tag(BlockTags.FENCE_GATES).defaultLoot()
+        return registerBuilder(name, p -> new FenceGateBlock(woodType, properties)).tag(BlockTags.FENCE_GATES)
                 .blockstate((ctx, prov) -> prov.fenceGateBlockWithRenderType(ctx.get(), prov.blockTexture(base.get()), CUTOUT))
-                .item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> fenceGateBuilder(ctx.get(), Ingredient.of(base.get()))
-                        .unlockedBy(getHasName(base.get()), has(base.get())).save(prov)).build().register();
+                .defaultLoot().item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
+                    RecipeBuilder builder = fenceGateBuilder(ctx.get(), Ingredient.of(base.get()));
+                    builder.unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
+                }).build().register();
     }
 
     @SafeVarargs
@@ -173,7 +162,8 @@ public class TABlockRegUtils {
 
     @SafeVarargs
     public static <T extends Block> BlockEntry<ButtonBlock> button(
-            String name, Supplier<T> base, boolean sensitive, BlockSetType blockSetType, TagKey<Block>... values) {
+            String name, Supplier<T> base, boolean sensitive,
+            BlockSetType blockSetType, TagKey<Block>... values) {
         return registerBuilder(name, p -> new ButtonBlock(blockSetType, sensitive ? 30 : 20,
                 p.noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)))
                 .tag(values).defaultLoot().blockstate((ctx, prov) -> {
@@ -190,19 +180,16 @@ public class TABlockRegUtils {
 
     public static <T extends Block> BlockBuilder<StairBlock, TARegistrate> stair(
             String name, Supplier<T> base, Properties properties, FeatureFlag... requiredFeatures) {
-        boolean dungeon = properties.requiredFeatures.contains(TAFeatureFlags.DUNGEON);
         List<FeatureFlag> featureFlags = new ArrayList<>(Arrays.asList(requiredFeatures));
-        featureFlags.add(TAFeatureFlags.BUILDING);
         boolean isWooden = featureFlags.contains(TAFeatureFlags.WOOD_MATERIAL);
         boolean emissivity = featureFlags.contains(TAFeatureFlags.EMISSIVITY);
-        BlockBuilder<StairBlock, TARegistrate> builder = registerBuilder(name, p -> new StairBlock(
-                base.get().defaultBlockState(), properties.noOcclusion().requiredFeatures(featureFlags.toArray(new FeatureFlag[0]))))
-                .defaultLoot().blockstate((ctx, prov) -> registerStairStates(ctx.get(), prov.blockTexture(base.get()), prov, emissivity))
-                .item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
+        BlockBuilder<StairBlock, TARegistrate> builder = registerBuilder(name,
+                p -> new StairBlock(base.get().defaultBlockState(), properties.noOcclusion()))
+                .blockstate((ctx, prov) -> registerStairStates(ctx.get(), prov.blockTexture(base.get()), prov, emissivity))
+                .defaultLoot().item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
                     stairBuilder(ctx.get(), Ingredient.of(base.get())).unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
                     if (!isWooden) stonecutterResultFromBase(prov, RecipeCategory.BUILDING_BLOCKS, ctx.get(), base.get());
-                }).build();
-        if (dungeon) builder = builder.tag(TABlockTags.DUNGEON_BLOCKS);
+                }).properties(p -> p.component(TADataComponents.BUILDING_BLOCK, Unit.INSTANCE)).build();
         return isWooden ? builder.tag(BlockTags.WOODEN_STAIRS) : builder.tag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.STAIRS);
     }
 
@@ -221,50 +208,47 @@ public class TABlockRegUtils {
     }
 
     @SafeVarargs
-    public static <T extends Block> BlockEntry<DoorBlock> door(String name, Supplier<T> base, Properties properties, BlockSetType blockSetType, TagKey<Block>... values) {
-        return registerBuilder(name, p -> new DoorBlock(blockSetType, properties)).tag(values).loot((ctx, prov) -> ctx.add(prov, ctx.createDoorTable(prov))).blockstate((ctx, prov) ->
-                prov.doorBlockWithRenderType(ctx.get(), prov.modLoc(String.format("block/%s_bottom", name)), prov.modLoc(String.format("block/%s_top", name)), CUTOUT))
-                .item(EnabledFeaturesBlockItem::new).defaultModel().recipe((ctx, prov) -> doorBuilder(ctx.get(), Ingredient.of(base.get()))
-                        .unlockedBy(getHasName(base.get()), has(base.get())).save(prov)).build().register();
+    public static <T extends Block> BlockEntry<DoorBlock> door(
+            String name, Supplier<T> base, Properties properties,
+            BlockSetType blockSetType, TagKey<Block>... values) {
+        return registerBuilder(name, p -> new DoorBlock(blockSetType, properties))
+                .tag(values).loot((ctx, prov) -> ctx.add(prov, ctx.createDoorTable(prov)))
+                .blockstate((ctx, prov) -> prov.doorBlockWithRenderType(ctx.get(),
+                        prov.modLoc(String.format("block/%s_bottom", name)),
+                        prov.modLoc(String.format("block/%s_top", name)), CUTOUT))
+                .item(EnabledFeaturesBlockItem::new).defaultModel().recipe((ctx, prov) -> {
+                    RecipeBuilder builder = doorBuilder(ctx.get(), Ingredient.of(base.get()));
+                    builder.unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
+                }).build().register();
     }
 
     public static <T extends Block> BlockBuilder<SlabBlock, TARegistrate> slab(
             String name, Supplier<T> base, Properties properties, FeatureFlag... requiredFeatures) {
-        boolean dungeon = properties.requiredFeatures.contains(TAFeatureFlags.DUNGEON);
         List<FeatureFlag> featureFlags = new ArrayList<>(Arrays.asList(requiredFeatures));
-        featureFlags.add(TAFeatureFlags.BUILDING);
         boolean isWooden = featureFlags.contains(TAFeatureFlags.WOOD_MATERIAL);
         boolean emissivity = featureFlags.contains(TAFeatureFlags.EMISSIVITY);
-        FeatureFlag[] flagsArray = featureFlags.toArray(new FeatureFlag[0]);
-        BlockBuilder<SlabBlock, TARegistrate> builder = registerBuilder(name, p -> new SlabBlock(
-                properties.noOcclusion().requiredFeatures(flagsArray))).defaultLoot()
+        BlockBuilder<SlabBlock, TARegistrate> builder = registerBuilder(name, p -> new SlabBlock(properties.noOcclusion()))
                 .blockstate((ctx, prov) -> registerSlabStates(ctx.get(), prov.blockTexture(base.get()), prov, emissivity))
-                .item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
+                .defaultLoot().item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
                     RegistrateRecipeProvider.slab(prov, RecipeCategory.BUILDING_BLOCKS, ctx.get(), base.get());
                     if (!isWooden) stonecutterResultFromBase(prov, RecipeCategory.BUILDING_BLOCKS, ctx.get(), base.get(), 2);
-                }).build();
-        if (dungeon) builder = builder.tag(TABlockTags.DUNGEON_BLOCKS);
+                }).properties(p -> p.component(TADataComponents.BUILDING_BLOCK, Unit.INSTANCE)).build();
         return isWooden ? builder.tag(BlockTags.WOODEN_SLABS) : builder.tag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.SLABS);
     }
 
     public static <T extends Block> BlockBuilder<WallBlock, TARegistrate> wall(
             String name, Supplier<T> base, Properties properties, FeatureFlag... requiredFeatures) {
-        boolean dungeon = properties.requiredFeatures.contains(TAFeatureFlags.DUNGEON);
         List<FeatureFlag> featureFlags = new ArrayList<>(Arrays.asList(requiredFeatures));
-        featureFlags.add(TAFeatureFlags.BUILDING);
         boolean emissivity = featureFlags.contains(TAFeatureFlags.EMISSIVITY);
-        BlockBuilder<WallBlock, TARegistrate> builder = registerBuilder(name, p -> new WallBlock(
-                properties.noOcclusion().mapColor(MapColor.STONE).requiredFeatures(featureFlags.toArray(new FeatureFlag[0]))))
-                .tag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.WALLS).defaultLoot().blockstate((ctx, prov) -> {
+        return registerBuilder(name, p -> new WallBlock(properties.noOcclusion().mapColor(MapColor.STONE)))
+                .tag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.WALLS).blockstate((ctx, prov) -> {
                     ResourceLocation texture = prov.blockTexture(base.get());
                     TABlockStateProvider.registerWallStates(ctx.get(), texture, prov, emissivity);
                     prov.simpleBlockItem(ctx.get(), prov.models().wallInventory(name, texture));
-                }).item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
+                }).defaultLoot().item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
                     RegistrateRecipeProvider.wall(prov, RecipeCategory.BUILDING_BLOCKS, ctx.get(), base.get());
                     stonecutterResultFromBase(prov, RecipeCategory.BUILDING_BLOCKS, ctx.get(), base.get());
-                }).build();
-        if (dungeon) builder = builder.tag(TABlockTags.DUNGEON_BLOCKS);
-        return builder;
+                }).properties(p -> p.component(TADataComponents.BUILDING_BLOCK, Unit.INSTANCE)).build();
     }
 
     private static TagKey<Item>[] copyToItemTags(TagKey<Block>... values) {

@@ -243,24 +243,11 @@ public class ModBusEventSubscriber {
                         (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 20.0F;
         ItemPropertyFunction usingFunction = (stack, level, entity, seed) ->
                 entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
-        ItemPropertyFunction hpFunction = (stack, level, entity, seed) -> {
-            Boolean highPrecision = stack.get(TADataComponents.HIGH_PRECISION.get());
-            return highPrecision != null && highPrecision ? 1.0F : 0.0F;
-        };
-
         ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), TheAurorian.prefix("pull"), pullFunction);
         ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), TheAurorian.prefix("pulling"), usingFunction);
         ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pull"), pullFunction);
         ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pulling"), usingFunction);
-        ItemProperties.register(TAItems.AURORIAN_STEEL_SWORD.get(), TheAurorian.prefix("hp"), hpFunction);
         ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), TheAurorian.prefix("shoot"), usingFunction);
-        ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), TheAurorian.prefix("hp"), hpFunction);
-        ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), TheAurorian.prefix("hp_shoot"), ((stack, level, entity, seed) -> {
-            boolean flag = entity != null && entity.isUsingItem() && entity.getUseItem() == stack;
-            Boolean highPrecision = stack.get(TADataComponents.HIGH_PRECISION.get());
-            return flag && highPrecision != null && highPrecision ? 1.0F : 0.0F;
-        }));
-
         for (Item item : TACommonUtils.getKnownItems()) {
             if (item instanceof ShieldItem) {
                 ItemProperties.register(item, TheAurorian.prefix("blocking"), usingFunction);

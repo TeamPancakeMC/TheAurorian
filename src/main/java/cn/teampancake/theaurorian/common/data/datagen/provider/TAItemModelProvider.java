@@ -4,14 +4,14 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.items.VagrantNotePage;
 import cn.teampancake.theaurorian.common.items.curio.runestone.Runestone;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
+import com.tterrag.registrate.util.nullness.NonNullFunction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.client.model.generators.ModelProvider;
+import net.neoforged.neoforge.client.model.generators.*;
+import net.neoforged.neoforge.client.model.generators.loaders.SeparateTransformsModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class TAItemModelProvider extends ItemModelProvider {
@@ -32,6 +32,20 @@ public class TAItemModelProvider extends ItemModelProvider {
                 this.withExistingParent(path, this.mcLoc("item/generated")).texture("layer0", texture);
             }
         });
+    }
+
+    public static void separateTransforms(String name, ItemModelProvider provider, ExistingFileHelper helper) {
+        ItemModelBuilder builder = new ItemModelBuilder(provider.modLoc(name), helper);
+        ModelFile.UncheckedModelFile handheld = new ModelFile.UncheckedModelFile("item/handheld");
+        ModelFile.UncheckedModelFile geoHandheld = new ModelFile.UncheckedModelFile(provider.modLoc("item/geo_handheld"));
+        NonNullFunction<String, ItemModelBuilder> function = s -> new ItemModelBuilder(provider.modLoc("item/" + name + s), helper);
+        provider.getBuilder(name).parent(handheld).customLoader(SeparateTransformsModelBuilder::begin)
+                .base(new ItemModelBuilder(provider.modLoc(name), helper).parent(function.apply("_3d")))
+                .perspective(ItemDisplayContext.GUI, builder.parent(function.apply("_2d")))
+                .perspective(ItemDisplayContext.GROUND, builder.parent(function.apply("_2d")))
+                .perspective(ItemDisplayContext.FIXED, builder.parent(function.apply("_2d"))).end();
+        provider.getBuilder(name + "_3d").parent(geoHandheld);
+        provider.handheldItem(provider.modLoc(name + "_2d"));
     }
     
     public static void crossingBlockItem(Block block, Block original, ItemModelProvider provider, String suffix) {

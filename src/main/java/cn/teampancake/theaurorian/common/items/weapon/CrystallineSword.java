@@ -1,12 +1,11 @@
 package cn.teampancake.theaurorian.common.items.weapon;
 
-import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.items.tool.GeoHandheldToolRenderer;
 import cn.teampancake.theaurorian.common.registry.*;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -46,8 +45,6 @@ import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.model.DefaultedItemGeoModel;
-import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 public class CrystallineSword extends SwordItem implements GeoItem {
 
@@ -72,14 +69,12 @@ public class CrystallineSword extends SwordItem implements GeoItem {
     public CrystallineSword(Item.Properties properties) {
         super(TAToolTiers.CRYSTALLINE, properties.rarity(Rarity.EPIC)
                 .attributes(createAttributes(TAToolTiers.CRYSTALLINE, 3, -2.4F))
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.HIGH_PRECISION, Boolean.FALSE));
+                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 
     @Override
     public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
-        Boolean highPrecision = this.components().get(TADataComponents.HIGH_PRECISION.get());
-        if (highPrecision != null && highPrecision) consumer.accept(new CustomItemModel());
+        consumer.accept(new GeoHandheldToolRenderer<CrystallineSword>(TAItems.CRYSTALLINE_SWORD.getId()));
     }
 
     @Override
@@ -912,15 +907,6 @@ public class CrystallineSword extends SwordItem implements GeoItem {
         }
 
         return result;
-    }
-
-    private static class CustomItemModel implements GeoRenderProvider {
-
-        @Override
-        public @Nullable BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
-            return new GeoItemRenderer<CrystallineSword>(new DefaultedItemGeoModel<>(TheAurorian.prefix("crystalline_sword_hp")));
-        }
-
     }
 
     private static class BeamInfo {

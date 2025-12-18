@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.items.weapon;
+package cn.teampancake.theaurorian.common.items.tool.aurorian_steel;
 
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;

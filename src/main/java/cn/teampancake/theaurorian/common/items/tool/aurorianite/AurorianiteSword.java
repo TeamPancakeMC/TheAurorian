@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.items.weapon;
+package cn.teampancake.theaurorian.common.items.tool.aurorianite;
 
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;

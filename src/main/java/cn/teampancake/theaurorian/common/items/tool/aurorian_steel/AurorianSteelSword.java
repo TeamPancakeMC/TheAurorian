@@ -1,11 +1,7 @@
-package cn.teampancake.theaurorian.common.items.weapon;
+package cn.teampancake.theaurorian.common.items.tool.aurorian_steel;
 
-import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
-import cn.teampancake.theaurorian.common.registry.TAToolTiers;
-import cn.teampancake.theaurorian.common.registry.TADataComponents;
-import cn.teampancake.theaurorian.common.registry.TAMobEffects;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import cn.teampancake.theaurorian.common.items.tool.GeoHandheldToolRenderer;
+import cn.teampancake.theaurorian.common.registry.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -18,19 +14,14 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.model.DefaultedItemGeoModel;
-import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 import java.util.function.Consumer;
 
@@ -38,17 +29,13 @@ public class AurorianSteelSword extends SwordItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public AurorianSteelSword(Item.Properties properties) {
-        super(TAToolTiers.AURORIAN_STEEL, properties.rarity(Rarity.RARE)
-                .attributes(createAttributes(TAToolTiers.AURORIAN_STEEL, 3, -2.4F))
-                .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
-                .component(TADataComponents.HIGH_PRECISION, Boolean.FALSE));
+    public AurorianSteelSword(Properties properties) {
+        super(TAToolTiers.AURORIAN_STEEL, properties);
     }
 
     @Override
     public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
-        Boolean highPrecision = this.components().get(TADataComponents.HIGH_PRECISION.get());
-        if (highPrecision != null && highPrecision) consumer.accept(new CustomItemModel());
+        consumer.accept(new GeoHandheldToolRenderer<AurorianSteelSword>(TAItems.AURORIAN_STEEL_SWORD.getId()));
     }
 
     @Override
@@ -111,15 +98,6 @@ public class AurorianSteelSword extends SwordItem implements GeoItem {
 
     private boolean isEasterEggPlayer(Player player) {
         return player.getStringUUID().equals("6b0f5181-a732-4ee2-b53a-c5a05d6af32e");
-    }
-
-    private static class CustomItemModel implements GeoRenderProvider {
-
-        @Override
-        public @Nullable BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
-            return new GeoItemRenderer<AurorianSteelSword>(new DefaultedItemGeoModel<>(TheAurorian.prefix("aurorian_steel_sword_hp")));
-        }
-
     }
 
 }

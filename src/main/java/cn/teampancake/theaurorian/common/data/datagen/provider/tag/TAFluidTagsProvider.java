@@ -20,8 +20,8 @@ public class TAFluidTagsProvider extends FluidTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         this.tag(FluidTags.LAVA).add(
-                TAFluids.MOLTEN_AURORIAN_STEEL_STILL.get(),
-                TAFluids.MOLTEN_AURORIAN_STEEL_FLOWING.get(),
+                TAFluids.MOLTEN_MOONSILVER_STILL.get(),
+                TAFluids.MOLTEN_MOONSILVER_FLOWING.get(),
                 TAFluids.MOLTEN_CERULEAN_STILL.get(),
                 TAFluids.MOLTEN_CERULEAN_FLOWING.get(),
                 TAFluids.MOLTEN_MOONSTONE_STILL.get(),

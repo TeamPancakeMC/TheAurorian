@@ -29,7 +29,7 @@ public class TAModelLayers {
     public static final ModelLayerLocation HYPHA_WALKING_MUSHROOM = register("hypha_walking_mushroom");
     public static final ModelLayerLocation SPIKED_CHESTPLATE = register("spiked_chestplate");
     public static final ModelLayerLocation AURORIAN_SLIME_BOOTS = register("aurorian_slime_boots");
-    public static final ModelLayerLocation AURORIAN_STEEL_ARMOR = register("aurorian_steel_armor");
+    public static final ModelLayerLocation MOONSILVER_ARMOR = register("moonsilver_armor");
     public static final ModelLayerLocation CERULEAN_ARMOR = register("cerulean_armor");
     public static final ModelLayerLocation KNIGHT_ARMOR = register("knight_armor");
     public static final ModelLayerLocation SPECTRAL_ARMOR = register("spectral_armor");

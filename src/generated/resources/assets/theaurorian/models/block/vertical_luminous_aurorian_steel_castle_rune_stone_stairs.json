@@ -1,6 +1,0 @@
-{
-  "parent": "theaurorian:block/luminous_vertical_stair",
-  "textures": {
-    "all": "theaurorian:block/aurorian_steel_castle_rune_stone"
-  }
-}

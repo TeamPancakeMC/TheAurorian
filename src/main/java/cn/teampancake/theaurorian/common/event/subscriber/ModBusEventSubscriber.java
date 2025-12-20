@@ -260,8 +260,8 @@ public class ModBusEventSubscriber {
         ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), TheAurorian.prefix("pulling"), usingFunction);
         ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pull"), pullFunction);
         ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pulling"), usingFunction);
-        ItemProperties.register(TAItems.AURORIAN_STEEL_BOW.get(), TheAurorian.prefix("pull"), pullFunction);
-        ItemProperties.register(TAItems.AURORIAN_STEEL_BOW.get(), TheAurorian.prefix("pulling"), usingFunction);
+        ItemProperties.register(TAItems.MOONSILVER_BOW.get(), TheAurorian.prefix("pull"), pullFunction);
+        ItemProperties.register(TAItems.MOONSILVER_BOW.get(), TheAurorian.prefix("pulling"), usingFunction);
         ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), TheAurorian.prefix("shoot"), usingFunction);
         ItemProperties.register(TAItems.MOON_SHIELD.get(), TheAurorian.prefix("blocking"), usingFunction);
         ItemProperties.register(TAItems.UMBRA_SHIELD.get(), TheAurorian.prefix("blocking"), usingFunction);

@@ -20,7 +20,7 @@ public class TAPaintingVariantTagsProvider extends PaintingVariantTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         this.tag(PaintingVariantTags.PLACEABLE).add(
-                TAPaintingVariants.AURORIAN_STEEL,
+                TAPaintingVariants.MOONSILVER,
                 TAPaintingVariants.PROGRESSION,
                 TAPaintingVariants.DUNGEON,
                 TAPaintingVariants.KEEPER,

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_aurorian_steel": {
+    "has_moonsilver_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "theaurorian:aurorian_steel"
+            "items": "theaurorian:moonsilver_ingot"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_aurorian_steel"
+      "has_moonsilver_ingot"
     ]
   ],
   "rewards": {

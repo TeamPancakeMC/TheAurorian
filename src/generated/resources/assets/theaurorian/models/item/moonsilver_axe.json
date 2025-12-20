@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "base": {
+    "parent": "theaurorian:item/moonsilver_axe_3d"
+  },
+  "loader": "neoforge:separate_transforms",
+  "perspectives": {
+    "fixed": {
+      "parent": "theaurorian:item/moonsilver_axe_2d"
+    },
+    "ground": {
+      "parent": "theaurorian:item/moonsilver_axe_2d"
+    },
+    "gui": {
+      "parent": "theaurorian:item/moonsilver_axe_2d"
+    }
+  }
+}

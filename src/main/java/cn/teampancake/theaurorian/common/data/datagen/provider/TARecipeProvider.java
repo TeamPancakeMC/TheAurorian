@@ -214,7 +214,7 @@ public class TARecipeProvider extends RecipeProvider {
         oneToOneConversionRecipe(recipeOutput, Items.ROTTEN_FLESH, TAItems.SOULLESS_FLESH.get(), null);
         oneToOneConversionRecipe(recipeOutput, Items.PINK_DYE, TABlocks.PETUNIA_PLANT.get(), null);
         //Vanilla Other Recipes
-        netheriteSmithing(recipeOutput, TAItems.AURORIAN_STEEL_SWORD.get(), RecipeCategory.COMBAT, TAItems.AURORIAN_ALLOY_STEEL_SWORD.get());
+        netheriteSmithing(recipeOutput, TAItems.MOONSILVER_SWORD.get(), RecipeCategory.COMBAT, TAItems.AURORIAN_ALLOY_STEEL_SWORD.get());
         //Mod Simple Cooking Recipes
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(TABlocks.AURORIAN_COBBLESTONE.get()),
                         RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_STONE.get(), (0.1F), (200))
@@ -253,7 +253,7 @@ public class TARecipeProvider extends RecipeProvider {
         forging(recipeOutput, TAItems.MOONSTONE_SWORD.get(), TAItems.CRYSTALLINE_INGOT.get(), TAItems.CRYSTALLINE_SWORD.get());
         forging(recipeOutput, TAItems.MOONSTONE_PICKAXE.get(), TAItems.CRYSTALLINE_INGOT.get(), TAItems.CRYSTALLINE_PICKAXE.get());
         forging(recipeOutput, TAItems.MOONSTONE_SHIELD.get(), TAItems.CRYSTALLINE_INGOT.get(), TAItems.CRYSTALLINE_SHIELD.get());
-        forging(recipeOutput, TAItems.AURORIAN_STEEL_PICKAXE.get(), TAItems.TROPHY_MOON_QUEEN.get(), TAItems.QUEENS_CHIPPER.get());
+        forging(recipeOutput, TAItems.MOONSILVER_PICKAXE.get(), TAItems.TROPHY_MOON_QUEEN.get(), TAItems.QUEENS_CHIPPER.get());
         forging(recipeOutput, TAItems.MOONSTONE_SHIELD.get(), TAItems.TROPHY_MOON_QUEEN.get(), TAItems.MOON_SHIELD.get());
         forging(recipeOutput, TAItems.SILENT_WOOD_BOW.get(), TAItems.TROPHY_KEEPER.get(), TAItems.KEEPERS_BOW.get());
         //Alchemy Recipes
@@ -275,15 +275,15 @@ public class TARecipeProvider extends RecipeProvider {
         scrapping(recipeOutput, TAItems.CRYSTALLINE_PICKAXE.get(), TAItems.CRYSTALLINE_SCRAP.get(), 6);
         scrapping(recipeOutput, TAItems.CRYSTALLINE_SHIELD.get(), TAItems.CRYSTALLINE_SCRAP.get(), 9);
         scrapping(recipeOutput, TAItems.SPIKED_CHESTPLATE.get(), TAItems.STICKY_SPIKER.get(), 5);
-        scrapping(recipeOutput, TAItems.AURORIAN_STEEL_SWORD.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 12);
-        scrapping(recipeOutput, TAItems.AURORIAN_STEEL_PICKAXE.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 18);
-        scrapping(recipeOutput, TAItems.AURORIAN_STEEL_AXE.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 18);
-        scrapping(recipeOutput, TAItems.AURORIAN_STEEL_SHOVEL.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 6);
-        scrapping(recipeOutput, TAItems.AURORIAN_STEEL_HOE.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 12);
-        scrapping(recipeOutput, TAItems.AURORIAN_STEEL_HELMET.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 30);
-        scrapping(recipeOutput, TAItems.AURORIAN_STEEL_CHESTPLATE.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 48);
-        scrapping(recipeOutput, TAItems.AURORIAN_STEEL_LEGGINGS.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 42);
-        scrapping(recipeOutput, TAItems.AURORIAN_STEEL_BOOTS.get(), TAItems.AURORIAN_STEEL_NUGGET.get(), 24);
+        scrapping(recipeOutput, TAItems.MOONSILVER_SWORD.get(), TAItems.MOONSILVER_NUGGET.get(), 12);
+        scrapping(recipeOutput, TAItems.MOONSILVER_PICKAXE.get(), TAItems.MOONSILVER_NUGGET.get(), 18);
+        scrapping(recipeOutput, TAItems.MOONSILVER_AXE.get(), TAItems.MOONSILVER_NUGGET.get(), 18);
+        scrapping(recipeOutput, TAItems.MOONSILVER_SHOVEL.get(), TAItems.MOONSILVER_NUGGET.get(), 6);
+        scrapping(recipeOutput, TAItems.MOONSILVER_HOE.get(), TAItems.MOONSILVER_NUGGET.get(), 12);
+        scrapping(recipeOutput, TAItems.MOONSILVER_HELMET.get(), TAItems.MOONSILVER_NUGGET.get(), 30);
+        scrapping(recipeOutput, TAItems.MOONSILVER_CHESTPLATE.get(), TAItems.MOONSILVER_NUGGET.get(), 48);
+        scrapping(recipeOutput, TAItems.MOONSILVER_LEGGINGS.get(), TAItems.MOONSILVER_NUGGET.get(), 42);
+        scrapping(recipeOutput, TAItems.MOONSILVER_BOOTS.get(), TAItems.MOONSILVER_NUGGET.get(), 24);
         scrapping(recipeOutput, TAItems.MOONSTONE_SWORD.get(), TAItems.MOONSTONE_NUGGET.get(), 12);
         scrapping(recipeOutput, TAItems.MOONSTONE_PICKAXE.get(), TAItems.MOONSTONE_NUGGET.get(), 18);
         scrapping(recipeOutput, TAItems.MOONSTONE_AXE.get(), TAItems.MOONSTONE_NUGGET.get(), 18);
@@ -338,7 +338,7 @@ public class TARecipeProvider extends RecipeProvider {
         nineBlockStorageRecipes(recipeOutput, RecipeCategory.MISC, TAItems.CERULEAN_INGOT.get(), RecipeCategory.BUILDING_BLOCKS, TABlocks.CERULEAN_BLOCK.get());
         nineBlockStorageRecipes(recipeOutput, RecipeCategory.MISC, TAItems.MOONSTONE_INGOT.get(), RecipeCategory.BUILDING_BLOCKS, TABlocks.MOONSTONE_BLOCK.get());
         nineBlockStorageRecipes(recipeOutput, RecipeCategory.MISC, TAItems.AURORIAN_COAL.get(), RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_COAL_BLOCK.get());
-        nineBlockStorageRecipes(recipeOutput, RecipeCategory.MISC, TAItems.AURORIAN_STEEL.get(), RecipeCategory.BUILDING_BLOCKS, TABlocks.AURORIAN_STEEL_BLOCK.get());
+        nineBlockStorageRecipes(recipeOutput, RecipeCategory.MISC, TAItems.MOONSILVER_INGOT.get(), RecipeCategory.BUILDING_BLOCKS, TABlocks.MOONSILVER_BLOCK.get());
         oreSmelting(recipeOutput, List.of(TABlocks.MOONSTONE_ORE.get(), TAItems.RAW_MOONSTONE.get(), TABlocks.EROSIVE_MOONSTONE_ORE.get()), RecipeCategory.MISC, TAItems.MOONSTONE_INGOT.get(), (0.1F), (200), "moonstone");
         oreSmelting(recipeOutput, List.of(TABlocks.CERULEAN_ORE.get(), TAItems.RAW_CERULEAN.get(), TABlocks.EROSIVE_CERULEAN_ORE.get()), RecipeCategory.MISC, TAItems.CERULEAN_INGOT.get(), (0.1F), (200), "cerulean");
         oreSmelting(recipeOutput, List.of(TABlocks.AURORIAN_COAL_ORE.get()), RecipeCategory.MISC, TAItems.AURORIAN_COAL.get(), (0.1F), (200), "aurorian_coal");
@@ -369,17 +369,17 @@ public class TARecipeProvider extends RecipeProvider {
         woodFromLogs(recipeOutput, TABlocks.WEEPING_WILLOW_WOOD.get(), TABlocks.WEEPING_WILLOW_LOG.get());
         woodFromLogs(recipeOutput, TABlocks.CURTAIN_TREE_WOOD.get(), TABlocks.CURTAIN_TREE_LOG.get());
         woodFromLogs(recipeOutput, TABlocks.CURSED_FROST_TREE_WOOD.get(), TABlocks.CURSED_FROST_TREE_LOG.get());
-        this.buildArmorRecipes(recipeOutput, TAItems.AURORIAN_STEEL_HELMET.get(), TAItems.AURORIAN_STEEL_CHESTPLATE.get(),
-                TAItems.AURORIAN_STEEL_LEGGINGS.get(), TAItems.AURORIAN_STEEL_BOOTS.get(), TAItems.AURORIAN_STEEL.get());
+        this.buildArmorRecipes(recipeOutput, TAItems.MOONSILVER_HELMET.get(), TAItems.MOONSILVER_CHESTPLATE.get(),
+                TAItems.MOONSILVER_LEGGINGS.get(), TAItems.MOONSILVER_BOOTS.get(), TAItems.MOONSILVER_INGOT.get());
         this.buildArmorRecipes(recipeOutput, TAItems.CERULEAN_HELMET.get(), TAItems.CERULEAN_CHESTPLATE.get(),
                 TAItems.CERULEAN_LEGGINGS.get(), TAItems.CERULEAN_BOOTS.get(), TAItems.CERULEAN_INGOT.get());
         this.buildArmorRecipes(recipeOutput, TAItems.SPECTRAL_HELMET.get(), TAItems.SPECTRAL_CHESTPLATE.get(),
                 TAItems.SPECTRAL_LEGGINGS.get(), TAItems.SPECTRAL_BOOTS.get(), TAItems.SPECTRAL_SILK.get());
         this.buildArmorRecipes(recipeOutput, TAItems.MYSTERIUM_WOOL_HELMET.get(), TAItems.MYSTERIUM_WOOL_CHESTPLATE.get(),
                 TAItems.MYSTERIUM_WOOL_LEGGINGS.get(), TAItems.MYSTERIUM_WOOL_BOOTS.get(), TABlocks.MYSTERIUM_WOOL.get());
-        this.buildBaseToolRecipes(recipeOutput, TAItems.AURORIAN_STEEL_SWORD.get(), TAItems.AURORIAN_STEEL_PICKAXE.get(),
-                TAItems.AURORIAN_STEEL_SHOVEL.get(), TAItems.AURORIAN_STEEL_AXE.get(),
-                TAItems.AURORIAN_STEEL_HOE.get(), TAItems.AURORIAN_STEEL.get());
+        this.buildBaseToolRecipes(recipeOutput, TAItems.MOONSILVER_SWORD.get(), TAItems.MOONSILVER_PICKAXE.get(),
+                TAItems.MOONSILVER_SHOVEL.get(), TAItems.MOONSILVER_AXE.get(),
+                TAItems.MOONSILVER_HOE.get(), TAItems.MOONSILVER_INGOT.get());
         this.buildBaseToolRecipes(recipeOutput, TAItems.AURORIAN_STONE_SWORD.get(), TAItems.AURORIAN_STONE_PICKAXE.get(),
                 TAItems.AURORIAN_STONE_SHOVEL.get(), TAItems.AURORIAN_STONE_AXE.get(),
                 TAItems.AURORIAN_STONE_HOE.get(), TABlocks.AURORIAN_COBBLESTONE.get());
@@ -395,14 +395,14 @@ public class TARecipeProvider extends RecipeProvider {
         this.buildNuggetToIngotRecipes(recipeOutput, TAItems.CERULEAN_NUGGET.get(), TAItems.CERULEAN_INGOT.get());
         this.buildNuggetToIngotRecipes(recipeOutput, TAItems.MOONSTONE_NUGGET.get(), TAItems.MOONSTONE_INGOT.get());
         this.buildNuggetToIngotRecipes(recipeOutput, TAItems.AURORIAN_COAL_NUGGET.get(), TAItems.AURORIAN_COAL.get());
-        this.buildNuggetToIngotRecipes(recipeOutput, TAItems.AURORIAN_STEEL_NUGGET.get(), TAItems.AURORIAN_STEEL.get());
+        this.buildNuggetToIngotRecipes(recipeOutput, TAItems.MOONSILVER_NUGGET.get(), TAItems.MOONSILVER_INGOT.get());
         this.buildTeaRecipes(recipeOutput, TAItems.LAVENDER_TEA.get(), TAItems.LAVENDER.get());
         this.buildTeaRecipes(recipeOutput, TAItems.SILK_BERRY_TEA.get(), TAItems.SILK_BERRY.get());
         this.buildTeaRecipes(recipeOutput, TAItems.LAVENDER_SEEDY_TEA.get(), TAItems.LAVENDER_SEEDS.get());
         this.buildTeaRecipes(recipeOutput, TAItems.PETUNIA_TEA.get(), TABlocks.PETUNIA_PLANT.get());
         this.buildArrowRecipes(recipeOutput, TAItems.CERULEAN_ARROW.get(), TAItems.CERULEAN_NUGGET.get(), 1);
         this.buildArrowRecipes(recipeOutput, TAItems.CRYSTAL_ARROW.get(), TAItems.CRYSTAL.get(), 16);
-        this.buildSickleRecipes(recipeOutput, TAItems.SILENT_WOOD_SICKLE.get(), TAItems.AURORIAN_STEEL.get());
+        this.buildSickleRecipes(recipeOutput, TAItems.SILENT_WOOD_SICKLE.get(), TAItems.MOONSILVER_INGOT.get());
         this.buildSickleRecipes(recipeOutput, TAItems.AURORIAN_STONE_SICKLE.get(), TABlocks.AURORIAN_COBBLESTONE.get());
         this.buildSickleRecipes(recipeOutput, TAItems.MOONSTONE_SICKLE.get(), TAItems.MOONSTONE_INGOT.get());
     }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_moonsilver_pickaxe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:moonsilver_pickaxe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "theaurorian:scrap_moonsilver_pickaxe_to_moonsilver_nugget"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_moonsilver_pickaxe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "theaurorian:scrap_moonsilver_pickaxe_to_moonsilver_nugget"
+    ]
+  }
+}

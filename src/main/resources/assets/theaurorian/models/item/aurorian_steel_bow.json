@@ -1,0 +1,18 @@
+{
+    "parent": "theaurorian:item/ta_bow",
+    "base": {
+        "parent": "theaurorian:item/aurorian_steel_bow_3d"
+    },
+    "loader": "neoforge:separate_transforms",
+    "perspectives": {
+        "fixed": {
+            "parent": "theaurorian:item/aurorian_steel_bow_2d"
+        },
+        "ground": {
+            "parent": "theaurorian:item/aurorian_steel_bow_2d"
+        },
+        "gui": {
+            "parent": "theaurorian:item/aurorian_steel_bow_2d"
+        }
+    }
+}

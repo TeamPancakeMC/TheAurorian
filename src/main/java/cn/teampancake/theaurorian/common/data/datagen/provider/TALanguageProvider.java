@@ -496,6 +496,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAItems.AURORIAN_STEEL_SHOVEL, "极光钢铲");
         this.addKey(TAItems.AURORIAN_STEEL_DAGGER, "极光钢匕首");
         this.addKey(TAItems.AURORIAN_STEEL_SWORD, "极光钢剑");
+        this.addKey(TAItems.AURORIAN_STEEL_BOW, "极光钢弓");
         this.addKey(TAItems.AURORIAN_STONE_SICKLE, "极光石镰");
         this.addKey(TAItems.AURORIAN_STONE_AXE, "极光石斧");
         this.addKey(TAItems.AURORIAN_STONE_HOE, "极光石锄");

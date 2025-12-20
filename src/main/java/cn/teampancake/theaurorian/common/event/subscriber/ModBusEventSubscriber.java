@@ -260,12 +260,14 @@ public class ModBusEventSubscriber {
         ItemProperties.register(TAItems.SILENT_WOOD_BOW.get(), TheAurorian.prefix("pulling"), usingFunction);
         ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pull"), pullFunction);
         ItemProperties.register(TAItems.KEEPERS_BOW.get(), TheAurorian.prefix("pulling"), usingFunction);
+        ItemProperties.register(TAItems.AURORIAN_STEEL_BOW.get(), TheAurorian.prefix("pull"), pullFunction);
+        ItemProperties.register(TAItems.AURORIAN_STEEL_BOW.get(), TheAurorian.prefix("pulling"), usingFunction);
         ItemProperties.register(TAItems.CRYSTALLINE_SWORD.get(), TheAurorian.prefix("shoot"), usingFunction);
-        for (Item item : TACommonUtils.getKnownItems()) {
-            if (item instanceof ShieldItem) {
-                ItemProperties.register(item, TheAurorian.prefix("blocking"), usingFunction);
-            }
-        }
+        ItemProperties.register(TAItems.MOON_SHIELD.get(), TheAurorian.prefix("blocking"), usingFunction);
+        ItemProperties.register(TAItems.UMBRA_SHIELD.get(), TheAurorian.prefix("blocking"), usingFunction);
+        ItemProperties.register(TAItems.CERULEAN_SHIELD.get(), TheAurorian.prefix("blocking"), usingFunction);
+        ItemProperties.register(TAItems.CRYSTALLINE_SHIELD.get(), TheAurorian.prefix("blocking"), usingFunction);
+        ItemProperties.register(TAItems.MOONSTONE_SHIELD.get(), TheAurorian.prefix("blocking"), usingFunction);
     }
 
     @MethodsReturnNonnullByDefault

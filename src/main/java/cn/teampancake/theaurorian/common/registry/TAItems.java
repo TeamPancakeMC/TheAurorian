@@ -213,6 +213,8 @@ public class TAItems {
             .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BOW_ENCHANTABLE).model((ctx, prov) -> bowItem(ctx.get(), prov)).register();
     public static final DeferredHolder<Item, KeepersBow> KEEPERS_BOW = REGISTRATE.item("keepers_bow", properties -> new KeepersBow(properties.durability(512).rarity(Rarity.RARE)
             .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BOW_ENCHANTABLE).model((ctx, prov) -> bowItem(ctx.get(), prov)).register();
+    public static final DeferredHolder<Item, AurorianSteelBow> AURORIAN_STEEL_BOW = REGISTRATE.item("aurorian_steel_bow", properties -> new AurorianSteelBow(properties.durability(512).rarity(Rarity.RARE)
+            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BOW_ENCHANTABLE).register();
 
     /**
      * Throwable Weapons

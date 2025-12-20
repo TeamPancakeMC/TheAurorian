@@ -14,7 +14,6 @@ import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
-import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -24,9 +23,11 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.flag.FeatureFlag;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -51,12 +52,17 @@ public class TABlockRegUtils {
         return TheAurorian.REGISTRATE.block(name, factory);
     }
 
-    public static <T extends Block> BlockBuilder<T, TARegistrate> registerNoItemModelBuilder(String name, NonNullFunction<Properties, T> factory) {
-        return registerNoItemBuilder(name, factory).item(EnabledFeaturesBlockItem::new).build();
+    public static <T extends Block> BlockBuilder<T, TARegistrate> registerNoItemModelBuilder(String name, NonNullFunction<BlockBehaviour.Properties, T> factory) {
+        BlockBuilder<T, TARegistrate> builder = registerNoItemBuilder(name, factory);
+        return builder.getOwner().item(builder, name, p -> new BlockItem(builder.get().get(),
+                p.component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON))).build();
     }
 
-    public static <T extends Block> BlockBuilder<T, TARegistrate> registerBuilder(String name, NonNullFunction<Properties, T> factory) {
-        return registerNoItemBuilder(name, factory).item(EnabledFeaturesBlockItem::new).model((ctx, prov) -> prov.blockItem(ctx::get)).build();
+    public static <T extends Block> BlockBuilder<T, TARegistrate> registerBuilder(String name, NonNullFunction<BlockBehaviour.Properties, T> factory) {
+        BlockBuilder<T, TARegistrate> builder = registerNoItemBuilder(name, factory);
+        return builder.getOwner().item(builder, name, p -> new BlockItem(builder.get().get(),
+                        p.component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON)))
+                .model((ctx, prov) -> prov.blockItem(ctx::get)).build();
     }
 
     public static BlockBuilder<DropExperienceBlock, TARegistrate> oreBuilder(String name, IntProvider xpRange, Properties properties) {
@@ -101,9 +107,8 @@ public class TABlockRegUtils {
         boolean isWooden = featureFlags.contains(TAFeatureFlags.WOOD_MATERIAL);
         boolean emissivity = featureFlags.contains(TAFeatureFlags.EMISSIVITY);
         NonNullFunction<Properties, VerticalStairBlock> factory = p -> new VerticalStairBlock(properties.noOcclusion());
-        BlockBuilder<VerticalStairBlock, TARegistrate> blockBuilder = registerBuilder(name, factory).tag(TABlockTags.VERTICAL_STAIRS)
-                .blockstate((ctx, prov) -> registerVerticalStairStates(ctx.get(), base.get(), prov, emissivity))
-                .defaultLoot().item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
+        BlockBuilder<VerticalStairBlock, TARegistrate> blockBuilder = registerBuilder(name, factory).tag(TABlockTags.VERTICAL_STAIRS).defaultLoot()
+                .blockstate((ctx, prov) -> registerVerticalStairStates(ctx.get(), base.get(), prov, emissivity)).item().recipe((ctx, prov) -> {
                     ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 4).define('#', Ingredient.of(base.get()))
                             .pattern("#").pattern("#").pattern("#").unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
                     if (!isWooden) stonecutterResultFromBase(prov, RecipeCategory.BUILDING_BLOCKS, ctx.get(), base.get());
@@ -117,9 +122,8 @@ public class TABlockRegUtils {
         boolean isWooden = featureFlags.contains(TAFeatureFlags.WOOD_MATERIAL);
         boolean emissivity = featureFlags.contains(TAFeatureFlags.EMISSIVITY);
         NonNullFunction<Properties, VerticalSlabBlock> factory = p -> new VerticalSlabBlock(properties.noOcclusion());
-        BlockBuilder<VerticalSlabBlock, TARegistrate> builder = registerBuilder(name, factory).tag(TABlockTags.VERTICAL_SLABS)
-                .blockstate((ctx, prov) -> registerVerticalSlabStates(ctx.get(), base.get(), prov, emissivity))
-                .defaultLoot().item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
+        BlockBuilder<VerticalSlabBlock, TARegistrate> builder = registerBuilder(name, factory).tag(TABlockTags.VERTICAL_SLABS).defaultLoot()
+                .blockstate((ctx, prov) -> registerVerticalSlabStates(ctx.get(), base.get(), prov, emissivity)).item().recipe((ctx, prov) -> {
                     ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 6).define('#', Ingredient.of(base.get()))
                             .pattern("###").pattern(" ##").pattern("  #").unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
                     if (!isWooden) stonecutterResultFromBase(prov, RecipeCategory.BUILDING_BLOCKS, ctx.get(), base.get(), 2);
@@ -131,18 +135,16 @@ public class TABlockRegUtils {
     public static <T extends Block> BlockEntry<PressurePlateBlock> pressurePlate(
             String name, Supplier<T> base, Properties properties, BlockSetType blockSetType, TagKey<Block>... values) {
         return registerBuilder(name, p -> new PressurePlateBlock(blockSetType, properties)).tag(values).defaultLoot()
-                .blockstate((ctx, prov) -> prov.pressurePlateBlock(ctx.get(), prov.blockTexture(base.get()))).item(EnabledFeaturesBlockItem::new)
-                .recipe((ctx, prov) -> RegistrateRecipeProvider.pressurePlate(prov, ctx.get(), base.get())).build().register();
+                .blockstate((ctx, prov) -> prov.pressurePlateBlock(ctx.get(), prov.blockTexture(base.get())))
+                .item().recipe((ctx, prov) -> RegistrateRecipeProvider.pressurePlate(prov, ctx.get(), base.get())).build().register();
     }
 
     public static <T extends Block> BlockEntry<FenceGateBlock> fenceGate(
             String name, Supplier<T> base, Properties properties, WoodType woodType) {
         return registerBuilder(name, p -> new FenceGateBlock(woodType, properties)).tag(BlockTags.FENCE_GATES)
                 .blockstate((ctx, prov) -> prov.fenceGateBlockWithRenderType(ctx.get(), prov.blockTexture(base.get()), CUTOUT))
-                .defaultLoot().item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
-                    RecipeBuilder builder = fenceGateBuilder(ctx.get(), Ingredient.of(base.get()));
-                    builder.unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
-                }).build().register();
+                .defaultLoot().item().recipe((ctx, prov) -> fenceGateBuilder(ctx.get(), Ingredient.of(base.get()))
+                        .unlockedBy(getHasName(base.get()), has(base.get())).save(prov)).build().register();
     }
 
     @SafeVarargs
@@ -154,10 +156,8 @@ public class TABlockRegUtils {
                     ResourceLocation texture = prov.blockTexture(ctx.get());
                     prov.trapdoorBlockWithRenderType(ctx.get(), texture, Boolean.TRUE, CUTOUT);
                     prov.simpleBlockItem(ctx.get(), prov.models().trapdoorBottom(name, texture));
-                }).item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
-                    RecipeBuilder builder = trapdoorBuilder(ctx.get(), Ingredient.of(base.get()));
-                    builder.unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
-                }).build().register();
+                }).item().recipe((ctx, prov) -> trapdoorBuilder(ctx.get(), Ingredient.of(base.get()))
+                        .unlockedBy(getHasName(base.get()), has(base.get())).save(prov)).build().register();
     }
 
     @SafeVarargs
@@ -172,10 +172,8 @@ public class TABlockRegUtils {
                     ModelFile buttonInventory = prov.models().buttonInventory(path, texture);
                     prov.buttonBlock(ctx.get(), texture);
                     prov.simpleBlockItem(ctx.get(), buttonInventory);
-                }).item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
-                    RecipeBuilder builder = buttonBuilder(ctx.get(), Ingredient.of(base.get()));
-                    builder.unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
-                }).build().register();
+                }).item().recipe((ctx, prov) -> buttonBuilder(ctx.get(), Ingredient.of(base.get()))
+                        .unlockedBy(getHasName(base.get()), has(base.get())).save(prov)).build().register();
     }
 
     public static <T extends Block> BlockBuilder<StairBlock, TARegistrate> stair(
@@ -201,10 +199,8 @@ public class TABlockRegUtils {
                     ResourceLocation texture = prov.blockTexture(base.get());
                     prov.fenceBlockWithRenderType(ctx.get(), texture, CUTOUT);
                     prov.simpleBlockItem(ctx.get(), prov.models().fenceInventory(name, texture));
-                }).item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
-                    RecipeBuilder builder = fenceBuilder(ctx.get(), Ingredient.of(base.get()));
-                    builder.unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
-                }).build().register();
+                }).item().recipe((ctx, prov) -> fenceBuilder(ctx.get(), Ingredient.of(base.get()))
+                        .unlockedBy(getHasName(base.get()), has(base.get())).save(prov)).build().register();
     }
 
     @SafeVarargs
@@ -216,10 +212,8 @@ public class TABlockRegUtils {
                 .blockstate((ctx, prov) -> prov.doorBlockWithRenderType(ctx.get(),
                         prov.modLoc(String.format("block/%s_bottom", name)),
                         prov.modLoc(String.format("block/%s_top", name)), CUTOUT))
-                .item(EnabledFeaturesBlockItem::new).defaultModel().recipe((ctx, prov) -> {
-                    RecipeBuilder builder = doorBuilder(ctx.get(), Ingredient.of(base.get()));
-                    builder.unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
-                }).build().register();
+                .item().defaultModel().recipe((ctx, prov) -> doorBuilder(ctx.get(), Ingredient.of(base.get()))
+                        .unlockedBy(getHasName(base.get()), has(base.get())).save(prov)).build().register();
     }
 
     public static <T extends Block> BlockBuilder<SlabBlock, TARegistrate> slab(

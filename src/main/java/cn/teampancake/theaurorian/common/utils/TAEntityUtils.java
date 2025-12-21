@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.level.structure.structures.RuinsAltarSt
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TADimensions;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -13,11 +14,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.StructureManager;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.attachment.AttachmentHolder;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -169,27 +171,37 @@ public class TAEntityUtils {
     }
 
     public static boolean isPlayerNearStructure(LivingEntity entity, ResourceKey<Structure> targetStructure, double radius) {
-        if (!(entity instanceof Player player) || player.getAbilities().instabuild) return false;
-        if (!(player.level() instanceof ServerLevel level)) return false;
-        BlockPos playerPos = player.blockPosition();
-        int searchRadius = Mth.ceil(radius / 16.0F) + 1;
-        for (int x = -searchRadius; x <= searchRadius; x++) {
-            for (int z = -searchRadius; z <= searchRadius; z++) {
-                int cx = playerPos.getX() / 16 + x;
-                int cz = playerPos.getZ() / 16 + z;
-                ChunkPos chunkPos = new ChunkPos(cx, cz);
-                List<StructureStart> structureStarts = level.structureManager()
-                        .startsForStructure(chunkPos, structure -> level.registryAccess()
-                                .registryOrThrow(Registries.STRUCTURE)
-                                .getHolder(targetStructure).isPresent());
-                for (StructureStart structureStart : structureStarts) {
-                    if (structureStart.isValid()) {
-                        BlockPos structureCenter = structureStart.getBoundingBox().getCenter();
-                        double distance = Math.sqrt(playerPos.distSqr(structureCenter));
-                        if (distance <= radius) return true;
-                    }
-                }
-            }
+        if (!(entity.level() instanceof ServerLevel serverLevel)) return false;
+        BlockPos playerPos = entity.blockPosition();
+        int searchRange = Mth.ceil(radius) + 50;
+        TagKey<Structure> tempTag = TagKey.create(Registries.STRUCTURE, targetStructure.location());
+        Optional<HolderSet.Named<Structure>> structureTag = serverLevel.registryAccess()
+                .registryOrThrow(Registries.STRUCTURE).getTag(tempTag);
+        if (structureTag.isEmpty()) return false;
+        ChunkGenerator generator = serverLevel.getChunkSource().getGenerator();
+        var result = generator.findNearestMapStructure(serverLevel, structureTag.get(), playerPos, searchRange, Boolean.FALSE);
+        if (result != null) {
+            BlockPos nearestStructure = result.getFirst();
+            double distance = Math.sqrt(playerPos.distSqr(nearestStructure));
+            return distance <= radius;
+        }
+        
+        return false;
+    }
+
+    public static boolean isPlayerNearStructure(LivingEntity entity, TagKey<Structure> structureTag, double radius) {
+        if (!(entity.level() instanceof ServerLevel serverLevel)) return false;
+        BlockPos playerPos = entity.blockPosition();
+        int searchRange = Mth.ceil(radius) + 50;
+        Optional<HolderSet.Named<Structure>> tag = serverLevel.registryAccess()
+                .registryOrThrow(Registries.STRUCTURE).getTag(structureTag);
+        if (tag.isEmpty()) return false;
+        ChunkGenerator generator = serverLevel.getChunkSource().getGenerator();
+        var result = generator.findNearestMapStructure(serverLevel, tag.get(), playerPos, searchRange, Boolean.FALSE);
+        if (result != null) {
+            BlockPos nearestStructure = result.getFirst();
+            double distance = Math.sqrt(playerPos.distSqr(nearestStructure));
+            return distance <= radius;
         }
         
         return false;

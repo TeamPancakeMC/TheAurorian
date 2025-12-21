@@ -454,6 +454,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TABlocks.ASTROLOGY_TABLE, "占星仪");
         this.addKey(TABlocks.MYSTERIUM_WOOL_BED, "秘境羊毛床");
         this.addKey(TABlocks.SILENT_CAMPFIRE, "静谧营火");
+        this.addKey(TABlocks.CRYSTALLINE_SWORD_PEDESTAL, "月凝晶剑座");
         this.addKey(TABlocks.LUNAR_SOURCE_PRISM, "月光源棱镜");
         this.addKey(TABlocks.LUNAR_DEFLECTOR, "月光偏转器");
         this.addKey(TABlocks.LUNAR_SPLITTER, "月光分裂器");
@@ -490,14 +491,15 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAItems.AURORIAN_SLIMEBALL, "极光粘液球");
         this.addKey(TAItems.MOONSILVER_INGOT, "月华锭");
         this.addKey(TAItems.MOONSILVER_NUGGET, "月华粒");
-        this.addKey(TAItems.MOONSILVER_AXE, "月华斧");
-        this.addKey(TAItems.MOONSILVER_HOE, "月华锄");
-        this.addKey(TAItems.MOONSILVER_PICKAXE, "月华镐");
-        this.addKey(TAItems.MOONSILVER_SHOVEL, "月华铲");
+        this.addKey(TAItems.MOONSILVER_AXE, "月华之斧");
+        this.addKey(TAItems.MOONSILVER_HOE, "月华之锄");
+        this.addKey(TAItems.MOONSILVER_PICKAXE, "月华之镐");
+        this.addKey(TAItems.MOONSILVER_SHOVEL, "月华之铲");
         this.addKey(TAItems.MOONSILVER_DAGGER, "月华匕首");
-        this.addKey(TAItems.MOONSILVER_SWORD, "月华剑");
-        this.addKey(TAItems.MOONSILVER_BOW, "月华弓");
-        this.addKey(TAItems.MOONSILVER_SCYTHE, "月华镰");
+        this.addKey(TAItems.MOONSILVER_SWORD, "月华之剑");
+        this.addKey(TAItems.MOONSILVER_GREAT_SWORD, "月华大剑");
+        this.addKey(TAItems.MOONSILVER_BOW, "月华之弓");
+        this.addKey(TAItems.MOONSILVER_SCYTHE, "月华之镰");
         this.addKey(TAItems.AURORIAN_STONE_SICKLE, "极光石镰");
         this.addKey(TAItems.AURORIAN_STONE_AXE, "极光石斧");
         this.addKey(TAItems.AURORIAN_STONE_HOE, "极光石锄");
@@ -773,6 +775,7 @@ public class TALanguageProvider extends LanguageProvider {
         this.addKey(TAEntityTypes.RUNESTONE_KEEPER, "符石守卫");
         this.addKey(TAEntityTypes.SPIDER_MOTHER, "蛛母");
         this.addKey(TAEntityTypes.MOON_QUEEN, "皎月女王");
+
         //VILLAGER WITH PROFESSION
         this.add("entity.theaurorian.aurorian_villager.none","Villager","村民");
         this.add("entity.theaurorian.aurorian_villager.nitwit","Nitwit","傻子");
@@ -790,12 +793,14 @@ public class TALanguageProvider extends LanguageProvider {
         this.add("entity.theaurorian.aurorian_villager.toolsmith","Tool Smith","工具匠");
         this.add("entity.theaurorian.aurorian_villager.weaponsmith","Weapon Smith","武器匠");
         this.add("entity.theaurorian.aurorian_villager.theaurorian.astrologer", "Astrologer", "占星师");
+
         //MOD FLUID
         this.addKey(TAFluidTypes.MOLTEN_MOONSILVER, "熔融月华");
         this.addKey(TAFluidTypes.MOLTEN_CERULEAN, "熔融晶蓝");
         this.addKey(TAFluidTypes.MOLTEN_MOONSTONE, "熔融极光石");
         this.addKey(TAFluidTypes.MOON_WATER, "皎月水");
         //MOB EFFECT
+
         this.addKey(TAMobEffects.WARM, "温暖");
         this.addKey(TAMobEffects.STUN, "眩晕");
         this.addKey(TAMobEffects.TOUGH, "坚韧");

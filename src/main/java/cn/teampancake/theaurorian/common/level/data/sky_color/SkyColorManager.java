@@ -128,9 +128,9 @@ public class SkyColorManager {
         long dayTime = level.getDayTime() % 24000;
         for (ServerPlayer player : level.players()) {
             if (dayTime > 0 && dayTime <= 12000) {
-                if (player.getData(TAAttachmentTypes.CURRENT_SHIELD) != ShieldStack.EMPTY) {
-                    PacketDistributor.sendToPlayer(player, new UpdateCurrentShieldS2CPacket(ShieldStack.EMPTY));
-                }
+//                if (player.getData(TAAttachmentTypes.CURRENT_SHIELD) != ShieldStack.EMPTY) {
+//                    PacketDistributor.sendToPlayer(player, new UpdateCurrentShieldS2CPacket(ShieldStack.EMPTY));
+//                }
 
                 if (dayTime % 200 == 0 && enableAurorianBless && !player.getData(REMOVE_BLESS)) {
                     Optional<Holder.Reference<BaseSkyColor>> holder = TASkyColors.REGISTRY.getHolder(newColor);

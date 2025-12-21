@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.level.data.sky_color.ClientSkyColorData;
 import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorManager;
 import cn.teampancake.theaurorian.common.level.data.world_event.WorldEventManager;
+import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -24,8 +25,10 @@ public class LevelEventSubscriber {
     @SubscribeEvent
     public static void onLevelTick(LevelTickEvent.Pre event) {
         if (event.getLevel() instanceof ServerLevel level) {
-            SkyColorManager.updateSkyColors(level);
-            WorldEventManager.updateWorldEvents(level);
+            if (TACommonUtils.isAurorianDimension(level) && !level.players().isEmpty()) {
+                SkyColorManager.updateSkyColors(level);
+                WorldEventManager.updateWorldEvents(level);
+            }
         }
     }
 

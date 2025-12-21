@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.items.*;
 import cn.teampancake.theaurorian.common.items.armor.*;
 import cn.teampancake.theaurorian.common.items.block.AstrologyTable;
 import cn.teampancake.theaurorian.common.items.block.AbstractLunarCrystal;
+import cn.teampancake.theaurorian.common.items.block.CrystallineSwordPedestal;
 import cn.teampancake.theaurorian.common.items.block.SacrificeTable;
 import cn.teampancake.theaurorian.common.items.curio.*;
 import cn.teampancake.theaurorian.common.items.curio.runestone.*;
@@ -14,6 +15,8 @@ import cn.teampancake.theaurorian.common.items.shield.CeruleanShield;
 import cn.teampancake.theaurorian.common.items.shield.CrystallineShield;
 import cn.teampancake.theaurorian.common.items.shield.UmbraShield;
 import cn.teampancake.theaurorian.common.items.tool.*;
+import cn.teampancake.theaurorian.common.items.tool.crystalline.CrystallinePickaxe;
+import cn.teampancake.theaurorian.common.items.tool.crystalline.CrystallineSword;
 import cn.teampancake.theaurorian.common.items.tool.moonsilver.*;
 import cn.teampancake.theaurorian.common.items.tool.aurorian_stone.AurorianStoneAxe;
 import cn.teampancake.theaurorian.common.items.tool.aurorian_stone.AurorianStonePickaxe;
@@ -114,15 +117,12 @@ public class TAItems {
     public static final DeferredHolder<Item, CrystallineSword> CRYSTALLINE_SWORD = REGISTRATE.item("crystalline_sword", CrystallineSword::new).tag(ItemTags.SWORDS).register();
     public static final DeferredHolder<Item, SwordItem> MOONSTONE_SWORD = REGISTRATE.item("moonstone_sword", properties -> new SwordItem(TAToolTiers.SILENT_WOOD,
             properties.attributes(SwordItem.createAttributes(TAToolTiers.SILENT_WOOD, 4, -1.6F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.SWORDS).register();
-    public static final DeferredHolder<Item, TASwordItem> KOPISH_DAGGER = toolBuilder("kopish_dagger", properties -> new TASwordItem(
-            properties.durability(70).attributes(TASwordItem.createAttributes(7.0F, 2.2F))
-                    .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY), 10)).tag(ItemTags.SWORDS).register();
-    public static final DeferredHolder<Item, TASwordItem> STEEL_DAGGER = toolBuilder("steel_dagger", properties -> new TASwordItem(
-            properties.durability(280).attributes(TASwordItem.createAttributes(8.0F, 2.2F))
-                    .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC), 10)).tag(ItemTags.SWORDS).register();
+    public static final DeferredHolder<Item, TASwordItem> KOPISH_DAGGER = toolBuilder("kopish_dagger", properties -> new TASwordItem(properties.durability(70)
+            .attributes(TASwordItem.createAttributes(7.0F, 2.2F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY), 10)).tag(ItemTags.SWORDS).register();
+    public static final DeferredHolder<Item, TASwordItem> STEEL_DAGGER = toolBuilder("steel_dagger", properties -> new TASwordItem(properties.durability(280)
+            .attributes(TASwordItem.createAttributes(8.0F, 2.2F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC), 10)).tag(ItemTags.SWORDS).register();
     public static final DeferredHolder<Item, MoonsilverScythe> MOONSILVER_SCYTHE = REGISTRATE.item("moonsilver_scythe", properties -> new MoonsilverScythe(
-            properties.rarity(Rarity.RARE).attributes(SwordItem.createAttributes(TAToolTiers.MOONSILVER, 5, -2.4F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)))
-            .tag(ItemTags.SWORDS).model((ctx, prov) -> separateTransforms(ctx.getName(), prov, prov.existingFileHelper)).register();
+            properties.attributes(SwordItem.createAttributes(TAToolTiers.MOONSILVER, 5, -2.4F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.SWORDS).register();
 
     /**
      * ShovelItem
@@ -580,6 +580,7 @@ public class TAItems {
     public static final DeferredHolder<Item, AurorianChestItem> AURORIAN_CHEST = registerBuilder("aurorian_chest", AurorianChestItem::new).register();
     public static final DeferredHolder<Item, AstrologyTable> ASTROLOGY_TABLE = registerBuilder("astrology_table", AstrologyTable::new).register();
     public static final DeferredHolder<Item, SacrificeTable> SACRIFICE_TABLE = registerBuilder("sacrifice_table", SacrificeTable::new).register();
+    public static final DeferredHolder<Item, CrystallineSwordPedestal> CRYSTALLINE_SWORD_PEDESTAL = registerBuilder("crystalline_sword_pedestal", CrystallineSwordPedestal::new).register();
     public static final DeferredHolder<Item, AbstractLunarCrystal> LUNAR_SOURCE_PRISM = registerBuilder("lunar_source_prism", properties -> new AbstractLunarCrystal(TABlocks.LUNAR_SOURCE_PRISM.get())).register();
     public static final DeferredHolder<Item, AbstractLunarCrystal> LUNAR_DEFLECTOR = registerBuilder("lunar_deflector", properties -> new AbstractLunarCrystal(TABlocks.LUNAR_DEFLECTOR.get())).register();
     public static final DeferredHolder<Item, AbstractLunarCrystal> LUNAR_SPLITTER = registerBuilder("lunar_splitter", properties -> new AbstractLunarCrystal(TABlocks.LUNAR_SPLITTER.get())).register();

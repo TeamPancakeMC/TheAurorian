@@ -5,7 +5,7 @@
             "name": "THEAURORIAN_CRYSTALLINE_SWORD_SHOOT",
             "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
             "parameters": {
-                "class": "cn/teampancake/theaurorian/common/items/weapon/CrystallineSword$CrystallineSwordUseAnim",
+                "class": "cn/teampancake/theaurorian/common/items/tool/crystalline/CrystallineSword$CrystallineSwordUseAnim",
                 "field": "CRYSTALLINE_SWORD_SHOOT"
             }
         }

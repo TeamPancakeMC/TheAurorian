@@ -1,4 +1,4 @@
-package cn.teampancake.theaurorian.common.items.tool;
+package cn.teampancake.theaurorian.common.items.tool.crystalline;
 
 import cn.teampancake.theaurorian.common.registry.TAItemTooltips;
 import cn.teampancake.theaurorian.common.registry.TAToolTiers;

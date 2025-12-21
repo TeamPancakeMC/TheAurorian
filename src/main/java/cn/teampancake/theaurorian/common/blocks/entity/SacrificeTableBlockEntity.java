@@ -4,19 +4,15 @@ import cn.teampancake.theaurorian.common.registry.TABlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.util.Mth;
-import net.minecraft.world.Clearable;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
@@ -28,8 +24,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @noinspection deprecation*/
-public class SacrificeTableBlockEntity extends BlockEntity implements GeoBlockEntity, Clearable {
+public class SacrificeTableBlockEntity extends SimpleContainerBlockEntity implements GeoBlockEntity {
 
     public int guardTime;
     public long placementTime;
@@ -163,13 +158,6 @@ public class SacrificeTableBlockEntity extends BlockEntity implements GeoBlockEn
         return count;
     }
 
-    private void markUpdated() {
-        this.setChanged();
-        if (this.level != null) {
-            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
-        }
-    }
-
     public NonNullList<ItemStack> getItems() {
         return this.items;
     }
@@ -193,35 +181,6 @@ public class SacrificeTableBlockEntity extends BlockEntity implements GeoBlockEn
 
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        CompoundTag compoundTag = new CompoundTag();
-        ContainerHelper.saveAllItems(compoundTag, this.items, true, registries);
-        return compoundTag;
-    }
-
-    @Override
-    public void clearContent() {
-        this.items.clear();
-    }
-
-    @Override
-    protected void applyImplicitComponents(BlockEntity.DataComponentInput componentInput) {
-        super.applyImplicitComponents(componentInput);
-        componentInput.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).copyInto(this.getItems());
-    }
-
-    @Override
-    protected void collectImplicitComponents(DataComponentMap.Builder components) {
-        super.collectImplicitComponents(components);
-        components.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(this.getItems()));
-    }
-
-    @Override
-    public void removeComponentsFromTag(CompoundTag tag) {
-        tag.remove("Items");
     }
 
 }

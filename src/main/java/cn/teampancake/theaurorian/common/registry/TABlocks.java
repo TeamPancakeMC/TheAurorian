@@ -611,8 +611,10 @@ public class TABlocks {
     public static final DeferredHolder<Block, ReceivingCrystal> RECEIVING_CRYSTAL = registerNoItemBuilder("receiving_crystal", ReceivingCrystal::new).register();
     public static final DeferredHolder<Block, SilentCampfire> SILENT_CAMPFIRE = registerNoItemModelBuilder("silent_campfire", SilentCampfire::new)
             .loot(RegistrateBlockLootTables::dropWhenSilkTouch).item().model((ctx, prov) -> prov.basicItem(ctx.get())).build().register();
-    public static final DeferredHolder<Block, AlchemyTable> ALCHEMY_TABLE = registerNoItemModelBuilder("alchemy_table", AlchemyTable::new).defaultLoot().register();
-    public static final DeferredHolder<Block, RelicTable> RELIC_TABLE = registerNoItemModelBuilder("relic_table", RelicTable::new).defaultLoot().register();
+    public static final DeferredHolder<Block, AlchemyTable> ALCHEMY_TABLE = registerNoItemModelBuilder("alchemy_table", AlchemyTable::new).register();
+    public static final DeferredHolder<Block, RelicTable> RELIC_TABLE = registerNoItemModelBuilder("relic_table", RelicTable::new).register();
+    public static final DeferredHolder<Block, CrystallineSwordPedestal> CRYSTALLINE_SWORD_PEDESTAL =
+            registerNoItemModelBuilder("crystalline_sword_pedestal", CrystallineSwordPedestal::new).register();
 
     public static Properties defaultStoneProperties(float destroyTime) {
         return of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE)

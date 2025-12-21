@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=east": {
+            "model": "theaurorian:block/crystalline_sword_pedestal",
+            "y": 270
+        },
+        "facing=north": {
+            "model": "theaurorian:block/crystalline_sword_pedestal",
+            "y": 180
+        },
+        "facing=south": {
+            "model": "theaurorian:block/crystalline_sword_pedestal"
+        },
+        "facing=west": {
+            "model": "theaurorian:block/crystalline_sword_pedestal",
+            "y": 90
+        }
+    }
+}

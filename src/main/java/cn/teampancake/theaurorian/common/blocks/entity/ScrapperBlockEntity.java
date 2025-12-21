@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public class ScrapperBlockEntity extends SimpleContainerBlockEntity implements WorldlyContainer {
+public class ScrapperBlockEntity extends StandardContainerBlockEntity implements WorldlyContainer {
 
     public int scrapTime;
     private final ContainerData containerData = new Data();

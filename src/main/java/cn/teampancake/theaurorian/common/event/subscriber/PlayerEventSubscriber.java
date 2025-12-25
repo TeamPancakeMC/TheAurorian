@@ -7,6 +7,7 @@ import cn.teampancake.theaurorian.common.components.*;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TAStructureTags;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
+import cn.teampancake.theaurorian.common.items.tool.moonsilver.MoonsilverScythe;
 import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorData;
 import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorManager;
 import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
@@ -83,6 +84,12 @@ public class PlayerEventSubscriber {
     @SubscribeEvent
     public static void onPlayerTicking(PlayerTickEvent.Post event) {
         if (event.getEntity() instanceof ServerPlayer player && player.level() instanceof ServerLevel level) {
+            ItemStack mainHandItem = player.getMainHandItem();
+            if (mainHandItem.getItem() instanceof MoonsilverScythe scythe) {
+                scythe.updateAttackSpeed(mainHandItem, player.level(), false);
+                scythe.applyDynamicAttackSpeed(player, mainHandItem);
+            }
+
             if (player.isAlive() && !player.isSpectator() && !level.isClientSide()) {
                 TAInventoryUtils.applyPotionDecay(player.getInventory().items, player, level);
                 boolean noImmuneEffect = !player.hasEffect(TAMobEffects.WARM) && !player.hasEffect(TAMobEffects.FROSTBITE);
@@ -164,11 +171,11 @@ public class PlayerEventSubscriber {
 
     @SubscribeEvent
     public static void onPlayerXpChange(PlayerXpEvent.XpChange event) {
+        DataComponentType<Integer> component = TADataComponents.ABSORBED_EXPERIENCE.get();
         Player player = event.getEntity();
         int amount = event.getAmount();
         ItemStack offhandItem = player.getOffhandItem();
         if (offhandItem.is(TAItems.BOOK_OF_SIN)) {
-            DataComponentType<Integer> component = TADataComponents.ABSORBED_EXPERIENCE.get();
             Integer i = offhandItem.get(component);
             if (amount > 0 && i != null) {
                 offhandItem.set(component, i + amount);

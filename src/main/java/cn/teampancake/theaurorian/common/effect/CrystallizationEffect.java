@@ -23,7 +23,7 @@ public class CrystallizationEffect extends IncurableEffect {
 
     @Override
     public void onEffectExpired(LivingEntity livingEntity, int amplifier) {
-        List<ResourceLocation> list = livingEntity.getData(TAAttachmentTypes.MAX_HEALTH_SUBTRACT_IDS);
+        List<ResourceLocation> list = livingEntity.getData(TAAttachmentTypes.ATTRIBUTE_UNIVERSAL_IDS);
         AttributeInstance attribute = livingEntity.getAttribute(Attributes.MAX_HEALTH);
         if (!list.isEmpty() && attribute != null) {
             list.forEach(attribute::removeModifier);
@@ -39,7 +39,7 @@ public class CrystallizationEffect extends IncurableEffect {
             UUID uuid = Mth.createInsecureUUID(RandomSource.createNewThreadLocalInstance());
             ResourceLocation id = TheAurorian.prefix("crystallization-" + uuid);
             AttributeModifier modifier = new AttributeModifier(id, -0.1D, operation);
-            livingEntity.getData(TAAttachmentTypes.MAX_HEALTH_SUBTRACT_IDS).add(modifier.id());
+            livingEntity.getData(TAAttachmentTypes.ATTRIBUTE_UNIVERSAL_IDS).add(modifier.id());
             attribute.addTransientModifier(modifier);
         }
     }

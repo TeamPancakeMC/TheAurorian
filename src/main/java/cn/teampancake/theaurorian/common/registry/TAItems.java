@@ -38,9 +38,9 @@ import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import static cn.teampancake.theaurorian.common.data.datagen.provider.TAItemModelProvider.*;
-import static net.minecraft.world.item.ArmorItem.Type.*;
 import static cn.teampancake.theaurorian.TheAurorian.REGISTRATE;
 import static cn.teampancake.theaurorian.common.utils.TAItemRegUtils.*;
+import static net.minecraft.world.item.ArmorItem.Type.*;
 
 public class TAItems {
 
@@ -125,7 +125,8 @@ public class TAItems {
     public static final DeferredHolder<Item, TASwordItem> STEEL_DAGGER = toolBuilder("steel_dagger", properties -> new TASwordItem(properties.durability(280)
             .attributes(TASwordItem.createAttributes(8.0F, 2.2F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC), 10)).tag(ItemTags.SWORDS).register();
     public static final DeferredHolder<Item, MoonsilverScythe> MOONSILVER_SCYTHE = REGISTRATE.item("moonsilver_scythe", properties -> new MoonsilverScythe(
-            properties.attributes(SwordItem.createAttributes(TAToolTiers.MOONSILVER, 5, -2.4F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.SWORDS).register();
+            properties.attributes(SwordItem.createAttributes(TAToolTiers.MOONSILVER, 12, -3.5F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
+                    .component(TADataComponents.WEAPON_SPEED_DATA, AttackSpeedData.createInitial()))).tag(ItemTags.SWORDS).register();
 
     /**
      * ShovelItem

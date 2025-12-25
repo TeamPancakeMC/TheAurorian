@@ -66,7 +66,7 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<BlockPos>> LAST_POS_OF_LEAVE_OVERWORLD = registerBlockPos("last_pos_of_leave_overworld");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<BlockPos>> SPAWN_POINT_OF_AURORIAN = registerBlockPos("spawn_point_of_aurorain");
 
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<List<ResourceLocation>>> MAX_HEALTH_SUBTRACT_IDS =
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<List<ResourceLocation>>> ATTRIBUTE_UNIVERSAL_IDS =
             ATTACHMENT_TYPES.register("max_health_subtract_id", () -> AttachmentType.<List<ResourceLocation>>builder(
                     () -> new ArrayList<>()).serialize(ResourceLocation.CODEC.listOf()).build());
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<List<Integer>>> RUNE_GAME_TIME_CONSUMING =

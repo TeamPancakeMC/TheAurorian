@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.common.level.data.world_event;
 import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.common.entities.boss.AbstractAurorianBoss;
 import cn.teampancake.theaurorian.common.network.UpdateCurrentShieldS2CPacket;
+import cn.teampancake.theaurorian.common.network.UpdateShieldValueS2CPacket;
 import cn.teampancake.theaurorian.common.network.WorldNightColorS2CPacket;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TAEventConfigurations;
@@ -42,6 +43,7 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
     private static final ResourceLocation SPEED_MODIFIER = TheAurorian.prefix("blood_moon_speed");
     private static final ResourceLocation HEALTH_MODIFIER = TheAurorian.prefix("blood_moon_health");
     private static final ResourceLocation ATTACK_MODIFIER = TheAurorian.prefix("blood_moon_attack");
+    private static final AttachmentType<ShieldStack> CURRENT_SHIELD = TAAttachmentTypes.CURRENT_SHIELD.get();
     private static final AttachmentType<Integer> KILL_COUNT = TAAttachmentTypes.KILL_COUNT_IN_BLOOD_MOON.get();
     private static final AttachmentType<Boolean> REMOVE_BLESS = TAAttachmentTypes.REMOVE_BLESS_UNTIL_NEXT_BLOOD_MOON.get();
     private static final AttachmentType<Boolean> IMMUNE_PRESSURE_TEMP = TAAttachmentTypes.IMMUNE_PRESSURE_UNTIL_NEXT_BLOOD_MOON.get();
@@ -79,11 +81,12 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
         var packet = new UpdateCurrentShieldS2CPacket(shieldStack);
         for (ServerPlayer player : level.players()) {
             this.bloodMoonEvent.addPlayer(player);
-            killCountInBloodMoons.put(player.getUUID(), 0);
             player.setData(KILL_COUNT, 0);
             player.setData(REMOVE_BLESS, false);
-            player.sendSystemMessage(BLOOD_MOON_START_COMPONENT, Boolean.FALSE);
+            player.setData(CURRENT_SHIELD, shieldStack);
             PacketDistributor.sendToPlayer(player, packet);
+            killCountInBloodMoons.put(player.getUUID(), 0);
+            player.sendSystemMessage(BLOOD_MOON_START_COMPONENT, Boolean.FALSE);
             if (!player.getData(IMMUNE_PRESSURE_PERSISTENT)) {
                 player.setData(IMMUNE_PRESSURE_TEMP, false);
             }
@@ -99,13 +102,15 @@ public class BloodMoonEvent extends BaseWorldEvent<BaseEventConfig> {
         if (!TACommonUtils.isAurorianDimension(level)) return;
         WorldEventData eventData = level.getData(TAAttachmentTypes.WORLD_EVENT_DATA);
         Map<UUID, Integer> killCountInBloodMoons = eventData.killCountInBloodMoons;
-        var packet = new UpdateCurrentShieldS2CPacket(ShieldStack.EMPTY);
         for (ServerPlayer player : level.players()) {
             int killCount = player.getData(KILL_COUNT);
             this.bloodMoonEvent.removePlayer(player);
+            player.setData(CURRENT_SHIELD, ShieldStack.EMPTY);
+            PacketDistributor.sendToPlayer(player,
+                    new UpdateShieldValueS2CPacket(0.0F),
+                    new UpdateCurrentShieldS2CPacket(ShieldStack.EMPTY));
             killCountInBloodMoons.put(player.getUUID(), killCount);
             player.sendSystemMessage(BLOOD_MOON_END_COMPONENT, Boolean.FALSE);
-            PacketDistributor.sendToPlayer(player, packet);
             if (killCount < 40) player.setData(REMOVE_BLESS, true);
             else player.setData(IMMUNE_PRESSURE_TEMP, true);
         }

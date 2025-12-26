@@ -445,9 +445,9 @@ public class TABlockStateProvider extends BlockStateProvider {
     }
 
     private void registerLiquidStates() {
-        this.simpleBlock(TABlocks.MOLTEN_AURORIAN_STEEL.get(), this.models()
-                .getBuilder(TABlocks.MOLTEN_AURORIAN_STEEL.getId().getPath())
-                .texture("particle", this.modLoc("block/molten_aurorian_steel")));
+        this.simpleBlock(TABlocks.MOLTEN_MOONSILVER.get(), this.models()
+                .getBuilder(TABlocks.MOLTEN_MOONSILVER.getId().getPath())
+                .texture("particle", this.modLoc("block/molten_moonsilver")));
         this.simpleBlock(TABlocks.MOLTEN_CERULEAN.get(), this.models()
                 .getBuilder(TABlocks.MOLTEN_CERULEAN.getId().getPath())
                 .texture("particle", this.modLoc("block/molten_cerulean")));

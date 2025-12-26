@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class AlchemyTableBlockEntity extends SimpleContainerBlockEntity implements WorldlyContainer {
+public class AlchemyTableBlockEntity extends StandardContainerBlockEntity implements WorldlyContainer {
 
     private int alchemyTime;
     private int maxAlchemyTime;

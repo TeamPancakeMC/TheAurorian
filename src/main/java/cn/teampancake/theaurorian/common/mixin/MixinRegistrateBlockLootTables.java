@@ -26,14 +26,10 @@ public class MixinRegistrateBlockLootTables extends VanillaBlockLoot {
         this.generate();
         Set<ResourceKey<LootTable>> set = new HashSet<>();
         for (Block block : TACommonUtils.getKnownBlocks()) {
-            if (block.isEnabled(this.enabledFeatures)) {
-                ResourceKey<LootTable> lootTable = block.getLootTable();
-                if (lootTable != BuiltInLootTables.EMPTY && set.add(lootTable)) {
-                    LootTable.Builder builder = this.map.remove(lootTable);
-                    if (builder != null) {
-                        output.accept(lootTable, builder);
-                    }
-                }
+            ResourceKey<LootTable> lootTable = block.getLootTable();
+            if (lootTable != BuiltInLootTables.EMPTY && set.add(lootTable)) {
+                LootTable.Builder builder = this.map.remove(lootTable);
+                if (builder != null) output.accept(lootTable, builder);
             }
         }
     }

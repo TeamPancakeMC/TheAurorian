@@ -1,0 +1,11 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 48,
+  "ingredient": {
+    "item": "theaurorian:moonsilver_chestplate"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:moonsilver_nugget"
+  }
+}

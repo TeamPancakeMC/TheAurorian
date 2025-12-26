@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class MoonlightForgeBlockEntity extends SimpleContainerBlockEntity implements WorldlyContainer {
+public class MoonlightForgeBlockEntity extends StandardContainerBlockEntity implements WorldlyContainer {
 
     private int craftProgress;
     public boolean hasMoonLight, isCrafting, isPowered;

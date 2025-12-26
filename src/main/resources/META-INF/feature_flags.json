@@ -1,7 +1,6 @@
 {
     "flags": [
         "theaurorian:emissivity",
-        "theaurorian:dungeon",
         "theaurorian:wood_material"
     ]
 }

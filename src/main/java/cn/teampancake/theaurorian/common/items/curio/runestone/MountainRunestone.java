@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.common.components.RunestoneMountain;
 import cn.teampancake.theaurorian.common.registry.TADataComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 
 import java.text.NumberFormat;
@@ -12,7 +13,7 @@ import java.util.List;
 public class MountainRunestone extends Runestone {
 
     public MountainRunestone(Properties properties, int rank) {
-        super(properties, rank);
+        super(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE), rank);
     }
 
     @Override

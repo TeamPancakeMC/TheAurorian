@@ -10,6 +10,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -21,7 +22,7 @@ import java.util.List;
 public class StormRunestone extends Runestone {
 
     public StormRunestone(Properties properties, int rank) {
-        super(properties, rank);
+        super(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE), rank);
     }
 
     @Override

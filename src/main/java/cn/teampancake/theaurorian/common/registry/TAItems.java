@@ -6,6 +6,7 @@ import cn.teampancake.theaurorian.common.items.*;
 import cn.teampancake.theaurorian.common.items.armor.*;
 import cn.teampancake.theaurorian.common.items.block.AstrologyTable;
 import cn.teampancake.theaurorian.common.items.block.AbstractLunarCrystal;
+import cn.teampancake.theaurorian.common.items.block.CrystallineSwordPedestal;
 import cn.teampancake.theaurorian.common.items.block.SacrificeTable;
 import cn.teampancake.theaurorian.common.items.curio.*;
 import cn.teampancake.theaurorian.common.items.curio.runestone.*;
@@ -14,7 +15,9 @@ import cn.teampancake.theaurorian.common.items.shield.CeruleanShield;
 import cn.teampancake.theaurorian.common.items.shield.CrystallineShield;
 import cn.teampancake.theaurorian.common.items.shield.UmbraShield;
 import cn.teampancake.theaurorian.common.items.tool.*;
-import cn.teampancake.theaurorian.common.items.tool.aurorian_steel.*;
+import cn.teampancake.theaurorian.common.items.tool.crystalline.CrystallinePickaxe;
+import cn.teampancake.theaurorian.common.items.tool.crystalline.CrystallineSword;
+import cn.teampancake.theaurorian.common.items.tool.moonsilver.*;
 import cn.teampancake.theaurorian.common.items.tool.aurorian_stone.AurorianStoneAxe;
 import cn.teampancake.theaurorian.common.items.tool.aurorian_stone.AurorianStonePickaxe;
 import cn.teampancake.theaurorian.common.items.tool.aurorianite.AurorianiteAxe;
@@ -35,9 +38,9 @@ import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import static cn.teampancake.theaurorian.common.data.datagen.provider.TAItemModelProvider.*;
-import static net.minecraft.world.item.ArmorItem.Type.*;
 import static cn.teampancake.theaurorian.TheAurorian.REGISTRATE;
 import static cn.teampancake.theaurorian.common.utils.TAItemRegUtils.*;
+import static net.minecraft.world.item.ArmorItem.Type.*;
 
 public class TAItems {
 
@@ -48,7 +51,7 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> RAW_MOONSTONE = simple("raw_moonstone", Item.Properties::new);
     public static final DeferredHolder<Item, Item> AURORIAN_COAL = simple("aurorian_coal", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     public static final DeferredHolder<Item, Item> AURORIANITE_INGOT = simple("aurorianite_ingot", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
-    public static final DeferredHolder<Item, Item> AURORIAN_STEEL = simple("aurorian_steel", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
+    public static final DeferredHolder<Item, Item> MOONSILVER_INGOT = simple("moonsilver_ingot", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     public static final DeferredHolder<Item, Item> CERULEAN_INGOT = simple("cerulean_ingot", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     public static final DeferredHolder<Item, Item> CRYSTALLINE_INGOT = simple("crystalline_ingot", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     public static final DeferredHolder<Item, Item> MOONSTONE_INGOT = simple("moonstone_ingot", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
@@ -69,10 +72,10 @@ public class TAItems {
     public static final DeferredHolder<Item, Item> HOLY_KNIGHT_CHESTPLATE = register("holy_knight_chestplate", properties -> new HolyKnightArmor(CHESTPLATE));
     public static final DeferredHolder<Item, Item> HOLY_KNIGHT_LEGGINGS = register("holy_knight_leggings", properties -> new HolyKnightArmor(LEGGINGS));
     public static final DeferredHolder<Item, Item> HOLY_KNIGHT_BOOTS = register("holy_knight_boots", properties -> new HolyKnightArmor(BOOTS));
-    public static final DeferredHolder<Item, Item> AURORIAN_STEEL_HELMET = register("aurorian_steel_helmet", properties -> new AurorianSteelArmor(HELMET));
-    public static final DeferredHolder<Item, Item> AURORIAN_STEEL_CHESTPLATE = register("aurorian_steel_chestplate", properties -> new AurorianSteelArmor(CHESTPLATE));
-    public static final DeferredHolder<Item, Item> AURORIAN_STEEL_LEGGINGS = register("aurorian_steel_leggings", properties -> new AurorianSteelArmor(LEGGINGS));
-    public static final DeferredHolder<Item, Item> AURORIAN_STEEL_BOOTS = register("aurorian_steel_boots", properties -> new AurorianSteelArmor(BOOTS));
+    public static final DeferredHolder<Item, Item> MOONSILVER_HELMET = register("moonsilver_helmet", properties -> new MoonsilverArmor(HELMET));
+    public static final DeferredHolder<Item, Item> MOONSILVER_CHESTPLATE = register("moonsilver_chestplate", properties -> new MoonsilverArmor(CHESTPLATE));
+    public static final DeferredHolder<Item, Item> MOONSILVER_LEGGINGS = register("moonsilver_leggings", properties -> new MoonsilverArmor(LEGGINGS));
+    public static final DeferredHolder<Item, Item> MOONSILVER_BOOTS = register("moonsilver_boots", properties -> new MoonsilverArmor(BOOTS));
     public static final DeferredHolder<Item, Item> CERULEAN_HELMET = register("cerulean_helmet", properties -> new CeruleanArmor(HELMET));
     public static final DeferredHolder<Item, Item> CERULEAN_CHESTPLATE = register("cerulean_chestplate", properties -> new CeruleanArmor(CHESTPLATE));
     public static final DeferredHolder<Item, Item> CERULEAN_LEGGINGS = register("cerulean_leggings", properties -> new CeruleanArmor(LEGGINGS));
@@ -99,9 +102,12 @@ public class TAItems {
     /**
      * SwordItem
      */
-    public static final DeferredHolder<Item, AurorianSteelDagger> AURORIAN_STEEL_DAGGER = toolBuilder("aurorian_steel_dagger", AurorianSteelDagger::new).tag(ItemTags.SWORDS).register();
-    public static final DeferredHolder<Item, AurorianSteelSword> AURORIAN_STEEL_SWORD = REGISTRATE.item("aurorian_steel_sword", properties -> new AurorianSteelSword(
-            properties.rarity(Rarity.RARE).attributes(SwordItem.createAttributes(TAToolTiers.AURORIAN_STEEL, 3, -2.4F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)))
+    public static final DeferredHolder<Item, MoonsilverDagger> MOONSILVER_DAGGER = toolBuilder("moonsilver_dagger", MoonsilverDagger::new).tag(ItemTags.SWORDS).register();
+    public static final DeferredHolder<Item, MoonsilverSword> MOONSILVER_SWORD = REGISTRATE.item("moonsilver_sword", properties -> new MoonsilverSword(
+            properties.rarity(Rarity.RARE).attributes(SwordItem.createAttributes(TAToolTiers.MOONSILVER, 3, -2.4F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)))
+            .tag(ItemTags.SWORDS).model((ctx, prov) -> separateTransforms(ctx.getName(), prov, prov.existingFileHelper)).register();
+    public static final DeferredHolder<Item, MoonsilverGreatSword> MOONSILVER_GREAT_SWORD = REGISTRATE.item("moonsilver_great_sword", properties -> new MoonsilverGreatSword(
+            properties.rarity(Rarity.EPIC).attributes(SwordItem.createAttributes(TAToolTiers.MOONSILVER, 6, -3.2F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)))
             .tag(ItemTags.SWORDS).model((ctx, prov) -> separateTransforms(ctx.getName(), prov, prov.existingFileHelper)).register();
     public static final DeferredHolder<Item, SwordItem> AURORIAN_ALLOY_STEEL_SWORD = toolBuilder("aurorian_alloy_steel_sword", properties -> new SwordItem(TAToolTiers.AURORIAN_ALLOY_STEEL,
             properties.fireResistant().attributes(SwordItem.createAttributes(TAToolTiers.AURORIAN_ALLOY_STEEL, 0, -2.4F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.SWORDS).register();
@@ -114,18 +120,19 @@ public class TAItems {
     public static final DeferredHolder<Item, CrystallineSword> CRYSTALLINE_SWORD = REGISTRATE.item("crystalline_sword", CrystallineSword::new).tag(ItemTags.SWORDS).register();
     public static final DeferredHolder<Item, SwordItem> MOONSTONE_SWORD = REGISTRATE.item("moonstone_sword", properties -> new SwordItem(TAToolTiers.SILENT_WOOD,
             properties.attributes(SwordItem.createAttributes(TAToolTiers.SILENT_WOOD, 4, -1.6F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.SWORDS).register();
-    public static final DeferredHolder<Item, TASwordItem> KOPISH_DAGGER = toolBuilder("kopish_dagger", properties -> new TASwordItem(
-            properties.durability(70).attributes(TASwordItem.createAttributes(7.0F, 2.2F))
-                    .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY), 10)).tag(ItemTags.SWORDS).register();
-    public static final DeferredHolder<Item, TASwordItem> STEEL_DAGGER = toolBuilder("steel_dagger", properties -> new TASwordItem(
-            properties.durability(280).attributes(TASwordItem.createAttributes(8.0F, 2.2F))
-                    .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC), 10)).tag(ItemTags.SWORDS).register();
+    public static final DeferredHolder<Item, TASwordItem> KOPISH_DAGGER = toolBuilder("kopish_dagger", properties -> new TASwordItem(properties.durability(70)
+            .attributes(TASwordItem.createAttributes(7.0F, 2.2F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.LEGENDARY), 10)).tag(ItemTags.SWORDS).register();
+    public static final DeferredHolder<Item, TASwordItem> STEEL_DAGGER = toolBuilder("steel_dagger", properties -> new TASwordItem(properties.durability(280)
+            .attributes(TASwordItem.createAttributes(8.0F, 2.2F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC), 10)).tag(ItemTags.SWORDS).register();
+    public static final DeferredHolder<Item, MoonsilverScythe> MOONSILVER_SCYTHE = REGISTRATE.item("moonsilver_scythe", properties -> new MoonsilverScythe(
+            properties.attributes(SwordItem.createAttributes(TAToolTiers.MOONSILVER, 12, -3.5F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)
+                    .component(TADataComponents.WEAPON_SPEED_DATA, AttackSpeedData.createInitial()))).tag(ItemTags.SWORDS).register();
 
     /**
      * ShovelItem
      */
-    public static final DeferredHolder<Item, AurorianSteelShovel> AURORIAN_STEEL_SHOVEL = REGISTRATE.item("aurorian_steel_shovel", properties -> new AurorianSteelShovel(
-            properties.attributes(ShovelItem.createAttributes(TAToolTiers.AURORIAN_STEEL, 1.5F, -3.0F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON)))
+    public static final DeferredHolder<Item, MoonsilverShovel> MOONSILVER_SHOVEL = REGISTRATE.item("moonsilver_shovel", properties -> new MoonsilverShovel(
+            properties.attributes(ShovelItem.createAttributes(TAToolTiers.MOONSILVER, 1.5F, -3.0F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON)))
             .tag(ItemTags.SHOVELS).model((ctx, prov) -> separateTransforms(ctx.getName(), prov, prov.existingFileHelper)).register();
     public static final DeferredHolder<Item, ShovelItem> AURORIAN_STONE_SHOVEL = toolBuilder("aurorian_stone_shovel", properties -> new ShovelItem(
             TAToolTiers.AURORIAN_STONE, properties.attributes(ShovelItem.createAttributes(TAToolTiers.AURORIAN_STONE, 1.5F, -3.0F))
@@ -140,8 +147,8 @@ public class TAItems {
     /**
      * AxeItem
      */
-    public static final DeferredHolder<Item, AurorianSteelAxe> AURORIAN_STEEL_AXE = REGISTRATE.item("aurorian_steel_axe", properties -> new AurorianSteelAxe(
-            properties.attributes(AxeItem.createAttributes(TAToolTiers.AURORIAN_STEEL, 6.0F, -3.0F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)))
+    public static final DeferredHolder<Item, MoonsilverAxe> MOONSILVER_AXE = REGISTRATE.item("moonsilver_axe", properties -> new MoonsilverAxe(
+            properties.attributes(AxeItem.createAttributes(TAToolTiers.MOONSILVER, 6.0F, -3.0F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)))
             .tag(ItemTags.AXES).model((ctx, prov) -> separateTransforms(ctx.getName(), prov, prov.existingFileHelper)).register();
     public static final DeferredHolder<Item, AurorianiteAxe> AURORIANITE_AXE = toolBuilder("aurorianite_axe", AurorianiteAxe::new).tag(ItemTags.AXES).register();
     public static final DeferredHolder<Item, AurorianStoneAxe> AURORIAN_STONE_AXE = toolBuilder("aurorian_stone_axe", AurorianStoneAxe::new).tag(ItemTags.AXES).register();
@@ -155,11 +162,11 @@ public class TAItems {
      * PickaxeItem
      */
     public static final DeferredHolder<Item, QueensChipper> QUEENS_CHIPPER = toolBuilder("queens_chipper", QueensChipper::new).tag(ItemTags.PICKAXES).register();
-    public static final DeferredHolder<Item, AurorianSteelPickaxe> AURORIAN_STEEL_PICKAXE = REGISTRATE.item("aurorian_steel_pickaxe", properties -> new AurorianSteelPickaxe(
-            properties.attributes(PickaxeItem.createAttributes(TAToolTiers.AURORIAN_STEEL, 1, -2.8F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)))
+    public static final DeferredHolder<Item, MoonsilverPickaxe> MOONSILVER_PICKAXE = REGISTRATE.item("moonsilver_pickaxe", properties -> new MoonsilverPickaxe(
+            properties.attributes(PickaxeItem.createAttributes(TAToolTiers.MOONSILVER, 1, -2.8F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC)))
             .tag(ItemTags.PICKAXES).model((ctx, prov) -> separateTransforms(ctx.getName(), prov, prov.existingFileHelper)).register();
     public static final DeferredHolder<Item, PickaxeItem> AURORIANITE_PICKAXE = toolBuilder("aurorianite_pickaxe", properties -> new PickaxeItem(
-            TAToolTiers.AURORIANITE, properties.rarity(Rarity.EPIC).attributes(PickaxeItem.createAttributes(TAToolTiers.AURORIAN_STEEL, 1, -3.0F))
+            TAToolTiers.AURORIANITE, properties.rarity(Rarity.EPIC).attributes(PickaxeItem.createAttributes(TAToolTiers.MOONSILVER, 1, -3.0F))
             .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.PICKAXES).register();
     public static final DeferredHolder<Item, UmbraPickaxe> UMBRA_PICKAXE = toolBuilder("umbra_pickaxe", UmbraPickaxe::new).tag(ItemTags.PICKAXES).register();
     public static final DeferredHolder<Item, CrystallinePickaxe> CRYSTALLINE_PICKAXE = toolBuilder("crystalline_pickaxe", CrystallinePickaxe::new).tag(ItemTags.PICKAXES).register();
@@ -172,8 +179,8 @@ public class TAItems {
     /**
      * HoeItem
      */
-    public static final DeferredHolder<Item, HoeItem> AURORIAN_STEEL_HOE = toolBuilder("aurorian_steel_hoe", properties -> new HoeItem(TAToolTiers.AURORIAN_STEEL, properties.attributes(
-            HoeItem.createAttributes(TAToolTiers.AURORIAN_STEEL, -2, -1.0F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.HOES).register();
+    public static final DeferredHolder<Item, HoeItem> MOONSILVER_HOE = toolBuilder("moonsilver_hoe", properties -> new HoeItem(TAToolTiers.MOONSILVER, properties.attributes(
+            HoeItem.createAttributes(TAToolTiers.MOONSILVER, -2, -1.0F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.HOES).register();
     public static final DeferredHolder<Item, HoeItem> AURORIAN_STONE_HOE = toolBuilder("aurorian_stone_hoe", properties -> new HoeItem(TAToolTiers.AURORIAN_STONE, properties.attributes(
             HoeItem.createAttributes(TAToolTiers.AURORIAN_STONE, -2, -1.0F)).component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.HOES).register();
     public static final DeferredHolder<Item, HoeItem> SILENT_WOOD_HOE = toolBuilder("silent_wood_hoe", properties -> new HoeItem(TAToolTiers.SILENT_WOOD, properties.attributes(
@@ -213,6 +220,8 @@ public class TAItems {
             .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BOW_ENCHANTABLE).model((ctx, prov) -> bowItem(ctx.get(), prov)).register();
     public static final DeferredHolder<Item, KeepersBow> KEEPERS_BOW = REGISTRATE.item("keepers_bow", properties -> new KeepersBow(properties.durability(512).rarity(Rarity.RARE)
             .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BOW_ENCHANTABLE).model((ctx, prov) -> bowItem(ctx.get(), prov)).register();
+    public static final DeferredHolder<Item, MoonsilverBow> MOONSILVER_BOW = REGISTRATE.item("moonsilver_bow", properties -> new MoonsilverBow(properties.durability(512).rarity(Rarity.RARE)
+            .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC))).tag(ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BOW_ENCHANTABLE).register();
 
     /**
      * Throwable Weapons
@@ -355,16 +364,16 @@ public class TAItems {
     /**
      * Runestone
      */
-    public static final DeferredHolder<Item, IceRunestone> RUNESTONE_ICE_1 = registerBuilder("runestone_ice_1", properties -> new IceRunestone(
-            properties.component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.1f, 0.3f, 1.0f)), 1)).register();
-    public static final DeferredHolder<Item, IceRunestone> RUNESTONE_ICE_2 = registerBuilder("runestone_ice_2", properties -> new IceRunestone(
-            properties.component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.1f, 0.3f, 1.5f)), 2)).register();
-    public static final DeferredHolder<Item, IceRunestone> RUNESTONE_ICE_3 = registerBuilder("runestone_ice_3", properties -> new IceRunestone(
-            properties.component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.31f, 0.5f, 1.5f)), 3)).register();
-    public static final DeferredHolder<Item, IceRunestone> RUNESTONE_ICE_4 = registerBuilder("runestone_ice_4", properties -> new IceRunestone(
-            properties.component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.31f, 0.5f, 2.0f)), 4)).register();
-    public static final DeferredHolder<Item, IceRunestone> RUNESTONE_ICE_5 = registerBuilder("runestone_ice_5", properties -> new IceRunestone(
-            properties.component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(1.0f, 1.0f, 2.0f)), 5)).register();
+    public static final DeferredHolder<Item, IceRunestone> RUNESTONE_ICE_1 = registerBuilder("runestone_ice_1", properties ->
+            new IceRunestone(properties.component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.1f, 0.3f, 1.0f)), 1)).register();
+    public static final DeferredHolder<Item, IceRunestone> RUNESTONE_ICE_2 = registerBuilder("runestone_ice_2", properties ->
+            new IceRunestone(properties.component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.1f, 0.3f, 1.5f)), 2)).register();
+    public static final DeferredHolder<Item, IceRunestone> RUNESTONE_ICE_3 = registerBuilder("runestone_ice_3", properties ->
+            new IceRunestone(properties.component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.31f, 0.5f, 1.5f)), 3)).register();
+    public static final DeferredHolder<Item, IceRunestone> RUNESTONE_ICE_4 = registerBuilder("runestone_ice_4", properties ->
+            new IceRunestone(properties.component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(0.31f, 0.5f, 2.0f)), 4)).register();
+    public static final DeferredHolder<Item, IceRunestone> RUNESTONE_ICE_5 = registerBuilder("runestone_ice_5", properties ->
+            new IceRunestone(properties.component(TADataComponents.RUNESTONE_ICE, new RunestoneIce(1.0f, 1.0f, 2.0f)), 5)).register();
     public static final DeferredHolder<Item, LifeRunestone> RUNESTONE_LIFE_1 = registerBuilder("runestone_life_1", properties -> new LifeRunestone(
             properties.component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(1, 6)).component(TADataComponents.FIXED_HEALTH_BOOST, 5.0F), 1)).register();
     public static final DeferredHolder<Item, LifeRunestone> RUNESTONE_LIFE_2 = registerBuilder("runestone_life_2", properties -> new LifeRunestone(
@@ -375,87 +384,88 @@ public class TAItems {
             properties.component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(16, 21)).component(TADataComponents.FIXED_HEALTH_BOOST, 20.0F), 4)).register();
     public static final DeferredHolder<Item, LifeRunestone> RUNESTONE_LIFE_5 = registerBuilder("runestone_life_5", properties -> new LifeRunestone(
             properties.component(TADataComponents.RUNESTONE_LIFE, new RunestoneLife(21, 26)).component(TADataComponents.FIXED_HEALTH_BOOST, 25.0F), 5)).register();
-    public static final DeferredHolder<Item, LightRunestone> RUNESTONE_LIGHT_1 = registerBuilder("runestone_light_1", properties -> new LightRunestone(
-            properties.component(TADataComponents.RUNESTONE_LIGHT, new RunestoneWater(0.1f, 0.2f, 1.0f)), 1)).register();
-    public static final DeferredHolder<Item, LightRunestone> RUNESTONE_LIGHT_2 = registerBuilder("runestone_light_2", properties -> new LightRunestone(
-            properties.component(TADataComponents.RUNESTONE_LIGHT, new RunestoneWater(0.21f, 0.3f, 1.0f)), 2)).register();
-    public static final DeferredHolder<Item, LightRunestone> RUNESTONE_LIGHT_3 = registerBuilder("runestone_light_3", properties -> new LightRunestone(
-            properties.component(TADataComponents.RUNESTONE_LIGHT, new RunestoneWater(0.21f, 0.3f, 2.0f)), 3)).register();
-    public static final DeferredHolder<Item, LightRunestone> RUNESTONE_LIGHT_4 = registerBuilder("runestone_light_4", properties -> new LightRunestone(
-            properties.component(TADataComponents.RUNESTONE_LIGHT, new RunestoneWater(0.31f, 0.4f, 2.0f)), 4)).register();
-    public static final DeferredHolder<Item, LightRunestone> RUNESTONE_LIGHT_5 = registerBuilder("runestone_light_5", properties -> new LightRunestone(
-            properties.component(TADataComponents.RUNESTONE_LIGHT, new RunestoneWater(1.0f, 1.0f, 2.0f)), 5)).register();
-    public static final DeferredHolder<Item, WaterRunestone> RUNESTONE_WATER_1 = registerBuilder("runestone_water_1", properties -> new WaterRunestone(
-            properties.component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.1f, 0.2f, 1.0f)), 1)).register();
-    public static final DeferredHolder<Item, WaterRunestone> RUNESTONE_WATER_2 = registerBuilder("runestone_water_2", properties -> new WaterRunestone(
-            properties.component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.21f, 0.3f, 1.0f)), 2)).register();
-    public static final DeferredHolder<Item, WaterRunestone> RUNESTONE_WATER_3 = registerBuilder("runestone_water_3", properties -> new WaterRunestone(
-            properties.component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.25f, 0.35f, 2.0f)), 3)).register();
-    public static final DeferredHolder<Item, WaterRunestone> RUNESTONE_WATER_4 = registerBuilder("runestone_water_4", properties -> new WaterRunestone(
-            properties.component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.36f, 0.5f, 2.0f)), 4)).register();
-    public static final DeferredHolder<Item, WaterRunestone> RUNESTONE_WATER_5 = registerBuilder("runestone_water_5", properties -> new WaterRunestone(
-            properties.component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(1.0f, 1.0f, 2.0f)), 5)).register();
-    public static final DeferredHolder<Item, BlazeRunestone> RUNESTONE_BLAZE_1 = registerBuilder("runestone_blaze_1", properties -> new BlazeRunestone(
-            properties.component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.2f, 0.3f, 0.01f, 0.1f)), 1)).register();
-    public static final DeferredHolder<Item, BlazeRunestone> RUNESTONE_BLAZE_2 = registerBuilder("runestone_blaze_2", properties -> new BlazeRunestone(
-            properties.component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.3f, 0.4f, 0.11f, 0.2f)), 2)).register();
-    public static final DeferredHolder<Item, BlazeRunestone> RUNESTONE_BLAZE_3 = registerBuilder("runestone_blaze_3", properties -> new BlazeRunestone(
-            properties.component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.3f, 0.4f, 0.21f, 0.3f)), 3)).register();
-    public static final DeferredHolder<Item, BlazeRunestone> RUNESTONE_BLAZE_4 = registerBuilder("runestone_blaze_4", properties -> new BlazeRunestone(
-            properties.component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.4f, 0.6f, 0.31f, 0.4f)), 4)).register();
-    public static final DeferredHolder<Item, BlazeRunestone> RUNESTONE_BLAZE_5 = registerBuilder("runestone_blaze_5", properties -> new BlazeRunestone(
-            properties.component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(1.0f, 1.0f, 0.5f, 0.5f)), 5)).register();
-    public static final DeferredHolder<Item, ThunderRunestone> RUNESTONE_THUNDER_1 = registerBuilder("runestone_thunder_1", properties -> new ThunderRunestone(
-            properties.component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.01f, 0.15f)), 1)).register();
-    public static final DeferredHolder<Item, ThunderRunestone> RUNESTONE_THUNDER_2 = registerBuilder("runestone_thunder_2", properties -> new ThunderRunestone(
-            properties.component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.16f, 0.30f)), 2)).register();
-    public static final DeferredHolder<Item, ThunderRunestone> RUNESTONE_THUNDER_3 = registerBuilder("runestone_thunder_3", properties -> new ThunderRunestone(
-            properties.component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.31f, 0.45f)), 3)).register();
-    public static final DeferredHolder<Item, ThunderRunestone> RUNESTONE_THUNDER_4 = registerBuilder("runestone_thunder_4", properties -> new ThunderRunestone(
-            properties.component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.46f, 0.6f)), 4)).register();
-    public static final DeferredHolder<Item, ThunderRunestone> RUNESTONE_THUNDER_5 = registerBuilder("runestone_thunder_5", properties -> new ThunderRunestone(
-            properties.component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(1.0f, 1.0f)), 5)).register();
-    public static final DeferredHolder<Item, DarknessRunestone> RUNESTONE_DARKNESS_1 = registerBuilder("runestone_darkness_1", properties -> new DarknessRunestone(
-            properties.component(TADataComponents.RUNESTONE_DARKNESS, new RunestoneDarkness(0.4F, 0.5F, 0.15F, 0.25F)), 1, 3.0D)).register();
-    public static final DeferredHolder<Item, DarknessRunestone> RUNESTONE_DARKNESS_2 = registerBuilder("runestone_darkness_2", properties -> new DarknessRunestone(
-            properties.component(TADataComponents.RUNESTONE_DARKNESS, new RunestoneDarkness(0.3F, 0.4F, 0.25F, 0.35F)), 2, 4.0D)).register();
-    public static final DeferredHolder<Item, DarknessRunestone> RUNESTONE_DARKNESS_3 = registerBuilder("runestone_darkness_3", properties -> new DarknessRunestone(
-            properties.component(TADataComponents.RUNESTONE_DARKNESS, new RunestoneDarkness(0.3F, 0.4F, 0.35F, 0.5F)), 3, 5.0D)).register();
-    public static final DeferredHolder<Item, DarknessRunestone> RUNESTONE_DARKNESS_4 = registerBuilder("runestone_darkness_4", properties -> new DarknessRunestone(
-            properties.component(TADataComponents.RUNESTONE_DARKNESS, new RunestoneDarkness(0.4F, 0.5F, 0.5F, 0.6F)), 4, 6.0D)).register();
-    public static final DeferredHolder<Item, DarknessRunestone> RUNESTONE_DARKNESS_5 = registerBuilder("runestone_darkness_5", properties -> new DarknessRunestone(
-            properties.component(TADataComponents.RUNESTONE_DARKNESS, new RunestoneDarkness(1.0F, 1.0F, 0.6F, 0.7F)), 5, 6.0D)).register();
-    public static final DeferredHolder<Item, StormRunestone> RUNESTONE_STORM_1 = registerBuilder("runestone_storm_1", properties -> new StormRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, LightRunestone> RUNESTONE_LIGHT_1 = registerBuilder("runestone_light_1", properties ->
+            new LightRunestone(properties.component(TADataComponents.RUNESTONE_LIGHT, new RunestoneWater(0.1f, 0.2f, 1.0f)), 1)).register();
+    public static final DeferredHolder<Item, LightRunestone> RUNESTONE_LIGHT_2 = registerBuilder("runestone_light_2", properties ->
+            new LightRunestone(properties.component(TADataComponents.RUNESTONE_LIGHT, new RunestoneWater(0.21f, 0.3f, 1.0f)), 2)).register();
+    public static final DeferredHolder<Item, LightRunestone> RUNESTONE_LIGHT_3 = registerBuilder("runestone_light_3", properties ->
+            new LightRunestone(properties.component(TADataComponents.RUNESTONE_LIGHT, new RunestoneWater(0.21f, 0.3f, 2.0f)), 3)).register();
+    public static final DeferredHolder<Item, LightRunestone> RUNESTONE_LIGHT_4 = registerBuilder("runestone_light_4", properties ->
+            new LightRunestone(properties.component(TADataComponents.RUNESTONE_LIGHT, new RunestoneWater(0.31f, 0.4f, 2.0f)), 4)).register();
+    public static final DeferredHolder<Item, LightRunestone> RUNESTONE_LIGHT_5 = registerBuilder("runestone_light_5", properties ->
+            new LightRunestone(properties.component(TADataComponents.RUNESTONE_LIGHT, new RunestoneWater(1.0f, 1.0f, 2.0f)), 5)).register();
+    public static final DeferredHolder<Item, WaterRunestone> RUNESTONE_WATER_1 = registerBuilder("runestone_water_1", properties ->
+            new WaterRunestone(properties.component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.1f, 0.2f, 1.0f)), 1)).register();
+    public static final DeferredHolder<Item, WaterRunestone> RUNESTONE_WATER_2 = registerBuilder("runestone_water_2", properties ->
+            new WaterRunestone(properties.component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.21f, 0.3f, 1.0f)), 2)).register();
+    public static final DeferredHolder<Item, WaterRunestone> RUNESTONE_WATER_3 = registerBuilder("runestone_water_3", properties ->
+            new WaterRunestone(properties.component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.25f, 0.35f, 2.0f)), 3)).register();
+    public static final DeferredHolder<Item, WaterRunestone> RUNESTONE_WATER_4 = registerBuilder("runestone_water_4", properties ->
+            new WaterRunestone(properties.component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(0.36f, 0.5f, 2.0f)), 4)).register();
+    public static final DeferredHolder<Item, WaterRunestone> RUNESTONE_WATER_5 = registerBuilder("runestone_water_5", properties ->
+            new WaterRunestone(properties.component(TADataComponents.RUNESTONE_WATER, new RunestoneWater(1.0f, 1.0f, 2.0f)), 5)).register();
+    public static final DeferredHolder<Item, BlazeRunestone> RUNESTONE_BLAZE_1 = registerBuilder("runestone_blaze_1", properties ->
+            new BlazeRunestone(properties.component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.2f, 0.3f, 0.01f, 0.1f)), 1)).register();
+    public static final DeferredHolder<Item, BlazeRunestone> RUNESTONE_BLAZE_2 = registerBuilder("runestone_blaze_2", properties ->
+            new BlazeRunestone(properties.component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.3f, 0.4f, 0.11f, 0.2f)), 2)).register();
+    public static final DeferredHolder<Item, BlazeRunestone> RUNESTONE_BLAZE_3 = registerBuilder("runestone_blaze_3", properties ->
+            new BlazeRunestone(properties.component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.3f, 0.4f, 0.21f, 0.3f)), 3)).register();
+    public static final DeferredHolder<Item, BlazeRunestone> RUNESTONE_BLAZE_4 = registerBuilder("runestone_blaze_4", properties ->
+            new BlazeRunestone(properties.component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(0.4f, 0.6f, 0.31f, 0.4f)), 4)).register();
+    public static final DeferredHolder<Item, BlazeRunestone> RUNESTONE_BLAZE_5 = registerBuilder("runestone_blaze_5", properties ->
+            new BlazeRunestone(properties.component(TADataComponents.RUNESTONE_BLAZE, new RunestoneBlaze(1.0f, 1.0f, 0.5f, 0.5f)), 5)).register();
+    public static final DeferredHolder<Item, ThunderRunestone> RUNESTONE_THUNDER_1 = registerBuilder("runestone_thunder_1", properties ->
+            new ThunderRunestone(properties.component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.01f, 0.15f)), 1)).register();
+    public static final DeferredHolder<Item, ThunderRunestone> RUNESTONE_THUNDER_2 = registerBuilder("runestone_thunder_2", properties ->
+            new ThunderRunestone(properties.component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.16f, 0.30f)), 2)).register();
+    public static final DeferredHolder<Item, ThunderRunestone> RUNESTONE_THUNDER_3 = registerBuilder("runestone_thunder_3", properties ->
+            new ThunderRunestone(properties.component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.31f, 0.45f)), 3)).register();
+    public static final DeferredHolder<Item, ThunderRunestone> RUNESTONE_THUNDER_4 = registerBuilder("runestone_thunder_4", properties ->
+            new ThunderRunestone(properties.component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(0.46f, 0.6f)), 4)).register();
+    public static final DeferredHolder<Item, ThunderRunestone> RUNESTONE_THUNDER_5 = registerBuilder("runestone_thunder_5", properties ->
+            new ThunderRunestone(properties.component(TADataComponents.RUNESTONE_THUNDER, new RunestoneThunder(1.0f, 1.0f)), 5)).register();
+    public static final DeferredHolder<Item, DarknessRunestone> RUNESTONE_DARKNESS_1 = registerBuilder("runestone_darkness_1", properties ->
+            new DarknessRunestone(properties.component(TADataComponents.RUNESTONE_DARKNESS, new RunestoneDarkness(0.4F, 0.5F, 0.15F, 0.25F)), 1, 3.0D)).register();
+    public static final DeferredHolder<Item, DarknessRunestone> RUNESTONE_DARKNESS_2 = registerBuilder("runestone_darkness_2", properties ->
+            new DarknessRunestone(properties.component(TADataComponents.RUNESTONE_DARKNESS, new RunestoneDarkness(0.3F, 0.4F, 0.25F, 0.35F)), 2, 4.0D)).register();
+    public static final DeferredHolder<Item, DarknessRunestone> RUNESTONE_DARKNESS_3 = registerBuilder("runestone_darkness_3", properties ->
+            new DarknessRunestone(properties.component(TADataComponents.RUNESTONE_DARKNESS, new RunestoneDarkness(0.3F, 0.4F, 0.35F, 0.5F)), 3, 5.0D)).register();
+    public static final DeferredHolder<Item, DarknessRunestone> RUNESTONE_DARKNESS_4 = registerBuilder("runestone_darkness_4", properties ->
+            new DarknessRunestone(properties.component(TADataComponents.RUNESTONE_DARKNESS, new RunestoneDarkness(0.4F, 0.5F, 0.5F, 0.6F)), 4, 6.0D)).register();
+    public static final DeferredHolder<Item, DarknessRunestone> RUNESTONE_DARKNESS_5 = registerBuilder("runestone_darkness_5", properties ->
+            new DarknessRunestone(properties.component(TADataComponents.RUNESTONE_DARKNESS, new RunestoneDarkness(1.0F, 1.0F, 0.6F, 0.7F)), 5, 6.0D)).register();
+    public static final DeferredHolder<Item, StormRunestone> RUNESTONE_STORM_1 = registerBuilder("runestone_storm_1", properties -> new StormRunestone(properties
             .component(TADataComponents.RUNESTONE_STORM, new RunestoneStorm(0.05F, 0.1F, 1.0f, 1.5f)).component(TADataComponents.FIXED_SPEED_BOOST, 0.1F), 1)).register();
-    public static final DeferredHolder<Item, StormRunestone> RUNESTONE_STORM_2 = registerBuilder("runestone_storm_2", properties -> new StormRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, StormRunestone> RUNESTONE_STORM_2 = registerBuilder("runestone_storm_2", properties -> new StormRunestone(properties
             .component(TADataComponents.RUNESTONE_STORM, new RunestoneStorm(0.1F, 0.15F, 2.0f, 1.5f)).component(TADataComponents.FIXED_SPEED_BOOST, 0.15F), 2)).register();
-    public static final DeferredHolder<Item, StormRunestone> RUNESTONE_STORM_3 = registerBuilder("runestone_storm_3", properties -> new StormRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, StormRunestone> RUNESTONE_STORM_3 = registerBuilder("runestone_storm_3", properties -> new StormRunestone(properties
             .component(TADataComponents.RUNESTONE_STORM, new RunestoneStorm(0.15F, 0.2F, 2.0f, 2.0f)).component(TADataComponents.FIXED_SPEED_BOOST, 0.2F), 3)).register();
-    public static final DeferredHolder<Item, StormRunestone> RUNESTONE_STORM_4 = registerBuilder("runestone_storm_4", properties -> new StormRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, StormRunestone> RUNESTONE_STORM_4 = registerBuilder("runestone_storm_4", properties -> new StormRunestone(properties
             .component(TADataComponents.RUNESTONE_STORM, new RunestoneStorm(0.2F, 0.3F, 3.0f, 2.0f)).component(TADataComponents.FIXED_SPEED_BOOST, 0.3F), 4)).register();
-    public static final DeferredHolder<Item, StormRunestone> RUNESTONE_STORM_5 = registerBuilder("runestone_storm_5", properties -> new StormRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, StormRunestone> RUNESTONE_STORM_5 = registerBuilder("runestone_storm_5", properties -> new StormRunestone(properties
             .component(TADataComponents.RUNESTONE_STORM, new RunestoneStorm(0.3F, 0.4F, 4.0f, 2.0f)).component(TADataComponents.FIXED_SPEED_BOOST, 0.4F), 5)).register();
-    public static final DeferredHolder<Item, NatureRunestone> RUNESTONE_NATURE_1 = registerBuilder("runestone_nature_1", properties -> new NatureRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, NatureRunestone> RUNESTONE_NATURE_1 = registerBuilder("runestone_nature_1", properties -> new NatureRunestone(properties
             .component(TADataComponents.RUNESTONE_NATURE, new RunestoneNature(0.25F, 0.35F, 0.1F, 0.2F)).component(TADataComponents.FIXED_CHOP_BOOST, 0.35F), 1)).register();
-    public static final DeferredHolder<Item, NatureRunestone> RUNESTONE_NATURE_2 = registerBuilder("runestone_nature_2", properties -> new NatureRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, NatureRunestone> RUNESTONE_NATURE_2 = registerBuilder("runestone_nature_2", properties -> new NatureRunestone(properties
             .component(TADataComponents.RUNESTONE_NATURE, new RunestoneNature(0.36F, 0.55F, 0.21F, 0.3F)).component(TADataComponents.FIXED_CHOP_BOOST, 0.55F), 2)).register();
-    public static final DeferredHolder<Item, NatureRunestone> RUNESTONE_NATURE_3 = registerBuilder("runestone_nature_3", properties -> new NatureRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, NatureRunestone> RUNESTONE_NATURE_3 = registerBuilder("runestone_nature_3", properties -> new NatureRunestone(properties
             .component(TADataComponents.RUNESTONE_NATURE, new RunestoneNature(0.56F, 0.75F, 0.31F, 0.4F)).component(TADataComponents.FIXED_CHOP_BOOST, 0.75F), 3)).register();
-    public static final DeferredHolder<Item, NatureRunestone> RUNESTONE_NATURE_4 = registerBuilder("runestone_nature_4", properties -> new NatureRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, NatureRunestone> RUNESTONE_NATURE_4 = registerBuilder("runestone_nature_4", properties -> new NatureRunestone(properties
             .component(TADataComponents.RUNESTONE_NATURE, new RunestoneNature(0.76F, 1.0F, 0.41F, 0.5F)).component(TADataComponents.FIXED_CHOP_BOOST, 1.0F), 4)).register();
-    public static final DeferredHolder<Item, NatureRunestone> RUNESTONE_NATURE_5 = registerBuilder("runestone_nature_5", properties -> new NatureRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, NatureRunestone> RUNESTONE_NATURE_5 = registerBuilder("runestone_nature_5", properties -> new NatureRunestone(properties
             .component(TADataComponents.RUNESTONE_NATURE, new RunestoneNature(1.01F, 1.5F, 0.51F, 0.6F)).component(TADataComponents.FIXED_CHOP_BOOST, 1.5F), 5)).register();
-    public static final DeferredHolder<Item, MountainRunestone> RUNESTONE_MOUNTAIN_1 = registerBuilder("runestone_mountain_1", properties -> new MountainRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, MountainRunestone> RUNESTONE_MOUNTAIN_1 = registerBuilder("runestone_mountain_1", properties -> new MountainRunestone(properties
             .component(TADataComponents.RUNESTONE_MOUNTAIN, new RunestoneMountain(0.25F, 0.35F, 0.1F, 0.2F)).component(TADataComponents.FIXED_MINING_BOOST, 0.35F), 1)).register();
-    public static final DeferredHolder<Item, MountainRunestone> RUNESTONE_MOUNTAIN_2 = registerBuilder("runestone_mountain_2", properties -> new MountainRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, MountainRunestone> RUNESTONE_MOUNTAIN_2 = registerBuilder("runestone_mountain_2", properties -> new MountainRunestone(properties
             .component(TADataComponents.RUNESTONE_MOUNTAIN, new RunestoneMountain(0.36F, 0.55F, 0.21F, 0.3F)).component(TADataComponents.FIXED_MINING_BOOST, 0.55F), 2)).register();
-    public static final DeferredHolder<Item, MountainRunestone> RUNESTONE_MOUNTAIN_3 = registerBuilder("runestone_mountain_3", properties -> new MountainRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, MountainRunestone> RUNESTONE_MOUNTAIN_3 = registerBuilder("runestone_mountain_3", properties -> new MountainRunestone(properties
             .component(TADataComponents.RUNESTONE_MOUNTAIN, new RunestoneMountain(0.56F, 0.75F, 0.31F, 0.4F)).component(TADataComponents.FIXED_MINING_BOOST, 0.75F), 3)).register();
-    public static final DeferredHolder<Item, MountainRunestone> RUNESTONE_MOUNTAIN_4 = registerBuilder("runestone_mountain_4", properties -> new MountainRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, MountainRunestone> RUNESTONE_MOUNTAIN_4 = registerBuilder("runestone_mountain_4", properties -> new MountainRunestone(properties
             .component(TADataComponents.RUNESTONE_MOUNTAIN, new RunestoneMountain(0.76F, 1.0F, 0.41F, 0.5F)).component(TADataComponents.FIXED_MINING_BOOST, 1.0F), 4)).register();
-    public static final DeferredHolder<Item, MountainRunestone> RUNESTONE_MOUNTAIN_5 = registerBuilder("runestone_mountain_5", properties -> new MountainRunestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE)
+    public static final DeferredHolder<Item, MountainRunestone> RUNESTONE_MOUNTAIN_5 = registerBuilder("runestone_mountain_5", properties -> new MountainRunestone(properties
             .component(TADataComponents.RUNESTONE_MOUNTAIN, new RunestoneMountain(1.01F, 1.5F, 0.51F, 0.6F)).component(TADataComponents.FIXED_MINING_BOOST, 1.5F), 5)).register();
-    public static final DeferredHolder<Item, Runestone> RUNESTONE_MOON = registerBuilder("runestone_moon", properties -> new Runestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE), 5)).defaultModel().register();
+    public static final DeferredHolder<Item, Runestone> RUNESTONE_MOON = registerBuilder("runestone_moon", properties ->
+            new Runestone(properties.component(TADataComponents.ADVANCED_RUNESTONE, Unit.INSTANCE), 5)).defaultModel().register();
 
     /**
      * Misc
@@ -466,13 +476,13 @@ public class TAItems {
             () -> new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(TAJukeboxSongs.MOONLIT_VEIL));
     public static final DeferredHolder<Item, Item> CRYSTAL = simple("crystal",
             () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
-    public static final DeferredHolder<Item, Item> BROKEN_OX_HORN = simple("broken_ox_horn", Item.Properties::new);
-    public static final DeferredHolder<Item, Item> LUCKY_RABBIT_EAR = simple("lucky_rabbit_ear", Item.Properties::new);
-    public static final DeferredHolder<Item, Item> AURORIAN_STEEL_NUGGET = simple("aurorian_steel_nugget", Item.Properties::new);
-    public static final DeferredHolder<Item, Item> CERULEAN_NUGGET = simple("cerulean_nugget", Item.Properties::new);
-    public static final DeferredHolder<Item, Item> AURORIAN_COAL_NUGGET = simple("aurorian_coal_nugget", Item.Properties::new);
-    public static final DeferredHolder<Item, Item> MOONSTONE_NUGGET = simple("moonstone_nugget", Item.Properties::new);
     public static final DeferredHolder<Item, Item> AURORIAN_CRYSTAL = register("aurorian_crystal", AurorianCrystal::new);
+    public static final DeferredHolder<Item, Item> BROKEN_OX_HORN = simple("broken_ox_horn", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
+    public static final DeferredHolder<Item, Item> LUCKY_RABBIT_EAR = simple("lucky_rabbit_ear", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
+    public static final DeferredHolder<Item, Item> MOONSILVER_NUGGET = simple("moonsilver_nugget", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
+    public static final DeferredHolder<Item, Item> CERULEAN_NUGGET = simple("cerulean_nugget", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
+    public static final DeferredHolder<Item, Item> AURORIAN_COAL_NUGGET = simple("aurorian_coal_nugget", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
+    public static final DeferredHolder<Item, Item> MOONSTONE_NUGGET = simple("moonstone_nugget", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.UNCOMMON));
     public static final DeferredHolder<Item, Item> AURORIAN_CHAIN = simple("aurorian_chain", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     public static final DeferredHolder<Item, Item> AURORIAN_BERRY = simple("aurorian_berry", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
     public static final DeferredHolder<Item, Item> EQUINOX_MUSHROOM = simple("equinox_mushroom", () -> new Item.Properties().component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.RARE));
@@ -575,6 +585,7 @@ public class TAItems {
     public static final DeferredHolder<Item, AurorianChestItem> AURORIAN_CHEST = registerBuilder("aurorian_chest", AurorianChestItem::new).register();
     public static final DeferredHolder<Item, AstrologyTable> ASTROLOGY_TABLE = registerBuilder("astrology_table", AstrologyTable::new).register();
     public static final DeferredHolder<Item, SacrificeTable> SACRIFICE_TABLE = registerBuilder("sacrifice_table", SacrificeTable::new).register();
+    public static final DeferredHolder<Item, CrystallineSwordPedestal> CRYSTALLINE_SWORD_PEDESTAL = registerBuilder("crystalline_sword_pedestal", CrystallineSwordPedestal::new).register();
     public static final DeferredHolder<Item, AbstractLunarCrystal> LUNAR_SOURCE_PRISM = registerBuilder("lunar_source_prism", properties -> new AbstractLunarCrystal(TABlocks.LUNAR_SOURCE_PRISM.get())).register();
     public static final DeferredHolder<Item, AbstractLunarCrystal> LUNAR_DEFLECTOR = registerBuilder("lunar_deflector", properties -> new AbstractLunarCrystal(TABlocks.LUNAR_DEFLECTOR.get())).register();
     public static final DeferredHolder<Item, AbstractLunarCrystal> LUNAR_SPLITTER = registerBuilder("lunar_splitter", properties -> new AbstractLunarCrystal(TABlocks.LUNAR_SPLITTER.get())).register();

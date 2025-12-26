@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "moonsilver_ingot",
+  "key": {
+    "#": {
+      "item": "theaurorian:moonsilver_nugget"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "theaurorian:moonsilver_ingot"
+  }
+}

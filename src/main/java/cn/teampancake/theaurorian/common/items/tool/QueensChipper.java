@@ -13,8 +13,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public class QueensChipper extends PickaxeItem {
 
     public QueensChipper(Item.Properties properties) {
-        super(TAToolTiers.AURORIAN_STEEL, properties.rarity(Rarity.RARE)
-                .attributes(createAttributes(TAToolTiers.AURORIAN_STEEL, 5, -1.2F))
+        super(TAToolTiers.MOONSILVER, properties.rarity(Rarity.RARE)
+                .attributes(createAttributes(TAToolTiers.MOONSILVER, 5, -1.2F))
                 .component(TADataComponents.ITEM_TOOLTIP, TAItemTooltips.EPIC));
     }
 

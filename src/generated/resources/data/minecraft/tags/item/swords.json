@@ -1,7 +1,8 @@
 {
   "values": [
-    "theaurorian:aurorian_steel_dagger",
-    "theaurorian:aurorian_steel_sword",
+    "theaurorian:moonsilver_dagger",
+    "theaurorian:moonsilver_sword",
+    "theaurorian:moonsilver_great_sword",
     "theaurorian:aurorian_alloy_steel_sword",
     "theaurorian:aurorian_stone_sword",
     "theaurorian:silent_wood_sword",
@@ -11,6 +12,7 @@
     "theaurorian:moonstone_sword",
     "theaurorian:kopish_dagger",
     "theaurorian:steel_dagger",
+    "theaurorian:moonsilver_scythe",
     "theaurorian:tslat_sword"
   ]
 }

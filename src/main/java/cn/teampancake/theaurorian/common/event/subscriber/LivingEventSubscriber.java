@@ -514,7 +514,7 @@ public class LivingEventSubscriber {
                 stack.set(type, stack.getOrDefault(type, 0) + 1);
             }
 
-            if (stack.is(TAItems.AURORIAN_STEEL_SWORD)) {
+            if (stack.is(TAItems.MOONSILVER_SWORD)) {
                 MobEffectInstance holinessEffect = player.getEffect(TAMobEffects.HOLINESS);
                 boolean flag = entity.getType().is(EntityTypeTags.UNDEAD);
                 if (holinessEffect != null) {

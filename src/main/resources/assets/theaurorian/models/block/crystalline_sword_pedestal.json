@@ -1,0 +1,24 @@
+{
+    "parent": "theaurorian:block/geo_generated",
+    "texture_size": [ 64, 192 ],
+    "textures": {
+        "particle": "theaurorian:block/crystalline_sword_pedestal"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 30, 225, 0 ],
+            "translation": [ 0, -4.0, 0 ],
+            "scale":[ 0.5, 0.5, 0.5 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 90, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.40, 0.40, 0.40 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, -90, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.40, 0.40, 0.40 ]
+        }
+    }
+}

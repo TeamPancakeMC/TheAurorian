@@ -42,6 +42,8 @@ public class TABlockEntityTypes {
             () -> BlockEntityType.Builder.of(SacrificeTableBlockEntity::new, TABlocks.SACRIFICE_TABLE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MysteriumWoolBedBlockEntity>> MYSTERIUM_WOOL_BED = BLOCK_ENTITY_TYPES.register("mysterium_wool_bed",
             () -> BlockEntityType.Builder.of(MysteriumWoolBedBlockEntity::new, TABlocks.MYSTERIUM_WOOL_BED.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CrystallineSwordPedestalBlockEntity>> CRYSTALLINE_SWORD_PEDESTAL = BLOCK_ENTITY_TYPES.register("crystalline_sword_pedestal",
+            () -> BlockEntityType.Builder.of(CrystallineSwordPedestalBlockEntity::new, TABlocks.CRYSTALLINE_SWORD_PEDESTAL.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LunarSourcePrismBlockEntity>> LUNAR_SOURCE_PRISM = BLOCK_ENTITY_TYPES.register("lunar_source_prism",
             () -> BlockEntityType.Builder.of(LunarSourcePrismBlockEntity::new, TABlocks.LUNAR_SOURCE_PRISM.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LunarDeflectorBlockEntity>> LUNAR_DEFLECTOR = BLOCK_ENTITY_TYPES.register("lunar_deflector",
@@ -71,6 +73,7 @@ public class TABlockEntityTypes {
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(CRYSTALLINE_SWORD_PEDESTAL.get(), CrystallineSwordPedestalRenderer::new);
         event.registerBlockEntityRenderer(LUNAR_SOURCE_PRISM.get(), LunarSourcePrismRenderer::new);
         event.registerBlockEntityRenderer(LUNAR_DEFLECTOR.get(), context -> new LunarCrystalRenderer<>(LUNAR_DEFLECTOR.getId()));
         event.registerBlockEntityRenderer(LUNAR_SPLITTER.get(), context -> new LunarCrystalRenderer<>(LUNAR_SPLITTER.getId()));

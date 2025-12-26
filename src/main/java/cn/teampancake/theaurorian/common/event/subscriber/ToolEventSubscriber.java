@@ -28,7 +28,7 @@ public class ToolEventSubscriber {
         List<ItemStack> inventoryItems = TAInventoryUtils.getInventoryItems(player.getInventory(), stack -> {
             if (stack.getItem() instanceof TieredItem tieredItem) {
                 Tier tier = tieredItem.getTier();
-                return tier == TAToolTiers.AURORIAN_STEEL;
+                return tier == TAToolTiers.MOONSILVER;
             }
 
             return false;
@@ -37,8 +37,8 @@ public class ToolEventSubscriber {
         inventoryItems.forEach(itemStack -> {
             if (itemStack.getItem() instanceof TieredItem tieredItem) {
                 CompoundTag compoundTag = getStackTag(itemStack);
-                if (!compoundTag.contains("aurorian_steel_specialty_ticks")) {
-                    compoundTag.putInt("aurorian_steel_specialty_ticks", 0);
+                if (!compoundTag.contains("moonsilver_specialty_ticks")) {
+                    compoundTag.putInt("moonsilver_specialty_ticks", 0);
                     itemStack.set(CUSTOM_DATA, CustomData.of(compoundTag));
                 }
 
@@ -51,11 +51,11 @@ public class ToolEventSubscriber {
 
         inventoryItems.forEach(itemStack -> {
             CompoundTag compoundTag = getStackTag(itemStack);
-            int ticks = compoundTag.getInt("aurorian_steel_specialty_ticks");
+            int ticks = compoundTag.getInt("moonsilver_specialty_ticks");
             if (ticks >= 20) {
-                compoundTag.putBoolean("aurorian_steel_specialty", true);
+                compoundTag.putBoolean("moonsilver_specialty", true);
             } else {
-                compoundTag.putInt("aurorian_steel_specialty_ticks", ticks + 1);
+                compoundTag.putInt("moonsilver_specialty_ticks", ticks + 1);
             }
 
             itemStack.set(CUSTOM_DATA, CustomData.of(compoundTag));

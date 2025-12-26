@@ -10,9 +10,9 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 public class TAFluidTypes {
 
     public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(NeoForgeRegistries.FLUID_TYPES, TheAurorian.MOD_ID);
-    public static final DeferredHolder<FluidType, FluidType> MOLTEN_AURORIAN_STEEL = FLUID_TYPES.register("molten_aurorian_steel",
-            () -> new BaseFluidType(defaultProperties(), TheAurorian.prefix("block/molten_aurorian_steel"),
-                    TheAurorian.prefix("block/molten_aurorian_steel_flowing")));
+    public static final DeferredHolder<FluidType, FluidType> MOLTEN_MOONSILVER = FLUID_TYPES.register("molten_moonsilver",
+            () -> new BaseFluidType(defaultProperties(), TheAurorian.prefix("block/molten_moonsilver"),
+                    TheAurorian.prefix("block/molten_moonsilver_flowing")));
     public static final DeferredHolder<FluidType, FluidType> MOLTEN_CERULEAN = FLUID_TYPES.register("molten_cerulean",
             () -> new BaseFluidType(defaultProperties(), TheAurorian.prefix("block/molten_cerulean"),
                     TheAurorian.prefix("block/molten_cerulean_flowing")));

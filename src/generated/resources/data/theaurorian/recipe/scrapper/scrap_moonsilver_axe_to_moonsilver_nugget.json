@@ -1,0 +1,11 @@
+{
+  "type": "theaurorian:scrapper",
+  "amount": 18,
+  "ingredient": {
+    "item": "theaurorian:moonsilver_axe"
+  },
+  "result": {
+    "count": 1,
+    "id": "theaurorian:moonsilver_nugget"
+  }
+}

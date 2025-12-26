@@ -25,9 +25,9 @@ public class TAArmorMaterials {
             "cerulean", 3, 5, 6, 3, 20, 15,
             SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(TAItems.CERULEAN_INGOT.get()), 1);
 
-    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> AURORIAN_STEEL = register(
-            "aurorian_steel", 4, 7, 8, 4, 33, 15,
-            SoundEvents.ARMOR_EQUIP_DIAMOND, () -> Ingredient.of(TAItems.AURORIAN_STEEL.get()), 2);
+    public static final DeferredHolder<ArmorMaterial, ArmorMaterial> MOONSILVER = register(
+            "moonsilver", 4, 7, 8, 4, 33, 15,
+            SoundEvents.ARMOR_EQUIP_DIAMOND, () -> Ingredient.of(TAItems.MOONSILVER_INGOT.get()), 2);
 
     public static final DeferredHolder<ArmorMaterial, ArmorMaterial> UMBRA = register(
             "umbra", 3, 5, 6, 3, 65, 15,

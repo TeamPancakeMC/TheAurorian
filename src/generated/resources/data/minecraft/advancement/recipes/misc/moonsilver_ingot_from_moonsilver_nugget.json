@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_moonsilver_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": "theaurorian:moonsilver_nugget"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:moonsilver_ingot_from_moonsilver_nugget"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_moonsilver_nugget"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:moonsilver_ingot_from_moonsilver_nugget"
+    ]
+  }
+}

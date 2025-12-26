@@ -28,18 +28,18 @@ public class TAToolTiers {
     public static final Tier AURORIANITE = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.AURORIANITE_INGOT.get()));
     public static final Tier UMBRA = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.UMBRA_INGOT.get()));
     public static final Tier CRYSTALLINE = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1000, 8.0F, 3.0F, 20, () -> Ingredient.of(TAItems.CRYSTALLINE_INGOT.get()));
-    public static final Tier AURORIAN_STEEL = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 8.5F, 3.5F, 10, () -> Ingredient.of(TAItems.AURORIAN_STEEL.get()));
+    public static final Tier MOONSILVER = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1500, 8.5F, 3.5F, 10, () -> Ingredient.of(TAItems.MOONSILVER_INGOT.get()));
     public static final Tier AURORIAN_ALLOY_STEEL = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 2100, 9.0F, 0.0F, 15, () -> Ingredient.of(Items.NETHERITE_INGOT));
     public static final Tier TSLAT = new SimpleTier(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 2000, 1.9F, 7.0F, 15, Ingredient::of);
 
     public static Map<Tier, Consumer<ItemStack>> getTierSpecialties() {
         Map<Tier, Consumer<ItemStack>> actionMap = new HashMap<>();
-        actionMap.put(AURORIAN_STEEL, TAToolTiers::aurorianSteelSpecialty);
+        actionMap.put(MOONSILVER, TAToolTiers::aurorianSteelSpecialty);
         return actionMap;
     }
 
     private static void aurorianSteelSpecialty(ItemStack stack) {
-        if (getStackTag(stack).getBoolean("aurorian_steel_specialty")) {
+        if (getStackTag(stack).getBoolean("moonsilver_specialty")) {
             ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(stack);
             Set<Object2IntMap.Entry<Holder<Enchantment>>> entrySet = enchantments.entrySet();
             Object2IntMap.Entry<Holder<Enchantment>> enchantment = entrySet.stream()

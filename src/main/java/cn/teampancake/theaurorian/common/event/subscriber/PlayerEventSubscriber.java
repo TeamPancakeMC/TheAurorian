@@ -5,41 +5,37 @@ import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import cn.teampancake.theaurorian.common.blocks.MysteriumWoolBed;
 import cn.teampancake.theaurorian.common.components.*;
 import cn.teampancake.theaurorian.common.data.datagen.tags.TABiomeTags;
+import cn.teampancake.theaurorian.common.data.datagen.tags.TAStructureTags;
 import cn.teampancake.theaurorian.common.items.armor.MysteriumWoolArmor;
-import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorManager;
+import cn.teampancake.theaurorian.common.items.tool.moonsilver.MoonsilverScythe;
 import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorData;
+import cn.teampancake.theaurorian.common.level.data.sky_color.SkyColorManager;
+import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
 import cn.teampancake.theaurorian.common.network.WorldNightColorS2CPacket;
 import cn.teampancake.theaurorian.common.registry.*;
 import cn.teampancake.theaurorian.common.utils.EnchantmentUtils;
 import cn.teampancake.theaurorian.common.utils.TACommonUtils;
 import cn.teampancake.theaurorian.common.utils.TAEntityUtils;
 import cn.teampancake.theaurorian.common.utils.TAInventoryUtils;
-import cn.teampancake.theaurorian.common.network.NightTypeS2CPacket;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.core.NonNullList;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.stats.Stats;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.projectile.FishingHook;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.event.entity.player.*;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
@@ -49,18 +45,51 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.event.entity.player.*;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 @EventBusSubscriber(modid = TheAurorian.MOD_ID)
 public class PlayerEventSubscriber {
 
+    private static final Map<UUID, NoFlyZoneCache> noFlyZoneCache = new ConcurrentHashMap<>();
+    private static final int CHECK_INTERVAL = 10;
+    private static final double POSITION_THRESHOLD = 16.0;
+    
+    private static class NoFlyZoneCache {
+
+        BlockPos lastCheckPos;
+        boolean inNoFlyZone;
+        int lastCheckTick;
+        
+        NoFlyZoneCache(BlockPos pos, boolean inZone, int tick) {
+            this.lastCheckPos = pos;
+            this.inNoFlyZone = inZone;
+            this.lastCheckTick = tick;
+        }
+
+    }
+
     @SubscribeEvent
     public static void onPlayerTicking(PlayerTickEvent.Post event) {
         if (event.getEntity() instanceof ServerPlayer player && player.level() instanceof ServerLevel level) {
+            ItemStack mainHandItem = player.getMainHandItem();
+            if (mainHandItem.getItem() instanceof MoonsilverScythe scythe) {
+                scythe.updateAttackSpeed(mainHandItem, player.level(), false);
+                scythe.applyDynamicAttackSpeed(player, mainHandItem);
+            }
+
             if (player.isAlive() && !player.isSpectator() && !level.isClientSide()) {
                 TAInventoryUtils.applyPotionDecay(player.getInventory().items, player, level);
                 boolean noImmuneEffect = !player.hasEffect(TAMobEffects.WARM) && !player.hasEffect(TAMobEffects.FROSTBITE);
@@ -72,12 +101,38 @@ public class PlayerEventSubscriber {
                     player.setSharedFlagOnFire(false);
                 }
 
-                if (player.isFallFlying() && TAEntityUtils.isPlayerNearStructure(
-                        player, TAStructures.RUNESTONE_DUNGEON, 300.0F)) {
-                    player.stopFallFlying();
-                    player.resetFallDistance();
-                }
+                checkNoFlyZone(player);
             }
+        }
+    }
+
+    private static void checkNoFlyZone(ServerPlayer player) {
+        if (!player.isFallFlying()) return;
+        BlockPos currentPos = player.blockPosition();
+        UUID playerId = player.getUUID();
+        int currentTick = player.tickCount;
+        NoFlyZoneCache cache = noFlyZoneCache.get(playerId);
+        boolean needCheck = false;
+        boolean inNoFlyZone = false;
+        if (cache == null) {
+            needCheck = true;
+        } else {
+            int ticksSinceLastCheck = currentTick - cache.lastCheckTick;
+            double distanceMoved = Math.sqrt(currentPos.distSqr(cache.lastCheckPos));
+            if (ticksSinceLastCheck >= CHECK_INTERVAL || distanceMoved >= POSITION_THRESHOLD) {
+                needCheck = true;
+            } else {
+                inNoFlyZone = cache.inNoFlyZone;
+            }
+        }
+
+        if (needCheck) {
+            inNoFlyZone = TAEntityUtils.isPlayerNearStructure(player, TAStructureTags.RUNESTONE_DUNGEON, 300.0);
+            noFlyZoneCache.put(playerId, new NoFlyZoneCache(currentPos, inNoFlyZone, currentTick));
+        }
+
+        if (inNoFlyZone) {
+            player.stopFallFlying();
         }
     }
 
@@ -116,11 +171,11 @@ public class PlayerEventSubscriber {
 
     @SubscribeEvent
     public static void onPlayerXpChange(PlayerXpEvent.XpChange event) {
+        DataComponentType<Integer> component = TADataComponents.ABSORBED_EXPERIENCE.get();
         Player player = event.getEntity();
         int amount = event.getAmount();
         ItemStack offhandItem = player.getOffhandItem();
         if (offhandItem.is(TAItems.BOOK_OF_SIN)) {
-            DataComponentType<Integer> component = TADataComponents.ABSORBED_EXPERIENCE.get();
             Integer i = offhandItem.get(component);
             if (amount > 0 && i != null) {
                 offhandItem.set(component, i + amount);
@@ -181,6 +236,13 @@ public class PlayerEventSubscriber {
                 PacketDistributor.sendToPlayer(player, new NightTypeS2CPacket(skyData.currentDayColor));
                 SkyColorManager.syncSkyColorToPlayer(player, skyData);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            noFlyZoneCache.remove(player.getUUID());
         }
     }
 

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theaurorian:moonsilver_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "theaurorian:moonsilver_nugget"
+  }
+}

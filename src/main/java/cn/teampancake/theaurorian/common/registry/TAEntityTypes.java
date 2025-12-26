@@ -254,7 +254,7 @@ public class TAEntityTypes {
         event.registerLayerDefinition(TAModelLayers.HYPHA_WALKING_MUSHROOM, HyphaWalkingMushroomModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPIKED_CHESTPLATE, SpikedChestplateModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.AURORIAN_SLIME_BOOTS, AurorianSlimeBootsModel::createBodyLayer);
-        event.registerLayerDefinition(TAModelLayers.AURORIAN_STEEL_ARMOR, AurorianSteelArmorModel::createBodyLayer);
+        event.registerLayerDefinition(TAModelLayers.MOONSILVER_ARMOR, MoonsilverArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.CERULEAN_ARMOR, CeruleanArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.KNIGHT_ARMOR, KnightArmorModel::createBodyLayer);
         event.registerLayerDefinition(TAModelLayers.SPECTRAL_ARMOR, SpectralArmorModel::createBodyLayer);

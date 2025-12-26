@@ -8,7 +8,7 @@ import net.minecraft.world.entity.decoration.PaintingVariant;
 
 public class TAPaintingVariants {
 
-    public static final ResourceKey<PaintingVariant> AURORIAN_STEEL = createKey("aurorian_steel");
+    public static final ResourceKey<PaintingVariant> MOONSILVER = createKey("moonsilver");
     public static final ResourceKey<PaintingVariant> PROGRESSION = createKey("progression");
     public static final ResourceKey<PaintingVariant> DUNGEON = createKey("dungeon");
     public static final ResourceKey<PaintingVariant> KEEPER = createKey("keeper");
@@ -22,7 +22,7 @@ public class TAPaintingVariants {
     }
 
     public static void bootstrap(BootstrapContext<PaintingVariant> context) {
-        register(context, AURORIAN_STEEL, 1, 1);
+        register(context, MOONSILVER, 1, 1);
         register(context, PROGRESSION, 1, 1);
         register(context, DUNGEON, 1, 1);
         register(context, KEEPER, 2, 2);

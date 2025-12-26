@@ -39,13 +39,13 @@ public class TADataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SourceOfTerra>> SOURCE_OF_TERRA = DATA_COMPONENT_TYPE.register("source_of_terra",
             () -> DataComponentType.<SourceOfTerra>builder().persistent(SourceOfTerra.CODEC).networkSynchronized(SourceOfTerra.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FIXED_HEALTH_BOOST = DATA_COMPONENT_TYPE.register("fixed_health_boost",
-            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
+            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FIXED_SPEED_BOOST = DATA_COMPONENT_TYPE.register("fixed_speed_boost",
-            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
+            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FIXED_CHOP_BOOST = DATA_COMPONENT_TYPE.register("fixed_chop_boost",
-            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
+            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> FIXED_MINING_BOOST = DATA_COMPONENT_TYPE.register("fixed_mining_boost",
-            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).build());
+            () -> DataComponentType.<Float>builder().persistent(Codec.FLOAT).networkSynchronized(ByteBufCodecs.FLOAT).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneLife>> RUNESTONE_LIFE = DATA_COMPONENT_TYPE.register("runestone_life",
             () -> DataComponentType.<RunestoneLife>builder().persistent(RunestoneLife.CODEC).networkSynchronized(RunestoneLife.STREAM_CODEC).build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<RunestoneIce>> RUNESTONE_ICE = DATA_COMPONENT_TYPE.register("runestone_ice",
@@ -73,7 +73,7 @@ public class TADataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> DEVELOPER = DATA_COMPONENT_TYPE.register("developer",
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MIXING_COUNT = DATA_COMPONENT_TYPE.register("mixing_count",
-            () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
+            () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> INGREDIENT_APPLIER = DATA_COMPONENT_TYPE.register("ingredient_applier",
             () -> DataComponentType.<Boolean>builder().persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> INFUSED_POTION = DATA_COMPONENT_TYPE.register("infused_potion",
@@ -81,9 +81,12 @@ public class TADataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<AlchemyProduct>> ALCHEMY_PRODUCT = DATA_COMPONENT_TYPE.register("alchemy_product",
             () -> DataComponentType.<AlchemyProduct>builder().persistent(AlchemyProduct.CODEC).networkSynchronized(AlchemyProduct.STREAM_CODEC).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ABSORBED_EXPERIENCE = DATA_COMPONENT_TYPE.register("absorbed_experience",
-            () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
+            () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).cacheEncoding().build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<AttackSpeedData>> WEAPON_SPEED_DATA = DATA_COMPONENT_TYPE.register("weapon_speed_data",
+            () -> DataComponentType.<AttackSpeedData>builder().persistent(AttackSpeedData.CODEC).networkSynchronized(AttackSpeedData.STREAM_CODEC).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ChapterContent>>> CHAPTERS = DATA_COMPONENT_TYPE.register("chapters",
-            () -> DataComponentType.<List<ChapterContent>>builder().persistent(Codec.list(ChapterContent.CODEC)).networkSynchronized(ChapterContent.STREAM_CODEC.apply(ByteBufCodecs.list())).build());
+            () -> DataComponentType.<List<ChapterContent>>builder().persistent(Codec.list(ChapterContent.CODEC))
+                    .networkSynchronized(ChapterContent.STREAM_CODEC.apply(ByteBufCodecs.list())).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> NOTE_CHAPTER = DATA_COMPONENT_TYPE.register("note_chapter",
             () -> DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<ItemTooltip>>> ITEM_TOOLTIP = DATA_COMPONENT_TYPE.register("item_tooltip",
@@ -91,6 +94,8 @@ public class TADataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> NOTE_PASSPORT = DATA_COMPONENT_TYPE.register("note_passport",
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> NERF = DATA_COMPONENT_TYPE.register("nerf",
+            () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> BUILDING_BLOCK = DATA_COMPONENT_TYPE.register("building_block",
             () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).cacheEncoding().build());
 
 }

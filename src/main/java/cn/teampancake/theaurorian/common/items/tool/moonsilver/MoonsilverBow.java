@@ -47,11 +47,11 @@ public class MoonsilverBow extends BowItem implements GeoItem {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(DefaultAnimations.genericIdleController(this));
-        controllers.add(new AnimationController<>(this, "pull_controller", state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "Pull", state -> PlayState.STOP)
                 .triggerableAnim("pull_animation", PULL).transitionLength(1));
-        controllers.add(new AnimationController<>(this, "taut_controller", state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "Taut", state -> PlayState.STOP)
                 .triggerableAnim("taut_animation", TAUT).transitionLength(1));
-        controllers.add(new AnimationController<>(this, "shake_controller", state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "Shake", state -> PlayState.STOP)
                 .triggerableAnim("shake_animation", SHAKE).transitionLength(1));
     }
 
@@ -63,7 +63,7 @@ public class MoonsilverBow extends BowItem implements GeoItem {
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
         if (level instanceof ServerLevel serverLevel && stack.getUseDuration(livingEntity) - remainingUseDuration > 20) {
-            this.triggerAnim(livingEntity, GeoItem.getOrAssignId(stack, serverLevel), "taut_controller", "taut_animation");
+            this.triggerAnim(livingEntity, GeoItem.getOrAssignId(stack, serverLevel), "Taut", "taut_animation");
         }
     }
 
@@ -76,10 +76,11 @@ public class MoonsilverBow extends BowItem implements GeoItem {
         } else {
             player.startUsingItem(hand);
             if (level instanceof ServerLevel serverLevel) {
+                var controllers = this.getAnimationControllers(itemInHand, serverLevel);
                 long assignId = GeoItem.getOrAssignId(itemInHand, serverLevel);
-                this.getAnimationControllers(itemInHand, serverLevel).remove("Idle");
-                this.getAnimationControllers(itemInHand, serverLevel).forEach((s, controller) -> controller.stop());
-                this.triggerAnim(player, assignId, "pull_controller", "pull_animation");
+                controllers.remove("Idle");
+                controllers.forEach((s, controller) -> controller.stop());
+                this.triggerAnim(player, assignId, "Pull", "pull_animation");
             }
 
             return InteractionResultHolder.consume(itemInHand);
@@ -89,7 +90,9 @@ public class MoonsilverBow extends BowItem implements GeoItem {
     @Override
     public void onStopUsing(ItemStack stack, LivingEntity entity, int count) {
         if (entity.level() instanceof ServerLevel serverLevel) {
-            this.getAnimationControllers(stack, serverLevel).put("Idle", this.genericIdleController());
+            var controllers = this.getAnimationControllers(stack, serverLevel);
+            controllers.forEach((s, controller) -> controller.stop());
+            controllers.put("Idle", this.genericIdleController());
         }
     }
 

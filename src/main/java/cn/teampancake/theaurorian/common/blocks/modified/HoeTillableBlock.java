@@ -1,8 +1,8 @@
 package cn.teampancake.theaurorian.common.blocks.modified;
 
 import cn.teampancake.theaurorian.common.blocks.AurorianFarmTile;
+import cn.teampancake.theaurorian.common.blocks.HidesNeighborFaceBlock;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class HoeTillableBlock extends Block {
+public class HoeTillableBlock extends HidesNeighborFaceBlock {
 
     private final Supplier<AurorianFarmTile> block;
 

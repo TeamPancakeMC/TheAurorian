@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.utils;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.common.blocks.HidesNeighborFaceBlock;
 import cn.teampancake.theaurorian.common.blocks.VerticalSlabBlock;
 import cn.teampancake.theaurorian.common.blocks.VerticalStairBlock;
 import cn.teampancake.theaurorian.common.blocks.modified.AxeStrippableBlock;
@@ -69,14 +70,13 @@ public class TABlockRegUtils {
         return registerBuilder(name, p -> new DropExperienceBlock(xpRange, properties.requiresCorrectToolForDrops())).tag(BlockTags.MINEABLE_WITH_PICKAXE).defaultBlockstate();
     }
 
-    public static BlockBuilder<Block, TARegistrate> simpleBuilder(String name, Properties properties) {
-        return registerBuilder(name, p -> new Block(properties)).defaultBlockstate();
+    public static BlockBuilder<HidesNeighborFaceBlock, TARegistrate> simpleBuilder(String name, Properties properties) {
+        return registerBuilder(name, p -> new HidesNeighborFaceBlock(properties)).defaultBlockstate();
     }
 
     @SafeVarargs
-    public static BlockBuilder<Block, TARegistrate> runestoneBuilder(String name, Properties properties, TagKey<Block>... values) {
-        return simpleBuilder(name, TABlocks.runestoneProperties(properties)).tag(TABlockTags.DUNGEON_BLOCKS).tag(values)
-                .defaultLoot().item(EnabledFeaturesBlockItem::new).tag(copyToItemTags(values)).build();
+    public static BlockBuilder<HidesNeighborFaceBlock, TARegistrate> runestoneBuilder(String name, Properties properties, TagKey<Block>... values) {
+        return simpleBuilder(name, TABlocks.runestoneProperties(properties)).tag(TABlockTags.DUNGEON_BLOCKS).tag(values).defaultLoot().item().tag(copyToItemTags(values)).build();
     }
 
     @SafeVarargs
@@ -107,9 +107,8 @@ public class TABlockRegUtils {
         boolean isWooden = featureFlags.contains(TAFeatureFlags.WOOD_MATERIAL);
         boolean emissivity = featureFlags.contains(TAFeatureFlags.EMISSIVITY);
         NonNullFunction<Properties, VerticalStairBlock> factory = p -> new VerticalStairBlock(properties.noOcclusion());
-        BlockBuilder<VerticalStairBlock, TARegistrate> blockBuilder = registerBuilder(name, factory).tag(TABlockTags.VERTICAL_STAIRS)
-                .blockstate((ctx, prov) -> registerVerticalStairStates(ctx.get(), base.get(), prov, emissivity))
-                .defaultLoot().item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
+        BlockBuilder<VerticalStairBlock, TARegistrate> blockBuilder = registerBuilder(name, factory).tag(TABlockTags.VERTICAL_STAIRS).defaultLoot()
+                .blockstate((ctx, prov) -> registerVerticalStairStates(ctx.get(), base.get(), prov, emissivity)).item().recipe((ctx, prov) -> {
                     ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 4).define('#', Ingredient.of(base.get()))
                             .pattern("#").pattern("#").pattern("#").unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
                     if (!isWooden) stonecutterResultFromBase(prov, RecipeCategory.BUILDING_BLOCKS, ctx.get(), base.get());
@@ -123,9 +122,8 @@ public class TABlockRegUtils {
         boolean isWooden = featureFlags.contains(TAFeatureFlags.WOOD_MATERIAL);
         boolean emissivity = featureFlags.contains(TAFeatureFlags.EMISSIVITY);
         NonNullFunction<Properties, VerticalSlabBlock> factory = p -> new VerticalSlabBlock(properties.noOcclusion());
-        BlockBuilder<VerticalSlabBlock, TARegistrate> builder = registerBuilder(name, factory).tag(TABlockTags.VERTICAL_SLABS)
-                .blockstate((ctx, prov) -> registerVerticalSlabStates(ctx.get(), base.get(), prov, emissivity))
-                .defaultLoot().item(EnabledFeaturesBlockItem::new).recipe((ctx, prov) -> {
+        BlockBuilder<VerticalSlabBlock, TARegistrate> builder = registerBuilder(name, factory).tag(TABlockTags.VERTICAL_SLABS).defaultLoot()
+                .blockstate((ctx, prov) -> registerVerticalSlabStates(ctx.get(), base.get(), prov, emissivity)).item().recipe((ctx, prov) -> {
                     ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 6).define('#', Ingredient.of(base.get()))
                             .pattern("###").pattern(" ##").pattern("  #").unlockedBy(getHasName(base.get()), has(base.get())).save(prov);
                     if (!isWooden) stonecutterResultFromBase(prov, RecipeCategory.BUILDING_BLOCKS, ctx.get(), base.get(), 2);

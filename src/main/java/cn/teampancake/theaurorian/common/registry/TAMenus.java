@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.common.registry;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.client.inventory.AccessoriesMenu;
 import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import cn.teampancake.theaurorian.client.inventory.MoonlightForgeMenu;
 import cn.teampancake.theaurorian.client.inventory.ScrapperMenu;
@@ -18,6 +19,7 @@ public class TAMenus {
     public static final DeferredHolder<MenuType<?>, MenuType<MoonlightForgeMenu>> MOONLIGHT_FORGE_MENU = register(MoonlightForgeMenu::new, "moonlight_forge");
     public static final DeferredHolder<MenuType<?>, MenuType<AlchemyTableMenu>> ALCHEMY_TABLE_MENU = register(AlchemyTableMenu::new, "alchemy_table");
     public static final DeferredHolder<MenuType<?>, MenuType<ScrapperMenu>> SCRAPPER_MENU = register(ScrapperMenu::new, "scrapper");
+    public static final DeferredHolder<MenuType<?>, MenuType<AccessoriesMenu>> ACCESSORIES_MENU = register(AccessoriesMenu::new, "accessories");
 
     private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> register(IContainerFactory<T> factory, String name) {
         return MENUS.register(name + "_menu", () -> new MenuType<>(factory, FeatureFlags.DEFAULT_FLAGS));

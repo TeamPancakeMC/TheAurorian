@@ -13,7 +13,7 @@ public abstract class AbstractSimpleMenu extends AbstractContainerMenu {
     protected final Level level;
     protected final ContainerLevelAccess access;
 
-    protected AbstractSimpleMenu(@Nullable MenuType<?> menuType, int containerId, Inventory inventory, ContainerLevelAccess access) {
+    public AbstractSimpleMenu(@Nullable MenuType<?> menuType, int containerId, Inventory inventory, ContainerLevelAccess access) {
         super(menuType, containerId);
         this.level = inventory.player.level();
         this.addPlayerInventory(inventory);

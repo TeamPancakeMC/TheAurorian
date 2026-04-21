@@ -1,10 +1,7 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
-import cn.teampancake.theaurorian.client.gui.screens.AlchemyTableScreen;
-import cn.teampancake.theaurorian.client.gui.screens.MoonlightForgeScreen;
-import cn.teampancake.theaurorian.client.gui.screens.ScrapperScreen;
-import cn.teampancake.theaurorian.client.gui.screens.TAWaitingScreen;
+import cn.teampancake.theaurorian.client.gui.screens.*;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
 import cn.teampancake.theaurorian.client.renderer.level.TASpecialEffects;
 import cn.teampancake.theaurorian.common.blocks.state.TAWoodType;
@@ -116,18 +113,25 @@ public class ModBusEventSubscriber {
     @SubscribeEvent
     public static void registerNetworks(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar registrar = event.registrar("1");
+
+        //Client Packets
+        registrar.playToServer(NoteTeleportC2SPacket.TYPE, NoteTeleportC2SPacket.STREAM_CODEC, NoteTeleportC2SPacket::handle);
+        registrar.playToServer(CrystalRuneSetC2SPacket.TYPE, CrystalRuneSetC2SPacket.STREAM_CODEC, CrystalRuneSetC2SPacket::handle);
+        registrar.playToServer(RuneGameWinC2SPacket.TYPE, RuneGameWinC2SPacket.STREAM_CODEC, RuneGameWinC2SPacket::handle);
+        registrar.playToServer(RuneGameAwardStatC2SPacket.TYPE, RuneGameAwardStatC2SPacket.STREAM_CODEC, RuneGameAwardStatC2SPacket::handle);
+        registrar.playToServer(PlayerDeathRespawnC2SPacket.TYPE, PlayerDeathRespawnC2SPacket.STREAM_CODEC, PlayerDeathRespawnC2SPacket::handle);
+        registrar.playToServer(OpenAccessoriesC2SPacket.TYPE, OpenAccessoriesC2SPacket.STREAM_CODEC, OpenAccessoriesC2SPacket::handle);
+        registrar.playToServer(RuneGameTimeConsumingRecordC2SPacket.TYPE,
+                RuneGameTimeConsumingRecordC2SPacket.STREAM_CODEC,
+                RuneGameTimeConsumingRecordC2SPacket::handle);
+
+        // Server Packets
         registrar.playToClient(SkyColorS2CPacket.TYPE, SkyColorS2CPacket.STREAM_CODEC, SkyColorS2CPacket::handle);
         registrar.playToClient(NightTypeS2CPacket.TYPE, NightTypeS2CPacket.STREAM_CODEC, NightTypeS2CPacket::handle);
         registrar.playToClient(FrostbiteS2CPacket.TYPE, FrostbiteS2CPacket.STREAM_CODEC, FrostbiteS2CPacket::handle);
         registrar.playToClient(FutureNightS2CPacket.TYPE, FutureNightS2CPacket.STREAM_CODEC, FutureNightS2CPacket::handle);
-        registrar.playToServer(NoteTeleportC2SPacket.TYPE, NoteTeleportC2SPacket.STREAM_CODEC, NoteTeleportC2SPacket::handle);
-        registrar.playToServer(CrystalRuneSetC2SPacket.TYPE, CrystalRuneSetC2SPacket.STREAM_CODEC, CrystalRuneSetC2SPacket::handle);
         registrar.playToClient(RuneGameStartS2CPacket.TYPE, RuneGameStartS2CPacket.STREAM_CODEC, RuneGameStartS2CPacket::handle);
-        registrar.playToServer(RuneGameWinC2SPacket.TYPE, RuneGameWinC2SPacket.STREAM_CODEC, RuneGameWinC2SPacket::handle);
-        registrar.playToServer(RuneGameAwardStatC2SPacket.TYPE, RuneGameAwardStatC2SPacket.STREAM_CODEC, RuneGameAwardStatC2SPacket::handle);
-        registrar.playToServer(RuneGameTimeConsumingRecordC2SPacket.TYPE, RuneGameTimeConsumingRecordC2SPacket.STREAM_CODEC, RuneGameTimeConsumingRecordC2SPacket::handle);
         registrar.playToClient(InteractWithSelenaS2CPacket.TYPE, InteractWithSelenaS2CPacket.STREAM_CODEC, InteractWithSelenaS2CPacket::handle);
-        registrar.playToServer(PlayerDeathRespawnC2SPacket.TYPE, PlayerDeathRespawnC2SPacket.STREAM_CODEC, PlayerDeathRespawnC2SPacket::handle);
         registrar.playToClient(ShowDeathScreenS2CPacket.TYPE, ShowDeathScreenS2CPacket.STREAM_CODEC, ShowDeathScreenS2CPacket::handle);
         registrar.playToClient(ShowStunScreenS2CPacket.TYPE, ShowStunScreenS2CPacket.STREAM_CODEC, ShowStunScreenS2CPacket::handle);
         registrar.playToClient(ShowStarSignScreenS2CPacket.TYPE, ShowStarSignScreenS2CPacket.STREAM_CODEC, ShowStarSignScreenS2CPacket::handle);
@@ -197,6 +201,7 @@ public class ModBusEventSubscriber {
         event.register(TAMenus.MOONLIGHT_FORGE_MENU.get(), MoonlightForgeScreen::new);
         event.register(TAMenus.ALCHEMY_TABLE_MENU.get(), AlchemyTableScreen::new);
         event.register(TAMenus.SCRAPPER_MENU.get(), ScrapperScreen::new);
+        event.register(TAMenus.ACCESSORIES_MENU.get(), AccessoriesScreen::new);
     }
 
     @OnlyIn(Dist.CLIENT)

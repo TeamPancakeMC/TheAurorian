@@ -1,8 +1,10 @@
 package cn.teampancake.theaurorian.common.event.subscriber;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.client.gui.screens.AccessoriesScreen;
 import cn.teampancake.theaurorian.client.gui.tooltips.ItemTooltip;
 import cn.teampancake.theaurorian.client.renderer.level.TASkyRenderer;
+import cn.teampancake.theaurorian.client.widget.AccessoriesButton;
 import cn.teampancake.theaurorian.common.effect.ConfusionEffect;
 import cn.teampancake.theaurorian.common.level.SylvanisHandler;
 import cn.teampancake.theaurorian.common.registry.*;
@@ -14,6 +16,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.LerpingBossEvent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
@@ -23,6 +29,7 @@ import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Tuple;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.FogType;
@@ -33,6 +40,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
+import top.theillusivec4.curios.client.CuriosClientConfig;
+import top.theillusivec4.curios.client.CuriosClientConfig.Client.ButtonCorner;
 
 import java.awt.*;
 import java.util.Map;
@@ -58,6 +67,26 @@ public class ClientEventSubscriber {
     private static final Color FOG_COLOR = new Color(0.85f, 0.9f, 1.0f);
     private static final float MIN_VISIBILITY = 15.0f;
     private static final float MAX_VISIBILITY = 5.0f;
+
+    @SubscribeEvent
+    public static void onScreenGuiInitPost(ScreenEvent.Init.Post event) {
+        Screen screen = event.getScreen();
+        if (!CuriosClientConfig.CLIENT.enableButton.get()) return;
+        if (screen instanceof InventoryScreen || screen instanceof CreativeModeInventoryScreen) {
+            AbstractContainerScreen<?> gui = (AbstractContainerScreen<?>) screen;
+            boolean isCreative = screen instanceof CreativeModeInventoryScreen;
+            Tuple<Integer, Integer> offsets = AccessoriesScreen.getButtonOffset(ButtonCorner.TOP_RIGHT, isCreative);
+            int x = offsets.getA();
+            int y = offsets.getB();
+            int size = isCreative ? 10 : 12;
+            int yOffset = isCreative ? 67 : 81;
+            AccessoriesButton accessoriesButton = new AccessoriesButton(
+                    gui, gui.getGuiLeft() + x - 4,
+                    gui.getGuiTop() + y + yOffset,
+                    size, size, AccessoriesScreen.BUTTON);
+            event.addListener(accessoriesButton);
+        }
+    }
 
     @SubscribeEvent
     public static void onMovementInputUpdate(MovementInputUpdateEvent event) {

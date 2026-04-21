@@ -11,6 +11,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -78,6 +79,10 @@ public class TAAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<List<Vec3>>> ARROWS_SPAWN_VEC3 =
             ATTACHMENT_TYPES.register("arrows_spawn_vec3", () -> AttachmentType.<List<Vec3>>builder(
                     () -> new ArrayList<>()).serialize(Vec3.CODEC.listOf()).build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<List<ItemStack>>> ACCESSORIES_INVENTORY =
+            ATTACHMENT_TYPES.register("accessories_inventory", () -> AttachmentType.<List<ItemStack>>builder(
+                    () -> new ArrayList<>()).serialize(ItemStack.CODEC.sizeLimitedListOf(24))
+                    .sync(ItemStack.LIST_STREAM_CODEC).copyOnDeath().build());
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<ResourceLocation>> ANIMATION_TEXTURE =
             ATTACHMENT_TYPES.register("animation_texture", () -> AttachmentType.builder(

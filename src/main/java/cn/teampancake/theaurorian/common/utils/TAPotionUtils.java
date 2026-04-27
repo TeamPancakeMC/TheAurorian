@@ -4,6 +4,7 @@ import cn.teampancake.theaurorian.common.datamaps.AlchemyTableMaterial;
 import cn.teampancake.theaurorian.common.registry.TADataMaps;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 
 import java.util.*;
@@ -173,38 +174,44 @@ public class TAPotionUtils {
     }
 
     public static List<MobEffectInstance> getPotionEffects(int damage) {
-        ArrayList<MobEffectInstance> effects = new ArrayList<>();
-        BuiltInRegistries.MOB_EFFECT.stream().filter(Objects::nonNull).map(Holder::direct).forEach(holder -> {
-            AlchemyTableMaterial usableEffectData = holder.getData(TADataMaps.ALCHEMY_TABLE_USABLE_EFFECTS);
+        ArrayList<MobEffectInstance> effects = null;
+        for (Holder.Reference<MobEffect> reference : BuiltInRegistries.MOB_EFFECT.holders().toList()) {
+            AlchemyTableMaterial usableEffectData = reference.getData(TADataMaps.ALCHEMY_TABLE_USABLE_EFFECTS);
             if (usableEffectData != null) {
                 String formula = usableEffectData.formula();
                 int duration = parseEffectFormula(formula, 0, formula.length(), damage);
-                int amplifier = 0;
-                AlchemyTableMaterial amplifierEffectData = holder.getData(TADataMaps.ALCHEMY_TABLE_AMPLIFIER_EFFECTS);
-                if (amplifierEffectData != null) {
-                    String amplifierFormula = amplifierEffectData.formula();
-                    if (amplifierFormula != null && !amplifierFormula.isEmpty()) {
-                        amplifier = parseEffectFormula(amplifierFormula, 0, amplifierFormula.length(), damage);
-                        if (amplifier < 0) {
-                            amplifier = 0;
+                if (duration > 0) {
+                    int amplifier = 0;
+                    AlchemyTableMaterial amplifierEffectData = reference.getData(TADataMaps.ALCHEMY_TABLE_AMPLIFIER_EFFECTS);
+                    if (amplifierEffectData != null) {
+                        String amplifierFormula = amplifierEffectData.formula();
+                        if (amplifierFormula != null && !amplifierFormula.isEmpty()) {
+                            amplifier = parseEffectFormula(amplifierFormula, 0, amplifierFormula.length(), damage);
+                            if (amplifier < 0) {
+                                amplifier = 0;
+                            }
                         }
                     }
-                }
 
-                if (holder.value().isInstantenous()) {
-                    duration = 1;
-                } else {
-                    duration = 1200 * (duration * 3 + (duration - 1) * 2);
-                    if (!holder.value().isBeneficial()) {
-                        duration >>= 1;
+                    if (reference.value().isInstantenous()) {
+                        duration = 1;
+                    } else {
+                        duration = 1200 * (duration * 3 + (duration - 1) * 2);
+                        if (!reference.value().isBeneficial()) {
+                            duration >>= 1;
+                        }
                     }
+
+                    if (effects == null) {
+                        effects = new ArrayList<>();
+                    }
+
+                    effects.add(new MobEffectInstance(reference, duration, amplifier));
                 }
-
-                effects.add(new MobEffectInstance(holder, duration, amplifier));
             }
-        });
+        }
 
-        return effects;
+        return effects == null ? new ArrayList<>() : effects;
     }
 
     @SuppressWarnings("ConstantValue")

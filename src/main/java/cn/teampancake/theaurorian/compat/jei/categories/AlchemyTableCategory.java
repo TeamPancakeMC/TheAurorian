@@ -1,6 +1,7 @@
 package cn.teampancake.theaurorian.compat.jei.categories;
 
 import cn.teampancake.theaurorian.TheAurorian;
+import cn.teampancake.theaurorian.client.gui.screens.AlchemyTableScreen;
 import cn.teampancake.theaurorian.common.items.crafting.AlchemyTableRecipe;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import mezz.jei.api.gui.ITickTimer;
@@ -31,7 +32,7 @@ public class AlchemyTableCategory implements IRecipeCategory<AlchemyTableRecipe>
     private final Component localizedName;
 
     public AlchemyTableCategory(IGuiHelper guiHelper) {
-        ResourceLocation location = TheAurorian.prefix("textures/gui/alchemy_table_jei.png");
+        ResourceLocation location = AlchemyTableScreen.getGuiTexture("alchemy_table_jei");
         this.background = guiHelper.createDrawable(location, 0, 0, 176, 82);
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(TABlocks.ALCHEMY_TABLE.get()));
         this.localizedName = Component.translatable(TheAurorian.MOD_ID + ".container.alchemy_table");

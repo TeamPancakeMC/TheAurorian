@@ -1,5 +1,6 @@
 package cn.teampancake.theaurorian.common.blocks.entity;
 
+import cn.teampancake.theaurorian.TheAurorian;
 import cn.teampancake.theaurorian.client.inventory.AlchemyTableMenu;
 import cn.teampancake.theaurorian.common.blocks.AlchemyTable;
 import cn.teampancake.theaurorian.common.blocks.state.properties.AlchemyTablePart;
@@ -17,6 +18,13 @@ import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.util.Unit;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.effect.MobEffect;
@@ -48,13 +56,15 @@ public class AlchemyTableBlockEntity extends StandardContainerBlockEntity implem
     private int liquidData;
     private boolean canMixPotion;
     private boolean canEffectFusion;
+    private PotionContents potionContents = PotionContents.EMPTY;
+    private final List<ItemStack> materials = NonNullList.withSize(128, ItemStack.EMPTY);
     private final ContainerData containerData = new Data();
     private final RecipeManager.CachedCheck<AlchemyTableRecipeInput, ?> quickCheck;
 
     public AlchemyTableBlockEntity(BlockPos pos, BlockState blockState) {
         super(TABlockEntityTypes.ALCHEMY_TABLE.get(), pos, blockState);
         this.quickCheck = RecipeManager.createCheck(TARecipes.ALCHEMY_TABLE_RECIPE.get());
-        this.handler = new Handler(5);
+        this.handler = new Handler(14);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, AlchemyTableBlockEntity blockEntity) {
@@ -376,22 +386,74 @@ public class AlchemyTableBlockEntity extends StandardContainerBlockEntity implem
         return new AlchemyTableRecipeInput(ingredients, this.getItem(3));
     }
 
-    @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        this.alchemyTime = tag.getInt("AlchemyTime");
-        this.maxAlchemyTime = tag.getInt("MaxAlchemyTime");
-        this.liquidLevel = tag.getInt("LiquidLevel");
-        this.liquidData = tag.getInt("LiquidData");
+    public void setLiquidData(int liquidData) {
+        this.liquidData = liquidData;
+    }
+
+    public void setPotionContents(PotionContents potionContents) {
+        this.potionContents = potionContents;
+    }
+
+    public List<ItemStack> getMaterials() {
+        return this.materials;
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.putInt("AlchemyTime", this.alchemyTime);
-        tag.putInt("MaxAlchemyTime", this.maxAlchemyTime);
-        tag.putInt("LiquidLevel", this.liquidLevel);
-        tag.putInt("LiquidData", this.liquidData);
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag nbt = super.getUpdateTag(registries);
+        this.saveAdditional(nbt, registries);
+        return nbt;
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+        super.loadAdditional(compound, registries);
+        this.alchemyTime = compound.getInt("AlchemyTime");
+        this.maxAlchemyTime = compound.getInt("MaxAlchemyTime");
+        this.liquidLevel = compound.getInt("LiquidLevel");
+        this.liquidData = compound.getInt("LiquidData");
+        if (compound.contains("potion_contents")) {
+            PotionContents.CODEC.parse(registries.createSerializationContext(NbtOps.INSTANCE), compound.get("potion_contents"))
+                    .resultOrPartial(s -> TheAurorian.LOGGER.warn("Failed to parse area effect cloud potions: '{}'", s))
+                    .ifPresent(potionContents -> this.potionContents = potionContents);
+        }
+
+        ListTag listTag = compound.getList("materials", Tag.TAG_COMPOUND);
+        for (int i = 0; i < listTag.size(); i++) {
+            CompoundTag tag = listTag.getCompound(i);
+            Optional<ItemStack> optional = ItemStack.parse(registries, tag);
+            this.materials.set(i, optional.orElse(ItemStack.EMPTY));
+        }
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+        super.saveAdditional(compound, registries);
+        compound.putInt("AlchemyTime", this.alchemyTime);
+        compound.putInt("MaxAlchemyTime", this.maxAlchemyTime);
+        compound.putInt("LiquidLevel", this.liquidLevel);
+        compound.putInt("LiquidData", this.liquidData);
+        if (!this.potionContents.equals(PotionContents.EMPTY)) {
+            RegistryOps<Tag> registryOps = registries.createSerializationContext(NbtOps.INSTANCE);
+            Tag tag = PotionContents.CODEC.encodeStart(registryOps, this.potionContents).getOrThrow();
+            compound.put("potion_contents", tag);
+        }
+
+        ListTag listTag = new ListTag();
+        for (ItemStack stack : this.materials) {
+            if (!stack.isEmpty()) {
+                listTag.add(stack.save(registries));
+            }
+        }
+
+        if (!listTag.isEmpty()) {
+            compound.put("materials", listTag);
+        }
     }
 
     @Override
@@ -426,7 +488,7 @@ public class AlchemyTableBlockEntity extends StandardContainerBlockEntity implem
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
         ContainerLevelAccess access = ContainerLevelAccess.create(Objects.requireNonNull(this.level), this.worldPosition);
-        return new AlchemyTableMenu(containerId, inventory, access, this.handler, this.containerData);
+        return new AlchemyTableMenu(containerId, inventory, access, this.handler, this.containerData, this.getBlockPos());
     }
 
     private class Data implements ContainerData {
@@ -447,7 +509,7 @@ public class AlchemyTableBlockEntity extends StandardContainerBlockEntity implem
             switch (index) {
                 case 0 -> alchemyTime = value;
                 case 1 -> maxAlchemyTime = value;
-                case 2 -> liquidLevel = value;
+                case 2 -> liquidLevel = Math.max(0, value);
                 case 3 -> liquidData = value;
             }
         }

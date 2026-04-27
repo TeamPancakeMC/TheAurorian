@@ -63,7 +63,7 @@ public class JEICompatibility implements IModPlugin {
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addRecipeClickArea(MoonlightForgeScreen.class, 105, 32, 22, 15, MoonlightForgeCategory.MOONLIGHT_FORGE_RECIPE);
-        registration.addRecipeClickArea(AlchemyTableScreen.class, 109, 34, 23, 33, AlchemyTableCategory.ALCHEMY_TABLE_RECIPE);
+        registration.addRecipeClickArea(AlchemyTableScreen.class, 147, 39, 23, 33, AlchemyTableCategory.ALCHEMY_TABLE_RECIPE);
         registration.addRecipeClickArea(ScrapperScreen.class, 99, 17, 7, 53, ScrapperCategory.SCRAPPER_RECIPE);
     }
 

@@ -121,6 +121,15 @@ public class ModBusEventSubscriber {
         registrar.playToServer(RuneGameAwardStatC2SPacket.TYPE, RuneGameAwardStatC2SPacket.STREAM_CODEC, RuneGameAwardStatC2SPacket::handle);
         registrar.playToServer(PlayerDeathRespawnC2SPacket.TYPE, PlayerDeathRespawnC2SPacket.STREAM_CODEC, PlayerDeathRespawnC2SPacket::handle);
         registrar.playToServer(OpenAccessoriesC2SPacket.TYPE, OpenAccessoriesC2SPacket.STREAM_CODEC, OpenAccessoriesC2SPacket::handle);
+        registrar.playToServer(AddItemToInventoryC2SPacket.TYPE, AddItemToInventoryC2SPacket.STREAM_CODEC, AddItemToInventoryC2SPacket::handle);
+        registrar.playToServer(SetContainerSlotItemC2SPacket.TYPE, SetContainerSlotItemC2SPacket.STREAM_CODEC, SetContainerSlotItemC2SPacket::handle);
+        registrar.playToServer(UpdateMenuCarriedC2SPacket.TYPE, UpdateMenuCarriedC2SPacket.STREAM_CODEC, UpdateMenuCarriedC2SPacket::handle);
+        registrar.playToServer(UpdateItemPotionContentsC2SPacket.TYPE,
+                UpdateItemPotionContentsC2SPacket.STREAM_CODEC,
+                UpdateItemPotionContentsC2SPacket::handle);
+        registrar.playToServer(UpdateAlchemyTableIntDataC2SPacket.TYPE,
+                UpdateAlchemyTableIntDataC2SPacket.STREAM_CODEC,
+                UpdateAlchemyTableIntDataC2SPacket::handle);
         registrar.playToServer(RuneGameTimeConsumingRecordC2SPacket.TYPE,
                 RuneGameTimeConsumingRecordC2SPacket.STREAM_CODEC,
                 RuneGameTimeConsumingRecordC2SPacket::handle);

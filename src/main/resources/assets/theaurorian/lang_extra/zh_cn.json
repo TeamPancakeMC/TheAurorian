@@ -164,6 +164,8 @@
     "tooltips.block.theaurorian.moonlight_forge.gui.has_moonlight": "月光祝福中！",
     "tooltips.block.theaurorian.moonlight_forge.gui.no_moonlight": "没有检测到月光！",
     "tooltips.block.theaurorian.moonlight_forge.gui.redstone": "目前已被红石信号禁用！",
+    "tooltips.block.theaurorian.alchemy_table.gui.material_invalid": "无效的炼药材料",
+    "tooltips.block.theaurorian.alchemy_table.gui.material_pass": "此时不能使用该材料",
     "tooltips.item.theaurorian.absorption_orb": "在副手时会修复你主手持握的物品！",
     "tooltips.item.theaurorian.alchemy.mixing_count": "药水混合次数：",
     "tooltips.item.theaurorian.aurorian_coal": "比普通煤炭更持久一点。",

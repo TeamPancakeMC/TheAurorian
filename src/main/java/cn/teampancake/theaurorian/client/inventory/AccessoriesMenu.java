@@ -3,6 +3,7 @@ package cn.teampancake.theaurorian.client.inventory;
 import cn.teampancake.theaurorian.common.registry.TAAttachmentTypes;
 import cn.teampancake.theaurorian.common.registry.TAMenus;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -145,7 +146,7 @@ public class AccessoriesMenu extends RecipeBookMenu<RecipeInput, Recipe<RecipeIn
 
     public static class AccessoriesSlot extends SlotItemHandler {
 
-        private static final AttachmentType<List<ItemStack>> ATTACHMENT_TYPE = TAAttachmentTypes.ACCESSORIES_INVENTORY.get();
+        private static final AttachmentType<NonNullList<ItemStack>> ATTACHMENT_TYPE = TAAttachmentTypes.ACCESSORIES_INVENTORY.get();
         private final Player player;
 
         public AccessoriesSlot(Player player, IItemHandler itemHandler, int index, int xPosition, int yPosition) {
@@ -167,9 +168,11 @@ public class AccessoriesMenu extends RecipeBookMenu<RecipeInput, Recipe<RecipeIn
 
         @Override
         public void set(ItemStack stack) {
-            List<ItemStack> itemStacks = this.player.getData(ATTACHMENT_TYPE);
-            itemStacks.add(this.index, stack);
-            this.setChanged();
+            super.set(stack);
+            if (!stack.isEmpty()) {
+                List<ItemStack> itemStacks = this.player.getData(ATTACHMENT_TYPE);
+                itemStacks.add(this.index, stack);
+            }
         }
 
         @Override

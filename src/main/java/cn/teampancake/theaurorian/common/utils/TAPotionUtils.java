@@ -11,6 +11,13 @@ import java.util.*;
 
 public class TAPotionUtils {
 
+    public static final String[] POTION_PREFIXES = new String[] {
+            "mundane", "uninteresting", "bland", "clear", "milky", "diffuse",
+            "artless", "thin", "awkward", "flat", "bulky", "bungling", "buttered",
+            "smooth", "suave", "debonair", "thick", "elegant", "fancy",
+            "charming", "dashing", "refined", "cordial", "sparkling", "potent",
+            "foul", "odorless", "rank", "harsh", "acrid", "gross", "stinky" };
+
     private static boolean isBitSet(int data, int bitPosition) {
         return ((data & 1 << bitPosition % 15) != 0);
     }
@@ -36,6 +43,10 @@ public class TAPotionUtils {
         int green = (extractBinaryNumber(damage, 0, 12, 9, 6, 3) ^ 0x6) << 3;
         int blue = (extractBinaryNumber(damage, 13, 10, 4, 1, 7) ^ 0x8) << 3;
         return red << 16 | green << 8 | blue;
+    }
+
+    public static String getPotionPrefix(int damage) {
+        return POTION_PREFIXES[getPrefixNumber(damage)];
     }
 
     private static int calculateBitOperation(

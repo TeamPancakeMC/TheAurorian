@@ -43,7 +43,6 @@ public record UpdateAlchemyTableIntDataC2SPacket(BlockPos blockPos, ItemStack ca
                 Level level = player.level();
                 BlockEntity blockEntity = level.getBlockEntity(packet.blockPos);
                 if (blockEntity instanceof AlchemyTableBlockEntity alchemyTable) {
-                    BlockState state = alchemyTable.getBlockState();
                     Class<?> clazz = alchemyTable.getClass();
                     try {
                         Field field = clazz.getDeclaredField(packet.data());
@@ -53,24 +52,26 @@ public record UpdateAlchemyTableIntDataC2SPacket(BlockPos blockPos, ItemStack ca
                             alchemyTable.setPotionContents(PotionContents.EMPTY);
                             alchemyTable.setLiquidData(0);
                             alchemyTable.getMaterials().clear();
+                            return;
                         }
 
                         if (packet.data.equals("liquidData")) {
+                            List<ItemStack> materials = alchemyTable.getMaterials();
                             if (packet.value == 0) {
                                 alchemyTable.setPotionContents(PotionContents.EMPTY);
+                                materials.clear();
                             } else {
                                 int potionColor = TAPotionUtils.getPotionColor(packet.value);
                                 PotionContents potionContents = new PotionContents(
                                         Optional.of(Potions.WATER), Optional.of(potionColor),
                                         TAPotionUtils.getPotionEffects(packet.value));
                                 alchemyTable.setPotionContents(potionContents);
-                                List<ItemStack> materials = alchemyTable.getMaterials();
-                                if (packet.carried.is(Items.NETHER_WART)) materials.clear();
                                 materials.add(packet.carried);
                             }
                         }
                     } catch (Exception ignored) {}
                     alchemyTable.setChanged();
+                    BlockState state = alchemyTable.getBlockState();
                     level.sendBlockUpdated(packet.blockPos, state, state, 3);
                 }
             }

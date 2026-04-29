@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
+import com.tterrag.registrate.util.nullness.NonNullFunction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -24,6 +25,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -40,6 +42,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
@@ -48,11 +51,13 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.ItemDecoratorHandler;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @OnlyIn(Dist.CLIENT)
 public class AlchemyTableScreen extends AbstractContainerScreen<AlchemyTableMenu> {
@@ -66,7 +71,7 @@ public class AlchemyTableScreen extends AbstractContainerScreen<AlchemyTableMenu
 
     public AlchemyTableScreen(AlchemyTableMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        this.imageWidth = 261;
+        this.imageWidth = 350;
         this.imageHeight = 174;
     }
 
@@ -101,7 +106,7 @@ public class AlchemyTableScreen extends AbstractContainerScreen<AlchemyTableMenu
         float k1 = containerData.get(0);
         float k2 = containerData.get(1);
         PoseStack poseStack = guiGraphics.pose();
-        guiGraphics.blit(CONTAINER_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight, 512, 256);
+        guiGraphics.blit(CONTAINER_LOCATION, i, j, 0, 0, 261, this.imageHeight, 512, 256);
         poseStack.pushPose();
         int v = Mth.floor(33 * (k1 / k2));
         int y = j - v + 72;
@@ -138,66 +143,48 @@ public class AlchemyTableScreen extends AbstractContainerScreen<AlchemyTableMenu
     @Override
     protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
         super.renderTooltip(guiGraphics, x, y);
-        int i = this.leftPos + 218;
-        int j = this.topPos + 33;
-        if (x > i && x < i + 12 && y > j && y < j + 99) {
-            ItemStack carried = this.menu.getCarried();
-            int liquidLevel = this.menu.getLiquidLevel();
-            int liquidData = this.menu.getLiquidData();
-            List<MobEffectInstance> potionEffects = TAPotionUtils.getPotionEffects(liquidData);
-            if (!carried.isEmpty()) {
-                AlchemyTableMaterial material = this.getMaterial(carried);
-                String prefix = "tooltips.block.theaurorian.alchemy_table.gui.";
-                if (material == null || carried.is(Items.WATER_BUCKET) && liquidLevel == 3) {
-                    MutableComponent component = Component.translatable(prefix + "material_invalid");
-                    guiGraphics.renderTooltip(this.font, component.withStyle(ChatFormatting.RED), x, y);
-                    return;
-                }
-
-                if (TAPotionUtils.applyIngredient(liquidData, material.formula()) == liquidData) {
-                    MutableComponent component = Component.translatable(prefix + "material_pass");
-                    guiGraphics.renderTooltip(this.font, component.withStyle(ChatFormatting.YELLOW), x, y);
-                    return;
-                }
-            }
-
-            if (potionEffects.isEmpty()) {
-                MutableComponent component = Component.translatable("effect.none").withStyle(ChatFormatting.GRAY);
-                guiGraphics.renderTooltip(this.font, component, x, y);
-                return;
-            }
-
-            List<Pair<Holder<Attribute>, AttributeModifier>> list = Lists.newArrayList();
-            List<Component> components = new ArrayList<>();
-            for (MobEffectInstance instance : potionEffects) {
-                MutableComponent mutableComponent = Component.translatable(instance.getDescriptionId());
-                Holder<MobEffect> effectHolder = instance.getEffect();
-                effectHolder.value().createModifiers(instance.getAmplifier(),
-                        (holder, modifier) -> list.add(new Pair<>(holder, modifier)));
-                if (instance.getAmplifier() > 0) {
-                    MutableComponent component = Component.translatable("potion.potency." + instance.getAmplifier());
-                    mutableComponent = Component.translatable("potion.withAmplifier", mutableComponent, component);
-                }
-
-                if (!instance.endsWithin(20)) {
-                    Component component = MobEffectUtil.formatDuration(instance, 1.0F, 20.0F);
-                    mutableComponent = Component.translatable("potion.withDuration", mutableComponent, component);
-                }
-
-                components.add(mutableComponent.withStyle(effectHolder.value().getCategory().getTooltipFormatting()));
-            }
-
-            if (!list.isEmpty() && this.minecraft != null) {
-                components.add(CommonComponents.EMPTY);
-                components.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
-                TooltipFlag tooltipFlag = this.minecraft.options.advancedItemTooltips ? TooltipFlag.ADVANCED : TooltipFlag.NORMAL;
-                for (Pair<Holder<Attribute>, AttributeModifier> pair : list) {
-                    components.add(pair.getFirst().value().toComponent(pair.getSecond(), tooltipFlag));
-                }
-            }
-
-            guiGraphics.renderComponentTooltip(this.font, components, x, y);
+        int i = this.leftPos + 254;
+        int j = this.topPos + 22;
+        int liquidData = this.menu.getLiquidData();
+        List<MobEffectInstance> potionEffects = TAPotionUtils.getPotionEffects(liquidData);
+        if (potionEffects.isEmpty()) {
+            MutableComponent component = Component.translatable("effect.none").withStyle(ChatFormatting.GRAY);
+            guiGraphics.renderTooltip(this.font, component, i, j);
+            return;
         }
+
+        List<Pair<Holder<Attribute>, AttributeModifier>> list = Lists.newArrayList();
+        List<Component> components = new ArrayList<>();
+        String name = TAPotionUtils.getPotionPrefix(liquidData);
+        components.add(Component.translatable(String.format("item.theaurorian.potion.effect.%s", name)));
+        for (MobEffectInstance instance : potionEffects) {
+            MutableComponent mutableComponent = Component.translatable(instance.getDescriptionId());
+            Holder<MobEffect> effectHolder = instance.getEffect();
+            effectHolder.value().createModifiers(instance.getAmplifier(),
+                    (holder, modifier) -> list.add(new Pair<>(holder, modifier)));
+            if (instance.getAmplifier() > 0) {
+                MutableComponent component = Component.translatable("potion.potency." + instance.getAmplifier());
+                mutableComponent = Component.translatable("potion.withAmplifier", mutableComponent, component);
+            }
+
+            if (!instance.endsWithin(20)) {
+                Component component = MobEffectUtil.formatDuration(instance, 1.0F, 20.0F);
+                mutableComponent = Component.translatable("potion.withDuration", mutableComponent, component);
+            }
+
+            components.add(mutableComponent.withStyle(effectHolder.value().getCategory().getTooltipFormatting()));
+        }
+
+        if (!list.isEmpty() && this.minecraft != null) {
+            components.add(CommonComponents.EMPTY);
+            components.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
+            TooltipFlag tooltipFlag = this.minecraft.options.advancedItemTooltips ? TooltipFlag.ADVANCED : TooltipFlag.NORMAL;
+            for (Pair<Holder<Attribute>, AttributeModifier> pair : list) {
+                components.add(pair.getFirst().value().toComponent(pair.getSecond(), tooltipFlag));
+            }
+        }
+
+        guiGraphics.renderComponentTooltip(this.font, components, i, j);
     }
 
     @Override
@@ -316,79 +303,100 @@ public class AlchemyTableScreen extends AbstractContainerScreen<AlchemyTableMenu
             int liquidData = this.menu.getLiquidData();
             BlockPos blockPos = this.menu.getBlockPos();
             if (carried.is(Items.WATER_BUCKET)) {
-                boolean flag = false;
-                if (liquidLevel == 0) {
-                    this.setContainerData(blockPos, carried, "liquidLevel", 3);
-                    this.setContainerData(blockPos, carried, "liquidData", 0);
-                    flag = true;
-                }
-
-                if (liquidLevel < 3) {
-                    int applied = TAPotionUtils.applyIngredient(liquidData, "-1-3-5-7-9-11-13");
-                    this.setContainerData(blockPos, carried, "liquidLevel", 3);
-                    this.setContainerData(blockPos, carried, "liquidData", applied);
-                    flag = true;
-                }
-
-                if (flag) {
-                    PacketDistributor.sendToServer(new UpdateMenuCarriedC2SPacket(this.menu.containerId, new ItemStack(Items.BUCKET)));
-                    return true;
-                }
+                return this.filledWithWater(carried, blockPos, liquidLevel, liquidData);
             } else if (liquidLevel > 0) {
                 AlchemyTableMaterial material = this.getMaterial(carried);
-                DataComponentType<PotionContents> componentType = DataComponents.POTION_CONTENTS;
-                PotionContents potion = carried.get(componentType);
-                boolean flag1 = false, flag2 = false;
+                boolean flag = false;
                 if (carried.is(Items.NETHER_WART)) {
                     int k = TAPotionUtils.applyNetherWart(liquidData);
                     if (k != liquidData) {
                         this.setContainerData(blockPos, carried, "liquidData", k);
-                        flag1 = true;
+                        flag = true;
                     }
                 } else if (material != null) {
                     int l = TAPotionUtils.applyIngredient(liquidData, material.formula());
                     if (l != liquidData) {
                         this.setContainerData(blockPos, carried, "liquidData", l);
-                        flag1 = true;
+                        flag = true;
                     }
                 }
 
-                if (flag1) {
+                if (flag) {
                     carried.shrink(1);
                     return true;
                 }
 
                 if (liquidData != 0) {
-                    int potionColor = TAPotionUtils.getPotionColor(liquidData);
-                    PotionContents potionContents = new PotionContents(
-                            Optional.of(Potions.WATER), Optional.of(potionColor),
-                            TAPotionUtils.getPotionEffects(liquidData));
-                    if (carried.is(Items.GLASS_BOTTLE)) {
-                        ItemStack potionStack = new ItemStack(Items.POTION);
-                        potionStack.set(componentType, potionContents);
-                        if (carried.getCount() == 1) {
-                            PacketDistributor.sendToServer(new UpdateMenuCarriedC2SPacket(this.menu.containerId, potionStack));
-                        } else {
-                            carried.shrink(1);
-                            PacketDistributor.sendToServer(new AddItemToInventoryC2SPacket(potionStack));
-                        }
-
-                        flag2 = true;
-                    } else if (potion != null && potion.equals(PotionContents.EMPTY)) {
-                        carried.set(DataComponents.POTION_CONTENTS, potionContents);
-                        PacketDistributor.sendToServer(new UpdateMenuCarriedC2SPacket(this.menu.containerId, carried));
-                        flag2 = true;
-                    }
-
-                    if (flag2) {
-                        this.setContainerData(blockPos, carried, "liquidLevel", liquidLevel - 1);
-                        return true;
-                    }
+                    return this.takeAwayPotion(carried, blockPos, liquidLevel, liquidData);
                 }
             }
         }
 
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    private boolean filledWithWater(ItemStack carried, BlockPos blockPos, int liquidLevel, int liquidData) {
+        boolean flag = false;
+        if (liquidLevel == 0) {
+            this.setContainerData(blockPos, carried, "liquidLevel", 3);
+            this.setContainerData(blockPos, carried, "liquidData", 0);
+            flag = true;
+        }
+
+        if (liquidLevel > 0 && liquidLevel < 3) {
+            int applied = TAPotionUtils.applyIngredient(liquidData, "-1-3-5-7-9-11-13");
+            this.setContainerData(blockPos, carried, "liquidLevel", 3);
+            this.setContainerData(blockPos, carried, "liquidData", applied);
+            flag = true;
+        }
+
+        if (flag) {
+            PacketDistributor.sendToServer(new UpdateMenuCarriedC2SPacket(this.menu.containerId, new ItemStack(Items.BUCKET)));
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean takeAwayPotion(ItemStack carried, BlockPos blockPos, int liquidLevel, int liquidData) {
+        DataComponentType<PotionContents> componentType = DataComponents.POTION_CONTENTS;
+        PotionContents potion = carried.get(componentType);
+        int potionColor = TAPotionUtils.getPotionColor(liquidData);
+        PotionContents potionContents = new PotionContents(
+                Optional.of(Potions.WATER), Optional.of(potionColor),
+                TAPotionUtils.getPotionEffects(liquidData));
+        String name = TAPotionUtils.getPotionPrefix(liquidData);
+        NonNullFunction<String, MutableComponent> function = s -> Component.translatable(
+                String.format("item.theaurorian.%s.effect.%s", s, name));
+        boolean flag = false;
+        if (carried.is(Items.GLASS_BOTTLE)) {
+            ItemStack potionStack = new ItemStack(Items.POTION);
+            potionStack.set(componentType, potionContents);
+            potionStack.set(DataComponents.ITEM_NAME, function.apply("potion"));
+            if (carried.getCount() == 1) {
+                PacketDistributor.sendToServer(new UpdateMenuCarriedC2SPacket(this.menu.containerId, potionStack));
+            } else {
+                carried.shrink(1);
+                PacketDistributor.sendToServer(new AddItemToInventoryC2SPacket(potionStack));
+            }
+
+            flag = true;
+        } else if (carried.getItem() instanceof PotionItem potionItem) {
+            if (potion != null && potion.equals(PotionContents.EMPTY)) {
+                ResourceLocation key = BuiltInRegistries.ITEM.getKey(potionItem);
+                carried.set(DataComponents.POTION_CONTENTS, potionContents);
+                carried.set(DataComponents.ITEM_NAME, function.apply(key.getPath()));
+                PacketDistributor.sendToServer(new UpdateMenuCarriedC2SPacket(this.menu.containerId, carried));
+                flag = true;
+            }
+        }
+
+        if (flag) {
+            this.setContainerData(blockPos, carried, "liquidLevel", liquidLevel - 1);
+            return true;
+        }
+        
+        return false;
     }
 
     private void scrollTo(float pos) {

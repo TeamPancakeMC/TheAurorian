@@ -95,6 +95,9 @@ public class AccessoriesScreen extends EffectRenderingInventoryScreen<Accessorie
             this.recipeBookGui.render(guiGraphics, mouseX, mouseY, partialTick);
             this.recipeBookGui.renderGhostRecipe(guiGraphics, this.leftPos, this.topPos, false, partialTick);
         }
+
+        this.renderTooltip(guiGraphics, mouseX, mouseY);
+        this.recipeBookGui.renderTooltip(guiGraphics, this.leftPos, this.topPos, mouseX, mouseY);
     }
 
     @Override

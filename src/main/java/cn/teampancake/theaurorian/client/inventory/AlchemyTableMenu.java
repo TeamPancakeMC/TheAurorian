@@ -1,6 +1,5 @@
 package cn.teampancake.theaurorian.client.inventory;
 
-import cn.teampancake.theaurorian.common.blocks.entity.AlchemyTableBlockEntity;
 import cn.teampancake.theaurorian.common.registry.TABlocks;
 import cn.teampancake.theaurorian.common.registry.TAMenus;
 import com.google.common.collect.Lists;
@@ -10,7 +9,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
@@ -22,6 +20,7 @@ public class AlchemyTableMenu extends AbstractSimpleMenu {
 
     private final ContainerData containerData;
     private final BlockPos blockPos;
+    public List<ItemStack> materials = Lists.newArrayList();
 
     public AlchemyTableMenu(int containerId, Inventory inventory, RegistryFriendlyByteBuf buf) {
         this(containerId, inventory, ContainerLevelAccess.NULL, buf);
@@ -32,8 +31,8 @@ public class AlchemyTableMenu extends AbstractSimpleMenu {
     }
 
     public AlchemyTableMenu(
-            int containerId, Inventory inventory, ContainerLevelAccess access,
-            ItemStackHandler itemHandler, ContainerData containerData, BlockPos blockPos) {
+            int containerId, Inventory inventory, ContainerLevelAccess access, ItemStackHandler itemHandler,
+            ContainerData containerData, BlockPos blockPos) {
         super(TAMenus.ALCHEMY_TABLE_MENU.get(), containerId, inventory, access);
         this.addSlot(new SlotItemHandler(itemHandler, 0, 58, 21));
         this.addSlot(new SlotItemHandler(itemHandler, 1, 82, 21));
@@ -63,12 +62,7 @@ public class AlchemyTableMenu extends AbstractSimpleMenu {
     }
 
     public List<ItemStack> getMaterials() {
-        BlockEntity blockEntity = this.level.getBlockEntity(this.blockPos);
-        if (blockEntity instanceof AlchemyTableBlockEntity alchemyTable) {
-            return alchemyTable.getMaterials();
-        } else {
-            return Lists.newArrayList();
-        }
+        return this.materials;
     }
 
     @Override

@@ -21,6 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -489,6 +490,13 @@ public class AlchemyTableBlockEntity extends StandardContainerBlockEntity implem
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
         ContainerLevelAccess access = ContainerLevelAccess.create(Objects.requireNonNull(this.level), this.worldPosition);
         return new AlchemyTableMenu(containerId, inventory, access, this.handler, this.containerData, this.getBlockPos());
+    }
+
+    @Override
+    public void writeClientSideData(AbstractContainerMenu menu, RegistryFriendlyByteBuf buffer) {
+        if (menu instanceof AlchemyTableMenu alchemyTableMenu) {
+            alchemyTableMenu.materials = this.materials;
+        }
     }
 
     private class Data implements ContainerData {
